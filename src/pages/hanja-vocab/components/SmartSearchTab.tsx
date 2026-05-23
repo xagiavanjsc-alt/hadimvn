@@ -194,7 +194,7 @@ export default function SmartSearchTab() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div>
       {/* Header */}
       <div className="mb-6">
         <h2 className="text-lg font-bold text-white mb-1">Tìm kiếm thông minh</h2>

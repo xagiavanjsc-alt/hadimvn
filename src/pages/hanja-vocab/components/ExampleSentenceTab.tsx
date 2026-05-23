@@ -271,7 +271,7 @@ export default function ExampleSentenceTab() {
             <span className="text-app-text-muted text-xs">{(studyIdx % studyPool.length) + 1}/{studyPool.length}</span>
           </div>
 
-          <div className="max-w-4xl mx-auto">
+          <div>
             {/* Word card */}
             <div className="bg-app-surface/50 rounded-2xl p-5 mb-4 text-center">
               <div className="flex items-center justify-center gap-3 mb-3">

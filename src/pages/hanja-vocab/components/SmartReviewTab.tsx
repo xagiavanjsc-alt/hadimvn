@@ -171,7 +171,7 @@ export default function SmartReviewTab() {
   // ── Overview ──────────────────────────────────────────────────────────────
   if (mode === "overview") {
     return (
-      <div className="max-w-4xl mx-auto">
+      <div>
         <div className="mb-6">
           <h2 className="text-lg font-bold text-white mb-1">Ôn tập thông minh</h2>
           <p className="text-sm text-white/50">Hệ thống tự động chọn từ cần ôn nhất dựa trên lịch sử học tập của bạn</p>

@@ -195,7 +195,7 @@ export default function PersonalRankingTab() {
   const unlockedCount = achievements.filter(a => a.unlocked).length;
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div>
       {/* Header stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
         {[

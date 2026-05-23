@@ -127,7 +127,7 @@ export default function WeeklyLeaderboardTab() {
   const rankIcons = ["ri-trophy-fill", "ri-medal-fill", "ri-award-fill"];
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div>
       {/* Header */}
       <div className="bg-gradient-to-r from-app-accent-primary/10 to-orange-500/10 border border-app-accent-primary/20 rounded-2xl p-5 mb-5">
         <div className="flex items-center justify-between mb-3">

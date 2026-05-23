@@ -198,7 +198,7 @@ export default function TopikMockExamTab() {
   // ── Intro ──────────────────────────────────────────────────────────────────
   if (examState === "intro") {
     return (
-      <div className="max-w-4xl mx-auto">
+      <div>
         <div className="bg-app-surface/50 border border-app-border rounded-2xl overflow-hidden mb-5">
           {/* Header */}
           <div className="bg-gradient-to-r from-app-accent-primary/100 to-orange-500/100 p-6 text-white text-center">
@@ -311,7 +311,7 @@ export default function TopikMockExamTab() {
     const answeredCount = questions.filter(q => q.userAnswer !== null).length;
 
     return (
-      <div className="max-w-4xl mx-auto">
+      <div>
         {/* Exam header */}
         <div className="flex items-center justify-between mb-4 bg-app-surface/50 border border-app-border rounded-xl px-4 py-3">
           <div className="flex items-center gap-3">
@@ -416,7 +416,7 @@ export default function TopikMockExamTab() {
     const wrongItems = examResult.details.filter(d => !d.correct);
 
     return (
-      <div className="max-w-4xl mx-auto">
+      <div>
         {/* Score card */}
         <div className={`rounded-2xl p-6 mb-5 text-center ${passed ? "bg-gradient-to-br from-green-500/10 to-emerald-500/10 border border-green-500/30" : "bg-gradient-to-br from-amber-500/10 to-orange-500/10 border border-amber-500/30"}`}>
           <div className={`w-20 h-20 flex items-center justify-center rounded-full mx-auto mb-4 ${passed ? "bg-green-500/20" : "bg-amber-500/20"}`}>
@@ -504,7 +504,7 @@ export default function TopikMockExamTab() {
   // ── History ────────────────────────────────────────────────────────────────
   if (examState === "history") {
     return (
-      <div className="max-w-4xl mx-auto">
+      <div>
         <div className="flex items-center gap-3 mb-5">
           <button onClick={() => setExamState("intro")}
             className="flex items-center gap-1 text-sm text-white/50 hover:text-white/80 cursor-pointer">

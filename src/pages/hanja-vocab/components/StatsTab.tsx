@@ -66,38 +66,44 @@ export default function StatsTab() {
   const overallPct = overall.total > 0 ? Math.round((overall.mastered / overall.total) * 100) : 0;
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div>
       {/* Overall summary */}
-      <div className="bg-app-surface/50 border border-app-border rounded-2xl p-6 mb-6">
-        <h2 className="text-base font-bold text-white/90 mb-4">Tổng quan tiến độ</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-5">
-          <div className="text-center bg-app-surface/30 rounded-xl p-4">
-            <p className="text-2xl font-bold text-white/50">{overall.new}</p>
-            <p className="text-xs text-white/40 mt-1">Chưa học</p>
+      <div className="bg-app-surface/50 border border-app-border rounded-2xl p-5 sm:p-6 mb-6">
+        <div className="flex items-center gap-2 mb-5">
+          <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-app-accent-primary/10">
+            <i className="ri-bar-chart-line text-app-accent-primary text-sm"></i>
           </div>
-          <div className="text-center bg-amber-500/10 rounded-xl p-4">
-            <p className="text-2xl font-bold text-amber-400">{overall.learning}</p>
-            <p className="text-xs text-white/40 mt-1">Đang học</p>
-          </div>
-          <div className="text-center bg-green-500/10 rounded-xl p-4">
-            <p className="text-2xl font-bold text-green-400">{overall.mastered}</p>
-            <p className="text-xs text-white/40 mt-1">Đã thuộc</p>
-          </div>
+          <h2 className="text-base font-bold text-white">Tổng quan tiến độ</h2>
         </div>
-        <div className="mb-2 flex justify-between text-xs text-white/50">
+
+        <div className="grid grid-cols-3 gap-3 mb-5">
+          {[
+            { label: "Chưa học", value: overall.new, icon: "ri-seedling-line", border: "border-slate-500/20", bg: "bg-slate-500/10", iconBg: "bg-slate-500/20", iconColor: "text-slate-300", textColor: "text-slate-300" },
+            { label: "Đang học", value: overall.learning, icon: "ri-book-open-line", border: "border-amber-500/20", bg: "bg-amber-500/10", iconBg: "bg-amber-500/20", iconColor: "text-amber-400", textColor: "text-amber-400" },
+            { label: "Đã thuộc", value: overall.mastered, icon: "ri-check-double-line", border: "border-green-500/20", bg: "bg-green-500/10", iconBg: "bg-green-500/20", iconColor: "text-green-400", textColor: "text-green-400" },
+          ].map(c => (
+            <div key={c.label} className={`relative flex flex-col items-center justify-center text-center rounded-2xl border ${c.border} ${c.bg} p-4 sm:p-5 transition-colors`}>
+              <div className={`w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl ${c.iconBg} mb-2`}>
+                <i className={`${c.icon} ${c.iconColor} text-base sm:text-lg`}></i>
+              </div>
+              <p className={`text-2xl sm:text-3xl font-bold ${c.textColor} leading-none`}>{c.value.toLocaleString()}</p>
+              <p className="text-xs text-white/50 mt-1.5">{c.label}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="mb-2 flex justify-between items-baseline text-xs text-white/50">
           <span>Tiến độ tổng thể</span>
-          <span className="font-semibold text-green-400">{overallPct}% đã thuộc ({overall.mastered}/{overall.total})</span>
+          <span><span className="font-bold text-green-400">{overallPct}%</span> đã thuộc · <span className="text-white/70">{overall.mastered.toLocaleString()}/{overall.total.toLocaleString()}</span></span>
         </div>
-        <div className="w-full bg-app-surface/50 rounded-full h-3 overflow-hidden">
-          <div className="h-3 rounded-full flex">
-            <div className="bg-green-400 h-full transition-all" style={{ width: `${overallPct}%` }}></div>
-            <div className="bg-amber-300 h-full transition-all" style={{ width: `${overall.total > 0 ? Math.round((overall.learning / overall.total) * 100) : 0}%` }}></div>
-          </div>
+        <div className="w-full bg-app-surface/70 rounded-full h-3 overflow-hidden flex">
+          <div className="bg-green-400 h-full transition-all" style={{ width: `${overallPct}%` }}></div>
+          <div className="bg-amber-300 h-full transition-all" style={{ width: `${overall.total > 0 ? Math.round((overall.learning / overall.total) * 100) : 0}%` }}></div>
         </div>
-        <div className="flex gap-4 mt-2 text-xs text-white/40">
-          <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-green-400 inline-block"></span>Đã thuộc</span>
-          <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-amber-300 inline-block"></span>Đang học</span>
-          <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-app-surface/70 inline-block"></span>Chưa học</span>
+        <div className="flex flex-wrap gap-x-4 gap-y-1 mt-2.5 text-xs text-white/50">
+          <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-green-400 inline-block"></span>Đã thuộc</span>
+          <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-amber-300 inline-block"></span>Đang học</span>
+          <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-slate-500/40 inline-block"></span>Chưa học</span>
         </div>
       </div>
 

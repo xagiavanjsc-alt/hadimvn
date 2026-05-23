@@ -249,7 +249,7 @@ export default function PronunciationTab() {
 
   if (showHistory) {
     return (
-      <div className="max-w-4xl mx-auto">
+      <div>
         <div className="flex items-center gap-3 mb-5">
           <button onClick={() => setShowHistory(false)}
             className="flex items-center gap-1 text-sm text-white/50 hover:text-white/80 cursor-pointer">
@@ -295,7 +295,7 @@ export default function PronunciationTab() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div>
       {/* Header stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
         {[

@@ -145,7 +145,7 @@ export default function StudyDiaryTab() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div>
       {/* Header */}
       <div className="flex items-center justify-between mb-5">
         <div>

@@ -365,7 +365,7 @@ export default function WeeklyChallengeTab() {
 
   // ─── Overview ────────────────────────────────────────────────────────────────
   return (
-    <div className="max-w-4xl mx-auto">
+    <div>
       {/* Header banner */}
       <div className="bg-gradient-to-r from-app-accent-primary to-orange-600 rounded-2xl p-6 mb-6 text-white relative overflow-hidden">
         <div className="absolute right-0 top-0 w-40 h-40 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>

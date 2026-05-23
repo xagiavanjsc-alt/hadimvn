@@ -207,7 +207,7 @@ export default function FlashcardExportTab() {
   }, []);
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div>
       {/* Stats overview */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
         <div className="bg-app-surface/30 rounded-xl p-4 text-center">
