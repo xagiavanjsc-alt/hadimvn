@@ -53,8 +53,17 @@ function saveQueue(items: QueuedItem[]): void {
   try {
     if (items.length === 0) localStorage.removeItem(QUEUE_KEY);
     else localStorage.setItem(QUEUE_KEY, JSON.stringify(items));
-  } catch {
-    /* quota — give up */
+  } catch (e) {
+    // Quota exceeded — log + try shedding oldest entries so the latest XP still lands
+    console.warn("[xpSyncQueue] localStorage quota; trimming queue", e);
+    try {
+      // Keep only the last 5 items (most recent XP wins via GREATEST trigger anyway)
+      const trimmed = items.slice(-5);
+      localStorage.setItem(QUEUE_KEY, JSON.stringify(trimmed));
+    } catch {
+      // Still over quota — drop the queue entirely rather than block the app
+      try { localStorage.removeItem(QUEUE_KEY); } catch { /* nothing more we can do */ }
+    }
   }
 }
 

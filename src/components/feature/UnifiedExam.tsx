@@ -3,6 +3,7 @@ import { supabase } from "@/lib/supabase";
 import { indexedDB, ExamHistoryData } from "@/lib/indexedDB";
 import { computeXP, deriveLevel } from "@/lib/xp";
 import { getStreakData } from "@/utils/streak";
+import { readJSON } from "@/utils/safeStorage";
 
 interface UnifiedExamProps {
   examType: string; // 'eps', 'seoul', 'topik'
@@ -127,19 +128,23 @@ export function UnifiedExam({ examType, userId, questions, timeLimit = 1800, onC
 
       // Update local storage with latest exam result (so other pages see it)
       const localKey = "kts_eps_exam_results";
-      const existingResults = JSON.parse(localStorage.getItem(localKey) || "[]");
+      const existingResults = readJSON<Array<{ date: string; score: number; total: number; correctIds?: string[] }>>(localKey, []);
       existingResults.push({
         date: examData.taken_at,
         score: examData.score,
         total: examData.total,
         correctIds: examData.correct_ids,
       });
-      localStorage.setItem(localKey, JSON.stringify(existingResults));
+      try {
+        localStorage.setItem(localKey, JSON.stringify(existingResults));
+      } catch (e) {
+        console.warn("[UnifiedExam] localStorage write failed (quota?):", e);
+      }
 
       // Trigger leaderboard sync by upserting to user_progress
       // Recompute stats from all exam results + flashcard data
-      const allResults = existingResults as Array<{ score: number; total: number; correctIds?: string[] }>;
-      const flashcardKnown = JSON.parse(localStorage.getItem("flashcard_known") || "{}");
+      const allResults = existingResults;
+      const flashcardKnown = readJSON<Record<string, boolean>>("flashcard_known", {});
       const streak = getStreakData();
       
       const wordsLearned = Object.values(flashcardKnown).filter(Boolean).length;

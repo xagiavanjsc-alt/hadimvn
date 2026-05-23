@@ -276,7 +276,7 @@ function QuizScreen({
   const topicInfo = EPS_LESSON_TOPICS.find(t => t.id === lesson.topic);
 
   // Timer
-  useState(() => {
+  useEffect(() => {
     if (!timerActive) return;
     const interval = setInterval(() => {
       setTimeLeft(t => {
@@ -292,7 +292,7 @@ function QuizScreen({
       });
     }, 1000);
     return () => clearInterval(interval);
-  });
+  }, [timerActive, currentIdx, answers]);
 
   const handleAnswer = (optionIdx: number) => {
     if (showAnswer) return;
