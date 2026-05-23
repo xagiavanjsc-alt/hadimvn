@@ -1,6 +1,12 @@
 ﻿import { useState, useRef, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import {
+  SpeechRecognitionLike,
+  SpeechRecognitionEventLike,
+  SpeechRecognitionErrorEventLike,
+  getSpeechRecognitionCtor,
+} from "@/lib/speechRecognition";
 
 interface PracticeItem {
   id: string;
@@ -44,10 +50,10 @@ function useSpeechRecognition() {
   const [isListening, setIsListening] = useState(false);
   const [transcript, setTranscript] = useState("");
   const [error, setError] = useState<string | null>(null);
-  const recognitionRef = useRef<any>(null);
+  const recognitionRef = useRef<SpeechRecognitionLike | null>(null);
 
   const startListening = useCallback(() => {
-    const SpeechRecognitionAPI = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    const SpeechRecognitionAPI = getSpeechRecognitionCtor();
     if (!SpeechRecognitionAPI) {
       setError("Trình duyệt không hỗ trợ nhận diện giọng nói. Hãy dùng Chrome.");
       return;
@@ -59,11 +65,11 @@ function useSpeechRecognition() {
     recognition.maxAlternatives = 3;
 
     recognition.onstart = () => { setIsListening(true); setTranscript(""); setError(null); };
-    recognition.onresult = (e: any) => {
+    recognition.onresult = (e: SpeechRecognitionEventLike) => {
       const result = Array.from(e.results).map(r => r[0].transcript).join("");
       setTranscript(result);
     };
-    recognition.onerror = (e: any) => {
+    recognition.onerror = (e: SpeechRecognitionErrorEventLike) => {
       setError(`Lỗi: ${e.error === "no-speech" ? "Không nghe thấy giọng nói" : e.error}`);
       setIsListening(false);
     };

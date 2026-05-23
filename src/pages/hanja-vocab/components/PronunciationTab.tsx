@@ -1,6 +1,11 @@
 ﻿import { useState, useMemo, useRef, useEffect, useCallback } from "react";
 import { HanjaEntry } from "@/mocks/hanjaData";
 import { useHanjaData } from "@/contexts/HanjaDataContext";
+import {
+  SpeechRecognitionEventLike,
+  SpeechRecognitionErrorEventLike,
+  getSpeechRecognitionCtor,
+} from "@/lib/speechRecognition";
 
 const XP_KEY = "xp_total";
 const PRON_HISTORY_KEY = "hanja_pronunciation_history";
@@ -40,8 +45,7 @@ const ALPHABET_GROUPS = ["ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ",
 // Simulate pronunciation scoring using Web Speech API recognition
 async function recognizeSpeech(): Promise<string> {
   return new Promise((resolve, reject) => {
-    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-
+    const SpeechRecognition = getSpeechRecognitionCtor();
     if (!SpeechRecognition) {
       reject(new Error("not_supported"));
       return;
@@ -52,12 +56,12 @@ async function recognizeSpeech(): Promise<string> {
     recognition.interimResults = false;
     recognition.maxAlternatives = 1;
 
-    recognition.onresult = (event: any) => {
+    recognition.onresult = (event: SpeechRecognitionEventLike) => {
       const transcript = event.results[0][0].transcript;
       resolve(transcript);
     };
 
-    recognition.onerror = (event: any) => {
+    recognition.onerror = (event: SpeechRecognitionErrorEventLike) => {
       reject(new Error(event.error));
     };
 

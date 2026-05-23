@@ -2,6 +2,11 @@ import { useState, useRef, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useXPSystem } from "@/hooks/useXPSystem";
+import {
+  SpeechRecognitionEventLike,
+  SpeechRecognitionErrorEventLike,
+  getSpeechRecognitionCtor,
+} from "@/lib/speechRecognition";
 
 interface ShadowingLesson {
   id: string;
@@ -338,7 +343,7 @@ export default function ShadowingPracticePage() {
   const [xpAwarded, setXpAwarded] = useState<Set<string>>(new Set());
 
   const audioRef = useRef<HTMLAudioElement>(null);
-  const recognitionRef = useRef<any>(null);
+  const recognitionRef = useRef<import("@/lib/speechRecognition").SpeechRecognitionLike | null>(null);
 
   const currentLesson = SHADOWING_LESSONS[currentIndex];
   const filteredLessons = selectedDifficulty === "all" 
@@ -369,12 +374,11 @@ export default function ShadowingPracticePage() {
 
   // Recording with Web Speech API
   const startRecording = useCallback(() => {
-    if (!("webkitSpeechRecognition" in window) && !("SpeechRecognition" in window)) {
+    const SpeechRecognition = getSpeechRecognitionCtor();
+    if (!SpeechRecognition) {
       alert("Trình duyệt của bạn không hỗ trợ nhận diện giọng nói");
       return;
     }
-
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     recognitionRef.current = new SpeechRecognition();
     recognitionRef.current.lang = "ko-KR";
     recognitionRef.current.continuous = false;
@@ -385,7 +389,7 @@ export default function ShadowingPracticePage() {
       setResult(null);
     };
 
-    recognitionRef.current.onresult = (event: any) => {
+    recognitionRef.current.onresult = (event: SpeechRecognitionEventLike) => {
       const transcript = event.results[0][0].transcript;
       setIsAnalyzing(true);
       
@@ -426,7 +430,7 @@ export default function ShadowingPracticePage() {
       }, 1500);
     };
 
-    recognitionRef.current.onerror = (event: any) => {
+    recognitionRef.current.onerror = (event: SpeechRecognitionErrorEventLike) => {
       console.error("Speech recognition error:", event.error);
       setIsRecording(false);
       setIsAnalyzing(false);

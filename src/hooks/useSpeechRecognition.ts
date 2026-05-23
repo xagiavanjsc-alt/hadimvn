@@ -1,29 +1,8 @@
 import { useState, useEffect, useRef } from "react";
-
-// Web Speech API types — not in lib.dom yet, so declare the shapes we use.
-interface SpeechRecognitionResultLike {
-  isFinal: boolean;
-  0: { transcript: string };
-}
-interface SpeechRecognitionEventLike {
-  resultIndex: number;
-  results: ArrayLike<SpeechRecognitionResultLike>;
-}
-interface SpeechRecognitionErrorEventLike {
-  error: string;
-}
-interface SpeechRecognitionLike {
-  lang: string;
-  continuous: boolean;
-  interimResults: boolean;
-  onresult: ((event: SpeechRecognitionEventLike) => void) | null;
-  onerror: ((event: SpeechRecognitionErrorEventLike) => void) | null;
-  onend: (() => void) | null;
-  start(): void;
-  stop(): void;
-  abort(): void;
-}
-type SpeechRecognitionCtor = new () => SpeechRecognitionLike;
+import {
+  SpeechRecognitionLike,
+  getSpeechRecognitionCtor,
+} from "@/lib/speechRecognition";
 
 interface SpeechRecognitionOptions {
   lang?: string;
@@ -41,13 +20,7 @@ export function useSpeechRecognition(options: SpeechRecognitionOptions = {}) {
   const recognitionRef = useRef<SpeechRecognitionLike | null>(null);
 
   useEffect(() => {
-    // Check if Speech Recognition is supported
-    const w = window as Window & {
-      SpeechRecognition?: SpeechRecognitionCtor;
-      webkitSpeechRecognition?: SpeechRecognitionCtor;
-    };
-    const SpeechRecognition = w.SpeechRecognition || w.webkitSpeechRecognition;
-
+    const SpeechRecognition = getSpeechRecognitionCtor();
     if (!SpeechRecognition) {
       setError("Trình duyệt không hỗ trợ nhận diện giọng nói");
       setIsSupported(false);
