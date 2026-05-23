@@ -49,7 +49,16 @@ export function HanjaDataProvider({ children }: { children: ReactNode }) {
           .order("id", { ascending: true })
           .range(offset, offset + PAGE - 1);
         if (error || !rows || rows.length === 0) break;
-        all.push(...rows.map((row: any) => {
+        type HanjaRow = {
+          hangul: string;
+          hanja: string;
+          meaning_vn: string;
+          hanja_breakdown?: { char: string; meaning?: string }[];
+          examples?: { ko: string; vi: string }[];
+          related_words?: { word: string; meaning: string }[];
+          mnemonic?: string;
+        };
+        all.push(...(rows as HanjaRow[]).map(row => {
           const breakdown = Array.isArray(row.hanja_breakdown) ? row.hanja_breakdown : [];
           const firstChar = breakdown[0]?.char || row.hanja?.[0] || "";
           return {
@@ -58,8 +67,8 @@ export function HanjaDataProvider({ children }: { children: ReactNode }) {
             vietnamese: row.meaning_vn,
             root_char: firstChar,
             root_meaning: breakdown[0]?.meaning,
-            examples: Array.isArray(row.examples) ? row.examples.map((ex: any) => `${ex.ko} — ${ex.vi}`).join("\n") : undefined,
-            related_words: Array.isArray(row.related_words) ? row.related_words.map((w: any) => `${w.word}: ${w.meaning}`).join(", ") : undefined,
+            examples: Array.isArray(row.examples) ? row.examples.map(ex => `${ex.ko} — ${ex.vi}`).join("\n") : undefined,
+            related_words: Array.isArray(row.related_words) ? row.related_words.map(w => `${w.word}: ${w.meaning}`).join(", ") : undefined,
             memory_tip: row.mnemonic,
           } as HanjaEntry;
         }));

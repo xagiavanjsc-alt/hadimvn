@@ -167,6 +167,17 @@ function RichEditor({ value, onChange, placeholder, onImageUpload }: {
     e.target.value = ''; // reset to allow same file again
   };
 
+  interface ToolbarItemBase {
+    type?: string;
+    cmd?: string;
+    val?: string;
+    icon?: string;
+    tip?: string;
+    key?: string;
+    options?: readonly { label: string; cmd: string; val?: string }[];
+  }
+  type ToolbarItem = ToolbarItemBase;
+
   const TOOLBAR = [
     { group: [
       { type: 'select', key: 'heading', options: [
@@ -209,7 +220,8 @@ function RichEditor({ value, onChange, placeholder, onImageUpload }: {
     ]},
   ] as const;
 
-  const handleToolbar = (item: any) => {
+  const handleToolbar = (item: ToolbarItem) => {
+    if (!item.cmd) return;
     if (item.cmd === 'createLink') {
       const url = prompt('Nhập URL:');
       if (url) exec('createLink', url);
@@ -242,13 +254,13 @@ function RichEditor({ value, onChange, placeholder, onImageUpload }: {
         {TOOLBAR.map((section, si) => (
           <div key={si} className="flex items-center gap-0.5">
             {si > 0 && <div className="w-px h-5 bg-app-border mx-1" />}
-            {section.group.map((item: any, ii) => {
+            {section.group.map((item: ToolbarItem, ii) => {
               if (item.type === 'select') {
                 return (
                   <select
                     key={ii}
                     onChange={(e) => {
-                      const opt = item.options.find((o: any) => o.label === e.target.value);
+                      const opt = item.options.find(o => o.label === e.target.value);
                       if (opt) exec(opt.cmd, opt.val);
                       e.target.value = '';
                     }}
@@ -256,7 +268,7 @@ function RichEditor({ value, onChange, placeholder, onImageUpload }: {
                     defaultValue=""
                   >
                     <option value="" disabled>Định dạng</option>
-                    {item.options.map((o: any) => (
+                    {item.options.map(o => (
                       <option key={o.label} value={o.label} className="bg-app-bg">{o.label}</option>
                     ))}
                   </select>

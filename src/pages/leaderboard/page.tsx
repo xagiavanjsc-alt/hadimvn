@@ -30,6 +30,23 @@ interface LeaderboardPlayer {
   isCurrentUser?: boolean;
 }
 
+// Raw row shape from the `leaderboard` view (every column nullable in case
+// the user has not progressed yet).
+interface LeaderboardRow {
+  id: string;
+  user_id: string;
+  display_name: string | null;
+  avatar_url: string | null;
+  level: string | null;
+  streak: number | null;
+  best_score: number | null;
+  words_learned: number | null;
+  xp: number | null;
+  updated_at: string;
+  is_vip: boolean | null;
+  vip_expires_at: string | null;
+}
+
 type SortKey = "xp" | "streak" | "best_score" | "words_learned";
 type Period = "all" | "month" | "week";
 
@@ -124,7 +141,7 @@ export default function LeaderboardPage() {
   });
 
   // Helper: map DB row → UI shape.
-  const mapRow = useCallback((row: any): LeaderboardPlayer => ({
+  const mapRow = useCallback((row: LeaderboardRow): LeaderboardPlayer => ({
     id: row.id,
     user_id: row.user_id,
     display_name: row.display_name || "Học viên",
@@ -156,7 +173,7 @@ export default function LeaderboardPage() {
         .range(from, to);
 
       const top3Query = page === 1
-        ? Promise.resolve({ data: null, error: null } as { data: any[] | null; error: unknown })
+        ? Promise.resolve({ data: null, error: null } as { data: LeaderboardRow[] | null; error: unknown })
         : supabase
             .from("leaderboard")
             .select("*")
@@ -165,10 +182,10 @@ export default function LeaderboardPage() {
 
       const myRowQuery = user
         ? supabase.from("leaderboard").select("*").eq("user_id", user.id).maybeSingle()
-        : Promise.resolve({ data: null, error: null } as { data: any | null; error: unknown });
+        : Promise.resolve({ data: null, error: null } as { data: LeaderboardRow | null; error: unknown });
 
       const [pageRes, top3Res, myRowRes] = await Promise.all([
-        pageQuery as unknown as Promise<{ data: any[] | null; count: number | null; error: unknown }>,
+        pageQuery as unknown as Promise<{ data: LeaderboardRow[] | null; count: number | null; error: unknown }>,
         top3Query,
         myRowQuery,
       ]);
@@ -184,14 +201,14 @@ export default function LeaderboardPage() {
       if (page === 1) {
         setTop3(pageRows.slice(0, 3));
       } else if (top3Res.data) {
-        setTop3((top3Res.data as any[]).map(mapRow));
+        setTop3((top3Res.data as LeaderboardRow[]).map(mapRow));
       }
 
       // My rank: count of rows strictly greater than my value on `sortKey`,
       // plus 1. Cheap when sortKey has an index, otherwise sequential scan —
       // acceptable on the leaderboard's modest row count.
-      if (user && (myRowRes as { data: any | null }).data) {
-        const myRow = (myRowRes as { data: any }).data;
+      if (user && (myRowRes as { data: LeaderboardRow | null }).data) {
+        const myRow = (myRowRes as { data: LeaderboardRow }).data;
         setMyEntryFromDB({ ...mapRow(myRow), isCurrentUser: true });
         const myValue = Number(myRow[sortKey] ?? 0);
         const { count } = await supabase

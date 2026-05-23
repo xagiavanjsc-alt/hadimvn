@@ -78,7 +78,7 @@ const AdminMelonPage = () => {
       if (error) {
         setDiagMsg(`❌ Lỗi read: ${error.message} (code: ${error.code})`);
       } else {
-        setDiagMsg(`✅ Đọc được Supabase. Tổng số bài trong DB: ${count ?? "?"}. 3 bài đầu: ${(data ?? []).map((r: any) => `#${r.rank} ${r.title}`).join(", ") || "(trống)"}`);
+        setDiagMsg(`✅ Đọc được Supabase. Tổng số bài trong DB: ${count ?? "?"}. 3 bài đầu: ${(data ?? []).map((r: { rank: number; title: string }) => `#${r.rank} ${r.title}`).join(", ") || "(trống)"}`);
       }
     } catch (e) {
       setDiagMsg(`❌ Exception: ${e instanceof Error ? e.message : String(e)}`);
@@ -126,14 +126,14 @@ const AdminMelonPage = () => {
         // Parse CSV
         const lines = text.split("\n").filter(l => l.trim());
         const headers = lines[0].split(",").map(h => h.trim().replace(/^"|"$/g, ""));
-        data = lines.slice(1).map((line, idx) => {
+        data = lines.slice(1).map((line, _idx) => {
           const cols = line.match(/(".*?"|[^,]+)(?=,|$)/g) || [];
-          const obj: any = {};
+          const obj: Record<string, string | number | boolean> = {};
           headers.forEach((h, i) => {
             const val = (cols[i] || "").replace(/^"|"$/g, "").trim();
             obj[h] = h === "rank" || h === "processed" ? (val === "true" || parseInt(val)) : val;
           });
-          return obj as MelonSong;
+          return obj as unknown as MelonSong;
         });
       } else {
         throw new Error("Unsupported file format");
@@ -213,7 +213,17 @@ const AdminMelonPage = () => {
       }
 
       // Transform data
-      const transformed = items.map((item: any) => ({
+      interface MelonImportItem {
+        rank: number;
+        title: string;
+        artist: string;
+        genre?: string;
+        lyrics?: string;
+        albumArt?: string;
+        releaseDate?: string;
+        album?: string;
+      }
+      const transformed = (items as MelonImportItem[]).map(item => ({
         rank: item.rank,
         title: item.title,
         artist: item.artist,
@@ -227,7 +237,7 @@ const AdminMelonPage = () => {
 
       // Deduplicate based on title+artist
       const existingKeys = new Set(songs.map(s => `${s.title}|${s.artist}`));
-      const newItems = transformed.filter((item: any) => !existingKeys.has(`${item.title}|${item.artist}`));
+      const newItems = transformed.filter(item => !existingKeys.has(`${item.title}|${item.artist}`));
 
       // Merge and limit to 100
       const merged = [...songs, ...newItems].slice(0, 100);

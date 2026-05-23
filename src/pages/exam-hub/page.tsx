@@ -53,10 +53,41 @@ const EXAM_SECTIONS: ExamSection[] = [
 ];
 
 // Keep for UnifiedExam lookup
-const EXAM_OPTIONS_COMPAT = [
+interface ExamOption {
+  id: string;
+  title: string;
+  subtitle: string;
+  icon: string;
+  color: string;
+  bgColor: string;
+  totalQuestions: number;
+  timeLimit: number;
+  description: string;
+}
+
+const EXAM_OPTIONS_COMPAT: ExamOption[] = [
   { id: "eps",   title: "EPS-TOPIK", subtitle: "Lao động",            icon: "ri-file-list-3-line", color: "#4ade80", bgColor: "rgba(74,222,128,0.08)",   totalQuestions: 50, timeLimit: 1800, description: "" },
   { id: "topik", title: "TOPIK I",   subtitle: "Chứng chỉ tiếng Hàn",icon: "ri-survey-line",      color: "#f472b6", bgColor: "rgba(244,114,182,0.08)", totalQuestions: 40, timeLimit: 3000, description: "" },
 ];
+
+// Shape of an exam-history row returned from indexedDB.examHistory.
+interface ExamQuestion {
+  id: string;
+  question?: string;
+  options?: string[];
+  correctIndex: number;
+  explanation?: string;
+}
+interface ExamHistoryRow {
+  id: string | number;
+  exam_type: string;
+  score: number;
+  total: number;
+  taken_at: string;
+  time_used?: number;
+  questions?: ExamQuestion[];
+  user_answers?: Record<string, number>;
+}
 
 function SectionGroup({ section, onSelectItem }: { section: ExamSection; onSelectItem: (item: ExamItem) => void }) {
   return (
@@ -98,12 +129,12 @@ function SectionGroup({ section, onSelectItem }: { section: ExamSection; onSelec
 export default function ExamHubPage() {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const [activeExam, setActiveExam] = useState<any | null>(null);
+  const [activeExam, setActiveExam] = useState<ExamOption | null>(null);
   const [examResult, setExamResult] = useState<{ score: number; total: number; timeUsed: number } | null>(null);
-  const [examHistory, setExamHistory] = useState<any[]>([]);
+  const [examHistory, setExamHistory] = useState<ExamHistoryRow[]>([]);
   const [showHistory, setShowHistory] = useState(false);
   const [filterType, setFilterType] = useState<string>("all");
-  const [selectedHistory, setSelectedHistory] = useState<any>(null);
+  const [selectedHistory, setSelectedHistory] = useState<ExamHistoryRow | null>(null);
 
   useEffect(() => {
     loadExamHistory();
@@ -125,11 +156,11 @@ export default function ExamHubPage() {
     }
     if (item.examType) {
       const compat = EXAM_OPTIONS_COMPAT.find(e => e.id === item.examType);
-      if (compat) { setActiveExam(compat as any); setExamResult(null); }
+      if (compat) { setActiveExam(compat); setExamResult(null); }
     }
   };
 
-  const handleExamSelect = (exam: any) => {
+  const handleExamSelect = (exam: ExamOption) => {
     setActiveExam(exam);
     setExamResult(null);
   };
@@ -280,7 +311,7 @@ export default function ExamHubPage() {
                     {/* Recent results */}
                     <p className="text-app-text-secondary text-xs mb-3">Gần đây</p>
                     <div className="flex flex-col gap-2">
-                      {examHistory.slice(0, 5).map((h: any, i: number) => {
+                      {examHistory.slice(0, 5).map((h: ExamHistoryRow, i: number) => {
                         const cfg = EXAM_OPTIONS_COMPAT.find(e => e.id === h.exam_type);
                         const pct = Math.round((h.score / h.total) * 100);
                         return (
@@ -345,7 +376,7 @@ export default function ExamHubPage() {
                     {(() => {
                       const filteredHistory = filterType === "all"
                         ? examHistory
-                        : examHistory.filter((h: any) => h.exam_type === filterType);
+                        : examHistory.filter((h: ExamHistoryRow) => h.exam_type === filterType);
 
                       if (filteredHistory.length === 0) {
                         return (
@@ -480,7 +511,7 @@ export default function ExamHubPage() {
                   <div className="flex-1 overflow-y-auto p-6">
                     {selectedHistory.questions && selectedHistory.user_answers ? (
                       <div className="space-y-4">
-                        {selectedHistory.questions.map((question: any, index: number) => {
+                        {selectedHistory.questions.map((question: ExamQuestion, index: number) => {
                           const userAnswer = selectedHistory.user_answers[question.id];
                           const isCorrect = userAnswer === question.correctIndex;
                           const isAnswered = userAnswer !== undefined;

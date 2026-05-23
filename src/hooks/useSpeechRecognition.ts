@@ -1,5 +1,30 @@
 import { useState, useEffect, useRef } from "react";
 
+// Web Speech API types — not in lib.dom yet, so declare the shapes we use.
+interface SpeechRecognitionResultLike {
+  isFinal: boolean;
+  0: { transcript: string };
+}
+interface SpeechRecognitionEventLike {
+  resultIndex: number;
+  results: ArrayLike<SpeechRecognitionResultLike>;
+}
+interface SpeechRecognitionErrorEventLike {
+  error: string;
+}
+interface SpeechRecognitionLike {
+  lang: string;
+  continuous: boolean;
+  interimResults: boolean;
+  onresult: ((event: SpeechRecognitionEventLike) => void) | null;
+  onerror: ((event: SpeechRecognitionErrorEventLike) => void) | null;
+  onend: (() => void) | null;
+  start(): void;
+  stop(): void;
+  abort(): void;
+}
+type SpeechRecognitionCtor = new () => SpeechRecognitionLike;
+
 interface SpeechRecognitionOptions {
   lang?: string;
   continuous?: boolean;
@@ -13,12 +38,15 @@ export function useSpeechRecognition(options: SpeechRecognitionOptions = {}) {
   const [error, setError] = useState<string | null>(null);
   const [isSupported, setIsSupported] = useState(false);
 
-  const recognitionRef = useRef<any>(null);
+  const recognitionRef = useRef<SpeechRecognitionLike | null>(null);
 
   useEffect(() => {
     // Check if Speech Recognition is supported
-    const SpeechRecognition =
-      (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    const w = window as Window & {
+      SpeechRecognition?: SpeechRecognitionCtor;
+      webkitSpeechRecognition?: SpeechRecognitionCtor;
+    };
+    const SpeechRecognition = w.SpeechRecognition || w.webkitSpeechRecognition;
 
     if (!SpeechRecognition) {
       setError("Trình duyệt không hỗ trợ nhận diện giọng nói");
@@ -33,7 +61,7 @@ export function useSpeechRecognition(options: SpeechRecognitionOptions = {}) {
     recognition.continuous = options.continuous || false;
     recognition.interimResults = options.interimResults || false;
 
-    recognition.onresult = (event: any) => {
+    recognition.onresult = (event) => {
       let finalTranscript = "";
       let interimTranscriptText = "";
 
@@ -50,7 +78,7 @@ export function useSpeechRecognition(options: SpeechRecognitionOptions = {}) {
       setInterimTranscript(interimTranscriptText);
     };
 
-    recognition.onerror = (event: any) => {
+    recognition.onerror = (event) => {
       setError(event.error);
       setIsListening(false);
     };

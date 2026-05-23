@@ -35,11 +35,11 @@ export default function AdminHanjaUploadPage() {
       const workbook = XLSX.read(buffer, { type: 'array' });
       const sheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[sheetName];
-      const data = XLSX.utils.sheet_to_json(worksheet, { header: 1 }) as any[][];
+      const data = XLSX.utils.sheet_to_json(worksheet, { header: 1 }) as (string | number)[][];
 
       // Parse rows: Column A = Korean, B = Hanja, C = Vietnamese
       const startIndex = data[0]?.[0] === 'Tiếng' || data[0]?.[0] === 'Korean' ? 1 : 0;
-      const entries: any[] = [];
+      const entries: { korean: string; hanja: string; vietnamese: string }[] = [];
 
       for (let i = startIndex; i < data.length; i++) {
         const row = data[i];
@@ -104,8 +104,8 @@ export default function AdminHanjaUploadPage() {
       }
 
       setResult({ created, errors, total: entries.length, duplicates: duplicates.length, skipped: entries.length - entriesToSync.length });
-    } catch (err: any) {
-      setError(err.message || 'Lỗi khi xử lý file');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Lỗi khi xử lý file');
     } finally {
       setUploading(false);
     }

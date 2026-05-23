@@ -72,15 +72,27 @@ export default function AdminWeeklyRewardsPage() {
       supabase.from("weekly_rewards_summary").select("*").order("week_start", { ascending: false }).limit(50),
     ]);
     // Flatten nested user_profiles join
-    const entries = (lb.data || []).map((row: any) => ({
-      user_id: row.user_id,
-      xp: row.xp ?? 0,
-      best_score: row.best_score ?? 0,
-      streak_count: row.streak_count ?? 0,
-      level: row.level ?? "Cơ bản",
-      display_name: row.user_profiles?.display_name || "Học viên",
-      avatar_url: row.user_profiles?.avatar_url || null,
-    }));
+    interface LbRow {
+      user_id: string;
+      xp: number | null;
+      best_score: number | null;
+      streak_count: number | null;
+      level: string | null;
+      // Supabase returns the joined `user_profiles!inner(...)` as an array
+      user_profiles?: { display_name: string | null; avatar_url: string | null }[] | null;
+    }
+    const entries = ((lb.data || []) as unknown as LbRow[]).map(row => {
+      const profile = Array.isArray(row.user_profiles) ? row.user_profiles[0] : row.user_profiles;
+      return {
+        user_id: row.user_id,
+        xp: row.xp ?? 0,
+        best_score: row.best_score ?? 0,
+        streak_count: row.streak_count ?? 0,
+        level: row.level ?? "Cơ bản",
+        display_name: profile?.display_name || "Học viên",
+        avatar_url: profile?.avatar_url || null,
+      };
+    });
     setLeaderboard(entries);
     setHistory(hist.data || []);
     setLoading(false);
@@ -100,8 +112,8 @@ export default function AdminWeeklyRewardsPage() {
       if (error) throw error;
       showToast(`Đã thưởng ${BADGE_CONFIG[rank === 1 ? "gold_weekly" : rank === 2 ? "silver_weekly" : "bronze_weekly"].label} cho user!`);
       fetchData();
-    } catch (e: any) {
-      showToast(e.message || "Lỗi không xác định", "error");
+    } catch (e) {
+      showToast(e instanceof Error ? e.message : "Lỗi không xác định", "error");
     } finally {
       setAwarding(null);
     }
@@ -122,8 +134,8 @@ export default function AdminWeeklyRewardsPage() {
       showToast(`Đã thưởng ${amount} XP!`);
       setCustomXP(p => ({ ...p, [userId]: "" }));
       fetchData();
-    } catch (e: any) {
-      showToast(e.message || "Lỗi", "error");
+    } catch (e) {
+      showToast(e instanceof Error ? e.message : "Lỗi", "error");
     } finally {
       setAwarding(null);
     }
