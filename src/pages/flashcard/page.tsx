@@ -22,6 +22,15 @@ interface StudySession {
   date: string;
 }
 
+function speakKorean(word: string) {
+  if (!("speechSynthesis" in window)) return;
+  window.speechSynthesis.cancel();
+  const utterance = new SpeechSynthesisUtterance(word);
+  utterance.lang = "ko-KR";
+  utterance.rate = 0.8;
+  window.speechSynthesis.speak(utterance);
+}
+
 // ─── Flip Card ────────────────────────────────────────────────────────────
 function FlipCard({ card, onKnow, onDontKnow }: {
   card: FlashcardItem;
@@ -616,17 +625,26 @@ function FlashcardPageInner() {
                         : "border-app-border bg-app-surface/50 hover:border-app-border"
                     }`}
                   >
-                    <div className="flex items-start justify-between mb-2">
+                    <div className="flex items-start justify-between mb-2 gap-2">
                       <p className="text-white font-bold text-base">{card.word}</p>
-                      {card.mastered && (
+                      <div className="flex items-center gap-1.5 flex-shrink-0">
                         <button
-                          onClick={() => handleUnmaster(card.id)}
-                          className="w-5 h-5 flex items-center justify-center cursor-pointer"
-                          title="Bỏ đánh dấu thuộc"
+                          onClick={(e) => { e.stopPropagation(); speakKorean(card.word); }}
+                          className="w-5 h-5 flex items-center justify-center text-app-accent-primary/70 hover:text-app-accent-primary cursor-pointer"
+                          title="Nghe phát âm"
                         >
-                          <i className="ri-checkbox-circle-fill text-app-accent-success text-sm"></i>
+                          <i className="ri-volume-up-line text-sm"></i>
                         </button>
-                      )}
+                        {card.mastered && (
+                          <button
+                            onClick={() => handleUnmaster(card.id)}
+                            className="w-5 h-5 flex items-center justify-center cursor-pointer"
+                            title="Bỏ đánh dấu thuộc"
+                          >
+                            <i className="ri-checkbox-circle-fill text-app-accent-success text-sm"></i>
+                          </button>
+                        )}
+                      </div>
                     </div>
                     {card.reading && <p className="text-app-text-muted text-[10px] mb-1">{card.reading}</p>}
                     <p className="text-app-accent-primary text-xs font-medium mb-2">{card.meaning}</p>
