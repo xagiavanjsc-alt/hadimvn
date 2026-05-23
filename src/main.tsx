@@ -3,24 +3,28 @@ import './i18n'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import 'remixicon/fonts/remixicon.css'
-import '@fortawesome/fontawesome-free/css/all.min.css'
 import App from './App.tsx'
 import { ErrorBoundary } from './components/common/ErrorBoundary'
 import { migrateStorageKeys } from './utils/migrateStorageKeys'
 
 // ─── Polyfill requestIdleCallback for Safari ───────────────────────────────────────
 // Safari doesn't support requestIdleCallback, so polyfill with setTimeout
+type IdleWindow = Window & {
+  requestIdleCallback?: (cb: IdleRequestCallback, options?: IdleRequestOptions) => number;
+  cancelIdleCallback?: (id: number) => void;
+};
 if (!('requestIdleCallback' in window)) {
-  (window as any).requestIdleCallback = (cb: IdleRequestCallback, options?: IdleRequestOptions) => {
+  const w = window as IdleWindow;
+  w.requestIdleCallback = (cb, _options) => {
     const start = Date.now();
     return setTimeout(() => {
       cb({
         didTimeout: false,
         timeRemaining: () => Math.max(0, 50 - (Date.now() - start))
       });
-    }, 1);
+    }, 1) as unknown as number;
   };
-  (window as any).cancelIdleCallback = (id: number) => clearTimeout(id);
+  w.cancelIdleCallback = (id) => clearTimeout(id);
 }
 
 // ─── Run localStorage key migration ─────────────────────────────────────────────────
