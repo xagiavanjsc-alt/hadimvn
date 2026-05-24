@@ -48,7 +48,8 @@
     "type-check": "tsc --noEmit --project tsconfig.app.json",
     "test": "vitest",
     "test:ui": "vitest --ui",
-    "test:coverage": "vitest --coverage"
+    "test:coverage": "vitest --coverage",
+    "backup": "node scripts/backup-supabase.mjs"
   },
   "type": "module",
   "version": "0.0.0"
