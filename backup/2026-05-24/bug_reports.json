@@ -1,0 +1,17 @@
+[
+  {
+    "id": "c1216c74-d01b-428a-a5be-f6289350f0a0",
+    "user_id": "066116cf-3835-4ca5-b83e-c47811561361",
+    "user_name": "Khách",
+    "user_email": "info.choque24h@gmail.com",
+    "page_url": "https://hanquocoi.vn",
+    "category": "bug",
+    "title": "Lỗi vip",
+    "description": "Thành viên vip mà vẫn hiện biểu tượng nâng cấp vip",
+    "device_info": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 | 1920x927",
+    "status": "resolved",
+    "admin_note": "fix",
+    "created_at": "2026-05-01T23:34:49.630778+00:00",
+    "updated_at": "2026-05-03T04:08:48.175983+00:00"
+  }
+]

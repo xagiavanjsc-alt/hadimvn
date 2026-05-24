@@ -1,0 +1,35 @@
+[
+  {
+    "id": "8001db4f-c228-4200-9f3c-869e84331a9e",
+    "user_id": "1bb39da1-d39b-4eec-9038-ccf77bde9b28",
+    "week_start": "2026-05-04",
+    "rank": 1,
+    "badge_id": "gold_weekly",
+    "xp_bonus": 500,
+    "note": null,
+    "awarded_by": "1bb39da1-d39b-4eec-9038-ccf77bde9b28",
+    "awarded_at": "2026-05-05T07:33:52.11387+00:00"
+  },
+  {
+    "id": "4853db42-371a-407c-814e-f5535f338781",
+    "user_id": "1bb39da1-d39b-4eec-9038-ccf77bde9b28",
+    "week_start": "2026-05-11",
+    "rank": 1,
+    "badge_id": "gold_weekly",
+    "xp_bonus": 500,
+    "note": null,
+    "awarded_by": "1bb39da1-d39b-4eec-9038-ccf77bde9b28",
+    "awarded_at": "2026-05-12T06:27:26.531569+00:00"
+  },
+  {
+    "id": "f7264f33-bcf6-4ee2-9645-a013c8749141",
+    "user_id": "1bb39da1-d39b-4eec-9038-ccf77bde9b28",
+    "week_start": "2026-05-17",
+    "rank": 1,
+    "badge_id": "gold_weekly",
+    "xp_bonus": 500,
+    "note": null,
+    "awarded_by": "1bb39da1-d39b-4eec-9038-ccf77bde9b28",
+    "awarded_at": "2026-05-19T17:56:06.853537+00:00"
+  }
+]

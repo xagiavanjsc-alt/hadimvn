@@ -1,0 +1,2012 @@
+[
+  {
+    "id": 1,
+    "lesson_id": "1A-L1",
+    "book_id": "1A",
+    "pattern": "이에요/예요",
+    "level": "beginner",
+    "explanation": "Là (danh từ + là). Dùng sau danh từ kết thúc bằng phụ âm: 이에요, kết thúc bằng nguyên âm: 예요",
+    "notes": "저는 학생이에요. = Tôi là học sinh.",
+    "created_at": "2026-04-23T22:21:15.022808+00:00"
+  },
+  {
+    "id": 2,
+    "lesson_id": "1A-L1",
+    "book_id": "1A",
+    "pattern": "이/가 아니에요",
+    "level": "beginner",
+    "explanation": "Không phải là. Phủ định của 이에요/예요",
+    "notes": "저는 선생님이 아니에요. = Tôi không phải là giáo viên.",
+    "created_at": "2026-04-23T22:21:15.022808+00:00"
+  },
+  {
+    "id": 3,
+    "lesson_id": "1A-L1",
+    "book_id": "1A",
+    "pattern": "은/는 (chủ đề)",
+    "level": "beginner",
+    "explanation": "Trợ từ chủ đề. 은 sau phụ âm, 는 sau nguyên âm",
+    "notes": "저는 한국 사람이에요. = Tôi là người Hàn Quốc.",
+    "created_at": "2026-04-23T22:21:15.022808+00:00"
+  },
+  {
+    "id": 4,
+    "lesson_id": "1A-L2",
+    "book_id": "1A",
+    "pattern": "이/가 (chủ ngữ)",
+    "level": "beginner",
+    "explanation": "Trợ từ chủ ngữ. 이 sau phụ âm, 가 sau nguyên âm",
+    "notes": "이것이 뭐예요? = Cái này là gì?",
+    "created_at": "2026-04-23T22:21:15.022808+00:00"
+  },
+  {
+    "id": 5,
+    "lesson_id": "1A-L2",
+    "book_id": "1A",
+    "pattern": "을/를 (tân ngữ)",
+    "level": "beginner",
+    "explanation": "Trợ từ tân ngữ. 을 sau phụ âm, 를 sau nguyên âm",
+    "notes": "물을 주세요. = Cho tôi nước.",
+    "created_at": "2026-04-23T22:21:15.022808+00:00"
+  },
+  {
+    "id": 6,
+    "lesson_id": "1A-L2",
+    "book_id": "1A",
+    "pattern": "주세요",
+    "level": "beginner",
+    "explanation": "Cho tôi / Hãy cho. Dùng khi yêu cầu ai đó cho mình thứ gì",
+    "notes": "이것을 주세요. = Cho tôi cái này.",
+    "created_at": "2026-04-23T22:21:15.022808+00:00"
+  },
+  {
+    "id": 7,
+    "lesson_id": "1A-L3",
+    "book_id": "1A",
+    "pattern": "에 있어요/없어요",
+    "level": "beginner",
+    "explanation": "Ở / Không ở (địa điểm tĩnh). 에 chỉ địa điểm tĩnh",
+    "notes": "학교에 있어요. = Ở trường.",
+    "created_at": "2026-04-23T22:21:15.022808+00:00"
+  },
+  {
+    "id": 8,
+    "lesson_id": "1A-L3",
+    "book_id": "1A",
+    "pattern": "에서 (hành động)",
+    "level": "beginner",
+    "explanation": "Ở (nơi thực hiện hành động). Khác với 에: 에서 dùng khi có hành động xảy ra",
+    "notes": "도서관에서 공부해요. = Học ở thư viện.",
+    "created_at": "2026-04-23T22:21:15.022808+00:00"
+  },
+  {
+    "id": 9,
+    "lesson_id": "1A-L3",
+    "book_id": "1A",
+    "pattern": "에 가요/와요",
+    "level": "beginner",
+    "explanation": "Đi đến / Đến. 에 chỉ hướng đến, dùng với động từ di chuyển",
+    "notes": "학교에 가요. = Đi đến trường.",
+    "created_at": "2026-04-23T22:21:15.022808+00:00"
+  },
+  {
+    "id": 10,
+    "lesson_id": "1A-L4",
+    "book_id": "1A",
+    "pattern": "에 (thời gian)",
+    "level": "beginner",
+    "explanation": "Vào lúc (thời gian cụ thể). Dùng với giờ, ngày, tháng, năm",
+    "notes": "아침 7시에 일어나요. = Thức dậy lúc 7 giờ sáng.",
+    "created_at": "2026-04-23T22:21:15.022808+00:00"
+  },
+  {
+    "id": 11,
+    "lesson_id": "1A-L4",
+    "book_id": "1A",
+    "pattern": "부터 ~ 까지",
+    "level": "beginner",
+    "explanation": "Từ ~ đến (thời gian hoặc phạm vi)",
+    "notes": "9시부터 6시까지 일해요. = Làm việc từ 9 giờ đến 6 giờ.",
+    "created_at": "2026-04-23T22:21:15.022808+00:00"
+  },
+  {
+    "id": 12,
+    "lesson_id": "1A-L4",
+    "book_id": "1A",
+    "pattern": "아/어요 (hiện tại)",
+    "level": "beginner",
+    "explanation": "Thì hiện tại lịch sự. Dạng lịch sự thông thường dùng trong hội thoại hàng ngày",
+    "notes": "밥을 먹어요. = Ăn cơm.",
+    "created_at": "2026-04-23T22:21:15.022808+00:00"
+  },
+  {
+    "id": 13,
+    "lesson_id": "1A-L5",
+    "book_id": "1A",
+    "pattern": "의 (sở hữu)",
+    "level": "beginner",
+    "explanation": "Trợ từ sở hữu (của). Thường rút gọn: 나의 → 내, 저의 → 제",
+    "notes": "제 친구의 이름은 민수예요. = Tên của bạn tôi là Minsu.",
+    "created_at": "2026-04-23T22:21:15.022808+00:00"
+  },
+  {
+    "id": 14,
+    "lesson_id": "1A-L5",
+    "book_id": "1A",
+    "pattern": "하고 (và)",
+    "level": "beginner",
+    "explanation": "Và (nối danh từ). Thông dụng hơn 과/와 trong hội thoại",
+    "notes": "오빠하고 언니가 있어요. = Có anh trai và chị gái.",
+    "created_at": "2026-04-23T22:21:15.022808+00:00"
+  },
+  {
+    "id": 15,
+    "lesson_id": "1A-L5",
+    "book_id": "1A",
+    "pattern": "과/와 (và)",
+    "level": "beginner",
+    "explanation": "Và (nối danh từ, văn viết). 과 sau phụ âm, 와 sau nguyên âm",
+    "notes": "사과와 바나나를 먹어요. = Ăn táo và chuối.",
+    "created_at": "2026-04-23T22:21:15.022808+00:00"
+  },
+  {
+    "id": 16,
+    "lesson_id": "1A-L6",
+    "book_id": "1A",
+    "pattern": "고 싶어요",
+    "level": "beginner",
+    "explanation": "Muốn làm gì. Động từ + 고 싶어요",
+    "notes": "비빔밥을 먹고 싶어요. = Tôi muốn ăn cơm trộn.",
+    "created_at": "2026-04-23T22:21:15.022808+00:00"
+  },
+  {
+    "id": 17,
+    "lesson_id": "1A-L6",
+    "book_id": "1A",
+    "pattern": "을/를 좋아해요",
+    "level": "beginner",
+    "explanation": "Thích cái gì. 좋아하다 = thích (hành động)",
+    "notes": "한국 음식을 좋아해요. = Tôi thích đồ ăn Hàn Quốc.",
+    "created_at": "2026-04-23T22:21:15.022808+00:00"
+  },
+  {
+    "id": 18,
+    "lesson_id": "1A-L6",
+    "book_id": "1A",
+    "pattern": "어떻게 (cách thức)",
+    "level": "beginner",
+    "explanation": "Như thế nào. Hỏi cách thức thực hiện",
+    "notes": "이 음식은 어떻게 먹어요? = Món này ăn như thế nào?",
+    "created_at": "2026-04-23T22:21:15.022808+00:00"
+  },
+  {
+    "id": 19,
+    "lesson_id": "1A-L7",
+    "book_id": "1A",
+    "pattern": "아/어서 (lý do)",
+    "level": "beginner",
+    "explanation": "Vì ~ nên. Nối hai mệnh đề, mệnh đề trước là lý do",
+    "notes": "날씨가 좋아서 산책해요. = Vì thời tiết đẹp nên đi dạo.",
+    "created_at": "2026-04-23T22:21:15.022808+00:00"
+  },
+  {
+    "id": 20,
+    "lesson_id": "1A-L7",
+    "book_id": "1A",
+    "pattern": "(으)ㄹ 것 같아요",
+    "level": "beginner",
+    "explanation": "Có vẻ sẽ / Hình như sẽ. Dự đoán về tương lai",
+    "notes": "비가 올 것 같아요. = Có vẻ trời sẽ mưa.",
+    "created_at": "2026-04-23T22:21:15.022808+00:00"
+  },
+  {
+    "id": 21,
+    "lesson_id": "1A-L7",
+    "book_id": "1A",
+    "pattern": "지만 (nhưng)",
+    "level": "beginner",
+    "explanation": "Nhưng / Tuy nhiên. Nối hai mệnh đề tương phản",
+    "notes": "날씨가 춥지만 맑아요. = Thời tiết lạnh nhưng trong.",
+    "created_at": "2026-04-23T22:21:15.022808+00:00"
+  },
+  {
+    "id": 22,
+    "lesson_id": "1A-L8",
+    "book_id": "1A",
+    "pattern": "(으)로 (phương tiện)",
+    "level": "beginner",
+    "explanation": "Bằng (phương tiện). 으로 sau phụ âm (trừ ㄹ), 로 sau nguyên âm hoặc ㄹ",
+    "notes": "버스로 가요. = Đi bằng xe buýt.",
+    "created_at": "2026-04-23T22:21:15.022808+00:00"
+  },
+  {
+    "id": 23,
+    "lesson_id": "1A-L8",
+    "book_id": "1A",
+    "pattern": "얼마나 걸려요?",
+    "level": "beginner",
+    "explanation": "Mất bao lâu? Hỏi thời gian di chuyển",
+    "notes": "거기까지 얼마나 걸려요? = Đến đó mất bao lâu?",
+    "created_at": "2026-04-23T22:21:15.022808+00:00"
+  },
+  {
+    "id": 24,
+    "lesson_id": "1A-L8",
+    "book_id": "1A",
+    "pattern": "(으)세요 (lịch sự)",
+    "level": "beginner",
+    "explanation": "Hãy làm gì (lịch sự). Dùng để yêu cầu hoặc đề nghị lịch sự",
+    "notes": "여기에 앉으세요. = Hãy ngồi đây.",
+    "created_at": "2026-04-23T22:21:15.022808+00:00"
+  },
+  {
+    "id": 25,
+    "lesson_id": "1B-L9",
+    "book_id": "1B",
+    "pattern": "(이)나 (hoặc)",
+    "level": "beginner",
+    "explanation": "Hoặc (nối danh từ). 이나 sau phụ âm, 나 sau nguyên âm",
+    "notes": "커피나 차를 마셔요. = Uống cà phê hoặc trà.",
+    "created_at": "2026-04-23T22:21:48.913053+00:00"
+  },
+  {
+    "id": 26,
+    "lesson_id": "1B-L9",
+    "book_id": "1B",
+    "pattern": "얼마예요?",
+    "level": "beginner",
+    "explanation": "Bao nhiêu tiền? Hỏi giá cả",
+    "notes": "이것은 얼마예요? = Cái này bao nhiêu tiền?",
+    "created_at": "2026-04-23T22:21:48.913053+00:00"
+  },
+  {
+    "id": 27,
+    "lesson_id": "1B-L9",
+    "book_id": "1B",
+    "pattern": "너무 (quá)",
+    "level": "beginner",
+    "explanation": "Quá (mức). Dùng khi vượt quá mức bình thường",
+    "notes": "너무 비싸요. = Đắt quá.",
+    "created_at": "2026-04-23T22:21:48.913053+00:00"
+  },
+  {
+    "id": 28,
+    "lesson_id": "1B-L10",
+    "book_id": "1B",
+    "pattern": "(으)ㄹ게요",
+    "level": "beginner",
+    "explanation": "Tôi sẽ làm (ý định/hứa hẹn). Thể hiện quyết định của người nói",
+    "notes": "제가 할게요. = Tôi sẽ làm.",
+    "created_at": "2026-04-23T22:21:48.913053+00:00"
+  },
+  {
+    "id": 29,
+    "lesson_id": "1B-L10",
+    "book_id": "1B",
+    "pattern": "(으)ㄹ까요?",
+    "level": "beginner",
+    "explanation": "Chúng ta có ~ không? / Có nên ~ không? Đề nghị hoặc hỏi ý kiến",
+    "notes": "같이 먹을까요? = Chúng ta cùng ăn nhé?",
+    "created_at": "2026-04-23T22:21:48.913053+00:00"
+  },
+  {
+    "id": 30,
+    "lesson_id": "1B-L10",
+    "book_id": "1B",
+    "pattern": "아/어 주세요",
+    "level": "beginner",
+    "explanation": "Hãy làm gì cho tôi. Yêu cầu ai đó làm gì",
+    "notes": "천천히 말해 주세요. = Hãy nói chậm thôi.",
+    "created_at": "2026-04-23T22:21:48.913053+00:00"
+  },
+  {
+    "id": 31,
+    "lesson_id": "1B-L11",
+    "book_id": "1B",
+    "pattern": "(으)면 안 돼요",
+    "level": "beginner",
+    "explanation": "Không được làm gì. Cấm đoán hoặc không cho phép",
+    "notes": "여기서 담배를 피우면 안 돼요. = Không được hút thuốc ở đây.",
+    "created_at": "2026-04-23T22:21:48.913053+00:00"
+  },
+  {
+    "id": 32,
+    "lesson_id": "1B-L11",
+    "book_id": "1B",
+    "pattern": "아/어야 해요",
+    "level": "beginner",
+    "explanation": "Phải làm gì. Nghĩa vụ hoặc cần thiết",
+    "notes": "약을 먹어야 해요. = Phải uống thuốc.",
+    "created_at": "2026-04-23T22:21:48.913053+00:00"
+  },
+  {
+    "id": 33,
+    "lesson_id": "1B-L11",
+    "book_id": "1B",
+    "pattern": "아/어도 돼요",
+    "level": "beginner",
+    "explanation": "Được phép làm gì. Cho phép",
+    "notes": "여기 앉아도 돼요. = Được phép ngồi đây.",
+    "created_at": "2026-04-23T22:21:48.913053+00:00"
+  },
+  {
+    "id": 34,
+    "lesson_id": "1B-L12",
+    "book_id": "1B",
+    "pattern": "(으)ㄹ 수 있어요/없어요",
+    "level": "beginner",
+    "explanation": "Có thể / Không thể làm gì. Khả năng",
+    "notes": "한국어를 할 수 있어요. = Có thể nói tiếng Hàn.",
+    "created_at": "2026-04-23T22:21:48.913053+00:00"
+  },
+  {
+    "id": 35,
+    "lesson_id": "1B-L12",
+    "book_id": "1B",
+    "pattern": "(으)려고 해요",
+    "level": "beginner",
+    "explanation": "Định làm gì / Có ý định làm gì",
+    "notes": "내일 친구를 만나려고 해요. = Định gặp bạn vào ngày mai.",
+    "created_at": "2026-04-23T22:21:48.913053+00:00"
+  },
+  {
+    "id": 36,
+    "lesson_id": "1B-L12",
+    "book_id": "1B",
+    "pattern": "고 있어요 (tiếp diễn)",
+    "level": "beginner",
+    "explanation": "Đang làm gì. Thì hiện tại tiếp diễn",
+    "notes": "지금 공부하고 있어요. = Đang học bây giờ.",
+    "created_at": "2026-04-23T22:21:48.913053+00:00"
+  },
+  {
+    "id": 37,
+    "lesson_id": "1B-L13",
+    "book_id": "1B",
+    "pattern": "(으)ㄴ 적이 있어요/없어요",
+    "level": "beginner",
+    "explanation": "Đã từng / Chưa từng làm gì. Kinh nghiệm trong quá khứ",
+    "notes": "한국에 간 적이 있어요. = Đã từng đến Hàn Quốc.",
+    "created_at": "2026-04-23T22:21:48.913053+00:00"
+  },
+  {
+    "id": 38,
+    "lesson_id": "1B-L13",
+    "book_id": "1B",
+    "pattern": "았/었어요 (quá khứ)",
+    "level": "beginner",
+    "explanation": "Thì quá khứ lịch sự",
+    "notes": "어제 영화를 봤어요. = Hôm qua đã xem phim.",
+    "created_at": "2026-04-23T22:21:48.913053+00:00"
+  },
+  {
+    "id": 39,
+    "lesson_id": "1B-L13",
+    "book_id": "1B",
+    "pattern": "(으)ㄹ 때",
+    "level": "beginner",
+    "explanation": "Khi / Lúc làm gì",
+    "notes": "한국에 갈 때 뭘 사요? = Khi đến Hàn Quốc mua gì?",
+    "created_at": "2026-04-23T22:21:48.913053+00:00"
+  },
+  {
+    "id": 40,
+    "lesson_id": "1B-L14",
+    "book_id": "1B",
+    "pattern": "(으)면 (điều kiện)",
+    "level": "beginner",
+    "explanation": "Nếu ~ thì. Điều kiện",
+    "notes": "날씨가 좋으면 산책해요. = Nếu thời tiết đẹp thì đi dạo.",
+    "created_at": "2026-04-23T22:21:48.913053+00:00"
+  },
+  {
+    "id": 41,
+    "lesson_id": "1B-L14",
+    "book_id": "1B",
+    "pattern": "(으)ㄹ 것이에요",
+    "level": "beginner",
+    "explanation": "Sẽ làm gì (dự đoán/kế hoạch)",
+    "notes": "내일 비가 올 것이에요. = Ngày mai trời sẽ mưa.",
+    "created_at": "2026-04-23T22:21:48.913053+00:00"
+  },
+  {
+    "id": 42,
+    "lesson_id": "1B-L14",
+    "book_id": "1B",
+    "pattern": "보다 (so sánh)",
+    "level": "beginner",
+    "explanation": "Hơn (so sánh). Dùng để so sánh hai đối tượng",
+    "notes": "여름이 겨울보다 더워요. = Mùa hè nóng hơn mùa đông.",
+    "created_at": "2026-04-23T22:21:48.913053+00:00"
+  },
+  {
+    "id": 43,
+    "lesson_id": "1B-L15",
+    "book_id": "1B",
+    "pattern": "는 것을 좋아해요",
+    "level": "beginner",
+    "explanation": "Thích làm gì. Động từ + 는 것을 좋아해요",
+    "notes": "음악을 듣는 것을 좋아해요. = Thích nghe nhạc.",
+    "created_at": "2026-04-23T22:21:48.913053+00:00"
+  },
+  {
+    "id": 44,
+    "lesson_id": "1B-L15",
+    "book_id": "1B",
+    "pattern": "(으)ㄹ 줄 알아요/몰라요",
+    "level": "beginner",
+    "explanation": "Biết / Không biết làm gì (kỹ năng)",
+    "notes": "수영할 줄 알아요. = Biết bơi.",
+    "created_at": "2026-04-23T22:21:48.913053+00:00"
+  },
+  {
+    "id": 45,
+    "lesson_id": "1B-L15",
+    "book_id": "1B",
+    "pattern": "기 전에",
+    "level": "beginner",
+    "explanation": "Trước khi làm gì",
+    "notes": "자기 전에 책을 읽어요. = Đọc sách trước khi ngủ.",
+    "created_at": "2026-04-23T22:21:48.913053+00:00"
+  },
+  {
+    "id": 46,
+    "lesson_id": "1B-L16",
+    "book_id": "1B",
+    "pattern": "(으)ㄴ 후에/다음에",
+    "level": "beginner",
+    "explanation": "Sau khi làm gì",
+    "notes": "밥을 먹은 후에 산책해요. = Sau khi ăn cơm thì đi dạo.",
+    "created_at": "2026-04-23T22:21:48.913053+00:00"
+  },
+  {
+    "id": 47,
+    "lesson_id": "1B-L16",
+    "book_id": "1B",
+    "pattern": "에 대해서",
+    "level": "beginner",
+    "explanation": "Về (chủ đề). Nói về điều gì đó",
+    "notes": "한국 문화에 대해서 이야기해요. = Nói về văn hóa Hàn Quốc.",
+    "created_at": "2026-04-23T22:21:48.913053+00:00"
+  },
+  {
+    "id": 48,
+    "lesson_id": "1B-L16",
+    "book_id": "1B",
+    "pattern": "(이)라고 해요",
+    "level": "beginner",
+    "explanation": "Được gọi là / Người ta nói là",
+    "notes": "이것을 김치라고 해요. = Cái này được gọi là kimchi.",
+    "created_at": "2026-04-23T22:21:48.913053+00:00"
+  },
+  {
+    "id": 49,
+    "lesson_id": "2A-L1",
+    "book_id": "2A",
+    "pattern": "(으)ㄴ/는 (định ngữ hiện tại)",
+    "level": "intermediate",
+    "explanation": "Mệnh đề quan hệ hiện tại. Tính từ + (으)ㄴ, Động từ + 는",
+    "notes": "한국어를 공부하는 학생이에요. = Là học sinh đang học tiếng Hàn.",
+    "created_at": "2026-04-23T22:22:35.022841+00:00"
+  },
+  {
+    "id": 50,
+    "lesson_id": "2A-L1",
+    "book_id": "2A",
+    "pattern": "(으)ㄴ (định ngữ quá khứ)",
+    "level": "intermediate",
+    "explanation": "Mệnh đề quan hệ quá khứ. Động từ + (으)ㄴ",
+    "notes": "어제 만난 친구예요. = Là người bạn gặp hôm qua.",
+    "created_at": "2026-04-23T22:22:35.022841+00:00"
+  },
+  {
+    "id": 51,
+    "lesson_id": "2A-L1",
+    "book_id": "2A",
+    "pattern": "(으)ㄹ (định ngữ tương lai)",
+    "level": "intermediate",
+    "explanation": "Mệnh đề quan hệ tương lai. Động từ + (으)ㄹ",
+    "notes": "내일 볼 영화예요. = Là bộ phim sẽ xem ngày mai.",
+    "created_at": "2026-04-23T22:22:35.022841+00:00"
+  },
+  {
+    "id": 52,
+    "lesson_id": "2A-L2",
+    "book_id": "2A",
+    "pattern": "(으)로서",
+    "level": "intermediate",
+    "explanation": "Với tư cách là / Trong vai trò là",
+    "notes": "학생으로서 열심히 공부해야 해요. = Với tư cách là học sinh phải học chăm chỉ.",
+    "created_at": "2026-04-23T22:22:35.022841+00:00"
+  },
+  {
+    "id": 53,
+    "lesson_id": "2A-L2",
+    "book_id": "2A",
+    "pattern": "뿐만 아니라",
+    "level": "intermediate",
+    "explanation": "Không chỉ ~ mà còn. Thêm thông tin bổ sung",
+    "notes": "한국어뿐만 아니라 영어도 잘해요. = Không chỉ tiếng Hàn mà còn giỏi tiếng Anh.",
+    "created_at": "2026-04-23T22:22:35.022841+00:00"
+  },
+  {
+    "id": 54,
+    "lesson_id": "2A-L2",
+    "book_id": "2A",
+    "pattern": "(으)ㄹ 뿐이에요",
+    "level": "intermediate",
+    "explanation": "Chỉ là / Chỉ có thể. Giới hạn khả năng hoặc tình huống",
+    "notes": "할 수 있는 것은 기다릴 뿐이에요. = Điều có thể làm chỉ là chờ đợi.",
+    "created_at": "2026-04-23T22:22:35.022841+00:00"
+  },
+  {
+    "id": 55,
+    "lesson_id": "2A-L3",
+    "book_id": "2A",
+    "pattern": "(으)ㄹ수록",
+    "level": "intermediate",
+    "explanation": "Càng ~ càng. Mức độ tăng theo",
+    "notes": "많이 먹을수록 살이 쪄요. = Càng ăn nhiều càng béo.",
+    "created_at": "2026-04-23T22:22:35.022841+00:00"
+  },
+  {
+    "id": 56,
+    "lesson_id": "2A-L3",
+    "book_id": "2A",
+    "pattern": "는 편이에요",
+    "level": "beginner",
+    "explanation": "Thuộc loại / Khá là. Xu hướng chung",
+    "notes": "저는 일찍 자는 편이에요. = Tôi thuộc loại ngủ sớm.",
+    "created_at": "2026-04-23T22:22:35.022841+00:00"
+  },
+  {
+    "id": 57,
+    "lesson_id": "2A-L3",
+    "book_id": "2A",
+    "pattern": "(으)ㄴ/는 것 같아요",
+    "level": "beginner",
+    "explanation": "Có vẻ như / Hình như. Suy đoán",
+    "notes": "피곤한 것 같아요. = Có vẻ mệt.",
+    "created_at": "2026-04-23T22:22:35.022841+00:00"
+  },
+  {
+    "id": 58,
+    "lesson_id": "2A-L4",
+    "book_id": "2A",
+    "pattern": "(으)면서",
+    "level": "intermediate",
+    "explanation": "Vừa ~ vừa. Hai hành động xảy ra đồng thời",
+    "notes": "음악을 들으면서 공부해요. = Vừa nghe nhạc vừa học.",
+    "created_at": "2026-04-23T22:22:35.022841+00:00"
+  },
+  {
+    "id": 59,
+    "lesson_id": "2A-L4",
+    "book_id": "2A",
+    "pattern": "(으)ㄴ/는데 (nền)",
+    "level": "intermediate",
+    "explanation": "Mà / Nhưng (cung cấp nền thông tin). Nối hai mệnh đề có liên quan",
+    "notes": "배가 고픈데 뭘 먹을까요? = Đói bụng mà ăn gì nhỉ?",
+    "created_at": "2026-04-23T22:22:35.022841+00:00"
+  },
+  {
+    "id": 60,
+    "lesson_id": "2A-L4",
+    "book_id": "2A",
+    "pattern": "(이)든지",
+    "level": "intermediate",
+    "explanation": "Dù là ~ đi nữa / Bất kể là. Không quan trọng điều kiện",
+    "notes": "뭐든지 다 잘 먹어요. = Bất kể là gì cũng ăn được hết.",
+    "created_at": "2026-04-23T22:22:35.022841+00:00"
+  },
+  {
+    "id": 61,
+    "lesson_id": "2A-L5",
+    "book_id": "2A",
+    "pattern": "(으)ㄹ 텐데",
+    "level": "intermediate",
+    "explanation": "Chắc là sẽ ~ (lo lắng/dự đoán)",
+    "notes": "비가 올 텐데 우산을 가져가세요. = Chắc trời sẽ mưa, hãy mang ô đi.",
+    "created_at": "2026-04-23T22:22:35.022841+00:00"
+  },
+  {
+    "id": 62,
+    "lesson_id": "2A-L5",
+    "book_id": "2A",
+    "pattern": "(으)ㄹ 뻔했어요",
+    "level": "intermediate",
+    "explanation": "Suýt nữa thì. Điều gần như xảy ra nhưng không xảy ra",
+    "notes": "늦을 뻔했어요. = Suýt nữa thì trễ.",
+    "created_at": "2026-04-23T22:22:35.022841+00:00"
+  },
+  {
+    "id": 63,
+    "lesson_id": "2A-L5",
+    "book_id": "2A",
+    "pattern": "(으)ㄹ 만하다",
+    "level": "intermediate",
+    "explanation": "Đáng để làm / Xứng đáng",
+    "notes": "이 영화는 볼 만해요. = Bộ phim này đáng xem.",
+    "created_at": "2026-04-23T22:22:35.022841+00:00"
+  },
+  {
+    "id": 64,
+    "lesson_id": "2A-L6",
+    "book_id": "2A",
+    "pattern": "에 따라서",
+    "level": "intermediate",
+    "explanation": "Tùy theo / Theo. Phụ thuộc vào điều kiện",
+    "notes": "날씨에 따라서 계획이 달라져요. = Kế hoạch thay đổi tùy theo thời tiết.",
+    "created_at": "2026-04-23T22:22:35.022841+00:00"
+  },
+  {
+    "id": 65,
+    "lesson_id": "2A-L6",
+    "book_id": "2A",
+    "pattern": "(으)ㄹ 뿐더러",
+    "level": "intermediate",
+    "explanation": "Không những ~ mà còn. Thêm thông tin tương tự",
+    "notes": "맛있을 뿐더러 건강에도 좋아요. = Không những ngon mà còn tốt cho sức khỏe.",
+    "created_at": "2026-04-23T22:22:35.022841+00:00"
+  },
+  {
+    "id": 66,
+    "lesson_id": "2A-L6",
+    "book_id": "2A",
+    "pattern": "에 비해서",
+    "level": "intermediate",
+    "explanation": "So với / Trong khi so sánh với",
+    "notes": "작년에 비해서 많이 늘었어요. = So với năm ngoái đã tăng nhiều.",
+    "created_at": "2026-04-23T22:22:35.022841+00:00"
+  },
+  {
+    "id": 67,
+    "lesson_id": "2A-L7",
+    "book_id": "2A",
+    "pattern": "도록 (mục đích)",
+    "level": "intermediate",
+    "explanation": "Để / Sao cho. Chỉ mục đích hoặc kết quả mong muốn",
+    "notes": "건강하도록 운동해요. = Tập thể dục để khỏe mạnh.",
+    "created_at": "2026-04-23T22:22:35.022841+00:00"
+  },
+  {
+    "id": 68,
+    "lesson_id": "2A-L7",
+    "book_id": "2A",
+    "pattern": "(으)ㄹ 수밖에 없어요",
+    "level": "intermediate",
+    "explanation": "Không thể không làm / Chỉ có thể làm. Không có lựa chọn khác",
+    "notes": "이렇게 할 수밖에 없어요. = Không thể không làm như vậy.",
+    "created_at": "2026-04-23T22:22:35.022841+00:00"
+  },
+  {
+    "id": 69,
+    "lesson_id": "2A-L7",
+    "book_id": "2A",
+    "pattern": "(으)ㄴ/는 반면에",
+    "level": "intermediate",
+    "explanation": "Trong khi đó / Ngược lại. Tương phản",
+    "notes": "형은 키가 큰 반면에 동생은 작아요. = Anh trai cao trong khi em trai thấp.",
+    "created_at": "2026-04-23T22:22:35.022841+00:00"
+  },
+  {
+    "id": 70,
+    "lesson_id": "2A-L8",
+    "book_id": "2A",
+    "pattern": "(으)ㄹ 정도로",
+    "level": "intermediate",
+    "explanation": "Đến mức / Đến nỗi",
+    "notes": "쓰러질 정도로 피곤해요. = Mệt đến mức muốn ngã.",
+    "created_at": "2026-04-23T22:22:35.022841+00:00"
+  },
+  {
+    "id": 71,
+    "lesson_id": "2A-L8",
+    "book_id": "2A",
+    "pattern": "(으)ㄴ/는 데다가",
+    "level": "intermediate",
+    "explanation": "Hơn nữa / Thêm vào đó. Thêm thông tin cùng chiều",
+    "notes": "비가 오는 데다가 바람도 불어요. = Trời mưa hơn nữa còn có gió.",
+    "created_at": "2026-04-23T22:22:35.022841+00:00"
+  },
+  {
+    "id": 72,
+    "lesson_id": "2A-L8",
+    "book_id": "2A",
+    "pattern": "(으)ㄹ 것이다 (văn viết)",
+    "level": "intermediate",
+    "explanation": "Sẽ (dự đoán, văn viết). Dạng văn viết của (으)ㄹ 거예요",
+    "notes": "내년에는 경제가 좋아질 것이다. = Năm sau kinh tế sẽ tốt hơn.",
+    "created_at": "2026-04-23T22:22:35.022841+00:00"
+  },
+  {
+    "id": 73,
+    "lesson_id": "2A-L9",
+    "book_id": "2A",
+    "pattern": "(으)ㄴ/는 한",
+    "level": "intermediate",
+    "explanation": "Chừng nào còn / Miễn là. Điều kiện duy trì",
+    "notes": "건강한 한 계속 일할 거예요. = Chừng nào còn khỏe sẽ tiếp tục làm việc.",
+    "created_at": "2026-04-23T22:22:35.022841+00:00"
+  },
+  {
+    "id": 74,
+    "lesson_id": "2A-L9",
+    "book_id": "2A",
+    "pattern": "(으)ㄹ 뿐이다",
+    "level": "intermediate",
+    "explanation": "Chỉ là / Không gì khác ngoài. Giới hạn",
+    "notes": "할 수 있는 것은 기다릴 뿐이다. = Điều có thể làm chỉ là chờ đợi.",
+    "created_at": "2026-04-23T22:22:35.022841+00:00"
+  },
+  {
+    "id": 75,
+    "lesson_id": "2A-L9",
+    "book_id": "2A",
+    "pattern": "(으)로 인해서",
+    "level": "intermediate",
+    "explanation": "Do / Vì (nguyên nhân). Chỉ nguyên nhân, thường dùng trong văn viết",
+    "notes": "사고로 인해서 길이 막혀요. = Do tai nạn nên đường bị tắc.",
+    "created_at": "2026-04-23T22:22:35.022841+00:00"
+  },
+  {
+    "id": 76,
+    "lesson_id": "2B-L10",
+    "book_id": "2B",
+    "pattern": "(으)ㄴ/는 탓에",
+    "level": "intermediate",
+    "explanation": "Do / Vì (nguyên nhân tiêu cực). Chỉ nguyên nhân xấu",
+    "notes": "늦잠을 잔 탓에 지각했어요. = Do ngủ dậy muộn nên đi trễ.",
+    "created_at": "2026-04-23T22:23:17.790167+00:00"
+  },
+  {
+    "id": 77,
+    "lesson_id": "2B-L10",
+    "book_id": "2B",
+    "pattern": "(으)ㄴ/는 덕분에",
+    "level": "intermediate",
+    "explanation": "Nhờ / Nhờ vào (nguyên nhân tích cực)",
+    "notes": "친구 덕분에 합격했어요. = Nhờ bạn mà đậu.",
+    "created_at": "2026-04-23T22:23:17.790167+00:00"
+  },
+  {
+    "id": 78,
+    "lesson_id": "2B-L10",
+    "book_id": "2B",
+    "pattern": "(으)ㄹ 리가 없어요",
+    "level": "intermediate",
+    "explanation": "Không thể nào / Không có lý do gì. Phủ nhận khả năng",
+    "notes": "그 사람이 거짓말할 리가 없어요. = Người đó không thể nào nói dối.",
+    "created_at": "2026-04-23T22:23:17.790167+00:00"
+  },
+  {
+    "id": 79,
+    "lesson_id": "2B-L11",
+    "book_id": "2B",
+    "pattern": "(으)ㄴ/는 척하다",
+    "level": "intermediate",
+    "explanation": "Giả vờ làm gì",
+    "notes": "모르는 척했어요. = Đã giả vờ không biết.",
+    "created_at": "2026-04-23T22:23:17.790167+00:00"
+  },
+  {
+    "id": 80,
+    "lesson_id": "2B-L11",
+    "book_id": "2B",
+    "pattern": "(으)ㄹ 뻔하다",
+    "level": "intermediate",
+    "explanation": "Suýt nữa thì. Điều gần xảy ra",
+    "notes": "사고가 날 뻔했어요. = Suýt nữa thì xảy ra tai nạn.",
+    "created_at": "2026-04-23T22:23:17.790167+00:00"
+  },
+  {
+    "id": 81,
+    "lesson_id": "2B-L11",
+    "book_id": "2B",
+    "pattern": "(으)ㄴ/는 셈이다",
+    "level": "intermediate",
+    "explanation": "Coi như là / Xem như là",
+    "notes": "이 정도면 성공한 셈이에요. = Đến mức này coi như là thành công.",
+    "created_at": "2026-04-23T22:23:17.790167+00:00"
+  },
+  {
+    "id": 82,
+    "lesson_id": "2B-L12",
+    "book_id": "2B",
+    "pattern": "(으)ㄹ 테니까",
+    "level": "intermediate",
+    "explanation": "Vì chắc sẽ ~ nên. Lý do dựa trên dự đoán",
+    "notes": "비가 올 테니까 우산을 가져가세요. = Vì chắc trời sẽ mưa nên hãy mang ô.",
+    "created_at": "2026-04-23T22:23:17.790167+00:00"
+  },
+  {
+    "id": 83,
+    "lesson_id": "2B-L12",
+    "book_id": "2B",
+    "pattern": "(으)ㄴ/는 이상",
+    "level": "intermediate",
+    "explanation": "Đã ~ thì / Một khi đã. Điều kiện không thể thay đổi",
+    "notes": "시작한 이상 끝까지 해야 해요. = Đã bắt đầu thì phải làm đến cùng.",
+    "created_at": "2026-04-23T22:23:17.790167+00:00"
+  },
+  {
+    "id": 84,
+    "lesson_id": "2B-L12",
+    "book_id": "2B",
+    "pattern": "(으)ㄹ 바에야",
+    "level": "intermediate",
+    "explanation": "Thà ~ còn hơn. So sánh hai lựa chọn",
+    "notes": "이렇게 할 바에야 안 하는 게 나아요. = Thà không làm còn hơn làm như vậy.",
+    "created_at": "2026-04-23T22:23:17.790167+00:00"
+  },
+  {
+    "id": 85,
+    "lesson_id": "2B-L13",
+    "book_id": "2B",
+    "pattern": "(으)ㄴ/는 만큼",
+    "level": "intermediate",
+    "explanation": "Bằng / Tương xứng với. Mức độ tương đương",
+    "notes": "노력한 만큼 결과가 나와요. = Kết quả tương xứng với nỗ lực.",
+    "created_at": "2026-04-23T22:23:17.790167+00:00"
+  },
+  {
+    "id": 86,
+    "lesson_id": "2B-L13",
+    "book_id": "2B",
+    "pattern": "(으)ㄹ 겸",
+    "level": "intermediate",
+    "explanation": "Vừa để ~ vừa để. Hai mục đích cùng lúc",
+    "notes": "운동도 할 겸 산책을 해요. = Vừa để tập thể dục vừa đi dạo.",
+    "created_at": "2026-04-23T22:23:17.790167+00:00"
+  },
+  {
+    "id": 87,
+    "lesson_id": "2B-L13",
+    "book_id": "2B",
+    "pattern": "(으)ㄴ/는 가운데",
+    "level": "intermediate",
+    "explanation": "Trong khi / Trong bối cảnh",
+    "notes": "어려운 상황 가운데서도 포기하지 않았어요. = Ngay cả trong hoàn cảnh khó khăn cũng không bỏ cuộc.",
+    "created_at": "2026-04-23T22:23:17.790167+00:00"
+  },
+  {
+    "id": 88,
+    "lesson_id": "2B-L14",
+    "book_id": "2B",
+    "pattern": "(으)ㄹ 지라도",
+    "level": "intermediate",
+    "explanation": "Dù cho ~ đi nữa. Nhượng bộ",
+    "notes": "힘들지라도 포기하지 마세요. = Dù khó khăn đi nữa cũng đừng bỏ cuộc.",
+    "created_at": "2026-04-23T22:23:17.790167+00:00"
+  },
+  {
+    "id": 89,
+    "lesson_id": "2B-L14",
+    "book_id": "2B",
+    "pattern": "(으)ㄴ/는 반면",
+    "level": "intermediate",
+    "explanation": "Trong khi đó / Ngược lại",
+    "notes": "장점이 있는 반면 단점도 있어요. = Có ưu điểm trong khi đó cũng có nhược điểm.",
+    "created_at": "2026-04-23T22:23:17.790167+00:00"
+  },
+  {
+    "id": 90,
+    "lesson_id": "2B-L14",
+    "book_id": "2B",
+    "pattern": "(으)ㄹ 수 있는 한",
+    "level": "intermediate",
+    "explanation": "Trong khả năng có thể / Hết sức có thể",
+    "notes": "할 수 있는 한 최선을 다할게요. = Sẽ cố gắng hết sức trong khả năng có thể.",
+    "created_at": "2026-04-23T22:23:17.790167+00:00"
+  },
+  {
+    "id": 91,
+    "lesson_id": "2B-L15",
+    "book_id": "2B",
+    "pattern": "(으)ㄴ/는 데 (mục đích)",
+    "level": "intermediate",
+    "explanation": "Để / Cho việc. Chỉ mục đích hoặc lĩnh vực",
+    "notes": "한국어를 배우는 데 시간이 많이 걸려요. = Mất nhiều thời gian để học tiếng Hàn.",
+    "created_at": "2026-04-23T22:23:17.790167+00:00"
+  },
+  {
+    "id": 92,
+    "lesson_id": "2B-L15",
+    "book_id": "2B",
+    "pattern": "(으)ㄹ 뿐만 아니라",
+    "level": "intermediate",
+    "explanation": "Không chỉ ~ mà còn. Thêm thông tin bổ sung",
+    "notes": "맛있을 뿐만 아니라 건강에도 좋아요. = Không chỉ ngon mà còn tốt cho sức khỏe.",
+    "created_at": "2026-04-23T22:23:17.790167+00:00"
+  },
+  {
+    "id": 93,
+    "lesson_id": "2B-L15",
+    "book_id": "2B",
+    "pattern": "(으)ㄴ/는 한편",
+    "level": "intermediate",
+    "explanation": "Trong khi đó / Mặt khác",
+    "notes": "공부를 열심히 하는 한편 운동도 해요. = Trong khi học chăm chỉ cũng tập thể dục.",
+    "created_at": "2026-04-23T22:23:17.790167+00:00"
+  },
+  {
+    "id": 94,
+    "lesson_id": "2B-L16",
+    "book_id": "2B",
+    "pattern": "(으)ㄹ 수 있도록",
+    "level": "intermediate",
+    "explanation": "Để có thể / Sao cho có thể",
+    "notes": "이해할 수 있도록 천천히 설명해 주세요. = Hãy giải thích chậm để có thể hiểu.",
+    "created_at": "2026-04-23T22:23:17.790167+00:00"
+  },
+  {
+    "id": 95,
+    "lesson_id": "2B-L16",
+    "book_id": "2B",
+    "pattern": "(으)ㄴ/는 이유로",
+    "level": "intermediate",
+    "explanation": "Với lý do / Vì lý do",
+    "notes": "건강상의 이유로 일을 그만뒀어요. = Đã nghỉ việc vì lý do sức khỏe.",
+    "created_at": "2026-04-23T22:23:17.790167+00:00"
+  },
+  {
+    "id": 96,
+    "lesson_id": "2B-L16",
+    "book_id": "2B",
+    "pattern": "(으)ㄹ 것으로 보인다",
+    "level": "intermediate",
+    "explanation": "Có vẻ sẽ / Được cho là sẽ (văn viết)",
+    "notes": "내년에는 경기가 좋아질 것으로 보인다. = Có vẻ năm sau kinh tế sẽ tốt hơn.",
+    "created_at": "2026-04-23T22:23:17.790167+00:00"
+  },
+  {
+    "id": 97,
+    "lesson_id": "2B-L17",
+    "book_id": "2B",
+    "pattern": "(으)ㄴ/는 것에 비해",
+    "level": "intermediate",
+    "explanation": "So với việc / Trong khi so sánh",
+    "notes": "노력한 것에 비해 결과가 좋지 않아요. = So với nỗ lực thì kết quả không tốt.",
+    "created_at": "2026-04-23T22:23:17.790167+00:00"
+  },
+  {
+    "id": 98,
+    "lesson_id": "2B-L17",
+    "book_id": "2B",
+    "pattern": "(으)ㄹ 것을 감안하면",
+    "level": "intermediate",
+    "explanation": "Nếu tính đến / Xét đến",
+    "notes": "비용을 감안하면 이 방법이 더 좋아요. = Xét đến chi phí thì phương pháp này tốt hơn.",
+    "created_at": "2026-04-23T22:23:17.790167+00:00"
+  },
+  {
+    "id": 99,
+    "lesson_id": "2B-L17",
+    "book_id": "2B",
+    "pattern": "(으)ㄴ/는 것과 달리",
+    "level": "intermediate",
+    "explanation": "Khác với / Trái với",
+    "notes": "예상한 것과 달리 결과가 좋았어요. = Khác với dự đoán, kết quả tốt.",
+    "created_at": "2026-04-23T22:23:17.790167+00:00"
+  },
+  {
+    "id": 100,
+    "lesson_id": "2B-L18",
+    "book_id": "2B",
+    "pattern": "(으)ㄹ 것이 분명하다",
+    "level": "intermediate",
+    "explanation": "Rõ ràng là sẽ / Chắc chắn là",
+    "notes": "그 사람이 올 것이 분명해요. = Rõ ràng là người đó sẽ đến.",
+    "created_at": "2026-04-23T22:23:17.790167+00:00"
+  },
+  {
+    "id": 101,
+    "lesson_id": "2B-L18",
+    "book_id": "2B",
+    "pattern": "(으)ㄴ/는 것으로 알려져 있다",
+    "level": "intermediate",
+    "explanation": "Được biết là / Người ta biết rằng",
+    "notes": "이 약이 효과가 있는 것으로 알려져 있어요. = Được biết là thuốc này có hiệu quả.",
+    "created_at": "2026-04-23T22:23:17.790167+00:00"
+  },
+  {
+    "id": 102,
+    "lesson_id": "2B-L18",
+    "book_id": "2B",
+    "pattern": "(으)ㄹ 것으로 예상된다",
+    "level": "intermediate",
+    "explanation": "Được dự đoán là sẽ (văn viết)",
+    "notes": "올해 수출이 증가할 것으로 예상된다. = Xuất khẩu năm nay được dự đoán sẽ tăng.",
+    "created_at": "2026-04-23T22:23:17.790167+00:00"
+  },
+  {
+    "id": 103,
+    "lesson_id": "3A-L1",
+    "book_id": "3A",
+    "pattern": "(으)ㄴ/는 바",
+    "level": "advanced",
+    "explanation": "Điều / Việc (văn viết trang trọng). Thay thế 것 trong văn viết",
+    "notes": "알고 있는 바를 말씀드리겠습니다. = Tôi sẽ nói những gì tôi biết.",
+    "created_at": "2026-04-23T22:24:22.130798+00:00"
+  },
+  {
+    "id": 104,
+    "lesson_id": "3A-L1",
+    "book_id": "3A",
+    "pattern": "(으)ㄹ 바에",
+    "level": "advanced",
+    "explanation": "Thà ~ còn hơn (văn viết). So sánh hai lựa chọn",
+    "notes": "포기할 바에 처음부터 시작하지 마세요. = Thà đừng bắt đầu còn hơn bỏ cuộc.",
+    "created_at": "2026-04-23T22:24:22.130798+00:00"
+  },
+  {
+    "id": 105,
+    "lesson_id": "3A-L1",
+    "book_id": "3A",
+    "pattern": "(으)ㄴ/는 바와 같이",
+    "level": "advanced",
+    "explanation": "Như đã ~ / Như đã đề cập. Tham chiếu thông tin trước",
+    "notes": "위에서 설명한 바와 같이 이 방법이 효과적입니다. = Như đã giải thích ở trên, phương pháp này hiệu quả.",
+    "created_at": "2026-04-23T22:24:22.130798+00:00"
+  },
+  {
+    "id": 106,
+    "lesson_id": "3A-L2",
+    "book_id": "3A",
+    "pattern": "(으)ㄹ 뿐이다 (văn viết)",
+    "level": "advanced",
+    "explanation": "Chỉ là / Không gì khác (văn viết)",
+    "notes": "우리가 할 수 있는 것은 기다릴 뿐이다. = Điều chúng ta có thể làm chỉ là chờ đợi.",
+    "created_at": "2026-04-23T22:24:22.130798+00:00"
+  },
+  {
+    "id": 107,
+    "lesson_id": "3A-L2",
+    "book_id": "3A",
+    "pattern": "(으)ㄴ/는 나머지",
+    "level": "advanced",
+    "explanation": "Đến mức / Quá mức đến nỗi. Kết quả của mức độ quá cao",
+    "notes": "너무 기쁜 나머지 눈물이 났어요. = Vui đến mức rơi nước mắt.",
+    "created_at": "2026-04-23T22:24:22.130798+00:00"
+  },
+  {
+    "id": 108,
+    "lesson_id": "3A-L2",
+    "book_id": "3A",
+    "pattern": "(으)ㄹ 지경이다",
+    "level": "advanced",
+    "explanation": "Đến mức / Gần như. Tình trạng cực đoan",
+    "notes": "쓰러질 지경이에요. = Gần như muốn ngã.",
+    "created_at": "2026-04-23T22:24:22.130798+00:00"
+  },
+  {
+    "id": 109,
+    "lesson_id": "3A-L3",
+    "book_id": "3A",
+    "pattern": "(으)ㄴ/는 한편",
+    "level": "advanced",
+    "explanation": "Trong khi đó / Mặt khác (văn viết)",
+    "notes": "경제가 성장하는 한편 환경 문제도 심각해지고 있다. = Trong khi kinh tế tăng trưởng, vấn đề môi trường cũng trở nên nghiêm trọng.",
+    "created_at": "2026-04-23T22:24:22.130798+00:00"
+  },
+  {
+    "id": 110,
+    "lesson_id": "3A-L3",
+    "book_id": "3A",
+    "pattern": "(으)ㄹ 뿐더러",
+    "level": "advanced",
+    "explanation": "Không những ~ mà còn (văn viết)",
+    "notes": "실력이 뛰어날 뿐더러 성격도 좋다. = Không những giỏi mà tính cách cũng tốt.",
+    "created_at": "2026-04-23T22:24:22.130798+00:00"
+  },
+  {
+    "id": 111,
+    "lesson_id": "3A-L3",
+    "book_id": "3A",
+    "pattern": "(으)ㄴ/는 데 반해",
+    "level": "advanced",
+    "explanation": "Trong khi / Ngược lại (văn viết)",
+    "notes": "형은 외향적인 데 반해 동생은 내성적이다. = Trong khi anh trai hướng ngoại, em trai lại hướng nội.",
+    "created_at": "2026-04-23T22:24:22.130798+00:00"
+  },
+  {
+    "id": 112,
+    "lesson_id": "3A-L4",
+    "book_id": "3A",
+    "pattern": "(으)ㄹ 수밖에 없다",
+    "level": "advanced",
+    "explanation": "Không thể không / Chỉ có thể (văn viết)",
+    "notes": "이 상황에서는 포기할 수밖에 없다. = Trong tình huống này không thể không bỏ cuộc.",
+    "created_at": "2026-04-23T22:24:22.130798+00:00"
+  },
+  {
+    "id": 113,
+    "lesson_id": "3A-L4",
+    "book_id": "3A",
+    "pattern": "(으)ㄴ/는 이상",
+    "level": "advanced",
+    "explanation": "Đã ~ thì / Một khi đã (văn viết)",
+    "notes": "약속한 이상 지켜야 한다. = Đã hứa thì phải giữ lời.",
+    "created_at": "2026-04-23T22:24:22.130798+00:00"
+  },
+  {
+    "id": 114,
+    "lesson_id": "3A-L4",
+    "book_id": "3A",
+    "pattern": "(으)ㄹ 것임에 틀림없다",
+    "level": "advanced",
+    "explanation": "Chắc chắn là / Không nghi ngờ gì là",
+    "notes": "그가 범인임에 틀림없다. = Chắc chắn hắn là thủ phạm.",
+    "created_at": "2026-04-23T22:24:22.130798+00:00"
+  },
+  {
+    "id": 115,
+    "lesson_id": "3A-L5",
+    "book_id": "3A",
+    "pattern": "(으)ㄴ/는 가운데",
+    "level": "advanced",
+    "explanation": "Trong bối cảnh / Trong khi (văn viết)",
+    "notes": "어려운 상황 가운데서도 희망을 잃지 않았다. = Ngay cả trong hoàn cảnh khó khăn cũng không mất hy vọng.",
+    "created_at": "2026-04-23T22:24:22.130798+00:00"
+  },
+  {
+    "id": 116,
+    "lesson_id": "3A-L5",
+    "book_id": "3A",
+    "pattern": "(으)ㄹ 것을 전제로",
+    "level": "advanced",
+    "explanation": "Với tiền đề là / Dựa trên giả định",
+    "notes": "성공할 것을 전제로 계획을 세웠다. = Lập kế hoạch dựa trên tiền đề sẽ thành công.",
+    "created_at": "2026-04-23T22:24:22.130798+00:00"
+  },
+  {
+    "id": 117,
+    "lesson_id": "3A-L5",
+    "book_id": "3A",
+    "pattern": "(으)ㄴ/는 측면에서",
+    "level": "advanced",
+    "explanation": "Từ góc độ / Xét về mặt",
+    "notes": "경제적인 측면에서 보면 이 방법이 더 효율적이다. = Xét từ góc độ kinh tế, phương pháp này hiệu quả hơn.",
+    "created_at": "2026-04-23T22:24:22.130798+00:00"
+  },
+  {
+    "id": 118,
+    "lesson_id": "3A-L6",
+    "book_id": "3A",
+    "pattern": "(으)ㄹ 것으로 판단된다",
+    "level": "advanced",
+    "explanation": "Được đánh giá là sẽ (văn viết)",
+    "notes": "이 정책이 효과적일 것으로 판단된다. = Chính sách này được đánh giá là sẽ hiệu quả.",
+    "created_at": "2026-04-23T22:24:22.130798+00:00"
+  },
+  {
+    "id": 119,
+    "lesson_id": "3A-L6",
+    "book_id": "3A",
+    "pattern": "(으)ㄴ/는 것으로 나타났다",
+    "level": "advanced",
+    "explanation": "Được cho thấy là / Kết quả cho thấy (văn viết)",
+    "notes": "연구 결과 이 약이 효과적인 것으로 나타났다. = Kết quả nghiên cứu cho thấy thuốc này hiệu quả.",
+    "created_at": "2026-04-23T22:24:22.130798+00:00"
+  },
+  {
+    "id": 120,
+    "lesson_id": "3A-L6",
+    "book_id": "3A",
+    "pattern": "(으)ㄹ 것으로 추정된다",
+    "level": "advanced",
+    "explanation": "Được ước tính là / Được cho là (văn viết)",
+    "notes": "피해 규모가 클 것으로 추정된다. = Quy mô thiệt hại được ước tính là lớn.",
+    "created_at": "2026-04-23T22:24:22.130798+00:00"
+  },
+  {
+    "id": 121,
+    "lesson_id": "3A-L7",
+    "book_id": "3A",
+    "pattern": "(으)ㄴ/는 반면에",
+    "level": "advanced",
+    "explanation": "Trong khi đó / Ngược lại (văn viết trang trọng)",
+    "notes": "이 방법은 빠른 반면에 정확도가 낮다. = Phương pháp này nhanh trong khi đó độ chính xác thấp.",
+    "created_at": "2026-04-23T22:24:22.130798+00:00"
+  },
+  {
+    "id": 122,
+    "lesson_id": "3A-L7",
+    "book_id": "3A",
+    "pattern": "(으)ㄹ 것이 아니라",
+    "level": "advanced",
+    "explanation": "Không phải là sẽ ~ mà là. Phủ nhận và đưa ra thay thế",
+    "notes": "포기할 것이 아니라 더 노력해야 한다. = Không phải bỏ cuộc mà phải cố gắng hơn.",
+    "created_at": "2026-04-23T22:24:22.130798+00:00"
+  },
+  {
+    "id": 123,
+    "lesson_id": "3A-L7",
+    "book_id": "3A",
+    "pattern": "(으)ㄴ/는 데 있어서",
+    "level": "advanced",
+    "explanation": "Trong việc / Đối với việc",
+    "notes": "언어를 배우는 데 있어서 꾸준함이 중요하다. = Trong việc học ngôn ngữ, sự kiên trì là quan trọng.",
+    "created_at": "2026-04-23T22:24:22.130798+00:00"
+  },
+  {
+    "id": 124,
+    "lesson_id": "3A-L8",
+    "book_id": "3A",
+    "pattern": "(으)ㄹ 것을 요구하다",
+    "level": "advanced",
+    "explanation": "Yêu cầu làm gì (văn viết)",
+    "notes": "정부는 기업들에게 환경을 보호할 것을 요구했다. = Chính phủ yêu cầu các doanh nghiệp bảo vệ môi trường.",
+    "created_at": "2026-04-23T22:24:22.130798+00:00"
+  },
+  {
+    "id": 125,
+    "lesson_id": "3A-L8",
+    "book_id": "3A",
+    "pattern": "(으)ㄴ/는 것을 감안하다",
+    "level": "advanced",
+    "explanation": "Tính đến / Xét đến",
+    "notes": "비용을 감안하면 이 방법이 더 경제적이다. = Xét đến chi phí thì phương pháp này kinh tế hơn.",
+    "created_at": "2026-04-23T22:24:22.130798+00:00"
+  },
+  {
+    "id": 126,
+    "lesson_id": "3A-L8",
+    "book_id": "3A",
+    "pattern": "(으)ㄹ 것으로 기대된다",
+    "level": "advanced",
+    "explanation": "Được kỳ vọng là sẽ (văn viết)",
+    "notes": "이 프로젝트가 성공할 것으로 기대된다. = Dự án này được kỳ vọng sẽ thành công.",
+    "created_at": "2026-04-23T22:24:22.130798+00:00"
+  },
+  {
+    "id": 127,
+    "lesson_id": "3A-L9",
+    "book_id": "3A",
+    "pattern": "(으)ㄴ/는 것을 고려하다",
+    "level": "advanced",
+    "explanation": "Xem xét / Cân nhắc đến",
+    "notes": "모든 상황을 고려하면 이 결정이 최선이다. = Xem xét tất cả tình huống thì quyết định này là tốt nhất.",
+    "created_at": "2026-04-23T22:24:22.130798+00:00"
+  },
+  {
+    "id": 128,
+    "lesson_id": "3A-L9",
+    "book_id": "3A",
+    "pattern": "(으)ㄹ 것을 권고하다",
+    "level": "advanced",
+    "explanation": "Khuyến nghị làm gì (văn viết)",
+    "notes": "전문가들은 규칙적인 운동을 할 것을 권고한다. = Các chuyên gia khuyến nghị tập thể dục đều đặn.",
+    "created_at": "2026-04-23T22:24:22.130798+00:00"
+  },
+  {
+    "id": 129,
+    "lesson_id": "3A-L9",
+    "book_id": "3A",
+    "pattern": "(으)ㄴ/는 것으로 밝혀졌다",
+    "level": "advanced",
+    "explanation": "Được phát hiện là / Hóa ra là (văn viết)",
+    "notes": "그 사실이 거짓인 것으로 밝혀졌다. = Sự thật đó được phát hiện là giả.",
+    "created_at": "2026-04-23T22:24:22.130798+00:00"
+  },
+  {
+    "id": 130,
+    "lesson_id": "3B-L10",
+    "book_id": "3B",
+    "pattern": "(으)ㄴ/는 것으로 보아",
+    "level": "advanced",
+    "explanation": "Nhìn vào / Xét từ. Dựa trên bằng chứng để suy luận",
+    "notes": "표정으로 보아 기쁜 것 같다. = Nhìn vào biểu cảm có vẻ vui.",
+    "created_at": "2026-04-23T22:24:22.130798+00:00"
+  },
+  {
+    "id": 131,
+    "lesson_id": "3B-L10",
+    "book_id": "3B",
+    "pattern": "(으)ㄹ 것을 대비하다",
+    "level": "advanced",
+    "explanation": "Chuẩn bị cho / Đề phòng",
+    "notes": "비상사태를 대비해 준비해야 한다. = Phải chuẩn bị để đề phòng tình huống khẩn cấp.",
+    "created_at": "2026-04-23T22:24:22.130798+00:00"
+  },
+  {
+    "id": 132,
+    "lesson_id": "3B-L10",
+    "book_id": "3B",
+    "pattern": "(으)ㄴ/는 것이 사실이다",
+    "level": "advanced",
+    "explanation": "Đúng là / Thực tế là",
+    "notes": "그가 실수를 한 것이 사실이다. = Đúng là anh ấy đã mắc lỗi.",
+    "created_at": "2026-04-23T22:24:22.130798+00:00"
+  },
+  {
+    "id": 133,
+    "lesson_id": "3B-L11",
+    "book_id": "3B",
+    "pattern": "(으)ㄹ 것을 목표로",
+    "level": "advanced",
+    "explanation": "Với mục tiêu là / Nhằm mục đích",
+    "notes": "올해 안에 완성할 것을 목표로 노력하고 있다. = Đang cố gắng với mục tiêu hoàn thành trong năm nay.",
+    "created_at": "2026-04-23T22:24:22.130798+00:00"
+  },
+  {
+    "id": 134,
+    "lesson_id": "3B-L11",
+    "book_id": "3B",
+    "pattern": "(으)ㄴ/는 것을 전제로 하다",
+    "level": "advanced",
+    "explanation": "Lấy ~ làm tiền đề / Dựa trên giả định",
+    "notes": "성공을 전제로 계획을 세웠다. = Lập kế hoạch dựa trên giả định thành công.",
+    "created_at": "2026-04-23T22:24:22.130798+00:00"
+  },
+  {
+    "id": 135,
+    "lesson_id": "3B-L11",
+    "book_id": "3B",
+    "pattern": "(으)ㄹ 것을 촉구하다",
+    "level": "advanced",
+    "explanation": "Kêu gọi / Thúc giục làm gì (văn viết)",
+    "notes": "정부는 기업들에게 환경 보호에 동참할 것을 촉구했다. = Chính phủ kêu gọi các doanh nghiệp tham gia bảo vệ môi trường.",
+    "created_at": "2026-04-23T22:24:22.130798+00:00"
+  },
+  {
+    "id": 136,
+    "lesson_id": "3B-L12",
+    "book_id": "3B",
+    "pattern": "(으)ㄴ/는 것으로 인식되다",
+    "level": "advanced",
+    "explanation": "Được nhận thức là / Được coi là (văn viết)",
+    "notes": "이 문제는 심각한 것으로 인식되고 있다. = Vấn đề này đang được nhận thức là nghiêm trọng.",
+    "created_at": "2026-04-23T22:24:22.130798+00:00"
+  },
+  {
+    "id": 137,
+    "lesson_id": "3B-L12",
+    "book_id": "3B",
+    "pattern": "(으)ㄹ 것을 강조하다",
+    "level": "advanced",
+    "explanation": "Nhấn mạnh việc / Nhấn mạnh rằng sẽ",
+    "notes": "전문가들은 예방의 중요성을 강조한다. = Các chuyên gia nhấn mạnh tầm quan trọng của phòng ngừa.",
+    "created_at": "2026-04-23T22:24:22.130798+00:00"
+  },
+  {
+    "id": 138,
+    "lesson_id": "3B-L12",
+    "book_id": "3B",
+    "pattern": "(으)ㄴ/는 것으로 간주되다",
+    "level": "advanced",
+    "explanation": "Được coi là / Được xem là (văn viết)",
+    "notes": "이 행동은 무례한 것으로 간주된다. = Hành động này được coi là thô lỗ.",
+    "created_at": "2026-04-23T22:24:22.130798+00:00"
+  },
+  {
+    "id": 139,
+    "lesson_id": "3B-L13",
+    "book_id": "3B",
+    "pattern": "(으)ㄹ 것을 제안하다",
+    "level": "advanced",
+    "explanation": "Đề xuất làm gì (văn viết)",
+    "notes": "새로운 방법을 시도할 것을 제안합니다. = Tôi đề xuất thử phương pháp mới.",
+    "created_at": "2026-04-23T22:24:22.130798+00:00"
+  },
+  {
+    "id": 140,
+    "lesson_id": "3B-L13",
+    "book_id": "3B",
+    "pattern": "(으)ㄴ/는 것을 바탕으로",
+    "level": "advanced",
+    "explanation": "Dựa trên / Căn cứ vào",
+    "notes": "연구 결과를 바탕으로 새로운 정책을 만들었다. = Dựa trên kết quả nghiên cứu đã tạo ra chính sách mới.",
+    "created_at": "2026-04-23T22:24:22.130798+00:00"
+  },
+  {
+    "id": 141,
+    "lesson_id": "3B-L13",
+    "book_id": "3B",
+    "pattern": "(으)ㄹ 것을 명심하다",
+    "level": "advanced",
+    "explanation": "Ghi nhớ / Khắc ghi rằng sẽ",
+    "notes": "항상 안전을 최우선으로 할 것을 명심하세요. = Hãy ghi nhớ luôn đặt an toàn lên hàng đầu.",
+    "created_at": "2026-04-23T22:24:22.130798+00:00"
+  },
+  {
+    "id": 154,
+    "lesson_id": "4A-L1",
+    "book_id": "4A",
+    "pattern": "~기에 앞서 (Trước khi...)",
+    "level": "B2",
+    "explanation": "Động từ + 기에 앞서 = trước khi làm một việc quan trọng. Dùng trang trọng hơn ~기 전에, thường đi với chuẩn bị, lựa chọn, quyết định.",
+    "notes": "Có thể hiểu đơn giản là “trước khi...”, nhưng sắc thái trang trọng hơn.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 155,
+    "lesson_id": "4A-L1",
+    "book_id": "4A",
+    "pattern": "~을/를 통해 (Thông qua...)",
+    "level": "B1+",
+    "explanation": "Danh từ + 을/를 통해 = thông qua một cách thức, kinh nghiệm hoặc phương tiện nào đó.",
+    "notes": "",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 156,
+    "lesson_id": "4A-L1",
+    "book_id": "4A",
+    "pattern": "~에도 불구하고 (Mặc dù... nhưng...)",
+    "level": "B2",
+    "explanation": "Danh từ/Mệnh đề + 에도 불구하고 = mặc dù có tình huống bất lợi nhưng kết quả vẫn xảy ra trái với dự đoán.",
+    "notes": "",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 157,
+    "lesson_id": "4A-L1",
+    "book_id": "4A",
+    "pattern": "~(으)ㄹ수록 (Càng... càng...)",
+    "level": "B1+",
+    "explanation": "Động từ/Tính từ + (으)ㄹ수록 = càng làm/càng như thế thì mức độ hoặc kết quả càng thay đổi theo.",
+    "notes": "",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 158,
+    "lesson_id": "4A-L2",
+    "book_id": "4A",
+    "pattern": "~아/어 보이다 (Trông có vẻ...)",
+    "level": "B1",
+    "explanation": "Tính từ + 아/어 보이다 = nhìn/trông có vẻ như vậy. Dùng khi phán đoán tình trạng qua vẻ ngoài.",
+    "notes": "Không dùng với động từ hành động. Chủ yếu dùng với tính từ chỉ trạng thái.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 159,
+    "lesson_id": "4A-L2",
+    "book_id": "4A",
+    "pattern": "~도록 하다 (Hãy cố gắng... / Nên...)",
+    "level": "B1+",
+    "explanation": "Động từ + 도록 하다 dùng để khuyên nhủ hoặc yêu cầu người nghe cố gắng thực hiện hành động.",
+    "notes": "",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 160,
+    "lesson_id": "4A-L2",
+    "book_id": "4A",
+    "pattern": "~기 위해(서) (Để...)",
+    "level": "B1",
+    "explanation": "Động từ + 기 위해(서) = để làm gì. Dùng để diễn đạt mục đích của hành động.",
+    "notes": "",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 161,
+    "lesson_id": "4A-L2",
+    "book_id": "4A",
+    "pattern": "~아/어야 하다 (Phải...)",
+    "level": "A2",
+    "explanation": "Động từ + 아/어야 하다 = phải làm gì. Dùng để nói nghĩa vụ, điều cần thiết hoặc lời khuyên mạnh.",
+    "notes": "",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 162,
+    "lesson_id": "4A-L3",
+    "book_id": "4A",
+    "pattern": "~는 바람에 (Vì... nên...)",
+    "level": "B1+",
+    "explanation": "Động từ + 는 바람에 = vì một việc bất ngờ hoặc không mong muốn xảy ra nên dẫn đến kết quả xấu.",
+    "notes": "",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 163,
+    "lesson_id": "4A-L3",
+    "book_id": "4A",
+    "pattern": "~기는 하지만 (Tuy... nhưng...)",
+    "level": "B1+",
+    "explanation": "Động từ/Tính từ + 기는 하지만 = thừa nhận một sự thật nhưng đưa ra ý trái ngược hoặc bổ sung phía sau.",
+    "notes": "",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 164,
+    "lesson_id": "4A-L3",
+    "book_id": "4A",
+    "pattern": "~다 보면 (Nếu cứ... thì...)",
+    "level": "B1+",
+    "explanation": "Động từ + 다 보면 = nếu tiếp tục làm một việc nào đó thì sẽ dần có kết quả hoặc phát hiện ra điều gì.",
+    "notes": "",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 165,
+    "lesson_id": "4A-L3",
+    "book_id": "4A",
+    "pattern": "~아/어 보이다 (Trông có vẻ...)",
+    "level": "B1",
+    "explanation": "Tính từ + 아/어 보이다 = trông có vẻ như vậy dựa vào vẻ ngoài hoặc tình huống nhìn thấy.",
+    "notes": "",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 166,
+    "lesson_id": "4A-L4",
+    "book_id": "4A",
+    "pattern": "~스럽다 (Có vẻ / mang tính...)",
+    "level": "B1+",
+    "explanation": "Danh từ + 스럽다 tạo tính từ mang nghĩa có cảm giác hoặc đặc điểm giống danh từ đó.",
+    "notes": "",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 167,
+    "lesson_id": "4A-L4",
+    "book_id": "4A",
+    "pattern": "~답다 (Ra dáng / đúng chất...)",
+    "level": "B1+",
+    "explanation": "Danh từ + 답다 diễn tả một người/vật có đặc điểm đúng với danh từ đó, thường dùng để đánh giá tính cách hoặc hình ảnh.",
+    "notes": "",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 168,
+    "lesson_id": "4A-L4",
+    "book_id": "4A",
+    "pattern": "~기는커녕 (Đừng nói đến..., ngay cả... cũng không)",
+    "level": "B2",
+    "explanation": "Danh từ/Động từ + 기는커녕 dùng để nhấn mạnh điều được mong đợi còn không đạt được, nói gì đến điều lớn hơn.",
+    "notes": "",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 169,
+    "lesson_id": "4A-L4",
+    "book_id": "4A",
+    "pattern": "~에 비해(서) (So với...)",
+    "level": "B1+",
+    "explanation": "Danh từ + 에 비해(서) dùng để so sánh một đối tượng với đối tượng khác.",
+    "notes": "",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 170,
+    "lesson_id": "4A-L5",
+    "book_id": "4A",
+    "pattern": "~더니 (Thấy... rồi thì...)",
+    "level": "B1+",
+    "explanation": "Dùng để nói người nói quan sát một việc ở quá khứ rồi kết quả hoặc tình huống sau đó xuất hiện.",
+    "notes": "",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 171,
+    "lesson_id": "4A-L5",
+    "book_id": "4A",
+    "pattern": "~잖아요 (Chẳng phải... sao / ... mà)",
+    "level": "B1",
+    "explanation": "Dùng khi nhắc lại điều người nghe cũng biết hoặc để giải thích lý do một cách thân mật.",
+    "notes": "",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 172,
+    "lesson_id": "4A-L5",
+    "book_id": "4A",
+    "pattern": "~는 바람에 (Vì... nên...)",
+    "level": "B1+",
+    "explanation": "Dùng khi một việc xảy ra ngoài ý muốn dẫn đến kết quả không tốt.",
+    "notes": "",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 173,
+    "lesson_id": "4A-L5",
+    "book_id": "4A",
+    "pattern": "~다 보니 (Cứ... rồi thì...)",
+    "level": "B1+",
+    "explanation": "Dùng để diễn tả khi tiếp tục một hành động/trạng thái thì dần dẫn đến kết quả nào đó.",
+    "notes": "",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 174,
+    "lesson_id": "4A-L6",
+    "book_id": "4A",
+    "pattern": "~거리 (Thứ để... / chuyện để...)",
+    "level": "B1+",
+    "explanation": "Gắn sau động từ hoặc danh từ để tạo danh từ chỉ đối tượng đáng để xem, nói, cười, lo lắng hoặc quan tâm.",
+    "notes": "",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 175,
+    "lesson_id": "4A-L6",
+    "book_id": "4A",
+    "pattern": "~만 못하다 (Không bằng / không được như...)",
+    "level": "B1+",
+    "explanation": "Danh từ + 만 못하다 dùng để nói kết quả hoặc mức độ không đạt như đối tượng được so sánh.",
+    "notes": "",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 176,
+    "lesson_id": "4A-L6",
+    "book_id": "4A",
+    "pattern": "~을/를 비롯해(서) (Bao gồm / bắt đầu từ...)",
+    "level": "B2",
+    "explanation": "Danh từ + 을/를 비롯해(서) dùng để nêu một đại diện rồi mở rộng sang các đối tượng cùng nhóm.",
+    "notes": "",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 177,
+    "lesson_id": "4A-L6",
+    "book_id": "4A",
+    "pattern": "~을/를 통해 (Thông qua...)",
+    "level": "B1+",
+    "explanation": "Danh từ + 을/를 통해 dùng để nói phương tiện, trải nghiệm hoặc cơ hội giúp đạt được điều gì.",
+    "notes": "",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 178,
+    "lesson_id": "4A-L7",
+    "book_id": "4A",
+    "pattern": "~는 게 맞다/그르다 (Làm... là đúng/sai)",
+    "level": "B2",
+    "explanation": "Động từ + 는 게 맞다/그르다 = làm... là đúng/sai. Dùng để đánh giá hành vi về mặt đạo đức hoặc chuẩn mực xã hội.",
+    "notes": "",
+    "created_at": "2026-05-08T04:57:45.704421+00:00"
+  },
+  {
+    "id": 179,
+    "lesson_id": "4A-L7",
+    "book_id": "4A",
+    "pattern": "~아/어서는 안 되다 (Không được...)",
+    "level": "B2",
+    "explanation": "Động từ + 아/어서는 안 되다 = không được làm... Dùng để nói điều bị cấm hoặc không được phép.",
+    "notes": "",
+    "created_at": "2026-05-08T04:57:45.704421+00:00"
+  },
+  {
+    "id": 180,
+    "lesson_id": "4A-L7",
+    "book_id": "4A",
+    "pattern": "~(으)ㄹ 경우에는 (Trong trường hợp...)",
+    "level": "B2",
+    "explanation": "Động từ/Tính từ + (으)ㄹ 경우에는 = trong trường hợp... Dùng để đặt điều kiện giả định.",
+    "notes": "",
+    "created_at": "2026-05-08T04:57:45.704421+00:00"
+  },
+  {
+    "id": 181,
+    "lesson_id": "4A-L8",
+    "book_id": "4A",
+    "pattern": "~(으)ㄹ수록 (Càng... càng...)",
+    "level": "B2",
+    "explanation": "Động từ/Tính từ + (으)ㄹ수록 = càng... càng... Diễn đạt sự tương quan tỉ lệ thuận giữa hai điều.",
+    "notes": "",
+    "created_at": "2026-05-08T05:12:05.004308+00:00"
+  },
+  {
+    "id": 182,
+    "lesson_id": "4A-L8",
+    "book_id": "4A",
+    "pattern": "~에 비해서 (So với...)",
+    "level": "B2",
+    "explanation": "Danh từ + 에 비해서 = so với... Dùng để so sánh hai đối tượng, tình huống.",
+    "notes": "",
+    "created_at": "2026-05-08T05:12:05.004308+00:00"
+  },
+  {
+    "id": 183,
+    "lesson_id": "4A-L8",
+    "book_id": "4A",
+    "pattern": "~다고 할 수 있다 (Có thể nói là...)",
+    "level": "B2",
+    "explanation": "Động từ/Tính từ + 다고 할 수 있다 = có thể nói là... Dùng để đưa ra nhận định, đánh giá.",
+    "notes": "",
+    "created_at": "2026-05-08T05:12:05.004308+00:00"
+  },
+  {
+    "id": 184,
+    "lesson_id": "4A-L9",
+    "book_id": "4A",
+    "pattern": "~다니 (Thật không ngờ... mà, ngạc nhiên vì...)",
+    "level": "B2",
+    "explanation": "Câu + 다니 = thật không ngờ... mà! Diễn đạt sự ngạc nhiên hoặc khó tin về một sự việc.",
+    "notes": "",
+    "created_at": "2026-05-08T05:22:58.427087+00:00"
+  },
+  {
+    "id": 185,
+    "lesson_id": "4A-L9",
+    "book_id": "4A",
+    "pattern": "~(으)ㄹ 만하다 (Đáng để..., xứng đáng...)",
+    "level": "B2",
+    "explanation": "Động từ + (으)ㄹ 만하다 = đáng để... Diễn đạt điều gì đó xứng đáng hoặc có giá trị.",
+    "notes": "",
+    "created_at": "2026-05-08T05:22:58.427087+00:00"
+  },
+  {
+    "id": 186,
+    "lesson_id": "4A-L9",
+    "book_id": "4A",
+    "pattern": "~는 편이다 (Thiên về..., thuộc loại...)",
+    "level": "B2",
+    "explanation": "Động từ/Tính từ + 는 편이다 = thiên về..., thuộc loại... Dùng để đưa ra đánh giá mang tính tương đối.",
+    "notes": "",
+    "created_at": "2026-05-08T05:22:58.427087+00:00"
+  },
+  {
+    "id": 187,
+    "lesson_id": "4B-L10",
+    "book_id": "4B",
+    "pattern": "~았/었더니 (Sau khi... thì...)",
+    "level": "B2+",
+    "explanation": "Động từ + 았/었더니 = sau khi làm... thì (phát hiện ra / kết quả là)... Dùng khi người nói là chủ thể hành động đầu.",
+    "notes": "",
+    "created_at": "2026-05-08T05:38:43.051878+00:00"
+  },
+  {
+    "id": 188,
+    "lesson_id": "4B-L10",
+    "book_id": "4B",
+    "pattern": "~(으)ㄴ 채로 (Trong khi vẫn còn...)",
+    "level": "B2+",
+    "explanation": "Động từ + (으)ㄴ 채로 = trong trạng thái vẫn còn... Mô tả hành động thứ hai xảy ra khi trạng thái từ hành động đầu vẫn còn.",
+    "notes": "",
+    "created_at": "2026-05-08T05:38:43.051878+00:00"
+  },
+  {
+    "id": 189,
+    "lesson_id": "4B-L10",
+    "book_id": "4B",
+    "pattern": "~도록 (Để..., cho đến khi...)",
+    "level": "B2+",
+    "explanation": "Động từ + 도록 = để..., cho đến khi... Diễn đạt mục đích hoặc mức độ của hành động.",
+    "notes": "",
+    "created_at": "2026-05-08T05:38:43.051878+00:00"
+  },
+  {
+    "id": 190,
+    "lesson_id": "4B-L11",
+    "book_id": "4B",
+    "pattern": "~는 데다가 (Ngoài... còn...)",
+    "level": "B2+",
+    "explanation": "Động từ/Tính từ + 는 데다가 = ngoài... còn... Thêm thông tin bổ sung cùng chiều.",
+    "notes": "",
+    "created_at": "2026-05-08T05:38:57.639846+00:00"
+  },
+  {
+    "id": 191,
+    "lesson_id": "4B-L11",
+    "book_id": "4B",
+    "pattern": "~게 되다 (Trở nên..., đâm ra...)",
+    "level": "B2+",
+    "explanation": "Động từ/Tính từ + 게 되다 = trở nên..., đâm ra... Diễn đạt sự thay đổi tự nhiên hay không chủ ý.",
+    "notes": "",
+    "created_at": "2026-05-08T05:38:57.639846+00:00"
+  },
+  {
+    "id": 192,
+    "lesson_id": "4B-L11",
+    "book_id": "4B",
+    "pattern": "~아/어 버릇하다 (Thói quen...)",
+    "level": "B2+",
+    "explanation": "Động từ + 아/어 버릇하다 = có thói quen làm... Diễn đạt hành động đã trở thành thói quen khó bỏ.",
+    "notes": "",
+    "created_at": "2026-05-08T05:38:57.639846+00:00"
+  },
+  {
+    "id": 193,
+    "lesson_id": "4B-L12",
+    "book_id": "4B",
+    "pattern": "~(으)면 ~(으)ㄹ수록 (Càng... càng...)",
+    "level": "B2+",
+    "explanation": "Động từ + (으)면 + (으)ㄹ수록 = càng... càng... Diễn đạt mối tương quan tỉ lệ thuận hoặc nghịch.",
+    "notes": "",
+    "created_at": "2026-05-08T05:49:11.521512+00:00"
+  },
+  {
+    "id": 194,
+    "lesson_id": "4B-L12",
+    "book_id": "4B",
+    "pattern": "~지 않으면 안 되다 (Bắt buộc phải..., không thể không...)",
+    "level": "B2+",
+    "explanation": "Động từ + 지 않으면 안 되다 = bắt buộc phải... Nhấn mạnh sự cần thiết không thể tránh khỏi.",
+    "notes": "",
+    "created_at": "2026-05-08T05:49:11.521512+00:00"
+  },
+  {
+    "id": 195,
+    "lesson_id": "4B-L12",
+    "book_id": "4B",
+    "pattern": "~에 의해(서) (Bởi..., do...)",
+    "level": "B2+",
+    "explanation": "Danh từ + 에 의해(서) = bởi..., do... Chỉ nguyên nhân hoặc tác nhân gây ra sự việc, thường dùng trong văn viết.",
+    "notes": "",
+    "created_at": "2026-05-08T05:49:11.521512+00:00"
+  },
+  {
+    "id": 196,
+    "lesson_id": "4B-L13",
+    "book_id": "4B",
+    "pattern": "~아/어 있다 (Đang ở trạng thái...)",
+    "level": "B2+",
+    "explanation": "Động từ + 아/어 있다 = đang ở trạng thái... Diễn đạt kết quả của một hành động vẫn còn duy trì.",
+    "notes": "",
+    "created_at": "2026-05-08T05:59:14.730834+00:00"
+  },
+  {
+    "id": 197,
+    "lesson_id": "4B-L13",
+    "book_id": "4B",
+    "pattern": "~(으)ㄹ수록 (Càng... thì càng...)",
+    "level": "B2+",
+    "explanation": "Động từ + (으)ㄹ수록 = càng... thì càng... Diễn đạt mối liên hệ tỉ lệ.",
+    "notes": "",
+    "created_at": "2026-05-08T05:59:14.730834+00:00"
+  },
+  {
+    "id": 198,
+    "lesson_id": "4B-L13",
+    "book_id": "4B",
+    "pattern": "~(으)ㄴ/는 채로 (Trong trạng thái vẫn còn...)",
+    "level": "B2+",
+    "explanation": "Động từ + (으)ㄴ/는 채로 = trong khi vẫn còn ở trạng thái... Nhấn mạnh trạng thái duy trì khi hành động khác xảy ra.",
+    "notes": "",
+    "created_at": "2026-05-08T05:59:14.730834+00:00"
+  },
+  {
+    "id": 199,
+    "lesson_id": "4B-L14",
+    "book_id": "4B",
+    "pattern": "~(으)ㄹ 만하다 (Đáng để..., xứng đáng...)",
+    "level": "B2+",
+    "explanation": "Động từ + (으)ㄹ 만하다 = đáng để..., có giá trị để... Diễn đạt sự đánh giá tích cực hoặc xứng đáng.",
+    "notes": "",
+    "created_at": "2026-05-08T05:59:30.485774+00:00"
+  },
+  {
+    "id": 200,
+    "lesson_id": "4B-L14",
+    "book_id": "4B",
+    "pattern": "~다 보면 (Nếu cứ tiếp tục... thì sẽ...)",
+    "level": "B2+",
+    "explanation": "Động từ + 다 보면 = nếu cứ tiếp tục làm... thì sẽ... Diễn đạt kết quả tự nhiên từ việc lặp đi lặp lại.",
+    "notes": "",
+    "created_at": "2026-05-08T05:59:30.485774+00:00"
+  },
+  {
+    "id": 201,
+    "lesson_id": "4B-L14",
+    "book_id": "4B",
+    "pattern": "~기는 하지만 (Tuy... nhưng...)",
+    "level": "B2+",
+    "explanation": "Động từ + 기는 하지만 = tuy... nhưng... Thừa nhận một điều nhưng đưa ra ý kiến trái chiều.",
+    "notes": "",
+    "created_at": "2026-05-08T05:59:30.485774+00:00"
+  },
+  {
+    "id": 202,
+    "lesson_id": "4B-L15",
+    "book_id": "4B",
+    "pattern": "~(으)ㄹ 뿐만 아니라 (Không chỉ... mà còn...)",
+    "level": "B2+",
+    "explanation": "Động từ/Tính từ + (으)ㄹ 뿐만 아니라 = không chỉ... mà còn... Bổ sung thêm thông tin liên quan.",
+    "notes": "",
+    "created_at": "2026-05-08T06:13:13.766285+00:00"
+  },
+  {
+    "id": 203,
+    "lesson_id": "4B-L15",
+    "book_id": "4B",
+    "pattern": "~는 반면에 (Trong khi... thì... ngược lại...)",
+    "level": "B2+",
+    "explanation": "Động từ/Tính từ + 는 반면에 = trong khi... thì... ngược lại. Diễn đạt sự tương phản giữa hai đặc điểm.",
+    "notes": "",
+    "created_at": "2026-05-08T06:13:13.766285+00:00"
+  },
+  {
+    "id": 204,
+    "lesson_id": "4B-L15",
+    "book_id": "4B",
+    "pattern": "~아/어도 되다 (Có thể... cũng được, được phép...)",
+    "level": "B2+",
+    "explanation": "Động từ + 아/어도 되다 = có thể... cũng được, được phép làm... Cho phép hoặc chấp nhận một hành động.",
+    "notes": "",
+    "created_at": "2026-05-08T06:13:13.766285+00:00"
+  },
+  {
+    "id": 205,
+    "lesson_id": "4B-L16",
+    "book_id": "4B",
+    "pattern": "~(으)ㄹ 리가 없다 (Không thể... được, không có lý...)",
+    "level": "B2+",
+    "explanation": "Động từ + (으)ㄹ 리가 없다 = không thể... được, không có cơ sở nào để... Diễn đạt sự phủ định mạnh hoặc hoài nghi.",
+    "notes": "",
+    "created_at": "2026-05-08T06:13:26.473392+00:00"
+  },
+  {
+    "id": 206,
+    "lesson_id": "4B-L16",
+    "book_id": "4B",
+    "pattern": "~는지 모르다 (Không biết... hay không, không rõ...)",
+    "level": "B2+",
+    "explanation": "Động từ + 는지 모르다 = không biết... hay không. Diễn đạt sự không chắc chắn hoặc thiếu thông tin.",
+    "notes": "",
+    "created_at": "2026-05-08T06:13:26.473392+00:00"
+  },
+  {
+    "id": 207,
+    "lesson_id": "4B-L16",
+    "book_id": "4B",
+    "pattern": "~에 따르면 (Theo..., dựa theo...)",
+    "level": "B2+",
+    "explanation": "Danh từ + 에 따르면 = theo..., dựa theo... Trích dẫn nguồn thông tin hoặc căn cứ.",
+    "notes": "",
+    "created_at": "2026-05-08T06:13:26.473392+00:00"
+  },
+  {
+    "id": 208,
+    "lesson_id": "4B-L17",
+    "book_id": "4B",
+    "pattern": "~았/었더라면 (Nếu hồi đó... thì...)",
+    "level": "B2+",
+    "explanation": "Động từ + 았/었더라면 = nếu hồi đó... thì... Diễn đạt điều kiện giả định trong quá khứ — điều đã không xảy ra.",
+    "notes": "",
+    "created_at": "2026-05-08T06:22:27.80161+00:00"
+  },
+  {
+    "id": 209,
+    "lesson_id": "4B-L17",
+    "book_id": "4B",
+    "pattern": "~(으)ㄹ 뻔하다 (Suýt nữa...)",
+    "level": "B2+",
+    "explanation": "Động từ + (으)ㄹ 뻔하다 = suýt nữa... Diễn đạt một việc gần như xảy ra nhưng cuối cùng không xảy ra.",
+    "notes": "",
+    "created_at": "2026-05-08T06:22:27.80161+00:00"
+  },
+  {
+    "id": 210,
+    "lesson_id": "4B-L17",
+    "book_id": "4B",
+    "pattern": "~(으)ㄴ/는 것 같다 (Có vẻ..., hình như...)",
+    "level": "B2+",
+    "explanation": "Động từ/Tính từ + (으)ㄴ/는 것 같다 = có vẻ..., hình như... Diễn đạt sự suy đoán hay cảm nhận chủ quan.",
+    "notes": "",
+    "created_at": "2026-05-08T06:22:27.80161+00:00"
+  },
+  {
+    "id": 211,
+    "lesson_id": "4B-L18",
+    "book_id": "4B",
+    "pattern": "~았/었다가 (Đã... rồi lại...)",
+    "level": "B2+",
+    "explanation": "Động từ + 았/었다가 = đã làm rồi lại... Diễn đạt hành động trước bị đảo ngược hoặc chuyển sang hành động khác.",
+    "notes": "",
+    "created_at": "2026-05-08T06:22:45.360097+00:00"
+  },
+  {
+    "id": 212,
+    "lesson_id": "4B-L18",
+    "book_id": "4B",
+    "pattern": "~(으)려던 참이다 (Vừa định..., đang định...)",
+    "level": "B2+",
+    "explanation": "Động từ + (으)려던 참이다 = vừa đang định làm... đúng lúc đó. Diễn đạt thời điểm vừa đúng lúc có dự định làm gì đó.",
+    "notes": "",
+    "created_at": "2026-05-08T06:22:45.360097+00:00"
+  },
+  {
+    "id": 213,
+    "lesson_id": "4B-L18",
+    "book_id": "4B",
+    "pattern": "~(으)ㄴ/는 척하다 (Giả vờ..., làm bộ...)",
+    "level": "B2+",
+    "explanation": "Động từ + (으)ㄴ/는 척하다 = giả vờ..., làm bộ... Diễn đạt hành động giả tạo hoặc không thành thật.",
+    "notes": "",
+    "created_at": "2026-05-08T06:22:45.360097+00:00"
+  }
+]

@@ -1,0 +1,1136 @@
+[
+  {
+    "id": 37,
+    "grammar_id": 154,
+    "korean": "진로를 선택하기에 앞서 자신의 적성을 알아야 해요.",
+    "vietnamese": "Trước khi lựa chọn định hướng nghề nghiệp, cần biết năng khiếu của bản thân.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 38,
+    "grammar_id": 154,
+    "korean": "전공을 정하기에 앞서 여러 분야를 알아보세요.",
+    "vietnamese": "Trước khi chọn chuyên ngành, hãy tìm hiểu nhiều lĩnh vực.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 39,
+    "grammar_id": 154,
+    "korean": "취업을 준비하기에 앞서 필요한 능력을 확인했어요.",
+    "vietnamese": "Trước khi chuẩn bị xin việc, tôi đã kiểm tra những năng lực cần thiết.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 40,
+    "grammar_id": 155,
+    "korean": "상담을 통해 제 적성을 알게 되었어요.",
+    "vietnamese": "Thông qua buổi tư vấn, tôi đã biết được năng khiếu của mình.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 41,
+    "grammar_id": 155,
+    "korean": "인턴 경험을 통해 업무 능력을 늘렸어요.",
+    "vietnamese": "Thông qua kinh nghiệm thực tập, tôi đã nâng cao năng lực làm việc.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 42,
+    "grammar_id": 155,
+    "korean": "여행 가이드 일을 통해 많은 여행객을 만났어요.",
+    "vietnamese": "Thông qua công việc hướng dẫn viên du lịch, tôi đã gặp nhiều khách du lịch.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 43,
+    "grammar_id": 156,
+    "korean": "어려움에도 불구하고 꿈을 포기하지 않았어요.",
+    "vietnamese": "Mặc dù gặp khó khăn nhưng tôi đã không từ bỏ ước mơ.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 44,
+    "grammar_id": 156,
+    "korean": "부모님의 반대에도 불구하고 신문방송학과에 진학했어요.",
+    "vietnamese": "Mặc dù bố mẹ phản đối nhưng tôi đã học tiếp lên khoa báo chí và truyền thông.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 45,
+    "grammar_id": 156,
+    "korean": "거절당했음에도 불구하고 다시 지원했어요.",
+    "vietnamese": "Mặc dù bị từ chối nhưng tôi đã ứng tuyển lại.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 46,
+    "grammar_id": 157,
+    "korean": "생각할수록 이 일이 제 적성에 맞는 것 같아요.",
+    "vietnamese": "Càng nghĩ tôi càng thấy công việc này phù hợp với năng khiếu của mình.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 47,
+    "grammar_id": 157,
+    "korean": "연습할수록 음감이 좋아졌어요.",
+    "vietnamese": "Càng luyện tập thì cảm âm càng tốt hơn.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 48,
+    "grammar_id": 157,
+    "korean": "상담할수록 진로가 분명해졌어요.",
+    "vietnamese": "Càng trao đổi tư vấn thì định hướng nghề nghiệp càng rõ ràng.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 49,
+    "grammar_id": 158,
+    "korean": "얼굴이 안 좋아 보여요. 어디 아파요?",
+    "vietnamese": "Trông sắc mặt bạn không tốt. Bạn bị đau ở đâu à?",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 50,
+    "grammar_id": 158,
+    "korean": "눈이 침침해 보여서 안과에 가 봤어요.",
+    "vietnamese": "Vì mắt trông có vẻ mờ nên tôi đã thử đi khoa mắt.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 51,
+    "grammar_id": 158,
+    "korean": "몸이 많이 피곤해 보여요. 좀 쉬세요.",
+    "vietnamese": "Trông bạn rất mệt. Hãy nghỉ một chút đi.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 52,
+    "grammar_id": 159,
+    "korean": "과로하지 않도록 하세요.",
+    "vietnamese": "Hãy cố gắng đừng làm việc quá sức.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 53,
+    "grammar_id": 159,
+    "korean": "술을 지나치게 마시지 않도록 하세요.",
+    "vietnamese": "Hãy cố gắng đừng uống rượu quá mức.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 54,
+    "grammar_id": 159,
+    "korean": "증상이 심하면 바로 치료를 받도록 하세요.",
+    "vietnamese": "Nếu triệu chứng nặng thì hãy đi điều trị ngay.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 55,
+    "grammar_id": 160,
+    "korean": "질병을 예방하기 위해 규칙적으로 운동해요.",
+    "vietnamese": "Tôi tập thể dục đều đặn để phòng bệnh.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 56,
+    "grammar_id": 160,
+    "korean": "건강을 지키기 위해 흡연과 음주를 줄였어요.",
+    "vietnamese": "Tôi đã giảm hút thuốc và uống rượu để giữ sức khỏe.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 57,
+    "grammar_id": 160,
+    "korean": "발목을 치료하기 위해 한의원에 갔어요.",
+    "vietnamese": "Tôi đã đến phòng khám Đông y để điều trị cổ chân.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 58,
+    "grammar_id": 161,
+    "korean": "건강한 삶을 위해 충분히 쉬어야 해요.",
+    "vietnamese": "Để có cuộc sống khỏe mạnh thì phải nghỉ ngơi đầy đủ.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 59,
+    "grammar_id": 161,
+    "korean": "발목이 부으면 얼음찜질을 해야 해요.",
+    "vietnamese": "Nếu cổ chân bị sưng thì phải chườm đá.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 60,
+    "grammar_id": 161,
+    "korean": "폐암을 예방하려면 담배를 끊어야 해요.",
+    "vietnamese": "Nếu muốn phòng ung thư phổi thì phải bỏ thuốc lá.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 61,
+    "grammar_id": 162,
+    "korean": "후반전에 체력이 떨어지는 바람에 역전패했어요.",
+    "vietnamese": "Vì thể lực giảm ở hiệp hai nên đã thua ngược.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 62,
+    "grammar_id": 162,
+    "korean": "선수가 부상당하는 바람에 경기가 어려워졌어요.",
+    "vietnamese": "Vì cầu thủ bị chấn thương nên trận đấu trở nên khó khăn.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 63,
+    "grammar_id": 162,
+    "korean": "반칙을 하는 바람에 경고를 받았어요.",
+    "vietnamese": "Vì phạm lỗi nên đã nhận cảnh cáo.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 64,
+    "grammar_id": 163,
+    "korean": "상대편이 강하기는 하지만 우리 팀도 자신만만해요.",
+    "vietnamese": "Đối thủ mạnh thật nhưng đội chúng tôi cũng rất tự tin.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 65,
+    "grammar_id": 163,
+    "korean": "졌기는 하지만 최선을 다했어요.",
+    "vietnamese": "Thua thật nhưng chúng tôi đã cố gắng hết sức.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 66,
+    "grammar_id": 163,
+    "korean": "체격은 작기는 하지만 기술이 좋아요.",
+    "vietnamese": "Thể hình nhỏ thật nhưng kỹ thuật tốt.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 67,
+    "grammar_id": 164,
+    "korean": "계속 연습하다 보면 실력이 좋아질 거예요.",
+    "vietnamese": "Nếu cứ luyện tập thì thực lực sẽ tốt lên.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 68,
+    "grammar_id": 164,
+    "korean": "경기를 많이 관람하다 보면 규칙을 알게 돼요.",
+    "vietnamese": "Nếu xem nhiều trận đấu thì sẽ biết luật.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 69,
+    "grammar_id": 164,
+    "korean": "끝까지 응원하다 보면 좋은 순간을 볼 수 있어요.",
+    "vietnamese": "Nếu cổ vũ đến cuối thì có thể thấy khoảnh khắc đẹp.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 70,
+    "grammar_id": 165,
+    "korean": "선수들이 자신만만해 보여요.",
+    "vietnamese": "Các vận động viên trông có vẻ rất tự tin.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 71,
+    "grammar_id": 165,
+    "korean": "경기가 정말 흥미진진해 보여요.",
+    "vietnamese": "Trận đấu trông có vẻ rất hấp dẫn.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 72,
+    "grammar_id": 165,
+    "korean": "상대편 선수가 많이 지쳐 보여요.",
+    "vietnamese": "Cầu thủ đối phương trông có vẻ rất mệt.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 73,
+    "grammar_id": 166,
+    "korean": "그 옷은 여성스러워 보여요.",
+    "vietnamese": "Bộ đồ đó trông nữ tính.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 74,
+    "grammar_id": 166,
+    "korean": "딸이 상을 받아서 정말 자랑스러워요.",
+    "vietnamese": "Con gái nhận giải nên tôi thật sự tự hào.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 75,
+    "grammar_id": 166,
+    "korean": "갑자기 그런 말을 들어서 당황스러웠어요.",
+    "vietnamese": "Đột nhiên nghe lời như vậy nên tôi bối rối.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 76,
+    "grammar_id": 167,
+    "korean": "남자답게 행동해야 한다고 생각하지 않아요.",
+    "vietnamese": "Tôi không nghĩ nhất định phải hành động ra dáng đàn ông.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 77,
+    "grammar_id": 167,
+    "korean": "그 사람은 언제나 선생님답게 침착해요.",
+    "vietnamese": "Người đó lúc nào cũng điềm tĩnh đúng chất giáo viên.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 78,
+    "grammar_id": 167,
+    "korean": "자신답게 사는 것이 중요해요.",
+    "vietnamese": "Sống đúng với bản thân là điều quan trọng.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 79,
+    "grammar_id": 168,
+    "korean": "의논하기는커녕 서로 따지기만 했어요.",
+    "vietnamese": "Đừng nói đến bàn bạc, hai người chỉ cãi lý với nhau.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 80,
+    "grammar_id": 168,
+    "korean": "침착하기는커녕 우왕좌왕했어요.",
+    "vietnamese": "Đừng nói đến bình tĩnh, tôi đã lúng túng không biết làm gì.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 81,
+    "grammar_id": 168,
+    "korean": "사과하기는커녕 발끈했어요.",
+    "vietnamese": "Đừng nói đến xin lỗi, anh ấy còn nổi nóng.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 82,
+    "grammar_id": 169,
+    "korean": "남성에 비해 여성이 감정이 풍부하다는 말은 근거가 필요해요.",
+    "vietnamese": "Nói rằng phụ nữ giàu cảm xúc hơn nam giới thì cần căn cứ.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 83,
+    "grammar_id": 169,
+    "korean": "예전에 비해 여성 조종사가 많아졌어요.",
+    "vietnamese": "So với trước đây, nữ phi công đã nhiều hơn.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 84,
+    "grammar_id": 169,
+    "korean": "가격에 비해 서비스 수준이 높아요.",
+    "vietnamese": "So với giá thì mức độ dịch vụ cao.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 85,
+    "grammar_id": 170,
+    "korean": "그 사람 이야기를 하더니 바로 왔어요.",
+    "vietnamese": "Vừa nói chuyện về người đó thì người đó đến ngay.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 86,
+    "grammar_id": 170,
+    "korean": "처음에는 열심히 하더니 요즘은 연락이 뜸해요.",
+    "vietnamese": "Ban đầu chăm chỉ vậy mà dạo này ít liên lạc.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 87,
+    "grammar_id": 170,
+    "korean": "느긋하게 준비하더니 마감 때문에 정신이 없대요.",
+    "vietnamese": "Chuẩn bị thong thả vậy mà vì hạn chót nên nghe nói đang bận tối tăm mặt mũi.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 88,
+    "grammar_id": 171,
+    "korean": "시작이 반이잖아요. 일단 시작해 보세요.",
+    "vietnamese": "Bắt đầu là đã được một nửa mà. Cứ thử bắt đầu đi.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 89,
+    "grammar_id": 171,
+    "korean": "그 사람은 입이 가볍잖아요. 비밀을 말하지 마세요.",
+    "vietnamese": "Người đó lẻo mép mà. Đừng nói bí mật.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 90,
+    "grammar_id": 171,
+    "korean": "원숭이도 나무에서 떨어질 때가 있잖아요.",
+    "vietnamese": "Khỉ cũng có lúc rơi khỏi cây mà.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 91,
+    "grammar_id": 172,
+    "korean": "마감이 겹치는 바람에 정신이 없었어요.",
+    "vietnamese": "Vì các hạn chót trùng nhau nên tôi bận tối tăm mặt mũi.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 92,
+    "grammar_id": 172,
+    "korean": "동료가 비밀을 말하는 바람에 혼났어요.",
+    "vietnamese": "Vì đồng nghiệp nói bí mật ra nên tôi bị la.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 93,
+    "grammar_id": 172,
+    "korean": "큰 회사들이 경쟁하는 바람에 작은 가게 장사가 안됐어요.",
+    "vietnamese": "Vì các công ty lớn cạnh tranh nên cửa hàng nhỏ buôn bán ế ẩm.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 94,
+    "grammar_id": 173,
+    "korean": "속담을 자주 쓰다 보니 한국어 표현이 자연스러워졌어요.",
+    "vietnamese": "Cứ dùng tục ngữ thường xuyên nên cách diễn đạt tiếng Hàn trở nên tự nhiên hơn.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 95,
+    "grammar_id": 173,
+    "korean": "장시간 혼자 공부하다 보니 외로움을 느꼈어요.",
+    "vietnamese": "Cứ học một mình trong thời gian dài nên tôi cảm thấy cô đơn.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 96,
+    "grammar_id": 173,
+    "korean": "조깅을 제대로 하다 보니 건강이 좋아졌어요.",
+    "vietnamese": "Cứ chạy bộ đúng cách nên sức khỏe tốt lên.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 97,
+    "grammar_id": 174,
+    "korean": "이 축제에는 볼거리가 정말 많아요.",
+    "vietnamese": "Lễ hội này có rất nhiều thứ đáng xem.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 98,
+    "grammar_id": 174,
+    "korean": "여행을 다녀오니 이야깃거리가 생겼어요.",
+    "vietnamese": "Đi du lịch về nên có chuyện để kể.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 99,
+    "grammar_id": 174,
+    "korean": "비가 올까 봐 걱정거리가 하나 생겼어요.",
+    "vietnamese": "Vì sợ trời mưa nên có một điều đáng lo.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 100,
+    "grammar_id": 175,
+    "korean": "공연이 기대만 못했어요.",
+    "vietnamese": "Buổi biểu diễn không được như kỳ vọng.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 101,
+    "grammar_id": 175,
+    "korean": "이번 축제는 작년만 못했어요.",
+    "vietnamese": "Lễ hội lần này không bằng năm ngoái.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 102,
+    "grammar_id": 175,
+    "korean": "설명은 많았지만 실제 체험만 못했어요.",
+    "vietnamese": "Giải thích thì nhiều nhưng không bằng trải nghiệm thực tế.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 103,
+    "grammar_id": 176,
+    "korean": "부채춤을 비롯해 판소리와 사물놀이도 감상했어요.",
+    "vietnamese": "Tôi đã thưởng thức cả pansori và samulnori, bao gồm cả múa quạt.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 104,
+    "grammar_id": 176,
+    "korean": "국내외 관광객을 비롯해 지역 주민들도 축제에 참여했어요.",
+    "vietnamese": "Bao gồm du khách trong và ngoài nước, người dân địa phương cũng tham gia lễ hội.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 105,
+    "grammar_id": 176,
+    "korean": "K 팝을 비롯해 힙합과 발라드 공연도 진행됐어요.",
+    "vietnamese": "Bao gồm K-pop, các màn hip-hop và ballad cũng được diễn ra.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 106,
+    "grammar_id": 177,
+    "korean": "축제를 통해 한국 문화를 널리 알릴 수 있어요.",
+    "vietnamese": "Thông qua lễ hội có thể quảng bá rộng rãi văn hóa Hàn Quốc.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 107,
+    "grammar_id": 177,
+    "korean": "체험 프로그램을 통해 전통 음악을 배웠어요.",
+    "vietnamese": "Thông qua chương trình trải nghiệm, tôi đã học nhạc truyền thống.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 108,
+    "grammar_id": 177,
+    "korean": "유튜브를 통해 공연 영상을 공유했어요.",
+    "vietnamese": "Thông qua YouTube, tôi đã chia sẻ video biểu diễn.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 109,
+    "grammar_id": 178,
+    "korean": "공공장소에서 큰 소리로 전화하는 게 그릇돼요.",
+    "vietnamese": "Nói chuyện điện thoại to tiếng ở nơi công cộng là sai trái.",
+    "created_at": "2026-05-08T04:57:45.704421+00:00"
+  },
+  {
+    "id": 110,
+    "grammar_id": 178,
+    "korean": "어른에게 자리를 양보하는 게 맞아요.",
+    "vietnamese": "Nhường chỗ cho người lớn tuổi là đúng.",
+    "created_at": "2026-05-08T04:57:45.704421+00:00"
+  },
+  {
+    "id": 111,
+    "grammar_id": 178,
+    "korean": "남의 물건을 훔치는 게 그릇돼요.",
+    "vietnamese": "Trộm đồ của người khác là sai trái.",
+    "created_at": "2026-05-08T04:57:45.704421+00:00"
+  },
+  {
+    "id": 112,
+    "grammar_id": 179,
+    "korean": "상영관 안에서 음식물을 반입해서는 안 돼요.",
+    "vietnamese": "Không được mang đồ ăn vào phòng chiếu phim.",
+    "created_at": "2026-05-08T04:57:45.704421+00:00"
+  },
+  {
+    "id": 113,
+    "grammar_id": 179,
+    "korean": "한밤중에 악기를 연주해서는 안 돼요.",
+    "vietnamese": "Không được chơi nhạc cụ vào giữa đêm khuya.",
+    "created_at": "2026-05-08T04:57:45.704421+00:00"
+  },
+  {
+    "id": 114,
+    "grammar_id": 179,
+    "korean": "남에게 불편을 줘서는 안 돼요.",
+    "vietnamese": "Không được gây bất tiện cho người khác.",
+    "created_at": "2026-05-08T04:57:45.704421+00:00"
+  },
+  {
+    "id": 115,
+    "grammar_id": 180,
+    "korean": "소음이 심할 경우에는 관리 사무소에 신고하세요.",
+    "vietnamese": "Trong trường hợp tiếng ồn quá lớn, hãy báo lên ban quản lý.",
+    "created_at": "2026-05-08T04:57:45.704421+00:00"
+  },
+  {
+    "id": 116,
+    "grammar_id": 180,
+    "korean": "문제가 생길 경우에는 즉시 연락해 주세요.",
+    "vietnamese": "Trong trường hợp có vấn đề, hãy liên lạc ngay.",
+    "created_at": "2026-05-08T04:57:45.704421+00:00"
+  },
+  {
+    "id": 117,
+    "grammar_id": 181,
+    "korean": "세계 문화를 알면 알수록 더 흥미로워요.",
+    "vietnamese": "Càng hiểu biết về văn hóa thế giới càng thú vị hơn.",
+    "created_at": "2026-05-08T05:12:05.004308+00:00"
+  },
+  {
+    "id": 118,
+    "grammar_id": 181,
+    "korean": "사투리는 들으면 들을수록 정겨워요.",
+    "vietnamese": "Phương ngữ càng nghe càng ấm áp tình cảm.",
+    "created_at": "2026-05-08T05:12:05.004308+00:00"
+  },
+  {
+    "id": 119,
+    "grammar_id": 181,
+    "korean": "전통을 지킬수록 문화가 풍성해져요.",
+    "vietnamese": "Càng gìn giữ truyền thống, văn hóa càng phong phú.",
+    "created_at": "2026-05-08T05:12:05.004308+00:00"
+  },
+  {
+    "id": 120,
+    "grammar_id": 182,
+    "korean": "한국에 비해서 다른 나라는 사투리 차이가 더 커요.",
+    "vietnamese": "So với Hàn Quốc, ở các nước khác sự khác biệt phương ngữ lớn hơn.",
+    "created_at": "2026-05-08T05:12:05.004308+00:00"
+  },
+  {
+    "id": 121,
+    "grammar_id": 182,
+    "korean": "도시에 비해서 농촌의 전통이 더 잘 보존되어 있어요.",
+    "vietnamese": "So với thành phố, truyền thống nông thôn được bảo tồn tốt hơn.",
+    "created_at": "2026-05-08T05:12:05.004308+00:00"
+  },
+  {
+    "id": 122,
+    "grammar_id": 183,
+    "korean": "민속놀이는 문화의 특징을 잘 보여 준다고 할 수 있어요.",
+    "vietnamese": "Có thể nói trò chơi dân gian thể hiện rõ đặc trưng văn hóa.",
+    "created_at": "2026-05-08T05:12:05.004308+00:00"
+  },
+  {
+    "id": 123,
+    "grammar_id": 183,
+    "korean": "언어는 문화를 반영한다고 할 수 있어요.",
+    "vietnamese": "Có thể nói ngôn ngữ phản ánh văn hóa.",
+    "created_at": "2026-05-08T05:12:05.004308+00:00"
+  },
+  {
+    "id": 124,
+    "grammar_id": 184,
+    "korean": "데뷔한 지 1년 만에 상을 받다니 정말 대단해요.",
+    "vietnamese": "Mới debut được 1 năm mà đã nhận giải, thật không ngờ.",
+    "created_at": "2026-05-08T05:22:58.427087+00:00"
+  },
+  {
+    "id": 125,
+    "grammar_id": 184,
+    "korean": "그 배우가 은퇴한다니 믿기지 않아요.",
+    "vietnamese": "Nghe nói diễn viên đó về hưu mà không thể tin được.",
+    "created_at": "2026-05-08T05:22:58.427087+00:00"
+  },
+  {
+    "id": 126,
+    "grammar_id": 184,
+    "korean": "이 드라마가 그렇게 인기가 있다니 몰랐어요.",
+    "vietnamese": "Không ngờ bộ phim này lại nổi tiếng đến vậy.",
+    "created_at": "2026-05-08T05:22:58.427087+00:00"
+  },
+  {
+    "id": 127,
+    "grammar_id": 185,
+    "korean": "이 드라마는 볼 만해요.",
+    "vietnamese": "Bộ phim này đáng xem.",
+    "created_at": "2026-05-08T05:22:58.427087+00:00"
+  },
+  {
+    "id": 128,
+    "grammar_id": 185,
+    "korean": "그 배우의 연기는 믿을 만해요.",
+    "vietnamese": "Diễn xuất của diễn viên đó đáng tin.",
+    "created_at": "2026-05-08T05:22:58.427087+00:00"
+  },
+  {
+    "id": 129,
+    "grammar_id": 185,
+    "korean": "이 가수의 가창력은 인정할 만해요.",
+    "vietnamese": "Khả năng ca hát của ca sĩ này đáng được công nhận.",
+    "created_at": "2026-05-08T05:22:58.427087+00:00"
+  },
+  {
+    "id": 130,
+    "grammar_id": 186,
+    "korean": "이 드라마는 진지한 편이에요.",
+    "vietnamese": "Bộ phim này thuộc loại nghiêm túc.",
+    "created_at": "2026-05-08T05:22:58.427087+00:00"
+  },
+  {
+    "id": 131,
+    "grammar_id": 186,
+    "korean": "그 가수는 애교가 많은 편이에요.",
+    "vietnamese": "Ca sĩ đó thiên về hay nũng nịu.",
+    "created_at": "2026-05-08T05:22:58.427087+00:00"
+  },
+  {
+    "id": 132,
+    "grammar_id": 186,
+    "korean": "솔직히 이 노래는 경쾌한 편이에요.",
+    "vietnamese": "Thành thật mà nói, bài hát này thuộc loại vui tươi.",
+    "created_at": "2026-05-08T05:22:58.427087+00:00"
+  },
+  {
+    "id": 133,
+    "grammar_id": 187,
+    "korean": "열심히 공부했더니 시험에 합격했어요.",
+    "vietnamese": "Sau khi học chăm chỉ thì đã đậu kỳ thi.",
+    "created_at": "2026-05-08T05:38:43.051878+00:00"
+  },
+  {
+    "id": 134,
+    "grammar_id": 187,
+    "korean": "욕심을 부렸더니 벌을 받았어요.",
+    "vietnamese": "Sau khi tham lam thì bị phạt.",
+    "created_at": "2026-05-08T05:38:43.051878+00:00"
+  },
+  {
+    "id": 135,
+    "grammar_id": 187,
+    "korean": "은혜를 갚았더니 복을 받았어요.",
+    "vietnamese": "Sau khi đền ơn thì được phước.",
+    "created_at": "2026-05-08T05:38:43.051878+00:00"
+  },
+  {
+    "id": 136,
+    "grammar_id": 188,
+    "korean": "옷을 입은 채로 잠들었어요.",
+    "vietnamese": "Đã ngủ quên trong khi vẫn còn mặc nguyên quần áo.",
+    "created_at": "2026-05-08T05:38:43.051878+00:00"
+  },
+  {
+    "id": 137,
+    "grammar_id": 188,
+    "korean": "눈을 감은 채로 동굴 안에 있었어요.",
+    "vietnamese": "Đã ở trong hang với đôi mắt nhắm.",
+    "created_at": "2026-05-08T05:38:43.051878+00:00"
+  },
+  {
+    "id": 138,
+    "grammar_id": 189,
+    "korean": "마침내 나라를 세울 수 있도록 버텼어요.",
+    "vietnamese": "Đã cầm cự để cuối cùng có thể lập nên đất nước.",
+    "created_at": "2026-05-08T05:38:43.051878+00:00"
+  },
+  {
+    "id": 139,
+    "grammar_id": 189,
+    "korean": "무사히 도착할 수 있도록 기도했어요.",
+    "vietnamese": "Đã cầu nguyện để đến nơi bình an.",
+    "created_at": "2026-05-08T05:38:43.051878+00:00"
+  },
+  {
+    "id": 140,
+    "grammar_id": 190,
+    "korean": "욕설이 퍼지는 데다가 외래어까지 늘고 있어요.",
+    "vietnamese": "Ngoài việc chửi tục lan rộng ra còn cả từ ngoại lai đang tăng lên.",
+    "created_at": "2026-05-08T05:38:57.639846+00:00"
+  },
+  {
+    "id": 141,
+    "grammar_id": 190,
+    "korean": "어휘력이 줄어드는 데다가 표현력도 떨어져요.",
+    "vietnamese": "Ngoài vốn từ vựng giảm ra, năng lực biểu đạt cũng giảm.",
+    "created_at": "2026-05-08T05:38:57.639846+00:00"
+  },
+  {
+    "id": 142,
+    "grammar_id": 190,
+    "korean": "줄임말이 많아지는 데다가 의사소통도 어려워졌어요.",
+    "vietnamese": "Ngoài từ viết tắt ngày càng nhiều, giao tiếp cũng trở nên khó hơn.",
+    "created_at": "2026-05-08T05:38:57.639846+00:00"
+  },
+  {
+    "id": 143,
+    "grammar_id": 191,
+    "korean": "줄임말을 써버릇하게 됐어요.",
+    "vietnamese": "Đâm ra có thói quen dùng từ viết tắt.",
+    "created_at": "2026-05-08T05:38:57.639846+00:00"
+  },
+  {
+    "id": 144,
+    "grammar_id": 191,
+    "korean": "시간이 지나면서 그 표현이 굳어지게 됐어요.",
+    "vietnamese": "Theo thời gian, cách diễn đạt đó trở nên cố định.",
+    "created_at": "2026-05-08T05:38:57.639846+00:00"
+  },
+  {
+    "id": 145,
+    "grammar_id": 191,
+    "korean": "외래어를 자연스럽게 사용하게 됐어요.",
+    "vietnamese": "Đã tự nhiên dùng được từ ngoại lai.",
+    "created_at": "2026-05-08T05:38:57.639846+00:00"
+  },
+  {
+    "id": 146,
+    "grammar_id": 192,
+    "korean": "욕을 써 버릇하면 고치기 힘들어요.",
+    "vietnamese": "Đã có thói quen chửi tục thì khó sửa.",
+    "created_at": "2026-05-08T05:38:57.639846+00:00"
+  },
+  {
+    "id": 147,
+    "grammar_id": 192,
+    "korean": "줄임말을 써 버릇했어요.",
+    "vietnamese": "Đã có thói quen dùng từ viết tắt.",
+    "created_at": "2026-05-08T05:38:57.639846+00:00"
+  },
+  {
+    "id": 148,
+    "grammar_id": 193,
+    "korean": "환경 오염이 심해지면 심해질수록 피해도 커져요.",
+    "vietnamese": "Ô nhiễm môi trường càng nghiêm trọng thì thiệt hại càng lớn.",
+    "created_at": "2026-05-08T05:49:11.521512+00:00"
+  },
+  {
+    "id": 149,
+    "grammar_id": 193,
+    "korean": "빙하가 녹으면 녹을수록 해수면이 높아져요.",
+    "vietnamese": "Băng càng tan nhiều thì mực nước biển càng dâng cao.",
+    "created_at": "2026-05-08T05:49:11.521512+00:00"
+  },
+  {
+    "id": 150,
+    "grammar_id": 193,
+    "korean": "재활용을 많이 하면 할수록 환경이 좋아져요.",
+    "vietnamese": "Tái chế càng nhiều thì môi trường càng tốt hơn.",
+    "created_at": "2026-05-08T05:49:11.521512+00:00"
+  },
+  {
+    "id": 151,
+    "grammar_id": 194,
+    "korean": "환경을 보호하지 않으면 안 돼요.",
+    "vietnamese": "Bắt buộc phải bảo vệ môi trường.",
+    "created_at": "2026-05-08T05:49:11.521512+00:00"
+  },
+  {
+    "id": 152,
+    "grammar_id": 194,
+    "korean": "일회용품 사용을 줄이지 않으면 안 돼요.",
+    "vietnamese": "Không thể không giảm đồ dùng một lần.",
+    "created_at": "2026-05-08T05:49:11.521512+00:00"
+  },
+  {
+    "id": 153,
+    "grammar_id": 194,
+    "korean": "폐수를 정화하지 않으면 안 됩니다.",
+    "vietnamese": "Bắt buộc phải xử lý nước thải.",
+    "created_at": "2026-05-08T05:49:11.521512+00:00"
+  },
+  {
+    "id": 154,
+    "grammar_id": 195,
+    "korean": "인간에 의해서 환경이 파괴되고 있어요.",
+    "vietnamese": "Môi trường đang bị tàn phá bởi con người.",
+    "created_at": "2026-05-08T05:49:11.521512+00:00"
+  },
+  {
+    "id": 155,
+    "grammar_id": 195,
+    "korean": "공장 폐수에 의해 강물이 오염됐어요.",
+    "vietnamese": "Nước sông bị ô nhiễm do nước thải nhà máy.",
+    "created_at": "2026-05-08T05:49:11.521512+00:00"
+  },
+  {
+    "id": 156,
+    "grammar_id": 196,
+    "korean": "나무들이 줄지어 서 있어요.",
+    "vietnamese": "Những cây cối đang xếp thành hàng (và vẫn như thế).",
+    "created_at": "2026-05-08T05:59:14.730834+00:00"
+  },
+  {
+    "id": 157,
+    "grammar_id": 196,
+    "korean": "꽃잎이 바람에 날려 있어요.",
+    "vietnamese": "Cánh hoa đang bay lơ lửng trong gió.",
+    "created_at": "2026-05-08T05:59:14.730834+00:00"
+  },
+  {
+    "id": 158,
+    "grammar_id": 196,
+    "korean": "용이 돌에 조각되어 있어요.",
+    "vietnamese": "Rồng đang được điêu khắc trên đá.",
+    "created_at": "2026-05-08T05:59:14.730834+00:00"
+  },
+  {
+    "id": 159,
+    "grammar_id": 197,
+    "korean": "여행을 많이 할수록 견문이 넓어져요.",
+    "vietnamese": "Càng đi du lịch nhiều thì tầm hiểu biết càng rộng.",
+    "created_at": "2026-05-08T05:59:14.730834+00:00"
+  },
+  {
+    "id": 160,
+    "grammar_id": 197,
+    "korean": "자연 속에 있을수록 마음이 차분해져요.",
+    "vietnamese": "Càng ở trong thiên nhiên thì tâm trạng càng bình tĩnh.",
+    "created_at": "2026-05-08T05:59:14.730834+00:00"
+  },
+  {
+    "id": 161,
+    "grammar_id": 198,
+    "korean": "눈을 감은 채로 풍경을 느꼈어요.",
+    "vietnamese": "Cảm nhận phong cảnh trong khi mắt vẫn nhắm.",
+    "created_at": "2026-05-08T05:59:14.730834+00:00"
+  },
+  {
+    "id": 162,
+    "grammar_id": 198,
+    "korean": "서 있는 채로 사진을 찍었어요.",
+    "vietnamese": "Chụp ảnh trong khi vẫn đứng nguyên.",
+    "created_at": "2026-05-08T05:59:14.730834+00:00"
+  },
+  {
+    "id": 163,
+    "grammar_id": 199,
+    "korean": "한번 가 볼 만한 곳이에요.",
+    "vietnamese": "Là nơi đáng để thử đến một lần.",
+    "created_at": "2026-05-08T05:59:30.485774+00:00"
+  },
+  {
+    "id": 164,
+    "grammar_id": 199,
+    "korean": "자격증을 딸 만해요.",
+    "vietnamese": "Đáng để lấy chứng chỉ đó.",
+    "created_at": "2026-05-08T05:59:30.485774+00:00"
+  },
+  {
+    "id": 165,
+    "grammar_id": 199,
+    "korean": "읽을 만한 책이에요.",
+    "vietnamese": "Là cuốn sách đáng đọc.",
+    "created_at": "2026-05-08T05:59:30.485774+00:00"
+  },
+  {
+    "id": 166,
+    "grammar_id": 200,
+    "korean": "계속 노력하다 보면 성공할 거예요.",
+    "vietnamese": "Nếu cứ tiếp tục cố gắng thì sẽ thành công.",
+    "created_at": "2026-05-08T05:59:30.485774+00:00"
+  },
+  {
+    "id": 167,
+    "grammar_id": 200,
+    "korean": "지식을 쌓다 보면 전문가가 돼요.",
+    "vietnamese": "Nếu cứ tích lũy kiến thức thì sẽ trở thành chuyên gia.",
+    "created_at": "2026-05-08T05:59:30.485774+00:00"
+  },
+  {
+    "id": 168,
+    "grammar_id": 200,
+    "korean": "부담이 늘다 보면 결국 지치게 돼요.",
+    "vietnamese": "Nếu cứ gánh nặng tăng lên thì cuối cùng sẽ kiệt sức.",
+    "created_at": "2026-05-08T05:59:30.485774+00:00"
+  },
+  {
+    "id": 169,
+    "grammar_id": 201,
+    "korean": "현실이기는 하지만 받아들이기 어려워요.",
+    "vietnamese": "Tuy là thực tế nhưng khó chấp nhận.",
+    "created_at": "2026-05-08T05:59:30.485774+00:00"
+  },
+  {
+    "id": 170,
+    "grammar_id": 201,
+    "korean": "만만치 않기는 하지만 포기할 수 없어요.",
+    "vietnamese": "Tuy không dễ dàng nhưng không thể bỏ cuộc.",
+    "created_at": "2026-05-08T05:59:30.485774+00:00"
+  },
+  {
+    "id": 171,
+    "grammar_id": 201,
+    "korean": "이상적이기는 하지만 현실과 달라요.",
+    "vietnamese": "Tuy là lý tưởng nhưng khác với thực tế.",
+    "created_at": "2026-05-08T05:59:30.485774+00:00"
+  },
+  {
+    "id": 172,
+    "grammar_id": 202,
+    "korean": "반려동물은 외로움을 달래 줄 뿐만 아니라 정서적으로 안정시켜 줘요.",
+    "vietnamese": "Thú cưng không chỉ xoa dịu nỗi cô đơn mà còn giúp ổn định tình cảm.",
+    "created_at": "2026-05-08T06:13:13.766285+00:00"
+  },
+  {
+    "id": 173,
+    "grammar_id": 202,
+    "korean": "진돗개는 대담할 뿐만 아니라 충성심도 강해요.",
+    "vietnamese": "Chó Jindo không chỉ táo bạo mà còn rất trung thành.",
+    "created_at": "2026-05-08T06:13:13.766285+00:00"
+  },
+  {
+    "id": 174,
+    "grammar_id": 202,
+    "korean": "학대는 고통을 줄 뿐만 아니라 동물의 본능도 망가뜨려요.",
+    "vietnamese": "Bạo hành không chỉ gây đau khổ mà còn phá hủy bản năng của động vật.",
+    "created_at": "2026-05-08T06:13:13.766285+00:00"
+  },
+  {
+    "id": 175,
+    "grammar_id": 203,
+    "korean": "개는 집을 잘 지키는 반면에 관리가 힘들어요.",
+    "vietnamese": "Chó trông nhà tốt trong khi đó việc quản lý lại khó.",
+    "created_at": "2026-05-08T06:13:13.766285+00:00"
+  },
+  {
+    "id": 176,
+    "grammar_id": 203,
+    "korean": "화초는 정서적으로 안정되게 해 주는 반면에 물 주기가 번거로워요.",
+    "vietnamese": "Cây cảnh giúp ổn định tình cảm trong khi đó việc tưới nước lại phiền phức.",
+    "created_at": "2026-05-08T06:13:13.766285+00:00"
+  },
+  {
+    "id": 177,
+    "grammar_id": 204,
+    "korean": "화초는 베란다에 두어도 돼요.",
+    "vietnamese": "Cây cảnh để ở ban công cũng được.",
+    "created_at": "2026-05-08T06:13:13.766285+00:00"
+  },
+  {
+    "id": 178,
+    "grammar_id": 204,
+    "korean": "먹이는 하루에 한 번만 줘도 돼요.",
+    "vietnamese": "Thức ăn chỉ cần cho một lần một ngày cũng được.",
+    "created_at": "2026-05-08T06:13:13.766285+00:00"
+  },
+  {
+    "id": 179,
+    "grammar_id": 205,
+    "korean": "투명인간이 존재할 리가 없어요.",
+    "vietnamese": "Không thể nào người vô hình lại tồn tại được.",
+    "created_at": "2026-05-08T06:13:26.473392+00:00"
+  },
+  {
+    "id": 180,
+    "grammar_id": 205,
+    "korean": "이게 유전으로 전달될 리가 없어요.",
+    "vietnamese": "Điều này không thể được truyền qua di truyền.",
+    "created_at": "2026-05-08T06:13:26.473392+00:00"
+  },
+  {
+    "id": 181,
+    "grammar_id": 205,
+    "korean": "운석이 이렇게 자주 떨어질 리가 없어요.",
+    "vietnamese": "Không thể nào thiên thạch lại rơi xuống thường xuyên như vậy.",
+    "created_at": "2026-05-08T06:13:26.473392+00:00"
+  },
+  {
+    "id": 182,
+    "grammar_id": 206,
+    "korean": "외계인이 존재하는지 모르겠어요.",
+    "vietnamese": "Không biết người ngoài hành tinh có tồn tại hay không.",
+    "created_at": "2026-05-08T06:13:26.473392+00:00"
+  },
+  {
+    "id": 183,
+    "grammar_id": 206,
+    "korean": "타임머신이 이론적으로 가능한지 모르겠어요.",
+    "vietnamese": "Không biết cỗ máy thời gian có khả thi về mặt lý thuyết hay không.",
+    "created_at": "2026-05-08T06:13:26.473392+00:00"
+  },
+  {
+    "id": 184,
+    "grammar_id": 207,
+    "korean": "과학자들에 따르면 쌍꺼풀은 우성 유전이에요.",
+    "vietnamese": "Theo các nhà khoa học, mắt hai mí là gen trội.",
+    "created_at": "2026-05-08T06:13:26.473392+00:00"
+  },
+  {
+    "id": 185,
+    "grammar_id": 207,
+    "korean": "연구에 따르면 곱슬머리도 유전이에요.",
+    "vietnamese": "Theo nghiên cứu, tóc xoăn cũng do di truyền.",
+    "created_at": "2026-05-08T06:13:26.473392+00:00"
+  },
+  {
+    "id": 186,
+    "grammar_id": 208,
+    "korean": "일찍 만났더라면 더 좋았을 텐데요.",
+    "vietnamese": "Giá mà hồi đó gặp nhau sớm hơn thì tốt biết mấy.",
+    "created_at": "2026-05-08T06:22:27.80161+00:00"
+  },
+  {
+    "id": 187,
+    "grammar_id": 208,
+    "korean": "연락을 했더라면 만날 수 있었을 텐데요.",
+    "vietnamese": "Nếu hồi đó liên lạc thì đã có thể gặp nhau.",
+    "created_at": "2026-05-08T06:22:27.80161+00:00"
+  },
+  {
+    "id": 188,
+    "grammar_id": 209,
+    "korean": "못 알아볼 뻔했어요.",
+    "vietnamese": "Suýt nữa không nhận ra.",
+    "created_at": "2026-05-08T06:22:27.80161+00:00"
+  },
+  {
+    "id": 189,
+    "grammar_id": 209,
+    "korean": "지나칠 뻔했어요.",
+    "vietnamese": "Suýt nữa đi qua mà không thấy.",
+    "created_at": "2026-05-08T06:22:27.80161+00:00"
+  },
+  {
+    "id": 190,
+    "grammar_id": 210,
+    "korean": "많이 달라진 것 같아요.",
+    "vietnamese": "Có vẻ đã thay đổi nhiều.",
+    "created_at": "2026-05-08T06:22:27.80161+00:00"
+  },
+  {
+    "id": 191,
+    "grammar_id": 210,
+    "korean": "하나도 안 변한 것 같아요.",
+    "vietnamese": "Hình như không thay đổi chút nào.",
+    "created_at": "2026-05-08T06:22:27.80161+00:00"
+  },
+  {
+    "id": 192,
+    "grammar_id": 211,
+    "korean": "제비가 날아갔다가 다시 돌아왔어요.",
+    "vietnamese": "Chim én đã bay đi rồi lại quay về.",
+    "created_at": "2026-05-08T06:22:45.360097+00:00"
+  },
+  {
+    "id": 193,
+    "grammar_id": 211,
+    "korean": "박이 열렸다가 다시 닫혔어요.",
+    "vietnamese": "Quả bầu đã mở ra rồi lại đóng lại.",
+    "created_at": "2026-05-08T06:22:45.360097+00:00"
+  },
+  {
+    "id": 194,
+    "grammar_id": 211,
+    "korean": "보물이 나왔다가 사라졌어요.",
+    "vietnamese": "Bảo vật đã xuất hiện rồi lại biến mất.",
+    "created_at": "2026-05-08T06:22:45.360097+00:00"
+  },
+  {
+    "id": 195,
+    "grammar_id": 212,
+    "korean": "박을 열려던 참이었어요.",
+    "vietnamese": "Vừa đúng lúc đang định mở quả bầu.",
+    "created_at": "2026-05-08T06:22:45.360097+00:00"
+  },
+  {
+    "id": 196,
+    "grammar_id": 212,
+    "korean": "제비를 돌려보내려던 참이었어요.",
+    "vietnamese": "Vừa đang định thả chim én đi.",
+    "created_at": "2026-05-08T06:22:45.360097+00:00"
+  },
+  {
+    "id": 197,
+    "grammar_id": 213,
+    "korean": "놀부는 가난한 척했어요.",
+    "vietnamese": "Nolbu giả vờ nghèo.",
+    "created_at": "2026-05-08T06:22:45.360097+00:00"
+  },
+  {
+    "id": 198,
+    "grammar_id": 213,
+    "korean": "모르는 척했어요.",
+    "vietnamese": "Đã giả vờ không biết.",
+    "created_at": "2026-05-08T06:22:45.360097+00:00"
+  }
+]

@@ -1,0 +1,54 @@
+[
+  {
+    "id": "56725014-2cdb-4569-838c-9e59fa42e4fd",
+    "user_id": "066116cf-3835-4ca5-b83e-c47811561361",
+    "user_name": "info.choque24h",
+    "user_email": "info.choque24h@gmail.com",
+    "vip_type": "year",
+    "amount": 990000,
+    "currency": "VND",
+    "granted_by": "1bb39da1-d39b-4eec-9038-ccf77bde9b28",
+    "granted_at": "2026-04-27T04:34:45.937696+00:00",
+    "expires_at": "2027-04-27T04:36:35.244+00:00",
+    "note": "Cấp bởi admin Hà Dím"
+  },
+  {
+    "id": "25df737b-0a07-4712-aae0-5c37afe8b834",
+    "user_id": "63c367b3-8302-4d17-b3ae-5355911a84a0",
+    "user_name": "xagiavan.jsc",
+    "user_email": "xagiavan.jsc@gmail.com",
+    "vip_type": "year",
+    "amount": 990000,
+    "currency": "VND",
+    "granted_by": "1bb39da1-d39b-4eec-9038-ccf77bde9b28",
+    "granted_at": "2026-04-27T05:03:08.924361+00:00",
+    "expires_at": "2027-04-27T05:04:58.182+00:00",
+    "note": "Cấp bởi admin Hà Dím"
+  },
+  {
+    "id": "62e6c636-7662-43f7-be46-7764ca8a1a1a",
+    "user_id": "066116cf-3835-4ca5-b83e-c47811561361",
+    "user_name": "info.choque24h",
+    "user_email": "info.choque24h@gmail.com",
+    "vip_type": "year",
+    "amount": 990000,
+    "currency": "VND",
+    "granted_by": "1bb39da1-d39b-4eec-9038-ccf77bde9b28",
+    "granted_at": "2026-04-27T05:21:47.764+00:00",
+    "expires_at": "2027-04-27T05:23:40.23+00:00",
+    "note": "Cấp bởi admin Hà Dím"
+  },
+  {
+    "id": "1bc56a08-e493-4230-947d-e61f9c20d82f",
+    "user_id": "f8354cf4-9852-41f2-883a-ac82fc7405cd",
+    "user_name": "Vân Anh",
+    "user_email": "bepxua.net@gmail.com",
+    "vip_type": "month",
+    "amount": 99000,
+    "currency": "VND",
+    "granted_by": "1bb39da1-d39b-4eec-9038-ccf77bde9b28",
+    "granted_at": "2026-05-04T19:14:55.826+00:00",
+    "expires_at": "2026-06-04T19:17:01.052+00:00",
+    "note": "Cấp bởi admin Hà Dím"
+  }
+]

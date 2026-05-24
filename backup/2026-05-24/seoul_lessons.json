@@ -1,0 +1,1037 @@
+[
+  {
+    "id": "1A-L1",
+    "book_id": "1A",
+    "lesson_number": 1,
+    "title": "안녕하세요?",
+    "title_vi": "Bài 1: Chào hỏi",
+    "objectives": [
+      "Chào hỏi và giới thiệu bản thân",
+      "Học tên các quốc gia và nghề nghiệp",
+      "Dùng lời chào cơ bản"
+    ],
+    "dialogue_title": "첫 만남 (Lần đầu gặp gỡ)",
+    "cultural_tip": "Khi gặp người lần đầu, người Hàn Quốc thường cúi đầu nhẹ và nói 처음 뵙겠습니다 (Lần đầu được gặp). Hỏi nghề nghiệp là cách chào hỏi thông thường trong văn hóa Hàn.",
+    "created_at": "2026-04-15T10:49:22.258031+00:00"
+  },
+  {
+    "id": "1A-L2",
+    "book_id": "1A",
+    "lesson_number": 2,
+    "title": "이거는 뭐예요?",
+    "title_vi": "Bài 2: Cái này là cái gì?",
+    "objectives": [
+      "Hỏi và trả lời về đồ vật",
+      "Học từ vựng đồ dùng hàng ngày",
+      "Dùng đại từ chỉ định 이/그/저"
+    ],
+    "dialogue_title": "교실에서 (Trong lớp học)",
+    "cultural_tip": null,
+    "created_at": "2026-04-15T10:49:22.258031+00:00"
+  },
+  {
+    "id": "1A-L3",
+    "book_id": "1A",
+    "lesson_number": 3,
+    "title": "저는 한국어를 배워요",
+    "title_vi": "Bài 3: Tôi học tiếng Hàn",
+    "objectives": [
+      "Diễn đạt hành động hiện tại",
+      "Học động từ và tính từ thông dụng",
+      "Dùng trợ từ 을/를"
+    ],
+    "dialogue_title": "취미 이야기 (Nói về sở thích)",
+    "cultural_tip": "Người Hàn Quốc thường hỏi 뭐 해요? (Bạn đang làm gì?) như một cách chào hỏi thân thiện.",
+    "created_at": "2026-04-15T10:49:22.258031+00:00"
+  },
+  {
+    "id": "1A-L4",
+    "book_id": "1A",
+    "lesson_number": 4,
+    "title": "어디에 있어요?",
+    "title_vi": "Bài 4: Ở đâu vậy?",
+    "objectives": [
+      "Hỏi và trả lời về vị trí",
+      "Học từ vựng địa điểm và phương hướng",
+      "Dùng trợ từ 에 (vị trí)"
+    ],
+    "dialogue_title": "길 묻기 (Hỏi đường)",
+    "cultural_tip": "Khi hỏi đường ở Hàn Quốc, người dân rất nhiệt tình giúp đỡ. Bạn có thể dùng ứng dụng Naver Map hoặc Kakao Map.",
+    "created_at": "2026-04-15T10:49:22.258031+00:00"
+  },
+  {
+    "id": "1A-L5",
+    "book_id": "1A",
+    "lesson_number": 5,
+    "title": "주말에 친구를 만났어요?",
+    "title_vi": "Bài 5: Cuối tuần bạn đã gặp bạn bè à?",
+    "objectives": [
+      "Học số đếm Hán-Hàn và thuần Hàn",
+      "Học từ vựng thời gian, ngày tháng, thứ trong tuần",
+      "Dùng thì quá khứ ~았/었어요"
+    ],
+    "dialogue_title": "주말 이야기 (Chuyện cuối tuần)",
+    "cultural_tip": "Người Hàn Quốc thường hỏi 주말에 뭐 했어요? như cách bắt chuyện thân thiện vào đầu tuần.",
+    "created_at": "2026-04-15T10:49:22.258031+00:00"
+  },
+  {
+    "id": "1A-L6",
+    "book_id": "1A",
+    "lesson_number": 6,
+    "title": "얼마예요?",
+    "title_vi": "Bài 6: Bao nhiêu tiền?",
+    "objectives": [
+      "Hỏi và trả lời về giá cả",
+      "Học từ vựng món ăn Hàn Quốc và trái cây",
+      "Học đơn vị đếm tiếng Hàn"
+    ],
+    "dialogue_title": "시장에서 (Ở chợ)",
+    "cultural_tip": "Ở Hàn Quốc, chợ truyền thống (재래시장) vẫn rất phổ biến. Bạn có thể mặc cả ở chợ truyền thống nhưng không được mặc cả ở siêu thị.",
+    "created_at": "2026-04-15T10:49:22.258031+00:00"
+  },
+  {
+    "id": "1A-L7",
+    "book_id": "1A",
+    "lesson_number": 7,
+    "title": "날씨가 어떻습니까?",
+    "title_vi": "Bài 7: Thời tiết như thế nào?",
+    "objectives": [
+      "Mô tả thời tiết và các mùa",
+      "Học tính từ bất quy tắc ㅂ",
+      "Học từ vựng thời tiết và hiện tượng tự nhiên"
+    ],
+    "dialogue_title": "날씨 이야기 (Nói chuyện về thời tiết)",
+    "cultural_tip": "Hàn Quốc có 4 mùa rõ rệt. Mùa xuân (3-5): ấm, hoa anh đào nở. Mùa hè (6-8): nóng ẩm, mưa nhiều. Mùa thu (9-11): mát, lá đỏ đẹp. Mùa đông (12-2): rất lạnh, có tuyết.",
+    "created_at": "2026-04-15T10:49:22.258031+00:00"
+  },
+  {
+    "id": "1A-L8",
+    "book_id": "1A",
+    "lesson_number": 8,
+    "title": "영화 볼까요?",
+    "title_vi": "Bài 8: Chúng ta xem phim nhé?",
+    "objectives": [
+      "Đề nghị và đồng ý hoạt động cùng nhau",
+      "Học từ vựng thể thao và sở thích",
+      "Dùng ~(으)ㄹ까요? để đề nghị"
+    ],
+    "dialogue_title": "주말 약속 (Hẹn cuối tuần)",
+    "cultural_tip": "찜질방 (phòng tắm hơi Hàn Quốc) là nơi giải trí phổ biến. Bạn có thể ngủ qua đêm, ăn uống và thư giãn.",
+    "created_at": "2026-04-15T10:49:22.258031+00:00"
+  },
+  {
+    "id": "1B-L9",
+    "book_id": "1B",
+    "lesson_number": 9,
+    "title": "이분은 누구세요?",
+    "title_vi": "Bài 9: Vị này là ai?",
+    "objectives": [
+      "Giới thiệu thành viên gia đình",
+      "Học kính ngữ cơ bản",
+      "Phân biệt từ thông thường và kính ngữ"
+    ],
+    "dialogue_title": "가족 소개 (Giới thiệu gia đình)",
+    "cultural_tip": "Trong văn hóa Hàn Quốc, kính ngữ (존댓말) rất quan trọng. Khi gặp người lớn tuổi lần đầu, luôn dùng kính ngữ.",
+    "created_at": "2026-04-15T10:49:50.838739+00:00"
+  },
+  {
+    "id": "1B-L10",
+    "book_id": "1B",
+    "lesson_number": 10,
+    "title": "지금 몇 시예요?",
+    "title_vi": "Bài 10: Bây giờ là mấy giờ?",
+    "objectives": [
+      "Đọc và hỏi giờ giấc",
+      "Học từ vựng hoạt động hàng ngày",
+      "Dùng ~고 있어요 (đang làm)"
+    ],
+    "dialogue_title": "하루 일과 (Lịch trình một ngày)",
+    "cultural_tip": "Người Hàn Quốc thường làm việc rất chăm chỉ. Giờ làm việc trung bình ở Hàn Quốc là một trong những cao nhất thế giới.",
+    "created_at": "2026-04-15T10:49:50.838739+00:00"
+  },
+  {
+    "id": "1B-L11",
+    "book_id": "1B",
+    "lesson_number": 11,
+    "title": "감기에 걸렸어요",
+    "title_vi": "Bài 11: Tôi bị cảm cúm rồi",
+    "objectives": [
+      "Mô tả triệu chứng bệnh",
+      "Học từ vựng bộ phận cơ thể",
+      "Dùng ~이/가 아프다"
+    ],
+    "dialogue_title": "병원에서 (Ở bệnh viện)",
+    "cultural_tip": "Ở Hàn Quốc, khi bị ốm nhẹ, nhiều người đến 약국 (hiệu thuốc) trước thay vì bệnh viện.",
+    "created_at": "2026-04-15T10:49:50.838739+00:00"
+  },
+  {
+    "id": "1B-L12",
+    "book_id": "1B",
+    "lesson_number": 12,
+    "title": "여보세요",
+    "title_vi": "Bài 12: A lô?",
+    "objectives": [
+      "Gọi và nghe điện thoại",
+      "Học cách nhắn tin",
+      "Học từ vựng liên quan đến điện thoại"
+    ],
+    "dialogue_title": "전화 통화 (Cuộc gọi điện thoại)",
+    "cultural_tip": "KakaoTalk (카카오톡) là ứng dụng nhắn tin phổ biến nhất ở Hàn Quốc.",
+    "created_at": "2026-04-15T10:49:50.838739+00:00"
+  },
+  {
+    "id": "1B-L13",
+    "book_id": "1B",
+    "lesson_number": 13,
+    "title": "서울역으로 가 주세요",
+    "title_vi": "Bài 13: Hãy làm ơn cho tôi đến ga Seoul",
+    "objectives": [
+      "Hỏi đường và chỉ đường",
+      "Học từ vựng phương tiện giao thông",
+      "Dùng ~(으)로 가 주세요"
+    ],
+    "dialogue_title": "택시에서 (Trong taxi)",
+    "cultural_tip": "Ở Hàn Quốc, ứng dụng Kakao T (카카오T) rất phổ biến để gọi taxi.",
+    "created_at": "2026-04-15T10:49:50.838739+00:00"
+  },
+  {
+    "id": "1B-L14",
+    "book_id": "1B",
+    "lesson_number": 14,
+    "title": "이 옷을 입어 보세요",
+    "title_vi": "Bài 14: Anh/chị hãy mặc thử chiếc áo này",
+    "objectives": [
+      "Mua sắm quần áo",
+      "Học từ vựng trang phục và tính từ mô tả",
+      "Dùng ~아/어 보세요 (thử làm)"
+    ],
+    "dialogue_title": "옷 가게에서 (Ở cửa hàng quần áo)",
+    "cultural_tip": "Dongdaemun (동대문) và Myeongdong (명동) là hai khu mua sắm nổi tiếng nhất Seoul.",
+    "created_at": "2026-04-15T10:49:50.838739+00:00"
+  },
+  {
+    "id": "1B-L15",
+    "book_id": "1B",
+    "lesson_number": 15,
+    "title": "여행을 가고 싶어요",
+    "title_vi": "Bài 15: Tôi muốn đi du lịch",
+    "objectives": [
+      "Diễn đạt mong muốn và kế hoạch du lịch",
+      "Học từ vựng du lịch",
+      "Dùng ~고 싶어요"
+    ],
+    "dialogue_title": "여행 계획 (Kế hoạch du lịch)",
+    "cultural_tip": "Đảo Jeju (제주도) là điểm du lịch nổi tiếng nhất Hàn Quốc, được UNESCO công nhận là Di sản thiên nhiên thế giới.",
+    "created_at": "2026-04-15T10:49:50.838739+00:00"
+  },
+  {
+    "id": "1B-L16",
+    "book_id": "1B",
+    "lesson_number": 16,
+    "title": "우리 집에 올 수 있어요?",
+    "title_vi": "Bài 16: Bạn có thể đến nhà chúng tôi chứ?",
+    "objectives": [
+      "Mời và nhận lời mời",
+      "Học từ vựng tiệc và sự kiện",
+      "Học phó từ chỉ mức độ và tần suất"
+    ],
+    "dialogue_title": "생일 파티 초대 (Mời tiệc sinh nhật)",
+    "cultural_tip": "Khi được mời đến nhà người Hàn Quốc, thường mang theo quà như bánh, trái cây hoặc đồ uống.",
+    "created_at": "2026-04-15T10:49:50.838739+00:00"
+  },
+  {
+    "id": "2A-L1",
+    "book_id": "2A",
+    "lesson_number": 1,
+    "title": "처음 뵙겠습니다",
+    "title_vi": "Bài 1: Rất hân hạnh được gặp mặt",
+    "objectives": [
+      "Giới thiệu bản thân trang trọng",
+      "Học từ vựng thông tin cá nhân",
+      "Dùng tần suất và phó từ"
+    ],
+    "dialogue_title": "자기소개 (Tự giới thiệu)",
+    "cultural_tip": "Khi điền form đăng ký ở Hàn Quốc, bạn thường phải cung cấp 성명, 생년월일, 국적 và 연락처.",
+    "created_at": "2026-04-15T10:50:24.094929+00:00"
+  },
+  {
+    "id": "2A-L2",
+    "book_id": "2A",
+    "lesson_number": 2,
+    "title": "취미가 뭐예요?",
+    "title_vi": "Bài 2: Sở thích của bạn là gì?",
+    "objectives": [
+      "Nói về sở thích chi tiết hơn",
+      "Học từ vựng hoạt động giải trí",
+      "Dùng ~는 것을 좋아해요"
+    ],
+    "dialogue_title": "취미 이야기 (Nói về sở thích)",
+    "cultural_tip": "Văn hoá câu lạc bộ (동호회) rất phổ biến ở Hàn Quốc.",
+    "created_at": "2026-04-15T10:50:24.094929+00:00"
+  },
+  {
+    "id": "2A-L3",
+    "book_id": "2A",
+    "lesson_number": 3,
+    "title": "콘서트에 가 봤어요?",
+    "title_vi": "Bài 3: Bạn từng đi đến buổi hoà nhạc bao giờ chưa?",
+    "objectives": [
+      "Kể về kinh nghiệm đã trải qua",
+      "Dùng ~아/어 본 적이 있어요",
+      "Học từ vựng văn hoá và giải trí"
+    ],
+    "dialogue_title": "경험 이야기 (Kể về kinh nghiệm)",
+    "cultural_tip": "Hàn Quốc nổi tiếng với các lễ hội hoa anh đào (벚꽃 축제) vào tháng 4.",
+    "created_at": "2026-04-15T10:50:24.094929+00:00"
+  },
+  {
+    "id": "2A-L4",
+    "book_id": "2A",
+    "lesson_number": 4,
+    "title": "옷이 좀 큰 것 같아요",
+    "title_vi": "Bài 4: Hình như áo hơi to",
+    "objectives": [
+      "Mua sắm quần áo nâng cao",
+      "Diễn đạt ý kiến về trang phục",
+      "Dùng ~것 같아요 (có vẻ như)"
+    ],
+    "dialogue_title": "옷 가게에서 (Ở cửa hàng quần áo)",
+    "cultural_tip": "Ở Hàn Quốc, nhiều cửa hàng có chính sách 불교환 (không đổi trả) hoặc chỉ đổi trong 7 ngày.",
+    "created_at": "2026-04-15T10:50:24.094929+00:00"
+  },
+  {
+    "id": "2A-L5",
+    "book_id": "2A",
+    "lesson_number": 5,
+    "title": "어디에 가면 좋을까요?",
+    "title_vi": "Bài 5: Đi đâu thì tốt nhỉ?",
+    "objectives": [
+      "Lên kế hoạch du lịch",
+      "Học từ vựng đặt vé và lịch trình",
+      "Dùng ~(으)면 좋겠어요"
+    ],
+    "dialogue_title": "여행 계획 (Lên kế hoạch du lịch)",
+    "cultural_tip": "Đảo Jeju, Busan với bãi biển Haeundae, Gyeongju với di tích lịch sử đều là điểm đến tuyệt vời.",
+    "created_at": "2026-04-15T10:50:24.094929+00:00"
+  },
+  {
+    "id": "2A-L6",
+    "book_id": "2A",
+    "lesson_number": 6,
+    "title": "비행기로 보내면 얼마예요?",
+    "title_vi": "Bài 6: Nếu gửi bằng máy bay thì mất bao nhiêu tiền?",
+    "objectives": [
+      "Giao dịch tại bưu điện và ngân hàng",
+      "Học từ vựng dịch vụ tài chính",
+      "Dùng ~(으)면 (điều kiện)"
+    ],
+    "dialogue_title": "우체국에서 (Ở bưu điện)",
+    "cultural_tip": "Ở Hàn Quốc, dịch vụ chuyển phát nhanh (택배) rất phổ biến và rẻ.",
+    "created_at": "2026-04-15T10:50:24.094929+00:00"
+  },
+  {
+    "id": "2A-L7",
+    "book_id": "2A",
+    "lesson_number": 7,
+    "title": "한옥마을이 어디에 있는지 아세요?",
+    "title_vi": "Bài 7: Bạn có biết làng cổ Hanok ở đâu không?",
+    "objectives": [
+      "Hỏi và chỉ đường chi tiết",
+      "Học từ vựng giao thông và địa điểm",
+      "Dùng ~는지 알다/모르다"
+    ],
+    "dialogue_title": "길 묻기 (Hỏi đường)",
+    "cultural_tip": "Bukchon Hanok Village (북촌 한옥마을) là làng cổ nổi tiếng ở Seoul.",
+    "created_at": "2026-04-15T10:50:24.094929+00:00"
+  },
+  {
+    "id": "2A-L8",
+    "book_id": "2A",
+    "lesson_number": 8,
+    "title": "정말 속상하겠어요",
+    "title_vi": "Bài 8: Chắc là buồn lắm",
+    "objectives": [
+      "Diễn đạt và chia sẻ cảm xúc",
+      "Học từ vựng cảm xúc phong phú",
+      "Dùng ~겠어요 (suy đoán/đồng cảm)"
+    ],
+    "dialogue_title": "친구 위로하기 (An ủi bạn bè)",
+    "cultural_tip": "Người Hàn Quốc thường dùng 속상하다 để diễn đạt cảm giác buồn phiền, đau lòng.",
+    "created_at": "2026-04-15T10:50:24.094929+00:00"
+  },
+  {
+    "id": "2A-L9",
+    "book_id": "2A",
+    "lesson_number": 9,
+    "title": "문의할 게 있는데요",
+    "title_vi": "Bài 9: Tôi có câu hỏi",
+    "objectives": [
+      "Hỏi thông tin qua điện thoại",
+      "Học từ vựng liên lạc và tư vấn",
+      "Dùng ~는데요 (mở đầu câu)"
+    ],
+    "dialogue_title": "전화 문의 (Hỏi thông tin qua điện thoại)",
+    "cultural_tip": "Khi gọi điện hỏi thông tin ở Hàn Quốc, câu mở đầu 문의할 게 있는데요 rất phổ biến và lịch sự.",
+    "created_at": "2026-04-15T10:50:24.094929+00:00"
+  },
+  {
+    "id": "2B-L10",
+    "book_id": "2B",
+    "lesson_number": 10,
+    "title": "뭐 먹을래요?",
+    "title_vi": "Bài 10: Ăn gì nhỉ?",
+    "objectives": [
+      "Gọi món ăn Hàn Quốc",
+      "Học từ vựng món ăn và vị",
+      "Dùng ~(으)ㄹ래요? để hỏi ý kiến"
+    ],
+    "dialogue_title": "식당에서 (Ở nhà hàng)",
+    "cultural_tip": "Ở Hàn Quốc, khi ăn cùng nhóm, thường người lớn tuổi hơn (선배) sẽ trả tiền.",
+    "created_at": "2026-04-15T10:50:59.187078+00:00"
+  },
+  {
+    "id": "2B-L11",
+    "book_id": "2B",
+    "lesson_number": 11,
+    "title": "운동을 좀 해 보는 게 어때요?",
+    "title_vi": "Bài 11: Hãy thử luyện tập xem thế nào?",
+    "objectives": [
+      "Nói về sức khỏe và bệnh tật",
+      "Học từ vựng thuốc và bệnh viện",
+      "Dùng ~아/어 보는 게 어때요?"
+    ],
+    "dialogue_title": "약국에서 (Ở hiệu thuốc)",
+    "cultural_tip": "Ở Hàn Quốc, hiệu thuốc (약국) rất phổ biến và dược sĩ có thể tư vấn thuốc không cần đơn.",
+    "created_at": "2026-04-15T10:50:59.187078+00:00"
+  },
+  {
+    "id": "2B-L12",
+    "book_id": "2B",
+    "lesson_number": 12,
+    "title": "저는 좀 조용한 편이에요",
+    "title_vi": "Bài 12: Tôi thuộc kiểu người hơi ít nói",
+    "objectives": [
+      "Mô tả ngoại hình và tính cách",
+      "Học từ vựng về đặc điểm con người",
+      "Dùng ~는 편이에요 (thuộc kiểu...)"
+    ],
+    "dialogue_title": "친구 소개 (Giới thiệu bạn bè)",
+    "cultural_tip": "Người Hàn Quốc thường mô tả ngoại hình khá chi tiết khi giới thiệu ai đó.",
+    "created_at": "2026-04-15T10:50:59.187078+00:00"
+  },
+  {
+    "id": "2B-L13",
+    "book_id": "2B",
+    "lesson_number": 13,
+    "title": "주변이 조용해서 살기 좋아요",
+    "title_vi": "Bài 13: Vì môi trường yên tĩnh nên sống rất tốt",
+    "objectives": [
+      "Nói về nhà ở và điều kiện sống",
+      "Học từ vựng nhà ở và chi phí",
+      "Dùng ~아/어서 살기 좋아요"
+    ],
+    "dialogue_title": "방 구하기 (Tìm phòng)",
+    "cultural_tip": "Hệ thống thuê nhà ở Hàn Quốc có 2 loại chính: 전세 và 월세.",
+    "created_at": "2026-04-15T10:50:59.187078+00:00"
+  },
+  {
+    "id": "2B-L14",
+    "book_id": "2B",
+    "lesson_number": 14,
+    "title": "여기서 사진을 찍어도 돼요?",
+    "title_vi": "Bài 14: Tôi chụp ảnh ở đây cũng được đúng không ạ?",
+    "objectives": [
+      "Hỏi và xin phép",
+      "Học từ vựng phép tắc và quy định",
+      "Dùng ~아/어도 돼요? và ~(으)면 안 돼요"
+    ],
+    "dialogue_title": "한국 예절 (Phép tắc Hàn Quốc)",
+    "cultural_tip": "Văn hóa Hàn Quốc rất coi trọng phép tắc (예절). Khi gặp người lớn tuổi, cúi đầu chào.",
+    "created_at": "2026-04-15T10:50:59.187078+00:00"
+  },
+  {
+    "id": "2B-L15",
+    "book_id": "2B",
+    "lesson_number": 15,
+    "title": "한국 생활에 익숙해졌어요?",
+    "title_vi": "Bài 15: Bạn đã quen với cuộc sống ở Hàn Quốc chưa?",
+    "objectives": [
+      "Nói về sự thay đổi và thích nghi",
+      "Học từ vựng về cuộc đời và sự kiện",
+      "Dùng ~아/어지다 (trở nên...)"
+    ],
+    "dialogue_title": "한국 생활 적응 (Thích nghi với cuộc sống Hàn Quốc)",
+    "cultural_tip": "Người nước ngoài sống ở Hàn Quốc thường trải qua giai đoạn thích nghi văn hóa (문화 충격).",
+    "created_at": "2026-04-15T10:50:59.187078+00:00"
+  },
+  {
+    "id": "2B-L16",
+    "book_id": "2B",
+    "lesson_number": 16,
+    "title": "설날에는 밥 대신에 떡국을 먹어요?",
+    "title_vi": "Bài 16: Vào ngày tết nguyên đán ở Hàn Quốc ăn canh tteok thay cơm phải không?",
+    "objectives": [
+      "Học về lễ tết và phong tục Hàn Quốc",
+      "Học từ vựng việc nhà và lễ hội",
+      "Dùng ~는 대신에 (thay vì...)"
+    ],
+    "dialogue_title": "설날 이야기 (Chuyện ngày tết)",
+    "cultural_tip": "Hàn Quốc có 2 ngày lễ lớn nhất: 설날 (Tết Nguyên Đán âm lịch) và 추석 (Tết Trung Thu).",
+    "created_at": "2026-04-15T10:50:59.187078+00:00"
+  },
+  {
+    "id": "2B-L17",
+    "book_id": "2B",
+    "lesson_number": 17,
+    "title": "비행기를 놓칠 뻔했어요",
+    "title_vi": "Bài 17: Suýt nữa tôi bị lỡ máy bay",
+    "objectives": [
+      "Kể về sự cố và tai nạn",
+      "Học từ vựng màu sắc và hoa văn",
+      "Dùng ~(으)ㄹ 뻔했어요 (suýt nữa...)"
+    ],
+    "dialogue_title": "공항에서 (Ở sân bay)",
+    "cultural_tip": "Ở Hàn Quốc, nếu mất đồ ở phương tiện công cộng, hãy đến 유실물 센터 (trung tâm đồ thất lạc).",
+    "created_at": "2026-04-15T10:50:59.187078+00:00"
+  },
+  {
+    "id": "2B-L18",
+    "book_id": "2B",
+    "lesson_number": 18,
+    "title": "한국에 온 지 벌써 6개월이 되었어요?",
+    "title_vi": "Bài 18: Bạn đã đến Hàn Quốc được 6 tháng rồi à?",
+    "objectives": [
+      "Nói về thời gian đã trôi qua",
+      "Học từ vựng thời tiết và cảm xúc",
+      "Dùng ~(으)ㄴ 지 ~ 됐어요"
+    ],
+    "dialogue_title": "한국 생활 돌아보기 (Nhìn lại cuộc sống ở Hàn Quốc)",
+    "cultural_tip": "Hàn Quốc có 4 mùa rõ rệt và mỗi mùa đều có vẻ đẹp riêng.",
+    "created_at": "2026-04-15T10:50:59.187078+00:00"
+  },
+  {
+    "id": "3A-L1",
+    "book_id": "3A",
+    "lesson_number": 1,
+    "title": "신입생 환영회를 한다고 해요",
+    "title_vi": "Bài 1: Nghe nói là sẽ tổ chức tiệc chào đón tân sinh viên",
+    "objectives": [
+      "Nói về sinh hoạt đại học",
+      "Học từ vựng trường đại học và câu lạc bộ",
+      "Dùng ~다고 해요 (nghe nói là...)"
+    ],
+    "dialogue_title": "대학 생활 이야기 (Chuyện sinh hoạt đại học)",
+    "cultural_tip": "Ở đại học Hàn Quốc, 동아리 (câu lạc bộ) rất quan trọng trong đời sống sinh viên.",
+    "created_at": "2026-04-15T10:52:06.96454+00:00"
+  },
+  {
+    "id": "3A-L2",
+    "book_id": "3A",
+    "lesson_number": 2,
+    "title": "방을 바꿔 달라고 해 봐",
+    "title_vi": "Bài 2: Thử bảo họ đổi phòng cho xem",
+    "objectives": [
+      "Nói về thói quen và tật xấu",
+      "Học từ vựng hành vi và tính cách",
+      "Dùng ~아/어 달라고 하다 (nhờ ai làm gì)"
+    ],
+    "dialogue_title": "기숙사 생활 (Cuộc sống ký túc xá)",
+    "cultural_tip": "Ký túc xá (기숙사) ở Hàn Quốc thường có quy định nghiêm ngặt về giờ giấc và tiếng ồn.",
+    "created_at": "2026-04-15T10:52:06.96454+00:00"
+  },
+  {
+    "id": "3A-L3",
+    "book_id": "3A",
+    "lesson_number": 3,
+    "title": "비가 이렇게 많이 올 줄 몰랐어요",
+    "title_vi": "Bài 3: Tôi không biết là trời lại mưa nhiều thế này",
+    "objectives": [
+      "Nói về thời tiết và thiên tai",
+      "Học từ vựng thời tiết nâng cao",
+      "Dùng ~(으)ㄹ 줄 몰랐어요 (không ngờ rằng...)"
+    ],
+    "dialogue_title": "여행 중 날씨 (Thời tiết trong chuyến du lịch)",
+    "cultural_tip": "Hàn Quốc có mùa mưa (장마) từ tháng 6-7 với lượng mưa rất lớn.",
+    "created_at": "2026-04-15T10:52:06.96454+00:00"
+  },
+  {
+    "id": "3A-L9",
+    "book_id": "3A",
+    "lesson_number": 4,
+    "title": "한글날에 대해 들어 봤어요?",
+    "title_vi": "Bài 4: Bạn đã nghe nói về ngày Hangeul chưa?",
+    "objectives": [
+      "Nói về ngày lễ và kỷ niệm Hàn Quốc",
+      "Học từ vựng ngày lễ quốc gia",
+      "Dùng ~에 대해 들어 봤어요?"
+    ],
+    "dialogue_title": "한국의 공휴일 (Ngày lễ quốc gia Hàn Quốc)",
+    "cultural_tip": "Hàn Quốc có nhiều ngày lễ quốc gia quan trọng: 삼일절, 어린이날, 현충일, 광복절, 개천절, 한글날.",
+    "created_at": "2026-04-15T10:52:06.96454+00:00"
+  },
+  {
+    "id": "3A-L5",
+    "book_id": "3A",
+    "lesson_number": 5,
+    "title": "입어 보고 살걸 그랬어요",
+    "title_vi": "Bài 5: Đáng lẽ tôi nên thử mặc rồi mới mua",
+    "objectives": [
+      "Mua đồ dùng và đánh giá sản phẩm",
+      "Học từ vựng size và mua sắm online",
+      "Dùng ~(으)ㄹ걸 그랬어요 (đáng lẽ nên...)"
+    ],
+    "dialogue_title": "온라인 쇼핑 (Mua sắm online)",
+    "cultural_tip": "Mua sắm online ở Hàn Quốc rất phổ biến với các trang như Coupang (쿠팡), Gmarket (지마켓).",
+    "created_at": "2026-04-15T10:52:06.96454+00:00"
+  },
+  {
+    "id": "3A-L6",
+    "book_id": "3A",
+    "lesson_number": 6,
+    "title": "일요일에는 아무 약속도 없어요",
+    "title_vi": "Bài 6: Chủ nhật tôi không có cuộc hẹn nào cả",
+    "objectives": [
+      "Nói về cuộc hẹn và địa điểm",
+      "Học từ vựng quán cà phê và nhà hàng",
+      "Dùng 피동형 (thể bị động)"
+    ],
+    "dialogue_title": "약속 잡기 (Hẹn gặp nhau)",
+    "cultural_tip": "Hongdae (홍대) là khu vực nổi tiếng với quán cà phê độc đáo và văn hóa trẻ ở Seoul.",
+    "created_at": "2026-04-15T10:52:06.96454+00:00"
+  },
+  {
+    "id": "3A-L7",
+    "book_id": "3A",
+    "lesson_number": 7,
+    "title": "껐다가 다시 켜 보세요",
+    "title_vi": "Bài 7: Thử tắt đi rồi bật lại xem",
+    "objectives": [
+      "Nói về hỏng hóc và sửa chữa",
+      "Học từ vựng thiết bị điện tử",
+      "Dùng ~았/었다가 (làm rồi lại...)"
+    ],
+    "dialogue_title": "고장 수리 (Sửa chữa hỏng hóc)",
+    "cultural_tip": "Ở Hàn Quốc, dịch vụ sửa chữa điện tử (전자 수리) rất phổ biến.",
+    "created_at": "2026-04-15T10:52:06.96454+00:00"
+  },
+  {
+    "id": "3A-L8",
+    "book_id": "3A",
+    "lesson_number": 8,
+    "title": "교통사고가 났다고요?",
+    "title_vi": "Bài 8: Nghe nói là đã xảy ra tai nạn giao thông?",
+    "objectives": [
+      "Nói về tai nạn và sự cố",
+      "Học từ vựng y tế và an toàn",
+      "Dùng ~다고요? (Nghe nói là...? — hỏi lại)"
+    ],
+    "dialogue_title": "교통사고 소식 (Tin tức tai nạn giao thông)",
+    "cultural_tip": "Ở Hàn Quốc, khi đi thăm bệnh nhân (문병), thường mang theo trái cây, nước uống hoặc tiền mặt.",
+    "created_at": "2026-04-15T10:52:06.96454+00:00"
+  },
+  {
+    "id": "3A-L4",
+    "book_id": "3A",
+    "lesson_number": 9,
+    "title": "먹어 보니까 맛있던데요",
+    "title_vi": "Bài 9: Ăn thử mới thấy ngon đấy",
+    "objectives": [
+      "Nói về nấu ăn và công thức",
+      "Học từ vựng nguyên liệu và cách chế biến",
+      "Dùng ~아/어 보니까 (sau khi thử thì...)"
+    ],
+    "dialogue_title": "요리 이야기 (Chuyện nấu ăn)",
+    "cultural_tip": "Nấu ăn Hàn Quốc sử dụng nhiều gia vị đặc trưng: 간장, 고추장, 된장, 참기름.",
+    "created_at": "2026-04-15T10:52:06.96454+00:00"
+  },
+  {
+    "id": "3B-L10",
+    "book_id": "3B",
+    "lesson_number": 10,
+    "title": "결혼하려면 아직 멀었어요",
+    "title_vi": "Bài 10: Kết hôn thì vẫn còn xa lắm",
+    "objectives": [
+      "Nói về tình yêu và hôn nhân",
+      "Học từ vựng yêu đương và kết hôn",
+      "Dùng ~(으)려면 아직 멀었어요"
+    ],
+    "dialogue_title": "결혼 이야기 (Chuyện kết hôn)",
+    "cultural_tip": "Ở Hàn Quốc, 소개팅 (hẹn hò mù qua giới thiệu) và 선 (xem mắt chính thức) là hai hình thức phổ biến.",
+    "created_at": "2026-04-15T10:52:06.96454+00:00"
+  },
+  {
+    "id": "3B-L11",
+    "book_id": "3B",
+    "lesson_number": 11,
+    "title": "언제든지 일할 수 있어요",
+    "title_vi": "Bài 11: Có thể làm việc bất cứ lúc nào",
+    "objectives": [
+      "Nói về công việc và tuyển dụng",
+      "Học từ vựng nghề nghiệp và sai khiến",
+      "Dùng 사동형 (hình thức sai khiến)"
+    ],
+    "dialogue_title": "취업 면접 (Phỏng vấn xin việc)",
+    "cultural_tip": "Phỏng vấn xin việc ở Hàn Quốc thường rất trang trọng. Ứng viên phải mặc đồ công sở, cúi đầu chào và dùng kính ngữ.",
+    "created_at": "2026-04-15T10:52:06.96454+00:00"
+  },
+  {
+    "id": "3B-L12",
+    "book_id": "3B",
+    "lesson_number": 12,
+    "title": "저는 운동을 했더니 몸이 좋아졌어요",
+    "title_vi": "Bài 12: Vì tôi đã tập thể dục nên cơ thể đã trở nên tốt hơn",
+    "objectives": [
+      "Nói về sức khỏe và tập thể dục",
+      "Học từ vựng cơ thể và vận động",
+      "Dùng ~았/었더니 (vì đã làm... nên...)"
+    ],
+    "dialogue_title": "운동 이야기 (Chuyện tập thể dục)",
+    "cultural_tip": "Hàn Quốc có văn hóa tập thể dục rất phổ biến. Hội chứng cổ rùa (거북목 증후군) đang trở thành vấn đề sức khỏe phổ biến.",
+    "created_at": "2026-04-15T10:52:06.96454+00:00"
+  },
+  {
+    "id": "3B-L13",
+    "book_id": "3B",
+    "lesson_number": 13,
+    "title": "지금 입고 있는 양복이 잘 어울려요",
+    "title_vi": "Bài 13: Bộ âu phục bạn đang mặc bây giờ rất hợp đấy",
+    "objectives": [
+      "Nói về trang phục và các sự kiện xã hội",
+      "Học từ vựng quần áo, phụ kiện và tiệc tùng",
+      "Dùng ~에 따르면 và ~(으)ㄴ/는 것 같다"
+    ],
+    "dialogue_title": "행사 준비 (Chuẩn bị sự kiện)",
+    "cultural_tip": "Ở Hàn Quốc, các sự kiện xã hội như 집들이, 돌잔치, 송년회 rất quan trọng.",
+    "created_at": "2026-04-15T10:52:06.96454+00:00"
+  },
+  {
+    "id": "3B-L14",
+    "book_id": "3B",
+    "lesson_number": 14,
+    "title": "나이가 들면 들수록 고향이 그리워져요",
+    "title_vi": "Bài 14: Càng nhiều tuổi tôi càng nhớ quê hương",
+    "objectives": [
+      "Nói về thành phố và nông thôn",
+      "Học từ vựng thiên nhiên và cuộc sống làng quê",
+      "Dùng ~(으)ㄹ수록 và ~아/어지다"
+    ],
+    "dialogue_title": "도시 vs 시골 (Thành phố vs Nông thôn)",
+    "cultural_tip": "Nhiều người Hàn Quốc sống ở thành phố nhưng vẫn giữ kết nối với quê hương (고향).",
+    "created_at": "2026-04-15T10:52:06.96454+00:00"
+  },
+  {
+    "id": "3B-L15",
+    "book_id": "3B",
+    "lesson_number": 15,
+    "title": "전기를 아껴 쓰지 않으면 안 돼요",
+    "title_vi": "Bài 15: Nếu không tiết kiệm điện là không được đâu",
+    "objectives": [
+      "Nói về tiết kiệm năng lượng và chi phí sinh hoạt",
+      "Học từ vựng tiện ích nhà ở và tài chính cá nhân",
+      "Dùng ~지 않으면 안 돼요"
+    ],
+    "dialogue_title": "집 문제 해결 (Giải quyết vấn đề nhà ở)",
+    "cultural_tip": "Ở Hàn Quốc, hệ thống sưởi sàn (온돌/바닥 난방) rất phổ biến.",
+    "created_at": "2026-04-15T10:52:06.96454+00:00"
+  },
+  {
+    "id": "3B-L16",
+    "book_id": "3B",
+    "lesson_number": 16,
+    "title": "가야금이 사람 키만 해요",
+    "title_vi": "Bài 16: Đàn Gayageum to bằng chiều cao của con người",
+    "objectives": [
+      "Mô tả hình dạng, kết cấu và cảm xúc",
+      "Học từ vựng nhạc cụ, địa danh và hoạt động ngoài trời",
+      "Dùng ~만 하다 và tính từ mô tả hình dạng"
+    ],
+    "dialogue_title": "가야금 체험 (Trải nghiệm đàn Gayageum)",
+    "cultural_tip": "Gayageum (가야금) là nhạc cụ truyền thống Hàn Quốc có 12 dây, được làm từ gỗ paulownia.",
+    "created_at": "2026-04-15T10:52:06.96454+00:00"
+  },
+  {
+    "id": "3B-L17",
+    "book_id": "3B",
+    "lesson_number": 17,
+    "title": "두 사람이 연인 사이라니요?",
+    "title_vi": "Bài 17: Hai người là người yêu của nhau sao?",
+    "objectives": [
+      "Nói về tin đồn và thực tế",
+      "Học từ vựng giải trí, hoa và văn hóa",
+      "Dùng ~(이)라니요? (... sao? — bày tỏ ngạc nhiên)"
+    ],
+    "dialogue_title": "연예인 소문 (Tin đồn về nghệ sĩ)",
+    "cultural_tip": "Văn hóa giải trí Hàn Quốc rất chú trọng hình ảnh. Tin đồn về các nghệ sĩ lan rộng rất nhanh qua mạng xã hội.",
+    "created_at": "2026-04-15T10:52:06.96454+00:00"
+  },
+  {
+    "id": "4A-L1",
+    "book_id": "4A",
+    "lesson_number": 1,
+    "title": "적성과 진로",
+    "title_vi": "Năng khiếu và định hướng",
+    "objectives": [
+      "Nói về năng lực và năng khiếu",
+      "Trao đổi về định hướng nghề nghiệp",
+      "Học từ vựng về tính cách và chuyên môn"
+    ],
+    "dialogue_title": "진로 상담 (Tư vấn định hướng nghề nghiệp)",
+    "cultural_tip": "Ở Hàn Quốc, học sinh và sinh viên thường tham gia tư vấn hướng nghiệp trước khi chọn chuyên ngành hoặc chuẩn bị xin việc. Việc hiểu rõ 적성 (năng khiếu/phù hợp cá nhân) được xem là bước quan trọng trước khi quyết định 진로 (định hướng nghề nghiệp).",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": "4A-L2",
+    "book_id": "4A",
+    "lesson_number": 2,
+    "title": "건강한 삶",
+    "title_vi": "Cuộc sống khỏe mạnh",
+    "objectives": [
+      "Nói về triệu chứng cơ thể",
+      "Học từ vựng về sức khỏe và điều trị",
+      "Trao đổi về thói quen sống lành mạnh"
+    ],
+    "dialogue_title": "건강 상담 (Tư vấn sức khỏe)",
+    "cultural_tip": "Khi nói về sức khỏe bằng tiếng Hàn, người Hàn thường mô tả triệu chứng cụ thể như 눈이 침침하다, 목이 뻣뻣하다, 속이 거북하다. Ngoài bệnh viện Tây y, 한의원 (phòng khám Đông y) cũng là lựa chọn phổ biến để châm cứu, hơ ngải cứu hoặc uống 한약.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": "4A-L3",
+    "book_id": "4A",
+    "lesson_number": 3,
+    "title": "스포츠의 세계",
+    "title_vi": "Thế giới thể thao",
+    "objectives": [
+      "Nói về thi đấu thể thao",
+      "Mô tả tình huống thắng bại",
+      "Học từ vựng về tinh thần thể thao và luật chơi"
+    ],
+    "dialogue_title": "축구 경기 관람 (Xem trận bóng đá)",
+    "cultural_tip": "Trong văn hóa xem thể thao ở Hàn Quốc, 응원 (cổ vũ) rất sôi nổi. Khán giả thường mặc áo đội mình yêu thích, hát bài cổ vũ và hô 함성 suốt trận. Tinh thần thể thao nhấn mạnh việc tuân thủ 규칙, thi đấu 정정당당하게 và biết 받아들이다 kết quả.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": "4A-L4",
+    "book_id": "4A",
+    "lesson_number": 4,
+    "title": "남자와 여자",
+    "title_vi": "Đàn ông và phụ nữ",
+    "objectives": [
+      "Nói về thái độ và sự bất mãn",
+      "Miêu tả tính cách và quan điểm giữa nam nữ",
+      "Thảo luận về vai trò, nghề nghiệp và năng lực"
+    ],
+    "dialogue_title": "취향 차이와 말다툼 (Khác biệt sở thích và tranh cãi)",
+    "cultural_tip": "Trong tiếng Hàn, các biểu hiện như 남자답다 hay 여성스럽다 thường xuất hiện khi nói về hình ảnh giới tính, nhưng trong giao tiếp hiện đại cần dùng cẩn thận để tránh áp đặt định kiến. Khi có 불만, cách nói 침착하게 의논하다 thường được xem là lịch sự hơn 따지다 hoặc 발끈하다.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": "4A-L5",
+    "book_id": "4A",
+    "lesson_number": 5,
+    "title": "속담과 관용어",
+    "title_vi": "Tục ngữ và quán dụng ngữ",
+    "objectives": [
+      "Hiểu và sử dụng tục ngữ tiếng Hàn",
+      "Phân biệt tục ngữ và quán dụng ngữ",
+      "Diễn đạt tình huống đời sống bằng thành ngữ tự nhiên"
+    ],
+    "dialogue_title": "속담으로 말하기 (Nói bằng tục ngữ)",
+    "cultural_tip": "Tục ngữ Hàn Quốc thường dùng hình ảnh đời sống như 동물, 농업, 음식 để nói về kinh nghiệm sống. Khi dùng trong hội thoại, nên hiểu cả nghĩa bóng chứ không dịch từng chữ. Quán dụng ngữ như 입이 가볍다, 귀가 얇다, 발이 넓다 thường dùng để miêu tả tính cách một cách tự nhiên.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": "4A-L6",
+    "book_id": "4A",
+    "lesson_number": 6,
+    "title": "공연과 축제",
+    "title_vi": "Biểu diễn và lễ hội",
+    "objectives": [
+      "Nói về cảm nhận sau khi xem biểu diễn",
+      "Đánh giá lễ hội và chương trình văn hóa",
+      "Giới thiệu các loại hình biểu diễn truyền thống và hiện đại"
+    ],
+    "dialogue_title": "축제 감상 (Cảm nhận về lễ hội)",
+    "cultural_tip": "Ở Hàn Quốc, 축제 thường kết hợp biểu diễn hiện đại như K 팝, 힙합, 비보이 với nghệ thuật truyền thống như 판소리, 사물놀이, 부채춤. Một số loại hình như 판소리 và 강강술래 được UNESCO công nhận là 인류 무형 유산, vì vậy khi cảm nhận biểu diễn cần chú ý cả yếu tố giải trí lẫn giá trị văn hóa.",
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": "4A-L7",
+    "book_id": "4A",
+    "lesson_number": 7,
+    "title": "옳고 그름",
+    "title_vi": "Đúng và sai",
+    "objectives": [
+      "Tranh luận về hành vi đúng/sai trong xã hội",
+      "Học từ vựng về đạo đức và nơi công cộng",
+      "Dùng ~는 게 맞다/그르다 và biểu đạt ý kiến"
+    ],
+    "dialogue_title": "공공예절 (Phép lịch sự nơi công cộng)",
+    "cultural_tip": "Ở Hàn Quốc, 공중도덕 (đạo đức công cộng) được coi trọng. Trên phương tiện công cộng, người Hàn thường nhường ghế ưu tiên (교통약자 배려석) cho người già, phụ nữ mang thai và người khuyết tật. Trong thang máy và rạp chiếu phim, nói chuyện to hay ăn uống có mùi đều bị xem là thiếu lịch sự. Khi có vấn đề với hàng xóm, thường liên hệ 관리 사무소 trước khi nhờ đến pháp luật.",
+    "created_at": "2026-05-08T04:57:45.704421+00:00"
+  },
+  {
+    "id": "4A-L8",
+    "book_id": "4A",
+    "lesson_number": 8,
+    "title": "흥미로운 세상",
+    "title_vi": "Thế giới thú vị",
+    "objectives": [
+      "Tìm hiểu sự đa dạng văn hóa và dân tộc trên thế giới",
+      "Học từ vựng về văn hóa, trò chơi dân gian và tiếng địa phương",
+      "Dùng ~(으)ㄹ수록, ~에 비해서 để so sánh"
+    ],
+    "dialogue_title": "세계의 다양한 문화 (Văn hóa đa dạng của thế giới)",
+    "cultural_tip": "Hàn Quốc có hệ thống phương ngữ (사투리) đa dạng theo vùng: 경상도 có ngữ điệu lên xuống mạnh, 전라도 nổi tiếng với âm điệu phong phú, 충청도 thường được coi là chậm rãi và duyên dáng. Trò chơi dân gian như 줄넘기, 숨바꼭질, 실뜨기 không chỉ phổ biến ở Hàn Quốc mà còn có ở nhiều nước châu Á dưới nhiều tên và biến thể khác nhau — đây là minh chứng rõ nhất về 공통점 trong văn hóa châu Á.",
+    "created_at": "2026-05-08T05:12:05.004308+00:00"
+  },
+  {
+    "id": "4A-L9",
+    "book_id": "4A",
+    "lesson_number": 9,
+    "title": "한국의 대중문화",
+    "title_vi": "Văn hóa đại chúng Hàn Quốc",
+    "objectives": [
+      "Nói về ngành giải trí Hàn Quốc (K-drama, K-pop)",
+      "Học từ vựng về diễn xuất, ca nhạc và cảm xúc",
+      "Dùng ~(으)ㄹ 것 같다, ~다니 để diễn đạt cảm xúc"
+    ],
+    "dialogue_title": "한국 드라마와 K-팝 이야기 (Chuyện K-drama và K-pop)",
+    "cultural_tip": "Làn sóng Hallyu (한류) đã đưa K-drama và K-pop ra toàn thế giới. Một diễn viên/ca sĩ thường bắt đầu từ 데뷔 (ra mắt) dưới sự quản lý của công ty giải trí, sau đó xuất hiện trong 예능 프로그램 để tăng nhận diện. 팬 미팅 là sự kiện quan trọng để gắn kết với người hâm mộ. Diễn viên nam Hàn Quốc thường phải 입대 (nhập ngũ) từ 18–28 tuổi, đây là nghĩa vụ quân sự bắt buộc.",
+    "created_at": "2026-05-08T05:22:58.427087+00:00"
+  },
+  {
+    "id": "4B-L10",
+    "book_id": "4B",
+    "lesson_number": 10,
+    "title": "옛날이야기와 신화",
+    "title_vi": "Truyện cổ tích và Thần thoại",
+    "objectives": [
+      "Kể và thảo luận về truyện cổ tích, thần thoại Hàn Quốc",
+      "Học từ vựng về tính cách nhân vật và cốt truyện",
+      "Dùng ~았/었더니, ~(으)ㄴ 채로 trong kể chuyện"
+    ],
+    "dialogue_title": "단군 신화 이야기 (Câu chuyện thần thoại Dangun)",
+    "cultural_tip": "Thần thoại Dangun (단군 신화) là thần thoại lập quốc của Hàn Quốc, kể về việc Dangun lập ra Gojoseon năm 2333 trước Công nguyên. Con hổ (호랑이) là linh vật biểu tượng của Hàn Quốc — xuất hiện trên quốc huy, là linh vật Olympic Seoul 1988. Trong văn hóa Hàn, hổ tượng trưng cho sức mạnh và dũng khí.",
+    "created_at": "2026-05-08T05:38:43.051878+00:00"
+  },
+  {
+    "id": "4B-L11",
+    "book_id": "4B",
+    "lesson_number": 11,
+    "title": "언어와 생활",
+    "title_vi": "Ngôn ngữ và đời sống",
+    "objectives": [
+      "Thảo luận về xu hướng ngôn ngữ trong cuộc sống hiện đại",
+      "Học từ vựng về thói quen ngôn ngữ và giao tiếp",
+      "Dùng ~는 데다가, ~게 되다 để diễn đạt nguyên nhân và thay đổi"
+    ],
+    "dialogue_title": "언어 습관에 대한 토론 (Thảo luận về thói quen ngôn ngữ)",
+    "cultural_tip": "Tiếng Hàn có nhiều từ viết tắt (줄임말) phổ biến trong giới trẻ: 알바 (아르바이트 = làm thêm), 짬짜면 (짜장면+짬뽕), 셀프 (self = tự phục vụ). 콩글리시 là từ tiếng Anh được Hàn Quốc hóa, ví dụ: 핸드폰 (handphone = điện thoại di động), 아파트 (apartment). Việc sử dụng từ ngoại lai và từ viết tắt trong tiếng Hàn ngày càng phổ biến, phản ánh sự thay đổi nhanh của xã hội.",
+    "created_at": "2026-05-08T05:38:57.639846+00:00"
+  },
+  {
+    "id": "4B-L12",
+    "book_id": "4B",
+    "lesson_number": 12,
+    "title": "소중한 환경",
+    "title_vi": "Môi trường quý giá",
+    "objectives": [
+      "Thảo luận về ô nhiễm môi trường và biến đổi khí hậu",
+      "Học từ vựng về bảo vệ môi trường và tái chế",
+      "Dùng ~(으)ㄹ수록, ~지 않으면 안 되다 để nói về hậu quả và sự cần thiết"
+    ],
+    "dialogue_title": "환경 문제에 대한 토론 (Thảo luận về vấn đề môi trường)",
+    "cultural_tip": "Hàn Quốc có hệ thống phân loại rác (분리수거) rất nghiêm ngặt: rác thức ăn (음식물 쓰레기) bỏ riêng, đồ tái chế (재활용) chia theo loại vật liệu. Túi rác phải mua loại có phí (종량제 봉투) — đây là biện pháp giảm rác hiệu quả. 환경부 (Bộ Môi trường) thường xuyên tổ chức các 캠페인 nâng cao ý thức cộng đồng.",
+    "created_at": "2026-05-08T05:49:11.521512+00:00"
+  },
+  {
+    "id": "4B-L13",
+    "book_id": "4B",
+    "lesson_number": 13,
+    "title": "여행의 즐거움",
+    "title_vi": "Niềm vui du lịch",
+    "objectives": [
+      "Miêu tả cảnh đẹp thiên nhiên và di tích lịch sử Hàn Quốc",
+      "Học từ vựng về cảm xúc khi du lịch và phong cảnh",
+      "Dùng ~아/어 있다, ~(으)ㄹ수록 để diễn đạt trạng thái và cảm nhận"
+    ],
+    "dialogue_title": "경복궁 여행 이야기 (Câu chuyện du lịch Gyeongbokgung)",
+    "cultural_tip": "Gyeongbokgung (경복궁) là cung điện chính của triều Joseon, xây năm 1395. Gwanghwamun (광화문) là cổng chính. Tượng hải cẩu (해태) canh cổng tượng trưng cho sự công bằng. Đường Olle (올레길) ở đảo Jeju là mạng lưới đường bộ ven biển dài 425km, nổi tiếng cho những người yêu thích đi bộ.",
+    "created_at": "2026-05-08T05:59:14.730834+00:00"
+  },
+  {
+    "id": "4B-L14",
+    "book_id": "4B",
+    "lesson_number": 14,
+    "title": "동물과 식물",
+    "title_vi": "Động vật và thực vật",
+    "objectives": [
+      "Thảo luận về các chủ đề xã hội và gia đình trong cuộc sống hiện đại",
+      "Học từ vựng về các vấn đề xã hội, gia đình và giáo dục",
+      "Dùng ~(으)ㄹ 만하다, ~다 보면 để diễn đạt đánh giá và quá trình"
+    ],
+    "dialogue_title": "현대 가정의 변화 (Sự thay đổi của gia đình hiện đại)",
+    "cultural_tip": "Xã hội Hàn Quốc đang đối mặt với thay đổi lớn trong cấu trúc gia đình: từ đại gia đình (대가족) chuyển sang gia đình hạt nhân (핵가족). Việc kính trọng người lớn tuổi (웃어른 공경) là giá trị cốt lõi của văn hóa Hàn, nhưng áp lực kinh tế và cuộc sống hiện đại đang tạo ra nhiều thách thức mới.",
+    "created_at": "2026-05-08T05:59:30.485774+00:00"
+  },
+  {
+    "id": "4B-L15",
+    "book_id": "4B",
+    "lesson_number": 15,
+    "title": "동물과 식물",
+    "title_vi": "Động vật và thực vật",
+    "objectives": [
+      "Thảo luận về động vật cưng, động vật hoang dã và thực vật",
+      "Học từ vựng về đặc điểm, hành vi của động vật và cảm xúc khi nuôi thú",
+      "Dùng ~(으)ㄹ 뿐만 아니라, ~는 반면에 để so sánh và bổ sung thông tin"
+    ],
+    "dialogue_title": "반려동물에 대한 이야기 (Câu chuyện về thú cưng)",
+    "cultural_tip": "Ở Hàn Quốc, nuôi thú cưng (반려동물) đang ngày càng phổ biến — ước tính hơn 30% hộ gia đình nuôi thú. 진돗개 (chó Jindo) là giống chó thuần chủng từ đảo Jindo, được công nhận là 천연기념물 (cổ vật tự nhiên) số 53. Hàn Quốc cũng có phong trào bảo vệ động vật mạnh mẽ, với luật cấm ngược đãi súc vật được siết chặt từ năm 2021.",
+    "created_at": "2026-05-08T06:13:13.766285+00:00"
+  },
+  {
+    "id": "4B-L16",
+    "book_id": "4B",
+    "lesson_number": 16,
+    "title": "과학의 신비",
+    "title_vi": "Thần bí của khoa học",
+    "objectives": [
+      "Thảo luận về các hiện tượng khoa học và bí ẩn tự nhiên",
+      "Học từ vựng về di truyền, hiện tượng vật lý và sinh học",
+      "Dùng ~(으)ㄹ 리가 없다, ~는지 모르다 để diễn đạt sự hoài nghi và bất định"
+    ],
+    "dialogue_title": "유전과 과학의 신비 (Di truyền và thần bí của khoa học)",
+    "cultural_tip": "Người Hàn Quốc rất quan tâm đến di truyền học (유전학) trong cuộc sống hàng ngày — như bàn luận xem con cái thừa hưởng đặc điểm gì từ bố hay mẹ (쌍꺼풀, 보조개, 곱슬머리...). Khoa học Hàn Quốc phát triển mạnh: Hàn Quốc nằm trong top 10 thế giới về số bằng sáng chế và nghiên cứu khoa học.",
+    "created_at": "2026-05-08T06:13:26.473392+00:00"
+  },
+  {
+    "id": "4B-L17",
+    "book_id": "4B",
+    "lesson_number": 17,
+    "title": "만남과 헤어짐",
+    "title_vi": "Gặp gỡ và chia tay",
+    "objectives": [
+      "Diễn đạt cảm xúc khi gặp lại bạn cũ và khi chia tay",
+      "Học thành ngữ và cách nói về kỷ niệm, thời gian",
+      "Dùng ~았/었더라면, ~(으)ㄹ 뻔하다 để nói về điều đã có thể xảy ra"
+    ],
+    "dialogue_title": "오랜만의 만남 (Gặp lại sau bao lâu)",
+    "cultural_tip": "Người Hàn Quốc rất coi trọng khái niệm 인연 (nhân duyên) — mối quan hệ được định đoạt bởi số phận. Thành ngữ '옷깃만 스쳐도 인연이다' thể hiện niềm tin rằng mọi cuộc gặp gỡ đều có ý nghĩa. Khi gặp lại bạn cũ sau lâu, người Hàn thường nói '오랜만이에요' và thường đi ăn uống hoặc uống rượu cùng nhau (회식 văn hóa) để tâm sự.",
+    "created_at": "2026-05-08T06:22:27.80161+00:00"
+  },
+  {
+    "id": "4B-L18",
+    "book_id": "4B",
+    "lesson_number": 18,
+    "title": "흥부와 놀부",
+    "title_vi": "Heungbu và Nolbu",
+    "objectives": [
+      "Đọc và kể lại câu chuyện cổ tích Hàn Quốc 흥부전",
+      "Học từ vựng miêu tả âm thanh, hành động trong truyện kể",
+      "Dùng ~았/었다가, ~(으)려던 참이다 để kể chuyện theo trình tự"
+    ],
+    "dialogue_title": "흥부전 이야기 (Câu chuyện Heungbu)",
+    "cultural_tip": "흥부전 (Heungbu-jeon) là một trong những truyện cổ tích nổi tiếng nhất Hàn Quốc, thuộc thể loại 판소리 (pansori — hình thức ca kịch truyền thống). Câu chuyện tương tự truyện Cây tre trăm đốt của Việt Nam về chủ đề thiện thắng ác. 제비 (chim én) được coi là điềm lành trong văn hóa Hàn — nếu chim én làm tổ trong nhà thì gia đình sẽ may mắn.",
+    "created_at": "2026-05-08T06:22:45.360097+00:00"
+  }
+]

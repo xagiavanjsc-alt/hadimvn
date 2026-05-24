@@ -1,0 +1,403 @@
+{
+  "date": "2026-05-24",
+  "url": "https://dcjofhkdrgbrowabudyt.supabase.co",
+  "tables": [
+    {
+      "table": "eps_grammar",
+      "rows": 100,
+      "file": "eps_grammar.json"
+    },
+    {
+      "table": "eps_grammar_examples",
+      "rows": 324,
+      "file": "eps_grammar_examples.json"
+    },
+    {
+      "table": "eps_vocab_entries",
+      "rows": 1101,
+      "file": "eps_vocab_entries.json"
+    },
+    {
+      "table": "eps_vocab_topics",
+      "rows": 22,
+      "file": "eps_vocab_topics.json"
+    },
+    {
+      "table": "seoul_books",
+      "rows": 8,
+      "file": "seoul_books.json"
+    },
+    {
+      "table": "seoul_lessons",
+      "rows": 69,
+      "file": "seoul_lessons.json"
+    },
+    {
+      "table": "seoul_dialogue",
+      "rows": 98,
+      "file": "seoul_dialogue.json"
+    },
+    {
+      "table": "seoul_grammar",
+      "rows": 201,
+      "file": "seoul_grammar.json"
+    },
+    {
+      "table": "seoul_grammar_examples",
+      "rows": 162,
+      "file": "seoul_grammar_examples.json"
+    },
+    {
+      "table": "seoul_vocabulary",
+      "rows": 3199,
+      "file": "seoul_vocabulary.json"
+    },
+    {
+      "table": "hanja_pro",
+      "rows": 2591,
+      "file": "hanja_pro.json"
+    },
+    {
+      "table": "hanja_tree_nodes",
+      "rows": 5298,
+      "file": "hanja_tree_nodes.json"
+    },
+    {
+      "table": "hanja_stories",
+      "rows": 10,
+      "file": "hanja_stories.json"
+    },
+    {
+      "table": "hanja_vocab_entries",
+      "rows": 4396,
+      "file": "hanja_vocab_entries.json"
+    },
+    {
+      "table": "hanja_flashcards",
+      "rows": 0,
+      "file": "hanja_flashcards.json"
+    },
+    {
+      "table": "hanja_story_quiz",
+      "rows": 0,
+      "file": "hanja_story_quiz.json"
+    },
+    {
+      "table": "topik_vocabulary",
+      "rows": 1378,
+      "file": "topik_vocabulary.json"
+    },
+    {
+      "table": "grammar_patterns",
+      "rows": 395,
+      "file": "grammar_patterns.json"
+    },
+    {
+      "table": "grammar_practice_questions",
+      "rows": 994,
+      "file": "grammar_practice_questions.json"
+    },
+    {
+      "table": "listening_tracks",
+      "rows": 8,
+      "file": "listening_tracks.json"
+    },
+    {
+      "table": "melon_songs",
+      "rows": 3,
+      "file": "melon_songs.json"
+    },
+    {
+      "table": "naver_qa",
+      "rows": 200,
+      "file": "naver_qa.json"
+    },
+    {
+      "table": "user_profiles",
+      "rows": 34,
+      "file": "user_profiles.json"
+    },
+    {
+      "table": "user_progress",
+      "rows": 32,
+      "file": "user_progress.json"
+    },
+    {
+      "table": "user_achievements",
+      "rows": 0,
+      "file": "user_achievements.json"
+    },
+    {
+      "table": "user_hanja_progress",
+      "rows": 12,
+      "file": "user_hanja_progress.json"
+    },
+    {
+      "table": "user_coupons",
+      "rows": 0,
+      "file": "user_coupons.json"
+    },
+    {
+      "table": "user_daily_vocab",
+      "rows": 0,
+      "file": "user_daily_vocab.json"
+    },
+    {
+      "table": "study_progress",
+      "rows": 34,
+      "file": "study_progress.json"
+    },
+    {
+      "table": "study_history",
+      "rows": 0,
+      "file": "study_history.json"
+    },
+    {
+      "table": "exam_results",
+      "rows": 3,
+      "file": "exam_results.json"
+    },
+    {
+      "table": "grammar_progress",
+      "rows": 0,
+      "file": "grammar_progress.json"
+    },
+    {
+      "table": "grammar_favorites",
+      "rows": 0,
+      "file": "grammar_favorites.json"
+    },
+    {
+      "table": "module_progress",
+      "rows": 3,
+      "file": "module_progress.json"
+    },
+    {
+      "table": "flashcard_data",
+      "rows": 0,
+      "file": "flashcard_data.json"
+    },
+    {
+      "table": "daily_vocab",
+      "rows": 0,
+      "file": "daily_vocab.json"
+    },
+    {
+      "table": "topik_quiz_history",
+      "rows": 0,
+      "file": "topik_quiz_history.json"
+    },
+    {
+      "table": "topik_flashcard_progress",
+      "rows": 112,
+      "file": "topik_flashcard_progress.json"
+    },
+    {
+      "table": "hanja_flashcard_progress",
+      "rows": 0,
+      "file": "hanja_flashcard_progress.json"
+    },
+    {
+      "table": "hanja_story_progress",
+      "rows": 0,
+      "file": "hanja_story_progress.json"
+    },
+    {
+      "table": "seoul_flashcard_progress",
+      "rows": 0,
+      "file": "seoul_flashcard_progress.json"
+    },
+    {
+      "table": "melon_flashcard_progress",
+      "rows": 0,
+      "file": "melon_flashcard_progress.json"
+    },
+    {
+      "table": "melon_study_history",
+      "rows": 0,
+      "file": "melon_study_history.json"
+    },
+    {
+      "table": "community_posts",
+      "rows": 21,
+      "file": "community_posts.json"
+    },
+    {
+      "table": "community_answers",
+      "rows": 0,
+      "file": "community_answers.json"
+    },
+    {
+      "table": "community_comments",
+      "rows": 7,
+      "file": "community_comments.json"
+    },
+    {
+      "table": "community_likes",
+      "rows": 14,
+      "file": "community_likes.json"
+    },
+    {
+      "table": "community_quiz_answers",
+      "rows": 6,
+      "file": "community_quiz_answers.json"
+    },
+    {
+      "table": "community_ratings",
+      "rows": 7,
+      "file": "community_ratings.json"
+    },
+    {
+      "table": "community_settings",
+      "rows": 1,
+      "file": "community_settings.json"
+    },
+    {
+      "table": "comments",
+      "rows": 0,
+      "file": "comments.json"
+    },
+    {
+      "table": "achievements",
+      "rows": 17,
+      "file": "achievements.json"
+    },
+    {
+      "table": "leaderboard",
+      "rows": 34,
+      "file": "leaderboard.json"
+    },
+    {
+      "table": "leaderboard_cache",
+      "rows": 0,
+      "file": "leaderboard_cache.json"
+    },
+    {
+      "table": "leaderboard_snapshots",
+      "rows": 3,
+      "file": "leaderboard_snapshots.json"
+    },
+    {
+      "table": "weekly_rewards",
+      "rows": 3,
+      "file": "weekly_rewards.json"
+    },
+    {
+      "table": "weekly_rewards_summary",
+      "rows": 3,
+      "file": "weekly_rewards_summary.json"
+    },
+    {
+      "table": "reward_redemptions",
+      "rows": 0,
+      "file": "reward_redemptions.json"
+    },
+    {
+      "table": "coupons",
+      "rows": 0,
+      "file": "coupons.json"
+    },
+    {
+      "table": "xp_settings",
+      "rows": 1,
+      "file": "xp_settings.json"
+    },
+    {
+      "table": "vip_pricing",
+      "rows": 2,
+      "file": "vip_pricing.json"
+    },
+    {
+      "table": "vip_payment_requests",
+      "rows": 0,
+      "file": "vip_payment_requests.json"
+    },
+    {
+      "table": "vip_revenue_log",
+      "rows": 4,
+      "file": "vip_revenue_log.json"
+    },
+    {
+      "table": "vip_violation_reports",
+      "rows": 0,
+      "file": "vip_violation_reports.json"
+    },
+    {
+      "table": "ctv_profiles",
+      "rows": 0,
+      "file": "ctv_profiles.json"
+    },
+    {
+      "table": "ctv_commissions",
+      "rows": 0,
+      "file": "ctv_commissions.json"
+    },
+    {
+      "table": "ctv_withdrawals",
+      "rows": 0,
+      "file": "ctv_withdrawals.json"
+    },
+    {
+      "table": "feedback",
+      "rows": 0,
+      "file": "feedback.json"
+    },
+    {
+      "table": "bug_reports",
+      "rows": 1,
+      "file": "bug_reports.json"
+    },
+    {
+      "table": "category_seo",
+      "rows": 9,
+      "file": "category_seo.json"
+    },
+    {
+      "table": "notifications",
+      "rows": 0,
+      "file": "notifications.json"
+    },
+    {
+      "table": "error_logs",
+      "rows": 4,
+      "file": "error_logs.json"
+    },
+    {
+      "table": "login_sessions",
+      "rows": 23,
+      "file": "login_sessions.json"
+    },
+    {
+      "table": "suspicious_exam_log",
+      "rows": 0,
+      "file": "suspicious_exam_log.json"
+    },
+    {
+      "table": "zalo_reminders",
+      "rows": 0,
+      "file": "zalo_reminders.json"
+    },
+    {
+      "table": "zalo_reminder_logs",
+      "rows": 0,
+      "file": "zalo_reminder_logs.json"
+    },
+    {
+      "table": "zalo_oauth_state",
+      "rows": 0,
+      "file": "zalo_oauth_state.json"
+    },
+    {
+      "table": "tts_audio_cache",
+      "rows": 0,
+      "file": "tts_audio_cache.json"
+    },
+    {
+      "table": "tts_audio_misses",
+      "rows": 1,
+      "file": "tts_audio_misses.json"
+    }
+  ],
+  "errors": [],
+  "totalRows": 20948
+}

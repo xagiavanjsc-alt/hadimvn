@@ -1,0 +1,12 @@
+[
+  {
+    "id": "global",
+    "access_control_enabled": true,
+    "guest_view_limit": 15,
+    "member_daily_post_limit": 5,
+    "vip_daily_post_limit": 0,
+    "access_mode": "normal",
+    "mode_note": null,
+    "updated_at": "2026-05-03T19:46:37.355099+00:00"
+  }
+]

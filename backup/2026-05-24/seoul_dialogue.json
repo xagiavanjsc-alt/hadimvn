@@ -1,0 +1,982 @@
+[
+  {
+    "id": 2,
+    "lesson_id": "4A-L1",
+    "book_id": "4A",
+    "speaker": "민수",
+    "text": "졸업을 앞두고 진로를 선택하기가 정말 어려워요.",
+    "translation": "Sắp tốt nghiệp rồi nên việc lựa chọn định hướng nghề nghiệp thật sự khó.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 3,
+    "lesson_id": "4A-L1",
+    "book_id": "4A",
+    "speaker": "선생님",
+    "text": "진로를 선택하기에 앞서 자신의 적성과 능력을 먼저 알아보는 것이 좋아요.",
+    "translation": "Trước khi chọn hướng đi, em nên tìm hiểu năng khiếu và năng lực của bản thân trước.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 4,
+    "lesson_id": "4A-L1",
+    "book_id": "4A",
+    "speaker": "민수",
+    "text": "저는 사람들을 만나는 일을 좋아하고 성격도 활발한 편이에요.",
+    "translation": "Em thích công việc gặp gỡ mọi người và tính cách cũng khá hoạt bát.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 5,
+    "lesson_id": "4A-L1",
+    "book_id": "4A",
+    "speaker": "선생님",
+    "text": "그렇다면 상담을 통해 서비스 업무나 여행 가이드 일을 알아보는 것도 좋겠네요.",
+    "translation": "Vậy thì thông qua tư vấn, em thử tìm hiểu công việc dịch vụ hoặc hướng dẫn viên du lịch cũng tốt.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 6,
+    "lesson_id": "4A-L1",
+    "book_id": "4A",
+    "speaker": "민수",
+    "text": "생각할수록 항공사에서 근무하는 일이 제 적성에 맞는 것 같아요.",
+    "translation": "Càng nghĩ em càng thấy công việc làm ở hãng hàng không phù hợp với năng khiếu của mình.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 7,
+    "lesson_id": "4A-L2",
+    "book_id": "4A",
+    "speaker": "의사",
+    "text": "어디가 불편해서 오셨어요?",
+    "translation": "Bạn thấy không thoải mái ở đâu nên đến khám vậy?",
+    "sort_order": 0,
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 8,
+    "lesson_id": "4A-L2",
+    "book_id": "4A",
+    "speaker": "환자",
+    "text": "요즘 눈이 침침하고 목이 뻣뻣해요. 가슴도 답답해서 걱정돼요.",
+    "translation": "Dạo này mắt tôi mờ và cổ bị cứng. Ngực cũng tức nên tôi lo lắng.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 9,
+    "lesson_id": "4A-L2",
+    "book_id": "4A",
+    "speaker": "의사",
+    "text": "과로하지 않도록 하시고 충분히 쉬어야 해요.",
+    "translation": "Bạn hãy cố gắng đừng làm việc quá sức và phải nghỉ ngơi đầy đủ.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 10,
+    "lesson_id": "4A-L2",
+    "book_id": "4A",
+    "speaker": "환자",
+    "text": "발목도 조금 부었는데 어떻게 해야 해요?",
+    "translation": "Cổ chân tôi cũng hơi sưng thì phải làm thế nào?",
+    "sort_order": 0,
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 11,
+    "lesson_id": "4A-L2",
+    "book_id": "4A",
+    "speaker": "의사",
+    "text": "발목이 부으면 얼음찜질을 하고, 증상이 심하면 바로 치료를 받도록 하세요.",
+    "translation": "Nếu cổ chân bị sưng thì hãy chườm đá, nếu triệu chứng nặng thì hãy đi điều trị ngay.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 12,
+    "lesson_id": "4A-L3",
+    "book_id": "4A",
+    "speaker": "지훈",
+    "text": "어제 서울월드컵경기장에서 축구 경기를 관람했어요.",
+    "translation": "Hôm qua tôi đã xem trận bóng đá ở sân vận động Seoul World Cup.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 13,
+    "lesson_id": "4A-L3",
+    "book_id": "4A",
+    "speaker": "수진",
+    "text": "경기가 어땠어요? 흥미진진했어요?",
+    "translation": "Trận đấu thế nào? Có hấp dẫn không?",
+    "sort_order": 0,
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 14,
+    "lesson_id": "4A-L3",
+    "book_id": "4A",
+    "speaker": "지훈",
+    "text": "네, 두 팀 실력이 막상막하라서 정말 아슬아슬했어요.",
+    "translation": "Có, thực lực hai đội ngang tài ngang sức nên thật sự rất gay cấn.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 15,
+    "lesson_id": "4A-L3",
+    "book_id": "4A",
+    "speaker": "수진",
+    "text": "우리 팀이 이겼어요?",
+    "translation": "Đội mình thắng không?",
+    "sort_order": 0,
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 16,
+    "lesson_id": "4A-L3",
+    "book_id": "4A",
+    "speaker": "지훈",
+    "text": "후반전에 골을 넣었지만 마지막 순간에 실점하는 바람에 무승부로 끝났어요.",
+    "translation": "Hiệp hai đã ghi bàn nhưng vì bị thủng lưới ở khoảnh khắc cuối nên kết thúc hòa.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 17,
+    "lesson_id": "4A-L3",
+    "book_id": "4A",
+    "speaker": "수진",
+    "text": "아쉽지만 선수들이 최선을 다했다면 결과를 받아들이는 것도 스포츠 정신이에요.",
+    "translation": "Đáng tiếc thật, nhưng nếu các cầu thủ đã cố hết sức thì chấp nhận kết quả cũng là tinh thần thể thao.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 18,
+    "lesson_id": "4A-L4",
+    "book_id": "4A",
+    "speaker": "민지",
+    "text": "모처럼 데이트하는데 왜 또 콘서트는 싫다고 해요?",
+    "translation": "Lâu lắm mới hẹn hò mà sao anh lại nói không thích concert nữa vậy?",
+    "sort_order": 0,
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 19,
+    "lesson_id": "4A-L4",
+    "book_id": "4A",
+    "speaker": "준호",
+    "text": "싫다는 게 아니라 내 취향이랑 조금 달라서 그래요. 우리 의논해서 고르면 안 돼요?",
+    "translation": "Không phải là anh ghét, chỉ là hơi khác gu của anh thôi. Chúng ta bàn bạc rồi chọn không được à?",
+    "sort_order": 0,
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 20,
+    "lesson_id": "4A-L4",
+    "book_id": "4A",
+    "speaker": "민지",
+    "text": "당신은 늘 계획성이 없고 눈치도 없어서 속상해요.",
+    "translation": "Anh lúc nào cũng không có kế hoạch, lại không tinh ý nên em buồn lòng.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 21,
+    "lesson_id": "4A-L4",
+    "book_id": "4A",
+    "speaker": "준호",
+    "text": "그렇게 지적하면 나도 발끈하게 돼요. 따지기보다는 침착하게 이야기해요.",
+    "translation": "Em chỉ ra như vậy thì anh cũng dễ nổi nóng. Thay vì cãi lý, mình bình tĩnh nói chuyện nhé.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 22,
+    "lesson_id": "4A-L4",
+    "book_id": "4A",
+    "speaker": "민지",
+    "text": "맞아요. 서로의 취향에 비해 무엇이 더 좋은지 이야기해 봐요.",
+    "translation": "Đúng vậy. Hãy thử nói xem so với sở thích của nhau thì điều gì tốt hơn.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 23,
+    "lesson_id": "4A-L5",
+    "book_id": "4A",
+    "speaker": "지우",
+    "text": "부장님이 신입 사원을 너무 심하게 야단치셨어요.",
+    "translation": "Trưởng phòng đã la nhân viên mới quá nặng lời.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 24,
+    "lesson_id": "4A-L5",
+    "book_id": "4A",
+    "speaker": "현우",
+    "text": "예전에는 부장님도 신입이었잖아요. 개구리 올챙이 적 생각 못 한다는 말이 떠오르네요.",
+    "translation": "Trước đây trưởng phòng cũng từng là nhân viên mới mà. Tôi nhớ đến câu ếch quên thời còn là nòng nọc.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 25,
+    "lesson_id": "4A-L5",
+    "book_id": "4A",
+    "speaker": "지우",
+    "text": "맞아요. 게다가 그 신입 사원은 일을 제대로 배우는 중이에요.",
+    "translation": "Đúng vậy. Hơn nữa nhân viên mới đó đang trong quá trình học việc đúng cách.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 26,
+    "lesson_id": "4A-L5",
+    "book_id": "4A",
+    "speaker": "현우",
+    "text": "그래도 실수한 뒤에 고치면 소 잃고 외양간 고치는 셈이니까 미리 알려 줘야 해요.",
+    "translation": "Nhưng nếu mắc lỗi rồi mới sửa thì là mất bò mới lo làm chuồng, nên phải chỉ trước.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 27,
+    "lesson_id": "4A-L5",
+    "book_id": "4A",
+    "speaker": "지우",
+    "text": "천리 길도 한 걸음부터니까 천천히 가르쳐 주면 좋겠어요.",
+    "translation": "Đường thiên lý bắt đầu từ một bước chân nên nếu chỉ dạy từ từ thì tốt.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 28,
+    "lesson_id": "4A-L6",
+    "book_id": "4A",
+    "speaker": "수연",
+    "text": "어제 하이서울페스티벌에 다녀왔어요. 서울 곳곳에서 공연이 진행됐어요.",
+    "translation": "Hôm qua tôi đã đi Lễ hội Hi Seoul. Các buổi biểu diễn diễn ra khắp nơi ở Seoul.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 29,
+    "lesson_id": "4A-L6",
+    "book_id": "4A",
+    "speaker": "민호",
+    "text": "어땠어요? 볼거리가 많았어요?",
+    "translation": "Thế nào? Có nhiều thứ đáng xem không?",
+    "sort_order": 0,
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 30,
+    "lesson_id": "4A-L6",
+    "book_id": "4A",
+    "speaker": "수연",
+    "text": "네, 사물놀이와 비보이 공연이 한자리에서 어우러져서 정말 인상적이었어요.",
+    "translation": "Có, samulnori và biểu diễn B-boy hòa quyện cùng một nơi nên thật sự rất ấn tượng.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 31,
+    "lesson_id": "4A-L6",
+    "book_id": "4A",
+    "speaker": "민호",
+    "text": "전통 공연은 이해하기 어렵지 않았어요?",
+    "translation": "Biểu diễn truyền thống có khó hiểu không?",
+    "sort_order": 0,
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 32,
+    "lesson_id": "4A-L6",
+    "book_id": "4A",
+    "speaker": "수연",
+    "text": "판소리는 조금 어려웠지만 가사가 감동적이라 가슴이 찡했어요.",
+    "translation": "Pansori hơi khó nhưng lời ca cảm động nên tôi xúc động nghẹn ngào.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 33,
+    "lesson_id": "4A-L6",
+    "book_id": "4A",
+    "speaker": "민호",
+    "text": "저도 다음에는 기회를 놓치지 말고 꼭 가 봐야겠어요.",
+    "translation": "Lần sau tôi cũng nhất định phải không bỏ lỡ cơ hội và đi thử.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T04:12:56.559424+00:00"
+  },
+  {
+    "id": 34,
+    "lesson_id": "4A-L7",
+    "book_id": "4A",
+    "speaker": "지호",
+    "text": "어제 영화관에서 옆 사람이 팝콘 냄새를 막 풍기고 큰 소리로 전화까지 받더라고요.",
+    "translation": "Hôm qua ở rạp chiếu phim, người bên cạnh cứ để mùi bắp rang bay khắp và còn nghe điện thoại to tiếng nữa.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T04:57:45.704421+00:00"
+  },
+  {
+    "id": 35,
+    "lesson_id": "4A-L7",
+    "book_id": "4A",
+    "speaker": "수진",
+    "text": "정말요? 그런 행동은 옳지 않죠. 다른 사람에게 불편을 주잖아요.",
+    "translation": "Thật không? Hành động như vậy thật không đúng. Đó là gây bất tiện cho người khác mà.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T04:57:45.704421+00:00"
+  },
+  {
+    "id": 36,
+    "lesson_id": "4A-L7",
+    "book_id": "4A",
+    "speaker": "지호",
+    "text": "그렇죠. 상영관 안에서 음식물 반입은 금지인데도 양심이 없이 들고 들어오더라고요.",
+    "translation": "Đúng vậy. Phòng chiếu phim cấm mang đồ ăn vào mà vẫn cứ mang vào một cách không có lương tâm.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T04:57:45.704421+00:00"
+  },
+  {
+    "id": 37,
+    "lesson_id": "4A-L7",
+    "book_id": "4A",
+    "speaker": "수진",
+    "text": "저도 비슷한 경험이 있어요. 이웃집에서 한밤중에 악기 소리가 들려와서 잠을 못 잤어요.",
+    "translation": "Tôi cũng có kinh nghiệm tương tự. Nhà hàng xóm chơi nhạc cụ giữa đêm khuya vang đến tai nên không ngủ được.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T04:57:45.704421+00:00"
+  },
+  {
+    "id": 38,
+    "lesson_id": "4A-L7",
+    "book_id": "4A",
+    "speaker": "지호",
+    "text": "그럴 경우에는 먼저 양해를 구하고, 안 되면 관리 사무소에 항의하는 게 맞을 것 같아요.",
+    "translation": "Trong trường hợp đó, trước tiên mong sự thông cảm, nếu không được thì khiếu nại lên ban quản lý là đúng hơn.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T04:57:45.704421+00:00"
+  },
+  {
+    "id": 39,
+    "lesson_id": "4A-L7",
+    "book_id": "4A",
+    "speaker": "수진",
+    "text": "맞아요. 사회생활에서는 개인의 자유도 중요하지만 다른 사람을 배려하는 게 우선이죠.",
+    "translation": "Đúng vậy. Trong đời sống xã hội, tự do cá nhân cũng quan trọng nhưng quan tâm đến người khác phải là ưu tiên hàng đầu.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T04:57:45.704421+00:00"
+  },
+  {
+    "id": 40,
+    "lesson_id": "4A-L8",
+    "book_id": "4A",
+    "speaker": "나연",
+    "text": "이번 방학에 동남아 여행을 갔는데 야시장에서 정말 독특한 경험을 했어요.",
+    "translation": "Kỳ nghỉ này tôi đi du lịch Đông Nam Á, đã có trải nghiệm thật độc đáo ở chợ đêm.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T05:12:05.004308+00:00"
+  },
+  {
+    "id": 41,
+    "lesson_id": "4A-L8",
+    "book_id": "4A",
+    "speaker": "준서",
+    "text": "어떤 경험이었어요? 파사 말람 같은 야시장에 갔어요?",
+    "translation": "Là trải nghiệm gì vậy? Bạn có đến chợ đêm kiểu Pasar Malam không?",
+    "sort_order": 0,
+    "created_at": "2026-05-08T05:12:05.004308+00:00"
+  },
+  {
+    "id": 42,
+    "lesson_id": "4A-L8",
+    "book_id": "4A",
+    "speaker": "나연",
+    "text": "네, 수상 시장도 갔어요. 배를 타고 물건을 사는 게 정말 흥미로웠어요.",
+    "translation": "Có, tôi cũng đến chợ nổi nữa. Ngồi thuyền mua đồ thật sự rất thú vị.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T05:12:05.004308+00:00"
+  },
+  {
+    "id": 43,
+    "lesson_id": "4A-L8",
+    "book_id": "4A",
+    "speaker": "준서",
+    "text": "나라별로 시장 문화가 이렇게 다양하다는 게 놀라워요.",
+    "translation": "Thật ngạc nhiên khi văn hóa chợ búa lại đa dạng theo từng đất nước như vậy.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T05:12:05.004308+00:00"
+  },
+  {
+    "id": 44,
+    "lesson_id": "4A-L8",
+    "book_id": "4A",
+    "speaker": "나연",
+    "text": "맞아요. 알면 알수록 세계 문화가 더 흥미로워요. 민속놀이도 나라마다 달라서 신기했어요.",
+    "translation": "Đúng vậy. Càng tìm hiểu, văn hóa thế giới càng thú vị hơn. Trò chơi dân gian cũng khác nhau theo từng nước nên rất kỳ thú.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T05:12:05.004308+00:00"
+  },
+  {
+    "id": 45,
+    "lesson_id": "4A-L8",
+    "book_id": "4A",
+    "speaker": "준서",
+    "text": "저도 다음에 직접 가서 다양한 문화를 경험하고 싶어요.",
+    "translation": "Tôi cũng muốn trực tiếp đến đó để trải nghiệm văn hóa đa dạng.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T05:12:05.004308+00:00"
+  },
+  {
+    "id": 46,
+    "lesson_id": "4A-L9",
+    "book_id": "4A",
+    "speaker": "민아",
+    "text": "요즘 어떤 드라마 봐요? 추천해 줄 만한 게 있어요?",
+    "translation": "Dạo này bạn xem phim gì? Có phim nào đáng giới thiệu không?",
+    "sort_order": 0,
+    "created_at": "2026-05-08T05:22:58.427087+00:00"
+  },
+  {
+    "id": 47,
+    "lesson_id": "4A-L9",
+    "book_id": "4A",
+    "speaker": "준혁",
+    "text": "요즘 멜로 드라마 하나를 보는데 절정에 달하니까 솔직히 밤새 봤어요.",
+    "translation": "Dạo này đang xem một bộ phim tình cảm, đến cao trào thành thật mà nói đã xem thâu đêm.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T05:22:58.427087+00:00"
+  },
+  {
+    "id": 48,
+    "lesson_id": "4A-L9",
+    "book_id": "4A",
+    "speaker": "민아",
+    "text": "그 드라마 주인공이 누구예요? 인기가 있는 배우예요?",
+    "translation": "Nhân vật chính của phim đó là ai? Có phải diễn viên nổi tiếng không?",
+    "sort_order": 0,
+    "created_at": "2026-05-08T05:22:58.427087+00:00"
+  },
+  {
+    "id": 49,
+    "lesson_id": "4A-L9",
+    "book_id": "4A",
+    "speaker": "준혁",
+    "text": "네, 올해 데뷔해서 주목을 받은 신인인데 가창력도 뛰어나고 연기도 진지해요.",
+    "translation": "Có, là diễn viên mới ra mắt năm nay và nhận được nhiều chú ý, vừa có khả năng ca hát xuất sắc vừa diễn xuất nghiêm túc.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T05:22:58.427087+00:00"
+  },
+  {
+    "id": 50,
+    "lesson_id": "4A-L9",
+    "book_id": "4A",
+    "speaker": "민아",
+    "text": "오, 그 사람 시사회에서 기립 박수를 받았다니 정말 대단하네요!",
+    "translation": "Ồ, nghe nói người đó nhận được tràng vỗ tay đứng lên ở buổi chiếu ra mắt, thật không ngờ, tuyệt quá!",
+    "sort_order": 0,
+    "created_at": "2026-05-08T05:22:58.427087+00:00"
+  },
+  {
+    "id": 51,
+    "lesson_id": "4A-L9",
+    "book_id": "4A",
+    "speaker": "준혁",
+    "text": "맞아요. 향후 예능 프로그램에도 출연할 거래요. 놓치지 말고 꼭 보세요!",
+    "translation": "Đúng vậy. Nghe nói sắp tới cũng sẽ xuất hiện trong chương trình giải trí nữa. Nhất định đừng bỏ lỡ!",
+    "sort_order": 0,
+    "created_at": "2026-05-08T05:22:58.427087+00:00"
+  },
+  {
+    "id": 52,
+    "lesson_id": "4B-L10",
+    "book_id": "4B",
+    "speaker": "선생님",
+    "text": "오늘은 단군 신화에 대해 이야기해 볼게요. 단군 신화를 들어 본 적 있어요?",
+    "translation": "Hôm nay chúng ta hãy nói về thần thoại Dangun. Các em đã từng nghe về thần thoại Dangun chưa?",
+    "sort_order": 0,
+    "created_at": "2026-05-08T05:38:43.051878+00:00"
+  },
+  {
+    "id": 53,
+    "lesson_id": "4B-L10",
+    "book_id": "4B",
+    "speaker": "민준",
+    "text": "네, 곰이 마늘과 쑥을 먹으면서 동굴 안에서 버텼다는 이야기죠?",
+    "translation": "Vâng, là câu chuyện con gấu ăn tỏi và ngải cứu rồi cầm cự trong hang động phải không ạ?",
+    "sort_order": 0,
+    "created_at": "2026-05-08T05:38:43.051878+00:00"
+  },
+  {
+    "id": 54,
+    "lesson_id": "4B-L10",
+    "book_id": "4B",
+    "speaker": "선생님",
+    "text": "맞아요. 호랑이는 캄캄한 동굴에서 참을성이 없어서 뛰어나왔고, 곰은 마침내 사람이 됐어요.",
+    "translation": "Đúng vậy. Con hổ vì thiếu kiên nhẫn đã nhảy ra khỏi hang tối, còn con gấu cuối cùng đã hóa thành người.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T05:38:43.051878+00:00"
+  },
+  {
+    "id": 55,
+    "lesson_id": "4B-L10",
+    "book_id": "4B",
+    "speaker": "지수",
+    "text": "그 이야기에서 곰은 참을성이 많고 영리한 동물로 상징되네요.",
+    "translation": "Trong câu chuyện đó, con gấu được tượng trưng là loài vật kiên nhẫn và thông minh nhỉ.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T05:38:43.051878+00:00"
+  },
+  {
+    "id": 56,
+    "lesson_id": "4B-L10",
+    "book_id": "4B",
+    "speaker": "선생님",
+    "text": "네, 단군은 마침내 고조선을 세우고 나라를 다스렸어요. 이것이 한국 건국 신화예요.",
+    "translation": "Đúng vậy, Dangun cuối cùng đã lập nên Gojoseon và cai quản đất nước. Đây là thần thoại lập quốc của Hàn Quốc.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T05:38:43.051878+00:00"
+  },
+  {
+    "id": 57,
+    "lesson_id": "4B-L11",
+    "book_id": "4B",
+    "speaker": "하린",
+    "text": "요즘 청소년들이 욕을 너무 해대는 게 심각한 문제인 것 같아요.",
+    "translation": "Dạo này thanh thiếu niên chửi tục liên tục có vẻ là vấn đề nghiêm trọng.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T05:38:57.639846+00:00"
+  },
+  {
+    "id": 58,
+    "lesson_id": "4B-L11",
+    "book_id": "4B",
+    "speaker": "민혁",
+    "text": "맞아요. 줄임말을 써버릇하는 데다가 외래어도 너무 많이 써서 의사소통이 어려울 때가 있어요.",
+    "translation": "Đúng vậy. Ngoài thói quen dùng từ viết tắt, còn dùng quá nhiều từ ngoại lai nên đôi khi giao tiếp khó khăn.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T05:38:57.639846+00:00"
+  },
+  {
+    "id": 59,
+    "lesson_id": "4B-L11",
+    "book_id": "4B",
+    "speaker": "하린",
+    "text": "도대체 이런 현상이 왜 생기는 걸까요? 어휘력이 줄어들어서 그런 건 아닐까요?",
+    "translation": "Rốt cuộc tại sao lại xuất hiện hiện tượng này? Có phải vì vốn từ vựng giảm đi không?",
+    "sort_order": 0,
+    "created_at": "2026-05-08T05:38:57.639846+00:00"
+  },
+  {
+    "id": 60,
+    "lesson_id": "4B-L11",
+    "book_id": "4B",
+    "speaker": "민혁",
+    "text": "그럴 수도 있어요. 독서를 안 하게 되면 자연스럽게 표현력도 떨어지죠.",
+    "translation": "Có thể vậy. Khi không đọc sách nữa thì tự nhiên năng lực biểu đạt cũng giảm.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T05:38:57.639846+00:00"
+  },
+  {
+    "id": 61,
+    "lesson_id": "4B-L11",
+    "book_id": "4B",
+    "speaker": "하린",
+    "text": "긍정적으로 보면 새로운 표현이 언어를 더 풍부하게 해 준다는 일리도 있어요.",
+    "translation": "Nhìn theo hướng tích cực thì cũng có lý khi nói rằng các cách diễn đạt mới làm ngôn ngữ phong phú hơn.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T05:38:57.639846+00:00"
+  },
+  {
+    "id": 62,
+    "lesson_id": "4B-L11",
+    "book_id": "4B",
+    "speaker": "민혁",
+    "text": "맞아요. 중립적으로 여기는 게 좋을 것 같아요. 언어는 계속 변하니까요.",
+    "translation": "Đúng vậy. Có lẽ nên coi vấn đề một cách trung lập. Vì ngôn ngữ luôn thay đổi mà.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T05:38:57.639846+00:00"
+  },
+  {
+    "id": 63,
+    "lesson_id": "4B-L12",
+    "book_id": "4B",
+    "speaker": "지아",
+    "text": "요즘 지구 온난화 때문에 이상 기후가 심해지고 있어요. 빙하도 많이 녹고 있다고 해요.",
+    "translation": "Dạo này do nóng lên toàn cầu, khí hậu bất thường ngày càng nghiêm trọng. Nghe nói sông băng cũng đang tan chảy nhiều.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T05:49:11.521512+00:00"
+  },
+  {
+    "id": 64,
+    "lesson_id": "4B-L12",
+    "book_id": "4B",
+    "speaker": "현우",
+    "text": "맞아요. 빙하가 녹으면 녹을수록 해수면이 높아져서 해안도시가 물에 잠길 수도 있대요.",
+    "translation": "Đúng vậy. Sông băng càng tan nhiều thì mực nước biển càng dâng, có thể thành phố ven biển sẽ bị ngập nước.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T05:49:11.521512+00:00"
+  },
+  {
+    "id": 65,
+    "lesson_id": "4B-L12",
+    "book_id": "4B",
+    "speaker": "지아",
+    "text": "북극곰이나 펭귄 같은 희귀 동물들도 위험에 처해 있잖아요. 환경을 보호하지 않으면 안 돼요.",
+    "translation": "Các động vật quý hiếm như gấu Bắc Cực hay chim cánh cụt cũng đang gặp nguy hiểm. Bắt buộc phải bảo vệ môi trường.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T05:49:11.521512+00:00"
+  },
+  {
+    "id": 66,
+    "lesson_id": "4B-L12",
+    "book_id": "4B",
+    "speaker": "현우",
+    "text": "맞아요. 일회용품 사용을 줄이고 재활용도 열심히 해야 해요. 비닐봉지 대신 장바구니를 쓰는 것부터 시작해요.",
+    "translation": "Đúng vậy. Phải giảm đồ dùng một lần và tích cực tái chế. Hãy bắt đầu từ việc dùng giỏ hàng thay túi nilon.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T05:49:11.521512+00:00"
+  },
+  {
+    "id": 67,
+    "lesson_id": "4B-L12",
+    "book_id": "4B",
+    "speaker": "지아",
+    "text": "환경 단체에서 캠페인을 벌이고 있는데 우리도 참여해요!",
+    "translation": "Tổ chức môi trường đang tiến hành chiến dịch, chúng ta cùng tham gia nhé!",
+    "sort_order": 0,
+    "created_at": "2026-05-08T05:49:11.521512+00:00"
+  },
+  {
+    "id": 68,
+    "lesson_id": "4B-L12",
+    "book_id": "4B",
+    "speaker": "현우",
+    "text": "좋아요. 환경이 파괴되면 파괴될수록 회복하기가 어려우니까 지금 당장 행동해야 해요.",
+    "translation": "Tốt thôi. Môi trường càng bị tàn phá thì càng khó phục hồi, vì vậy phải hành động ngay bây giờ.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T05:49:11.521512+00:00"
+  },
+  {
+    "id": 69,
+    "lesson_id": "4B-L13",
+    "book_id": "4B",
+    "speaker": "수아",
+    "text": "지난 주말에 경복궁에 갔다 왔는데 정말 인상적이었어요.",
+    "translation": "Cuối tuần vừa rồi tôi đã đến Gyeongbokgung, thật sự rất ấn tượng.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T05:59:14.730834+00:00"
+  },
+  {
+    "id": 70,
+    "lesson_id": "4B-L13",
+    "book_id": "4B",
+    "speaker": "민재",
+    "text": "어떤 점이 특히 좋았어요?",
+    "translation": "Điểm nào đặc biệt hay vậy?",
+    "sort_order": 0,
+    "created_at": "2026-05-08T05:59:14.730834+00:00"
+  },
+  {
+    "id": 71,
+    "lesson_id": "4B-L13",
+    "book_id": "4B",
+    "speaker": "수아",
+    "text": "근정전 앞에 서 있으니까 가슴이 뻥 뚫리는 기분이었어요. 짐승 조각들도 생동감이 있었고요.",
+    "translation": "Đứng trước Cần Chánh Điện thấy tâm trạng thông thoáng hẳn. Các tượng điêu khắc thú vật cũng rất sinh động.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T05:59:14.730834+00:00"
+  },
+  {
+    "id": 72,
+    "lesson_id": "4B-L13",
+    "book_id": "4B",
+    "speaker": "민재",
+    "text": "돌다리에 조각된 칠조룡도 봤어요?",
+    "translation": "Bạn có thấy rồng bảy móng được điêu khắc trên cầu đá không?",
+    "sort_order": 0,
+    "created_at": "2026-05-08T05:59:14.730834+00:00"
+  },
+  {
+    "id": 73,
+    "lesson_id": "4B-L13",
+    "book_id": "4B",
+    "speaker": "수아",
+    "text": "네! 용이 발을 내밀고 있는 모습이 끝없이 펼쳐진 하늘 아래서 정말 웅장했어요.",
+    "translation": "Có! Hình ảnh con rồng chìa chân ra dưới bầu trời trải dài bất tận thật hùng tráng.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T05:59:14.730834+00:00"
+  },
+  {
+    "id": 74,
+    "lesson_id": "4B-L13",
+    "book_id": "4B",
+    "speaker": "민재",
+    "text": "고궁박물관도 들렀어요? 여행을 할수록 한국 역사에 더 반하게 되는 것 같아요.",
+    "translation": "Bạn có ghé Bảo tàng Cố cung không? Càng đi du lịch thì càng bị mê hoặc bởi lịch sử Hàn Quốc hơn.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T05:59:14.730834+00:00"
+  },
+  {
+    "id": 75,
+    "lesson_id": "4B-L14",
+    "book_id": "4B",
+    "speaker": "지훈",
+    "text": "요즘 부모님을 요양병원에 모시는 경우가 상당수 늘고 있대요.",
+    "translation": "Nghe nói dạo này trường hợp đưa bố mẹ vào viện dưỡng lão ngày càng tăng đáng kể.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T05:59:30.485774+00:00"
+  },
+  {
+    "id": 76,
+    "lesson_id": "4B-L14",
+    "book_id": "4B",
+    "speaker": "소연",
+    "text": "맞아요. 인건비도 만만치 않고 바쁜 현실을 반영하는 것 같아요.",
+    "translation": "Đúng vậy. Chi phí nhân công không đơn giản và có vẻ phản ánh thực tế bận rộn.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T05:59:30.485774+00:00"
+  },
+  {
+    "id": 77,
+    "lesson_id": "4B-L14",
+    "book_id": "4B",
+    "speaker": "지훈",
+    "text": "그래도 웃어른을 공경하는 전통을 지키는 게 이상적이기는 하지만 쉽지 않죠.",
+    "translation": "Dù vậy, tuy giữ gìn truyền thống kính trọng bề trên là lý tưởng nhưng không dễ.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T05:59:30.485774+00:00"
+  },
+  {
+    "id": 78,
+    "lesson_id": "4B-L14",
+    "book_id": "4B",
+    "speaker": "소연",
+    "text": "부담이 늘다 보면 결국 이런 선택을 하게 되는 것 같아요.",
+    "translation": "Nếu cứ gánh nặng tăng lên thì cuối cùng có vẻ sẽ đưa ra lựa chọn này.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T05:59:30.485774+00:00"
+  },
+  {
+    "id": 79,
+    "lesson_id": "4B-L14",
+    "book_id": "4B",
+    "speaker": "지훈",
+    "text": "전통과 현대가 조화를 이룰 수 있는 방법을 찾아야 할 것 같아요.",
+    "translation": "Có lẽ cần tìm cách để truyền thống và hiện đại hòa hợp với nhau.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T05:59:30.485774+00:00"
+  },
+  {
+    "id": 80,
+    "lesson_id": "4B-L15",
+    "book_id": "4B",
+    "speaker": "유나",
+    "text": "저 요즘 강아지를 키우기 시작했어요. 외로움을 달래 주고 정서적으로 안정이 돼요.",
+    "translation": "Dạo này tôi bắt đầu nuôi chó con. Nó xoa dịu nỗi cô đơn và giúp tôi ổn định tình cảm.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T06:13:13.766285+00:00"
+  },
+  {
+    "id": 81,
+    "lesson_id": "4B-L15",
+    "book_id": "4B",
+    "speaker": "준호",
+    "text": "좋겠어요. 하지만 관리가 힘들지 않아요? 배설물도 치워야 하고 먹이도 챙겨 줘야 하잖아요.",
+    "translation": "Hay đấy. Nhưng việc quản lý không khó sao? Phải dọn chất thải và chăm lo thức ăn nữa mà.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T06:13:13.766285+00:00"
+  },
+  {
+    "id": 82,
+    "lesson_id": "4B-L15",
+    "book_id": "4B",
+    "speaker": "유나",
+    "text": "맞아요. 집이 지저분해지는 반면에 집에 돌아올 때 반갑게 맞아줘서 기분이 좋아요.",
+    "translation": "Đúng vậy. Tuy nhà trở nên bẩn thỉu nhưng mỗi khi về nhà nó ra đón vui mừng nên cảm thấy rất vui.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T06:13:13.766285+00:00"
+  },
+  {
+    "id": 83,
+    "lesson_id": "4B-L15",
+    "book_id": "4B",
+    "speaker": "준호",
+    "text": "진돗개는 대담할 뿐만 아니라 충성심도 강하다고 해요. 맹인 안내견으로도 활동하잖아요.",
+    "translation": "Nghe nói chó Jindo không chỉ táo bạo mà còn rất trung thành. Chúng còn làm chó dẫn đường cho người mù nữa.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T06:13:13.766285+00:00"
+  },
+  {
+    "id": 84,
+    "lesson_id": "4B-L15",
+    "book_id": "4B",
+    "speaker": "유나",
+    "text": "그래요. 동물도 학대하지 말고 본능을 발휘할 수 있도록 사랑으로 훈련시켜야 해요.",
+    "translation": "Đúng vậy. Phải không ngược đãi động vật mà phải huấn luyện bằng tình yêu để chúng phát huy bản năng.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T06:13:13.766285+00:00"
+  },
+  {
+    "id": 85,
+    "lesson_id": "4B-L16",
+    "book_id": "4B",
+    "speaker": "하은",
+    "text": "쌍꺼풀이나 보조개 같은 것도 유전으로 전달된다고 해요.",
+    "translation": "Nghe nói mắt hai mí hay lúm đồng tiền cũng được truyền qua di truyền.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T06:13:26.473392+00:00"
+  },
+  {
+    "id": 86,
+    "lesson_id": "4B-L16",
+    "book_id": "4B",
+    "speaker": "태준",
+    "text": "정말요? 과학자들에 따르면 쌍꺼풀은 우성이라서 부모 중 한 명만 있어도 나타난대요.",
+    "translation": "Thật sao? Theo các nhà khoa học, mắt hai mí là gen trội nên chỉ cần một trong hai bố mẹ có là sẽ xuất hiện.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T06:13:26.473392+00:00"
+  },
+  {
+    "id": 87,
+    "lesson_id": "4B-L16",
+    "book_id": "4B",
+    "speaker": "하은",
+    "text": "그러면 투명인간이나 타임머신 같은 것도 이론적으로는 가능한지 모르겠어요.",
+    "translation": "Vậy thì không biết người vô hình hay cỗ máy thời gian có khả thi về mặt lý thuyết hay không.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T06:13:26.473392+00:00"
+  },
+  {
+    "id": 88,
+    "lesson_id": "4B-L16",
+    "book_id": "4B",
+    "speaker": "태준",
+    "text": "투명인간은 빛을 굴절시켜야 하는데 현실적으로 불가능할 리가 없다고 하는 과학자도 있어요.",
+    "translation": "Người vô hình cần làm khúc xạ ánh sáng, cũng có nhà khoa học nói rằng không thể nói là không thể về mặt thực tế.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T06:13:26.473392+00:00"
+  },
+  {
+    "id": 89,
+    "lesson_id": "4B-L16",
+    "book_id": "4B",
+    "speaker": "하은",
+    "text": "과학이 발전할수록 신비롭게 느껴지는 현상들이 밝혀지니까 꾸준히 관심을 가져야 해요.",
+    "translation": "Càng khoa học phát triển thì các hiện tượng cảm thấy thần bí được sáng tỏ nên cần quan tâm đều đặn.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T06:13:26.473392+00:00"
+  },
+  {
+    "id": 90,
+    "lesson_id": "4B-L17",
+    "book_id": "4B",
+    "speaker": "지수",
+    "text": "어머, 민준 씨! 세상이 참 좁네요. 여기서 만날 줄이야!",
+    "translation": "Ồ, anh Minjun! Thế giới thật nhỏ. Ai ngờ lại gặp nhau ở đây!",
+    "sort_order": 0,
+    "created_at": "2026-05-08T06:22:27.80161+00:00"
+  },
+  {
+    "id": 91,
+    "lesson_id": "4B-L17",
+    "book_id": "4B",
+    "speaker": "민준",
+    "text": "지수 씨? 몰라보게 달라지셨어요. 처음 만난 게 엊그제 같은데 벌써 10년이 됐네요.",
+    "translation": "Jisu à? Trông thay đổi nhiều quá. Cảm giác như mới gặp lần đầu hôm qua mà đã 10 năm rồi.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T06:22:27.80161+00:00"
+  },
+  {
+    "id": 92,
+    "lesson_id": "4B-L17",
+    "book_id": "4B",
+    "speaker": "지수",
+    "text": "세월이 쏜살같아요. 그때 기억이 아직도 생생해요. 아직도 하나도 안 변하셨네요.",
+    "translation": "Thời gian trôi nhanh quá. Ký ức hồi đó vẫn còn rõ mồn một. Trông anh vẫn không thay đổi chút nào.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T06:22:27.80161+00:00"
+  },
+  {
+    "id": 93,
+    "lesson_id": "4B-L17",
+    "book_id": "4B",
+    "speaker": "민준",
+    "text": "과연 그런지 모르겠어요. 사실 연락이 끊겨서 걱정했어요. 무소식이 희소식이라지만요.",
+    "translation": "Không biết có thật vậy không. Thực ra vì mất liên lạc nên tôi lo lắm. Dù người ta nói không có tin là tin lành.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T06:22:27.80161+00:00"
+  },
+  {
+    "id": 94,
+    "lesson_id": "4B-L17",
+    "book_id": "4B",
+    "speaker": "지수",
+    "text": "미안해요. 오늘 만나서 마음이 놓여요. 앞으로도 좋은 추억으로 남을 것 같아요.",
+    "translation": "Xin lỗi. Hôm nay gặp được tôi thấy yên tâm rồi. Nghĩ chắc sẽ để lại kỷ niệm đẹp mãi.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T06:22:27.80161+00:00"
+  },
+  {
+    "id": 95,
+    "lesson_id": "4B-L18",
+    "book_id": "4B",
+    "speaker": "선생님",
+    "text": "흥부전은 착한 사람은 복을 받고 욕심 많은 사람은 벌을 받는다는 교훈을 담고 있어요.",
+    "translation": "Truyện Heungbu mang bài học rằng người tốt bụng thì được phúc, người tham lam thì bị trừng phạt.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T06:22:45.360097+00:00"
+  },
+  {
+    "id": 96,
+    "lesson_id": "4B-L18",
+    "book_id": "4B",
+    "speaker": "민수",
+    "text": "흥부가 다리 다친 제비를 정성스럽게 치료해 주자 제비가 박씨를 물고 왔군요.",
+    "translation": "Heungbu tận tâm chữa trị chim én bị gãy chân nên chim én đã ngậm hạt bầu mang đến.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T06:22:45.360097+00:00"
+  },
+  {
+    "id": 97,
+    "lesson_id": "4B-L18",
+    "book_id": "4B",
+    "speaker": "선생님",
+    "text": "맞아요. 박이 열리자 온갖 보물이 쏟아졌어요. 놀부는 이것을 보고 훨훨 날던 제비의 다리를 일부러 부러뜨렸죠.",
+    "translation": "Đúng vậy. Khi quả bầu mở ra, đủ mọi loại bảo vật tuôn ra. Nolbu thấy vậy liền cố tình bẻ gãy chân chim én đang bay phơi phới.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T06:22:45.360097+00:00"
+  },
+  {
+    "id": 98,
+    "lesson_id": "4B-L18",
+    "book_id": "4B",
+    "speaker": "민수",
+    "text": "마음씨가 고약한 놀부의 박에서는 도깨비가 나왔군요.",
+    "translation": "Vậy là từ quả bầu của Nolbu lòng dạ xấu xa thì yêu tinh chui ra.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T06:22:45.360097+00:00"
+  },
+  {
+    "id": 99,
+    "lesson_id": "4B-L18",
+    "book_id": "4B",
+    "speaker": "선생님",
+    "text": "이 이야기는 형제간의 우애와 선악의 인과응보를 가르쳐 줘요.",
+    "translation": "Câu chuyện này dạy về tình anh em và nhân quả thiện ác.",
+    "sort_order": 0,
+    "created_at": "2026-05-08T06:22:45.360097+00:00"
+  }
+]

@@ -1,0 +1,46 @@
+[
+  {
+    "id": 1,
+    "user_id": null,
+    "error_type": "database",
+    "message": "Fetch community_posts failed: infinite recursion detected in policy for relation \"user_profiles\"",
+    "stack_trace": null,
+    "page_url": "/admin/content",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
+    "is_resolved": true,
+    "created_at": "2026-05-01T23:58:00.940179+00:00"
+  },
+  {
+    "id": 2,
+    "user_id": null,
+    "error_type": "database",
+    "message": "Fetch community_posts failed: infinite recursion detected in policy for relation \"user_profiles\"",
+    "stack_trace": null,
+    "page_url": "/admin/content",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
+    "is_resolved": true,
+    "created_at": "2026-05-02T05:34:53.431614+00:00"
+  },
+  {
+    "id": 3,
+    "user_id": null,
+    "error_type": "database",
+    "message": "Delete post failed [dfc5b773-c10a-4991-9fcc-7bd47fc7e299]: new row violates row-level security policy for table \"leaderboard\"",
+    "stack_trace": null,
+    "page_url": "/admin/content",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
+    "is_resolved": true,
+    "created_at": "2026-05-03T20:24:00.202343+00:00"
+  },
+  {
+    "id": 4,
+    "user_id": null,
+    "error_type": "database",
+    "message": "Delete post failed [dfc5b773-c10a-4991-9fcc-7bd47fc7e299]: new row violates row-level security policy for table \"leaderboard\"",
+    "stack_trace": null,
+    "page_url": "/admin/content",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
+    "is_resolved": true,
+    "created_at": "2026-05-03T20:34:42.273207+00:00"
+  }
+]

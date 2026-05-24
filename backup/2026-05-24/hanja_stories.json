@@ -1,0 +1,392 @@
+[
+  {
+    "id": "5432af16-9b7e-4b17-8529-b3077d75fd77",
+    "title": "Trường Học",
+    "content": "Ngày xưa có một **學生**(sinh viên) tên là Minh. Mỗi sáng Minh đều đến **學校**(trường học) đúng giờ. Ở trường, Minh gặp **朋友**(bạn) thân là Lan. Cả hai cùng học với **老師**(thầy giáo) rất tận tâm. Sau giờ học, Minh và Lan đến **圖書館**(thư viện) để đọc sách.",
+    "hanja_words": [
+      {
+        "hanja": "학생",
+        "korean": "學生",
+        "vietnamese": "sinh viên"
+      },
+      {
+        "hanja": "학교",
+        "korean": "學校",
+        "vietnamese": "trường học"
+      },
+      {
+        "hanja": "친구",
+        "korean": "朋友",
+        "vietnamese": "bạn"
+      },
+      {
+        "hanja": "선생님",
+        "korean": "老師",
+        "vietnamese": "thầy giáo"
+      },
+      {
+        "hanja": "도서관",
+        "korean": "圖書館",
+        "vietnamese": "thư viện"
+      }
+    ],
+    "difficulty": "easy",
+    "topic": "education",
+    "created_by": "ai",
+    "created_at": "2026-05-04T18:46:21.719735+00:00",
+    "updated_at": "2026-05-04T18:46:21.719735+00:00"
+  },
+  {
+    "id": "91c79721-7675-46c9-b627-491ed5860f2c",
+    "title": "Gia Đình",
+    "content": "Trong một gia đình có **父親**(bố) làm việc tại **會社**(công ty). **母親**(mẹ) ở nhà chăm sóc **子女**(con cái). Mỗi cuối tuần, cả gia đình đi thăm **祖父**(ông nội) và **祖母**(bà nội). Các **兄弟**(anh em) rất yêu thương nhau.",
+    "hanja_words": [
+      {
+        "hanja": "아버지",
+        "korean": "父親",
+        "vietnamese": "bố"
+      },
+      {
+        "hanja": "회사",
+        "korean": "會社",
+        "vietnamese": "công ty"
+      },
+      {
+        "hanja": "어머니",
+        "korean": "母親",
+        "vietnamese": "mẹ"
+      },
+      {
+        "hanja": "자녀",
+        "korean": "子女",
+        "vietnamese": "con cái"
+      },
+      {
+        "hanja": "할아버지",
+        "korean": "祖父",
+        "vietnamese": "ông nội"
+      },
+      {
+        "hanja": "할머니",
+        "korean": "祖母",
+        "vietnamese": "bà nội"
+      },
+      {
+        "hanja": "형제",
+        "korean": "兄弟",
+        "vietnamese": "anh em"
+      }
+    ],
+    "difficulty": "easy",
+    "topic": "family",
+    "created_by": "ai",
+    "created_at": "2026-05-04T18:46:21.719735+00:00",
+    "updated_at": "2026-05-04T18:46:21.719735+00:00"
+  },
+  {
+    "id": "50261029-14a3-4f8f-913a-6c401339fb02",
+    "title": "Công Việc",
+    "content": "Anh Nam làm **事務**(công việc) tại một **銀行**(ngân hàng). Mỗi ngày anh đi làm bằng **電車**(tàu điện). Ở công ty, anh có nhiều **同僚**(đồng nghiệp) thân thiện. Sau khi làm việc xong, anh thường đi **食堂**(canteen) ăn trưa.",
+    "hanja_words": [
+      {
+        "hanja": "사무",
+        "korean": "事務",
+        "vietnamese": "công việc"
+      },
+      {
+        "hanja": "은행",
+        "korean": "銀行",
+        "vietnamese": "ngân hàng"
+      },
+      {
+        "hanja": "전차",
+        "korean": "電車",
+        "vietnamese": "tàu điện"
+      },
+      {
+        "hanja": "동료",
+        "korean": "同僚",
+        "vietnamese": "đồng nghiệp"
+      },
+      {
+        "hanja": "식당",
+        "korean": "食堂",
+        "vietnamese": "canteen"
+      }
+    ],
+    "difficulty": "easy",
+    "topic": "work",
+    "created_by": "ai",
+    "created_at": "2026-05-04T18:46:21.719735+00:00",
+    "updated_at": "2026-05-04T18:46:21.719735+00:00"
+  },
+  {
+    "id": "6015f0f0-38e1-42cc-a7ce-cd4becab4030",
+    "title": "Thời Gian",
+    "content": "**今日**(hôm nay) là một ngày đẹp. **明日**(ngày mai) tôi sẽ đi **旅行**(du lịch). Tôi dự định đi trong **週間**(tuần) tới. **年間**(năm) nay tôi đã đi du lịch 3 lần rồi.",
+    "hanja_words": [
+      {
+        "hanja": "오늘",
+        "korean": "今日",
+        "vietnamese": "hôm nay"
+      },
+      {
+        "hanja": "내일",
+        "korean": "明日",
+        "vietnamese": "ngày mai"
+      },
+      {
+        "hanja": "여행",
+        "korean": "旅行",
+        "vietnamese": "du lịch"
+      },
+      {
+        "hanja": "주간",
+        "korean": "週間",
+        "vietnamese": "tuần"
+      },
+      {
+        "hanja": "연간",
+        "korean": "年間",
+        "vietnamese": "năm"
+      }
+    ],
+    "difficulty": "easy",
+    "topic": "time",
+    "created_by": "ai",
+    "created_at": "2026-05-04T18:46:21.719735+00:00",
+    "updated_at": "2026-05-04T18:46:21.719735+00:00"
+  },
+  {
+    "id": "23f88ba3-cb71-4775-b9d6-a2568c9c0cd4",
+    "title": "Địa Điểm",
+    "content": "Tôi sống gần **病院**(bệnh viện). Hàng ngày tôi đi qua **郵便局**(bưu điện). Ở gần nhà tôi còn có **警察署**(công an) và **消防署**(cứu hỏa). Cuối tuần tôi thường đến **公園**(công viên) tập thể dục.",
+    "hanja_words": [
+      {
+        "hanja": "병원",
+        "korean": "病院",
+        "vietnamese": "bệnh viện"
+      },
+      {
+        "hanja": "우체국",
+        "korean": "郵便局",
+        "vietnamese": "bưu điện"
+      },
+      {
+        "hanja": "경찰서",
+        "korean": "警察署",
+        "vietnamese": "công an"
+      },
+      {
+        "hanja": "소방서",
+        "korean": "消防署",
+        "vietnamese": "cứu hỏa"
+      },
+      {
+        "hanja": "공원",
+        "korean": "公園",
+        "vietnamese": "công viên"
+      }
+    ],
+    "difficulty": "easy",
+    "topic": "location",
+    "created_by": "ai",
+    "created_at": "2026-05-04T18:46:21.719735+00:00",
+    "updated_at": "2026-05-04T18:46:21.719735+00:00"
+  },
+  {
+    "id": "adc89c89-d087-4c4b-9b6c-cbf61cb79a22",
+    "title": "Trường Học",
+    "content": "Ngày xưa có một **學生**(sinh viên) tên là Minh. Mỗi sáng Minh đều đến **學校**(trường học) đúng giờ. Ở trường, Minh gặp **朋友**(bạn) thân là Lan. Cả hai cùng học với **老師**(thầy giáo) rất tận tâm. Sau giờ học, Minh và Lan đến **圖書館**(thư viện) để đọc sách.",
+    "hanja_words": [
+      {
+        "hanja": "학생",
+        "korean": "學生",
+        "vietnamese": "sinh viên"
+      },
+      {
+        "hanja": "학교",
+        "korean": "學校",
+        "vietnamese": "trường học"
+      },
+      {
+        "hanja": "친구",
+        "korean": "朋友",
+        "vietnamese": "bạn"
+      },
+      {
+        "hanja": "선생님",
+        "korean": "老師",
+        "vietnamese": "thầy giáo"
+      },
+      {
+        "hanja": "도서관",
+        "korean": "圖書館",
+        "vietnamese": "thư viện"
+      }
+    ],
+    "difficulty": "easy",
+    "topic": "education",
+    "created_by": "ai",
+    "created_at": "2026-05-04T18:57:28.006011+00:00",
+    "updated_at": "2026-05-04T18:57:28.006011+00:00"
+  },
+  {
+    "id": "c4fee882-de0d-421e-a2d3-04668624a9f4",
+    "title": "Gia Đình",
+    "content": "Trong một gia đình có **父親**(bố) làm việc tại **會社**(công ty). **母親**(mẹ) ở nhà chăm sóc **子女**(con cái). Mỗi cuối tuần, cả gia đình đi thăm **祖父**(ông nội) và **祖母**(bà nội). Các **兄弟**(anh em) rất yêu thương nhau.",
+    "hanja_words": [
+      {
+        "hanja": "아버지",
+        "korean": "父親",
+        "vietnamese": "bố"
+      },
+      {
+        "hanja": "회사",
+        "korean": "會社",
+        "vietnamese": "công ty"
+      },
+      {
+        "hanja": "어머니",
+        "korean": "母親",
+        "vietnamese": "mẹ"
+      },
+      {
+        "hanja": "자녀",
+        "korean": "子女",
+        "vietnamese": "con cái"
+      },
+      {
+        "hanja": "할아버지",
+        "korean": "祖父",
+        "vietnamese": "ông nội"
+      },
+      {
+        "hanja": "할머니",
+        "korean": "祖母",
+        "vietnamese": "bà nội"
+      },
+      {
+        "hanja": "형제",
+        "korean": "兄弟",
+        "vietnamese": "anh em"
+      }
+    ],
+    "difficulty": "easy",
+    "topic": "family",
+    "created_by": "ai",
+    "created_at": "2026-05-04T18:57:28.006011+00:00",
+    "updated_at": "2026-05-04T18:57:28.006011+00:00"
+  },
+  {
+    "id": "54cfade9-2690-4a3e-87e6-31f634e1fb5d",
+    "title": "Công Việc",
+    "content": "Anh Nam làm **事務**(công việc) tại một **銀行**(ngân hàng). Mỗi ngày anh đi làm bằng **電車**(tàu điện). Ở công ty, anh có nhiều **同僚**(đồng nghiệp) thân thiện. Sau khi làm việc xong, anh thường đi **食堂**(canteen) ăn trưa.",
+    "hanja_words": [
+      {
+        "hanja": "사무",
+        "korean": "事務",
+        "vietnamese": "công việc"
+      },
+      {
+        "hanja": "은행",
+        "korean": "銀行",
+        "vietnamese": "ngân hàng"
+      },
+      {
+        "hanja": "전차",
+        "korean": "電車",
+        "vietnamese": "tàu điện"
+      },
+      {
+        "hanja": "동료",
+        "korean": "同僚",
+        "vietnamese": "đồng nghiệp"
+      },
+      {
+        "hanja": "식당",
+        "korean": "食堂",
+        "vietnamese": "canteen"
+      }
+    ],
+    "difficulty": "easy",
+    "topic": "work",
+    "created_by": "ai",
+    "created_at": "2026-05-04T18:57:28.006011+00:00",
+    "updated_at": "2026-05-04T18:57:28.006011+00:00"
+  },
+  {
+    "id": "b84aae9a-e49b-4400-8619-e3cf61b57d25",
+    "title": "Thời Gian",
+    "content": "**今日**(hôm nay) là một ngày đẹp. **明日**(ngày mai) tôi sẽ đi **旅行**(du lịch). Tôi dự định đi trong **週間**(tuần) tới. **年間**(năm) nay tôi đã đi du lịch 3 lần rồi.",
+    "hanja_words": [
+      {
+        "hanja": "오늘",
+        "korean": "今日",
+        "vietnamese": "hôm nay"
+      },
+      {
+        "hanja": "내일",
+        "korean": "明日",
+        "vietnamese": "ngày mai"
+      },
+      {
+        "hanja": "여행",
+        "korean": "旅行",
+        "vietnamese": "du lịch"
+      },
+      {
+        "hanja": "주간",
+        "korean": "週間",
+        "vietnamese": "tuần"
+      },
+      {
+        "hanja": "연간",
+        "korean": "年間",
+        "vietnamese": "năm"
+      }
+    ],
+    "difficulty": "easy",
+    "topic": "time",
+    "created_by": "ai",
+    "created_at": "2026-05-04T18:57:28.006011+00:00",
+    "updated_at": "2026-05-04T18:57:28.006011+00:00"
+  },
+  {
+    "id": "cad3aa12-5e76-4c05-8ffc-8bd0279bfed1",
+    "title": "Địa Điểm",
+    "content": "Tôi sống gần **病院**(bệnh viện). Hàng ngày tôi đi qua **郵便局**(bưu điện). Ở gần nhà tôi còn có **警察署**(công an) và **消防署**(cứu hỏa). Cuối tuần tôi thường đến **公園**(công viên) tập thể dục.",
+    "hanja_words": [
+      {
+        "hanja": "병원",
+        "korean": "病院",
+        "vietnamese": "bệnh viện"
+      },
+      {
+        "hanja": "우체국",
+        "korean": "郵便局",
+        "vietnamese": "bưu điện"
+      },
+      {
+        "hanja": "경찰서",
+        "korean": "警察署",
+        "vietnamese": "công an"
+      },
+      {
+        "hanja": "소방서",
+        "korean": "消防署",
+        "vietnamese": "cứu hỏa"
+      },
+      {
+        "hanja": "공원",
+        "korean": "公園",
+        "vietnamese": "công viên"
+      }
+    ],
+    "difficulty": "easy",
+    "topic": "location",
+    "created_by": "ai",
+    "created_at": "2026-05-04T18:57:28.006011+00:00",
+    "updated_at": "2026-05-04T18:57:28.006011+00:00"
+  }
+]

@@ -1,0 +1,2270 @@
+[
+  {
+    "id": 1,
+    "grammar_id": 1,
+    "korean": "저는 학생입니다.",
+    "vietnamese": "Tôi là học sinh.",
+    "created_at": "2026-04-23T22:52:15.145727+00:00"
+  },
+  {
+    "id": 2,
+    "grammar_id": 1,
+    "korean": "저는 베트남 사람이에요.",
+    "vietnamese": "Tôi là người Việt Nam.",
+    "created_at": "2026-04-23T22:52:15.145727+00:00"
+  },
+  {
+    "id": 3,
+    "grammar_id": 1,
+    "korean": "저는 근로자입니다.",
+    "vietnamese": "Tôi là người lao động.",
+    "created_at": "2026-04-23T22:52:15.145727+00:00"
+  },
+  {
+    "id": 4,
+    "grammar_id": 2,
+    "korean": "베트남에서 왔습니다.",
+    "vietnamese": "Tôi đến từ Việt Nam.",
+    "created_at": "2026-04-23T22:52:47.984279+00:00"
+  },
+  {
+    "id": 5,
+    "grammar_id": 2,
+    "korean": "하노이에서 왔어요.",
+    "vietnamese": "Tôi đến từ Hà Nội.",
+    "created_at": "2026-04-23T22:52:47.984279+00:00"
+  },
+  {
+    "id": 6,
+    "grammar_id": 3,
+    "korean": "이것이 뭐예요?",
+    "vietnamese": "Cái này là gì?",
+    "created_at": "2026-04-23T22:52:47.984279+00:00"
+  },
+  {
+    "id": 7,
+    "grammar_id": 3,
+    "korean": "저것은 우산이에요.",
+    "vietnamese": "Cái kia là cái ô.",
+    "created_at": "2026-04-23T22:52:47.984279+00:00"
+  },
+  {
+    "id": 8,
+    "grammar_id": 3,
+    "korean": "그것은 제 여권이에요.",
+    "vietnamese": "Cái đó là hộ chiếu của tôi.",
+    "created_at": "2026-04-23T22:52:47.984279+00:00"
+  },
+  {
+    "id": 9,
+    "grammar_id": 4,
+    "korean": "화장실이 어디에 있어요?",
+    "vietnamese": "Nhà vệ sinh ở đâu?",
+    "created_at": "2026-04-23T22:52:47.984279+00:00"
+  },
+  {
+    "id": 10,
+    "grammar_id": 4,
+    "korean": "식당은 2층에 있어요.",
+    "vietnamese": "Nhà ăn ở tầng 2.",
+    "created_at": "2026-04-23T22:52:47.984279+00:00"
+  },
+  {
+    "id": 11,
+    "grammar_id": 5,
+    "korean": "여기 앉으세요.",
+    "vietnamese": "Ngồi đây đi.",
+    "created_at": "2026-04-23T22:52:47.984279+00:00"
+  },
+  {
+    "id": 12,
+    "grammar_id": 5,
+    "korean": "저기가 병원이에요.",
+    "vietnamese": "Chỗ kia là bệnh viện.",
+    "created_at": "2026-04-23T22:52:47.984279+00:00"
+  },
+  {
+    "id": 13,
+    "grammar_id": 6,
+    "korean": "밥을 먹어요.",
+    "vietnamese": "Ăn cơm.",
+    "created_at": "2026-04-23T22:52:47.984279+00:00"
+  },
+  {
+    "id": 14,
+    "grammar_id": 6,
+    "korean": "물을 마셔요.",
+    "vietnamese": "Uống nước.",
+    "created_at": "2026-04-23T22:52:47.984279+00:00"
+  },
+  {
+    "id": 15,
+    "grammar_id": 6,
+    "korean": "책을 읽어요.",
+    "vietnamese": "Đọc sách.",
+    "created_at": "2026-04-23T22:52:47.984279+00:00"
+  },
+  {
+    "id": 16,
+    "grammar_id": 7,
+    "korean": "지금 뭐 해요?",
+    "vietnamese": "Bây giờ bạn đang làm gì?",
+    "created_at": "2026-04-23T22:52:47.984279+00:00"
+  },
+  {
+    "id": 17,
+    "grammar_id": 7,
+    "korean": "지금 공부해요.",
+    "vietnamese": "Bây giờ đang học.",
+    "created_at": "2026-04-23T22:52:47.984279+00:00"
+  },
+  {
+    "id": 18,
+    "grammar_id": 8,
+    "korean": "오늘 무슨 요일이에요?",
+    "vietnamese": "Hôm nay là thứ mấy?",
+    "created_at": "2026-04-23T22:52:47.984279+00:00"
+  },
+  {
+    "id": 19,
+    "grammar_id": 8,
+    "korean": "오늘은 금요일이에요.",
+    "vietnamese": "Hôm nay là thứ Sáu.",
+    "created_at": "2026-04-23T22:52:47.984279+00:00"
+  },
+  {
+    "id": 20,
+    "grammar_id": 9,
+    "korean": "오늘이 몇 월 며칠이에요?",
+    "vietnamese": "Hôm nay là ngày mấy tháng mấy?",
+    "created_at": "2026-04-23T22:52:47.984279+00:00"
+  },
+  {
+    "id": 21,
+    "grammar_id": 9,
+    "korean": "사 월 십사 일이에요.",
+    "vietnamese": "Là ngày 14 tháng 4.",
+    "created_at": "2026-04-23T22:52:47.984279+00:00"
+  },
+  {
+    "id": 22,
+    "grammar_id": 10,
+    "korean": "몇 시에 일어나요?",
+    "vietnamese": "Bạn dậy lúc mấy giờ?",
+    "created_at": "2026-04-23T22:52:47.984279+00:00"
+  },
+  {
+    "id": 23,
+    "grammar_id": 10,
+    "korean": "여섯 시에 일어나요.",
+    "vietnamese": "Tôi dậy lúc 6 giờ.",
+    "created_at": "2026-04-23T22:52:47.984279+00:00"
+  },
+  {
+    "id": 24,
+    "grammar_id": 10,
+    "korean": "열두 시에 점심을 먹어요.",
+    "vietnamese": "Tôi ăn trưa lúc 12 giờ.",
+    "created_at": "2026-04-23T22:52:47.984279+00:00"
+  },
+  {
+    "id": 25,
+    "grammar_id": 1,
+    "korean": "저는 응우옌 반 안입니다.",
+    "vietnamese": "Tôi là Nguyễn Văn An.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 26,
+    "grammar_id": 1,
+    "korean": "저는 베트남 사람이에요.",
+    "vietnamese": "Tôi là người Việt Nam.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 27,
+    "grammar_id": 1,
+    "korean": "저는 공장 직원이에요.",
+    "vietnamese": "Tôi là nhân viên nhà máy.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 28,
+    "grammar_id": 2,
+    "korean": "저는 베트남에서 왔습니다.",
+    "vietnamese": "Tôi đến từ Việt Nam.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 29,
+    "grammar_id": 2,
+    "korean": "저는 하노이에서 왔어요.",
+    "vietnamese": "Tôi đến từ Hà Nội.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 30,
+    "grammar_id": 2,
+    "korean": "저는 호치민에서 왔습니다.",
+    "vietnamese": "Tôi đến từ Hồ Chí Minh.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 31,
+    "grammar_id": 3,
+    "korean": "이것이 뭐예요?",
+    "vietnamese": "Cái này là gì?",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 32,
+    "grammar_id": 3,
+    "korean": "그것은 제 가방이에요.",
+    "vietnamese": "Cái đó là túi của tôi.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 33,
+    "grammar_id": 3,
+    "korean": "저것이 공장이에요.",
+    "vietnamese": "Cái kia là nhà máy.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 34,
+    "grammar_id": 4,
+    "korean": "화장실이 어디에 있어요?",
+    "vietnamese": "Nhà vệ sinh ở đâu?",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 35,
+    "grammar_id": 4,
+    "korean": "사무실이 어디에 있어요?",
+    "vietnamese": "Văn phòng ở đâu?",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 36,
+    "grammar_id": 4,
+    "korean": "식당이 어디에 있어요?",
+    "vietnamese": "Nhà ăn ở đâu?",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 37,
+    "grammar_id": 5,
+    "korean": "여기가 제 자리예요.",
+    "vietnamese": "Đây là chỗ của tôi.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 38,
+    "grammar_id": 5,
+    "korean": "거기에 앉으세요.",
+    "vietnamese": "Hãy ngồi ở đó.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 39,
+    "grammar_id": 5,
+    "korean": "저기가 출구예요.",
+    "vietnamese": "Kia là lối ra.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 40,
+    "grammar_id": 6,
+    "korean": "밥을 먹어요.",
+    "vietnamese": "Ăn cơm.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 41,
+    "grammar_id": 6,
+    "korean": "물을 마셔요.",
+    "vietnamese": "Uống nước.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 42,
+    "grammar_id": 6,
+    "korean": "일을 해요.",
+    "vietnamese": "Làm việc.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 43,
+    "grammar_id": 7,
+    "korean": "지금 뭐 해요?",
+    "vietnamese": "Bây giờ đang làm gì?",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 44,
+    "grammar_id": 7,
+    "korean": "지금 일해요.",
+    "vietnamese": "Bây giờ đang làm việc.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 45,
+    "grammar_id": 7,
+    "korean": "지금 밥 먹어요.",
+    "vietnamese": "Bây giờ đang ăn cơm.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 46,
+    "grammar_id": 8,
+    "korean": "오늘 무슨 요일이에요?",
+    "vietnamese": "Hôm nay là thứ mấy?",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 47,
+    "grammar_id": 8,
+    "korean": "오늘은 월요일이에요.",
+    "vietnamese": "Hôm nay là thứ Hai.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 48,
+    "grammar_id": 8,
+    "korean": "내일은 화요일이에요.",
+    "vietnamese": "Ngày mai là thứ Ba.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 49,
+    "grammar_id": 9,
+    "korean": "오늘 몇 월 며칠이에요?",
+    "vietnamese": "Hôm nay là ngày mấy tháng mấy?",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 50,
+    "grammar_id": 9,
+    "korean": "오늘은 3월 15일이에요.",
+    "vietnamese": "Hôm nay là ngày 15 tháng 3.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 51,
+    "grammar_id": 9,
+    "korean": "제 생일은 5월 20일이에요.",
+    "vietnamese": "Sinh nhật tôi là ngày 20 tháng 5.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 52,
+    "grammar_id": 10,
+    "korean": "몇 시에 출근해요?",
+    "vietnamese": "Mấy giờ đi làm?",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 53,
+    "grammar_id": 10,
+    "korean": "여덟 시에 출근해요.",
+    "vietnamese": "Tám giờ đi làm.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 54,
+    "grammar_id": 10,
+    "korean": "몇 시에 퇴근해요?",
+    "vietnamese": "Mấy giờ tan làm?",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 55,
+    "grammar_id": 11,
+    "korean": "오전 9시에 회의가 있어요.",
+    "vietnamese": "Có cuộc họp lúc 9 giờ sáng.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 56,
+    "grammar_id": 11,
+    "korean": "오후 6시에 퇴근해요.",
+    "vietnamese": "Tan làm lúc 6 giờ chiều.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 57,
+    "grammar_id": 11,
+    "korean": "오전 8시부터 오후 5시까지 일해요.",
+    "vietnamese": "Làm việc từ 8 giờ sáng đến 5 giờ chiều.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 58,
+    "grammar_id": 12,
+    "korean": "오늘 날씨가 어때요?",
+    "vietnamese": "Hôm nay thời tiết thế nào?",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 59,
+    "grammar_id": 12,
+    "korean": "오늘 날씨가 좋아요.",
+    "vietnamese": "Hôm nay thời tiết đẹp.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 60,
+    "grammar_id": 12,
+    "korean": "날씨가 너무 더워요.",
+    "vietnamese": "Thời tiết quá nóng.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 61,
+    "grammar_id": 13,
+    "korean": "비가 와요.",
+    "vietnamese": "Trời đang mưa.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 62,
+    "grammar_id": 13,
+    "korean": "눈이 와요.",
+    "vietnamese": "Trời đang có tuyết.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 63,
+    "grammar_id": 13,
+    "korean": "비가 많이 와요.",
+    "vietnamese": "Mưa rất nhiều.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 64,
+    "grammar_id": 14,
+    "korean": "선생님이 계세요.",
+    "vietnamese": "Thầy/cô đang ở đây.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 65,
+    "grammar_id": 14,
+    "korean": "어머니가 드세요.",
+    "vietnamese": "Mẹ đang ăn.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 66,
+    "grammar_id": 14,
+    "korean": "할아버지가 주무세요.",
+    "vietnamese": "Ông đang ngủ.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 67,
+    "grammar_id": 15,
+    "korean": "가족이 몇 명이에요?",
+    "vietnamese": "Gia đình có mấy người?",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 68,
+    "grammar_id": 15,
+    "korean": "가족이 4명이에요.",
+    "vietnamese": "Gia đình có 4 người.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 69,
+    "grammar_id": 15,
+    "korean": "우리 가족은 부모님과 저예요.",
+    "vietnamese": "Gia đình tôi gồm bố mẹ và tôi.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 70,
+    "grammar_id": 16,
+    "korean": "사과 두 개 주세요.",
+    "vietnamese": "Cho tôi 2 quả táo.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 71,
+    "grammar_id": 16,
+    "korean": "직원이 세 명이에요.",
+    "vietnamese": "Có 3 nhân viên.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 72,
+    "grammar_id": 16,
+    "korean": "커피 한 잔 주세요.",
+    "vietnamese": "Cho tôi một ly cà phê.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 73,
+    "grammar_id": 17,
+    "korean": "저는 한국 음식을 좋아해요.",
+    "vietnamese": "Tôi thích đồ ăn Hàn Quốc.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 74,
+    "grammar_id": 17,
+    "korean": "저는 매운 음식을 싫어해요.",
+    "vietnamese": "Tôi không thích đồ ăn cay.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 75,
+    "grammar_id": 17,
+    "korean": "저는 운동을 좋아해요.",
+    "vietnamese": "Tôi thích thể thao.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 76,
+    "grammar_id": 18,
+    "korean": "이거 얼마예요?",
+    "vietnamese": "Cái này bao nhiêu tiền?",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 77,
+    "grammar_id": 18,
+    "korean": "5,000원이에요.",
+    "vietnamese": "Là 5.000 won.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 78,
+    "grammar_id": 18,
+    "korean": "너무 비싸요. 깎아 주세요.",
+    "vietnamese": "Đắt quá. Giảm giá cho tôi.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 79,
+    "grammar_id": 19,
+    "korean": "만 원이에요.",
+    "vietnamese": "Là 10.000 won.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 80,
+    "grammar_id": 19,
+    "korean": "오만 원 주세요.",
+    "vietnamese": "Cho tôi 50.000 won.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 81,
+    "grammar_id": 19,
+    "korean": "이십만 원이에요.",
+    "vietnamese": "Là 200.000 won.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 82,
+    "grammar_id": 20,
+    "korean": "청소를 해요.",
+    "vietnamese": "Dọn dẹp nhà.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 83,
+    "grammar_id": 20,
+    "korean": "빨래를 해요.",
+    "vietnamese": "Giặt quần áo.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 84,
+    "grammar_id": 20,
+    "korean": "요리를 해요.",
+    "vietnamese": "Nấu ăn.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 85,
+    "grammar_id": 21,
+    "korean": "버스로 가요.",
+    "vietnamese": "Đi bằng xe buýt.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 86,
+    "grammar_id": 21,
+    "korean": "지하철로 가요.",
+    "vietnamese": "Đi bằng tàu điện ngầm.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 87,
+    "grammar_id": 21,
+    "korean": "걸어서 가요.",
+    "vietnamese": "Đi bộ.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 88,
+    "grammar_id": 22,
+    "korean": "얼마나 걸려요?",
+    "vietnamese": "Mất bao lâu?",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 89,
+    "grammar_id": 22,
+    "korean": "30분 걸려요.",
+    "vietnamese": "Mất 30 phút.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 90,
+    "grammar_id": 22,
+    "korean": "한 시간 걸려요.",
+    "vietnamese": "Mất một tiếng.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 91,
+    "grammar_id": 23,
+    "korean": "주말에 보통 뭐 해요?",
+    "vietnamese": "Cuối tuần thường làm gì?",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 92,
+    "grammar_id": 23,
+    "korean": "주말에 쉬어요.",
+    "vietnamese": "Cuối tuần nghỉ ngơi.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 93,
+    "grammar_id": 23,
+    "korean": "주말에 친구를 만나요.",
+    "vietnamese": "Cuối tuần gặp bạn bè.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 94,
+    "grammar_id": 24,
+    "korean": "시간이 있어요.",
+    "vietnamese": "Có thời gian.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 95,
+    "grammar_id": 24,
+    "korean": "약속이 없어요.",
+    "vietnamese": "Không có hẹn.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 96,
+    "grammar_id": 24,
+    "korean": "돈이 없어요.",
+    "vietnamese": "Không có tiền.",
+    "created_at": "2026-04-23T23:05:25.396243+00:00"
+  },
+  {
+    "id": 97,
+    "grammar_id": 25,
+    "korean": "여기에서 오른쪽으로 가세요.",
+    "vietnamese": "Từ đây đi về bên phải.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 98,
+    "grammar_id": 25,
+    "korean": "직진하세요.",
+    "vietnamese": "Đi thẳng.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 99,
+    "grammar_id": 25,
+    "korean": "왼쪽으로 돌아가세요.",
+    "vietnamese": "Rẽ trái.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 100,
+    "grammar_id": 26,
+    "korean": "들어가세요.",
+    "vietnamese": "Hãy vào đi.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 101,
+    "grammar_id": 26,
+    "korean": "나오세요.",
+    "vietnamese": "Hãy ra đây.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 102,
+    "grammar_id": 26,
+    "korean": "올라가세요.",
+    "vietnamese": "Hãy đi lên.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 103,
+    "grammar_id": 27,
+    "korean": "유니폼을 입어요.",
+    "vietnamese": "Mặc đồng phục.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 104,
+    "grammar_id": 27,
+    "korean": "안전화를 신어요.",
+    "vietnamese": "Đi giày bảo hộ.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 105,
+    "grammar_id": 27,
+    "korean": "헬멧을 써요.",
+    "vietnamese": "Đội mũ bảo hiểm.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 106,
+    "grammar_id": 28,
+    "korean": "무슨 색깔이에요?",
+    "vietnamese": "Màu gì vậy?",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 107,
+    "grammar_id": 28,
+    "korean": "빨간색이에요.",
+    "vietnamese": "Là màu đỏ.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 108,
+    "grammar_id": 28,
+    "korean": "파란색 유니폼을 입어요.",
+    "vietnamese": "Mặc đồng phục màu xanh.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 109,
+    "grammar_id": 29,
+    "korean": "방을 구하고 있어요.",
+    "vietnamese": "Tôi đang tìm phòng.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 110,
+    "grammar_id": 29,
+    "korean": "원룸을 구해요.",
+    "vietnamese": "Tìm phòng studio.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 111,
+    "grammar_id": 29,
+    "korean": "공장 근처에서 방을 구해요.",
+    "vietnamese": "Tìm phòng gần nhà máy.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 112,
+    "grammar_id": 30,
+    "korean": "월세가 얼마예요?",
+    "vietnamese": "Tiền thuê tháng bao nhiêu?",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 113,
+    "grammar_id": 30,
+    "korean": "보증금이 500만 원이에요.",
+    "vietnamese": "Tiền đặt cọc là 5 triệu won.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 114,
+    "grammar_id": 30,
+    "korean": "월세는 40만 원이에요.",
+    "vietnamese": "Tiền thuê tháng là 400.000 won.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 115,
+    "grammar_id": 31,
+    "korean": "제주도에 가고 싶어요.",
+    "vietnamese": "Tôi muốn đến đảo Jeju.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 116,
+    "grammar_id": 31,
+    "korean": "서울에 가고 싶어요.",
+    "vietnamese": "Tôi muốn đến Seoul.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 117,
+    "grammar_id": 31,
+    "korean": "부산에 가고 싶어요.",
+    "vietnamese": "Tôi muốn đến Busan.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 118,
+    "grammar_id": 32,
+    "korean": "호텔을 예약했어요.",
+    "vietnamese": "Tôi đã đặt khách sạn.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 119,
+    "grammar_id": 32,
+    "korean": "비행기 표를 예약해요.",
+    "vietnamese": "Đặt vé máy bay.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 120,
+    "grammar_id": 32,
+    "korean": "식당을 예약하고 싶어요.",
+    "vietnamese": "Tôi muốn đặt bàn nhà hàng.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 121,
+    "grammar_id": 33,
+    "korean": "취미가 뭐예요?",
+    "vietnamese": "Sở thích của bạn là gì?",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 122,
+    "grammar_id": 33,
+    "korean": "취미는 독서예요.",
+    "vietnamese": "Sở thích là đọc sách.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 123,
+    "grammar_id": 33,
+    "korean": "취미는 운동이에요.",
+    "vietnamese": "Sở thích là thể thao.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 124,
+    "grammar_id": 34,
+    "korean": "기타를 쳐요.",
+    "vietnamese": "Chơi đàn guitar.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 125,
+    "grammar_id": 34,
+    "korean": "자전거를 타요.",
+    "vietnamese": "Đi xe đạp.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 126,
+    "grammar_id": 34,
+    "korean": "피아노를 쳐요.",
+    "vietnamese": "Chơi đàn piano.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 127,
+    "grammar_id": 35,
+    "korean": "야채를 썰어요.",
+    "vietnamese": "Thái rau củ.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 128,
+    "grammar_id": 35,
+    "korean": "물을 끓여요.",
+    "vietnamese": "Đun sôi nước.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 129,
+    "grammar_id": 35,
+    "korean": "고기를 구워요.",
+    "vietnamese": "Nướng thịt.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 130,
+    "grammar_id": 36,
+    "korean": "맛이 어때요?",
+    "vietnamese": "Vị thế nào?",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 131,
+    "grammar_id": 36,
+    "korean": "너무 매워요.",
+    "vietnamese": "Cay quá.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 132,
+    "grammar_id": 36,
+    "korean": "달고 맛있어요.",
+    "vietnamese": "Ngọt và ngon.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 133,
+    "grammar_id": 37,
+    "korean": "파일을 업로드해요.",
+    "vietnamese": "Upload file.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 134,
+    "grammar_id": 37,
+    "korean": "앱을 다운로드해요.",
+    "vietnamese": "Download ứng dụng.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 135,
+    "grammar_id": 37,
+    "korean": "사진을 업로드했어요.",
+    "vietnamese": "Đã upload ảnh.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 136,
+    "grammar_id": 38,
+    "korean": "아이디와 비밀번호를 입력하세요.",
+    "vietnamese": "Nhập tên đăng nhập và mật khẩu.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 137,
+    "grammar_id": 38,
+    "korean": "로그인했어요.",
+    "vietnamese": "Đã đăng nhập.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 138,
+    "grammar_id": 38,
+    "korean": "로그아웃하세요.",
+    "vietnamese": "Hãy đăng xuất.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 139,
+    "grammar_id": 39,
+    "korean": "머리가 아파요.",
+    "vietnamese": "Đau đầu.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 140,
+    "grammar_id": 39,
+    "korean": "배가 아파요.",
+    "vietnamese": "Đau bụng.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 141,
+    "grammar_id": 39,
+    "korean": "허리가 아파요.",
+    "vietnamese": "Đau lưng.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 142,
+    "grammar_id": 40,
+    "korean": "내과에 가요.",
+    "vietnamese": "Đến khoa nội.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 143,
+    "grammar_id": 40,
+    "korean": "외과에 가요.",
+    "vietnamese": "Đến khoa ngoại.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 144,
+    "grammar_id": 40,
+    "korean": "정형외과에 가요.",
+    "vietnamese": "Đến khoa chỉnh hình.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 145,
+    "grammar_id": 41,
+    "korean": "열이 나요.",
+    "vietnamese": "Bị sốt.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 146,
+    "grammar_id": 41,
+    "korean": "콧물이 나요.",
+    "vietnamese": "Chảy nước mũi.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 147,
+    "grammar_id": 41,
+    "korean": "기침이 나요.",
+    "vietnamese": "Bị ho.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 148,
+    "grammar_id": 42,
+    "korean": "연고를 발라요.",
+    "vietnamese": "Bôi thuốc mỡ.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 149,
+    "grammar_id": 42,
+    "korean": "밴드를 붙여요.",
+    "vietnamese": "Dán băng.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 150,
+    "grammar_id": 42,
+    "korean": "붕대를 감아요.",
+    "vietnamese": "Cuốn băng.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 151,
+    "grammar_id": 43,
+    "korean": "택배로 보내요.",
+    "vietnamese": "Gửi bằng chuyển phát nhanh.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 152,
+    "grammar_id": 43,
+    "korean": "등기로 보내요.",
+    "vietnamese": "Gửi bằng thư bảo đảm.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 153,
+    "grammar_id": 43,
+    "korean": "빠른 우편으로 보내요.",
+    "vietnamese": "Gửi bằng thư nhanh.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 154,
+    "grammar_id": 44,
+    "korean": "얼마나 걸려요?",
+    "vietnamese": "Mất bao lâu?",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 155,
+    "grammar_id": 44,
+    "korean": "3일 걸려요.",
+    "vietnamese": "Mất 3 ngày.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 156,
+    "grammar_id": 44,
+    "korean": "일주일 걸려요.",
+    "vietnamese": "Mất một tuần.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 157,
+    "grammar_id": 45,
+    "korean": "통장을 신청해요.",
+    "vietnamese": "Đăng ký mở tài khoản.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 158,
+    "grammar_id": 45,
+    "korean": "카드를 신청해요.",
+    "vietnamese": "Đăng ký làm thẻ.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 159,
+    "grammar_id": 45,
+    "korean": "외국인 등록증을 신청해요.",
+    "vietnamese": "Đăng ký thẻ ngoại kiều.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 160,
+    "grammar_id": 46,
+    "korean": "입금해 주세요.",
+    "vietnamese": "Hãy nạp tiền.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 161,
+    "grammar_id": 46,
+    "korean": "출금하고 싶어요.",
+    "vietnamese": "Tôi muốn rút tiền.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 162,
+    "grammar_id": 46,
+    "korean": "계좌 이체를 해요.",
+    "vietnamese": "Chuyển khoản.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 163,
+    "grammar_id": 47,
+    "korean": "의료 지원을 받을 수 있어요.",
+    "vietnamese": "Có thể nhận hỗ trợ y tế.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 164,
+    "grammar_id": 47,
+    "korean": "법률 지원을 받을 수 있어요.",
+    "vietnamese": "Có thể nhận hỗ trợ pháp lý.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 165,
+    "grammar_id": 47,
+    "korean": "통역 서비스를 받을 수 있어요.",
+    "vietnamese": "Có thể nhận dịch vụ phiên dịch.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 166,
+    "grammar_id": 48,
+    "korean": "걱정하지 마세요.",
+    "vietnamese": "Đừng lo lắng.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 167,
+    "grammar_id": 48,
+    "korean": "늦지 마세요.",
+    "vietnamese": "Đừng đến muộn.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 168,
+    "grammar_id": 48,
+    "korean": "포기하지 마세요.",
+    "vietnamese": "Đừng bỏ cuộc.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 169,
+    "grammar_id": 49,
+    "korean": "설날에 떡국을 먹어요.",
+    "vietnamese": "Vào Tết Nguyên Đán ăn canh bánh gạo.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 170,
+    "grammar_id": 49,
+    "korean": "추석에 송편을 먹어요.",
+    "vietnamese": "Vào Chuseok ăn bánh songpyeon.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 171,
+    "grammar_id": 49,
+    "korean": "생일에 미역국을 먹어요.",
+    "vietnamese": "Vào sinh nhật ăn canh rong biển.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 172,
+    "grammar_id": 50,
+    "korean": "설날에 세배를 해요.",
+    "vietnamese": "Vào Tết Nguyên Đán cúi chào lễ.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 173,
+    "grammar_id": 50,
+    "korean": "추석에 성묘를 해요.",
+    "vietnamese": "Vào Chuseok đi tảo mộ.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 174,
+    "grammar_id": 50,
+    "korean": "명절에 가족이 모여요.",
+    "vietnamese": "Vào ngày lễ gia đình tụ họp.",
+    "created_at": "2026-04-23T23:06:09.503087+00:00"
+  },
+  {
+    "id": 175,
+    "grammar_id": 51,
+    "korean": "부모님께 선물을 드려요.",
+    "vietnamese": "Tặng quà cho bố mẹ.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 176,
+    "grammar_id": 51,
+    "korean": "할머니께 음식을 드려요.",
+    "vietnamese": "Dâng thức ăn cho bà.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 177,
+    "grammar_id": 51,
+    "korean": "선생님께 꽃을 드려요.",
+    "vietnamese": "Tặng hoa cho thầy/cô.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 178,
+    "grammar_id": 52,
+    "korean": "설날은 음력 1월 1일이에요.",
+    "vietnamese": "Tết Nguyên Đán là ngày 1 tháng 1 âm lịch.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 179,
+    "grammar_id": 52,
+    "korean": "추석은 음력 8월 15일이에요.",
+    "vietnamese": "Chuseok là ngày 15 tháng 8 âm lịch.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 180,
+    "grammar_id": 52,
+    "korean": "설날과 추석은 한국의 큰 명절이에요.",
+    "vietnamese": "Tết Nguyên Đán và Chuseok là hai ngày lễ lớn của Hàn Quốc.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 181,
+    "grammar_id": 53,
+    "korean": "건강을 빌어요.",
+    "vietnamese": "Cầu nguyện cho sức khỏe.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 182,
+    "grammar_id": 53,
+    "korean": "행복을 빌어요.",
+    "vietnamese": "Cầu chúc hạnh phúc.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 183,
+    "grammar_id": 53,
+    "korean": "합격을 빌어요.",
+    "vietnamese": "Cầu chúc đỗ đạt.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 184,
+    "grammar_id": 54,
+    "korean": "여기서 담배를 피우면 안 돼요.",
+    "vietnamese": "Không được hút thuốc ở đây.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 185,
+    "grammar_id": 54,
+    "korean": "늦게 오면 안 돼요.",
+    "vietnamese": "Không được đến muộn.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 186,
+    "grammar_id": 54,
+    "korean": "안전모를 안 쓰면 안 돼요.",
+    "vietnamese": "Không được không đội mũ bảo hộ.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 187,
+    "grammar_id": 55,
+    "korean": "한국 드라마가 전 세계에서 인기가 있어요.",
+    "vietnamese": "Phim Hàn Quốc nổi tiếng trên toàn thế giới.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 188,
+    "grammar_id": 55,
+    "korean": "케이팝이 전 세계에서 인기가 있어요.",
+    "vietnamese": "K-pop nổi tiếng trên toàn thế giới.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 189,
+    "grammar_id": 55,
+    "korean": "한국 음식이 전 세계에서 인기가 있어요.",
+    "vietnamese": "Đồ ăn Hàn Quốc nổi tiếng trên toàn thế giới.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 190,
+    "grammar_id": 56,
+    "korean": "회사에서 반말을 하면 안 돼요.",
+    "vietnamese": "Không được nói trống không trong công ty.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 191,
+    "grammar_id": 56,
+    "korean": "지각하면 안 돼요.",
+    "vietnamese": "Không được đi muộn.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 192,
+    "grammar_id": 56,
+    "korean": "무단결근하면 안 돼요.",
+    "vietnamese": "Không được vắng mặt không phép.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 193,
+    "grammar_id": 57,
+    "korean": "부장님, 안녕하세요.",
+    "vietnamese": "Chào trưởng phòng.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 194,
+    "grammar_id": 57,
+    "korean": "과장님, 보고드립니다.",
+    "vietnamese": "Thưa trưởng nhóm, tôi xin báo cáo.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 195,
+    "grammar_id": 57,
+    "korean": "선배님, 도와주세요.",
+    "vietnamese": "Tiền bối ơi, giúp tôi với.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 196,
+    "grammar_id": 58,
+    "korean": "공용 화장실을 깨끗이 사용하세요.",
+    "vietnamese": "Hãy sử dụng nhà vệ sinh chung sạch sẽ.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 197,
+    "grammar_id": 58,
+    "korean": "공용 냉장고에 이름을 써 주세요.",
+    "vietnamese": "Hãy ghi tên vào tủ lạnh chung.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 198,
+    "grammar_id": 58,
+    "korean": "공용 공간에서 큰 소리를 내지 마세요.",
+    "vietnamese": "Đừng gây ồn ở khu vực chung.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 199,
+    "grammar_id": 59,
+    "korean": "엘리베이터를 이용하세요.",
+    "vietnamese": "Hãy sử dụng thang máy.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 200,
+    "grammar_id": 59,
+    "korean": "셔틀버스를 이용해요.",
+    "vietnamese": "Sử dụng xe đưa đón.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 201,
+    "grammar_id": 59,
+    "korean": "구내식당을 이용해요.",
+    "vietnamese": "Sử dụng căng-tin nội bộ.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 202,
+    "grammar_id": 60,
+    "korean": "동료와 사이가 좋아요.",
+    "vietnamese": "Quan hệ với đồng nghiệp tốt.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 203,
+    "grammar_id": 60,
+    "korean": "상사와 사이가 나빠요.",
+    "vietnamese": "Quan hệ với cấp trên không tốt.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 204,
+    "grammar_id": 60,
+    "korean": "팀원들과 사이가 좋아요.",
+    "vietnamese": "Quan hệ với các thành viên nhóm tốt.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 205,
+    "grammar_id": 61,
+    "korean": "오해가 있으면 대화로 해결해요.",
+    "vietnamese": "Nếu có hiểu lầm thì giải quyết bằng đối thoại.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 206,
+    "grammar_id": 61,
+    "korean": "갈등이 생기면 상사에게 말해요.",
+    "vietnamese": "Nếu có mâu thuẫn thì nói với cấp trên.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 207,
+    "grammar_id": 61,
+    "korean": "서로 이해하면 갈등이 해결돼요.",
+    "vietnamese": "Nếu hiểu nhau thì mâu thuẫn sẽ được giải quyết.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 208,
+    "grammar_id": 62,
+    "korean": "개인 물건을 회사에서 팔면 안 돼요.",
+    "vietnamese": "Không được bán đồ cá nhân trong công ty.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 209,
+    "grammar_id": 62,
+    "korean": "회사 기밀을 외부에 알리면 안 돼요.",
+    "vietnamese": "Không được tiết lộ bí mật công ty ra ngoài.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 210,
+    "grammar_id": 62,
+    "korean": "근무 중에 핸드폰을 사용하면 안 돼요.",
+    "vietnamese": "Không được dùng điện thoại trong giờ làm.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 211,
+    "grammar_id": 63,
+    "korean": "성희롱을 당하면 거부 의사를 표현하세요.",
+    "vietnamese": "Nếu bị quấy rối tình dục thì hãy bày tỏ sự từ chối.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 212,
+    "grammar_id": 63,
+    "korean": "증거를 보관하세요.",
+    "vietnamese": "Hãy lưu giữ bằng chứng.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 213,
+    "grammar_id": 63,
+    "korean": "인사 담당자에게 신고하세요.",
+    "vietnamese": "Hãy báo cáo với người phụ trách nhân sự.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 214,
+    "grammar_id": 64,
+    "korean": "정리, 정돈, 청소, 청결, 습관화가 5S예요.",
+    "vietnamese": "5S là: sắp xếp, ngăn nắp, vệ sinh, sạch sẽ, thói quen.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 215,
+    "grammar_id": 64,
+    "korean": "작업장을 항상 정리해요.",
+    "vietnamese": "Luôn sắp xếp nơi làm việc.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 216,
+    "grammar_id": 64,
+    "korean": "5S를 실천하면 사고가 줄어요.",
+    "vietnamese": "Thực hành 5S thì tai nạn sẽ giảm.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 217,
+    "grammar_id": 65,
+    "korean": "재고를 관리해요.",
+    "vietnamese": "Quản lý hàng tồn kho.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 218,
+    "grammar_id": 65,
+    "korean": "품질을 관리해요.",
+    "vietnamese": "Quản lý chất lượng.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 219,
+    "grammar_id": 65,
+    "korean": "시간을 잘 관리해요.",
+    "vietnamese": "Quản lý thời gian tốt.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 220,
+    "grammar_id": 66,
+    "korean": "제품을 검사해요.",
+    "vietnamese": "Kiểm tra sản phẩm.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 221,
+    "grammar_id": 66,
+    "korean": "포장을 해요.",
+    "vietnamese": "Đóng gói.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 222,
+    "grammar_id": 66,
+    "korean": "출하 서류를 작성해요.",
+    "vietnamese": "Điền phiếu xuất hàng.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 223,
+    "grammar_id": 67,
+    "korean": "수량을 확인해요.",
+    "vietnamese": "Kiểm tra số lượng.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 224,
+    "grammar_id": 67,
+    "korean": "품질을 확인해요.",
+    "vietnamese": "Kiểm tra chất lượng.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 225,
+    "grammar_id": 67,
+    "korean": "날짜를 확인해요.",
+    "vietnamese": "Kiểm tra ngày tháng.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 226,
+    "grammar_id": 68,
+    "korean": "기계를 켜요.",
+    "vietnamese": "Bật máy.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 227,
+    "grammar_id": 68,
+    "korean": "기계를 꺼요.",
+    "vietnamese": "Tắt máy.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 228,
+    "grammar_id": 68,
+    "korean": "기계를 조작해요.",
+    "vietnamese": "Vận hành máy.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 229,
+    "grammar_id": 69,
+    "korean": "선반으로 가공해요.",
+    "vietnamese": "Gia công bằng máy tiện.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 230,
+    "grammar_id": 69,
+    "korean": "프레스로 가공해요.",
+    "vietnamese": "Gia công bằng máy ép.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 231,
+    "grammar_id": 69,
+    "korean": "드릴로 구멍을 뚫어요.",
+    "vietnamese": "Khoan lỗ bằng máy khoan.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 232,
+    "grammar_id": 70,
+    "korean": "부품을 조립해요.",
+    "vietnamese": "Lắp ráp linh kiện.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 233,
+    "grammar_id": 70,
+    "korean": "순서대로 조립해요.",
+    "vietnamese": "Lắp ráp theo thứ tự.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 234,
+    "grammar_id": 70,
+    "korean": "볼트를 조여요.",
+    "vietnamese": "Vặn chặt bu-lông.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 235,
+    "grammar_id": 71,
+    "korean": "부품이 마모됐어요.",
+    "vietnamese": "Linh kiện bị mài mòn.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 236,
+    "grammar_id": 71,
+    "korean": "기계가 파손됐어요.",
+    "vietnamese": "Máy bị hư hỏng.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 237,
+    "grammar_id": 71,
+    "korean": "부품을 교체해야 해요.",
+    "vietnamese": "Phải thay thế linh kiện.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 238,
+    "grammar_id": 72,
+    "korean": "용접할 때 보호 장갑을 끼세요.",
+    "vietnamese": "Khi hàn hãy đeo găng tay bảo hộ.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 239,
+    "grammar_id": 72,
+    "korean": "용접 마스크를 써야 해요.",
+    "vietnamese": "Phải đeo mặt nạ hàn.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 240,
+    "grammar_id": 72,
+    "korean": "용접 구역에 접근하지 마세요.",
+    "vietnamese": "Đừng tiếp cận khu vực hàn.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 241,
+    "grammar_id": 73,
+    "korean": "망치로 못을 박아요.",
+    "vietnamese": "Đóng đinh bằng búa.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 242,
+    "grammar_id": 73,
+    "korean": "드라이버로 나사를 조여요.",
+    "vietnamese": "Vặn ốc bằng tua vít.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 243,
+    "grammar_id": 73,
+    "korean": "렌치로 볼트를 풀어요.",
+    "vietnamese": "Tháo bu-lông bằng cờ lê.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 244,
+    "grammar_id": 74,
+    "korean": "불량품을 분리해요.",
+    "vietnamese": "Tách hàng lỗi ra.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 245,
+    "grammar_id": 74,
+    "korean": "불량 원인을 분석해요.",
+    "vietnamese": "Phân tích nguyên nhân lỗi.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 246,
+    "grammar_id": 74,
+    "korean": "불량품을 폐기해요.",
+    "vietnamese": "Tiêu hủy hàng lỗi.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 247,
+    "grammar_id": 75,
+    "korean": "온도를 조절해요.",
+    "vietnamese": "Điều chỉnh nhiệt độ.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 248,
+    "grammar_id": 75,
+    "korean": "압력을 낮춰요.",
+    "vietnamese": "Giảm áp suất.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 249,
+    "grammar_id": 75,
+    "korean": "온도가 너무 높아요.",
+    "vietnamese": "Nhiệt độ quá cao.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 250,
+    "grammar_id": 76,
+    "korean": "면 소재예요.",
+    "vietnamese": "Chất liệu cotton.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 251,
+    "grammar_id": 76,
+    "korean": "폴리에스터 소재예요.",
+    "vietnamese": "Chất liệu polyester.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 252,
+    "grammar_id": 76,
+    "korean": "실크 소재예요.",
+    "vietnamese": "Chất liệu lụa.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 253,
+    "grammar_id": 77,
+    "korean": "품질을 유지해요.",
+    "vietnamese": "Duy trì chất lượng.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 254,
+    "grammar_id": 77,
+    "korean": "청결을 유지해요.",
+    "vietnamese": "Duy trì sự sạch sẽ.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 255,
+    "grammar_id": 77,
+    "korean": "속도를 유지해요.",
+    "vietnamese": "Duy trì tốc độ.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 256,
+    "grammar_id": 78,
+    "korean": "목재를 자르고 조립해요.",
+    "vietnamese": "Cắt và lắp ráp gỗ.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 257,
+    "grammar_id": 78,
+    "korean": "표면을 연마해요.",
+    "vietnamese": "Đánh bóng bề mặt.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 258,
+    "grammar_id": 78,
+    "korean": "도장을 해요.",
+    "vietnamese": "Sơn phủ.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 259,
+    "grammar_id": 79,
+    "korean": "톱으로 나무를 잘라요.",
+    "vietnamese": "Cưa gỗ bằng cưa.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 260,
+    "grammar_id": 79,
+    "korean": "사포로 표면을 갈아요.",
+    "vietnamese": "Mài bề mặt bằng giấy nhám.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 261,
+    "grammar_id": 79,
+    "korean": "못으로 고정해요.",
+    "vietnamese": "Cố định bằng đinh.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 262,
+    "grammar_id": 80,
+    "korean": "기초 공사를 해요.",
+    "vietnamese": "Làm móng.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 263,
+    "grammar_id": 80,
+    "korean": "골조 공사를 해요.",
+    "vietnamese": "Làm khung.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 264,
+    "grammar_id": 80,
+    "korean": "마감 공사를 해요.",
+    "vietnamese": "Hoàn thiện.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 265,
+    "grammar_id": 81,
+    "korean": "크레인으로 자재를 올려요.",
+    "vietnamese": "Dùng cần cẩu nâng vật liệu.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 266,
+    "grammar_id": 81,
+    "korean": "굴착기로 땅을 파요.",
+    "vietnamese": "Dùng máy xúc đào đất.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 267,
+    "grammar_id": 81,
+    "korean": "콘크리트 믹서로 시멘트를 섞어요.",
+    "vietnamese": "Dùng máy trộn bê-tông trộn xi măng.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 268,
+    "grammar_id": 82,
+    "korean": "측량을 해요.",
+    "vietnamese": "Đo đạc.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 269,
+    "grammar_id": 82,
+    "korean": "터파기를 해요.",
+    "vietnamese": "Đào móng.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 270,
+    "grammar_id": 82,
+    "korean": "콘크리트를 타설해요.",
+    "vietnamese": "Đổ bê-tông.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 271,
+    "grammar_id": 83,
+    "korean": "벼를 수확해요.",
+    "vietnamese": "Thu hoạch lúa.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 272,
+    "grammar_id": 83,
+    "korean": "사과를 따요.",
+    "vietnamese": "Hái táo.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 273,
+    "grammar_id": 83,
+    "korean": "채소를 뽑아요.",
+    "vietnamese": "Nhổ rau.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 274,
+    "grammar_id": 84,
+    "korean": "사료를 줘요.",
+    "vietnamese": "Cho ăn thức ăn.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 275,
+    "grammar_id": 84,
+    "korean": "축사를 청소해요.",
+    "vietnamese": "Dọn chuồng.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 276,
+    "grammar_id": 84,
+    "korean": "동물의 건강을 확인해요.",
+    "vietnamese": "Kiểm tra sức khỏe động vật.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 277,
+    "grammar_id": 85,
+    "korean": "수질을 검사해요.",
+    "vietnamese": "Kiểm tra chất lượng nước.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 278,
+    "grammar_id": 85,
+    "korean": "물을 정화해요.",
+    "vietnamese": "Lọc nước.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 279,
+    "grammar_id": 85,
+    "korean": "오염된 물을 처리해요.",
+    "vietnamese": "Xử lý nước ô nhiễm.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 280,
+    "grammar_id": 86,
+    "korean": "비계를 설치해요.",
+    "vietnamese": "Lắp đặt giàn giáo.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 281,
+    "grammar_id": 86,
+    "korean": "안전 난간을 설치해요.",
+    "vietnamese": "Lắp đặt lan can an toàn.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 282,
+    "grammar_id": 86,
+    "korean": "비계 위에서 작업할 때 조심하세요.",
+    "vietnamese": "Hãy cẩn thận khi làm việc trên giàn giáo.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 283,
+    "grammar_id": 87,
+    "korean": "발파 구역에 접근하지 마세요.",
+    "vietnamese": "Đừng tiếp cận khu vực nổ mìn.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 284,
+    "grammar_id": 87,
+    "korean": "발파 신호를 확인하세요.",
+    "vietnamese": "Hãy kiểm tra tín hiệu nổ mìn.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 285,
+    "grammar_id": 87,
+    "korean": "발파 후 안전을 확인해요.",
+    "vietnamese": "Kiểm tra an toàn sau khi nổ mìn.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 286,
+    "grammar_id": 88,
+    "korean": "나무를 베어요.",
+    "vietnamese": "Chặt cây.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 287,
+    "grammar_id": 88,
+    "korean": "나무가 쓰러지는 방향을 확인해요.",
+    "vietnamese": "Kiểm tra hướng cây đổ.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 288,
+    "grammar_id": 88,
+    "korean": "전기톱을 사용할 때 조심하세요.",
+    "vietnamese": "Hãy cẩn thận khi dùng cưa điện.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 289,
+    "grammar_id": 89,
+    "korean": "침대를 정리해요.",
+    "vietnamese": "Dọn giường.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 290,
+    "grammar_id": 89,
+    "korean": "화장실을 청소해요.",
+    "vietnamese": "Dọn nhà vệ sinh.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 291,
+    "grammar_id": 89,
+    "korean": "수건을 교체해요.",
+    "vietnamese": "Thay khăn tắm.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 292,
+    "grammar_id": 90,
+    "korean": "냉장고에 보관해요.",
+    "vietnamese": "Bảo quản trong tủ lạnh.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 293,
+    "grammar_id": 90,
+    "korean": "냉동 보관해요.",
+    "vietnamese": "Bảo quản đông lạnh.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 294,
+    "grammar_id": 90,
+    "korean": "유통기한을 확인해요.",
+    "vietnamese": "Kiểm tra hạn sử dụng.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 295,
+    "grammar_id": 91,
+    "korean": "빨간 표지는 금지를 의미해요.",
+    "vietnamese": "Biển đỏ có nghĩa là cấm.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 296,
+    "grammar_id": 91,
+    "korean": "노란 표지는 경고를 의미해요.",
+    "vietnamese": "Biển vàng có nghĩa là cảnh báo.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 297,
+    "grammar_id": 91,
+    "korean": "초록 표지는 안전을 의미해요.",
+    "vietnamese": "Biển xanh có nghĩa là an toàn.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 298,
+    "grammar_id": 92,
+    "korean": "안전모를 안 쓰면 안 돼요.",
+    "vietnamese": "Không được không đội mũ bảo hộ.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 299,
+    "grammar_id": 92,
+    "korean": "안전화를 안 신으면 안 돼요.",
+    "vietnamese": "Không được không đi giày bảo hộ.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 300,
+    "grammar_id": 92,
+    "korean": "안전 장갑을 안 끼면 안 돼요.",
+    "vietnamese": "Không được không đeo găng tay bảo hộ.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 301,
+    "grammar_id": 93,
+    "korean": "안전모를 써요.",
+    "vietnamese": "Đội mũ bảo hộ.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 302,
+    "grammar_id": 93,
+    "korean": "안전 장갑을 끼어요.",
+    "vietnamese": "Đeo găng tay bảo hộ.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 303,
+    "grammar_id": 93,
+    "korean": "귀마개를 해요.",
+    "vietnamese": "Đeo nút tai.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 304,
+    "grammar_id": 94,
+    "korean": "방독 마스크를 써요.",
+    "vietnamese": "Đeo mặt nạ phòng độc.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 305,
+    "grammar_id": 94,
+    "korean": "방열복을 입어요.",
+    "vietnamese": "Mặc quần áo chống nhiệt.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 306,
+    "grammar_id": 94,
+    "korean": "안전 벨트를 착용해요.",
+    "vietnamese": "Đeo dây an toàn.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 307,
+    "grammar_id": 95,
+    "korean": "화재 경보가 울리면 대피하세요.",
+    "vietnamese": "Khi chuông báo cháy kêu thì hãy sơ tán.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 308,
+    "grammar_id": 95,
+    "korean": "소화기로 불을 꺼요.",
+    "vietnamese": "Dùng bình chữa cháy để dập lửa.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 309,
+    "grammar_id": 95,
+    "korean": "비상구로 나가세요.",
+    "vietnamese": "Hãy ra ngoài qua lối thoát hiểm.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 310,
+    "grammar_id": 96,
+    "korean": "119에 전화해요.",
+    "vietnamese": "Gọi 119.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 311,
+    "grammar_id": 96,
+    "korean": "심폐소생술을 해요.",
+    "vietnamese": "Thực hiện hô hấp nhân tạo.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 312,
+    "grammar_id": 96,
+    "korean": "상처를 지혈해요.",
+    "vietnamese": "Cầm máu vết thương.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 313,
+    "grammar_id": 97,
+    "korean": "고용허가제로 한국에 왔어요.",
+    "vietnamese": "Tôi đến Hàn Quốc theo chương trình cấp phép lao động.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 314,
+    "grammar_id": 97,
+    "korean": "사업장 변경을 신청해요.",
+    "vietnamese": "Đăng ký thay đổi nơi làm việc.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 315,
+    "grammar_id": 97,
+    "korean": "비자를 연장해요.",
+    "vietnamese": "Gia hạn visa.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 316,
+    "grammar_id": 98,
+    "korean": "기본급이 얼마예요?",
+    "vietnamese": "Lương cơ bản là bao nhiêu?",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 317,
+    "grammar_id": 98,
+    "korean": "세금이 공제돼요.",
+    "vietnamese": "Thuế bị khấu trừ.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 318,
+    "grammar_id": 98,
+    "korean": "실수령액이 얼마예요?",
+    "vietnamese": "Lương thực nhận là bao nhiêu?",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 319,
+    "grammar_id": 99,
+    "korean": "체류 기간을 연장하고 싶어요.",
+    "vietnamese": "Tôi muốn gia hạn thời gian lưu trú.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 320,
+    "grammar_id": 99,
+    "korean": "출입국 사무소에 가요.",
+    "vietnamese": "Đến văn phòng xuất nhập cảnh.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 321,
+    "grammar_id": 99,
+    "korean": "서류를 준비해요.",
+    "vietnamese": "Chuẩn bị hồ sơ.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 322,
+    "grammar_id": 100,
+    "korean": "4대 보험에 가입해야 해요.",
+    "vietnamese": "Phải tham gia 4 loại bảo hiểm bắt buộc.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 323,
+    "grammar_id": 100,
+    "korean": "건강보험료가 공제돼요.",
+    "vietnamese": "Phí bảo hiểm y tế bị khấu trừ.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  },
+  {
+    "id": 324,
+    "grammar_id": 100,
+    "korean": "국민연금에 가입해요.",
+    "vietnamese": "Tham gia bảo hiểm hưu trí quốc gia.",
+    "created_at": "2026-04-23T23:07:46.66746+00:00"
+  }
+]

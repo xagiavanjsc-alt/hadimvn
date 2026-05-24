@@ -1,0 +1,6822 @@
+[
+  {
+    "id": 9,
+    "question_kr": "한국어 공부",
+    "answer_kr": "",
+    "question_vn": "Học tiếng Hàn",
+    "answer_vn": "Học tiếng Hàn đòi hỏi sự chăm chỉ, kết hợp học từ vựng, ngữ pháp, phát âm và thực hành giao tiếp thường xuyên.",
+    "category": "Q&A > 국어 공부, 시험",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 94,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=490095772&dirId=11080106&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "hệ thống",
+        "level": "2",
+        "korean": "체계"
+      },
+      {
+        "vn": "liên tục",
+        "level": "2",
+        "korean": "꾸준히"
+      },
+      {
+        "vn": "thực hành",
+        "level": "2",
+        "korean": "실천"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "실천해야 합니다 = Phải thực hành",
+        "meaning": "phải làm gì đó",
+        "pattern": "-아/어야 한다"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 10,
+    "question_kr": "일본인 남친한국어 공부",
+    "answer_kr": "",
+    "question_vn": "Bạn trai người Nhật học tiếng Hàn",
+    "answer_vn": "Bạn trai người Nhật học tiếng Hàn để giao tiếp với bạn gái, tìm hiểu văn hóa Hàn Quốc và hỗ trợ công việc.",
+    "category": "Q&A > 연애, 결혼",
+    "category_vn": "Đời sống",
+    "likes": 0,
+    "views": 66,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=492417101&dirId=80101&d1id=8",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "người yêu",
+        "level": "1",
+        "korean": "연인"
+      },
+      {
+        "vn": "văn hóa",
+        "level": "1",
+        "korean": "문화"
+      },
+      {
+        "vn": "hỗ trợ",
+        "level": "2",
+        "korean": "지원"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 11,
+    "question_kr": "한국어를공부중입니다 도와주세요",
+    "answer_kr": "",
+    "question_vn": "Tôi đang học tiếng Hàn, hãy giúp tôi.",
+    "answer_vn": "",
+    "category": "Q&A > 어학, 외국어",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 35,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=490835153&dirId=1108&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "đồng nhất",
+        "level": "1",
+        "korean": "꾸준히"
+      },
+      {
+        "vn": "hệ thống",
+        "level": "1",
+        "korean": "체계적"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "매일 공부해야 해요 = Phải học mỗi ngày",
+        "meaning": "phải làm gì đó",
+        "pattern": "-아/어야 하다"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 12,
+    "question_kr": "외국인한국어 공부하나요?",
+    "answer_kr": "",
+    "question_vn": "Người nước ngoài có học tiếng Hàn không?",
+    "answer_vn": "",
+    "category": "Q&A > 외국인교육",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 186,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=481647336&dirId=110705&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "thu được",
+        "level": "1",
+        "korean": "습득"
+      },
+      {
+        "vn": "sửa lỗi",
+        "level": "1",
+        "korean": "교정"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 15,
+    "question_kr": "한국어 공부자료",
+    "answer_kr": "",
+    "question_vn": "Tài liệu học tiếng Hàn.",
+    "answer_vn": "",
+    "category": "Q&A > 국어, 한문",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 207,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=449752714&dirId=110401&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "tự tin",
+        "level": "1",
+        "korean": "자신감"
+      },
+      {
+        "vn": "đề thi đã ra",
+        "level": "1",
+        "korean": "기출"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 17,
+    "question_kr": "한국어 공부인터넷 강의",
+    "answer_kr": "",
+    "question_vn": "Bài giảng Internet học tiếng Hàn",
+    "answer_vn": "",
+    "category": "Q&A > 한국어",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 1084,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=449329466&dirId=110801&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "thu được",
+        "level": "1",
+        "korean": "습득"
+      },
+      {
+        "vn": "sửa lỗi",
+        "level": "1",
+        "korean": "교정"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 20,
+    "question_kr": "배우자의한국어 학습의지 부족이...",
+    "answer_kr": "",
+    "question_vn": "Sự thiếu ý chí học tiếng Hàn của vợ/chồng...",
+    "answer_vn": "",
+    "category": "Q&A > 한국어",
+    "category_vn": "Đời sống",
+    "likes": 0,
+    "views": 28,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=493099295&dirId=110801&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "tự tin",
+        "level": "1",
+        "korean": "자신감"
+      },
+      {
+        "vn": "đề thi đã ra",
+        "level": "1",
+        "korean": "기출"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 21,
+    "question_kr": "일본에서한국어학습원 설립 문의",
+    "answer_kr": "",
+    "question_vn": "Hỏi về việc thành lập trung tâm học tiếng Hàn tại Nhật Bản",
+    "answer_vn": "",
+    "category": "Q&A > 서비스업",
+    "category_vn": "Đời sống",
+    "likes": 0,
+    "views": 718,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=226555859&dirId=40703&d1id=4",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "đồng nhất",
+        "level": "1",
+        "korean": "꾸준히"
+      },
+      {
+        "vn": "hệ thống",
+        "level": "1",
+        "korean": "체계적"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "매일 공부해야 해요 = Phải học mỗi ngày",
+        "meaning": "phải làm gì đó",
+        "pattern": "-아/어야 하다"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 24,
+    "question_kr": "외국인 친구가한국어 학습자료를...",
+    "answer_kr": "",
+    "question_vn": "Bạn nước ngoài hỏi về tài liệu học tiếng Hàn",
+    "answer_vn": "",
+    "category": "Q&A > 외국인교육",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 658,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=361005667&dirId=110705&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "tập trung",
+        "level": "1",
+        "korean": "집중"
+      },
+      {
+        "vn": "lặp lại",
+        "level": "1",
+        "korean": "반복"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "공부하기 위해 도서관에 가요 = Để học nên đi thư viện",
+        "meaning": "để làm gì",
+        "pattern": "-기 위해"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 5,
+    "question_kr": "'23번'의 벌음(한국어공부)",
+    "answer_kr": "",
+    "question_vn": "Hình phạt '23번' trong học tiếng Hàn là gì?",
+    "answer_vn": "Đây là phương pháp kỷ luật bằng cách viết lại từ hoặc câu sai 23 lần để ghi nhớ.",
+    "category": "Q&A > 국어 맞춤법, 문법",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 90,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=492161827&dirId=11080103&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "ghi nhớ",
+        "level": "1",
+        "korean": "기록"
+      },
+      {
+        "vn": "lặp lại",
+        "level": "1",
+        "korean": "반복"
+      },
+      {
+        "vn": "kỷ luật",
+        "level": "1",
+        "korean": "규律"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "기록으로 공부를 한다 = Học bằng cách ghi chép",
+        "meaning": "bằng cách",
+        "pattern": "-으로"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 8,
+    "question_kr": "일본인들한국어 공부할때",
+    "answer_kr": "",
+    "question_vn": "Khi người Nhật học tiếng Hàn",
+    "answer_vn": "Người Nhật khi học tiếng Hàn thường gặp khó khăn về phát âm và ngữ pháp, cần kiên trì luyện tập và tiếp xúc thường xuyên.",
+    "category": "Q&A > 생활일본어, 회화",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 262,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=485436450&dirId=11080405&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "Nhật Bản",
+        "level": "1",
+        "korean": "일본"
+      },
+      {
+        "vn": "sự kiên nhẫn",
+        "level": "2",
+        "korean": "인내"
+      },
+      {
+        "vn": "sự thu thập",
+        "level": "2",
+        "korean": "습득"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "일본에 대해 = Về Nhật Bản",
+        "meaning": "về",
+        "pattern": "-에 대해"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 31,
+    "question_kr": "외국인을 위한한국어 학습교재",
+    "answer_kr": "",
+    "question_vn": "Sách học tiếng Hàn cho người nước ngoài",
+    "answer_vn": "",
+    "category": "Q&A > 영어",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 2766,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=58609491&dirId=110406&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "đồng nhất",
+        "level": "1",
+        "korean": "꾸준히"
+      },
+      {
+        "vn": "hệ thống",
+        "level": "1",
+        "korean": "체계적"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "매일 공부해야 해요 = Phải học mỗi ngày",
+        "meaning": "phải làm gì đó",
+        "pattern": "-아/어야 하다"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 33,
+    "question_kr": "일본인들의한국어 학습모두 이런...",
+    "answer_kr": "",
+    "question_vn": "Việc học tiếng Hàn của người Nhật đều như thế này...",
+    "answer_vn": "",
+    "category": "Q&A > 일본어 어원, 어휘",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 1393,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=213675823&dirId=11080401&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "giọng điệu",
+        "level": "1",
+        "korean": "억양"
+      },
+      {
+        "vn": "phụ âm cuối",
+        "level": "1",
+        "korean": "받침"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "배가 고파서 먹고 싶지만 돈이 없어요 = Đói nhưng không có tiền",
+        "meaning": "dù... nhưng",
+        "pattern": "-지만"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 35,
+    "question_kr": "다문화 가정의한국어 학습자",
+    "answer_kr": "",
+    "question_vn": "Người học tiếng Hàn trong gia đình đa văn hóa",
+    "answer_vn": "",
+    "category": "Q&A > 한국어",
+    "category_vn": "Đời sống",
+    "likes": 0,
+    "views": 325,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=186089505&dirId=110801&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "tự tin",
+        "level": "1",
+        "korean": "자신감"
+      },
+      {
+        "vn": "đề thi đã ra",
+        "level": "1",
+        "korean": "기출"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "공부하기 위해 도서관에 갑니다 = Để học nên đi thư viện",
+        "meaning": "để...",
+        "pattern": "-기 위해"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 38,
+    "question_kr": "영어 학습 앱",
+    "answer_kr": "",
+    "question_vn": "Ứng dụng học tiếng Anh?",
+    "answer_vn": "Các ứng dụng như Duolingo, Memrise cung cấp bài học đa dạng, phù hợp cho người mới bắt đầu và luyện tập hàng ngày.",
+    "category": "Q&A > 생활영어, 회화",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 150,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=492607468&dirId=11080305&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "đa dạng",
+        "level": "2",
+        "korean": "다양"
+      },
+      {
+        "vn": "học hỏi",
+        "level": "2",
+        "korean": "습득"
+      },
+      {
+        "vn": "lặp lại",
+        "level": "2",
+        "korean": "반복"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "2",
+        "example": "학습에 도움이 됩니다 = Giúp đỡ việc học tập",
+        "meaning": "về",
+        "pattern": "-에"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 40,
+    "question_kr": "TOPIK포르투갈시험일정",
+    "answer_kr": "",
+    "question_vn": "Lịch thi TOPIK tại Bồ Đào Nha?",
+    "answer_vn": "Lịch thi được công bố trên website chính thức của TOPIK, thường tổ chức 2-3 lần/năm tại các thành phố lớn như Lisbon.",
+    "category": "Q&A > 기타",
+    "category_vn": "Thi TOPIK",
+    "likes": 0,
+    "views": 45,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=477128960&dirId=814&d1id=8",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "chính thức",
+        "level": "2",
+        "korean": "공식"
+      },
+      {
+        "vn": "kỳ hạn",
+        "level": "2",
+        "korean": "주기"
+      },
+      {
+        "vn": "tần suất",
+        "level": "2",
+        "korean": "频次"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "2",
+        "example": "공식 웹사이트에 게시됩니다 = Được đăng tải trên trang web chính thức",
+        "meaning": "vào",
+        "pattern": "-에"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 43,
+    "question_kr": "한국어교원자격증 kbs한국어시험비교",
+    "answer_kr": "",
+    "question_vn": "Chứng chỉ giáo viên tiếng Hàn và bài thi KBS khác nhau thế nào?",
+    "answer_vn": "Chứng chỉ giáo viên dùng để giảng dạy tiếng Hàn, còn bài thi KBS đánh giá năng lực ngôn ngữ cho nhiều mục đích khác.",
+    "category": "Q&A > 국어 공부, 시험",
+    "category_vn": "Thi TOPIK",
+    "likes": 0,
+    "views": 328,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=491078813&dirId=11080106&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "giáo viên",
+        "level": "2",
+        "korean": "교사"
+      },
+      {
+        "vn": "đánh giá",
+        "level": "2",
+        "korean": "평가"
+      },
+      {
+        "vn": "mục đích",
+        "level": "2",
+        "korean": "목적"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 44,
+    "question_kr": "외국인 한국에서 토픽1(TOPIK) 접수",
+    "answer_kr": "",
+    "question_vn": "Người nước ngoài ở Hàn Quốc đăng ký thi TOPIK thế nào?",
+    "answer_vn": "Đăng ký trực tuyến qua website TOPIK hoặc tại các trung tâm tổ chức thi, với hộ chiếu hoặc thẻ cư trú.",
+    "category": "Q&A > 외국인교육",
+    "category_vn": "Thi TOPIK",
+    "likes": 0,
+    "views": 312,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=486057155&dirId=110705&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "đăng ký",
+        "level": "2",
+        "korean": "등록"
+      },
+      {
+        "vn": "trang web",
+        "level": "2",
+        "korean": "홈페이지"
+      },
+      {
+        "vn": "thẻ cư trú",
+        "level": "2",
+        "korean": "신분증"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "홈페이지를 통해 등록할 수 있어요 = Có thể đăng ký thông qua trang web",
+        "meaning": "thông qua",
+        "pattern": "-를 통해"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 46,
+    "question_kr": "한국어능력시험(TOPIK) 신청",
+    "answer_kr": "",
+    "question_vn": "Đăng ký kỳ thi năng lực tiếng Hàn (TOPIK)",
+    "answer_vn": "Đăng ký trực tuyến qua website chính thức của TOPIK hoặc tại các đơn vị tổ chức thi được ủy quyền.",
+    "category": "Q&A > 국어 공부, 시험",
+    "category_vn": "Thi TOPIK",
+    "likes": 0,
+    "views": 279,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=482964864&dirId=11080106&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "đăng ký",
+        "level": "1",
+        "korean": "등록"
+      },
+      {
+        "vn": "trang web",
+        "level": "1",
+        "korean": "홈페이지"
+      },
+      {
+        "vn": "thí sinh",
+        "level": "1",
+        "korean": "수험자"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "홈페이지를 통해 등록할 수 있습니다 = Đăng ký qua trang web",
+        "meaning": "bằng cách",
+        "pattern": "-를 통해"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 132,
+    "question_kr": "(순우리말,옛말,중세국어,고대한국어 학습)",
+    "answer_kr": "",
+    "question_vn": "Học từ thuần Hàn, từ cổ, tiếng Hàn trung đại, tiếng Hàn cổ đại",
+    "answer_vn": "",
+    "category": "Q&A > 국어 어원, 어휘",
+    "category_vn": "Từ vựng",
+    "likes": 0,
+    "views": 1775,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=264834440&dirId=11080102&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "thu được",
+        "level": "1",
+        "korean": "습득"
+      },
+      {
+        "vn": "sửa lỗi",
+        "level": "1",
+        "korean": "교정"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 29,
+    "question_kr": "한국어 학습자 말뭉치",
+    "answer_kr": "",
+    "question_vn": "Kho ngữ liệu của người học tiếng Hàn.",
+    "answer_vn": "",
+    "category": "Q&A > 중국어 어원, 어휘",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 509,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=355932150&dirId=11080501&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "tập trung",
+        "level": "1",
+        "korean": "집중"
+      },
+      {
+        "vn": "lặp lại",
+        "level": "1",
+        "korean": "반복"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "공부했지만 어려웠어요 = Dù học nhưng khó",
+        "meaning": "dù... nhưng",
+        "pattern": "-지만"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 53,
+    "question_kr": "Epstopik 시험일정 어느 사이트에서...",
+    "answer_kr": "",
+    "question_vn": "Lịch thi EPS-TOPIK xem ở website nào?",
+    "answer_vn": "Lịch thi EPS-TOPIK được đăng tải trên website chính thức của EPS-TOPIK hoặc cơ quan quản lý lao động Hàn Quốc.",
+    "category": "Q&A > 외국인 한국생활",
+    "category_vn": "EPS-TOPIK",
+    "likes": 0,
+    "views": 115,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=453986505&dirId=816&d1id=8",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "đăng tải",
+        "level": "2",
+        "korean": "등록"
+      },
+      {
+        "vn": "quản lý",
+        "level": "1",
+        "korean": "관리"
+      },
+      {
+        "vn": "cơ quan",
+        "level": "1",
+        "korean": "기관"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 54,
+    "question_kr": "한국인이TOPIK 시험칠수 있나요?",
+    "answer_kr": "",
+    "question_vn": "Người Hàn Quốc có thể thi TOPIK không?",
+    "answer_vn": "Người Hàn Quốc không được thi TOPIK vì kỳ thi này chỉ dành cho người nước ngoài.",
+    "category": "Q&A > 국어 공부, 시험",
+    "category_vn": "Thi TOPIK",
+    "likes": 0,
+    "views": 653,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=343467735&dirId=11080106&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "loại trừ",
+        "level": "2",
+        "korean": "제외"
+      },
+      {
+        "vn": "quốc tịch",
+        "level": "2",
+        "korean": "국적"
+      },
+      {
+        "vn": "giới hạn",
+        "level": "2",
+        "korean": "한정"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 56,
+    "question_kr": "외국인 친구 대신 국내TOPIK시험접수",
+    "answer_kr": "",
+    "question_vn": "Đăng ký thi TOPIK trong nước thay cho bạn nước ngoài",
+    "answer_vn": "",
+    "category": "Q&A > 외국인교육",
+    "category_vn": "Thi TOPIK",
+    "likes": 0,
+    "views": 603,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=445308176&dirId=110705&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "đồng nhất",
+        "level": "1",
+        "korean": "꾸준히"
+      },
+      {
+        "vn": "hệ thống",
+        "level": "1",
+        "korean": "체계적"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "매일 공부해야 해요 = Phải học mỗi ngày",
+        "meaning": "phải làm gì đó",
+        "pattern": "-아/어야 하다"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 57,
+    "question_kr": "외국인 한국어능력시험(topik) 교육...",
+    "answer_kr": "",
+    "question_vn": "Giáo dục về kỳ thi năng lực tiếng Hàn (TOPIK) cho người nước ngoài",
+    "answer_vn": "",
+    "category": "Q&A > 영어 공부, 시험",
+    "category_vn": "Thi TOPIK",
+    "likes": 0,
+    "views": 1939,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=338279219&dirId=11080308&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "thu được",
+        "level": "1",
+        "korean": "습득"
+      },
+      {
+        "vn": "sửa lỗi",
+        "level": "1",
+        "korean": "교정"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 62,
+    "question_kr": "시온 braindead한국어 발음",
+    "answer_kr": "",
+    "question_vn": "Cách phát âm tiếng Hàn của '시온 braindead' là gì?",
+    "answer_vn": "Sion braindead",
+    "category": "Q&A > 생활영어, 회화",
+    "category_vn": "Phát âm",
+    "likes": 0,
+    "views": 70,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=492409978&dirId=11080305&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "não",
+        "level": "1",
+        "korean": "뇌"
+      },
+      {
+        "vn": "tử vong",
+        "level": "1",
+        "korean": "사망"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 63,
+    "question_kr": "을한국어발음으로 써주실분",
+    "answer_kr": "",
+    "question_vn": "Ai có thể viết cách phát âm tiếng Hàn của '을' không?",
+    "answer_vn": "Phát âm là 'eul'",
+    "category": "Q&A > 록, 메탈 음악",
+    "category_vn": "Phát âm",
+    "likes": 0,
+    "views": 47,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=492015966&dirId=30204&d1id=3",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "âm",
+        "level": "1",
+        "korean": "음"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 65,
+    "question_kr": "일본 노래한국어 발음써주세요!!",
+    "answer_kr": "",
+    "question_vn": "Hãy viết cách phát âm tiếng Hàn của 'bài hát Nhật Bản'!",
+    "answer_vn": "Ilbon norae",
+    "category": "Q&A > 노래, 연주",
+    "category_vn": "Phát âm",
+    "likes": 0,
+    "views": 289,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=486960338&dirId=30213&d1id=3",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "bài hát",
+        "level": "1",
+        "korean": "노래"
+      },
+      {
+        "vn": "Nhật Bản",
+        "level": "1",
+        "korean": "일본"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 66,
+    "question_kr": "until i found you 가사한국어 발음",
+    "answer_kr": "",
+    "question_vn": "Phát âm tiếng Hàn của lời bài hát 'Until I Found You'",
+    "answer_vn": "Phiên âm tiếng Hàn của lời bài hát 'Until I Found You' có thể tìm thấy trên các trang web cung cấp lời bài hát kèm phiên âm Hangeul.",
+    "category": "Q&A > 팝, R&B",
+    "category_vn": "Phát âm",
+    "likes": 0,
+    "views": 11930,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=439091427&dirId=30203&d1id=3",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "y học",
+        "level": "1",
+        "korean": "의학"
+      },
+      {
+        "vn": "Hán tự",
+        "level": "1",
+        "korean": "한자"
+      },
+      {
+        "vn": "quy tắc",
+        "level": "1",
+        "korean": "규칙"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "규칙에 따라 발음한다 = Phát âm theo quy tắc",
+        "meaning": "theo quy tắc",
+        "pattern": "-에 따라"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 90,
+    "question_kr": "한국어심화어휘책 추천해주세요",
+    "answer_kr": "",
+    "question_vn": "Hãy giới thiệu sách từ vựng chuyên sâu tiếng Hàn",
+    "answer_vn": "Sách '한국어 심화 어휘' (Deep Korean Vocabulary) hoặc 'Advanced Korean Vocabulary' cho trình độ cao.",
+    "category": "Q&A > 독서",
+    "category_vn": "Từ vựng",
+    "likes": 0,
+    "views": 594,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=381173148&dirId=80606&d1id=8",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "làm sâu sắc",
+        "level": "3",
+        "korean": "심화"
+      },
+      {
+        "vn": "từ vựng",
+        "level": "1",
+        "korean": "어휘"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 137,
+    "question_kr": "리베라토의 한국어 실력과 팬들과의...",
+    "answer_kr": "",
+    "question_vn": "Khả năng tiếng Hàn của Liberato và tương tác với người hâm mộ?",
+    "answer_vn": "Liberato có khả năng tiếng Hàn cơ bản, thường dùng để giao tiếp đơn giản và kết nối với người hâm mộ qua mạng xã hội.",
+    "category": "Q&A > 야구 선수, 감독",
+    "category_vn": "Đời sống",
+    "likes": 0,
+    "views": 15,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=487006676&dirId=10010205&d1id=10",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "cơ bản",
+        "level": "1",
+        "korean": "기본"
+      },
+      {
+        "vn": "đơn giản",
+        "level": "1",
+        "korean": "단순"
+      },
+      {
+        "vn": "kết nối",
+        "level": "1",
+        "korean": "연결"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 51,
+    "question_kr": "TOPIK 시험장소",
+    "answer_kr": "",
+    "question_vn": "Địa điểm thi TOPIK",
+    "answer_vn": "Thông tin địa điểm thi được công bố trên website chính thức của TOPIK.",
+    "category": "Q&A > 국어 공부, 시험",
+    "category_vn": "Thi TOPIK",
+    "likes": 0,
+    "views": 496,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=442326170&dirId=11080106&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "chính thức",
+        "level": "1",
+        "korean": "공식"
+      },
+      {
+        "vn": "trang web",
+        "level": "1",
+        "korean": "웹사이트"
+      },
+      {
+        "vn": "công bố",
+        "level": "2",
+        "korean": "공布"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 59,
+    "question_kr": "한어병음 성조가 바뀌면한국어 발음도...",
+    "answer_kr": "",
+    "question_vn": "Nếu thanh điệu phiên âm tiếng Hán thay đổi thì phát âm tiếng Hàn cũng thay đổi",
+    "answer_vn": "",
+    "category": "Q&A > 중국어 맞춤법, 문법",
+    "category_vn": "Phát âm",
+    "likes": 0,
+    "views": 100,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=485620384&dirId=11080502&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "tập trung",
+        "level": "1",
+        "korean": "집중"
+      },
+      {
+        "vn": "lặp lại",
+        "level": "1",
+        "korean": "반복"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 80,
+    "question_kr": "한국어 문법",
+    "answer_kr": "",
+    "question_vn": "Ngữ pháp tiếng Hàn",
+    "answer_vn": "Bao gồm trợ từ, đuôi câu, kính ngữ và cấu trúc câu đặc thù, cần học từ cơ bản đến nâng cao.",
+    "category": "Q&A > 국어 맞춤법, 문법",
+    "category_vn": "Ngữ pháp",
+    "likes": 0,
+    "views": 197,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=485594189&dirId=11080103&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "trợ từ",
+        "level": "2",
+        "korean": "조사"
+      },
+      {
+        "vn": "đuôi câu",
+        "level": "2",
+        "korean": "어미"
+      },
+      {
+        "vn": "kính ngữ",
+        "level": "2",
+        "korean": "존댓말"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 82,
+    "question_kr": "한국어 문법체계 어렵지 않나여?",
+    "answer_kr": "",
+    "question_vn": "Hệ thống ngữ pháp tiếng Hàn có khó không?",
+    "answer_vn": "Ngữ pháp tiếng Hàn có cấu trúc chặt chẽ và logic, không quá khó nếu nắm vững các quy tắc cơ bản và luyện tập thường xuyên.",
+    "category": "Q&A > 기타",
+    "category_vn": "Ngữ pháp",
+    "likes": 0,
+    "views": 86,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=454227025&dirId=814&d1id=8",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "cơ bản",
+        "level": "1",
+        "korean": "기본"
+      },
+      {
+        "vn": "quy tắc",
+        "level": "2",
+        "korean": "규칙"
+      },
+      {
+        "vn": "thu thập",
+        "level": "2",
+        "korean": "습득"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 83,
+    "question_kr": "일본어 문법과한국어 문법차이점과...",
+    "answer_kr": "",
+    "question_vn": "Điểm khác biệt giữa ngữ pháp tiếng Nhật và tiếng Hàn?",
+    "answer_vn": "Tiếng Hàn và tiếng Nhật đều dùng trật tự câu S-O-V, nhưng tiếng Hàn có hệ thống kính ngữ phức tạp hơn và cách dùng trợ từ khác biệt.",
+    "category": "Q&A > 일본어 맞춤법, 문법",
+    "category_vn": "Ngữ pháp",
+    "likes": 0,
+    "views": 330,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=460251597&dirId=11080402&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "trật tự",
+        "level": "3",
+        "korean": "트"
+      },
+      {
+        "vn": "phức tạp",
+        "level": "2",
+        "korean": "복잡"
+      },
+      {
+        "vn": "sự khác biệt",
+        "level": "2",
+        "korean": "차이"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "매일 공부해야 해요 = Phải học mỗi ngày",
+        "meaning": "phải làm gì đó",
+        "pattern": "-아/어야 하다"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 86,
+    "question_kr": "kbs한국어능력시험어휘단어",
+    "answer_kr": "",
+    "question_vn": "Từ vựng cho kỳ thi năng lực tiếng Hàn KBS",
+    "answer_vn": "Nên học qua sách 'KBS 한국어능력시험 어휘' hoặc tài liệu luyện thi chính thức của KBS.",
+    "category": "Q&A > 국어 공부, 시험",
+    "category_vn": "Từ vựng",
+    "likes": 0,
+    "views": 211,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=491430235&dirId=11080106&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "năng lực",
+        "level": "2",
+        "korean": "능력"
+      },
+      {
+        "vn": "từ vựng",
+        "level": "1",
+        "korean": "어휘"
+      },
+      {
+        "vn": "thi",
+        "level": "1",
+        "korean": "시험"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 87,
+    "question_kr": "한국어고급어휘책 추천",
+    "answer_kr": "",
+    "question_vn": "Giới thiệu sách từ vựng tiếng Hàn cao cấp",
+    "answer_vn": "Sách '한국어 고급 어휘' của Darakwon hoặc 'Yonsei Korean Vocabulary (Advanced)'.",
+    "category": "Q&A > 국어 어원, 어휘",
+    "category_vn": "Từ vựng",
+    "likes": 0,
+    "views": 690,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=476926513&dirId=11080102&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "cấp cao",
+        "level": "2",
+        "korean": "고급"
+      },
+      {
+        "vn": "từ vựng",
+        "level": "1",
+        "korean": "어휘"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 88,
+    "question_kr": "대만친구가한국어 어휘중 한자어...",
+    "answer_kr": "",
+    "question_vn": "Bạn Đài Loan hỏi về từ Hán Hàn trong tiếng Hàn...",
+    "answer_vn": "Người Đài Loan có lợi thế với từ Hán Hàn, nên học qua sách so sánh Hán-Việt-Hàn và chú ý từ đồng âm khác nghĩa.",
+    "category": "Q&A > 중국어",
+    "category_vn": "Từ vựng",
+    "likes": 0,
+    "views": 496,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=466191942&dirId=110805&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "chữ Hán",
+        "level": "2",
+        "korean": "한자"
+      },
+      {
+        "vn": "đồng âm",
+        "level": "3",
+        "korean": "동음"
+      },
+      {
+        "vn": "nghĩa",
+        "level": "2",
+        "korean": "의미"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 89,
+    "question_kr": "한국어 어휘책",
+    "answer_kr": "",
+    "question_vn": "Sách từ vựng tiếng Hàn",
+    "answer_vn": "Các sách phổ biến: 'Korean Vocabulary' của TTMIK, 'Từ vựng tiếng Hàn theo chủ đề' của nhiều tác giả.",
+    "category": "Q&A > 한국어",
+    "category_vn": "Từ vựng",
+    "likes": 0,
+    "views": 387,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=463011967&dirId=110801&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "chủ đề",
+        "level": "2",
+        "korean": "주제"
+      },
+      {
+        "vn": "từ vựng",
+        "level": "1",
+        "korean": "어휘"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 72,
+    "question_kr": "한국어 발음히라가나로 적어주세요ㅜㅜ",
+    "answer_kr": "",
+    "question_vn": "Hãy viết phát âm tiếng Hàn bằng chữ Hiragana.",
+    "answer_vn": "",
+    "category": "Q&A > 일본어 어원, 어휘",
+    "category_vn": "Phát âm",
+    "likes": 0,
+    "views": 368,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=486378748&dirId=11080401&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "thu được",
+        "level": "1",
+        "korean": "습득"
+      },
+      {
+        "vn": "chỉnh sửa",
+        "level": "1",
+        "korean": "교정"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 74,
+    "question_kr": "노래한국어 발음좀요",
+    "answer_kr": "",
+    "question_vn": "Cho tôi phát âm tiếng Hàn của bài hát.",
+    "answer_vn": "",
+    "category": "Q&A > 표준어, 방언",
+    "category_vn": "Phát âm",
+    "likes": 0,
+    "views": 86,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=481419835&dirId=11080104&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "tập trung",
+        "level": "1",
+        "korean": "집중"
+      },
+      {
+        "vn": "lặp lại",
+        "level": "1",
+        "korean": "반복"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 79,
+    "question_kr": "한국어 문법질문",
+    "answer_kr": "",
+    "question_vn": "Câu hỏi về ngữ pháp tiếng Hàn",
+    "answer_vn": "Nên học theo chủ đề, thực hành đặt câu và tra cứu tài liệu uy tín khi có thắc mắc.",
+    "category": "Q&A > 국어 맞춤법, 문법",
+    "category_vn": "Ngữ pháp",
+    "likes": 0,
+    "views": 40,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=488516078&dirId=11080103&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "chủ đề",
+        "level": "2",
+        "korean": "주제"
+      },
+      {
+        "vn": "thực hành",
+        "level": "2",
+        "korean": "실습"
+      },
+      {
+        "vn": "tra cứu",
+        "level": "2",
+        "korean": "-tra"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 95,
+    "question_kr": "한국어 어휘공부",
+    "answer_kr": "",
+    "question_vn": "Học từ vựng tiếng Hàn",
+    "answer_vn": "Nên học từ vựng theo chủ đề, sử dụng thẻ ghi nhớ, ứng dụng học tập và ôn tập đều đặn để ghi nhớ lâu.",
+    "category": "Q&A > 노래, 연주",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 104,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=482443552&dirId=30213&d1id=3",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "chủ đề",
+        "level": "1",
+        "korean": "주제"
+      },
+      {
+        "vn": "đều đặn",
+        "level": "1",
+        "korean": "꾸준히"
+      },
+      {
+        "vn": "nhớ",
+        "level": "1",
+        "korean": "기억"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "꾸준히 공부해야 한다 = Phải học đều đặn",
+        "meaning": "phải làm gì đó",
+        "pattern": "-아/어야 한다"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 97,
+    "question_kr": "한국어 어휘체계",
+    "answer_kr": "",
+    "question_vn": "Hệ thống từ vựng tiếng Hàn",
+    "answer_vn": "Bao gồm từ thuần Hàn, từ gốc Hán, từ mượn từ nước ngoài, và từ viết tắt.",
+    "category": "Q&A > 영어 어원, 어휘",
+    "category_vn": "Từ vựng",
+    "likes": 0,
+    "views": 399,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=360824696&dirId=11080301&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "hán tự",
+        "level": "1",
+        "korean": "한자"
+      },
+      {
+        "vn": "nước ngoài",
+        "level": "1",
+        "korean": "외국"
+      },
+      {
+        "vn": "từ viết tắt",
+        "level": "1",
+        "korean": "약자"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 102,
+    "question_kr": "외국인들한국어공부왜하나요?",
+    "answer_kr": "",
+    "question_vn": "Tại sao người nước ngoài học tiếng Hàn?",
+    "answer_vn": "Vì yêu thích văn hóa Hàn Quốc, để làm việc, du học, giao tiếp hoặc thi chứng chỉ TOPIK.",
+    "category": "Q&A > 기타",
+    "category_vn": "Đời sống",
+    "likes": 0,
+    "views": 151,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=491162028&dirId=814&d1id=8",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "văn hóa",
+        "level": "1",
+        "korean": "문화"
+      },
+      {
+        "vn": "công việc",
+        "level": "1",
+        "korean": "직업"
+      },
+      {
+        "vn": "du học",
+        "level": "1",
+        "korean": "유학"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "한국 문화를 좋아해서 한국어를 공부합니다 = Vì yêu thích văn hóa Hàn Quốc nên học tiếng Hàn",
+        "meaning": "vì",
+        "pattern": "-으로"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 104,
+    "question_kr": "해외인들이한국어를 많이공부하게...",
+    "answer_kr": "",
+    "question_vn": "Tại sao người nước ngoài học tiếng Hàn nhiều?",
+    "answer_vn": "Do ảnh hưởng của làn sóng Hallyu (K-pop, phim ảnh), cơ hội việc làm và du lịch tại Hàn Quốc.",
+    "category": "Q&A > 음악",
+    "category_vn": "Văn hóa Hàn",
+    "likes": 0,
+    "views": 27,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=489493055&dirId=302&d1id=3",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "làn sóng Hallyu",
+        "level": "1",
+        "korean": "한류"
+      },
+      {
+        "vn": "cơ hội",
+        "level": "1",
+        "korean": "기회"
+      },
+      {
+        "vn": "du lịch",
+        "level": "1",
+        "korean": "여행"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "한류로 인해 한국어 학습자가 증가했습니다 = Do ảnh hưởng của làn sóng Hallyu mà số lượng người học tiếng Hàn tăng lên",
+        "meaning": "do ảnh hưởng của",
+        "pattern": "-으로 인해"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 106,
+    "question_kr": "넥스지의한국어 공부비결, '태풍상사...",
+    "answer_kr": "",
+    "question_vn": "Bí quyết học tiếng Hàn của Nexgi, 'Công ty Taepung...'",
+    "answer_vn": "Nexgi chia sẻ bí quyết học tiếng Hàn thông qua môi trường công ty và thực tế.",
+    "category": "Q&A > 한국어",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 68,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=489838985&dirId=110801&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "môi trường",
+        "level": "1",
+        "korean": "환경"
+      },
+      {
+        "vn": "thực tế",
+        "level": "1",
+        "korean": "실제"
+      },
+      {
+        "vn": "chia sẻ",
+        "level": "1",
+        "korean": "공유"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "환경을 통해 학습한다 = Học bằng cách trải nghiệm môi trường",
+        "meaning": "bằng cách",
+        "pattern": "-를 통해"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 107,
+    "question_kr": "츠키의한국어 공부비법, 다른 분들도...",
+    "answer_kr": "",
+    "question_vn": "Bí quyết học tiếng Hàn của Tsuki, những người khác cũng...",
+    "answer_vn": "Tsuki giới thiệu phương pháp học hiệu quả có thể áp dụng chung.",
+    "category": "Q&A > 언어 기타",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 50,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=492384585&dirId=110811&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "hiệu quả",
+        "level": "1",
+        "korean": "효과"
+      },
+      {
+        "vn": "áp dụng",
+        "level": "1",
+        "korean": "適用"
+      },
+      {
+        "vn": "phương pháp",
+        "level": "1",
+        "korean": "方法"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "新的 方法을 적용한다 = Áp dụng phương pháp mới",
+        "meaning": "áp dụng",
+        "pattern": "-을 적용하다"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 109,
+    "question_kr": "한국어 공부",
+    "answer_kr": "",
+    "question_vn": "Học tiếng Hàn",
+    "answer_vn": "Học tiếng Hàn đòi hỏi sự kiên trì, kết hợp đều cả bốn kỹ năng.",
+    "category": "Q&A > 국어 공부, 시험",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 94,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=490095772&dirId=11080106&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "kiên trì",
+        "level": "1",
+        "korean": "꾸준히"
+      },
+      {
+        "vn": "kết hợp",
+        "level": "1",
+        "korean": "결합"
+      },
+      {
+        "vn": "kỹ năng",
+        "level": "1",
+        "korean": "기술"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "학습을 요구한다 = Yêu cầu học tập",
+        "meaning": "yêu cầu",
+        "pattern": "-을 요구하다"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 110,
+    "question_kr": "일본인 남친한국어 공부",
+    "answer_kr": "",
+    "question_vn": "Bạn trai người Nhật học tiếng Hàn",
+    "answer_vn": "Hỗ trợ bạn trai người Nhật học tiếng Hàn qua giao tiếp hàng ngày và tài liệu phù hợp.",
+    "category": "Q&A > 연애, 결혼",
+    "category_vn": "Đời sống",
+    "likes": 0,
+    "views": 66,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=492417101&dirId=80101&d1id=8",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "hỗ trợ",
+        "level": "1",
+        "korean": "지지"
+      },
+      {
+        "vn": "hàng ngày",
+        "level": "1",
+        "korean": "일상"
+      },
+      {
+        "vn": "tài liệu",
+        "level": "1",
+        "korean": "자료"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "일상을 통해 학습한다 = Học bằng cách trải nghiệm hàng ngày",
+        "meaning": "bằng cách",
+        "pattern": "-을 통해"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 199,
+    "question_kr": "한국어 어휘의 미묘한 차이가 설명되어...",
+    "answer_kr": "",
+    "question_vn": "Sự khác biệt tinh tế trong từ vựng tiếng Hàn được giải thích...",
+    "answer_vn": "",
+    "category": "Q&A > 한국어",
+    "category_vn": "Từ vựng",
+    "likes": 0,
+    "views": 1187,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=153230038&dirId=110801&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "tập trung",
+        "level": "1",
+        "korean": "집중"
+      },
+      {
+        "vn": "lặp lại",
+        "level": "1",
+        "korean": "반복"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "공부하기 위해 도서관에 가요 = Đi thư viện để học",
+        "meaning": "để",
+        "pattern": "-기 위해"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 94,
+    "question_kr": "1한국어 어휘총 얼마나 있어요??",
+    "answer_kr": "",
+    "question_vn": "Tổng số từ vựng tiếng Hàn có bao nhiêu?",
+    "answer_vn": "Ước tính có khoảng 1.100.000 từ trong từ điển tiếng Hàn, nhưng từ vựng thông dụng chỉ khoảng 50.000-60.000 từ.",
+    "category": "Q&A > 국어 어원, 어휘",
+    "category_vn": "Từ vựng",
+    "likes": 0,
+    "views": 433,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=342538027&dirId=11080102&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "từ điển",
+        "level": "1",
+        "korean": "사전"
+      },
+      {
+        "vn": "ví dụ",
+        "level": "1",
+        "korean": "용례"
+      },
+      {
+        "vn": "cấu thành",
+        "level": "1",
+        "korean": "구성"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 118,
+    "question_kr": "캄보디아 학생,한국어 공부해요. 문장...",
+    "answer_kr": "",
+    "question_vn": "Học sinh Campuchia học tiếng Hàn, câu...",
+    "answer_vn": "Học sinh Campuchia có thể học tiếng Hàn qua các ứng dụng, sách giáo khoa và thực hành giao tiếp với người bản xứ.",
+    "category": "Q&A > 신화, 전설",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 46,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=478070552&dirId=6130106&d1id=6",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "ứng dụng",
+        "level": "1",
+        "korean": "어플리케이션"
+      },
+      {
+        "vn": "sách giáo khoa",
+        "level": "1",
+        "korean": "교과서"
+      },
+      {
+        "vn": "thực hành",
+        "level": "1",
+        "korean": "실습"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "어플리케이션을 통해 학습했습니다 = Đã học thông qua ứng dụng",
+        "meaning": "thông qua",
+        "pattern": "-을 통해"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 120,
+    "question_kr": "배우자의한국어 학습의지 부족이...",
+    "answer_kr": "",
+    "question_vn": "Thiếu ý chí học tiếng Hàn của vợ/chồng",
+    "answer_vn": "Khuyến khích học cùng nhau, đặt mục tiêu nhỏ, tham gia hoạt động văn hóa Hàn Quốc để tạo hứng thú học tập.",
+    "category": "Q&A > 한국어",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 28,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=493099295&dirId=110801&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "mục tiêu",
+        "level": "1",
+        "korean": "목표"
+      },
+      {
+        "vn": "hứng thú",
+        "level": "1",
+        "korean": "흥미"
+      },
+      {
+        "vn": "văn hóa",
+        "level": "1",
+        "korean": "문화"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 121,
+    "question_kr": "일본에서한국어학습원 설립 문의",
+    "answer_kr": "",
+    "question_vn": "Hỏi về việc thành lập trung tâm học tiếng Hàn tại Nhật Bản",
+    "answer_vn": "Cần tuân thủ quy định pháp luật Nhật Bản về giáo dục và kinh doanh.",
+    "category": "Q&A > 서비스업",
+    "category_vn": "Đời sống",
+    "likes": 0,
+    "views": 718,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=226555859&dirId=40703&d1id=4",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "giáo dục",
+        "level": "1",
+        "korean": "교육"
+      },
+      {
+        "vn": "kinh doanh",
+        "level": "1",
+        "korean": "사업"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "규정에 따라 해야 합니다 = Phải làm theo quy định",
+        "meaning": "theo",
+        "pattern": "-에 따라"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 122,
+    "question_kr": "한국어 학습용 어휘",
+    "answer_kr": "",
+    "question_vn": "Từ vựng học tiếng Hàn",
+    "answer_vn": "Có nhiều tài liệu từ vựng theo chủ đề và cấp độ.",
+    "category": "Q&A > 국어 어원, 어휘",
+    "category_vn": "Từ vựng",
+    "likes": 0,
+    "views": 211,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=239287221&dirId=11080102&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "chủ đề",
+        "level": "1",
+        "korean": "주제"
+      },
+      {
+        "vn": "cấp độ",
+        "level": "1",
+        "korean": "수준"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 125,
+    "question_kr": "중국인한국어 학습교재로 무엇이...",
+    "answer_kr": "",
+    "question_vn": "Giáo trình học tiếng Hàn cho người Trung Quốc là gì?",
+    "answer_vn": "Có các giáo trình chuyên biệt như 'Korean for Chinese Speakers'.",
+    "category": "Q&A > 중국",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 872,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=270985442&dirId=9020102&d1id=9",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "chuyên biệt",
+        "level": "1",
+        "korean": "전문"
+      },
+      {
+        "vn": "người Trung Quốc",
+        "level": "1",
+        "korean": "중국인"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 129,
+    "question_kr": "한국어 학습자 말뭉치",
+    "answer_kr": "",
+    "question_vn": "Kho ngữ liệu (말뭉치) cho người học tiếng Hàn?",
+    "answer_vn": "Kho ngữ liệu là tập hợp văn bản/văn nói tự nhiên, giúp phân tích cách dùng từ, ngữ pháp thực tế trong tiếng Hàn.",
+    "category": "Q&A > 중국어 어원, 어휘",
+    "category_vn": "Từ vựng",
+    "likes": 0,
+    "views": 509,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=355932150&dirId=11080501&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "phân tích",
+        "level": "2",
+        "korean": "분석"
+      },
+      {
+        "vn": "tài liệu",
+        "level": "1",
+        "korean": "자료"
+      },
+      {
+        "vn": "thu thập",
+        "level": "2",
+        "korean": "습득"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 131,
+    "question_kr": "외국인을 위한한국어 학습교재",
+    "answer_kr": "",
+    "question_vn": "Sách giáo khoa học tiếng Hàn cho người nước ngoài",
+    "answer_vn": "",
+    "category": "Q&A > 영어",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 2766,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=58609491&dirId=110406&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "đồng nhất",
+        "level": "1",
+        "korean": "꾸준히"
+      },
+      {
+        "vn": "hệ thống",
+        "level": "1",
+        "korean": "체계적"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "매일 공부해야 해요 = Phải học mỗi ngày",
+        "meaning": "phải làm gì đó",
+        "pattern": "-아/어야 하다"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 1,
+    "question_kr": "외국인들이한국어 공부할 때 외우는 것들.",
+    "answer_kr": "",
+    "question_vn": "Người nước ngoài thường ghi nhớ những gì khi học tiếng Hàn?",
+    "answer_vn": "Từ vựng cơ bản, ngữ pháp, mẫu câu thông dụng và bảng chữ cái Hangeul.",
+    "category": "Q&A > 영어문법",
+    "category_vn": "Từ vựng",
+    "likes": 0,
+    "views": 133,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=490013482&dirId=11080302&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "cơ bản",
+        "level": "1",
+        "korean": "기본"
+      },
+      {
+        "vn": "chữ cái",
+        "level": "1",
+        "korean": "문자"
+      },
+      {
+        "vn": "Hangeul",
+        "level": "1",
+        "korean": "한글"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 116,
+    "question_kr": "한국어 공부유튜브 동영상 설정방법",
+    "answer_kr": "",
+    "question_vn": "Cách cài đặt video YouTube học tiếng Hàn",
+    "answer_vn": "Tìm kiếm kênh YouTube dạy tiếng Hàn, đăng ký kênh, bật thông báo và lưu video vào danh sách phát để học tập.",
+    "category": "Q&A > 커뮤니티",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 198,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=479800237&dirId=10604&d1id=1",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "kênh YouTube",
+        "level": "1",
+        "korean": "유튜브"
+      },
+      {
+        "vn": "tham gia khóa học",
+        "level": "1",
+        "korean": "수강"
+      },
+      {
+        "vn": "thông báo",
+        "level": "1",
+        "korean": "通知"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "유튜브를 위해 가입했습니다 = Đã tham gia để YouTube",
+        "meaning": "để",
+        "pattern": "-을 위해"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 124,
+    "question_kr": "외국인 친구가한국어 학습자료를...",
+    "answer_kr": "",
+    "question_vn": "Bạn nước ngoài hỏi về tài liệu học tiếng Hàn",
+    "answer_vn": "Giới thiệu sách giáo trình, trang web và ứng dụng học tiếng Hàn phù hợp.",
+    "category": "Q&A > 외국인교육",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 658,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=361005667&dirId=110705&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "sách giáo trình",
+        "level": "1",
+        "korean": "교재"
+      },
+      {
+        "vn": "trang web",
+        "level": "1",
+        "korean": "웹사이트"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 138,
+    "question_kr": "영어 학습 앱",
+    "answer_kr": "",
+    "question_vn": "Ứng dụng học tiếng Anh?",
+    "answer_vn": "Các ứng dụng phổ biến như Duolingo, Memrise, hoặc Rosetta Stone giúp học tiếng Anh qua bài tập tương tác và trò chơi.",
+    "category": "Q&A > 생활영어, 회화",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 150,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=492607468&dirId=11080305&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "tương tác",
+        "level": "1",
+        "korean": "상호작용"
+      },
+      {
+        "vn": "trò chơi",
+        "level": "1",
+        "korean": "게임"
+      },
+      {
+        "vn": "học tập",
+        "level": "1",
+        "korean": "학습"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 140,
+    "question_kr": "TOPIK포르투갈시험일정",
+    "answer_kr": "",
+    "question_vn": "Lịch thi TOPIK tại Bồ Đào Nha?",
+    "answer_vn": "Lịch thi TOPIK tại Bồ Đào Nha được công bố trên website chính thức của Viện Giáo dục Quốc tế Hàn Quốc, thường tổ chức 2-3 lần/năm.",
+    "category": "Q&A > 기타",
+    "category_vn": "Thi TOPIK",
+    "likes": 0,
+    "views": 45,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=477128960&dirId=814&d1id=8",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "chính thức",
+        "level": "1",
+        "korean": "공식"
+      },
+      {
+        "vn": "công bố",
+        "level": "1",
+        "korean": "공고"
+      },
+      {
+        "vn": "kỳ hạn",
+        "level": "1",
+        "korean": "주기"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 141,
+    "question_kr": "[한국유학종합시스템][유학]TOPIK 시험...",
+    "answer_kr": "",
+    "question_vn": "Kỳ thi TOPIK trong hệ thống du học Hàn Quốc",
+    "answer_vn": "TOPIK là kỳ thi bắt buộc để đánh giá năng lực tiếng Hàn khi du học Hàn Quốc, điểm số ảnh hưởng trực tiếp đến hồ sơ nhập học.",
+    "category": "Q&A >",
+    "category_vn": "Thi TOPIK",
+    "likes": 0,
+    "views": 358,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=486901061&dirId=6&d1id=6",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "năng lực",
+        "level": "1",
+        "korean": "능력"
+      },
+      {
+        "vn": "nhập học",
+        "level": "1",
+        "korean": "입학"
+      },
+      {
+        "vn": "trực tiếp",
+        "level": "1",
+        "korean": "직접"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "그것은 내 quyết định에 영향을 미칩니다 = Điều đó ảnh hưởng đến quyết định của tôi",
+        "meaning": "ảnh hưởng đến",
+        "pattern": "-에 영향을 미치다"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 144,
+    "question_kr": "외국인 한국에서 토픽1(TOPIK) 접수",
+    "answer_kr": "",
+    "question_vn": "Người nước ngoài đăng ký TOPIK I tại Hàn Quốc",
+    "answer_vn": "Người nước ngoài ở Hàn Quốc có thể đăng ký thi TOPIK I trực tuyến qua trang web chính thức www.topik.go.kr hoặc tại các trung tâm tổ chức thi được chỉ định.",
+    "category": "Q&A > 외국인교육",
+    "category_vn": "Thi TOPIK",
+    "likes": 0,
+    "views": 312,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=486057155&dirId=110705&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "trực tuyến",
+        "level": "1",
+        "korean": "온라인"
+      },
+      {
+        "vn": "đăng ký",
+        "level": "1",
+        "korean": "등록"
+      },
+      {
+        "vn": "chỉ định",
+        "level": "1",
+        "korean": "지정"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "우리는 인터넷을 통해 정보를 얻습니다 = Chúng tôi nhận được thông tin qua internet",
+        "meaning": "qua",
+        "pattern": "-을 통해"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 145,
+    "question_kr": "TOPIK토픽 연장",
+    "answer_kr": "",
+    "question_vn": "Gia hạn chứng chỉ TOPIK",
+    "answer_vn": "Chứng chỉ TOPIK có hiệu lực trong 2 năm và không thể gia hạn, muốn có chứng chỉ mới phải đăng ký thi lại.",
+    "category": "Q&A > 영어 공부, 시험",
+    "category_vn": "Thi TOPIK",
+    "likes": 0,
+    "views": 83,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=485720652&dirId=11080308&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "hiệu lực",
+        "level": "1",
+        "korean": "효력"
+      },
+      {
+        "vn": "gia hạn",
+        "level": "1",
+        "korean": "갱신"
+      },
+      {
+        "vn": "đăng ký lại",
+        "level": "1",
+        "korean": "재등록"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 147,
+    "question_kr": "한국어능력검정시험(TOPIK)...",
+    "answer_kr": "",
+    "question_vn": "Kỳ thi năng lực tiếng Hàn (TOPIK)...",
+    "answer_vn": "Là kỳ thi đánh giá năng lực tiếng Hàn dành cho người nước ngoài và kiều bào Hàn Quốc.",
+    "category": "Q&A > 국어 공부, 시험",
+    "category_vn": "Thi TOPIK",
+    "likes": 0,
+    "views": 175,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=482679991&dirId=11080106&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "người nước ngoài",
+        "level": "1",
+        "korean": "외국인"
+      },
+      {
+        "vn": "kiều bào Hàn Quốc",
+        "level": "1",
+        "korean": "한인"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 149,
+    "question_kr": "Topik1시험필수인가요?",
+    "answer_kr": "",
+    "question_vn": "TOPIK 1 có bắt buộc không?",
+    "answer_vn": "Không bắt buộc chung, nhưng có thể cần thiết cho một số chương trình học bổng, visa hoặc công việc cụ thể.",
+    "category": "Q&A > 국어 공부, 시험",
+    "category_vn": "Thi TOPIK",
+    "likes": 0,
+    "views": 111,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=478943447&dirId=11080106&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "bắt buộc",
+        "level": "1",
+        "korean": "필수"
+      },
+      {
+        "vn": "học bổng",
+        "level": "1",
+        "korean": "장학금"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "필수는 아니지만 필요할 수 있습니다 = Không bắt buộc nhưng có thể cần thiết",
+        "meaning": "nhưng",
+        "pattern": "-지만"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 151,
+    "question_kr": "TOPIK 시험장소",
+    "answer_kr": "",
+    "question_vn": "Địa điểm thi TOPIK?",
+    "answer_vn": "Địa điểm thi TOPIK được thông báo trên website chính thức www.topik.go.kr khi đăng ký thi.",
+    "category": "Q&A > 국어 공부, 시험",
+    "category_vn": "Thi TOPIK",
+    "likes": 0,
+    "views": 496,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=442326170&dirId=11080106&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "thông báo",
+        "level": "1",
+        "korean": "공지"
+      },
+      {
+        "vn": "đăng ký",
+        "level": "1",
+        "korean": "등록"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 135,
+    "question_kr": "다문화 가정의한국어 학습자",
+    "answer_kr": "",
+    "question_vn": "Người học tiếng Hàn trong gia đình đa văn hóa",
+    "answer_vn": "",
+    "category": "Q&A > 한국어",
+    "category_vn": "Đời sống",
+    "likes": 0,
+    "views": 325,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=186089505&dirId=110801&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "tự tin",
+        "level": "1",
+        "korean": "자신감"
+      },
+      {
+        "vn": "đề thi đã ra",
+        "level": "1",
+        "korean": "기출"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "공부하기 위해 책을 읽어요 = Đọc sách để học",
+        "meaning": "để làm gì",
+        "pattern": "-기 위해"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 152,
+    "question_kr": "한국어능력시험Topik",
+    "answer_kr": "",
+    "question_vn": "Kỳ thi năng lực tiếng Hàn TOPIK?",
+    "answer_vn": "TOPIK là kỳ thi năng lực tiếng Hàn, đánh giá trình độ tiếng Hàn của người nước ngoài và kiều bào Hàn Quốc.",
+    "category": "Q&A > 외국인 한국생활",
+    "category_vn": "Thi TOPIK",
+    "likes": 0,
+    "views": 389,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=423873512&dirId=816&d1id=8",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "năng lực",
+        "level": "1",
+        "korean": "기능"
+      },
+      {
+        "vn": "đánh giá",
+        "level": "1",
+        "korean": "평가"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 160,
+    "question_kr": "바비 연결고리 영어한국어 발음으로",
+    "answer_kr": "",
+    "question_vn": "Barbie liên kết phát âm tiếng Anh và tiếng Hàn",
+    "answer_vn": "Từ 'Barbie' trong tiếng Hàn được mượn từ tiếng Anh, phát âm là '바비' (babi), thể hiện sự thích ứng ngữ âm giữa hai ngôn ngữ.",
+    "category": "Q&A > 영어 어원, 어휘",
+    "category_vn": "Phát âm",
+    "likes": 0,
+    "views": 242,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=487118455&dirId=11080301&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "thích ứng",
+        "level": "2",
+        "korean": "적응"
+      },
+      {
+        "vn": "ngữ âm",
+        "level": "2",
+        "korean": "음운"
+      },
+      {
+        "vn": "sự khác biệt",
+        "level": "2",
+        "korean": "차이"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "2",
+        "example": "영어로부터 배운 단어 = Từ vựng học được từ tiếng Anh",
+        "meaning": "từ nơi nào",
+        "pattern": "-으로부터"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 161,
+    "question_kr": "헌터x헌터 Op-Departure!한국어 발음",
+    "answer_kr": "",
+    "question_vn": "Phát âm tiếng Hàn của '헌터x헌터 Op-Departure!' là gì?",
+    "answer_vn": "",
+    "category": "Q&A > 애니메이션음악",
+    "category_vn": "Phát âm",
+    "likes": 0,
+    "views": 485,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=491315846&dirId=3021103&d1id=3",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "đồng nhất",
+        "level": "1",
+        "korean": "꾸준히"
+      },
+      {
+        "vn": "hệ thống",
+        "level": "1",
+        "korean": "체계적"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "매일 공부해야 해요 = Phải học mỗi ngày",
+        "meaning": "phải làm gì đó",
+        "pattern": "-아/어야 하다"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 162,
+    "question_kr": "시온 braindead한국어 발음",
+    "answer_kr": "",
+    "question_vn": "Phát âm tiếng Hàn của '시온 braindead' là gì?",
+    "answer_vn": "",
+    "category": "Q&A > 생활영어, 회화",
+    "category_vn": "Phát âm",
+    "likes": 0,
+    "views": 70,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=492409978&dirId=11080305&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "thu được",
+        "level": "1",
+        "korean": "습득"
+      },
+      {
+        "vn": "sửa lỗi",
+        "level": "1",
+        "korean": "교정"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "배가 고파요지만 먹을 수 없어요 = Dù tôi đói nhưng không thể ăn được",
+        "meaning": "dù vậy",
+        "pattern": "-지만"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 164,
+    "question_kr": "関取花의 もしも僕に 가사랑한국어 발음...",
+    "answer_kr": "",
+    "question_vn": "Phát âm tiếng Hàn của lời bài hát '関取花の もしも僕に'...",
+    "answer_vn": "",
+    "category": "Q&A > 일본어 어원, 어휘",
+    "category_vn": "Phát âm",
+    "likes": 0,
+    "views": 84,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=492367129&dirId=11080401&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "tập trung",
+        "level": "1",
+        "korean": "집중"
+      },
+      {
+        "vn": "lặp lại",
+        "level": "1",
+        "korean": "반복"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "공부하기 위해 도서관에 가요 = Để học nên đi thư viện",
+        "meaning": "để làm gì",
+        "pattern": "-기 위해"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 166,
+    "question_kr": "until i found you 가사한국어 발음",
+    "answer_kr": "",
+    "question_vn": "until i found you 가사한국어 발음",
+    "answer_vn": "",
+    "category": "Q&A > 팝, R&B",
+    "category_vn": "Học tiếng Hàn",
+    "likes": 0,
+    "views": 11930,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=439091427&dirId=30203&d1id=3",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "đồng nhất",
+        "level": "1",
+        "korean": "꾸준히"
+      },
+      {
+        "vn": "hệ thống",
+        "level": "1",
+        "korean": "체계적"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "매일 공부해야 해요 = Phải học mỗi ngày",
+        "meaning": "phải làm gì đó",
+        "pattern": "-아/어야 하다"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 168,
+    "question_kr": "GD 드라마 가사한국어 발음으로...",
+    "answer_kr": "",
+    "question_vn": "GD 드라마 가사한국어 발음으로...",
+    "answer_vn": "",
+    "category": "Q&A > 드라마음악",
+    "category_vn": "Học tiếng Hàn",
+    "likes": 0,
+    "views": 174,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=486244133&dirId=3021102&d1id=3",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "giọng điệu",
+        "level": "1",
+        "korean": "억양"
+      },
+      {
+        "vn": "phụ âm cuối",
+        "level": "1",
+        "korean": "받침"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "저는 공부했지만 어려웠어요 = Tôi học nhưng khó",
+        "meaning": "nhưng",
+        "pattern": "-지만"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 170,
+    "question_kr": "브라질? 포르투갈 노래인데한국어 발음",
+    "answer_kr": "",
+    "question_vn": "브라질? 포르투갈 노래인데한국어 발음",
+    "answer_vn": "",
+    "category": "Q&A > 포르투갈어",
+    "category_vn": "Học tiếng Hàn",
+    "likes": 0,
+    "views": 614,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=486708294&dirId=110822&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "tự tin",
+        "level": "1",
+        "korean": "자신감"
+      },
+      {
+        "vn": "đề thi đã ra",
+        "level": "1",
+        "korean": "기출"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "공부하기 위해 책을 읽어요 = Đọc sách để học",
+        "meaning": "để",
+        "pattern": "-기 위해"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 172,
+    "question_kr": "한국어 발음히라가나로 적어주세요ㅜㅜ",
+    "answer_kr": "",
+    "question_vn": "Làm ơn viết phát âm tiếng Hàn bằng chữ Hiragana (tiếng Nhật) giúp tôi.",
+    "answer_vn": "Việc dùng Hiragana để thể hiện phát âm tiếng Hàn không chính xác và không được khuyến khích. Thay vào đó, hãy học bảng chữ cái Hangeul để đọc đúng.",
+    "category": "Q&A > 일본어 어원, 어휘",
+    "category_vn": "Phát âm",
+    "likes": 0,
+    "views": 368,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=486378748&dirId=11080401&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "chữ Hàn",
+        "level": "1",
+        "korean": "한글"
+      },
+      {
+        "vn": "thể hiện",
+        "level": "1",
+        "korean": "표현"
+      },
+      {
+        "vn": "khuyến khích",
+        "level": "1",
+        "korean": "권장"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 174,
+    "question_kr": "노래한국어 발음좀요",
+    "answer_kr": "",
+    "question_vn": "Cho tôi xin phát âm bài hát tiếng Hàn với.",
+    "answer_vn": "Bạn có thể tìm lời bài hát (가사) kèm phiên âm hoặc video hướng dẫn phát âm trên các nền tảng như Naver, YouTube, hoặc ứng dụng học tiếng Hàn.",
+    "category": "Q&A > 표준어, 방언",
+    "category_vn": "Phát âm",
+    "likes": 0,
+    "views": 86,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=481419835&dirId=11080104&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "lời bài hát",
+        "level": "1",
+        "korean": "가사"
+      },
+      {
+        "vn": "nền tảng",
+        "level": "1",
+        "korean": "플랫폼"
+      },
+      {
+        "vn": "hướng dẫn",
+        "level": "1",
+        "korean": "안내"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 4,
+    "question_kr": "해외인들이한국어를 많이공부하게...",
+    "answer_kr": "",
+    "question_vn": "Người nước ngoài học tiếng Hàn nhiều hơn nhờ đâu?",
+    "answer_vn": "Nhờ làn sóng Hallyu (K-pop, phim Hàn), cơ hội việc làm, và các ứng dụng học tập trực tuyến.",
+    "category": "Q&A > 음악",
+    "category_vn": "Văn hóa Hàn",
+    "likes": 0,
+    "views": 27,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=489493055&dirId=302&d1id=3",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "cơ hội",
+        "level": "1",
+        "korean": "기회"
+      },
+      {
+        "vn": "ứng dụng",
+        "level": "1",
+        "korean": "응용"
+      },
+      {
+        "vn": "trực tuyến",
+        "level": "1",
+        "korean": "온라인"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "온라인으로 인해 쉽게 공부할 수 있다 = Nhờ trực tuyến, dễ học",
+        "meaning": "nhờ",
+        "pattern": "-으로 인해"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 157,
+    "question_kr": "외국인 한국어능력시험(topik) 교육...",
+    "answer_kr": "",
+    "question_vn": "Giáo dục về kỳ thi năng lực tiếng Hàn (TOPIK) cho người nước ngoài",
+    "answer_vn": "Các khóa học và tài liệu ôn thi TOPIK cho người nước ngoài được cung cấp bởi các trung tâm ngôn ngữ, trường đại học và nền tảng trực tuyến.",
+    "category": "Q&A > 영어 공부, 시험",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 1939,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=338279219&dirId=11080308&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "trực tuyến",
+        "level": "1",
+        "korean": "온라인"
+      },
+      {
+        "vn": "nền tảng",
+        "level": "2",
+        "korean": "플랫폼"
+      },
+      {
+        "vn": "tài liệu",
+        "level": "1",
+        "korean": "자료"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 14,
+    "question_kr": "한국 사람이한국어를 스스로공부하는...",
+    "answer_kr": "",
+    "question_vn": "Người Hàn Quốc tự học tiếng Hàn như thế nào?",
+    "answer_vn": "",
+    "category": "Q&A > 방송연예인",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 196,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=446030422&dirId=30104&d1id=3",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "tập trung",
+        "level": "1",
+        "korean": "집중"
+      },
+      {
+        "vn": "lặp lại",
+        "level": "1",
+        "korean": "반복"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "공부하기 위해 도서관에 가요 = Để học nên đi thư viện",
+        "meaning": "để làm gì",
+        "pattern": "-기 위해"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 181,
+    "question_kr": "한국어 문법을 영국인이 만들었다는걸",
+    "answer_kr": "",
+    "question_vn": "한국어 문법을 영국인이 만들었다는걸",
+    "answer_vn": "",
+    "category": "Q&A > 국어 맞춤법, 문법",
+    "category_vn": "Học tiếng Hàn",
+    "likes": 0,
+    "views": 87,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=365986066&dirId=11080103&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "đồng nhất",
+        "level": "1",
+        "korean": "꾸준히"
+      },
+      {
+        "vn": "hệ thống",
+        "level": "1",
+        "korean": "체계적"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "매일 공부해야 해요 = Phải học mỗi ngày",
+        "meaning": "phải làm gì đó",
+        "pattern": "-아/어야 하다"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 183,
+    "question_kr": "일본어 문법과한국어 문법차이점과...",
+    "answer_kr": "",
+    "question_vn": "일본어 문법과한국어 문법차이점과...",
+    "answer_vn": "",
+    "category": "Q&A > 일본어 맞춤법, 문법",
+    "category_vn": "Học tiếng Hàn",
+    "likes": 0,
+    "views": 330,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=460251597&dirId=11080402&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "giọng điệu",
+        "level": "1",
+        "korean": "억양"
+      },
+      {
+        "vn": "phụ âm cuối",
+        "level": "1",
+        "korean": "받침"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "저는 공부했지만 어려웠어요 = Tôi học nhưng khó",
+        "meaning": "nhưng",
+        "pattern": "-지만"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 184,
+    "question_kr": "한국어 문법-(으)면서 에서 (으)",
+    "answer_kr": "",
+    "question_vn": "한국어 문법-(으)면서 에서 (으)",
+    "answer_vn": "",
+    "category": "Q&A > 국어 맞춤법, 문법",
+    "category_vn": "Học tiếng Hàn",
+    "likes": 0,
+    "views": 230,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=431670725&dirId=11080103&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "tập trung",
+        "level": "1",
+        "korean": "집중"
+      },
+      {
+        "vn": "lặp lại",
+        "level": "1",
+        "korean": "반복"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 186,
+    "question_kr": "kbs한국어능력시험어휘단어",
+    "answer_kr": "",
+    "question_vn": "Từ vựng cho kỳ thi năng lực tiếng Hàn KBS",
+    "answer_vn": "Nên học qua sách 'KBS 한국어능력시험 어휘' hoặc tài liệu ôn thi chính thức.",
+    "category": "Q&A > 국어 공부, 시험",
+    "category_vn": "Từ vựng",
+    "likes": 0,
+    "views": 211,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=491430235&dirId=11080106&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "cấp cao",
+        "level": "2",
+        "korean": "고급"
+      },
+      {
+        "vn": "từ vựng",
+        "level": "1",
+        "korean": "어휘"
+      },
+      {
+        "vn": "năng lực",
+        "level": "2",
+        "korean": "능력"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 188,
+    "question_kr": "대만친구가한국어 어휘중 한자어...",
+    "answer_kr": "",
+    "question_vn": "Bạn Đài Loan hỏi về từ Hán Hàn trong từ vựng tiếng Hàn...",
+    "answer_vn": "Từ Hán Hàn chiếm tỷ lệ lớn, tương đồng với tiếng Trung, giúp người Đài Loan học dễ hơn.",
+    "category": "Q&A > 중국어",
+    "category_vn": "Từ vựng",
+    "likes": 0,
+    "views": 496,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=466191942&dirId=110805&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "chữ Hán",
+        "level": "2",
+        "korean": "한자"
+      },
+      {
+        "vn": "tỷ lệ",
+        "level": "2",
+        "korean": "비율"
+      },
+      {
+        "vn": "dễ",
+        "level": "1",
+        "korean": "쉽"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 189,
+    "question_kr": "한국어 어휘책",
+    "answer_kr": "",
+    "question_vn": "Sách từ vựng tiếng Hàn",
+    "answer_vn": "Các sách như 'Korean Vocabulary for Beginners' hoặc '토픽 어휘' đều tốt.",
+    "category": "Q&A > 한국어",
+    "category_vn": "Từ vựng",
+    "likes": 0,
+    "views": 387,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=463011967&dirId=110801&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "cấp sơ",
+        "level": "1",
+        "korean": "초급"
+      },
+      {
+        "vn": "chủ đề",
+        "level": "2",
+        "korean": "토픽"
+      },
+      {
+        "vn": "từ vựng",
+        "level": "1",
+        "korean": "어휘"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 191,
+    "question_kr": "한국어 어휘의 지역적 변이 요인을...",
+    "answer_kr": "",
+    "question_vn": "Các yếu tố biến đổi theo vùng của từ vựng tiếng Hàn là gì?",
+    "answer_vn": "Các yếu tố bao gồm sự khác biệt địa lý, ảnh hưởng lịch sử, phương ngữ, và tiếp xúc văn hóa giữa các vùng.",
+    "category": "Q&A > 한국어",
+    "category_vn": "Từ vựng",
+    "likes": 0,
+    "views": 221,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=360422062&dirId=110801&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "khu vực",
+        "level": "1",
+        "korean": "지역"
+      },
+      {
+        "vn": "ảnh hưởng",
+        "level": "1",
+        "korean": "영향"
+      },
+      {
+        "vn": "văn hóa",
+        "level": "1",
+        "korean": "문화"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 192,
+    "question_kr": "한국어 어휘에 대해 질문합니다.",
+    "answer_kr": "",
+    "question_vn": "Tôi có câu hỏi về từ vựng tiếng Hàn.",
+    "answer_vn": "Hãy đặt câu hỏi cụ thể về từ vựng tiếng Hàn để nhận được giải đáp chi tiết.",
+    "category": "Q&A > 국어 어원, 어휘",
+    "category_vn": "Từ vựng",
+    "likes": 0,
+    "views": 34,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=480454561&dirId=11080102&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "cụ thể",
+        "level": "1",
+        "korean": "구체적"
+      },
+      {
+        "vn": "giải quyết",
+        "level": "1",
+        "korean": "해결"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 193,
+    "question_kr": "한국어 어휘관련 질문",
+    "answer_kr": "",
+    "question_vn": "Câu hỏi liên quan đến từ vựng tiếng Hàn.",
+    "answer_vn": "Vui lòng nêu rõ câu hỏi về từ vựng tiếng Hàn để được hỗ trợ tốt nhất.",
+    "category": "Q&A > 한국어",
+    "category_vn": "Từ vựng",
+    "likes": 0,
+    "views": 246,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=438583706&dirId=110801&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "minh bạch",
+        "level": "1",
+        "korean": "명확"
+      },
+      {
+        "vn": "hỗ trợ",
+        "level": "1",
+        "korean": "지원"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 195,
+    "question_kr": "한국어 어휘공부",
+    "answer_kr": "",
+    "question_vn": "Học từ vựng tiếng Hàn.",
+    "answer_vn": "Nên học từ vựng theo chủ đề, sử dụng flashcard, ứng dụng học tập, và ôn tập đều đặn để ghi nhớ lâu.",
+    "category": "Q&A > 노래, 연주",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 104,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=482443552&dirId=30213&d1id=3",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "chủ đề",
+        "level": "1",
+        "korean": "주제"
+      },
+      {
+        "vn": "đều đặn",
+        "level": "1",
+        "korean": "꾸준히"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "매일 공부해야 해요 = Phải học mỗi ngày",
+        "meaning": "phải làm gì đó",
+        "pattern": "-아/어야 하다"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 180,
+    "question_kr": "한국어 문법",
+    "answer_kr": "",
+    "question_vn": "Ngữ pháp tiếng Hàn có đặc điểm nổi bật nào?",
+    "answer_vn": "Tiếng Hàn có trật tự từ linh hoạt nhờ trợ từ, động từ luôn đứng cuối câu và hệ thống kính ngữ phong phú theo đối tượng giao tiếp.",
+    "category": "Q&A > 국어 맞춤법, 문법",
+    "category_vn": "Ngữ pháp",
+    "likes": 0,
+    "views": 197,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=485594189&dirId=11080103&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "trật tự",
+        "level": "1",
+        "korean": "순서"
+      },
+      {
+        "vn": "phụ thuộc",
+        "level": "1",
+        "korean": "의존"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "매일 공부해야 해요 = Phải học mỗi ngày",
+        "meaning": "phải làm gì đó",
+        "pattern": "-아/어야 하다"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 13,
+    "question_kr": "중국인한국어 공부를 위한 책과...",
+    "answer_kr": "",
+    "question_vn": "Sách và tài liệu học tiếng Hàn cho người Trung Quốc.",
+    "answer_vn": "",
+    "category": "Q&A > 중국어 공부, 시험",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 360,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=479868099&dirId=11080507&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "giọng điệu",
+        "level": "1",
+        "korean": "억양"
+      },
+      {
+        "vn": "dấu chấm than",
+        "level": "1",
+        "korean": "받침"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "배가 고파서 먹고 싶지만 돈이 없어요 = Đói nhưng không có tiền",
+        "meaning": "dù... nhưng",
+        "pattern": "-지만"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 18,
+    "question_kr": "캄보디아 학생,한국어 공부해요. 문장...",
+    "answer_kr": "",
+    "question_vn": "Học sinh Campuchia, học tiếng Hàn. Câu...",
+    "answer_vn": "",
+    "category": "Q&A > 신화, 전설",
+    "category_vn": "Ngữ pháp",
+    "likes": 0,
+    "views": 46,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=478070552&dirId=6130106&d1id=6",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "giọng điệu",
+        "level": "1",
+        "korean": "억양"
+      },
+      {
+        "vn": "phụ âm cuối",
+        "level": "1",
+        "korean": "받침"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "한국어를 잘 하지만 발음이 어렵지 만 = Dù tiếng Hàn tốt nhưng phát âm khó",
+        "meaning": "dù... nhưng",
+        "pattern": "-지만"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 19,
+    "question_kr": "외국인아내 f6하기위해한국어 공부방법",
+    "answer_kr": "",
+    "question_vn": "Phương pháp học tiếng Hàn để vợ nước ngoài làm F6",
+    "answer_vn": "",
+    "category": "Q&A > 외국인교육",
+    "category_vn": "Đời sống",
+    "likes": 0,
+    "views": 421,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=480008022&dirId=110705&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "tập trung",
+        "level": "1",
+        "korean": "집중"
+      },
+      {
+        "vn": "lặp lại",
+        "level": "1",
+        "korean": "반복"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "한국어를 배우기 위해 매일 공부해요 = Để học tiếng Hàn, học mỗi ngày",
+        "meaning": "để...",
+        "pattern": "-기 위해"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 23,
+    "question_kr": "외국인들마다한국어 학습방법에 차이가...",
+    "answer_kr": "",
+    "question_vn": "Phương pháp học tiếng Hàn khác nhau tùy theo từng người nước ngoài",
+    "answer_vn": "",
+    "category": "Q&A > 한국어",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 81,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=389033280&dirId=110801&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "giọng điệu",
+        "level": "1",
+        "korean": "억양"
+      },
+      {
+        "vn": "dấu chấm than",
+        "level": "1",
+        "korean": "받침"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "배가 고파서 먹고 싶지만 돈이 없어요 = Đói nhưng không có tiền",
+        "meaning": "dù... nhưng",
+        "pattern": "-지만"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 25,
+    "question_kr": "중국인한국어 학습교재로 무엇이...",
+    "answer_kr": "",
+    "question_vn": "Giáo trình học tiếng Hàn cho người Trung Quốc là gì",
+    "answer_vn": "",
+    "category": "Q&A > 중국",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 872,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=270985442&dirId=9020102&d1id=9",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "tự tin",
+        "level": "1",
+        "korean": "자신감"
+      },
+      {
+        "vn": "đề thi đã ra",
+        "level": "1",
+        "korean": "기출"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 27,
+    "question_kr": "한국어의위상과 세계의한국어 학습자...",
+    "answer_kr": "",
+    "question_vn": "Vị thế của tiếng Hàn và người học tiếng Hàn trên thế giới...",
+    "answer_vn": "",
+    "category": "Q&A > 한국어",
+    "category_vn": "Văn hóa Hàn",
+    "likes": 0,
+    "views": 3694,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=53272246&dirId=110801&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "sở hữu",
+        "level": "1",
+        "korean": "습득"
+      },
+      {
+        "vn": "chỉnh sửa",
+        "level": "1",
+        "korean": "교정"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "공부하면 배울 수 있어요 = Nếu học thì sẽ biết",
+        "meaning": "nếu thì",
+        "pattern": "-면"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 47,
+    "question_kr": "한국어능력검정시험(TOPIK)...",
+    "answer_kr": "",
+    "question_vn": "Kỳ thi năng lực tiếng Hàn (TOPIK)...",
+    "answer_vn": "TOPIK là kỳ thi đánh giá năng lực tiếng Hàn cho người nước ngoài và kiều bào Hàn Quốc, được tổ chức nhiều lần trong năm.",
+    "category": "Q&A > 국어 공부, 시험",
+    "category_vn": "Thi TOPIK",
+    "likes": 0,
+    "views": 175,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=482679991&dirId=11080106&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "người nước ngoài",
+        "level": "1",
+        "korean": "외국인"
+      },
+      {
+        "vn": "năng lực",
+        "level": "1",
+        "korean": "기능"
+      },
+      {
+        "vn": "đánh giá",
+        "level": "1",
+        "korean": "평가"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 48,
+    "question_kr": "topik한국어능력시험",
+    "answer_kr": "",
+    "question_vn": "Kỳ thi năng lực tiếng Hàn TOPIK",
+    "answer_vn": "TOPIK chia thành 2 cấp độ: TOPIK I (sơ cấp) và TOPIK II (trung-cao cấp), đánh giá kỹ năng nghe, đọc, viết.",
+    "category": "Q&A > 인문과학대학",
+    "category_vn": "Thi TOPIK",
+    "likes": 0,
+    "views": 1833,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=451906933&dirId=11050401&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "trình độ",
+        "level": "1",
+        "korean": "수준"
+      },
+      {
+        "vn": "phân loại",
+        "level": "1",
+        "korean": "분류"
+      },
+      {
+        "vn": "đánh giá",
+        "level": "1",
+        "korean": "평가"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "TOPIK II는 중급자를 위한 시험입니다 = TOPIK II là kỳ thi dành cho trình độ trung cấp",
+        "meaning": "dành cho",
+        "pattern": "-을 위한"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 198,
+    "question_kr": "한국어 어휘에 대한 문제",
+    "answer_kr": "",
+    "question_vn": "Vấn đề về từ vựng tiếng Hàn",
+    "answer_vn": "",
+    "category": "Q&A > 국어 어원, 어휘",
+    "category_vn": "Từ vựng",
+    "likes": 0,
+    "views": 728,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=204121655&dirId=11080102&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "giọng điệu",
+        "level": "1",
+        "korean": "억양"
+      },
+      {
+        "vn": "dấu chấm than",
+        "level": "1",
+        "korean": "받침"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "배가 고파서 먹지만 살이 찔까 봐 걱정이야 = Đói nhưng lo tăng cân",
+        "meaning": "dù... nhưng",
+        "pattern": "-지만"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 3,
+    "question_kr": "외국인한국어 공부책",
+    "answer_kr": "",
+    "question_vn": "Sách học tiếng Hàn cho người nước ngoài?",
+    "answer_vn": "Các giáo trình phổ biến như 'Tiếng Hàn tổng hợp', 'Sejong', 'EPS-TOPIK', và sách luyện thi TOPIK.",
+    "category": "Q&A > 외국인교육",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 291,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=485321257&dirId=110705&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "giáo trình",
+        "level": "1",
+        "korean": "교재"
+      },
+      {
+        "vn": "thi",
+        "level": "1",
+        "korean": "시험"
+      },
+      {
+        "vn": "đề thi",
+        "level": "1",
+        "korean": "수능"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "시험을 위한 공부 = Học để thi",
+        "meaning": "để",
+        "pattern": "-을 위한"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 39,
+    "question_kr": "표준국어대사전과 고려대한국어사전의...",
+    "answer_kr": "",
+    "question_vn": "Sự khác biệt giữa Từ điển Quốc ngữ Chuẩn và Từ điển Tiếng Hàn Đại học Korea?",
+    "answer_vn": "Từ điển Quốc ngữ Chuẩn mang tính chính thống, trong khi Từ điển Đại học Korea thường cập nhật từ mới và cách dùng hiện đại hơn.",
+    "category": "Q&A > 국어 맞춤법, 문법",
+    "category_vn": "Từ vựng",
+    "likes": 0,
+    "views": 251,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=493144415&dirId=11080103&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "chính thống",
+        "level": "2",
+        "korean": "정통"
+      },
+      {
+        "vn": "hiện đại",
+        "level": "2",
+        "korean": "현대"
+      },
+      {
+        "vn": "sửa lỗi",
+        "level": "2",
+        "korean": "교정"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 143,
+    "question_kr": "한국어교원자격증 kbs한국어시험비교",
+    "answer_kr": "",
+    "question_vn": "So sánh chứng chỉ giáo viên tiếng Hàn và kỳ thi tiếng Hàn KBS",
+    "answer_vn": "Chứng chỉ giáo viên tiếng Hàn dùng để giảng dạy chính thức, trong khi kỳ thi KBS đánh giá năng lực giao tiếp thực tế và không có giá trị giảng dạy.",
+    "category": "Q&A > 국어 공부, 시험",
+    "category_vn": "Đời sống",
+    "likes": 0,
+    "views": 328,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=491078813&dirId=11080106&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "giáo viên",
+        "level": "1",
+        "korean": "교사"
+      },
+      {
+        "vn": "giảng dạy",
+        "level": "1",
+        "korean": "강의"
+      },
+      {
+        "vn": "thực tế",
+        "level": "1",
+        "korean": "실제"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 22,
+    "question_kr": "한국어 학습용 어휘",
+    "answer_kr": "",
+    "question_vn": "Từ vựng học tiếng Hàn",
+    "answer_vn": "",
+    "category": "Q&A > 국어 어원, 어휘",
+    "category_vn": "Từ vựng",
+    "likes": 0,
+    "views": 211,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=239287221&dirId=11080102&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "thu được",
+        "level": "1",
+        "korean": "습득"
+      },
+      {
+        "vn": "sửa lỗi",
+        "level": "1",
+        "korean": "교정"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 26,
+    "question_kr": "한국어 학습자예요 “눈을 담다(너의",
+    "answer_kr": "",
+    "question_vn": "Tôi là người học tiếng Hàn. '눈을 담다' (của bạn...)",
+    "answer_vn": "",
+    "category": "Q&A > 외국인 한국생활",
+    "category_vn": "Từ vựng",
+    "likes": 0,
+    "views": 401,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=315016379&dirId=816&d1id=8",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "đồng nhất",
+        "level": "1",
+        "korean": "꾸준히"
+      },
+      {
+        "vn": "hệ thống",
+        "level": "1",
+        "korean": "체계적"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "매일 공부해야 해요 = Phải học mỗi ngày",
+        "meaning": "phải làm gì đó",
+        "pattern": "-아/어야 하다"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 52,
+    "question_kr": "한국어능력시험Topik",
+    "answer_kr": "",
+    "question_vn": "Kỳ thi năng lực tiếng Hàn TOPIK",
+    "answer_vn": "TOPIK là kỳ thi đánh giá năng lực tiếng Hàn dành cho người nước ngoài.",
+    "category": "Q&A > 외국인 한국생활",
+    "category_vn": "Thi TOPIK",
+    "likes": 0,
+    "views": 389,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=423873512&dirId=816&d1id=8",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "năng lực",
+        "level": "1",
+        "korean": "능력"
+      },
+      {
+        "vn": "đánh giá",
+        "level": "1",
+        "korean": "평가"
+      },
+      {
+        "vn": "người nước ngoài",
+        "level": "1",
+        "korean": "외국인"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 69,
+    "question_kr": "항해를한국어 발음으로 영어로 써주세요",
+    "answer_kr": "",
+    "question_vn": "Viết từ '항해를' bằng tiếng Anh dựa trên phát âm tiếng Hàn",
+    "answer_vn": "Từ '항해를' phát âm là 'hanghae-reul' trong tiếng Hàn, và trong tiếng Anh có thể viết là 'voyage' hoặc 'sailing' tùy ngữ cảnh.",
+    "category": "Q&A > 제2외국어",
+    "category_vn": "Phát âm",
+    "likes": 0,
+    "views": 44,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=485599906&dirId=110411&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "hành hải",
+        "level": "1",
+        "korean": "항해"
+      },
+      {
+        "vn": "du lịch",
+        "level": "1",
+        "korean": "여행"
+      },
+      {
+        "vn": "câu",
+        "level": "1",
+        "korean": "구문"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 73,
+    "question_kr": "한진,한국어 발음연습 어떻게 하나요?",
+    "answer_kr": "",
+    "question_vn": "Han Jin, làm thế nào để luyện tập phát âm tiếng Hàn?",
+    "answer_vn": "",
+    "category": "Q&A > 해외가수",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 119,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=489669072&dirId=302140102&d1id=3",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "giọng điệu",
+        "level": "1",
+        "korean": "억양"
+      },
+      {
+        "vn": "phụ âm cuối",
+        "level": "1",
+        "korean": "받침"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "배가 고파서 먹고 싶지만 돈이 없어요 = Đói nhưng không có tiền",
+        "meaning": "dù... nhưng",
+        "pattern": "-지만"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 81,
+    "question_kr": "한국어 문법을 영국인이 만들었다는걸",
+    "answer_kr": "",
+    "question_vn": "Nghe nói ngữ pháp tiếng Hàn do người Anh tạo ra?",
+    "answer_vn": "Không đúng. Ngữ pháp tiếng Hàn được hệ thống hóa bởi vua Sejong và các học giả Triều Tiên, hoàn toàn do người Hàn phát triển.",
+    "category": "Q&A > 국어 맞춤법, 문법",
+    "category_vn": "Văn hóa Hàn",
+    "likes": 0,
+    "views": 87,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=365986066&dirId=11080103&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "hệ thống",
+        "level": "2",
+        "korean": "체계적"
+      },
+      {
+        "vn": "đồng nhất, liên tục",
+        "level": "2",
+        "korean": "꾸준히"
+      },
+      {
+        "vn": "lô-gic",
+        "level": "3",
+        "korean": "logic"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 85,
+    "question_kr": "한국어 어휘수업 초급 단계 그림 활용",
+    "answer_kr": "",
+    "question_vn": "Cách sử dụng hình ảnh trong dạy từ vựng tiếng Hàn giai đoạn sơ cấp?",
+    "answer_vn": "Sử dụng hình ảnh trực quan giúp người học ghi nhớ từ vựng nhanh hơn, đặc biệt hiệu quả với danh từ chỉ đồ vật, hành động và tính từ cơ bản.",
+    "category": "Q&A > 문예창작인",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 60,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=484237652&dirId=30706&d1id=3",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "trực quan",
+        "level": "3",
+        "korean": "직관"
+      },
+      {
+        "vn": "nhớ",
+        "level": "2",
+        "korean": "기억"
+      },
+      {
+        "vn": "hiệu quả",
+        "level": "2",
+        "korean": "효과"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 158,
+    "question_kr": "한국어능력시험TopikIBT",
+    "answer_kr": "",
+    "question_vn": "Kỳ thi năng lực tiếng Hàn TOPIK IBT",
+    "answer_vn": "TOPIK IBT là hình thức thi TOPIK trên máy tính, được tổ chức thường xuyên hơn với kết quả có nhanh và thí sinh đăng ký trực tuyến.",
+    "category": "Q&A > 직업교육",
+    "category_vn": "Thi TOPIK",
+    "likes": 0,
+    "views": 572,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=452749511&dirId=110704&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "máy tính",
+        "level": "1",
+        "korean": "컴퓨터"
+      },
+      {
+        "vn": "kết quả",
+        "level": "1",
+        "korean": "결과"
+      },
+      {
+        "vn": "trực tuyến",
+        "level": "1",
+        "korean": "온라인"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "시험에 대해 알고 싶어요 = Muốn biết về kỳ thi",
+        "meaning": "về vấn đề gì",
+        "pattern": "-에 대해"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 61,
+    "question_kr": "헌터x헌터 Op-Departure!한국어 발음",
+    "answer_kr": "",
+    "question_vn": "Cách phát âm tiếng Hàn của '헌터x헌터 Op-Departure!' là gì?",
+    "answer_vn": "Hyeonteo x Hyeonteo Op-Departure!",
+    "category": "Q&A > 애니메이션음악",
+    "category_vn": "Phát âm",
+    "likes": 0,
+    "views": 485,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=491315846&dirId=3021103&d1id=3",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "hiện đại",
+        "level": "1",
+        "korean": "현대"
+      },
+      {
+        "vn": "khởi hành",
+        "level": "1",
+        "korean": "출발"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 2,
+    "question_kr": "외국인들한국어공부왜하나요?",
+    "answer_kr": "",
+    "question_vn": "Tại sao người nước ngoài học tiếng Hàn?",
+    "answer_vn": "Để làm việc, du lịch, học tập, hoặc yêu thích văn hóa Hàn Quốc như K-pop, phim ảnh.",
+    "category": "Q&A > 기타",
+    "category_vn": "Đời sống",
+    "likes": 0,
+    "views": 151,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=491162028&dirId=814&d1id=8",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "du lịch",
+        "level": "1",
+        "korean": "여행"
+      },
+      {
+        "vn": "học tập",
+        "level": "1",
+        "korean": "학습"
+      },
+      {
+        "vn": "văn hóa",
+        "level": "1",
+        "korean": "문화"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 6,
+    "question_kr": "넥스지의한국어 공부비결, '태풍상사...",
+    "answer_kr": "",
+    "question_vn": "Bí quyết học tiếng Hàn của Nexgi, 'Công ty Taepungsangsa...'",
+    "answer_vn": "Nexgi chia sẻ bí quyết học tiếng Hàn hiệu quả thông qua mô hình công ty 'Taepungsangsa', giúp ghi nhớ từ vựng và ngữ pháp dễ dàng.",
+    "category": "Q&A > 한국어",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 68,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=489838985&dirId=110801&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "hiệu quả",
+        "level": "2",
+        "korean": "효과"
+      },
+      {
+        "vn": "mô hình",
+        "level": "2",
+        "korean": "모델"
+      },
+      {
+        "vn": "dễ dàng",
+        "level": "1",
+        "korean": "쉽게"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "쉽게 = dễ dàng",
+        "meaning": "trạng thái",
+        "pattern": "-게"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 76,
+    "question_kr": "everytime we touch한국어발음",
+    "answer_kr": "",
+    "question_vn": "Cách phát âm tiếng Hàn của 'everytime we touch'",
+    "answer_vn": "Phát âm Hàn hóa là '에브리타임 위 터치', chú ý âm cuối và ngữ điệu.",
+    "category": "Q&A > 언어 기타",
+    "category_vn": "Phát âm",
+    "likes": 0,
+    "views": 304,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=483599842&dirId=110811&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "mỗi lần",
+        "level": "2",
+        "korean": "에브리타임"
+      },
+      {
+        "vn": "âm cuối",
+        "level": "2",
+        "korean": "받침"
+      },
+      {
+        "vn": "ngữ điệu",
+        "level": "2",
+        "korean": "억양"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 78,
+    "question_kr": "일본어한국어 문법",
+    "answer_kr": "",
+    "question_vn": "Ngữ pháp tiếng Nhật và tiếng Hàn",
+    "answer_vn": "Cả hai đều có trật tự S-O-V và hệ thống kính ngữ, nhưng trợ từ và cách chia động từ khác nhau.",
+    "category": "Q&A > 일본어 맞춤법, 문법",
+    "category_vn": "Ngữ pháp",
+    "likes": 0,
+    "views": 105,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=485962106&dirId=11080402&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "hệ thống",
+        "level": "2",
+        "korean": "체계적"
+      },
+      {
+        "vn": "sự thu thập",
+        "level": "2",
+        "korean": "습득"
+      },
+      {
+        "vn": "sự sửa lỗi",
+        "level": "2",
+        "korean": "교정"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "나는 사과를 먹는다 = Tôi ăn một quả táo",
+        "meaning": "trật tự chủ ngữ - đối tượng - động từ",
+        "pattern": "S-O-V"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 92,
+    "question_kr": "한국어 어휘에 대해 질문합니다.",
+    "answer_kr": "",
+    "question_vn": "Tôi có câu hỏi về từ vựng tiếng Hàn.",
+    "answer_vn": "Từ vựng tiếng Hàn có thể được phân loại theo nguồn gốc (Hán Hàn, Thuần Hàn, Ngoại lai) và cấp độ sử dụng.",
+    "category": "Q&A > 국어 어원, 어휘",
+    "category_vn": "Từ vựng",
+    "likes": 0,
+    "views": 34,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=480454561&dirId=11080102&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "Hán tự",
+        "level": "1",
+        "korean": "한자"
+      },
+      {
+        "vn": "từ ngoại lai",
+        "level": "1",
+        "korean": "외래어"
+      },
+      {
+        "vn": "cấp độ",
+        "level": "1",
+        "korean": "수준"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 100,
+    "question_kr": "한국어 어휘지도 탐구 중심일 때",
+    "answer_kr": "",
+    "question_vn": "Khi trọng tâm là khám phá bản đồ từ vựng tiếng Hàn",
+    "answer_vn": "Cần phân loại từ vựng theo chủ đề, cấp độ, và tần suất sử dụng.",
+    "category": "Q&A > 국어 어원, 어휘",
+    "category_vn": "Từ vựng",
+    "likes": 0,
+    "views": 41,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=484237264&dirId=11080102&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "phân loại",
+        "level": "1",
+        "korean": "분류"
+      },
+      {
+        "vn": "chủ đề",
+        "level": "1",
+        "korean": "주제"
+      },
+      {
+        "vn": "tần suất",
+        "level": "1",
+        "korean": "빈도"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 200,
+    "question_kr": "한국어 어휘지도 탐구 중심일 때",
+    "answer_kr": "",
+    "question_vn": "Khi trọng tâm là nghiên cứu hướng dẫn từ vựng tiếng Hàn",
+    "answer_vn": "",
+    "category": "Q&A > 국어 어원, 어휘",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 41,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=484237264&dirId=11080102&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "tự tin",
+        "level": "1",
+        "korean": "자신감"
+      },
+      {
+        "vn": "đề thi đã ra",
+        "level": "1",
+        "korean": "기출"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 7,
+    "question_kr": "츠키의한국어 공부비법, 다른 분들도...",
+    "answer_kr": "",
+    "question_vn": "Bí quyết học tiếng Hàn của Tsuki, những người khác cũng...",
+    "answer_vn": "Tsuki tiết lộ phương pháp học tiếng Hàn bằng cách xem phim Hàn và luyện nói hàng ngày, khuyến khích mọi người áp dụng.",
+    "category": "Q&A > 언어 기타",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 50,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=492384585&dirId=110811&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "phim",
+        "level": "1",
+        "korean": "영화"
+      },
+      {
+        "vn": "hàng ngày",
+        "level": "1",
+        "korean": "매일"
+      },
+      {
+        "vn": "luyện tập",
+        "level": "1",
+        "korean": "연습"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "매일 연습해야 해요 = Phải luyện tập hàng ngày",
+        "meaning": "phải làm gì đó",
+        "pattern": "-아/어야 하다"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 64,
+    "question_kr": "関取花의 もしも僕に 가사랑한국어 발음...",
+    "answer_kr": "",
+    "question_vn": "Lời bài hát '関取花の もしも僕に' và cách phát âm tiếng Hàn...",
+    "answer_vn": "Sekitori Hana no 'Moshimo Boku ni' lời bài hát phát âm tiếng Hàn",
+    "category": "Q&A > 일본어 어원, 어휘",
+    "category_vn": "Phát âm",
+    "likes": 0,
+    "views": 84,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=492367129&dirId=11080401&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "giả sử",
+        "level": "1",
+        "korean": "모시모"
+      },
+      {
+        "vn": "bài hát",
+        "level": "1",
+        "korean": "노래"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 68,
+    "question_kr": "GD 드라마 가사한국어 발음으로...",
+    "answer_kr": "",
+    "question_vn": "Phát âm tiếng Hàn của lời bài hát trong phim GD (ví dụ: Guardian: The Lonely and Great God)",
+    "answer_vn": "Lời bài hát trong phim GD (như 'Guardian') có phiên âm tiếng Hàn thường được chia sẻ trên các trang âm nhạc hoặc diễn đàn fan.",
+    "category": "Q&A > 드라마음악",
+    "category_vn": "Phát âm",
+    "likes": 0,
+    "views": 174,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=486244133&dirId=3021102&d1id=3",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "âm nhạc",
+        "level": "1",
+        "korean": "음악"
+      },
+      {
+        "vn": "người hâm mộ",
+        "level": "1",
+        "korean": "팬"
+      },
+      {
+        "vn": "chia sẻ",
+        "level": "1",
+        "korean": "공유"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "팬들을 통해 공유한다 = Chia sẻ thông qua người hâm mộ",
+        "meaning": "thông qua",
+        "pattern": "-을 통해"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 28,
+    "question_kr": "한국어 학습법은 실용실안권으로...",
+    "answer_kr": "",
+    "question_vn": "Phương pháp học tiếng Hàn theo hướng thực dụng...",
+    "answer_vn": "",
+    "category": "Q&A > 지식재산권",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 105,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=360006844&dirId=60205&d1id=6",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "giọng điệu",
+        "level": "1",
+        "korean": "억양"
+      },
+      {
+        "vn": "phụ âm cuối",
+        "level": "1",
+        "korean": "받침"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 30,
+    "question_kr": "제가 외국인한국어 학습자인데 혹시...",
+    "answer_kr": "",
+    "question_vn": "Tôi là người nước ngoài học tiếng Hàn, có thể...",
+    "answer_vn": "",
+    "category": "Q&A > 표준어, 방언",
+    "category_vn": "Đời sống",
+    "likes": 0,
+    "views": 308,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=185312329&dirId=11080104&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "tự tin",
+        "level": "1",
+        "korean": "자신감"
+      },
+      {
+        "vn": "đề thi đã ra",
+        "level": "1",
+        "korean": "기출"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "공부하기 위해 책을 읽어요 = Để học nên đọc sách",
+        "meaning": "để làm gì",
+        "pattern": "-기 위해"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 32,
+    "question_kr": "(순우리말,옛말,중세국어,고대한국어 학습)",
+    "answer_kr": "",
+    "question_vn": "Học từ thuần Hàn, từ cổ, tiếng Hàn trung đại, tiếng Hàn cổ",
+    "answer_vn": "",
+    "category": "Q&A > 국어 어원, 어휘",
+    "category_vn": "Văn hóa Hàn",
+    "likes": 0,
+    "views": 1775,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=264834440&dirId=11080102&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "thu được",
+        "level": "1",
+        "korean": "습득"
+      },
+      {
+        "vn": "chỉnh sửa",
+        "level": "1",
+        "korean": "교정"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 34,
+    "question_kr": "조선시대에 외국인들은한국어 학습을...",
+    "answer_kr": "",
+    "question_vn": "Thời Joseon, người nước ngoài học tiếng Hàn...",
+    "answer_vn": "",
+    "category": "Q&A > 역사학",
+    "category_vn": "Văn hóa Hàn",
+    "likes": 0,
+    "views": 35,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=486919834&dirId=1110&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "tập trung",
+        "level": "1",
+        "korean": "집중"
+      },
+      {
+        "vn": "lặp lại",
+        "level": "1",
+        "korean": "반복"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 41,
+    "question_kr": "[한국유학종합시스템][유학]TOPIK 시험...",
+    "answer_kr": "",
+    "question_vn": "TOPIK có bắt buộc trong hệ thống du học Hàn Quốc không?",
+    "answer_vn": "Có, hầu hết các trường đại học Hàn Quốc yêu cầu chứng chỉ TOPIK để nhập học, thường từ cấp 3 trở lên.",
+    "category": "Q&A >",
+    "category_vn": "Thi TOPIK",
+    "likes": 0,
+    "views": 358,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=486901061&dirId=6&d1id=6",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "đa số",
+        "level": "2",
+        "korean": "대부분"
+      },
+      {
+        "vn": "nhập học",
+        "level": "2",
+        "korean": "입학"
+      },
+      {
+        "vn": "yêu cầu",
+        "level": "2",
+        "korean": "요구"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "3부터 입학이 가능해요 = Nhập học từ cấp 3",
+        "meaning": "từ",
+        "pattern": "-부터"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 45,
+    "question_kr": "TOPIK토픽 연장",
+    "answer_kr": "",
+    "question_vn": "Chứng chỉ TOPIK có thể gia hạn không?",
+    "answer_vn": "Không, chứng chỉ TOPIK có hiệu lực 2 năm và không gia hạn. Cần thi lại để có chứng chỉ mới.",
+    "category": "Q&A > 영어 공부, 시험",
+    "category_vn": "Thi TOPIK",
+    "likes": 0,
+    "views": 83,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=485720652&dirId=11080308&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "hiệu lực",
+        "level": "2",
+        "korean": "有效"
+      },
+      {
+        "vn": "gia hạn",
+        "level": "2",
+        "korean": "갱신"
+      },
+      {
+        "vn": "thi lại",
+        "level": "2",
+        "korean": "재시행"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "재시행해야 해요 = Phải thi lại",
+        "meaning": "phải",
+        "pattern": "-아/어야 한다"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 55,
+    "question_kr": "TOPIK 시험결과",
+    "answer_kr": "",
+    "question_vn": "Kết quả thi TOPIK",
+    "answer_vn": "Kết quả thi TOPIK có thể tra cứu trực tuyến trên website chính thức sau khi kỳ thi kết thúc.",
+    "category": "Q&A > 국어 공부, 시험",
+    "category_vn": "Thi TOPIK",
+    "likes": 0,
+    "views": 219,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=440693667&dirId=11080106&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "kết quả",
+        "level": "1",
+        "korean": "결과"
+      },
+      {
+        "vn": "tra cứu",
+        "level": "2",
+        "korean": "조회"
+      },
+      {
+        "vn": "công khai",
+        "level": "2",
+        "korean": "공개"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 67,
+    "question_kr": "의학용어한국어 발음",
+    "answer_kr": "",
+    "question_vn": "Phát âm tiếng Hàn của thuật ngữ y học",
+    "answer_vn": "Thuật ngữ y học trong tiếng Hàn thường có nguồn gốc từ Hán-Hàn, và phát âm tuân theo quy tắc đọc Hán-Hàn. Ví dụ: '의학' (y học) đọc là 'uihak'.",
+    "category": "Q&A > 해부학",
+    "category_vn": "Phát âm",
+    "likes": 0,
+    "views": 68,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=485617467&dirId=111604&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "y học",
+        "level": "1",
+        "korean": "의학"
+      },
+      {
+        "vn": "hành hải",
+        "level": "1",
+        "korean": "항해"
+      },
+      {
+        "vn": "phát âm",
+        "level": "1",
+        "korean": "발음"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 75,
+    "question_kr": "Cowbell warrior한국어 발음",
+    "answer_kr": "",
+    "question_vn": "Phát âm tiếng Hàn của Cowbell warrior.",
+    "answer_vn": "",
+    "category": "Q&A > 팝, R&B",
+    "category_vn": "Phát âm",
+    "likes": 0,
+    "views": 91,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=476532988&dirId=30203&d1id=3",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "tự tin",
+        "level": "1",
+        "korean": "자신감"
+      },
+      {
+        "vn": "đề thi đã ra",
+        "level": "1",
+        "korean": "기출"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "공부를 하기 위해 도서관에 갑니다 = Đi thư viện để học",
+        "meaning": "để",
+        "pattern": "-기 위해"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 16,
+    "question_kr": "한국어 공부유튜브 동영상 설정방법",
+    "answer_kr": "",
+    "question_vn": "Phương pháp thiết lập video YouTube để học tiếng Hàn",
+    "answer_vn": "",
+    "category": "Q&A > 커뮤니티",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 198,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=479800237&dirId=10604&d1id=1",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "đồng nhất",
+        "level": "1",
+        "korean": "꾸준히"
+      },
+      {
+        "vn": "hệ thống",
+        "level": "1",
+        "korean": "체계적"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "매일 공부해야 해요 = Phải học mỗi ngày",
+        "meaning": "phải làm gì đó",
+        "pattern": "-아/어야 하다"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 77,
+    "question_kr": "영어와한국어 문법차이",
+    "answer_kr": "",
+    "question_vn": "Sự khác biệt ngữ pháp giữa tiếng Anh và tiếng Hàn",
+    "answer_vn": "Tiếng Hàn theo trật tự S-O-V, dùng trợ từ và đuôi động từ linh hoạt, trong khi tiếng Anh theo S-V-O và dùng giới từ.",
+    "category": "Q&A > 영어문법",
+    "category_vn": "Ngữ pháp",
+    "likes": 0,
+    "views": 183,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=489615568&dirId=11080302&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "liên tục",
+        "level": "2",
+        "korean": "꾸준히"
+      },
+      {
+        "vn": "hệ thống",
+        "level": "2",
+        "korean": "체계적"
+      },
+      {
+        "vn": "sự thu thập",
+        "level": "2",
+        "korean": "습득"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "나는 사과를 먹는다 = Tôi ăn một quả táo",
+        "meaning": "trật tự chủ ngữ - đối tượng - động từ",
+        "pattern": "S-O-V"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 58,
+    "question_kr": "한국어능력시험TopikIBT",
+    "answer_kr": "",
+    "question_vn": "Kỳ thi năng lực tiếng Hàn TOPIK IBT",
+    "answer_vn": "",
+    "category": "Q&A > 직업교육",
+    "category_vn": "Thi TOPIK",
+    "likes": 0,
+    "views": 572,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=452749511&dirId=110704&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "giọng điệu",
+        "level": "1",
+        "korean": "억양"
+      },
+      {
+        "vn": "phụ âm cuối",
+        "level": "1",
+        "korean": "받침"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "저는 공부했지만 어려웠어요 = Tôi học nhưng khó",
+        "meaning": "nhưng",
+        "pattern": "-지만"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 60,
+    "question_kr": "바비 연결고리 영어한국어 발음으로",
+    "answer_kr": "",
+    "question_vn": "Barbie - liên kết phát âm tiếng Anh và tiếng Hàn",
+    "answer_vn": "",
+    "category": "Q&A > 영어 어원, 어휘",
+    "category_vn": "Phát âm",
+    "likes": 0,
+    "views": 242,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=487118455&dirId=11080301&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "tự tin",
+        "level": "1",
+        "korean": "자신감"
+      },
+      {
+        "vn": "đề thi đã ra",
+        "level": "1",
+        "korean": "기출"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "공부하기 위해 책을 읽어요 = Đọc sách để học",
+        "meaning": "để",
+        "pattern": "-기 위해"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 96,
+    "question_kr": "성인이 구사할 수 있는한국어 어휘는",
+    "answer_kr": "",
+    "question_vn": "Từ vựng tiếng Hàn mà người lớn có thể sử dụng là gì?",
+    "answer_vn": "Là những từ vựng thông dụng trong giao tiếp hàng ngày và chuyên ngành, phù hợp với ngữ cảnh xã hội.",
+    "category": "Q&A > 한국어",
+    "category_vn": "Từ vựng",
+    "likes": 0,
+    "views": 105,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=412848305&dirId=110801&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "xã hội",
+        "level": "1",
+        "korean": "사회"
+      },
+      {
+        "vn": "kết cấu",
+        "level": "1",
+        "korean": "구성"
+      },
+      {
+        "vn": "phù hợp",
+        "level": "1",
+        "korean": "적합"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 98,
+    "question_kr": "한국어 어휘에 대한 문제",
+    "answer_kr": "",
+    "question_vn": "Vấn đề về từ vựng tiếng Hàn",
+    "answer_vn": "Có thể gặp khó khăn với từ đồng nghĩa, từ đa nghĩa, và sự khác biệt theo vùng miền.",
+    "category": "Q&A > 국어 어원, 어휘",
+    "category_vn": "Từ vựng",
+    "likes": 0,
+    "views": 728,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=204121655&dirId=11080102&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "nghĩa",
+        "level": "1",
+        "korean": "의미"
+      },
+      {
+        "vn": "sự khác biệt",
+        "level": "1",
+        "korean": "차이"
+      },
+      {
+        "vn": "vùng miền",
+        "level": "1",
+        "korean": "지역"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "의미에 대해 설명하세요 = Giải thích về nghĩa",
+        "meaning": "về",
+        "pattern": "-에 대해"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 103,
+    "question_kr": "외국인한국어 공부책",
+    "answer_kr": "",
+    "question_vn": "Sách học tiếng Hàn cho người nước ngoài?",
+    "answer_vn": "Các giáo trình như 'Seoul Korean', 'Korean Grammar in Use', 'EPS-TOPIK' và sách luyện thi TOPIK.",
+    "category": "Q&A > 외국인교육",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 291,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=485321257&dirId=110705&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "giáo trình",
+        "level": "1",
+        "korean": "교재"
+      },
+      {
+        "vn": "ngữ pháp",
+        "level": "1",
+        "korean": "그램"
+      },
+      {
+        "vn": "thi chứng chỉ TOPIK",
+        "level": "1",
+        "korean": "토익"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 105,
+    "question_kr": "'23번'의 벌음(한국어공부)",
+    "answer_kr": "",
+    "question_vn": "Hình phạt 'số 23' trong học tiếng Hàn là gì?",
+    "answer_vn": "Một phương pháp học từ vựng bằng cách viết lại từ đó 23 lần khi mắc lỗi, giúp ghi nhớ sâu.",
+    "category": "Q&A > 국어 맞춤법, 문법",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 90,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=492161827&dirId=11080103&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "ghi nhớ",
+        "level": "1",
+        "korean": "기억"
+      },
+      {
+        "vn": "lặp lại",
+        "level": "1",
+        "korean": "반복"
+      },
+      {
+        "vn": "lỗi",
+        "level": "1",
+        "korean": "오류"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 108,
+    "question_kr": "일본인들한국어 공부할때",
+    "answer_kr": "",
+    "question_vn": "Khi người Nhật học tiếng Hàn",
+    "answer_vn": "Người Nhật học tiếng Hàn thường gặp thuận lợi về từ Hán và khó khăn về phát âm.",
+    "category": "Q&A > 생활일본어, 회화",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 262,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=485436450&dirId=11080405&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "chữ Hán",
+        "level": "1",
+        "korean": "한자"
+      },
+      {
+        "vn": "thuận lợi",
+        "level": "1",
+        "korean": "유리"
+      },
+      {
+        "vn": "tên gọi",
+        "level": "1",
+        "korean": "어휘이름"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "한자에 대해 공부한다 = Học về chữ Hán",
+        "meaning": "về",
+        "pattern": "-에 대해"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 111,
+    "question_kr": "한국어를공부중입니다 도와주세요",
+    "answer_kr": "",
+    "question_vn": "Tôi đang học tiếng Hàn, hãy giúp tôi.",
+    "answer_vn": "Bạn có thể bắt đầu với các ứng dụng học ngôn ngữ, sách giáo trình cơ bản, hoặc tìm lớp học trực tuyến/phù hợp.",
+    "category": "Q&A > 어학, 외국어",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 35,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=490835153&dirId=1108&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "trực tuyến",
+        "level": "2",
+        "korean": "직 tuyến"
+      },
+      {
+        "vn": "tham gia lớp học",
+        "level": "2",
+        "korean": "수강"
+      },
+      {
+        "vn": "phù hợp",
+        "level": "2",
+        "korean": "적합"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "한국어에 대해 공부하세요 = Hãy học về tiếng Hàn",
+        "meaning": "về vấn đề",
+        "pattern": "-에 대해"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 112,
+    "question_kr": "외국인한국어 공부하나요?",
+    "answer_kr": "",
+    "question_vn": "Người nước ngoài có học tiếng Hàn không?",
+    "answer_vn": "Có, rất nhiều người nước ngoài học tiếng Hàn vì công việc, du học, hoặc yêu thích văn hóa Hàn Quốc.",
+    "category": "Q&A > 외국인교육",
+    "category_vn": "Đời sống",
+    "likes": 0,
+    "views": 186,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=481647336&dirId=110705&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "tìm việc làm",
+        "level": "2",
+        "korean": "취업"
+      },
+      {
+        "vn": "du học",
+        "level": "2",
+        "korean": "유학"
+      },
+      {
+        "vn": "văn hóa",
+        "level": "1",
+        "korean": "문화"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "2",
+        "example": "한국 문화로 인해 한국어를 공부합니다 = Bởi vì văn hóa Hàn Quốc mà học tiếng Hàn",
+        "meaning": "bởi vì",
+        "pattern": "-으로 인해"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 50,
+    "question_kr": "TOPIK한국어어학원",
+    "answer_kr": "",
+    "question_vn": "Học viện tiếng Hàn luyện thi TOPIK",
+    "answer_vn": "Có nhiều học viện tiếng Hàn cung cấp khóa luyện thi TOPIK, cả ở Việt Nam và Hàn Quốc, giúp ôn tập hiệu quả.",
+    "category": "Q&A > 외국인 한국생활",
+    "category_vn": "Thi TOPIK",
+    "likes": 0,
+    "views": 456,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=449270163&dirId=816&d1id=8",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "học viện",
+        "level": "1",
+        "korean": "학원"
+      },
+      {
+        "vn": "khóa học",
+        "level": "1",
+        "korean": "코스"
+      },
+      {
+        "vn": "hiệu quả",
+        "level": "1",
+        "korean": "효과"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 117,
+    "question_kr": "한국어 공부인터넷 강의",
+    "answer_kr": "",
+    "question_vn": "Khóa học tiếng Hàn trực tuyến",
+    "answer_vn": "Tham gia các khóa học tiếng Hàn trên nền tảng trực tuyến như Coursera, Udemy, hoặc các trang web chuyên về giáo dục tiếng Hàn.",
+    "category": "Q&A > 한국어",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 1084,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=449329466&dirId=110801&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "trực tuyến",
+        "level": "1",
+        "korean": "온라인"
+      },
+      {
+        "vn": "nền tảng",
+        "level": "1",
+        "korean": "플랫폼"
+      },
+      {
+        "vn": "khóa học",
+        "level": "1",
+        "korean": "강의"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "온라인 플랫폼에 가입했습니다 = Đã tham gia nền tảng trực tuyến",
+        "meaning": "tại",
+        "pattern": "-에"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 134,
+    "question_kr": "조선시대에 외국인들은한국어 학습을...",
+    "answer_kr": "",
+    "question_vn": "Người nước ngoài thời Joseon học tiếng Hàn...",
+    "answer_vn": "",
+    "category": "Q&A > 역사학",
+    "category_vn": "Văn hóa Hàn",
+    "likes": 0,
+    "views": 35,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=486919834&dirId=1110&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "tập trung",
+        "level": "1",
+        "korean": "집중"
+      },
+      {
+        "vn": "lặp lại",
+        "level": "1",
+        "korean": "반복"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 142,
+    "question_kr": "한국어능력시험TOPIK6급",
+    "answer_kr": "",
+    "question_vn": "Kỳ thi năng lực tiếng Hàn TOPIK cấp 6",
+    "answer_vn": "TOPIK cấp 6 là cấp cao nhất, chứng nhận khả năng sử dụng tiếng Hàn thành thạo trong mọi lĩnh vực học thuật và chuyên môn.",
+    "category": "Q&A > 국어 공부, 시험",
+    "category_vn": "Thi TOPIK",
+    "likes": 0,
+    "views": 609,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=487305607&dirId=11080106&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "mức độ",
+        "level": "1",
+        "korean": "수준"
+      },
+      {
+        "vn": "học thuật",
+        "level": "1",
+        "korean": "학术"
+      },
+      {
+        "vn": "chuyên môn",
+        "level": "1",
+        "korean": "전문"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "그는 학교에서 공부합니다 = Anh ấy học ở trường",
+        "meaning": "trong",
+        "pattern": "-에서"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 146,
+    "question_kr": "한국어능력시험(TOPIK) 신청",
+    "answer_kr": "",
+    "question_vn": "Đăng ký kỳ thi năng lực tiếng Hàn (TOPIK)",
+    "answer_vn": "Đăng ký trực tuyến qua website chính thức của TOPIK hoặc tại các trung tâm được ủy quyền.",
+    "category": "Q&A > 국어 공부, 시험",
+    "category_vn": "Thi TOPIK",
+    "likes": 0,
+    "views": 279,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=482964864&dirId=11080106&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "đăng ký",
+        "level": "1",
+        "korean": "등록"
+      },
+      {
+        "vn": "trang web chính thức",
+        "level": "1",
+        "korean": "홈페이지"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "홈페이지를 통해 등록할 수 있습니다 = Đăng ký qua trang web",
+        "meaning": "bằng cách",
+        "pattern": "-를 통해"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 150,
+    "question_kr": "TOPIK한국어어학원",
+    "answer_kr": "",
+    "question_vn": "Học viện tiếng Hàn luyện thi TOPIK",
+    "answer_vn": "Các học viện cung cấp khóa học chuyên luyện thi TOPIK, tập trung vào kỹ năng và chiến lược làm bài.",
+    "category": "Q&A > 외국인 한국생활",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 456,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=449270163&dirId=816&d1id=8",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "học viện",
+        "level": "1",
+        "korean": "학원"
+      },
+      {
+        "vn": "chiến lược",
+        "level": "1",
+        "korean": "전략"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 36,
+    "question_kr": "한국어 학습용 외래어 선정기준?",
+    "answer_kr": "",
+    "question_vn": "Tiêu chí lựa chọn từ ngoại lai cho việc học tiếng Hàn?",
+    "answer_vn": "Dựa trên tần suất sử dụng, tính cần thiết trong giao tiếp, và mức độ quen thuộc với người học.",
+    "category": "Q&A > 국어 어원, 어휘",
+    "category_vn": "Từ vựng",
+    "likes": 0,
+    "views": 42,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=290355233&dirId=11080102&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "tần suất",
+        "level": "2",
+        "korean": "빈도"
+      },
+      {
+        "vn": "sửa lỗi",
+        "level": "2",
+        "korean": "교정"
+      },
+      {
+        "vn": "học hỏi",
+        "level": "2",
+        "korean": "습득"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "2",
+        "example": "빈도에 따라 달라질 수 있습니다 = Tùy theo tần suất mà có thể thay đổi",
+        "meaning": "tùy theo",
+        "pattern": "-에 따라"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 49,
+    "question_kr": "Topik1시험필수인가요?",
+    "answer_kr": "",
+    "question_vn": "Kỳ thi TOPIK 1 có bắt buộc không?",
+    "answer_vn": "TOPIK 1 không bắt buộc chung nhưng thường yêu cầu cho các mục đích cụ thể như xin visa du học, làm việc hoặc tốt nghiệp.",
+    "category": "Q&A > 국어 공부, 시험",
+    "category_vn": "Thi TOPIK",
+    "likes": 0,
+    "views": 111,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=478943447&dirId=11080106&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "visa",
+        "level": "1",
+        "korean": "비자"
+      },
+      {
+        "vn": "tốt nghiệp",
+        "level": "1",
+        "korean": "졸업"
+      },
+      {
+        "vn": "yêu cầu",
+        "level": "1",
+        "korean": "요구"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "TOPIK 1은 필수는 아니지만 요구될 수 있습니다 = TOPIK 1 không bắt buộc nhưng có thể được yêu cầu",
+        "meaning": "nhưng",
+        "pattern": "-지만"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 71,
+    "question_kr": "Rewrite the Stars 가사한국어 발음...",
+    "answer_kr": "",
+    "question_vn": "Phát âm tiếng Hàn lời bài hát Rewrite the Stars...",
+    "answer_vn": "",
+    "category": "Q&A > 팝, R&B",
+    "category_vn": "Phát âm",
+    "likes": 0,
+    "views": 759,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=490086754&dirId=30203&d1id=3",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "đồng nhất",
+        "level": "1",
+        "korean": "꾸준히"
+      },
+      {
+        "vn": "hệ thống",
+        "level": "1",
+        "korean": "체계적"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "매일 공부해야 해요 = Phải học mỗi ngày",
+        "meaning": "phải làm gì đó",
+        "pattern": "-아/어야 하다"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 99,
+    "question_kr": "한국어 어휘의 미묘한 차이가 설명되어...",
+    "answer_kr": "",
+    "question_vn": "Sự khác biệt tinh tế trong từ vựng tiếng Hàn được giải thích...",
+    "answer_vn": "Thông qua ngữ cảnh sử dụng, sắc thái biểu cảm, và mức độ trang trọng.",
+    "category": "Q&A > 한국어",
+    "category_vn": "Từ vựng",
+    "likes": 0,
+    "views": 1187,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=153230038&dirId=110801&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "ngữ cảnh",
+        "level": "1",
+        "korean": "문맥"
+      },
+      {
+        "vn": "tình cảm",
+        "level": "1",
+        "korean": "감정"
+      },
+      {
+        "vn": "mức độ",
+        "level": "1",
+        "korean": "수준"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "문맥을 통해 의미를 이해하세요 = Hiểu nghĩa thông qua ngữ cảnh",
+        "meaning": "thông qua",
+        "pattern": "-를 통해"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 113,
+    "question_kr": "중국인한국어 공부를 위한 책과...",
+    "answer_kr": "",
+    "question_vn": "Sách và tài liệu học tiếng Hàn cho người Trung Quốc?",
+    "answer_vn": "Có các giáo trình chuyên biệt như 'Tiếng Hàn cho người Trung Quốc', tập trung vào so sánh ngữ pháp và từ vựng tương đồng.",
+    "category": "Q&A > 중국어 공부, 시험",
+    "category_vn": "Từ vựng",
+    "likes": 0,
+    "views": 360,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=479868099&dirId=11080507&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "so sánh",
+        "level": "2",
+        "korean": "비교"
+      },
+      {
+        "vn": "ngữ pháp",
+        "level": "2",
+        "korean": "구문"
+      },
+      {
+        "vn": "từ vựng",
+        "level": "2",
+        "korean": "어휘력"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "2",
+        "example": "한국어를 위한 교재 = Tài liệu dành cho tiếng Hàn",
+        "meaning": "dành cho",
+        "pattern": "-을 위한"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 119,
+    "question_kr": "외국인아내 f6하기위해한국어 공부방법",
+    "answer_kr": "",
+    "question_vn": "Phương pháp học tiếng Hàn để xin visa F6 cho vợ nước ngoài",
+    "answer_vn": "Tham gia lớp học tiếng Hàn cơ bản, luyện thi TOPIK sơ cấp và tập trung vào kỹ năng giao tiếp thực tế để đáp ứng yêu cầu visa.",
+    "category": "Q&A > 외국인교육",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 421,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=480008022&dirId=110705&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "cơ bản",
+        "level": "1",
+        "korean": "기초"
+      },
+      {
+        "vn": "thi TOPIK",
+        "level": "1",
+        "korean": "토익"
+      },
+      {
+        "vn": "thực tế",
+        "level": "1",
+        "korean": "실제"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "실제에 집중해야 합니다 = Phải tập trung vào thực tế",
+        "meaning": "tập trung vào",
+        "pattern": "-에 집중하다"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 123,
+    "question_kr": "외국인들마다한국어 학습방법에 차이가...",
+    "answer_kr": "",
+    "question_vn": "Phương pháp học tiếng Hàn có khác nhau tùy người nước ngoài không?",
+    "answer_vn": "Có, tùy theo ngôn ngữ mẹ đẻ và văn hóa, phương pháp học có thể khác nhau.",
+    "category": "Q&A > 한국어",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 81,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=389033280&dirId=110801&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "ngôn ngữ mẹ đẻ",
+        "level": "1",
+        "korean": "모국어"
+      },
+      {
+        "vn": "văn hóa",
+        "level": "1",
+        "korean": "문화"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "문화에 따라 다를 수 있습니다 = Có thể khác nhau theo văn hóa",
+        "meaning": "theo",
+        "pattern": "-에 따라"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 126,
+    "question_kr": "한국어 학습자예요 “눈을 담다(너의",
+    "answer_kr": "",
+    "question_vn": "Tôi là người học tiếng Hàn. '눈을 담다' (trong '너의...') nghĩa là gì?",
+    "answer_vn": "Cụm từ '눈을 담다' nghĩa là 'để mắt vào', 'chú ý đến' hoặc 'ghi nhớ hình ảnh nào đó'.",
+    "category": "Q&A > 외국인 한국생활",
+    "category_vn": "Từ vựng",
+    "likes": 0,
+    "views": 401,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=315016379&dirId=816&d1id=8",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "mắt",
+        "level": "1",
+        "korean": "눈"
+      },
+      {
+        "vn": "để vào",
+        "level": "1",
+        "korean": "담다"
+      },
+      {
+        "vn": "liên tục",
+        "level": "2",
+        "korean": "꾸준히"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 139,
+    "question_kr": "표준국어대사전과 고려대한국어사전의...",
+    "answer_kr": "",
+    "question_vn": "Sự khác biệt giữa Từ điển tiếng Hàn chuẩn quốc gia và Từ điển tiếng Hàn Đại học Korea?",
+    "answer_vn": "Từ điển chuẩn quốc gia do Viện Ngôn ngữ Hàn Quốc biên soạn, mang tính chính thống; từ điển Đại học Korea thường chi tiết hơn về từ ngữ học thuật và lịch sử.",
+    "category": "Q&A > 국어 맞춤법, 문법",
+    "category_vn": "Từ vựng",
+    "likes": 0,
+    "views": 251,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=493144415&dirId=11080103&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "chuẩn",
+        "level": "1",
+        "korean": "표준"
+      },
+      {
+        "vn": "học thuật",
+        "level": "1",
+        "korean": "학술"
+      },
+      {
+        "vn": "lịch sử",
+        "level": "1",
+        "korean": "역사"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 154,
+    "question_kr": "한국인이TOPIK 시험칠수 있나요?",
+    "answer_kr": "",
+    "question_vn": "Người Hàn Quốc có thể thi TOPIK không?",
+    "answer_vn": "Người Hàn Quốc không được thi TOPIK, vì kỳ thi này chỉ dành cho người nước ngoài và kiều bào Hàn Quốc.",
+    "category": "Q&A > 국어 공부, 시험",
+    "category_vn": "Thi TOPIK",
+    "likes": 0,
+    "views": 653,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=343467735&dirId=11080106&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "quốc tịch",
+        "level": "1",
+        "korean": "국적"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 37,
+    "question_kr": "리베라토의 한국어 실력과 팬들과의...",
+    "answer_kr": "",
+    "question_vn": "Trình độ tiếng Hàn của Liberato và tương tác với fan?",
+    "answer_vn": "Liberato có khả năng tiếng Hàn cơ bản, thường xuyên tương tác thân thiện với người hâm mộ qua mạng xã hội.",
+    "category": "Q&A > 야구 선수, 감독",
+    "category_vn": "Đời sống",
+    "likes": 0,
+    "views": 15,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=487006676&dirId=10010205&d1id=10",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "cơ bản",
+        "level": "1",
+        "korean": "기본"
+      },
+      {
+        "vn": "thường xuyên",
+        "level": "2",
+        "korean": "꾸준히"
+      },
+      {
+        "vn": "thân thiện",
+        "level": "2",
+        "korean": "친절"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "2",
+        "example": "꾸준히 공부합니다 = Thường xuyên học tập",
+        "meaning": "thường xuyên",
+        "pattern": "-히"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 42,
+    "question_kr": "한국어능력시험TOPIK6급",
+    "answer_kr": "",
+    "question_vn": "Làm thế nào để đạt TOPIK cấp 6?",
+    "answer_vn": "Cần thành thạo tiếng Hàn cao cấp, nắm vững từ vựng phức tạp, ngữ pháp nâng cao và kỹ năng nghe-đọc hiểu sâu.",
+    "category": "Q&A > 국어 공부, 시험",
+    "category_vn": "Thi TOPIK",
+    "likes": 0,
+    "views": 609,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=487305607&dirId=11080106&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "cao cấp",
+        "level": "2",
+        "korean": "고급"
+      },
+      {
+        "vn": "phức tạp",
+        "level": "2",
+        "korean": "복잡"
+      },
+      {
+        "vn": "năng lực",
+        "level": "2",
+        "korean": "능력"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "공부를 위해 노력해야 해요 = Để học cần phải cố gắng",
+        "meaning": "để",
+        "pattern": "-을 위해"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 70,
+    "question_kr": "브라질? 포르투갈 노래인데한국어 발음",
+    "answer_kr": "",
+    "question_vn": "Phát âm tiếng Hàn của bài hát Brazil hoặc Bồ Đào Nha",
+    "answer_vn": "Bài hát Brazil hoặc Bồ Đào Nha khi phát âm sang tiếng Hàn thường được phiên âm sao cho gần với âm gốc, ví dụ: 'Brasil' có thể đọc là 'beurajil'.",
+    "category": "Q&A > 포르투갈어",
+    "category_vn": "Phát âm",
+    "likes": 0,
+    "views": 614,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=486708294&dirId=110822&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "Brazil",
+        "level": "1",
+        "korean": "브라질"
+      },
+      {
+        "vn": "Bồ Đào Nha",
+        "level": "1",
+        "korean": "포르투갈"
+      },
+      {
+        "vn": "phát âm",
+        "level": "1",
+        "korean": "발음"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "브라질어로 발음한다 = Phát âm bằng tiếng Brazil",
+        "meaning": "bằng",
+        "pattern": "-으로"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 115,
+    "question_kr": "한국어 공부자료",
+    "answer_kr": "",
+    "question_vn": "Tài liệu học tiếng Hàn?",
+    "answer_vn": "Bao gồm sách giáo trình (ví dụ: 'Tiếng Hàn tổng hợp'), ứng dụng (Duolingo, Memrise), video bài giảng, và đề thi TOPIK mẫu.",
+    "category": "Q&A > 국어, 한문",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 207,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=449752714&dirId=110401&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "tài liệu giáo trình",
+        "level": "2",
+        "korean": "교재"
+      },
+      {
+        "vn": "video",
+        "level": "2",
+        "korean": "영상"
+      },
+      {
+        "vn": "mẫu",
+        "level": "2",
+        "korean": "샘플"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 153,
+    "question_kr": "Epstopik 시험일정 어느 사이트에서...",
+    "answer_kr": "",
+    "question_vn": "Lịch thi EPS-TOPIK tra cứu ở website nào?",
+    "answer_vn": "Lịch thi EPS-TOPIK có thể tra cứu trên website của Cục Quản lý Lao động Nước ngoài Hàn Quốc (www.eps.go.kr).",
+    "category": "Q&A > 외국인 한국생활",
+    "category_vn": "EPS-TOPIK",
+    "likes": 0,
+    "views": 115,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=453986505&dirId=816&d1id=8",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "tra cứu",
+        "level": "1",
+        "korean": "조회"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 84,
+    "question_kr": "한국어 문법-(으)면서 에서 (으)",
+    "answer_kr": "",
+    "question_vn": "Trong ngữ pháp tiếng Hàn, sự khác nhau giữa (으)면서 và (으)에서?",
+    "answer_vn": "(으)면서 diễn tả hai hành động xảy ra đồng thời (vừa... vừa...), còn (으)에서 chỉ địa điểm nơi hành động diễn ra.",
+    "category": "Q&A > 국어 맞춤법, 문법",
+    "category_vn": "Ngữ pháp",
+    "likes": 0,
+    "views": 230,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=431670725&dirId=11080103&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "hành động",
+        "level": "2",
+        "korean": "행동"
+      },
+      {
+        "vn": "địa điểm",
+        "level": "2",
+        "korean": "지점"
+      },
+      {
+        "vn": "đồng thời",
+        "level": "2",
+        "korean": "동시"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "2",
+        "example": "나는 먹으면서 공부해요 = Tôi vừa ăn vừa học",
+        "meaning": "vừa... vừa...",
+        "pattern": "(으)면서"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 91,
+    "question_kr": "한국어 어휘의 지역적 변이 요인을...",
+    "answer_kr": "",
+    "question_vn": "Các yếu tố biến đổi theo vùng của từ vựng tiếng Hàn là gì?",
+    "answer_vn": "Các yếu tố chính bao gồm sự khác biệt địa lý, lịch sử, văn hóa vùng miền và ảnh hưởng từ phương ngữ.",
+    "category": "Q&A > 한국어",
+    "category_vn": "Văn hóa Hàn",
+    "likes": 0,
+    "views": 221,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=360422062&dirId=110801&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "khu vực",
+        "level": "1",
+        "korean": "지역"
+      },
+      {
+        "vn": "ảnh hưởng",
+        "level": "1",
+        "korean": "영향"
+      },
+      {
+        "vn": "phương ngữ",
+        "level": "1",
+        "korean": "방언"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "지역에 따라 방언이 다르다 = Phương ngữ khác nhau tùy theo khu vực",
+        "meaning": "tùy theo",
+        "pattern": "-에 따라"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 93,
+    "question_kr": "한국어 어휘관련 질문",
+    "answer_kr": "",
+    "question_vn": "Câu hỏi liên quan đến từ vựng tiếng Hàn",
+    "answer_vn": "Từ vựng tiếng Hàn cần được học theo ngữ cảnh và kết hợp với các kỹ năng nghe, nói, đọc, viết.",
+    "category": "Q&A > 한국어",
+    "category_vn": "Từ vựng",
+    "likes": 0,
+    "views": 246,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=438583706&dirId=110801&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:11:38.886684+00:00",
+    "vocabulary": [
+      {
+        "vn": "ngữ cảnh",
+        "level": "1",
+        "korean": "문맥"
+      },
+      {
+        "vn": "kết hợp",
+        "level": "1",
+        "korean": "결합"
+      },
+      {
+        "vn": "thu thập",
+        "level": "1",
+        "korean": "습득"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "문맥에 따라 뜻이 다르다 = Nghĩa thay đổi tùy theo ngữ cảnh",
+        "meaning": "tùy theo",
+        "pattern": "-에 따라"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 128,
+    "question_kr": "한국어 학습법은 실용실안권으로...",
+    "answer_kr": "",
+    "question_vn": "Phương pháp học tiếng Hàn theo hướng thực dụng?",
+    "answer_vn": "Nên tập trung vào giao tiếp thực tế, học qua tình huống hàng ngày và sử dụng tài liệu thực tiễn.",
+    "category": "Q&A > 지식재산권",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 105,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=360006844&dirId=60205&d1id=6",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "thực tế",
+        "level": "1",
+        "korean": "실제"
+      },
+      {
+        "vn": "tình huống",
+        "level": "2",
+        "korean": "상황"
+      },
+      {
+        "vn": "tập trung",
+        "level": "2",
+        "korean": "집중"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "2",
+        "example": "실제 상황에 주목하세요 = Hãy chú ý vào tình huống thực tế",
+        "meaning": "chú ý vào",
+        "pattern": "-에 주목하다"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 148,
+    "question_kr": "topik한국어능력시험",
+    "answer_kr": "",
+    "question_vn": "Kỳ thi năng lực tiếng Hàn TOPIK",
+    "answer_vn": "Gồm TOPIK I (sơ cấp) và TOPIK II (trung-cao cấp), được tổ chức nhiều lần trong năm.",
+    "category": "Q&A > 인문과학대학",
+    "category_vn": "Thi TOPIK",
+    "likes": 0,
+    "views": 1833,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=451906933&dirId=11050401&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "sơ cấp",
+        "level": "1",
+        "korean": "초급"
+      },
+      {
+        "vn": "trung cấp",
+        "level": "1",
+        "korean": "중급"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "TOPIK는 초급과 중급을 포함합니다 = TOPIK bao gồm sơ cấp và trung cấp",
+        "meaning": "bao gồm",
+        "pattern": "-을 포함한다"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 156,
+    "question_kr": "외국인 친구 대신 국내TOPIK시험접수",
+    "answer_kr": "",
+    "question_vn": "Đăng ký thi TOPIK trong nước thay cho bạn nước ngoài",
+    "answer_vn": "Người nước ngoài có thể nhờ người khác đăng ký thi TOPIK thay nếu có giấy ủy quyền và bản sao giấy tờ tùy thân.",
+    "category": "Q&A > 외국인교육",
+    "category_vn": "Thi TOPIK",
+    "likes": 0,
+    "views": 603,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=445308176&dirId=110705&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "tốt",
+        "level": "2",
+        "korean": "우수"
+      },
+      {
+        "vn": "đăng ký",
+        "level": "1",
+        "korean": "등록"
+      },
+      {
+        "vn": "thay mặt",
+        "level": "2",
+        "korean": "대리"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "시험을 보아야 해요 = Phải tham gia kỳ thi",
+        "meaning": "phải làm gì đó",
+        "pattern": "-아/어야 하다"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 163,
+    "question_kr": "을한국어발음으로 써주실분",
+    "answer_kr": "",
+    "question_vn": "Ai đó có thể viết phát âm tiếng Hàn của '을' cho tôi không?",
+    "answer_vn": "",
+    "category": "Q&A > 록, 메탈 음악",
+    "category_vn": "Phát âm",
+    "likes": 0,
+    "views": 47,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=492015966&dirId=30204&d1id=3",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "giọng điệu",
+        "level": "1",
+        "korean": "억양"
+      },
+      {
+        "vn": "dấu chấm than",
+        "level": "1",
+        "korean": "받침"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 165,
+    "question_kr": "일본 노래한국어 발음써주세요!!",
+    "answer_kr": "",
+    "question_vn": "Hãy viết phát âm tiếng Hàn cho bài hát Nhật Bản!!",
+    "answer_vn": "",
+    "category": "Q&A > 노래, 연주",
+    "category_vn": "Phát âm",
+    "likes": 0,
+    "views": 289,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=486960338&dirId=30213&d1id=3",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "tự tin",
+        "level": "1",
+        "korean": "자신감"
+      },
+      {
+        "vn": "đề thi đã ra",
+        "level": "1",
+        "korean": "기출"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "공부하면 배울 수 있어요 = Nếu học thì sẽ học được",
+        "meaning": "nếu",
+        "pattern": "-면"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 167,
+    "question_kr": "의학용어한국어 발음",
+    "answer_kr": "",
+    "question_vn": "의학용어한국어 발음",
+    "answer_vn": "",
+    "category": "Q&A > 해부학",
+    "category_vn": "Học tiếng Hàn",
+    "likes": 0,
+    "views": 68,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=485617467&dirId=111604&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "thu được",
+        "level": "1",
+        "korean": "습득"
+      },
+      {
+        "vn": "sửa lỗi",
+        "level": "1",
+        "korean": "교정"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 169,
+    "question_kr": "항해를한국어 발음으로 영어로 써주세요",
+    "answer_kr": "",
+    "question_vn": "항해를한국어 발음으로 영어로 써주세요",
+    "answer_vn": "",
+    "category": "Q&A > 제2외국어",
+    "category_vn": "Học tiếng Hàn",
+    "likes": 0,
+    "views": 44,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=485599906&dirId=110411&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "tập trung",
+        "level": "1",
+        "korean": "집중"
+      },
+      {
+        "vn": "lặp lại",
+        "level": "1",
+        "korean": "반복"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 171,
+    "question_kr": "Rewrite the Stars 가사한국어 발음...",
+    "answer_kr": "",
+    "question_vn": "Phát âm tiếng Hàn lời bài hát 'Rewrite the Stars' như thế nào?",
+    "answer_vn": "Bạn có thể tìm kiếm video hoặc bản phiên âm (romanization) của bài hát trên các trang web như YouTube hoặc lyric sites để nghe và luyện theo.",
+    "category": "Q&A > 팝, R&B",
+    "category_vn": "Phát âm",
+    "likes": 0,
+    "views": 759,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=490086754&dirId=30203&d1id=3",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "chữ La Mã",
+        "level": "1",
+        "korean": "로마자"
+      },
+      {
+        "vn": "trang web",
+        "level": "1",
+        "korean": "사이트"
+      },
+      {
+        "vn": "luyện tập",
+        "level": "1",
+        "korean": "연습"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 173,
+    "question_kr": "한진,한국어 발음연습 어떻게 하나요?",
+    "answer_kr": "",
+    "question_vn": "Hanjin ơi, tôi nên luyện phát âm tiếng Hàn như thế nào?",
+    "answer_vn": "Hãy bắt đầu bằng việc nghe và bắt chước người bản xứ qua phim, nhạc, sử dụng app phát âm, hoặc tham gia khóa học có giáo viên hướng dẫn.",
+    "category": "Q&A > 해외가수",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 119,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=489669072&dirId=302140102&d1id=3",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "bản xứ",
+        "level": "1",
+        "korean": "본 xứ"
+      },
+      {
+        "vn": "ứng dụng",
+        "level": "1",
+        "korean": "앱"
+      },
+      {
+        "vn": "tham gia khóa học",
+        "level": "1",
+        "korean": "수강"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 175,
+    "question_kr": "Cowbell warrior한국어 발음",
+    "answer_kr": "",
+    "question_vn": "Từ 'Cowbell warrior' phát âm thế nào trong tiếng Hàn?",
+    "answer_vn": "'Cowbell warrior' thường được phiên âm sang tiếng Hàn là '카우벨 워리어' (ka-u-bel wo-ri-eo), nhưng tùy ngữ cảnh có thể có cách dịch khác.",
+    "category": "Q&A > 팝, R&B",
+    "category_vn": "Phát âm",
+    "likes": 0,
+    "views": 91,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=476532988&dirId=30203&d1id=3",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "ngữ cảnh",
+        "level": "1",
+        "korean": "문맥"
+      },
+      {
+        "vn": "dịch",
+        "level": "1",
+        "korean": "번역"
+      },
+      {
+        "vn": "phiên âm",
+        "level": "1",
+        "korean": "전사"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 133,
+    "question_kr": "일본인들의한국어 학습모두 이런...",
+    "answer_kr": "",
+    "question_vn": "Người Nhật học tiếng Hàn đều như thế này...",
+    "answer_vn": "",
+    "category": "Q&A > 일본어 어원, 어휘",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 1393,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=213675823&dirId=11080401&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "giọng điệu",
+        "level": "1",
+        "korean": "억양"
+      },
+      {
+        "vn": "dấu chấm than",
+        "level": "1",
+        "korean": "받침"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "배가 고파도 먹지 않아요 = Dù đói nhưng không ăn",
+        "meaning": "dù... nhưng",
+        "pattern": "-지만"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 176,
+    "question_kr": "everytime we touch한국어발음",
+    "answer_kr": "",
+    "question_vn": "Cách phát âm tiếng Hàn của 'everytime we touch' là gì?",
+    "answer_vn": "Trong tiếng Hàn, cụm từ này thường được phát âm là '에브리타임 위 터치', dựa trên cách đọc mượn từ tiếng Anh.",
+    "category": "Q&A > 언어 기타",
+    "category_vn": "Phát âm",
+    "likes": 0,
+    "views": 304,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=483599842&dirId=110811&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "mỗi lần",
+        "level": "1",
+        "korean": "에브리타임"
+      },
+      {
+        "vn": "chạm vào",
+        "level": "1",
+        "korean": "위 터치"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 101,
+    "question_kr": "외국인들이한국어 공부할 때 외우는 것들.",
+    "answer_kr": "",
+    "question_vn": "Người nước ngoài thường ghi nhớ những gì khi học tiếng Hàn?",
+    "answer_vn": "Từ vựng cơ bản, ngữ pháp, mẫu câu thông dụng và bảng chữ cái Hangeul.",
+    "category": "Q&A > 영어문법",
+    "category_vn": "Từ vựng",
+    "likes": 0,
+    "views": 133,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=490013482&dirId=11080302&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "bảng chữ cái Hangeul",
+        "level": "1",
+        "korean": "한글"
+      },
+      {
+        "vn": "thi chứng chỉ TOPIK",
+        "level": "1",
+        "korean": "토익"
+      },
+      {
+        "vn": "văn hóa",
+        "level": "1",
+        "korean": "문화"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "한국 문화를 좋아해서 한국어를 공부합니다 = Vì yêu thích văn hóa Hàn Quốc nên học tiếng Hàn",
+        "meaning": "vì",
+        "pattern": "-으로"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 114,
+    "question_kr": "한국 사람이한국어를 스스로공부하는...",
+    "answer_kr": "",
+    "question_vn": "Người Hàn Quốc tự học tiếng Hàn như thế nào?",
+    "answer_vn": "Họ thường sử dụng sách ngữ pháp nâng cao, tài liệu luyện thi, hoặc tham gia các cộng đồng trực tuyến để trau dồi kỹ năng.",
+    "category": "Q&A > 방송연예인",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 196,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=446030422&dirId=30104&d1id=3",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "luyện tập",
+        "level": "2",
+        "korean": "트레이닝"
+      },
+      {
+        "vn": "cộng đồng",
+        "level": "2",
+        "korean": "커뮤니티"
+      },
+      {
+        "vn": "kỹ năng",
+        "level": "2",
+        "korean": "실력"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "2",
+        "example": "한국어 실력을 위해 공부합니다 = Để học tiếng Hàn",
+        "meaning": "để",
+        "pattern": "-을 위해"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 155,
+    "question_kr": "TOPIK 시험결과",
+    "answer_kr": "",
+    "question_vn": "Kết quả thi TOPIK?",
+    "answer_vn": "Kết quả thi TOPIK được công bố trên website www.topik.go.kr sau khoảng 20 ngày kể từ ngày thi.",
+    "category": "Q&A > 국어 공부, 시험",
+    "category_vn": "Thi TOPIK",
+    "likes": 0,
+    "views": 219,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=440693667&dirId=11080106&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "công bố",
+        "level": "1",
+        "korean": "공고"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 159,
+    "question_kr": "한어병음 성조가 바뀌면한국어 발음도...",
+    "answer_kr": "",
+    "question_vn": "Nếu thanh điệu trong phiên âm tiếng Hán thay đổi thì phát âm tiếng Hàn cũng thay đổi?",
+    "answer_vn": "Phát âm tiếng Hàn của từ Hán-Hàn có thể chịu ảnh hưởng từ thanh điệu tiếng Hán, nhưng sự thay đổi không hoàn toàn trực tiếp do khác biệt ngữ âm.",
+    "category": "Q&A > 중국어 맞춤법, 문법",
+    "category_vn": "Phát âm",
+    "likes": 0,
+    "views": 100,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=485620384&dirId=11080502&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "ngữ âm",
+        "level": "2",
+        "korean": "음운"
+      },
+      {
+        "vn": "thay đổi",
+        "level": "1",
+        "korean": "변화"
+      },
+      {
+        "vn": "ảnh hưởng",
+        "level": "2",
+        "korean": "영향"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 177,
+    "question_kr": "영어와한국어 문법차이",
+    "answer_kr": "",
+    "question_vn": "Sự khác biệt giữa ngữ pháp tiếng Anh và tiếng Hàn là gì?",
+    "answer_vn": "Tiếng Anh theo cấu trúc Chủ ngữ-Động từ-Tân ngữ (SVO), còn tiếng Hàn theo Chủ ngữ-Tân ngữ-Động từ (SOV) và sử dụng trợ từ để chỉ rõ chức năng ngữ pháp.",
+    "category": "Q&A > 영어문법",
+    "category_vn": "Ngữ pháp",
+    "likes": 0,
+    "views": 183,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=489615568&dirId=11080302&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "chủ ngữ",
+        "level": "1",
+        "korean": "주어"
+      },
+      {
+        "vn": "tân ngữ",
+        "level": "1",
+        "korean": "목적어"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "의미에 대해 = Về ý nghĩa",
+        "meaning": "về",
+        "pattern": "-에"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 182,
+    "question_kr": "한국어 문법체계 어렵지 않나여?",
+    "answer_kr": "",
+    "question_vn": "한국어 문법체계 어렵지 않나여?",
+    "answer_vn": "",
+    "category": "Q&A > 기타",
+    "category_vn": "Học tiếng Hàn",
+    "likes": 0,
+    "views": 86,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=454227025&dirId=814&d1id=8",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "thu được",
+        "level": "1",
+        "korean": "습득"
+      },
+      {
+        "vn": "sửa lỗi",
+        "level": "1",
+        "korean": "교정"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 190,
+    "question_kr": "한국어심화어휘책 추천해주세요",
+    "answer_kr": "",
+    "question_vn": "Hãy đề xuất sách từ vựng chuyên sâu tiếng Hàn",
+    "answer_vn": "Sách '한국어 심화 어휘' của Kyobo Books hoặc 'Advanced Korean Vocabulary'.",
+    "category": "Q&A > 독서",
+    "category_vn": "Từ vựng",
+    "likes": 0,
+    "views": 594,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=381173148&dirId=80606&d1id=8",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "sâu sắc",
+        "level": "2",
+        "korean": "심화"
+      },
+      {
+        "vn": "từ vựng",
+        "level": "1",
+        "korean": "어휘"
+      },
+      {
+        "vn": "cuốn sách",
+        "level": "1",
+        "korean": "책"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 196,
+    "question_kr": "성인이 구사할 수 있는한국어 어휘는",
+    "answer_kr": "",
+    "question_vn": "Từ vựng tiếng Hàn mà người lớn có thể sử dụng là gì?",
+    "answer_vn": "",
+    "category": "Q&A > 한국어",
+    "category_vn": "Từ vựng",
+    "likes": 0,
+    "views": 105,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=412848305&dirId=110801&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "đồng nhất",
+        "level": "1",
+        "korean": "꾸준히"
+      },
+      {
+        "vn": "hệ thống",
+        "level": "1",
+        "korean": "체계적"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "매일 공부해야 해요 = Phải học mỗi ngày",
+        "meaning": "phải làm gì đó",
+        "pattern": "-아/어야 하다"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 127,
+    "question_kr": "한국어의위상과 세계의한국어 학습자...",
+    "answer_kr": "",
+    "question_vn": "Vị thế của tiếng Hàn và người học tiếng Hàn trên thế giới?",
+    "answer_vn": "Tiếng Hàn ngày càng quan trọng toàn cầu nhờ làn sóng Hallyu, với số lượng người học tăng nhanh trên thế giới.",
+    "category": "Q&A > 한국어",
+    "category_vn": "Văn hóa Hàn",
+    "likes": 0,
+    "views": 3694,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=53272246&dirId=110801&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "toàn cầu",
+        "level": "2",
+        "korean": "전세계"
+      },
+      {
+        "vn": "sóng",
+        "level": "1",
+        "korean": " làn sóng"
+      },
+      {
+        "vn": "tăng",
+        "level": "2",
+        "korean": "증가"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 179,
+    "question_kr": "한국어 문법질문",
+    "answer_kr": "",
+    "question_vn": "Làm thế nào để đặt câu hỏi về ngữ pháp tiếng Hàn hiệu quả?",
+    "answer_vn": "Nên nêu rõ điểm ngữ pháp cụ thể, đưa ra ví dụ minh họa và so sánh với cấu trúc tương đương trong tiếng Việt để được giải đáp chính xác.",
+    "category": "Q&A > 국어 맞춤법, 문법",
+    "category_vn": "Ngữ pháp",
+    "likes": 0,
+    "views": 40,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=488516078&dirId=11080103&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "cụ thể",
+        "level": "1",
+        "korean": "구체적"
+      },
+      {
+        "vn": "ví dụ",
+        "level": "1",
+        "korean": "예시"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 185,
+    "question_kr": "한국어 어휘수업 초급 단계 그림 활용",
+    "answer_kr": "",
+    "question_vn": "한국어 어휘수업 초급 단계 그림 활용",
+    "answer_vn": "",
+    "category": "Q&A > 문예창작인",
+    "category_vn": "Học tiếng Hàn",
+    "likes": 0,
+    "views": 60,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=484237652&dirId=30706&d1id=3",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "tự tin",
+        "level": "1",
+        "korean": "자신감"
+      },
+      {
+        "vn": "đề thi đã ra",
+        "level": "1",
+        "korean": "기출"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "공부하기 위해 책을 읽어요 = Đọc sách để học",
+        "meaning": "để",
+        "pattern": "-기 위해"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 197,
+    "question_kr": "한국어 어휘체계",
+    "answer_kr": "",
+    "question_vn": "Hệ thống từ vựng tiếng Hàn",
+    "answer_vn": "",
+    "category": "Q&A > 영어 어원, 어휘",
+    "category_vn": "Từ vựng",
+    "likes": 0,
+    "views": 399,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=360824696&dirId=11080301&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "thu được",
+        "level": "1",
+        "korean": "습득"
+      },
+      {
+        "vn": "sửa lỗi",
+        "level": "1",
+        "korean": "교정"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 130,
+    "question_kr": "제가 외국인한국어 학습자인데 혹시...",
+    "answer_kr": "",
+    "question_vn": "Tôi là người nước ngoài học tiếng Hàn. Có cách nào để cải thiện không?",
+    "answer_vn": "Nên kết hợp học lý thuyết với thực hành giao tiếp, sử dụng phim/nhạc Hàn và tham gia cộng đồng học tập.",
+    "category": "Q&A > 표준어, 방언",
+    "category_vn": "Phương pháp học",
+    "likes": 0,
+    "views": 308,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=185312329&dirId=11080104&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "thực hành",
+        "level": "2",
+        "korean": "실천"
+      },
+      {
+        "vn": "trao đổi",
+        "level": "2",
+        "korean": "교류"
+      },
+      {
+        "vn": "hiệu quả",
+        "level": "2",
+        "korean": "효율"
+      }
+    ],
+    "grammar": [
+      {
+        "level": "1",
+        "example": "한국어를 공부해야 해요 = Phải học tiếng Hàn",
+        "meaning": "phải làm gì đó",
+        "pattern": "-아/어야 하다"
+      }
+    ],
+    "difficulty": 1
+  },
+  {
+    "id": 136,
+    "question_kr": "한국어 학습용 외래어 선정기준?",
+    "answer_kr": "",
+    "question_vn": "Tiêu chí lựa chọn từ ngoại lai để học tiếng Hàn?",
+    "answer_vn": "Tiêu chí dựa trên tần suất sử dụng cao, tính hữu ích trong giao tiếp hàng ngày, và mức độ quen thuộc với người học.",
+    "category": "Q&A > 국어 어원, 어휘",
+    "category_vn": "Từ vựng",
+    "likes": 0,
+    "views": 42,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=290355233&dirId=11080102&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "thường xuyên",
+        "level": "1",
+        "korean": "빈번"
+      },
+      {
+        "vn": "hữu ích",
+        "level": "1",
+        "korean": "유용"
+      },
+      {
+        "vn": "quen thuộc",
+        "level": "1",
+        "korean": "익숙"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 178,
+    "question_kr": "일본어한국어 문법",
+    "answer_kr": "",
+    "question_vn": "Ngữ pháp tiếng Nhật và tiếng Hàn có điểm gì giống và khác nhau?",
+    "answer_vn": "Cả hai đều có cấu trúc SOV, dùng trợ từ/hậu tố. Tuy nhiên, tiếng Hàn có hệ thống kính ngữ phức tạp hơn và cách chia động từ khác biệt.",
+    "category": "Q&A > 일본어 맞춤법, 문법",
+    "category_vn": "Ngữ pháp",
+    "likes": 0,
+    "views": 105,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=485962106&dirId=11080402&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "trợ từ",
+        "level": "1",
+        "korean": "조사"
+      },
+      {
+        "vn": "hậu tố",
+        "level": "1",
+        "korean": "어미"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 187,
+    "question_kr": "한국어고급어휘책 추천",
+    "answer_kr": "",
+    "question_vn": "Đề xuất sách từ vựng tiếng Hàn cao cấp",
+    "answer_vn": "Sách '한국어 고급 어휘' của Đại học Quốc gia Seoul hoặc '고급 한국어 어휘' của Yonsei.",
+    "category": "Q&A > 국어 어원, 어휘",
+    "category_vn": "Từ vựng",
+    "likes": 0,
+    "views": 690,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=476926513&dirId=11080102&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "cấp cao",
+        "level": "2",
+        "korean": "고급"
+      },
+      {
+        "vn": "sâu sắc",
+        "level": "2",
+        "korean": "심화"
+      },
+      {
+        "vn": "từ vựng",
+        "level": "1",
+        "korean": "어휘"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  },
+  {
+    "id": 194,
+    "question_kr": "1한국어 어휘총 얼마나 있어요??",
+    "answer_kr": "",
+    "question_vn": "Tổng số từ vựng tiếng Hàn có bao nhiêu?",
+    "answer_vn": "Tiếng Hàn có khoảng 1.100.000 từ trong từ điển, nhưng từ vựng thông dụng chỉ khoảng 50.000-60.000 từ.",
+    "category": "Q&A > 국어 어원, 어휘",
+    "category_vn": "Từ vựng",
+    "likes": 0,
+    "views": 433,
+    "url": "https://kin.naver.com/qna/detail.naver?docId=342538027&dirId=11080102&d1id=11",
+    "answered_at": "",
+    "created_at": "2026-05-14T09:22:33.187986+00:00",
+    "vocabulary": [
+      {
+        "vn": "từ điển",
+        "level": "1",
+        "korean": "사전"
+      },
+      {
+        "vn": "thuật ngữ",
+        "level": "1",
+        "korean": "용어"
+      }
+    ],
+    "grammar": [],
+    "difficulty": 1
+  }
+]

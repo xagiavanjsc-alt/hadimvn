@@ -1,0 +1,761 @@
+[
+  {
+    "id": "c7fc5223-281f-4f8d-b2b2-2f9a827a0a87",
+    "title": "Chào hỏi cơ bản",
+    "level": "A1",
+    "topic": "Giao tiếp hàng ngày",
+    "duration_sec": 80,
+    "description": "Bài nghe về các câu chào hỏi cơ bản trong tiếng Hàn, phù hợp cho người mới bắt đầu.",
+    "audio_url": null,
+    "transcript": [
+      {
+        "line": "안녕하세요! 저는 민준이에요.",
+        "translation": "Xin chào! Tôi là Minjun."
+      },
+      {
+        "line": "안녕하세요! 저는 지수예요. 만나서 반가워요.",
+        "translation": "Xin chào! Tôi là Jisu. Rất vui được gặp bạn."
+      },
+      {
+        "line": "저도 반가워요. 어디에서 왔어요?",
+        "translation": "Tôi cũng vậy. Bạn đến từ đâu?"
+      },
+      {
+        "line": "저는 베트남에서 왔어요. 민준 씨는요?",
+        "translation": "Tôi đến từ Việt Nam. Còn anh Minjun?"
+      },
+      {
+        "line": "저는 서울에서 왔어요. 한국어를 잘 하시네요!",
+        "translation": "Tôi đến từ Seoul. Bạn nói tiếng Hàn giỏi quá!"
+      },
+      {
+        "line": "감사합니다. 열심히 공부하고 있어요.",
+        "translation": "Cảm ơn. Tôi đang học chăm chỉ."
+      }
+    ],
+    "vocabulary": [
+      {
+        "korean": "안녕하세요",
+        "vietnamese": "Xin chào",
+        "pronunciation": "an-nyeong-ha-se-yo"
+      },
+      {
+        "korean": "만나서 반가워요",
+        "vietnamese": "Rất vui được gặp bạn",
+        "pronunciation": "man-na-seo ban-ga-wo-yo"
+      },
+      {
+        "korean": "어디에서 왔어요",
+        "vietnamese": "Bạn đến từ đâu",
+        "pronunciation": "eo-di-e-seo wa-sseo-yo"
+      },
+      {
+        "korean": "열심히",
+        "vietnamese": "Chăm chỉ",
+        "pronunciation": "yeol-sim-hi"
+      }
+    ],
+    "questions": [
+      {
+        "answer": 1,
+        "options": [
+          "서울",
+          "베트남",
+          "부산",
+          "일본"
+        ],
+        "question": "지수는 어디에서 왔어요?"
+      },
+      {
+        "answer": 2,
+        "options": [
+          "베트남",
+          "부산",
+          "서울",
+          "대구"
+        ],
+        "question": "민준은 어디에서 왔어요?"
+      }
+    ],
+    "tags": [
+      "인사",
+      "자기소개",
+      "출신"
+    ],
+    "is_premium": false,
+    "play_count": 0,
+    "created_at": "2026-04-23T17:03:04.464602+00:00",
+    "updated_at": "2026-04-23T17:03:04.464602+00:00"
+  },
+  {
+    "id": "23d804c2-a38e-49ce-91ed-a888830445a6",
+    "title": "Mua sắm tại cửa hàng",
+    "level": "A1",
+    "topic": "Mua sắm",
+    "duration_sec": 105,
+    "description": "Hội thoại mua sắm đơn giản tại cửa hàng tiện lợi.",
+    "audio_url": null,
+    "transcript": [
+      {
+        "line": "어서 오세요!",
+        "translation": "Chào mừng bạn!"
+      },
+      {
+        "line": "이 사과 얼마예요?",
+        "translation": "Quả táo này bao nhiêu tiền?"
+      },
+      {
+        "line": "한 개에 500원이에요.",
+        "translation": "Một cái 500 won."
+      },
+      {
+        "line": "그럼 두 개 주세요.",
+        "translation": "Vậy cho tôi hai cái."
+      },
+      {
+        "line": "네, 1000원입니다.",
+        "translation": "Vâng, 1000 won ạ."
+      },
+      {
+        "line": "여기 있어요. 감사합니다.",
+        "translation": "Đây ạ. Cảm ơn."
+      },
+      {
+        "line": "감사합니다. 또 오세요!",
+        "translation": "Cảm ơn. Hãy đến lại nhé!"
+      }
+    ],
+    "vocabulary": [
+      {
+        "korean": "얼마예요",
+        "vietnamese": "Bao nhiêu tiền?",
+        "pronunciation": "eol-ma-ye-yo"
+      },
+      {
+        "korean": "한 개",
+        "vietnamese": "Một cái",
+        "pronunciation": "han gae"
+      },
+      {
+        "korean": "주세요",
+        "vietnamese": "Cho tôi",
+        "pronunciation": "ju-se-yo"
+      },
+      {
+        "korean": "또 오세요",
+        "vietnamese": "Hãy đến lại nhé",
+        "pronunciation": "tto o-se-yo"
+      }
+    ],
+    "questions": [
+      {
+        "answer": 1,
+        "options": [
+          "1000원",
+          "500원",
+          "2000원",
+          "300원"
+        ],
+        "question": "사과 한 개는 얼마예요?"
+      },
+      {
+        "answer": 2,
+        "options": [
+          "한 개",
+          "세 개",
+          "두 개",
+          "네 개"
+        ],
+        "question": "사과를 몇 개 샀어요?"
+      }
+    ],
+    "tags": [
+      "쇼핑",
+      "숫자",
+      "가격"
+    ],
+    "is_premium": false,
+    "play_count": 0,
+    "created_at": "2026-04-23T17:03:04.464602+00:00",
+    "updated_at": "2026-04-23T17:03:04.464602+00:00"
+  },
+  {
+    "id": "8583f6d0-2b53-4101-9ea2-55e76aa5dabf",
+    "title": "Đặt bàn tại nhà hàng",
+    "level": "A2",
+    "topic": "Ăn uống",
+    "duration_sec": 130,
+    "description": "Hội thoại đặt bàn và gọi món tại nhà hàng Hàn Quốc.",
+    "audio_url": null,
+    "transcript": [
+      {
+        "line": "안녕하세요, 예약하셨나요?",
+        "translation": "Xin chào, bạn có đặt trước không?"
+      },
+      {
+        "line": "아니요, 예약 안 했는데요. 자리 있어요?",
+        "translation": "Không, tôi chưa đặt. Còn chỗ không?"
+      },
+      {
+        "line": "네, 몇 분이세요?",
+        "translation": "Vâng, mấy người ạ?"
+      },
+      {
+        "line": "두 명이에요.",
+        "translation": "Hai người."
+      },
+      {
+        "line": "이쪽으로 오세요. 메뉴 드릴게요.",
+        "translation": "Mời đi lối này. Tôi sẽ đưa thực đơn."
+      },
+      {
+        "line": "감사합니다. 비빔밥 두 개랑 된장찌개 하나 주세요.",
+        "translation": "Cảm ơn. Cho tôi hai bát cơm trộn và một tô canh tương."
+      },
+      {
+        "line": "음료는 뭐로 드릴까요?",
+        "translation": "Đồ uống dùng gì ạ?"
+      },
+      {
+        "line": "물 두 잔 주세요.",
+        "translation": "Cho tôi hai ly nước."
+      }
+    ],
+    "vocabulary": [
+      {
+        "korean": "예약하다",
+        "vietnamese": "Đặt trước/Đặt chỗ",
+        "pronunciation": "ye-yak-ha-da"
+      },
+      {
+        "korean": "몇 분",
+        "vietnamese": "Mấy người",
+        "pronunciation": "myeot bun"
+      },
+      {
+        "korean": "메뉴",
+        "vietnamese": "Thực đơn",
+        "pronunciation": "me-nyu"
+      },
+      {
+        "korean": "음료",
+        "vietnamese": "Đồ uống",
+        "pronunciation": "eum-nyo"
+      }
+    ],
+    "questions": [
+      {
+        "answer": 2,
+        "options": [
+          "한 명",
+          "세 명",
+          "두 명",
+          "네 명"
+        ],
+        "question": "몇 명이 왔어요?"
+      },
+      {
+        "answer": 1,
+        "options": [
+          "불고기",
+          "비빔밥과 된장찌개",
+          "삼겹살",
+          "냉면"
+        ],
+        "question": "무엇을 주문했어요?"
+      }
+    ],
+    "tags": [
+      "식당",
+      "주문",
+      "음식"
+    ],
+    "is_premium": false,
+    "play_count": 0,
+    "created_at": "2026-04-23T17:03:04.464602+00:00",
+    "updated_at": "2026-04-23T17:03:04.464602+00:00"
+  },
+  {
+    "id": "2a5e0a8c-35b5-4c1b-9ddf-786630fefed5",
+    "title": "Hỏi đường",
+    "level": "A2",
+    "topic": "Giao thông",
+    "duration_sec": 150,
+    "description": "Hội thoại hỏi đường và chỉ đường trong thành phố.",
+    "audio_url": null,
+    "transcript": [
+      {
+        "line": "저기요, 지하철역이 어디에 있어요?",
+        "translation": "Xin hỏi, ga tàu điện ngầm ở đâu?"
+      },
+      {
+        "line": "저기 사거리에서 오른쪽으로 가세요.",
+        "translation": "Ở ngã tư kia rẽ phải."
+      },
+      {
+        "line": "얼마나 걸려요?",
+        "translation": "Mất bao lâu?"
+      },
+      {
+        "line": "걸어서 5분 정도 걸려요.",
+        "translation": "Đi bộ khoảng 5 phút."
+      },
+      {
+        "line": "버스로는요?",
+        "translation": "Còn đi xe buýt?"
+      },
+      {
+        "line": "버스는 2번을 타세요. 두 정거장이에요.",
+        "translation": "Đi xe buýt số 2. Hai trạm."
+      },
+      {
+        "line": "감사합니다. 정말 친절하시네요.",
+        "translation": "Cảm ơn. Bạn thật tốt bụng."
+      },
+      {
+        "line": "아니에요. 조심히 가세요!",
+        "translation": "Không có gì. Đi cẩn thận nhé!"
+      }
+    ],
+    "vocabulary": [
+      {
+        "korean": "사거리",
+        "vietnamese": "Ngã tư",
+        "pronunciation": "sa-geo-ri"
+      },
+      {
+        "korean": "오른쪽",
+        "vietnamese": "Bên phải",
+        "pronunciation": "o-reun-jjok"
+      },
+      {
+        "korean": "얼마나 걸려요",
+        "vietnamese": "Mất bao lâu?",
+        "pronunciation": "eol-ma-na geol-lyeo-yo"
+      },
+      {
+        "korean": "정거장",
+        "vietnamese": "Trạm dừng",
+        "pronunciation": "jeong-geo-jang"
+      }
+    ],
+    "questions": [
+      {
+        "answer": 2,
+        "options": [
+          "왼쪽",
+          "직진",
+          "오른쪽",
+          "뒤"
+        ],
+        "question": "지하철역은 어느 방향이에요?"
+      },
+      {
+        "answer": 2,
+        "options": [
+          "10분",
+          "3분",
+          "5분",
+          "15분"
+        ],
+        "question": "걸어서 얼마나 걸려요?"
+      }
+    ],
+    "tags": [
+      "길",
+      "교통",
+      "방향"
+    ],
+    "is_premium": false,
+    "play_count": 0,
+    "created_at": "2026-04-23T17:03:04.464602+00:00",
+    "updated_at": "2026-04-23T17:03:04.464602+00:00"
+  },
+  {
+    "id": "2b681e35-2bd4-4aac-be24-244813f3efc9",
+    "title": "Phỏng vấn xin việc",
+    "level": "B1",
+    "topic": "Công việc",
+    "duration_sec": 195,
+    "description": "Hội thoại phỏng vấn xin việc tại công ty Hàn Quốc.",
+    "audio_url": null,
+    "transcript": [
+      {
+        "line": "안녕하세요. 지원서를 보니 경력이 3년이시네요.",
+        "translation": "Xin chào. Nhìn đơn xin việc thấy bạn có 3 năm kinh nghiệm."
+      },
+      {
+        "line": "네, 맞습니다. 베트남에서 마케팅 분야에서 일했습니다.",
+        "translation": "Vâng, đúng vậy. Tôi đã làm trong lĩnh vực marketing ở Việt Nam."
+      },
+      {
+        "line": "한국어 실력은 어느 정도 되세요?",
+        "translation": "Trình độ tiếng Hàn của bạn như thế nào?"
+      },
+      {
+        "line": "TOPIK 4급을 취득했고, 비즈니스 한국어도 공부하고 있습니다.",
+        "translation": "Tôi đã đạt TOPIK cấp 4 và đang học tiếng Hàn thương mại."
+      },
+      {
+        "line": "우리 회사에 지원한 이유가 무엇인가요?",
+        "translation": "Lý do bạn ứng tuyển vào công ty chúng tôi là gì?"
+      },
+      {
+        "line": "귀사의 글로벌 사업 확장에 기여하고 싶습니다.",
+        "translation": "Tôi muốn đóng góp vào việc mở rộng kinh doanh toàn cầu của quý công ty."
+      },
+      {
+        "line": "장점과 단점을 말씀해 주시겠어요?",
+        "translation": "Bạn có thể nói về điểm mạnh và điểm yếu không?"
+      },
+      {
+        "line": "장점은 성실함과 팀워크이고, 단점은 때로 너무 꼼꼼해서 시간이 걸린다는 점입니다.",
+        "translation": "Điểm mạnh là sự chăm chỉ và làm việc nhóm, điểm yếu là đôi khi quá tỉ mỉ nên mất thời gian."
+      }
+    ],
+    "vocabulary": [
+      {
+        "korean": "지원서",
+        "vietnamese": "Đơn xin việc",
+        "pronunciation": "ji-won-seo"
+      },
+      {
+        "korean": "경력",
+        "vietnamese": "Kinh nghiệm làm việc",
+        "pronunciation": "gyeong-nyeok"
+      },
+      {
+        "korean": "취득하다",
+        "vietnamese": "Đạt được/Lấy được",
+        "pronunciation": "chwi-deuk-ha-da"
+      },
+      {
+        "korean": "기여하다",
+        "vietnamese": "Đóng góp",
+        "pronunciation": "gi-yeo-ha-da"
+      },
+      {
+        "korean": "팀워크",
+        "vietnamese": "Làm việc nhóm",
+        "pronunciation": "tim-wo-keu"
+      }
+    ],
+    "questions": [
+      {
+        "answer": 2,
+        "options": [
+          "1년",
+          "5년",
+          "3년",
+          "2년"
+        ],
+        "question": "지원자의 경력은 몇 년이에요?"
+      },
+      {
+        "answer": 2,
+        "options": [
+          "3급",
+          "5급",
+          "4급",
+          "6급"
+        ],
+        "question": "지원자의 TOPIK 급수는?"
+      }
+    ],
+    "tags": [
+      "취업",
+      "면접",
+      "자기소개"
+    ],
+    "is_premium": false,
+    "play_count": 0,
+    "created_at": "2026-04-23T17:03:04.464602+00:00",
+    "updated_at": "2026-04-23T17:03:04.464602+00:00"
+  },
+  {
+    "id": "739ce709-0307-4ef5-bda5-5d1a0f401988",
+    "title": "Thảo luận về thời tiết",
+    "level": "B1",
+    "topic": "Thời tiết & Kế hoạch",
+    "duration_sec": 170,
+    "description": "Hội thoại về thời tiết và lên kế hoạch cuối tuần.",
+    "audio_url": null,
+    "transcript": [
+      {
+        "line": "이번 주말 날씨가 어떨 것 같아요?",
+        "translation": "Cuối tuần này thời tiết thế nào nhỉ?"
+      },
+      {
+        "line": "일기예보에 따르면 토요일은 맑고 일요일은 흐릴 것 같아요.",
+        "translation": "Theo dự báo thời tiết, thứ Bảy nắng còn Chủ Nhật có vẻ nhiều mây."
+      },
+      {
+        "line": "그럼 토요일에 등산 갈까요?",
+        "translation": "Vậy thứ Bảy mình đi leo núi nhé?"
+      },
+      {
+        "line": "좋아요! 어느 산으로 갈까요?",
+        "translation": "Hay đấy! Đi núi nào?"
+      },
+      {
+        "line": "북한산이 어때요? 단풍이 예쁠 것 같아요.",
+        "translation": "Núi Bukhan thế nào? Lá đỏ chắc đẹp lắm."
+      },
+      {
+        "line": "좋은데, 일교차가 크다고 하니까 따뜻한 옷 챙겨야겠어요.",
+        "translation": "Hay đấy, nhưng nghe nói chênh lệch nhiệt độ lớn nên phải mang áo ấm."
+      },
+      {
+        "line": "맞아요. 오전에는 쌀쌀하고 낮에는 따뜻할 거예요.",
+        "translation": "Đúng rồi. Buổi sáng se lạnh còn ban ngày sẽ ấm."
+      },
+      {
+        "line": "그럼 아침 8시에 만날까요?",
+        "translation": "Vậy gặp nhau lúc 8 giờ sáng nhé?"
+      }
+    ],
+    "vocabulary": [
+      {
+        "korean": "일기예보",
+        "vietnamese": "Dự báo thời tiết",
+        "pronunciation": "il-gi-ye-bo"
+      },
+      {
+        "korean": "등산",
+        "vietnamese": "Leo núi",
+        "pronunciation": "deung-san"
+      },
+      {
+        "korean": "단풍",
+        "vietnamese": "Lá đỏ mùa thu",
+        "pronunciation": "dan-pung"
+      },
+      {
+        "korean": "일교차",
+        "vietnamese": "Chênh lệch nhiệt độ trong ngày",
+        "pronunciation": "il-gyo-cha"
+      }
+    ],
+    "questions": [
+      {
+        "answer": 2,
+        "options": [
+          "흐려요",
+          "비가 와요",
+          "맑아요",
+          "눈이 와요"
+        ],
+        "question": "토요일 날씨는 어때요?"
+      },
+      {
+        "answer": 2,
+        "options": [
+          "설악산",
+          "한라산",
+          "북한산",
+          "지리산"
+        ],
+        "question": "어디로 등산 가기로 했어요?"
+      }
+    ],
+    "tags": [
+      "날씨",
+      "계획",
+      "주말"
+    ],
+    "is_premium": false,
+    "play_count": 0,
+    "created_at": "2026-04-23T17:03:04.464602+00:00",
+    "updated_at": "2026-04-23T17:03:04.464602+00:00"
+  },
+  {
+    "id": "a1b38f4f-8b67-4d7b-ade5-f2f6960fef34",
+    "title": "Tin tức về môi trường",
+    "level": "B2",
+    "topic": "Môi trường",
+    "duration_sec": 220,
+    "description": "Bản tin về vấn đề biến đổi khí hậu và bảo vệ môi trường.",
+    "audio_url": null,
+    "transcript": [
+      {
+        "line": "오늘의 환경 뉴스입니다.",
+        "translation": "Đây là tin tức môi trường hôm nay."
+      },
+      {
+        "line": "전 세계적으로 온난화 문제가 심각해지고 있습니다.",
+        "translation": "Vấn đề nóng lên toàn cầu đang trở nên nghiêm trọng trên toàn thế giới."
+      },
+      {
+        "line": "과학자들에 따르면 지난 100년간 지구 평균 기온이 1.2도 상승했습니다.",
+        "translation": "Theo các nhà khoa học, nhiệt độ trung bình Trái Đất đã tăng 1,2 độ trong 100 năm qua."
+      },
+      {
+        "line": "이로 인해 북극의 빙하가 빠르게 녹고 있으며, 해수면이 상승하고 있습니다.",
+        "translation": "Do đó, băng ở Bắc Cực đang tan nhanh và mực nước biển đang dâng lên."
+      },
+      {
+        "line": "전문가들은 온실가스 배출을 줄이고 재생에너지 사용을 늘려야 한다고 강조합니다.",
+        "translation": "Các chuyên gia nhấn mạnh cần giảm phát thải khí nhà kính và tăng sử dụng năng lượng tái tạo."
+      },
+      {
+        "line": "한국 정부도 2050년까지 탄소 중립을 달성하겠다는 목표를 발표했습니다.",
+        "translation": "Chính phủ Hàn Quốc cũng công bố mục tiêu đạt trung hòa carbon vào năm 2050."
+      }
+    ],
+    "vocabulary": [
+      {
+        "korean": "온난화",
+        "vietnamese": "Sự nóng lên toàn cầu",
+        "pronunciation": "on-na-hwa"
+      },
+      {
+        "korean": "빙하",
+        "vietnamese": "Băng hà/Sông băng",
+        "pronunciation": "bing-ha"
+      },
+      {
+        "korean": "해수면",
+        "vietnamese": "Mực nước biển",
+        "pronunciation": "hae-su-myeon"
+      },
+      {
+        "korean": "온실가스",
+        "vietnamese": "Khí nhà kính",
+        "pronunciation": "on-sil-ga-seu"
+      },
+      {
+        "korean": "탄소 중립",
+        "vietnamese": "Trung hòa carbon",
+        "pronunciation": "tan-so jung-nip"
+      }
+    ],
+    "questions": [
+      {
+        "answer": 2,
+        "options": [
+          "0.5도",
+          "2도",
+          "1.2도",
+          "3도"
+        ],
+        "question": "지구 평균 기온은 얼마나 상승했어요?"
+      },
+      {
+        "answer": 2,
+        "options": [
+          "2030년",
+          "2060년",
+          "2050년",
+          "2040년"
+        ],
+        "question": "한국의 탄소 중립 목표 연도는?"
+      }
+    ],
+    "tags": [
+      "환경",
+      "뉴스",
+      "기후변화"
+    ],
+    "is_premium": false,
+    "play_count": 0,
+    "created_at": "2026-04-23T17:03:04.464602+00:00",
+    "updated_at": "2026-04-23T17:03:04.464602+00:00"
+  },
+  {
+    "id": "51b41577-43a9-4d8c-81d4-dd06a1fb823d",
+    "title": "Thảo luận học thuật về xã hội",
+    "level": "C1",
+    "topic": "Xã hội & Học thuật",
+    "duration_sec": 260,
+    "description": "Thảo luận học thuật về các vấn đề xã hội hiện đại tại Hàn Quốc.",
+    "audio_url": null,
+    "transcript": [
+      {
+        "line": "오늘은 한국 사회의 저출산 문제에 대해 논의해 보겠습니다.",
+        "translation": "Hôm nay chúng ta sẽ thảo luận về vấn đề tỷ lệ sinh thấp trong xã hội Hàn Quốc."
+      },
+      {
+        "line": "통계에 따르면 2023년 한국의 합계출산율은 0.72명으로 역대 최저를 기록했습니다.",
+        "translation": "Theo thống kê, tổng tỷ suất sinh của Hàn Quốc năm 2023 là 0,72 người, mức thấp nhất lịch sử."
+      },
+      {
+        "line": "이 문제의 근본적인 원인은 무엇이라고 생각하십니까?",
+        "translation": "Bạn nghĩ nguyên nhân căn bản của vấn đề này là gì?"
+      },
+      {
+        "line": "주거비 상승, 교육비 부담, 그리고 일과 가정의 양립 어려움이 주요 원인으로 분석됩니다.",
+        "translation": "Chi phí nhà ở tăng, gánh nặng học phí và khó cân bằng công việc-gia đình được phân tích là nguyên nhân chính."
+      },
+      {
+        "line": "정부의 대응 방안은 어떻게 평가하십니까?",
+        "translation": "Bạn đánh giá thế nào về các biện pháp ứng phó của chính phủ?"
+      },
+      {
+        "line": "현재의 정책은 단기적 지원에 집중되어 있어 구조적 문제 해결에는 한계가 있습니다.",
+        "translation": "Chính sách hiện tại tập trung vào hỗ trợ ngắn hạn nên có giới hạn trong việc giải quyết vấn đề cấu trúc."
+      },
+      {
+        "line": "장기적으로는 사회 문화적 인식 변화와 제도적 개혁이 병행되어야 할 것입니다.",
+        "translation": "Về lâu dài, cần song hành thay đổi nhận thức văn hóa xã hội và cải cách thể chế."
+      }
+    ],
+    "vocabulary": [
+      {
+        "korean": "저출산",
+        "vietnamese": "Tỷ lệ sinh thấp",
+        "pronunciation": "jeo-chul-san"
+      },
+      {
+        "korean": "합계출산율",
+        "vietnamese": "Tổng tỷ suất sinh",
+        "pronunciation": "hap-gye-chul-san-yul"
+      },
+      {
+        "korean": "주거비",
+        "vietnamese": "Chi phí nhà ở",
+        "pronunciation": "ju-geo-bi"
+      },
+      {
+        "korean": "양립",
+        "vietnamese": "Cân bằng/Song hành",
+        "pronunciation": "yang-nip"
+      },
+      {
+        "korean": "구조적",
+        "vietnamese": "Mang tính cấu trúc",
+        "pronunciation": "gu-jo-jeok"
+      }
+    ],
+    "questions": [
+      {
+        "answer": 2,
+        "options": [
+          "1.2명",
+          "0.5명",
+          "0.72명",
+          "0.9명"
+        ],
+        "question": "2023년 한국의 합계출산율은?"
+      },
+      {
+        "answer": 2,
+        "options": [
+          "주거비 상승",
+          "교육비 부담",
+          "인구 증가",
+          "일가정 양립 어려움"
+        ],
+        "question": "저출산의 주요 원인이 아닌 것은?"
+      }
+    ],
+    "tags": [
+      "사회",
+      "학술",
+      "통계"
+    ],
+    "is_premium": true,
+    "play_count": 0,
+    "created_at": "2026-04-23T17:03:04.464602+00:00",
+    "updated_at": "2026-04-23T17:03:04.464602+00:00"
+  }
+]

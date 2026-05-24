@@ -1,0 +1,87 @@
+Supabase Backup Summary
+=======================
+Date:   2026-05-24
+URL:    https://dcjofhkdrgbrowabudyt.supabase.co
+Total:  20,948 rows across 79 tables
+
+Tables (sorted by row count):
+
+     5298 rows  →  hanja_tree_nodes.json
+     4396 rows  →  hanja_vocab_entries.json
+     3199 rows  →  seoul_vocabulary.json
+     2591 rows  →  hanja_pro.json
+     1378 rows  →  topik_vocabulary.json
+     1101 rows  →  eps_vocab_entries.json
+      994 rows  →  grammar_practice_questions.json
+      395 rows  →  grammar_patterns.json
+      324 rows  →  eps_grammar_examples.json
+      201 rows  →  seoul_grammar.json
+      200 rows  →  naver_qa.json
+      162 rows  →  seoul_grammar_examples.json
+      112 rows  →  topik_flashcard_progress.json
+      100 rows  →  eps_grammar.json
+       98 rows  →  seoul_dialogue.json
+       69 rows  →  seoul_lessons.json
+       34 rows  →  user_profiles.json
+       34 rows  →  study_progress.json
+       34 rows  →  leaderboard.json
+       32 rows  →  user_progress.json
+       23 rows  →  login_sessions.json
+       22 rows  →  eps_vocab_topics.json
+       21 rows  →  community_posts.json
+       17 rows  →  achievements.json
+       14 rows  →  community_likes.json
+       12 rows  →  user_hanja_progress.json
+       10 rows  →  hanja_stories.json
+        9 rows  →  category_seo.json
+        8 rows  →  seoul_books.json
+        8 rows  →  listening_tracks.json
+        7 rows  →  community_comments.json
+        7 rows  →  community_ratings.json
+        6 rows  →  community_quiz_answers.json
+        4 rows  →  vip_revenue_log.json
+        4 rows  →  error_logs.json
+        3 rows  →  melon_songs.json
+        3 rows  →  exam_results.json
+        3 rows  →  module_progress.json
+        3 rows  →  leaderboard_snapshots.json
+        3 rows  →  weekly_rewards.json
+        3 rows  →  weekly_rewards_summary.json
+        2 rows  →  vip_pricing.json
+        1 rows  →  community_settings.json
+        1 rows  →  xp_settings.json
+        1 rows  →  bug_reports.json
+        1 rows  →  tts_audio_misses.json
+        0 rows  →  hanja_flashcards.json
+        0 rows  →  hanja_story_quiz.json
+        0 rows  →  user_achievements.json
+        0 rows  →  user_coupons.json
+        0 rows  →  user_daily_vocab.json
+        0 rows  →  study_history.json
+        0 rows  →  grammar_progress.json
+        0 rows  →  grammar_favorites.json
+        0 rows  →  flashcard_data.json
+        0 rows  →  daily_vocab.json
+        0 rows  →  topik_quiz_history.json
+        0 rows  →  hanja_flashcard_progress.json
+        0 rows  →  hanja_story_progress.json
+        0 rows  →  seoul_flashcard_progress.json
+        0 rows  →  melon_flashcard_progress.json
+        0 rows  →  melon_study_history.json
+        0 rows  →  community_answers.json
+        0 rows  →  comments.json
+        0 rows  →  leaderboard_cache.json
+        0 rows  →  reward_redemptions.json
+        0 rows  →  coupons.json
+        0 rows  →  vip_payment_requests.json
+        0 rows  →  vip_violation_reports.json
+        0 rows  →  ctv_profiles.json
+        0 rows  →  ctv_commissions.json
+        0 rows  →  ctv_withdrawals.json
+        0 rows  →  feedback.json
+        0 rows  →  notifications.json
+        0 rows  →  suspicious_exam_log.json
+        0 rows  →  zalo_reminders.json
+        0 rows  →  zalo_reminder_logs.json
+        0 rows  →  zalo_oauth_state.json
+        0 rows  →  tts_audio_cache.json

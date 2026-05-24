@@ -1,0 +1,25 @@
+[
+  {
+    "id": "global",
+    "streak_weight": 15,
+    "best_score_weight": 12,
+    "correct_answer_weight": 3,
+    "flashcard_weight": 4,
+    "exam_completed_bonus": 15,
+    "min_exam_time_per_question": 3,
+    "exam_cooldown_sec": 30,
+    "max_exams_per_day": 20,
+    "flashcard_max_per_day": 100,
+    "updated_at": "2026-05-03T17:42:13.441151+00:00",
+    "updated_by": null,
+    "post_weight": 50,
+    "comment_weight": 20,
+    "like_received_weight": 5,
+    "rating_given_weight": 10,
+    "daily_post_cap": 5,
+    "daily_comment_cap": 20,
+    "average_score_weight": 8,
+    "flashcard_xp_cap": 500,
+    "min_sec_per_question": 8
+  }
+]

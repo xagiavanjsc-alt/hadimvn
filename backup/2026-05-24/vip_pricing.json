@@ -1,0 +1,12 @@
+[
+  {
+    "billing_cycle": "monthly",
+    "amount": 79000,
+    "updated_at": "2026-05-23T16:16:22.127511+00:00"
+  },
+  {
+    "billing_cycle": "yearly",
+    "amount": 708000,
+    "updated_at": "2026-05-23T16:16:22.127511+00:00"
+  }
+]

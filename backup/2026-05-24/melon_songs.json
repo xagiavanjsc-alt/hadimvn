@@ -1,0 +1,359 @@
+[
+  {
+    "id": 6,
+    "rank": 1,
+    "title": "소문의 낙원",
+    "artist": "AKMU (악뮤)  ✅",
+    "genre": "록/메탈",
+    "lyrics": "잠깐 앉아요\n\n따뜻한 스프와 고기가 있어요\n\n지친 나그네여\n\n도시에선 절대 알 수 없는 게 있죠\n\nTV에선 절대 볼 수 없는 게 있죠\n\n소문의 낙원\n\n누군가 비웃으면 난 더 힘내요\n\n소문의 낙원\n\n물집을 터뜨리고 붕대를 감았죠\n\n떠나야지만 알 수 있는 게 있죠\n\n지치고 병든 나그네여\n\n우 외톨이 나그네여\n\n당신의 불치병은 그곳에\n\n존재할 수 없어요\n\n잠깐 앉아요\n\n따뜻한 스프와 고기가 있어요\n\n소문의 낙원\n\n우린 모두 그곳을 찾아 떠나왔죠\n\n겁쟁이는 절대 모를 세상이 있죠\n\n지치고 병든 나그네여\n\n우 외톨이 나그네여\n\n당신의 불치병은 그곳에\n\n존재할 수\n\n느리게 오래 걸어가요\n\n우 소문의 낙원으로\n\n사랑을 발견하기 위해\n\n도시를 떠나왔어요",
+    "album_art": "/images/melon/album-placeholder.svg",
+    "processed": true,
+    "release_date": "2026.04.07",
+    "album": "개화",
+    "translation": {
+      "full": "Hãy ngồi xuống đây một lát nhé\nCó súp nóng và thịt đây\nHỡi lữ khách mệt mỏi\nCó những điều ở thành phố tuyệt đối không thể biết\nCó những điều trên TV tuyệt đối không thể thấy\nThiên đường trong lời đồn\nNếu có ai chế nhạo, tôi sẽ càng thêm mạnh mẽ\nThiên đường trong lời đồn\nTôi đã làm vỡ mụn nước và quấn băng gạc\nCó những điều chỉ khi rời đi mới có thể biết\nHỡi lữ khách mệt mỏi và ốm yếu\nHỡi lữ khách cô đơn của chúng ta\nCăn bệnh nan y của bạn, ở nơi đó\nSẽ không thể tồn tại được\nHãy ngồi xuống đây một lát nhé\nCó súp nóng và thịt đây\nThiên đường trong lời đồn\nTất cả chúng ta đều lên đường tìm kiếm nơi đó\nCó một thế giới mà kẻ hèn nhát sẽ không bao giờ biết đến\nHỡi lữ khách mệt mỏi và ốm yếu\nHỡi lữ khách cô đơn của chúng ta\nCăn bệnh nan y của bạn, ở nơi đó\nSẽ không thể tồn tại\nHãy bước thật chậm và thật lâu\nĐến thiên đường trong lời đồn của chúng ta\nĐể tìm thấy tình yêu\nTôi đã rời bỏ thành phố"
+    },
+    "vocabulary": [
+      {
+        "korean": "나그네",
+        "romaji": "na-geu-ne",
+        "topikLevel": "2",
+        "vietnamese": "Lữ khách"
+      },
+      {
+        "korean": "낙원",
+        "romaji": "nag-won",
+        "topikLevel": "3",
+        "vietnamese": "Thiên đường"
+      },
+      {
+        "korean": "불치병",
+        "romaji": "bul-chi-byeong",
+        "topikLevel": "4",
+        "vietnamese": "Bệnh nan y"
+      },
+      {
+        "korean": "소문",
+        "romaji": "so-mun",
+        "topikLevel": "2",
+        "vietnamese": "Lời đồn"
+      },
+      {
+        "korean": "스프",
+        "romaji": "seu-peu",
+        "topikLevel": "1",
+        "vietnamese": "Súp"
+      },
+      {
+        "korean": "붕대",
+        "romaji": "bung-dae",
+        "topikLevel": "3",
+        "vietnamese": "Băng gạc"
+      },
+      {
+        "korean": "겁쟁이",
+        "romaji": "geop-jaeng-i",
+        "topikLevel": "2",
+        "vietnamese": "Kẻ hèn nhát"
+      },
+      {
+        "korean": "발견",
+        "romaji": "bal-gyeon",
+        "topikLevel": "3",
+        "vietnamese": "Sự phát hiện"
+      },
+      {
+        "korean": "존재",
+        "romaji": "jon-jae",
+        "topikLevel": "3",
+        "vietnamese": "Sự tồn tại"
+      },
+      {
+        "korean": "떠나다",
+        "romaji": "tteo-na-da",
+        "topikLevel": "1",
+        "vietnamese": "Rời đi"
+      }
+    ],
+    "grammar": [
+      {
+        "meaning": "Giải thích: Đuôi câu kết thúc thân mật, lịch sự, thường dùng để rủ rê, mời gọi hoặc đề nghị.",
+        "pattern": "V/A + 아/어요 (Thể mời gọi, rủ rê lịch sự)",
+        "examples": [
+          {
+            "sentence": "잠깐 앉아요",
+            "translation": "Hãy ngồi xuống một lát nhé"
+          }
+        ]
+      },
+      {
+        "meaning": "Giải thích: Biểu thị điều kiện, giả định. Nếu vế trước xảy ra thì sẽ dẫn đến kết quả ở vế sau.",
+        "pattern": "V/A + (으)면 (Nếu... thì...)",
+        "examples": [
+          {
+            "sentence": "누군가 비웃으면 난 더 힘내요",
+            "translation": "Nếu có ai chế nhạo, tôi sẽ càng thêm mạnh mẽ"
+          }
+        ]
+      },
+      {
+        "meaning": "Giải thích: Diễn tả mục đích của hành động. Có nghĩa là \"để làm gì đó\".",
+        "pattern": "V/A + 기 위해 (Để...)",
+        "examples": [
+          {
+            "sentence": "사랑을 발견하기 위해 도시를 떠나왔어요",
+            "translation": "Để tìm thấy tình yêu, tôi đã rời bỏ thành phố"
+          }
+        ]
+      }
+    ],
+    "difficulty": {
+      "color": "yellow",
+      "label": "Trung bình",
+      "level": "medium",
+      "score": 2,
+      "reason": "Từ vựng có một số từ trừu tượng và chủ đề sâu sắc, nhưng cấu trúc câu và ngữ pháp khá rõ ràng, phù hợp với người học có trình độ sơ trung cấp."
+    },
+    "created_at": "2026-05-14T06:01:28.034448+00:00",
+    "updated_at": "2026-05-14T06:01:28.034448+00:00",
+    "audio_url": null
+  },
+  {
+    "id": 7,
+    "rank": 2,
+    "title": "기쁨, 슬픔, 아름다운 마음",
+    "artist": "AKMU (악뮤)  ✅",
+    "genre": "발라드",
+    "lyrics": "기쁨 뒤에 슬픔이 오는 건\n\n아름다운 마음이야\n\n쫓아내지 말고 품어주어라\n\n아주 예쁜 돌이 된단다\n\n햇빛 뒤에 그늘이 있는 건\n\n사랑스러운 모습이야\n\n밝은 미소를 짓지 않아도\n\n사랑할 이유가 많단다\n\n너의 웃음과 조화로운 너의 눈물\n\n이보다 더 좋은 것은 없어\n\n흐린 날도 화창한 날도 시린 날도\n\n끼우고 나면 다 퍼즐이 될 거야\n\n기쁨 뒤에 슬픔이 오는 건\n\n아름다운 마음이야\n\n겁내지 말고 마주앉아라\n\n찬란한 그림이 된단다\n\n너의 웃음과 조화로운 너의 눈물\n\n이보다 더 좋은 것은 없어\n\n흐린 날도 화창한 날도 시린 날도\n\n끼우고 나면 다 퍼즐이 될 거야\n\n이보다 더 좋은 게 어딨어\n\n슬프고도 외로운 밤이\n\n찾아오지 않는 날\n\n모든 게 애틋할 거야\n\n너의 웃음과 조화로운 너의 눈물\n\n기쁨 뒤에 슬픔이 오는 건\n\n아름다운 마음이야",
+    "album_art": "/images/melon/album-placeholder.svg",
+    "processed": true,
+    "release_date": "2026.04.07",
+    "album": "개화",
+    "translation": {
+      "full": "Sau niềm vui là nỗi buồn ập đến\nĐó là một tâm hồn đẹp đẽ\nĐừng xua đuổi mà hãy ôm ấp lấy nó\nRồi nó sẽ trở thành một viên đá rất đẹp\n\nĐằng sau ánh nắng có bóng râm\nĐó là một hình ảnh đáng yêu\nDù không nở nụ cười rạng rỡ\nVẫn có rất nhiều lý do để yêu thương\n\nNụ cười của em và những giọt nước mắt hài hòa của em\nKhông có gì tốt đẹp hơn điều này nữa\nNgày u ám, ngày nắng đẹp hay ngày giá lạnh\nKhi ghép lại tất cả, chúng sẽ trở thành một bức tranh ghép hoàn chỉnh\n\nSau niềm vui là nỗi buồn ập đến\nĐó là một tâm hồn đẹp đẽ\nĐừng sợ hãi, hãy ngồi đối diện với nó\nRồi nó sẽ trở thành một bức tranh rực rỡ\n\nNụ cười của em và những giọt nước mắt hài hòa của em\nKhông có gì tốt đẹp hơn điều này nữa\nNgày u ám, ngày nắng đẹp hay ngày giá lạnh\nKhi ghép lại tất cả, chúng sẽ trở thành một bức tranh ghép hoàn chỉnh\n\nCòn điều gì tốt đẹp hơn thế này nữa\nVào những ngày mà đêm buồn bã và cô đơn\nKhông tìm đến\nMọi thứ sẽ trở nên tha thiết, quý giá\n\nNụ cười của em và những giọt nước mắt hài hòa của em\nSau niềm vui là nỗi buồn ập đến\nĐó là một tâm hồn đẹp đẽ"
+    },
+    "vocabulary": [
+      {
+        "korean": "기쁨",
+        "romaji": "gi-ppeum",
+        "topikLevel": "2",
+        "vietnamese": "Niềm vui"
+      },
+      {
+        "korean": "슬픔",
+        "romaji": "seul-peum",
+        "topikLevel": "2",
+        "vietnamese": "Nỗi buồn"
+      },
+      {
+        "korean": "아름다운",
+        "romaji": "a-reum-da-un",
+        "topikLevel": "1",
+        "vietnamese": "Đẹp đẽ"
+      },
+      {
+        "korean": "마음",
+        "romaji": "ma-eum",
+        "topikLevel": "1",
+        "vietnamese": "Tâm hồn"
+      },
+      {
+        "korean": "품어주다",
+        "romaji": "pu-meo-ju-da",
+        "topikLevel": "3",
+        "vietnamese": "Ôm ấp"
+      },
+      {
+        "korean": "그늘",
+        "romaji": "geu-neul",
+        "topikLevel": "2",
+        "vietnamese": "Bóng râm"
+      },
+      {
+        "korean": "사랑스럽다",
+        "romaji": "sa-rang-seu-reop-da",
+        "topikLevel": "2",
+        "vietnamese": "Đáng yêu"
+      },
+      {
+        "korean": "조화롭다",
+        "romaji": "jo-hwa-rop-da",
+        "topikLevel": "3",
+        "vietnamese": "Hài hòa"
+      },
+      {
+        "korean": "퍼즐",
+        "romaji": "peo-jeul",
+        "topikLevel": "1",
+        "vietnamese": "Tranh ghép"
+      },
+      {
+        "korean": "찬란하다",
+        "romaji": "chan-ran-ha-da",
+        "topikLevel": "3",
+        "vietnamese": "Rực rỡ"
+      }
+    ],
+    "grammar": [
+      {
+        "meaning": "Giải thích ngắn: Cấu trúc nhấn mạnh chủ đề hoặc đối tượng được nói đến, thường dịch là \"việc...\".",
+        "pattern": "V/A + 는/은 건 (dạng rút gọn của 것은)",
+        "examples": [
+          {
+            "sentence": "기쁨 뒤에 슬픔이 오는 건 아름다운 마음이야",
+            "translation": "Việc nỗi buồn đến sau niềm vui là một tâm hồn đẹp đẽ."
+          }
+        ]
+      },
+      {
+        "meaning": "Giải thích ngắn: Diễn tả sự ngăn cản, khuyên ai đó đừng làm việc này mà hãy làm việc khác.",
+        "pattern": "V/A + 지 말고 (dùng với động từ)",
+        "examples": [
+          {
+            "sentence": "쫓아내지 말고 품어주어라",
+            "translation": "Đừng xua đuổi mà hãy ôm ấp lấy nó."
+          }
+        ]
+      },
+      {
+        "meaning": "Giải thích ngắn: Diễn tả dự đoán, ý định hoặc kế hoạch trong tương lai.",
+        "pattern": "V/A + (으)ㄹ 거야 (dạng dự đoán tương lai)",
+        "examples": [
+          {
+            "sentence": "끼우고 나면 다 퍼즐이 될 거야",
+            "translation": "Khi ghép lại tất cả, chúng sẽ trở thành một bức tranh ghép hoàn chỉnh."
+          }
+        ]
+      }
+    ],
+    "difficulty": {
+      "color": "yellow",
+      "label": "Trung bình",
+      "level": "medium",
+      "score": 2,
+      "reason": "Từ vựng quen thuộc nhưng có một số cách diễn đạt mang tính văn chương và ẩn dụ."
+    },
+    "created_at": "2026-05-14T06:01:28.034448+00:00",
+    "updated_at": "2026-05-14T06:01:28.034448+00:00",
+    "audio_url": null
+  },
+  {
+    "id": 8,
+    "rank": 3,
+    "title": "REDRED",
+    "artist": "CORTIS (코르티스)  ✅",
+    "genre": "댄스",
+    "lyrics": "따바라 한 모금 sip\n\n카페인이 또 kickin in\n\n어젯밤에 만들던 beat\n\n내 폰에다 담아서 거리로 나가서\n\n다섯이 고개를 빙빙\n\n입꼬린 올라가 히히\n\n핸드폰 바꿔 놔 DND\n\nSeeing all kinds of green green\n\n쉿 한파에\n\nI put my hands in my pocket\n\nOutside 한 밤에\n\n사람 없는 스팟으로 빨리\n\nI’ll do that sh- all with my team\n\n누군가 싫어할 짓\n\n알 바가 아니여 get it get it\n\n신호등 바뀌었어 green green\n\n팔랑귀 팔랑귀 (that’s red-red)\n\n눈치나 살피기 (that’s red-red)\n\n도가니 사리기 (that’s red-red)\n\n넘어가 울타리 green green\n\n궁뎅이 가리기 (that’s red-red)\n\n주변을 살피기 (that’s red-red)\n\n쿨한 척 척하기 (that’s red-red)\n\nYou should come mess with the team\n\n내 친구들 전부 한 트럭에다 담아서\n\n거리로 나가서 빙빙\n\n거리서 돌다가 돌아가 studio\n\nCookin up til we get stinky\n\n팔랑귀 팔랑귀 (that’s red-red)\n\n눈치나 살피기 (that’s red-red)\n\n도가니 사리기 (that’s red-red)\n\nYou should come mess with the team\n\nThey called me a freak\n\n홀린 듯이, yeah\n\n만들던 tracks, yeah\n\n듣고 모인 friends, yeah\n\n하루가 갈수록 늘어가 pack\n\n진짜배기처럼 밟아가 step\n\nScreaming loud like yeah yeah\n\n고개 까딱여 like yeah yeah\n\nF1, 들지 마 red flag\n\nYou should come mess with the team\n\n(Tell me what’s red)\n\n차갑게 방치된 city (that’s red)\n\n먼지가 쌓인 그 CD (that’s red)\n\n정숙한 무대는 시시해\n\n답답해 정수리 시뻘게지지 (that’s red)\n\nWe gotta pop out to show how\n\n다시 배워 봐 you gotta note down\n\n불러와 버려 두 번째 혼란\n\n신호등 바뀌었어 green green\n\n팔랑귀 팔랑귀 (that’s red-red)\n\n눈치나 살피기 (that’s red-red)\n\n도가니 사리기 (that’s red-red)\n\n넘어가 울타리 green green\n\n궁뎅이 가리기 (that’s red-red)\n\n주변을 살피기 (that’s red-red)\n\n쿨한 척 척하기 (that’s red-red)\n\nYou should come mess with the team\n\nTurn it up\n\nI told you to turn it up\n\nI don’t mess with no stupid red signs\n\n신호등 바뀌었어 green green\n\n팔랑귀 팔랑귀 (that’s red-red)\n\n눈치나 살피기 (that’s red-red)\n\n도가니 사리기 (that’s red-red)\n\n넘어가 울타리 green green\n\n궁뎅이 가리기 (that’s red-red)\n\n주변을 살피기 (that’s red-red)\n\n쿨한 척 척하기 (that’s red-red)\n\nYou should come mess with the team\n\n내 친구들 전부 한 트럭에다 담아서\n\n거리로 나가서 빙빙\n\n거리서 돌다가 돌아가 studio\n\nCookin up til we get stinky\n\n팔랑귀 팔랑귀 (that’s red-red)\n\n눈치나 살피기 (that’s red-red)\n\n도가니 사리기 (that’s red-red)\n\nYou should come mess with the team",
+    "album_art": "/images/melon/album-placeholder.svg",
+    "processed": true,
+    "release_date": "2026.04.20",
+    "album": "GREENGREEN",
+    "translation": {
+      "full": "Một ngụm cà phê đen đặc sip  \nChất caffeine lại một lần nữa kickin in  \nBeat tôi làm tối qua  \nTôi lưu vào điện thoại rồi bước ra phố  \nNăm chiếc đầu lắc lư vòng vòng  \nKhóe miệng nhếch lên hí hí  \nĐổi chế độ điện thoại sang DND  \nNhìn thấy đủ thứ màu xanh xanh  \nSuỵt một đợt lạnh  \nTôi nhét tay vào túi  \nBên ngoài lúc nửa đêm  \nNhanh chóng đến chỗ không có người  \nTôi sẽ làm mấy trò đó cùng cả team  \nNhững việc ai đó sẽ ghét  \nKhông phải việc tôi phải quan tâm, get it get it  \nĐèn tín hiệu đã đổi sang xanh xanh  \nVểnh tai lên nghe ngóng (that's red-red)  \nQuan sát sắc mặt (that's red-red)  \nThu mình lại tránh né (that's red-red)  \nVượt qua hàng rào xanh xanh  \nChe đít lại (that's red-red)  \nQuan sát xung quanh (that's red-red)  \nGiả vờ tỏ ra ngầu (that's red-red)  \nYou should come mess with the team  \nChất hết đám bạn tôi lên một chiếc xe tải  \nRồi lao ra phố vòng vòng  \nLang thang trên phố rồi quay về studio  \nLàm việc cho đến khi chúng tôi bốc mùi  \nVểnh tai lên nghe ngóng (that's red-red)  \nQuan sát sắc mặt (that's red-red)  \nThu mình lại tránh né (that's red-red)  \nYou should come mess with the team  \nHọ gọi tôi là tên quái dị  \nNhư bị thôi miên, yeah  \nNhững track đang làm, yeah  \nNhững người bạn nghe và tụ tập lại, yeah  \nMỗi ngày đám đông lại đông thêm  \nDẫm bước như một tay chính hiệu  \nHét to như yeah yeah  \nGật đầu như yeah yeah  \nF1, đừng nghe theo cờ đỏ  \nYou should come mess with the team  \n(Tell me what's red)  \nThành phố lạnh lẽo bị bỏ hoang (that's red)  \nChiếc CD kia phủ đầy bụi (that's red)  \nSân khấu trịnh trọng thật nhàm chán  \nNgột ngạt đến nỗi đỉnh đầu đỏ lên (that's red)  \nChúng tôi phải xuất hiện để thể hiện  \nHãy học lại đi, bạn phải ghi chú lại  \nGọi về sự hỗn loạn thứ hai  \nĐèn tín hiệu đã đổi sang xanh xanh  \nVểnh tai lên nghe ngóng (that's red-red)  \nQuan sát sắc mặt (that's red-red)  \nThu mình lại tránh né (that's red-red)  \nVượt qua hàng rào xanh xanh  \nChe đít lại (that's red-red)  \nQuan sát xung quanh (that's red-red)  \nGiả vờ tỏ ra ngầu (that's red-red)  \nYou should come mess with the team  \nTurn it up  \nTôi đã bảo cậu turn it up rồi mà  \nTôi không nhúng tay vào mấy cái dấu hiệu đỏ ngu ngốc đâu  \nĐèn tín hiệu đã đổi sang xanh xanh  \nVểnh tai lên nghe ngóng (that's red-red)  \nQuan sát sắc mặt (that's red-red)  \nThu mình lại tránh né (that's red-red)  \nVượt qua hàng rào xanh xanh  \nChe đít lại (that's red-red)  \nQuan sát xung quanh (that's red-red)  \nGiả vờ tỏ ra ngầu (that's red-red)  \nYou should come mess with the team  \nChất hết đám bạn tôi lên một chiếc xe tải  \nRồi lao ra phố vòng vòng  \nLang thang trên phố rồi quay về studio  \nLàm việc cho đến khi chúng tôi bốc mùi  \nVểnh tai lên nghe ngóng (that's red-red)  \nQuan sát sắc mặt (that's red-red)  \nThu mình lại tránh né (that's red-red)  \nYou should come mess with the team"
+    },
+    "vocabulary": [
+      {
+        "korean": "따바라",
+        "romaji": "tta-ba-ra",
+        "topikLevel": "2",
+        "vietnamese": "Cà phê đen đặc"
+      },
+      {
+        "korean": "입꼬리",
+        "romaji": "ip-kko-ri",
+        "topikLevel": "2",
+        "vietnamese": "Khóe miệng"
+      },
+      {
+        "korean": "팔랑귀",
+        "romaji": "pal-lang-gwi",
+        "topikLevel": "3",
+        "vietnamese": "Vểnh tai (nghe ngóng)"
+      },
+      {
+        "korean": "눈치",
+        "romaji": "nun-chi",
+        "topikLevel": "2",
+        "vietnamese": "Sắc mặt/ý đồ"
+      },
+      {
+        "korean": "도가니",
+        "romaji": "do-ga-ni",
+        "topikLevel": "3",
+        "vietnamese": "Nồi nấu kim loại (nghĩa bóng: thu mình)"
+      },
+      {
+        "korean": "궁뎅이",
+        "romaji": "gung-deong-i",
+        "topikLevel": "2",
+        "vietnamese": "Mông đít"
+      },
+      {
+        "korean": "스팟",
+        "romaji": "seu-pat",
+        "topikLevel": "1",
+        "vietnamese": "Địa điểm"
+      },
+      {
+        "korean": "정수리",
+        "romaji": "jeong-su-ri",
+        "topikLevel": "3",
+        "vietnamese": "Đỉnh đầu"
+      },
+      {
+        "korean": "시시하다",
+        "romaji": "si-si-ha-da",
+        "topikLevel": "2",
+        "vietnamese": "Nhàm chán"
+      },
+      {
+        "korean": "답답하다",
+        "romaji": "dap-dap-ha-da",
+        "topikLevel": "2",
+        "vietnamese": "Ngột ngạt"
+      }
+    ],
+    "grammar": [
+      {
+        "meaning": "Biểu thị nguyên nhân, lý do hoặc trình tự hành động trước sau.",
+        "pattern": "V/A + 어/아/여서",
+        "examples": [
+          {
+            "sentence": "내 폰에다 담아서 거리로 나가서",
+            "translation": "Tôi lưu vào điện thoại rồi bước ra phố"
+          }
+        ]
+      },
+      {
+        "meaning": "Giả vờ, làm ra vẻ như đang thực hiện hành động hoặc có trạng thái đó.",
+        "pattern": "V + 는/ㄴ/은 척 하다",
+        "examples": [
+          {
+            "sentence": "쿨한 척 척하기",
+            "translation": "Giả vờ tỏ ra ngầu"
+          }
+        ]
+      },
+      {
+        "meaning": "Càng... thì càng... Diễn tả mức độ tăng lên theo hành động/trạng thái.",
+        "pattern": "V/A + (으)ㄹ수록",
+        "examples": [
+          {
+            "sentence": "하루가 갈수록 늘어가 pack",
+            "translation": "Mỗi ngày đám đông lại đông thêm"
+          }
+        ]
+      }
+    ],
+    "difficulty": {
+      "color": "yellow",
+      "label": "Trung bình",
+      "level": "medium",
+      "score": 2,
+      "reason": "Sử dụng nhiều từ lóng, thuật ngữ đặc thù và cách diễn đạt"
+    },
+    "created_at": "2026-05-14T06:01:28.034448+00:00",
+    "updated_at": "2026-05-14T06:01:28.034448+00:00",
+    "audio_url": null
+  }
+]

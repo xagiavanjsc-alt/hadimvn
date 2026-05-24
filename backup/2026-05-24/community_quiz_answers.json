@@ -1,0 +1,44 @@
+[
+  {
+    "post_id": "dfc5b773-c10a-4991-9fcc-7bd47fc7e299",
+    "user_id": "e9bc8be9-6a7f-4572-ac37-232c7d2b5a0f",
+    "selected_option": 4,
+    "is_correct": true,
+    "answered_at": "2026-05-03T18:40:51.306335+00:00"
+  },
+  {
+    "post_id": "dfc5b773-c10a-4991-9fcc-7bd47fc7e299",
+    "user_id": "066116cf-3835-4ca5-b83e-c47811561361",
+    "selected_option": 4,
+    "is_correct": true,
+    "answered_at": "2026-05-03T18:58:08.657609+00:00"
+  },
+  {
+    "post_id": "dfc5b773-c10a-4991-9fcc-7bd47fc7e299",
+    "user_id": "63c367b3-8302-4d17-b3ae-5355911a84a0",
+    "selected_option": 4,
+    "is_correct": true,
+    "answered_at": "2026-05-03T19:14:50.069672+00:00"
+  },
+  {
+    "post_id": "dfc5b773-c10a-4991-9fcc-7bd47fc7e299",
+    "user_id": "0a5f97ab-4e25-4e27-a3de-382fb0216179",
+    "selected_option": 4,
+    "is_correct": true,
+    "answered_at": "2026-05-03T23:36:58.910322+00:00"
+  },
+  {
+    "post_id": "dfc5b773-c10a-4991-9fcc-7bd47fc7e299",
+    "user_id": "7ff1170a-9a8d-493e-9cd3-ea31b2f0d4af",
+    "selected_option": 4,
+    "is_correct": true,
+    "answered_at": "2026-05-03T23:44:27.562314+00:00"
+  },
+  {
+    "post_id": "dfc5b773-c10a-4991-9fcc-7bd47fc7e299",
+    "user_id": "f8354cf4-9852-41f2-883a-ac82fc7405cd",
+    "selected_option": 4,
+    "is_correct": true,
+    "answered_at": "2026-05-04T21:24:41.639478+00:00"
+  }
+]

@@ -1,0 +1,222 @@
+[
+  {
+    "id": "greeting",
+    "label": "Giao tiếp cơ bản",
+    "label_ko": "기본 인사",
+    "icon": "ri-chat-smile-2-line",
+    "color": "#34d399",
+    "description": "Chào hỏi, giới thiệu bản thân",
+    "sort_order": 0,
+    "created_at": "2026-05-23T22:14:52.794498+00:00"
+  },
+  {
+    "id": "workplace",
+    "label": "Nơi làm việc",
+    "label_ko": "직장",
+    "icon": "ri-briefcase-line",
+    "color": "#38bdf8",
+    "description": "Văn phòng, nhà máy, công trường",
+    "sort_order": 1,
+    "created_at": "2026-05-23T22:14:52.794498+00:00"
+  },
+  {
+    "id": "safety",
+    "label": "An toàn lao động",
+    "label_ko": "산업 안전",
+    "icon": "ri-shield-check-line",
+    "color": "#fb923c",
+    "description": "Thiết bị bảo hộ, quy tắc an toàn",
+    "sort_order": 2,
+    "created_at": "2026-05-23T22:14:52.794498+00:00"
+  },
+  {
+    "id": "body",
+    "label": "Cơ thể & Sức khỏe",
+    "label_ko": "신체와 건강",
+    "icon": "ri-heart-pulse-line",
+    "color": "#f472b6",
+    "description": "Bộ phận cơ thể, triệu chứng bệnh",
+    "sort_order": 3,
+    "created_at": "2026-05-23T22:14:52.794498+00:00"
+  },
+  {
+    "id": "hospital",
+    "label": "Bệnh viện",
+    "label_ko": "병원",
+    "icon": "ri-hospital-line",
+    "color": "#e879f9",
+    "description": "Khám bệnh, thuốc, điều trị",
+    "sort_order": 4,
+    "created_at": "2026-05-23T22:14:52.794498+00:00"
+  },
+  {
+    "id": "transport",
+    "label": "Giao thông",
+    "label_ko": "교통",
+    "icon": "ri-bus-line",
+    "color": "#06b6d4",
+    "description": "Phương tiện, đường đi, chỉ đường",
+    "sort_order": 5,
+    "created_at": "2026-05-23T22:14:52.794498+00:00"
+  },
+  {
+    "id": "food",
+    "label": "Ẩm thực",
+    "label_ko": "음식",
+    "icon": "ri-restaurant-line",
+    "color": "#f59e0b",
+    "description": "Món ăn, nhà hàng, nấu ăn",
+    "sort_order": 6,
+    "created_at": "2026-05-23T22:14:52.794498+00:00"
+  },
+  {
+    "id": "shopping",
+    "label": "Mua sắm",
+    "label_ko": "쇼핑",
+    "icon": "ri-shopping-bag-line",
+    "color": "#a78bfa",
+    "description": "Cửa hàng, giá cả, thanh toán",
+    "sort_order": 7,
+    "created_at": "2026-05-23T22:14:52.794498+00:00"
+  },
+  {
+    "id": "housing",
+    "label": "Nhà ở",
+    "label_ko": "주거",
+    "icon": "ri-home-line",
+    "color": "#34d399",
+    "description": "Thuê nhà, đồ nội thất, tiện ích",
+    "sort_order": 8,
+    "created_at": "2026-05-23T22:14:52.794498+00:00"
+  },
+  {
+    "id": "weather",
+    "label": "Thời tiết",
+    "label_ko": "날씨",
+    "icon": "ri-sun-line",
+    "color": "#fbbf24",
+    "description": "Thời tiết, mùa, khí hậu",
+    "sort_order": 9,
+    "created_at": "2026-05-23T22:14:52.794498+00:00"
+  },
+  {
+    "id": "time",
+    "label": "Thời gian",
+    "label_ko": "시간",
+    "icon": "ri-time-line",
+    "color": "#60a5fa",
+    "description": "Giờ, ngày, tháng, năm",
+    "sort_order": 10,
+    "created_at": "2026-05-23T22:14:52.794498+00:00"
+  },
+  {
+    "id": "number",
+    "label": "Số đếm",
+    "label_ko": "숫자",
+    "icon": "ri-calculator-line",
+    "color": "#4ade80",
+    "description": "Số đếm, đơn vị, tiền tệ",
+    "sort_order": 11,
+    "created_at": "2026-05-23T22:14:52.794498+00:00"
+  },
+  {
+    "id": "family",
+    "label": "Gia đình",
+    "label_ko": "가족",
+    "icon": "ri-group-line",
+    "color": "#fb7185",
+    "description": "Các thành viên gia đình",
+    "sort_order": 12,
+    "created_at": "2026-05-23T22:14:52.794498+00:00"
+  },
+  {
+    "id": "law",
+    "label": "Pháp luật lao động",
+    "label_ko": "노동법",
+    "icon": "ri-scales-3-line",
+    "color": "#f59e0b",
+    "description": "Hợp đồng, lương, quyền lợi",
+    "sort_order": 13,
+    "created_at": "2026-05-23T22:14:52.794498+00:00"
+  },
+  {
+    "id": "emergency",
+    "label": "Khẩn cấp",
+    "label_ko": "긴급 상황",
+    "icon": "ri-alarm-warning-line",
+    "color": "#f87171",
+    "description": "Tai nạn, cứu thương, báo cáo",
+    "sort_order": 14,
+    "created_at": "2026-05-23T22:14:52.794498+00:00"
+  },
+  {
+    "id": "culture",
+    "label": "Văn hóa Hàn Quốc",
+    "label_ko": "한국 문화",
+    "icon": "ri-building-2-line",
+    "color": "#c084fc",
+    "description": "Phong tục, lễ hội, ứng xử",
+    "sort_order": 15,
+    "created_at": "2026-05-23T22:14:52.794498+00:00"
+  },
+  {
+    "id": "direction",
+    "label": "Chỉ đường",
+    "label_ko": "길 안내",
+    "icon": "ri-map-pin-line",
+    "color": "#2dd4bf",
+    "description": "Vị trí, hướng, địa điểm",
+    "sort_order": 16,
+    "created_at": "2026-05-23T22:14:52.794498+00:00"
+  },
+  {
+    "id": "emotion",
+    "label": "Cảm xúc",
+    "label_ko": "감정",
+    "icon": "ri-emotion-line",
+    "color": "#f472b6",
+    "description": "Cảm xúc, tâm trạng",
+    "sort_order": 17,
+    "created_at": "2026-05-23T22:14:52.794498+00:00"
+  },
+  {
+    "id": "action",
+    "label": "Hành động",
+    "label_ko": "동작",
+    "icon": "ri-run-line",
+    "color": "#34d399",
+    "description": "Động từ hành động thường dùng",
+    "sort_order": 18,
+    "created_at": "2026-05-23T22:14:52.794498+00:00"
+  },
+  {
+    "id": "adjective",
+    "label": "Tính từ",
+    "label_ko": "형용사",
+    "icon": "ri-font-size",
+    "color": "#a78bfa",
+    "description": "Mô tả, tính chất, trạng thái",
+    "sort_order": 19,
+    "created_at": "2026-05-23T22:14:52.794498+00:00"
+  },
+  {
+    "id": "sports",
+    "label": "Thể thao",
+    "label_ko": "스포츠",
+    "icon": "ri-run-line",
+    "color": "#34d399",
+    "description": "Các môn thể thao, dụng cụ tập luyện",
+    "sort_order": 20,
+    "created_at": "2026-05-23T22:14:52.794498+00:00"
+  },
+  {
+    "id": "location",
+    "label": "Vị trí & Địa điểm",
+    "label_ko": "위치와 장소",
+    "icon": "ri-map-pin-line",
+    "color": "#60a5fa",
+    "description": "Chỉ hướng, vị trí, địa điểm",
+    "sort_order": 21,
+    "created_at": "2026-05-23T22:14:52.794498+00:00"
+  }
+]

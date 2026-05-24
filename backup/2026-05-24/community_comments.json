@@ -1,0 +1,86 @@
+[
+  {
+    "id": "03ee194d-a7d1-4065-a275-c6df828b0c48",
+    "post_id": "f3ff7251-33b6-4db3-99bf-7c6940007a50",
+    "parent_id": null,
+    "user_id": "e9bc8be9-6a7f-4572-ac37-232c7d2b5a0f",
+    "author_name": "Phạm Thu",
+    "author_level": "Học viên",
+    "content": "Cảm ơn bạn nhiều",
+    "likes": 0,
+    "created_at": "2026-05-03T16:02:35.599568+00:00",
+    "status": "approved"
+  },
+  {
+    "id": "9a9bb0bc-098d-44ad-bf1f-7bfc4581a48b",
+    "post_id": "dfc5b773-c10a-4991-9fcc-7bd47fc7e299",
+    "parent_id": null,
+    "user_id": "e9bc8be9-6a7f-4572-ac37-232c7d2b5a0f",
+    "author_name": "Phạm Thu",
+    "author_level": "Học viên",
+    "content": "✅ Mình chọn <strong>D. 구름</strong> và đã trả lời đúng! 🎉",
+    "likes": 0,
+    "created_at": "2026-05-03T18:40:51.442641+00:00",
+    "status": "approved"
+  },
+  {
+    "id": "c02dd6ba-b6f1-47bc-80c4-1a914598183d",
+    "post_id": "dfc5b773-c10a-4991-9fcc-7bd47fc7e299",
+    "parent_id": null,
+    "user_id": "066116cf-3835-4ca5-b83e-c47811561361",
+    "author_name": "Thanh Xuân",
+    "author_level": "Học viên",
+    "content": "✅ Mình chọn <strong>D. 구름</strong> và đã trả lời đúng! 🎉",
+    "likes": 0,
+    "created_at": "2026-05-03T18:58:08.819699+00:00",
+    "status": "approved"
+  },
+  {
+    "id": "5191db58-51df-4593-8c59-0f23adacf1ad",
+    "post_id": "dfc5b773-c10a-4991-9fcc-7bd47fc7e299",
+    "parent_id": null,
+    "user_id": "63c367b3-8302-4d17-b3ae-5355911a84a0",
+    "author_name": "Thảo Ly",
+    "author_level": "Học viên",
+    "content": "✅ Mình chọn <strong>D. 구름</strong> và đã trả lời đúng! 🎉",
+    "likes": 0,
+    "created_at": "2026-05-03T19:14:50.206855+00:00",
+    "status": "approved"
+  },
+  {
+    "id": "41584e49-82e2-4adc-afce-b2affe640f57",
+    "post_id": "dfc5b773-c10a-4991-9fcc-7bd47fc7e299",
+    "parent_id": null,
+    "user_id": "0a5f97ab-4e25-4e27-a3de-382fb0216179",
+    "author_name": "Xuân Hoa",
+    "author_level": "Học viên",
+    "content": "✅ Mình chọn <strong>D. 구름</strong> và đã trả lời đúng! 🎉",
+    "likes": 0,
+    "created_at": "2026-05-03T23:36:59.280307+00:00",
+    "status": "approved"
+  },
+  {
+    "id": "d214c2f7-6828-46eb-928d-1c5836fbe296",
+    "post_id": "dfc5b773-c10a-4991-9fcc-7bd47fc7e299",
+    "parent_id": null,
+    "user_id": "7ff1170a-9a8d-493e-9cd3-ea31b2f0d4af",
+    "author_name": "Hải Anh",
+    "author_level": "Học viên",
+    "content": "✅ Mình chọn <strong>D. 구름</strong> và đã trả lời đúng! 🎉",
+    "likes": 0,
+    "created_at": "2026-05-03T23:44:27.690879+00:00",
+    "status": "approved"
+  },
+  {
+    "id": "ed6f798e-e05a-4782-8bf3-4e8df79a6d53",
+    "post_id": "dfc5b773-c10a-4991-9fcc-7bd47fc7e299",
+    "parent_id": null,
+    "user_id": "f8354cf4-9852-41f2-883a-ac82fc7405cd",
+    "author_name": "Vân Anh",
+    "author_level": "Học viên",
+    "content": "✅ Mình chọn <strong>D. 구름</strong> và đã trả lời đúng! 🎉",
+    "likes": 0,
+    "created_at": "2026-05-04T21:24:41.781229+00:00",
+    "status": "approved"
+  }
+]

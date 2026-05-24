@@ -1,0 +1,70 @@
+[
+  {
+    "id": "a9039c23-b0d1-45fc-bef9-bba2f0cb4cb4",
+    "user_id": "0a5f97ab-4e25-4e27-a3de-382fb0216179",
+    "score": 3,
+    "total": 10,
+    "time_used": 62,
+    "correct_ids": [
+      "eps_q_1",
+      "eps_q_2",
+      "eps_q_5"
+    ],
+    "taken_at": "2026-05-08T00:13:04.879+00:00",
+    "exam_type": "eps",
+    "is_valid": true
+  },
+  {
+    "id": "3a994ee8-e670-46a2-97cd-87ed1d130c30",
+    "user_id": "066116cf-3835-4ca5-b83e-c47811561361",
+    "score": 0,
+    "total": 10,
+    "time_used": 31,
+    "correct_ids": [],
+    "taken_at": "2026-05-09T12:29:55.863+00:00",
+    "exam_type": "eps",
+    "is_valid": true
+  },
+  {
+    "id": "5942ed5a-dc6c-4013-86f5-4134fb438554",
+    "user_id": "503306bb-8fdf-4836-afed-7e8dcdd31427",
+    "score": 30,
+    "total": 50,
+    "time_used": 616,
+    "correct_ids": [
+      "eps_1",
+      "eps_2",
+      "eps_3",
+      "eps_4",
+      "eps_5",
+      "eps_6",
+      "eps_8",
+      "eps_9",
+      "eps_10",
+      "eps_11",
+      "eps_13",
+      "eps_15",
+      "eps_16",
+      "eps_17",
+      "eps_18",
+      "eps_19",
+      "eps_20",
+      "eps_21",
+      "eps_22",
+      "eps_23",
+      "eps_27",
+      "eps_28",
+      "eps_32",
+      "eps_36",
+      "eps_41",
+      "eps_42",
+      "eps_43",
+      "eps_45",
+      "eps_49",
+      "eps_50"
+    ],
+    "taken_at": "2026-05-21T12:04:09.984+00:00",
+    "exam_type": "eps",
+    "is_valid": true
+  }
+]

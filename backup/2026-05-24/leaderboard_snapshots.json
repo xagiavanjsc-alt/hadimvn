@@ -1,0 +1,38 @@
+[
+  {
+    "id": "ee4036fc-932b-421c-9f12-1b41d3795acf",
+    "user_id": "066116cf-3835-4ca5-b83e-c47811561361",
+    "display_name": "info.choque24h",
+    "avatar_url": null,
+    "xp": 50,
+    "streak": 1,
+    "best_score": 0,
+    "words_learned": 0,
+    "level": "Cơ bản",
+    "updated_at": "2026-04-23T10:13:36.843+00:00"
+  },
+  {
+    "id": "2ac9b88e-c895-4f3f-a23a-e84748b7f21b",
+    "user_id": "1bb39da1-d39b-4eec-9038-ccf77bde9b28",
+    "display_name": "Hà Dím",
+    "avatar_url": null,
+    "xp": 150,
+    "streak": 3,
+    "best_score": 0,
+    "words_learned": 0,
+    "level": "Cơ bản",
+    "updated_at": "2026-04-23T19:56:15.344+00:00"
+  },
+  {
+    "id": "7e5f34e3-bdd2-4d2c-8bb4-72ca5111bc4c",
+    "user_id": "63c367b3-8302-4d17-b3ae-5355911a84a0",
+    "display_name": "xagiavan.jsc",
+    "avatar_url": null,
+    "xp": 50,
+    "streak": 1,
+    "best_score": 0,
+    "words_learned": 0,
+    "level": "Cơ bản",
+    "updated_at": "2026-04-20T12:56:20.17+00:00"
+  }
+]
