@@ -196,6 +196,36 @@ export function countAddedWithinDays(cards: FlashcardItem[], days: number): numb
   return n;
 }
 
+export interface LatestBatch {
+  count: number;     // items uploaded on `date`
+  date: string;      // YYYY-MM-DD of the most recent upload day
+  daysAgo: number;   // 0 = today, 1 = yesterday, ...
+}
+
+/**
+ * Find the most recent calendar day that received EPS Supabase uploads and
+ * return the count for that day. Lets the UI show the actual batch size
+ * ("Hôm nay +86 từ mới") instead of a rolling 7-day rollup that learners
+ * can't relate to. Returns null if no uploads in the last `maxDaysAgo` days.
+ */
+export function findLatestBatch(cards: FlashcardItem[], maxDaysAgo = 30): LatestBatch | null {
+  const byDay = new Map<string, number>();
+  for (const c of cards) {
+    if (c.source.kind === "eps-supabase" && c.addedAt) {
+      const day = c.addedAt.slice(0, 10); // ISO yyyy-mm-dd prefix
+      byDay.set(day, (byDay.get(day) ?? 0) + 1);
+    }
+  }
+  if (byDay.size === 0) return null;
+
+  const latestDate = [...byDay.keys()].sort((a, b) => b.localeCompare(a))[0];
+  const today = new Date().toISOString().slice(0, 10);
+  const daysAgo = Math.floor((Date.parse(today) - Date.parse(latestDate)) / (24 * 60 * 60 * 1000));
+  if (daysAgo > maxDaysAgo) return null;
+
+  return { count: byDay.get(latestDate)!, date: latestDate, daysAgo };
+}
+
 /**
  * Build a `(korean+vietnamese) → [where it appears]` map, used by the admin
  * upload page to warn about duplicates against ANY existing source — not just

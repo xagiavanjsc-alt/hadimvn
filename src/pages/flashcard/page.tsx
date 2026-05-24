@@ -14,9 +14,18 @@ import {
   buildAllFlashcards,
   filterBySource,
   countAddedWithinDays,
+  findLatestBatch,
   type FlashcardItem,
   type SourceFilterValue,
+  type LatestBatch,
 } from "@/lib/flashcardSources";
+
+function batchLabel(b: LatestBatch): string {
+  if (b.daysAgo === 0) return "hôm nay";
+  if (b.daysAgo === 1) return "hôm qua";
+  if (b.daysAgo < 7)   return `${b.daysAgo} ngày trước`;
+  return `${Math.floor(b.daysAgo / 7)} tuần trước`;
+}
 
 interface StudySession {
   cardId: string;
@@ -358,10 +367,11 @@ function FlashcardPageInner() {
 
   const masteredCount = allCards.filter(c => c.mastered).length;
 
-  // Freshness signals — count EPS Supabase items added recently so users can
+  // Freshness signals — surface the most recent admin upload batch so users
   // see the catalog growing instead of staring at the same Seoul 1A–4B dump.
+  // newestCount stays as a secondary "30 ngày" rollup in the dropdown.
   const newestCount = useMemo(() => countAddedWithinDays(allCards, 30), [allCards]);
-  const newThisWeek = useMemo(() => countAddedWithinDays(allCards, 7), [allCards]);
+  const latestBatch = useMemo(() => findLatestBatch(allCards, 30), [allCards]);
 
   // Pagination — split browse grid into 32-card pages so we don't dump
   // thousands of nodes into the DOM at once.
@@ -497,8 +507,8 @@ function FlashcardPageInner() {
       )}
       {authModalOpen && <AuthModal onClose={() => setAuthModalOpen(false)} />}
 
-      {/* Fresh-content shout — only visible weeks the catalog actually grew */}
-      {newThisWeek > 0 && mode === "browse" && (
+      {/* Fresh-content shout — concrete batch count, not a rolling rollup */}
+      {latestBatch && mode === "browse" && (
         <button
           onClick={() => { setSourceFilter("newest"); setFilterLesson("all"); setCurrentPage(1); }}
           className="w-full flex items-center justify-between gap-3 mb-4 px-4 py-3 rounded-xl border border-emerald-500/30 bg-emerald-500/5 hover:bg-emerald-500/10 transition-colors cursor-pointer text-left"
@@ -506,8 +516,8 @@ function FlashcardPageInner() {
           <div className="flex items-center gap-2.5 min-w-0">
             <i className="ri-sparkling-2-line text-emerald-400 text-base flex-shrink-0"></i>
             <p className="text-white/80 text-xs sm:text-sm">
-              <span className="font-bold text-emerald-400">+{newThisWeek}</span> từ mới tuần này
-              {newestCount > newThisWeek && <span className="text-white/40"> · {newestCount} từ trong 30 ngày</span>}
+              <span className="font-bold text-emerald-400">+{latestBatch.count}</span> từ mới {batchLabel(latestBatch)}
+              {newestCount > latestBatch.count && <span className="text-white/40"> · {newestCount} từ trong 30 ngày</span>}
             </p>
           </div>
           <span className="flex-shrink-0 text-emerald-400 text-xs font-bold whitespace-nowrap">
