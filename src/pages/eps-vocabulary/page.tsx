@@ -4,15 +4,16 @@ import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/lib/supabase";
 import { useAudioCache } from "@/hooks/useAudioCache";
-import { epsVocabulary, EPS_VOCAB_TOPICS, type EpsVocabItem } from "@/mocks/epsVocabulary";
+import { type EpsVocabItem, type EpsVocabTopic } from "@/mocks/epsVocabulary";
+import { EpsVocabProvider, useEpsVocab, useEpsVocabLoading } from "@/contexts/EpsVocabContext";
 
 // ─── PDF Export ───────────────────────────────────────────────────────────
-function exportToPDF(items: EpsVocabItem[], topicId: string) {
-  const topicLabel = EPS_VOCAB_TOPICS.find(t => t.id === topicId)?.label || "Tất cả chủ đề";
+function exportToPDF(items: EpsVocabItem[], topicId: string, topics: EpsVocabTopic[]) {
+  const topicLabel = topics.find(t => t.id === topicId)?.label || "Tất cả chủ đề";
   const date = new Date().toLocaleDateString("vi-VN");
 
   const rows = items.map((item, i) => {
-    const topic = EPS_VOCAB_TOPICS.find(t => t.id === item.topicId);
+    const topic = topics.find(t => t.id === item.topicId);
     return `
       <tr style="background:${i % 2 === 0 ? "#fff" : "#f9f9f9"}">
         <td style="padding:8px 10px;border:1px solid #e5e7eb;text-align:center;color:#6b7280;font-size:12px">${i + 1}</td>
@@ -84,8 +85,6 @@ function deduplicateVocab(items: EpsVocabItem[]): EpsVocabItem[] {
   });
 }
 
-const DEDUPED_VOCAB = deduplicateVocab(epsVocabulary);
-
 const LEVEL_COLORS = { basic: "#34d399", intermediate: "app-accent-primary", advanced: "#f87171" };
 const LEVEL_LABELS = { basic: "Cơ bản", intermediate: "Trung cấp", advanced: "Nâng cao" };
 
@@ -99,13 +98,14 @@ function FlashcardModal({
   const [idx, setIdx] = useState(startIdx);
   const [flipped, setFlipped] = useState(false);
   const { playKorean } = useAudioCache();
+  const { topics } = useEpsVocab();
   const card = items[idx];
 
   useEffect(() => { setFlipped(false); }, [idx]);
 
   if (!card) return null;
 
-  const topic = EPS_VOCAB_TOPICS.find(t => t.id === card.topicId);
+  const topic = topics.find(t => t.id === card.topicId);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm" onClick={onClose}>
@@ -164,7 +164,8 @@ function EpsVocabCard({
 }) {
   const [showExample, setShowExample] = useState(false);
   const { playKorean } = useAudioCache();
-  const topic = EPS_VOCAB_TOPICS.find(t => t.id === item.topicId);
+  const { topics } = useEpsVocab();
+  const topic = topics.find(t => t.id === item.topicId);
 
   return (
     <div className={`bg-app-bg border rounded-xl p-4 transition-all ${isMastered ? "border-emerald-500/20" : "border-app-border hover:border-app-border"}`}>
@@ -209,60 +210,14 @@ function EpsVocabCard({
   );
 }
 
-const PAGE_SIZE = 20;
-
-// ─── Pagination Component ─────────────────────────────────────────────────
-function Pagination({ current, total, onChange }: { current: number; total: number; onChange: (p: number) => void }) {
-  if (total <= 1) return null;
-  const pages = Array.from({ length: total }, (_, i) => i + 1);
-  const visible = pages.filter(p => p === 1 || p === total || Math.abs(p - current) <= 2);
-
-  return (
-    <div className="flex items-center justify-center gap-1.5 mt-6">
-      <button
-        onClick={() => onChange(current - 1)}
-        disabled={current === 1}
-        className="w-8 h-8 flex items-center justify-center rounded-lg border border-app-border text-app-text-secondary hover:text-white/70 hover:bg-app-card/50 disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
-      >
-        <i className="ri-arrow-left-s-line text-sm"></i>
-      </button>
-
-      {visible.map((p, i) => {
-        const prev = visible[i - 1];
-        const showEllipsis = prev && p - prev > 1;
-        return (
-          <span key={p} className="flex items-center gap-1.5">
-            {showEllipsis && <span className="text-app-text-muted text-xs px-1">...</span>}
-            <button
-              onClick={() => onChange(p)}
-              className={`w-8 h-8 flex items-center justify-center rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${
-                p === current
-                  ? "bg-app-accent-primary text-app-bg font-bold"
-                  : "border border-app-border text-app-text-secondary hover:text-white/70 hover:bg-app-card/50"
-              }`}
-            >
-              {p}
-            </button>
-          </span>
-        );
-      })}
-
-      <button
-        onClick={() => onChange(current + 1)}
-        disabled={current === total}
-        className="w-8 h-8 flex items-center justify-center rounded-lg border border-app-border text-app-text-secondary hover:text-white/70 hover:bg-app-card/50 disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
-      >
-        <i className="ri-arrow-right-s-line text-sm"></i>
-      </button>
-
-      <span className="text-app-text-muted text-xs ml-2">Trang {current}/{total}</span>
-    </div>
-  );
-}
+const PAGE_SIZE = 32;
 
 // ─── Main Page ────────────────────────────────────────────────────────────
-export default function EpsVocabularyPage() {
+function EpsVocabularyPageInner() {
   const { user } = useAuth();
+  const { items: epsVocabulary, topics: EPS_VOCAB_TOPICS } = useEpsVocab();
+  const epsLoading = useEpsVocabLoading();
+  const DEDUPED_VOCAB = useMemo(() => deduplicateVocab(epsVocabulary), [epsVocabulary]);
   const [masteredIds, setMasteredIds] = useLocalStorage<string[]>("kts_eps_vocab_mastered", []);
   const [selectedTopic, setSelectedTopic] = useState("all");
   const [selectedLevel, setSelectedLevel] = useState("all");
@@ -319,9 +274,15 @@ export default function EpsVocabularyPage() {
       const matchSearch = !searchQuery || v.korean.includes(searchQuery) || v.vietnamese.toLowerCase().includes(searchQuery.toLowerCase()) || v.reading.toLowerCase().includes(searchQuery.toLowerCase());
       return matchTopic && matchLevel && matchFilter && matchSearch;
     });
-  }, [selectedTopic, selectedLevel, filterMode, masteredIds, searchQuery]);
+  }, [selectedTopic, selectedLevel, filterMode, masteredIds, searchQuery, DEDUPED_VOCAB]);
 
-  const totalPages = Math.ceil(filteredItems.length / PAGE_SIZE);
+  const totalPages = Math.max(1, Math.ceil(filteredItems.length / PAGE_SIZE));
+
+  // Clamp page when total shrinks (e.g. filter narrowed; Supabase swapped in).
+  useEffect(() => {
+    if (currentPage > totalPages) setCurrentPage(totalPages);
+  }, [totalPages, currentPage]);
+
   const pagedItems = filteredItems.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
 
   const handleFlashcard = (item: EpsVocabItem) => {
@@ -340,12 +301,12 @@ export default function EpsVocabularyPage() {
       stats[t.id] = { total: items.length, mastered: items.filter(v => masteredIds.includes(v.id)).length };
     });
     return stats;
-  }, [masteredIds]);
+  }, [masteredIds, EPS_VOCAB_TOPICS, DEDUPED_VOCAB]);
 
   return (
     <DashboardLayout
       title="Từ vựng EPS-TOPIK"
-      subtitle={`${DEDUPED_VOCAB.length} từ chuẩn theo chủ đề thực tế — không trùng lặp, có phát âm`}
+      subtitle={epsLoading ? "Đang đồng bộ từ vựng mới…" : `${DEDUPED_VOCAB.length} từ chuẩn theo chủ đề thực tế — không trùng lặp, có phát âm`}
       actions={
         <div className="flex items-center gap-3">
           {user && syncStatus !== "idle" && (
@@ -355,7 +316,7 @@ export default function EpsVocabularyPage() {
             </span>
           )}
           <button
-            onClick={() => exportToPDF(filteredItems, selectedTopic)}
+            onClick={() => exportToPDF(filteredItems, selectedTopic, EPS_VOCAB_TOPICS)}
             disabled={filteredItems.length === 0}
             className="flex items-center gap-2 bg-app-card/50 hover:bg-app-card/70 disabled:opacity-40 border border-app-border text-white/70 font-medium text-sm px-4 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
           >
@@ -444,7 +405,7 @@ export default function EpsVocabularyPage() {
       {/* Grid */}
       {pagedItems.length > 0 ? (
         <>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3" style={{ contentVisibility: "auto", containIntrinsicSize: "0 2000px" }}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3" style={{ contentVisibility: "auto", containIntrinsicSize: "0 2000px" }}>
             {pagedItems.map(item => (
               <EpsVocabCard
                 key={item.id}
@@ -455,7 +416,45 @@ export default function EpsVocabularyPage() {
               />
             ))}
           </div>
-          <Pagination current={currentPage} total={totalPages} onChange={p => { setCurrentPage(p); window.scrollTo({ top: 0, behavior: "smooth" }); }} />
+          {totalPages > 1 && (
+            <div className="flex items-center justify-center gap-2 mt-6 flex-wrap">
+              <button
+                onClick={() => { setCurrentPage(p => Math.max(1, p - 1)); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+                disabled={currentPage === 1}
+                className="px-3 py-2 bg-app-card/40 hover:bg-app-card/60 disabled:opacity-30 text-white rounded-xl text-sm cursor-pointer"
+              >
+                <i className="ri-arrow-left-s-line"></i>
+              </button>
+              {Array.from({ length: Math.min(totalPages, 5) }, (_, i) => {
+                const p = totalPages <= 5
+                  ? i + 1
+                  : currentPage <= 3
+                  ? i + 1
+                  : currentPage >= totalPages - 2
+                  ? totalPages - 4 + i
+                  : currentPage - 2 + i;
+                return (
+                  <button
+                    key={p}
+                    onClick={() => { setCurrentPage(p); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+                    className={`px-3 py-2 rounded-xl text-sm font-medium cursor-pointer ${
+                      currentPage === p ? "bg-app-accent-primary text-app-bg" : "bg-app-card/40 hover:bg-app-card/60 text-white/70"
+                    }`}
+                  >
+                    {p}
+                  </button>
+                );
+              })}
+              <button
+                onClick={() => { setCurrentPage(p => Math.min(totalPages, p + 1)); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+                disabled={currentPage === totalPages}
+                className="px-3 py-2 bg-app-card/40 hover:bg-app-card/60 disabled:opacity-30 text-white rounded-xl text-sm cursor-pointer"
+              >
+                <i className="ri-arrow-right-s-line"></i>
+              </button>
+              <span className="text-app-text-muted text-sm ml-2">Trang {currentPage}/{totalPages}</span>
+            </div>
+          )}
         </>
       ) : (
         <div className="text-center py-16 bg-app-bg border border-app-border rounded-2xl">
@@ -468,6 +467,17 @@ export default function EpsVocabularyPage() {
         <FlashcardModal items={flashcardItem.items} startIdx={flashcardItem.startIdx} onClose={() => setFlashcardItem(null)} masteredIds={masteredIds} onMaster={handleMaster} />
       )}
     </DashboardLayout>
+  );
+}
+
+// ─── Provider wrapper ─────────────────────────────────────────────────────
+// Mirrors /flashcard so /eps-vocabulary also reads admin-uploaded entries
+// (and their examples) from Supabase instead of the bundled mock.
+export default function EpsVocabularyPage() {
+  return (
+    <EpsVocabProvider>
+      <EpsVocabularyPageInner />
+    </EpsVocabProvider>
   );
 }
 
