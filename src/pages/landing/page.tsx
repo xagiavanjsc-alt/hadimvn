@@ -54,7 +54,7 @@ const FEATURE_GROUPS = [
   },
   {
     id: "community", label: "Cộng đồng", icon: "ri-group-line", color: "#06b6d4", bg: "#ecfeff",
-    desc: "Học cùng 10,000+ học viên",
+    desc: "Học cùng cộng đồng XKLĐ Hàn Quốc",
     features: [
       { icon: "ri-sword-line", label: "Thách đấu bạn bè" },
       { icon: "ri-trophy-line", label: "BXH thử thách" },
@@ -203,7 +203,7 @@ export default function LandingPage() {
         <div className="relative z-10 text-center px-4 md:px-6 max-w-5xl mx-auto w-full">
           <div className="inline-flex items-center gap-2 bg-app-card/70 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1.5 mb-6 md:mb-8">
             <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-pulse flex-shrink-0"></span>
-            <span className="text-white/90 text-xs font-medium">10,000+ học viên đang học mỗi ngày</span>
+            <span className="text-white/90 text-xs font-medium">Đề thi EPS 2025 thật — Học miễn phí</span>
           </div>
           <h1 className="text-4xl md:text-7xl font-black leading-none mb-4 md:mb-5 tracking-tight text-white">
             Hàn Quốc Ơi!

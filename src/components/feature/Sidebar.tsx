@@ -71,71 +71,53 @@ function StreakBadge() {
   );
 }
 
-// ─── Nav groups — Tối ưu gọn nhất ───────────────────────────────────────────
+// ─── Nav groups — Focus EPS-XKLĐ (2026-05-25 cleanup) ──────────────────────
+// Đã ẩn: Seoul textbook, Hanja Pro, AI features, VIP, duplicates
+// Code/route gốc vẫn còn — chỉ gỡ khỏi sidebar.
 const navGroups = [
   {
-    label: "Tổng quan",
-    icon: "ri-dashboard-line",
-    color: "app-accent-primary",
-    items: [
-      { path: "/learning-hub", icon: "ri-dashboard-line", label: "Learning Hub" },
-      { path: "/exam-hub", icon: "ri-file-list-3-line", label: "Exam Hub" },
-      { path: "/flashcard-hub", icon: "ri-stack-line", label: "Flashcard Hub" },
-      { path: "/leaderboard", icon: "ri-trophy-line", label: "Bảng xếp hạng" },
-    ],
-  },
-  {
-    label: "Học tập",
-    icon: "ri-book-open-line",
+    label: "Luyện thi EPS-TOPIK",
+    icon: "ri-target-line",
     color: "#4ade80",
     items: [
-      { path: "/eps-lessons", icon: "ri-file-list-3-line", label: "EPS (Lao động)" },
+      { path: "/eps", icon: "ri-dashboard-line", label: "Trang EPS" },
+      { path: "/eps-lessons", icon: "ri-file-list-3-line", label: "60 bài học EPS" },
       { path: "/eps-vocabulary", icon: "ri-translate-2", label: "Từ vựng EPS" },
       { path: "/eps-grammar", icon: "ri-book-2-line", label: "Ngữ pháp EPS" },
-      { path: "/seoul-textbook", icon: "ri-book-3-line", label: "Seoul (Du học)" },
-      { path: "/topik-test", icon: "ri-survey-line", label: "TOPIK (Chứng chỉ)" },
-      { path: "/topik-vocab-level", icon: "ri-translate-2", label: "Từ vựng TOPIK" },
-      { path: "/grammar-by-level", icon: "ri-book-2-line", label: "Ngữ pháp TOPIK" },
-      { path: "/topik-exam-writing", icon: "ri-draft-line", label: "Luyện Viết TOPIK II" },
+      { path: "/eps-flashcard", icon: "ri-stack-line", label: "Flashcard EPS" },
+      { path: "/eps-listening", icon: "ri-headphone-line", label: "Luyện nghe EPS" },
     ],
   },
   {
-    label: "Hán Hàn",
-    icon: "ri-character-recognition-line",
-    badge: "VIP",
-    color: "app-accent-primary",
-    items: [
-      { path: "/hanja-detail", icon: "ri-character-recognition-line", label: "Hán Hàn Cơ Bản" },
-      { path: "/hanja-flashcard", icon: "ri-stack-line", label: "Flashcard Hán Hàn" },
-      { path: "/hanja-pro", icon: "ri-character-recognition-line", label: "Hán Hàn Chuyên Sâu" },
-      { path: "/hanja-dashboard", icon: "ri-bar-chart-2-line", label: "Tiến độ & Streak" },
-      { path: "/hanja-stories", icon: "ri-book-read-line", label: "Truyện Chêm" },
-      { path: "/advanced-dictionary", icon: "ri-search-2-line", label: "Tra cứu Hán Hàn" },
-    ],
-  },
-  {
-    label: "Ai & Kỹ năng",
-    icon: "ri-robot-2-line",
-    color: "#a78bfa",
-    items: [
-      { path: "/ai-chatbot", icon: "ri-robot-2-line", label: "Gia sư AI" },
-      { path: "/ai-pronunciation", icon: "ri-mic-line", label: "Luyện phát âm" },
-      { path: "/shadowing-practice", icon: "ri-volume-up-line", label: "Shadowing" },
-      { path: "/listening-dictation", icon: "ri-headphone-line", label: "Nghe chép" },
-      { path: "/handwriting-practice", icon: "ri-edit-line", label: "Luyện viết" },
-      { path: "/cultural-content", icon: "ri-landscape-line", label: "Văn hóa" },
-      { path: "/offline-manager", icon: "ri-download-cloud-line", label: "Offline" },
-      { path: "/ai-writing", icon: "ri-quill-pen-line", label: "Viết & Dịch" },
-      { path: "/kdrama-learn", icon: "ri-film-line", label: "Học qua phim & K-pop" },
-      { path: "/kpop-flashcard", icon: "ri-music-2-line", label: "Flashcard K-pop cá nhân" },
-    ],
-  },
-  {
-    label: "Cộng đồng",
-    icon: "ri-question-answer-line",
+    label: "Đề thi EPS 2025",
+    icon: "ri-file-text-line",
     color: "#fb923c",
     items: [
-      { path: "/naver", icon: "ri-question-answer-line", label: "Naver KiN Q&A" },
+      { path: "/eps-de1", icon: "ri-file-list-3-line", label: "Đề 1 (đề thật)" },
+      { path: "/eps-de2", icon: "ri-file-list-3-line", label: "Đề 2 (đề thật)" },
+      { path: "/eps-mock-exam", icon: "ri-survey-line", label: "Đề thi thử" },
+      { path: "/eps-exam-schedule", icon: "ri-calendar-line", label: "Lịch thi EPS" },
+    ],
+  },
+  {
+    label: "Tiếng Hàn cơ bản",
+    icon: "ri-book-open-line",
+    color: "app-accent-primary",
+    items: [
+      { path: "/hangul", icon: "ri-text", label: "Bảng chữ cái Hangul" },
+      { path: "/vocabulary", icon: "ri-translate-2", label: "Từ vựng tổng quan" },
+      { path: "/grammar", icon: "ri-book-2-line", label: "Ngữ pháp tổng quan" },
+      { path: "/dictionary", icon: "ri-search-2-line", label: "Từ điển" },
+      { path: "/topik-test", icon: "ri-survey-line", label: "TOPIK (du học)" },
+    ],
+  },
+  {
+    label: "Học giải trí",
+    icon: "ri-music-2-line",
+    color: "#a78bfa",
+    items: [
+      { path: "/melon", icon: "ri-music-2-line", label: "Học qua K-pop" },
+      { path: "/daily-words", icon: "ri-sun-line", label: "Từ mới mỗi ngày" },
       { path: "/profile", icon: "ri-user-3-line", label: "Hồ sơ cá nhân" },
     ],
   },
@@ -144,11 +126,10 @@ const navGroups = [
 // Admin group removed from user sidebar — admin has its own dedicated panel at /admin
 
 const DEFAULT_OPEN: Record<string, boolean> = {
-  "Tổng quan": true,
-  "Học tập": true,
-  "Hán Hàn Vip": false,
-  "Ai & Kỹ năng": false,
-  "Cộng đồng": false,
+  "Luyện thi EPS-TOPIK": true,
+  "Đề thi EPS 2025": true,
+  "Tiếng Hàn cơ bản": false,
+  "Học giải trí": false,
 };
 
 // All nav items flattened for pin search
@@ -207,7 +188,7 @@ function SidebarInner() {
   const [syncing, setSyncing] = useState(false);
   const [pendingPath, setPendingPath] = useState<string | null>(null);
   const [openGroups, setOpenGroups] = useLocalStorage<Record<string, boolean>>(
-    "kts_sidebar_groups_v2",
+    "kts_sidebar_groups_v3",
     DEFAULT_OPEN
   );
   const [pinnedPaths, setPinnedPaths] = useLocalStorage<string[]>("kts_sidebar_pinned", []);

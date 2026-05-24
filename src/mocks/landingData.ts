@@ -1,17 +1,17 @@
 export const FEATURES = [
   { icon: "ri-font-size", title: "Hangul từ A–Z", desc: "Học bảng chữ cái với phát âm chuẩn, bài tập viết và nhận diện ký tự tương tác.", color: "#22c55e" },
-  { icon: "ri-newspaper-line", title: "Tiếng Hàn \"Sống\"", desc: "Học những câu người Hàn hay nói ngoài đời, tiếng lóng trend nhất — không chỉ trong sách.", color: "#f59e0b" },
-  { icon: "ri-music-2-line", title: "Học qua K-pop & Drama", desc: "Giải mã lời bài hát, câu thoại trong phim để vừa đu idol vừa giỏi tiếng Hàn.", color: "#ec4899" },
+  { icon: "ri-file-list-3-line", title: "Đề thi EPS 2025 thật", desc: "Đề thi EPS-TOPIK 2025 chính thức có đáp án và audio nghe — không phải đề tự chế.", color: "#f59e0b" },
+  { icon: "ri-music-2-line", title: "Học qua K-pop", desc: "Giải mã lời bài hát K-pop để vừa giải trí vừa nhớ từ vựng tiếng Hàn.", color: "#ec4899" },
   { icon: "ri-timer-line", title: "Thi thử EPS-TOPIK", desc: "40 câu, 50 phút — mô phỏng kỳ thi thật. Phân tích điểm yếu theo chủ đề.", color: "#f97316" },
-  { icon: "ri-route-line", title: "Lộ trình AI cá nhân", desc: "AI phân tích điểm yếu và gợi ý bài học phù hợp mỗi ngày — học đúng chỗ.", color: "#a78bfa" },
-  { icon: "ri-group-line", title: "Cộng đồng 10,000+", desc: "Hỏi đáp, chia sẻ kinh nghiệm, khoe kết quả thi với hàng nghìn học viên.", color: "#06b6d4" },
+  { icon: "ri-translate-2", title: "Giải thích tiếng Việt", desc: "Mọi từ vựng, ngữ pháp đều giải thích bằng tiếng Việt — phù hợp cho lao động XKLĐ.", color: "#a78bfa" },
+  { icon: "ri-group-line", title: "Cộng đồng XKLĐ", desc: "Tham gia nhóm Facebook hỏi đáp, chia sẻ kinh nghiệm thi và đi XKLĐ Hàn Quốc.", color: "#06b6d4" },
 ];
 
 export const STATS = [
-  { value: "10,000+", label: "Học viên đang học" },
-  { value: "3,200+", label: "Người đậu EPS" },
-  { value: "2,000+", label: "Câu hỏi EPS-TOPIK" },
-  { value: "98%", label: "Hài lòng sau 30 ngày" },
+  { value: "60+", label: "Bài học EPS" },
+  { value: "2", label: "Đề thi thật 2025" },
+  { value: "4,000+", label: "Từ vựng EPS" },
+  { value: "100%", label: "Miễn phí" },
 ];
 
 export const TESTIMONIALS = [

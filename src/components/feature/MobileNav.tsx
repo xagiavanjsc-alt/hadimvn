@@ -5,82 +5,57 @@ import { isVipActive } from "@/lib/supabase";
 import { useIsAdmin, markAdminVerified } from "@/hooks/useIsAdmin";
 import AuthModal from "./AuthModal";
 
-// ─── Bottom bar (5 mục cốt lõi) ──────────────────────────────────────────────
+// ─── Bottom bar (4 mục cốt lõi — focus EPS-XKLĐ 2026-05-25) ─────────────────
 const BOTTOM_NAV = [
   { path: "/", icon: "ri-home-4-line", label: "Trang chủ", exact: true },
-  { path: "/learning-hub", icon: "ri-book-open-line", label: "Học" },
-  { path: "/exam-hub", icon: "ri-survey-line", label: "Thi" },
-  { path: "/naver", icon: "ri-question-answer-line", label: "Naver KiN" },
+  { path: "/eps-lessons", icon: "ri-book-open-line", label: "Học EPS" },
+  { path: "/eps-exam", icon: "ri-survey-line", label: "Đề thi" },
+  { path: "/melon", icon: "ri-music-2-line", label: "K-pop" },
 ];
 
-// ─── Slide-up menu — mirror desktop Sidebar (đã tối ưu gọn) ─────────────────
+// ─── Slide-up menu — mirror desktop Sidebar (focus EPS-XKLĐ) ────────────────
 const MENU_GROUPS = [
   {
-    label: "Tổng quan",
+    label: "Luyện thi EPS-TOPIK",
     items: [
-      { path: "/learning-hub", icon: "ri-dashboard-line", label: "Learning Hub" },
-      { path: "/exam-hub", icon: "ri-file-list-3-line", label: "Exam Hub" },
-      { path: "/flashcard-hub", icon: "ri-stack-line", label: "Flashcard Hub" },
-      { path: "/leaderboard", icon: "ri-trophy-line", label: "Bảng xếp hạng" },
-    ],
-  },
-  {
-    label: "Học tập",
-    items: [
-      { path: "/eps-lessons", icon: "ri-file-list-3-line", label: "EPS (Lao động)" },
+      { path: "/eps", icon: "ri-dashboard-line", label: "Trang EPS" },
+      { path: "/eps-lessons", icon: "ri-file-list-3-line", label: "60 bài học EPS" },
       { path: "/eps-vocabulary", icon: "ri-translate-2", label: "Từ vựng EPS" },
       { path: "/eps-grammar", icon: "ri-book-2-line", label: "Ngữ pháp EPS" },
-      { path: "/seoul-textbook", icon: "ri-book-3-line", label: "Seoul (Du học)" },
-      { path: "/topik-test", icon: "ri-survey-line", label: "TOPIK (Chứng chỉ)" },
-      { path: "/topik-vocab-level", icon: "ri-translate-2", label: "Từ vựng TOPIK" },
-      { path: "/grammar-by-level", icon: "ri-book-2-line", label: "Ngữ pháp TOPIK" },
-      { path: "/hanja-detail", icon: "ri-character-recognition-line", label: "Hán Hàn" },
-      { path: "/hanja-pro", icon: "ri-character-recognition-line", label: "Hán Hàn Chuyên Sâu" },
+      { path: "/eps-flashcard", icon: "ri-stack-line", label: "Flashcard EPS" },
+      { path: "/eps-listening", icon: "ri-headphone-line", label: "Luyện nghe EPS" },
     ],
   },
   {
-    label: "Hán Hàn VIP",
+    label: "Đề thi EPS 2025",
     items: [
-      { path: "/hanja-dashboard", icon: "ri-bar-chart-2-line", label: "Tiến độ & Streak" },
-      { path: "/advanced-dictionary", icon: "ri-search-2-line", label: "Tra cứu Hán Hàn" },
+      { path: "/eps-de1", icon: "ri-file-list-3-line", label: "Đề 1 (đề thật)" },
+      { path: "/eps-de2", icon: "ri-file-list-3-line", label: "Đề 2 (đề thật)" },
+      { path: "/eps-mock-exam", icon: "ri-survey-line", label: "Đề thi thử" },
+      { path: "/eps-exam-schedule", icon: "ri-calendar-line", label: "Lịch thi EPS" },
     ],
   },
   {
-    label: "AI & Kỹ năng",
+    label: "Tiếng Hàn cơ bản",
     items: [
-      { path: "/ai-chatbot", icon: "ri-robot-2-line", label: "Gia sư AI" },
-      { path: "/ai-pronunciation", icon: "ri-mic-line", label: "Luyện phát âm" },
-      { path: "/shadowing-practice", icon: "ri-volume-up-line", label: "Shadowing" },
-      { path: "/listening-dictation", icon: "ri-headphone-line", label: "Nghe chép" },
-      { path: "/handwriting-practice", icon: "ri-edit-line", label: "Luyện viết" },
-      { path: "/cultural-content", icon: "ri-landscape-line", label: "Văn hóa" },
-      { path: "/offline-manager", icon: "ri-download-cloud-line", label: "Offline" },
-      { path: "/ai-writing", icon: "ri-quill-pen-line", label: "Viết & Dịch" },
-      { path: "/kdrama-learn", icon: "ri-film-line", label: "Học qua phim & K-pop" },
-      { path: "/kpop-flashcard", icon: "ri-music-2-line", label: "Flashcard K-pop cá nhân" },
+      { path: "/hangul", icon: "ri-text", label: "Bảng chữ cái Hangul" },
+      { path: "/vocabulary", icon: "ri-translate-2", label: "Từ vựng tổng quan" },
+      { path: "/grammar", icon: "ri-book-2-line", label: "Ngữ pháp tổng quan" },
+      { path: "/dictionary", icon: "ri-search-2-line", label: "Từ điển" },
+      { path: "/topik-test", icon: "ri-survey-line", label: "TOPIK (du học)" },
     ],
   },
   {
-    label: "Cộng đồng",
+    label: "Học giải trí",
     items: [
-      { path: "/naver", icon: "ri-question-answer-line", label: "Naver KiN Q&A" },
-      { path: "/profile", icon: "ri-user-3-line", label: "Hồ sơ cá nhân" },
+      { path: "/melon", icon: "ri-music-2-line", label: "Học qua K-pop" },
+      { path: "/daily-words", icon: "ri-sun-line", label: "Từ mới mỗi ngày" },
     ],
   },
   {
     label: "Cá nhân",
     items: [
-      { path: "/study-stats", icon: "ri-bar-chart-2-line", label: "Thống kê học tập" },
-      { path: "/daily-words", icon: "ri-sun-line", label: "Từ mới hôm nay" },
-      { path: "/learning-roadmap", icon: "ri-route-line", label: "Lộ trình học" },
-      { path: "/share-progress", icon: "ri-share-line", label: "Chia sẻ tiến độ" },
-      { path: "/rewards", icon: "ri-gift-line", label: "Phần thưởng & XP" },
-    ],
-  },
-  {
-    label: "Khác",
-    items: [
-      { path: "/pricing", icon: "ri-vip-crown-line", label: "Gói VIP" },
+      { path: "/profile", icon: "ri-user-3-line", label: "Hồ sơ cá nhân" },
       { path: "/feedback", icon: "ri-chat-smile-2-line", label: "Góp ý" },
       { path: "/report-bug", icon: "ri-bug-line", label: "Báo lỗi" },
     ],
@@ -94,10 +69,8 @@ export default function MobileNav() {
   const isAdminDetected = useIsAdmin();
   const navigate = useNavigate();
 
-  // Filter Hán Hàn VIP group nếu chưa VIP
-  const groups = MENU_GROUPS.filter(g =>
-    g.label !== "Hán Hàn VIP" || (user && isVipActive(profile))
-  );
+  // No special group filtering needed after 2026-05-25 cleanup (Hán Hàn VIP removed)
+  const groups = MENU_GROUPS;
 
   return (
     <>
