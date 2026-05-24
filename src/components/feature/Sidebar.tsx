@@ -89,12 +89,11 @@ const navGroups = [
     ],
   },
   {
-    label: "Đề thi EPS 2025",
+    label: "Đề thi EPS",
     icon: "ri-file-text-line",
     color: "#fb923c",
     items: [
-      { path: "/eps-de1", icon: "ri-file-list-3-line", label: "Đề 1 (đề thật)" },
-      { path: "/eps-de2", icon: "ri-file-list-3-line", label: "Đề 2 (đề thật)" },
+      { path: "/eps-exams", icon: "ri-file-list-3-line", label: "Tất cả đề thi" },
       { path: "/eps-mock-exam", icon: "ri-survey-line", label: "Đề thi thử" },
       { path: "/eps-exam-schedule", icon: "ri-calendar-line", label: "Lịch thi EPS" },
     ],
@@ -127,7 +126,7 @@ const navGroups = [
 
 const DEFAULT_OPEN: Record<string, boolean> = {
   "Luyện thi EPS-TOPIK": true,
-  "Đề thi EPS 2025": true,
+  "Đề thi EPS": true,
   "Tiếng Hàn cơ bản": false,
   "Học giải trí": false,
 };
