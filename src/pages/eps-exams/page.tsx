@@ -4,6 +4,7 @@ import DashboardLayout from "@/components/feature/DashboardLayout";
 import { EPS_EXAMS, EPSExam, EPSQuestion } from "@/data/epsExams";
 import { useXPSystem } from "@/hooks/useXPSystem";
 import { STORAGE_KEYS } from "@/lib/storageKeys";
+import { usePageSEO } from "@/hooks/usePageSEO";
 
 interface UserAnswer {
   questionId: string;
@@ -20,6 +21,30 @@ interface ExamResult {
 }
 
 export default function EPSExamsPage() {
+  usePageSEO({
+    title: "Đề Thi EPS-TOPIK 2025 Có Đáp Án — Luyện Thi XKLĐ Hàn Quốc | Hàn Quốc Ơi!",
+    description: "Bộ đề thi EPS-TOPIK 2025 chính thức có đáp án và audio. Luyện thi miễn phí đi XKLĐ Hàn Quốc. Đầy đủ 40 câu nghe + đọc, giải thích chi tiết tiếng Việt.",
+    keywords: "đề thi EPS 2025, đề thi EPS-TOPIK, đề EPS có đáp án, luyện thi EPS, XKLĐ Hàn Quốc, thi EPS-TOPIK 2026",
+    ogType: "website",
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      name: "Đề thi EPS-TOPIK 2025",
+      description: "Danh sách đề thi EPS-TOPIK chính thức có đáp án.",
+      numberOfItems: EPS_EXAMS.length,
+      itemListElement: EPS_EXAMS.map((exam, idx) => ({
+        "@type": "ListItem",
+        position: idx + 1,
+        item: {
+          "@type": "Quiz",
+          name: exam.title,
+          numberOfQuestions: exam.questions?.length || 40,
+          isAccessibleForFree: true,
+        },
+      })),
+    },
+  });
+
   const navigate = useNavigate();
   const { awardXP } = useXPSystem();
   const [selectedExam, setSelectedExam] = useState<EPSExam | null>(null);

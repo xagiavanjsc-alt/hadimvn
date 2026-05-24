@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { DE1_QUESTIONS, DE1_INFO, DE1_EXPLANATIONS, type De1Question } from "@/data/eps_de1";
 import { useXPSystem } from "@/hooks/useXPSystem";
+import { usePageSEO } from "@/hooks/usePageSEO";
 
 // ─── TTS Hook ────────────────────────────────────────────────────────────────
 function useTTS() {
@@ -437,6 +438,30 @@ function IntroScreen({ onStart }: { onStart: () => void }) {
 type Phase = "intro" | "exam" | "result" | "review";
 
 export default function EpsDe1ExamPage() {
+  usePageSEO({
+    title: "Đề thi EPS-TOPIK 2025 Đề 1 [Có Đáp Án + Audio] | Hàn Quốc Ơi!",
+    description: "Đề thi EPS-TOPIK 2025 chính thức Đề 1. Đầy đủ 40 câu nghe + đọc, có audio luyện nghe, đáp án và giải thích chi tiết. Miễn phí 100%.",
+    keywords: "đề thi EPS 2025 đề 1, đề EPS có đáp án, đề EPS audio, luyện thi EPS-TOPIK, đề thi XKLĐ Hàn Quốc",
+    ogType: "article",
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "Quiz",
+      name: "Đề thi EPS-TOPIK 2025 - Đề 1",
+      description: "Đề thi EPS-TOPIK 2025 chính thức có đáp án và audio luyện nghe.",
+      educationalLevel: "EPS-TOPIK",
+      learningResourceType: "Practice Exam",
+      inLanguage: ["ko", "vi"],
+      timeRequired: `PT${DE1_INFO.timeMinutes}M`,
+      numberOfQuestions: DE1_QUESTIONS.length,
+      isAccessibleForFree: true,
+      provider: {
+        "@type": "EducationalOrganization",
+        name: "Hàn Quốc Ơi!",
+        url: "https://hanquocoi.vn",
+      },
+    },
+  });
+
   const [phase, setPhase] = useState<Phase>("intro");
   const [currentIdx, setCurrentIdx] = useState(0);
   const [answers, setAnswers] = useState<(number | null)[]>(new Array(DE1_QUESTIONS.length).fill(null));
