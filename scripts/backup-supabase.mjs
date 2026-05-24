@@ -57,55 +57,109 @@ const supabase = createClient(SUPABASE_URL, SERVICE_KEY, {
 });
 
 // ── Tables to backup ──────────────────────────────────────────────────────────
-// List tables to dump. Add more here if needed.
-// Tip: chạy script lần đầu sẽ in ra "table not found" cho table không tồn tại
-// — copy danh sách table thật từ Supabase Dashboard → Table Editor vào đây.
+// Auto-discovered via npm run discover-tables on 2026-05-25.
+// Critical content tables first, then user data, then system.
 const TABLES_TO_BACKUP = [
-  // EPS content (quan trọng nhất)
-  "eps_lessons",
-  "eps_vocab",
-  "eps_exams",
-  "eps_exam_questions",
-  "eps_topics",
+  // ─── CONTENT — quan trọng nhất, mất là thảm họa ─────────────────────────
+  // EPS content
   "eps_grammar",
-  // Seoul textbook content
+  "eps_grammar_examples",
+  "eps_vocab_entries",
+  "eps_vocab_topics",
+  // Seoul textbook
+  "seoul_books",
   "seoul_lessons",
-  "seoul_vocab",
+  "seoul_dialogue",
   "seoul_grammar",
-  "seoul_word_pairs",
-  // Hanja content
-  "hanja_entries",
-  "hanja_vocab",
-  "hanja_stories",
+  "seoul_grammar_examples",
+  "seoul_vocabulary",
+  // Hanja
   "hanja_pro",
   "hanja_tree_nodes",
-  // TOPIK content
-  "topik_grammar",
-  "topik_vocab",
-  "topik_exam_questions",
+  "hanja_stories",
+  "hanja_vocab_entries",
+  "hanja_flashcards",
+  "hanja_story_quiz",
+  // TOPIK
+  "topik_vocabulary",
   // Grammar (chung)
   "grammar_patterns",
+  "grammar_practice_questions",
+  // Listening
+  "listening_tracks",
   // Melon (K-pop)
   "melon_songs",
-  "melon_vocab",
   // Naver KiN
-  "naver_kin_articles",
-  // User data (nếu muốn backup user)
+  "naver_qa",
+
+  // ─── USER DATA — tiến độ học của user ───────────────────────────────────
   "user_profiles",
   "user_progress",
-  "study_progress",
-  "exam_results",
-  "study_history",
-  "daily_vocab",
+  "user_achievements",
+  "user_hanja_progress",
+  "user_coupons",
   "user_daily_vocab",
-  // Community
+  "study_progress",
+  "study_history",
+  "exam_results",
+  "grammar_progress",
+  "grammar_favorites",
+  "module_progress",
+  "flashcard_data",
+  "daily_vocab",
+  "topik_quiz_history",
+  "topik_flashcard_progress",
+  "hanja_flashcard_progress",
+  "hanja_story_progress",
+  "seoul_flashcard_progress",
+  "melon_flashcard_progress",
+  "melon_study_history",
+
+  // ─── COMMUNITY ──────────────────────────────────────────────────────────
   "community_posts",
+  "community_answers",
+  "community_comments",
+  "community_likes",
+  "community_quiz_answers",
+  "community_ratings",
+  "community_settings",
   "comments",
-  // Misc
-  "leaderboard",
+
+  // ─── REWARDS & GAMIFICATION ─────────────────────────────────────────────
   "achievements",
-  "bug_reports",
+  "leaderboard",
+  "leaderboard_cache",
+  "leaderboard_snapshots",
+  "weekly_rewards",
+  "weekly_rewards_summary",
+  "reward_redemptions",
+  "coupons",
+  "xp_settings",
+
+  // ─── MONETIZATION ───────────────────────────────────────────────────────
+  "vip_pricing",
+  "vip_payment_requests",
+  "vip_revenue_log",
+  "vip_violation_reports",
+  "ctv_profiles",
+  "ctv_commissions",
+  "ctv_withdrawals",
+
+  // ─── FEEDBACK & ADMIN ───────────────────────────────────────────────────
   "feedback",
+  "bug_reports",
+  "category_seo",
+  "notifications",
+  "error_logs",
+  "login_sessions",
+  "suspicious_exam_log",
+
+  // ─── INTEGRATIONS ───────────────────────────────────────────────────────
+  "zalo_reminders",
+  "zalo_reminder_logs",
+  "zalo_oauth_state",
+  "tts_audio_cache",
+  "tts_audio_misses",
 ];
 
 // ── Backup ────────────────────────────────────────────────────────────────────
@@ -126,29 +180,49 @@ const summary = {
 for (const table of TABLES_TO_BACKUP) {
   process.stdout.write(`  ${table.padEnd(30, " ")} ... `);
   try {
-    const { data, error, count } = await supabase
-      .from(table)
-      .select("*", { count: "exact" });
+    // Pagination — Supabase REST API trả tối đa 1000 rows/request
+    const PAGE = 1000;
+    let from = 0;
+    const allRows = [];
+    let totalCount = null;
 
-    if (error) {
-      if (error.code === "42P01" || error.message.includes("not exist")) {
-        console.log("⊝  (table không tồn tại, bỏ qua)");
-        continue;
+    while (true) {
+      const { data, error, count } = await supabase
+        .from(table)
+        .select("*", { count: "exact" })
+        .range(from, from + PAGE - 1);
+
+      if (error) {
+        if (error.code === "42P01" || error.message.includes("not exist")) {
+          console.log("⊝  (table không tồn tại, bỏ qua)");
+          break;
+        }
+        throw error;
       }
-      throw error;
+
+      if (totalCount === null) totalCount = count ?? 0;
+      const batch = data || [];
+      allRows.push(...batch);
+
+      if (batch.length < PAGE) break; // last page
+      from += PAGE;
     }
 
-    const rows = data || [];
+    // If broke out of loop with error, skip
+    if (totalCount === null) continue;
+
     const filename = join(outDir, `${table}.json`);
-    writeFileSync(filename, JSON.stringify(rows, null, 2), "utf-8");
+    writeFileSync(filename, JSON.stringify(allRows, null, 2), "utf-8");
 
-    summary.tables.push({ table, rows: rows.length, file: `${table}.json` });
-    summary.totalRows += rows.length;
+    summary.tables.push({ table, rows: allRows.length, file: `${table}.json` });
+    summary.totalRows += allRows.length;
 
-    if (rows.length === 0) {
+    if (allRows.length === 0) {
       console.log("✓  (0 rows — empty)");
+    } else if (allRows.length >= 1000) {
+      console.log(`✅ ${allRows.length.toLocaleString()} rows (paginated)`);
     } else {
-      console.log(`✅ ${rows.length} rows`);
+      console.log(`✅ ${allRows.length} rows`);
     }
   } catch (err) {
     console.log(`❌ ${err.message || err}`);
