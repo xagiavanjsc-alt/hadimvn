@@ -506,7 +506,7 @@ function FlashcardPageInner() {
           <div className="flex items-center gap-2.5 min-w-0">
             <i className="ri-sparkling-2-line text-emerald-400 text-base flex-shrink-0"></i>
             <p className="text-white/80 text-xs sm:text-sm">
-              <span className="font-bold text-emerald-400">+{newThisWeek}</span> từ EPS mới tuần này
+              <span className="font-bold text-emerald-400">+{newThisWeek}</span> từ mới tuần này
               {newestCount > newThisWeek && <span className="text-white/40"> · {newestCount} từ trong 30 ngày</span>}
             </p>
           </div>
