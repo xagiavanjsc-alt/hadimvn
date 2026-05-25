@@ -386,14 +386,17 @@ export default function ConversationPage() {
     return phrases;
   }, [selectedTopic, levelFilter, showFavoritesOnly, search, favorites]);
 
-  const practiceList = useMemo(() => filteredPhrases.filter(p => favorites.includes(p.id)), [filteredPhrases, favorites]);
+  // Luyện theo danh sách đang hiển thị (topic + level + search + favorites filter)
+  const practiceList = filteredPhrases;
+  const startPractice = () => { setPracticeMode(true); setPracticeIdx(0); setShowAnswer(false); };
 
   if (practiceMode && practiceList.length > 0) {
     const current = practiceList[practiceIdx % practiceList.length];
+    const practiceTitle = currentTopic ? currentTopic.title : showFavoritesOnly ? "Câu yêu thích" : "Tất cả chủ đề";
     return (
-      <DashboardLayout title="Luyện tập giao tiếp" subtitle="Flashcard câu giao tiếp yêu thích">
-        <div className="max-w-lg mx-auto">
-          <div className="flex items-center justify-between mb-6">
+      <DashboardLayout title="Luyện flashcard" subtitle={practiceTitle}>
+        <div className="max-w-lg mx-auto px-1 md:px-0">
+          <div className="flex items-center justify-between mb-4 md:mb-6">
             <button onClick={() => { setPracticeMode(false); setShowAnswer(false); setPracticeIdx(0); }}
               className="flex items-center gap-2 text-white/50 hover:text-white text-sm cursor-pointer whitespace-nowrap">
               <i className="ri-arrow-left-line"></i>Quay lại
@@ -401,29 +404,39 @@ export default function ConversationPage() {
             <span className="text-app-text-muted text-sm">{(practiceIdx % practiceList.length) + 1} / {practiceList.length}</span>
           </div>
 
-          <div className="bg-app-bg border border-app-border rounded-2xl p-8 text-center mb-4 min-h-[240px] flex flex-col items-center justify-center">
-            <p className="text-app-text-muted text-xs mb-4 tracking-normal">Tiếng Hàn</p>
-            <p className="text-white font-black text-4xl mb-3">{current.korean}</p>
+          <div className="bg-app-bg border border-app-border rounded-2xl p-5 md:p-8 text-center mb-4 min-h-[220px] md:min-h-[260px] flex flex-col items-center justify-center">
+            <p className="text-app-text-muted text-xs mb-3 md:mb-4 tracking-normal">Tiếng Hàn</p>
+            <p className="text-white font-black text-3xl md:text-4xl mb-3 break-words leading-tight">{current.korean}</p>
             {showAnswer ? (
-              <div className="mt-4 space-y-2">
-                <p className="text-white/50 text-sm italic">{current.romanization}</p>
-                <p className="text-app-accent-primary font-semibold text-lg">{current.vietnamese}</p>
+              <div className="mt-3 md:mt-4 space-y-2">
+                <p className="text-white/50 text-sm italic break-words">{current.romanization}</p>
+                <p className="text-app-accent-primary font-semibold text-base md:text-lg break-words">{current.vietnamese}</p>
               </div>
             ) : (
               <button onClick={() => setShowAnswer(true)}
-                className="mt-4 px-6 py-2.5 rounded-xl bg-app-card/50 hover:bg-app-card/70 text-white/50 text-sm cursor-pointer whitespace-nowrap transition-colors">
+                className="mt-3 md:mt-4 px-6 py-2.5 rounded-xl bg-app-card/50 hover:bg-app-card/70 text-white/50 text-sm cursor-pointer whitespace-nowrap transition-colors">
                 Xem nghĩa
               </button>
             )}
           </div>
 
-          <div className="flex gap-3">
+          <div className="flex gap-2 md:gap-3 mb-3">
             <button onClick={() => speak(current.korean)}
-              className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-app-border text-white/50 hover:bg-app-card/50 text-sm cursor-pointer whitespace-nowrap transition-colors">
+              className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-app-border text-white/60 hover:bg-app-card/50 text-sm cursor-pointer whitespace-nowrap transition-colors">
               <i className="ri-volume-up-line"></i>Nghe
             </button>
+            <button onClick={() => toggleFavorite(current.id)}
+              className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl border text-sm cursor-pointer whitespace-nowrap transition-colors ${favorites.includes(current.id) ? "border-app-accent-primary/30 bg-app-accent-primary/10 text-app-accent-primary" : "border-app-border text-white/60 hover:bg-app-card/50"}`}>
+              <i className={favorites.includes(current.id) ? "ri-star-fill" : "ri-star-line"}></i>
+            </button>
+          </div>
+          <div className="flex gap-2 md:gap-3">
+            <button onClick={() => { setPracticeIdx(i => (i - 1 + practiceList.length) % practiceList.length); setShowAnswer(false); }}
+              className="px-4 py-3 rounded-xl border border-app-border text-white/60 hover:bg-app-card/50 text-sm cursor-pointer whitespace-nowrap transition-colors">
+              <i className="ri-arrow-left-s-line"></i>
+            </button>
             <button onClick={() => { setPracticeIdx(i => i + 1); setShowAnswer(false); }}
-              className="flex-1 py-3 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap transition-colors">
+              className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap transition-colors">
               Tiếp theo <i className="ri-arrow-right-line"></i>
             </button>
           </div>
@@ -437,26 +450,26 @@ export default function ConversationPage() {
       title="Tiếng Hàn Giao Tiếp"
       subtitle="Câu giao tiếp đời sống hàng ngày — từ cơ bản đến nâng cao"
       actions={
-        favorites.length > 0 ? (
-          <button onClick={() => { setPracticeMode(true); setPracticeIdx(0); setShowAnswer(false); }}
+        filteredPhrases.length > 0 ? (
+          <button onClick={startPractice}
             className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm px-4 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap">
-            <i className="ri-play-line"></i>Luyện tập ({favorites.length} câu)
+            <i className="ri-play-line"></i>Luyện flashcard ({filteredPhrases.length})
           </button>
         ) : undefined
       }
     >
-      <div className="grid grid-cols-[240px_1fr] gap-6">
-        {/* Sidebar topics */}
-        <div className="space-y-2">
+      <div className="grid grid-cols-1 lg:grid-cols-[240px_1fr] gap-4 lg:gap-6">
+        {/* Sidebar topics — vertical on desktop, horizontal scroll on mobile */}
+        <div className="flex lg:flex-col gap-2 lg:space-y-2 lg:gap-0 overflow-x-auto lg:overflow-x-visible pb-1 lg:pb-0 -mx-1 lg:mx-0 px-1 lg:px-0 [&::-webkit-scrollbar]:hidden">
           <button
             onClick={() => setSelectedTopic(null)}
-            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all cursor-pointer text-left ${!selectedTopic ? "bg-app-accent-primary/10 border border-app-accent-primary/20 text-app-accent-primary" : "bg-app-surface/50 border border-app-border text-white/50 hover:text-white/70 hover:bg-app-card/50"}`}
+            className={`flex-shrink-0 lg:flex-shrink min-w-[150px] lg:min-w-0 lg:w-full flex items-center gap-2 lg:gap-3 px-3 py-2.5 rounded-xl text-sm transition-all cursor-pointer text-left ${!selectedTopic ? "bg-app-accent-primary/10 border border-app-accent-primary/20 text-app-accent-primary" : "bg-app-surface/50 border border-app-border text-white/50 hover:text-white/70 hover:bg-app-card/50"}`}
           >
             <div className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-card/50 flex-shrink-0">
               <i className="ri-apps-line text-sm"></i>
             </div>
             <div className="flex-1 min-w-0">
-              <p className="font-medium text-xs">Tất cả chủ đề</p>
+              <p className="font-medium text-xs truncate">Tất cả chủ đề</p>
               <p className="text-[10px] opacity-60">{TOPICS.reduce((s, t) => s + t.phrases.length, 0)} câu</p>
             </div>
           </button>
@@ -465,7 +478,7 @@ export default function ConversationPage() {
             <button
               key={t.id}
               onClick={() => setSelectedTopic(t.id)}
-              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all cursor-pointer text-left ${selectedTopic === t.id ? "border" : "bg-app-surface/50 border border-app-border text-white/50 hover:text-white/70 hover:bg-app-card/50"}`}
+              className={`flex-shrink-0 lg:flex-shrink min-w-[150px] lg:min-w-0 lg:w-full flex items-center gap-2 lg:gap-3 px-3 py-2.5 rounded-xl text-sm transition-all cursor-pointer text-left ${selectedTopic === t.id ? "border" : "bg-app-surface/50 border border-app-border text-white/50 hover:text-white/70 hover:bg-app-card/50"}`}
               style={selectedTopic === t.id ? { backgroundColor: `${t.color}10`, borderColor: `${t.color}25`, color: t.color } : {}}
             >
               <div className="w-7 h-7 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${t.color}15` }}>
@@ -482,13 +495,13 @@ export default function ConversationPage() {
           {favorites.length > 0 && (
             <button
               onClick={() => setShowFavoritesOnly(v => !v)}
-              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all cursor-pointer text-left mt-2 ${showFavoritesOnly ? "bg-app-accent-primary/10 border border-app-accent-primary/20 text-app-accent-primary" : "bg-app-surface/50 border border-app-border text-white/50 hover:text-white/70"}`}
+              className={`flex-shrink-0 lg:flex-shrink min-w-[150px] lg:min-w-0 lg:w-full flex items-center gap-2 lg:gap-3 px-3 py-2.5 rounded-xl text-sm transition-all cursor-pointer text-left lg:mt-2 ${showFavoritesOnly ? "bg-app-accent-primary/10 border border-app-accent-primary/20 text-app-accent-primary" : "bg-app-surface/50 border border-app-border text-white/50 hover:text-white/70"}`}
             >
               <div className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-accent-primary/10 flex-shrink-0">
                 <i className="ri-star-fill text-app-accent-primary text-sm"></i>
               </div>
               <div className="flex-1 min-w-0">
-                <p className="font-medium text-xs">Yêu thích</p>
+                <p className="font-medium text-xs truncate">Yêu thích</p>
                 <p className="text-[10px] opacity-60">{favorites.length} câu đã lưu</p>
               </div>
             </button>
@@ -503,10 +516,15 @@ export default function ConversationPage() {
               <div className="w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${currentTopic.color}15` }}>
                 <i className={`${currentTopic.icon} text-lg`} style={{ color: currentTopic.color }}></i>
               </div>
-              <div>
-                <h2 className="text-white font-bold text-base">{currentTopic.title}</h2>
-                <p className="text-app-text-secondary text-xs">{currentTopic.subtitle} · {currentTopic.phrases.length} câu</p>
+              <div className="flex-1 min-w-0">
+                <h2 className="text-white font-bold text-base truncate">{currentTopic.title}</h2>
+                <p className="text-app-text-secondary text-xs truncate">{currentTopic.subtitle} · {currentTopic.phrases.length} câu</p>
               </div>
+              <button onClick={startPractice}
+                className="flex items-center gap-1.5 px-3 md:px-4 py-2 rounded-xl text-xs font-bold cursor-pointer whitespace-nowrap transition-opacity hover:opacity-90 flex-shrink-0"
+                style={{ backgroundColor: currentTopic.color, color: "#0a0d14" }}>
+                <i className="ri-play-fill"></i><span className="hidden sm:inline">Luyện ngay</span><span className="sm:hidden">Luyện</span>
+              </button>
             </div>
           )}
 
