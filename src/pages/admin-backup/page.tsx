@@ -23,7 +23,7 @@ interface BackupSnapshot {
 // ─── Key categories ───────────────────────────────────────────────────────────
 const KEY_CATEGORIES: { prefix: string; label: string; color: string; icon: string }[] = [
   { prefix: "hanja_streak", label: "Streak", color: "#fb923c", icon: "ri-fire-line" },
-  { prefix: "kts_eps", label: "EPS", color: "app-accent-primary", icon: "ri-file-list-3-line" },
+  { prefix: "kts_eps", label: "EPS", color: "#e8c84a", icon: "ri-file-list-3-line" },
   { prefix: "kts_sr", label: "Spaced Repetition", color: "#a78bfa", icon: "ri-brain-line" },
   { prefix: "kts_melon", label: "Melon", color: "#f472b6", icon: "ri-music-line" },
   { prefix: "kts_xp", label: "XP & Gamification", color: "#34d399", icon: "ri-star-line" },
@@ -165,7 +165,7 @@ function parseDiff(snapA: BackupSnapshot, snapB: BackupSnapshot): DiffEntry[] {
 const DIFF_CONFIG: Record<DiffType, { label: string; color: string; bg: string; icon: string; border: string }> = {
   added: { label: "Thêm mới", color: "#34d399", bg: "rgba(52,211,153,0.06)", icon: "ri-add-circle-line", border: "rgba(52,211,153,0.25)" },
   removed: { label: "Bị xóa", color: "#f87171", bg: "rgba(248,113,113,0.06)", icon: "ri-delete-bin-line", border: "rgba(248,113,113,0.25)" },
-  changed: { label: "Thay đổi", color: "app-accent-primary", bg: "rgba(232,200,74,0.06)", icon: "ri-edit-line", border: "rgba(232,200,74,0.25)" },
+  changed: { label: "Thay đổi", color: "#e8c84a", bg: "rgba(232,200,74,0.06)", icon: "ri-edit-line", border: "rgba(232,200,74,0.25)" },
   unchanged: { label: "Không đổi", color: "#6b7280", bg: "transparent", icon: "ri-checkbox-blank-circle-line", border: "var(--admin-border)" },
 };
 
@@ -378,7 +378,7 @@ function CompareTab({ snapshots }: { snapshots: BackupSnapshot[] }) {
               So sánh <strong style={{ color: "#f87171" }}>{snapA.name}</strong> với <strong style={{ color: "#34d399" }}>{snapB.name}</strong>:
               {stats.added > 0 && <span> <strong style={{ color: "#34d399" }}>+{stats.added} key mới</strong>,</span>}
               {stats.removed > 0 && <span> <strong style={{ color: "#f87171" }}>-{stats.removed} key bị xóa</strong>,</span>}
-              {stats.changed > 0 && <span> <strong style={{ color: "app-accent-primary" }}>{stats.changed} key thay đổi</strong>,</span>}
+              {stats.changed > 0 && <span> <strong style={{ color: "#e8c84a" }}>{stats.changed} key thay đổi</strong>,</span>}
               {stats.unchanged > 0 && <span> {stats.unchanged} key không đổi.</span>}
               {stats.added === 0 && stats.removed === 0 && stats.changed === 0 && (
                 <span> <strong style={{ color: "#34d399" }}>Hai snapshot giống hệt nhau!</strong></span>
@@ -421,7 +421,7 @@ interface ScheduleRule {
 const FREQ_CONFIG: Record<ScheduleFreq, { label: string; color: string; icon: string }> = {
   daily: { label: "Hàng ngày", color: "#34d399", icon: "ri-calendar-check-line" },
   weekly: { label: "Hàng tuần", color: "#a78bfa", icon: "ri-calendar-2-line" },
-  monthly: { label: "Hàng tháng", color: "app-accent-primary", icon: "ri-calendar-line" },
+  monthly: { label: "Hàng tháng", color: "#e8c84a", icon: "ri-calendar-line" },
 };
 
 const DAYS_OF_WEEK = ["Chủ nhật", "Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7"];
@@ -616,7 +616,7 @@ function ScheduleTab({ onCreateBackup, snapshots: externalSnapshots, setSnapshot
         {[
           { label: "Lịch đang hoạt động", value: schedules.filter(s => s.status === "active").length, color: "#34d399", icon: "ri-play-circle-line" },
           { label: "Tổng backup đã tạo", value: schedules.reduce((s, r) => s + r.backupCount, 0), color: "#a78bfa", icon: "ri-save-line" },
-          { label: "Lịch tạm dừng", value: schedules.filter(s => s.status === "paused").length, color: "app-accent-primary", icon: "ri-pause-circle-line" },
+          { label: "Lịch tạm dừng", value: schedules.filter(s => s.status === "paused").length, color: "#e8c84a", icon: "ri-pause-circle-line" },
         ].map(s => (
           <div key={s.label} className="rounded-xl p-4 border"
             style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
@@ -773,7 +773,7 @@ function ScheduleTab({ onCreateBackup, snapshots: externalSnapshots, setSnapshot
               <ul className="space-y-1.5 text-xs" style={{ color: "var(--admin-text-muted)" }}>
                 <li><i className="ri-checkbox-circle-line mr-1.5" style={{ color: "#34d399" }}></i>Khi tạo backup mới, tự động xóa backup cũ hơn {cleanupDays} ngày</li>
                 <li><i className="ri-checkbox-circle-line mr-1.5" style={{ color: "#34d399" }}></i>Backup được tạo bởi lịch tự động cũng áp dụng quy tắc này</li>
-                <li><i className="ri-error-warning-line mr-1.5" style={{ color: "app-accent-primary" }}></i>Backup đã xóa không thể khôi phục</li>
+                <li><i className="ri-error-warning-line mr-1.5" style={{ color: "#e8c84a" }}></i>Backup đã xóa không thể khôi phục</li>
               </ul>
             </div>
 
@@ -1149,7 +1149,7 @@ export default function AdminBackupPage() {
             {[
               { label: "Tổng keys", value: entries.length, color: "#a78bfa", icon: "ri-key-line" },
               { label: "Dung lượng", value: formatBytes(totalSize), color: "#34d399", icon: "ri-database-line" },
-              { label: "Danh mục", value: Object.keys(categories).length, color: "app-accent-primary", icon: "ri-folder-line" },
+              { label: "Danh mục", value: Object.keys(categories).length, color: "#e8c84a", icon: "ri-folder-line" },
               { label: "Backups đã lưu", value: snapshots.length, color: "#fb923c", icon: "ri-save-line" },
             ].map(s => (
               <div key={s.label} className="rounded-xl p-4 border"

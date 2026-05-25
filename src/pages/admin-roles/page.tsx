@@ -17,14 +17,14 @@ const ALL_PERMISSIONS = [
   { id: "reports.view", label: "Xem báo cáo", group: "Báo cáo", icon: "ri-flag-line", color: "#fb923c" },
   { id: "reports.resolve", label: "Xử lý báo cáo", group: "Báo cáo", icon: "ri-shield-check-line", color: "#34d399" },
   { id: "users.view", label: "Xem thành viên", group: "Thành viên", icon: "ri-user-line", color: "#a78bfa" },
-  { id: "users.vip", label: "Cấp/Hủy VIP", group: "Thành viên", icon: "ri-vip-crown-line", color: "app-accent-primary" },
+  { id: "users.vip", label: "Cấp/Hủy VIP", group: "Thành viên", icon: "ri-vip-crown-line", color: "#e8c84a" },
   { id: "users.ban", label: "Khóa tài khoản", group: "Thành viên", icon: "ri-user-forbid-line", color: "#f87171" },
   { id: "stats.view", label: "Xem thống kê", group: "Thống kê", icon: "ri-bar-chart-line", color: "#34d399" },
   { id: "system.broadcast", label: "Gửi broadcast", group: "Hệ thống", icon: "ri-broadcast-line", color: "#f87171" },
   { id: "system.roles", label: "Quản lý phân quyền", group: "Hệ thống", icon: "ri-shield-keyhole-line", color: "#f87171" },
   { id: "system.settings", label: "Cài đặt hệ thống", group: "Hệ thống", icon: "ri-settings-3-line", color: "#f87171" },
-  { id: "eps.edit", label: "Chỉnh sửa EPS", group: "Nội dung học", icon: "ri-edit-line", color: "app-accent-primary" },
-  { id: "eps.upload", label: "Upload EPS", group: "Nội dung học", icon: "ri-upload-cloud-2-line", color: "app-accent-primary" },
+  { id: "eps.edit", label: "Chỉnh sửa EPS", group: "Nội dung học", icon: "ri-edit-line", color: "#e8c84a" },
+  { id: "eps.upload", label: "Upload EPS", group: "Nội dung học", icon: "ri-upload-cloud-2-line", color: "#e8c84a" },
 ];
 
 const ROLE_PRESETS: Record<Role, { label: string; color: string; bg: string; icon: string; desc: string; permissions: string[] }> = {
@@ -39,7 +39,7 @@ const ROLE_PRESETS: Record<Role, { label: string; color: string; bg: string; ico
     permissions: ["content.view", "content.approve", "reports.view", "reports.resolve", "users.view", "users.ban", "stats.view", "eps.edit", "community.settings"],
   },
   moderator: {
-    label: "Moderator", color: "app-accent-primary", bg: "rgba(232,200,74,0.12)",
+    label: "Moderator", color: "#e8c84a", bg: "rgba(232,200,74,0.12)",
     icon: "ri-shield-check-line", desc: "Duyệt nội dung, xử lý báo cáo, quản lý thành viên cơ bản",
     permissions: ["content.view", "content.approve", "reports.view", "reports.resolve", "users.view", "stats.view", "eps.edit"],
   },

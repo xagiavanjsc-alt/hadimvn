@@ -15,7 +15,7 @@ interface WeekRecord {
 
 // ─── Challenge metadata (same as weekly-challenge page) ───────────────────────
 const CHALLENGE_META: Record<string, { title: string; icon: string; color: string; xpReward: number }> = {
-  flash_50:    { title: "Flashcard Marathon",    icon: "ri-stack-line",      color: "app-accent-primary", xpReward: 100 },
+  flash_50:    { title: "Flashcard Marathon",    icon: "ri-stack-line",      color: "#e8c84a", xpReward: 100 },
   exam_3:      { title: "Chiến binh EPS",        icon: "ri-timer-line",      color: "#34d399", xpReward: 150 },
   streak_7:    { title: "Không bỏ ngày nào",     icon: "ri-fire-line",       color: "#fb923c", xpReward: 200 },
   drill_5:     { title: "Luyện chủ đề EPS",      icon: "ri-focus-3-line",    color: "#06b6d4", xpReward: 120 },
@@ -47,7 +47,7 @@ function WeekCard({ record, isExpanded, onToggle }: {
 }) {
   const pct = Math.round((record.completedCount / record.totalCount) * 100);
   const isFullComplete = record.completedCount === record.totalCount;
-  const color = isFullComplete ? "#34d399" : pct >= 70 ? "app-accent-primary" : pct >= 40 ? "#fb923c" : "#f87171";
+  const color = isFullComplete ? "#34d399" : pct >= 70 ? "#e8c84a" : pct >= 40 ? "#fb923c" : "#f87171";
   const label = isFullComplete ? "Hoàn hảo!" : pct >= 70 ? "Tốt" : pct >= 40 ? "Trung bình" : "Cần cố gắng";
 
   return (
@@ -174,7 +174,7 @@ export default function ChallengeHistoryPage() {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
           { label: "Streak thử thách", value: `${challengeStreak} tuần`, icon: "ri-fire-line", color: "#fb923c", sub: "Liên tiếp ≥50% thử thách" },
-          { label: "Tuần hoàn hảo", value: perfectWeeks, icon: "ri-vip-crown-line", color: "app-accent-primary", sub: `/${history.length} tuần đã ghi nhận` },
+          { label: "Tuần hoàn hảo", value: perfectWeeks, icon: "ri-vip-crown-line", color: "#e8c84a", sub: `/${history.length} tuần đã ghi nhận` },
           { label: "Tổng XP từ thử thách", value: totalXPFromChallenges.toLocaleString(), icon: "ri-star-line", color: "#34d399", sub: "Tích lũy từ tất cả tuần" },
           { label: "Tỷ lệ hoàn thành TB", value: `${avgCompletion}%`, icon: "ri-bar-chart-line", color: "#a78bfa", sub: "Trung bình mỗi tuần" },
         ].map(s => (
@@ -253,9 +253,9 @@ export default function ChallengeHistoryPage() {
                     key={r.weekKey}
                     className="aspect-square rounded-lg flex items-center justify-center text-[10px] font-bold"
                     style={{
-                      backgroundColor: isPerfect ? "app-accent-primary20" : isGood ? "#fb923c15" : "rgba(255,255,255,0.03)",
-                      color: isPerfect ? "app-accent-primary" : isGood ? "#fb923c" : "rgba(255,255,255,0.2)",
-                      border: `1px solid ${isPerfect ? "app-accent-primary30" : isGood ? "#fb923c20" : "rgba(255,255,255,0.05)"}`,
+                      backgroundColor: isPerfect ? "rgba(232,200,74,0.20)" : isGood ? "#fb923c15" : "rgba(255,255,255,0.03)",
+                      color: isPerfect ? "#e8c84a" : isGood ? "#fb923c" : "rgba(255,255,255,0.2)",
+                      border: `1px solid ${isPerfect ? "rgba(232,200,74,0.30)" : isGood ? "#fb923c20" : "rgba(255,255,255,0.05)"}`,
                     }}
                     title={r.weekLabel}
                   >

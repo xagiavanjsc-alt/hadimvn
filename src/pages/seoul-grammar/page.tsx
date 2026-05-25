@@ -29,7 +29,7 @@ interface QuizQuestion {
 }
 
 const BOOKS = [
-  { id: "all", label: "Tất cả", color: "app-accent-primary" },
+  { id: "all", label: "Tất cả", color: "#e8c84a" },
   { id: "1A", label: "Seoul 1A", color: "#34d399", lessonRange: [1, 7] },
   { id: "1B", label: "Seoul 1B", color: "#34d399", lessonRange: [8, 14] },
   { id: "2A", label: "Seoul 2A", color: "#60a5fa", lessonRange: [1, 9] },
@@ -40,7 +40,7 @@ const BOOKS = [
 
 const LEVEL_COLORS: Record<string, string> = {
   beginner: "#34d399",
-  intermediate: "app-accent-primary",
+  intermediate: "#e8c84a",
   advanced: "#f87171",
 };
 
@@ -197,9 +197,9 @@ export default function SeoulGrammarPage() {
           {/* Stats */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4">
             {[
-              { label: "Tổng điểm ngữ pháp", value: grammar.length, icon: "ri-book-2-line", color: "app-accent-primary" },
+              { label: "Tổng điểm ngữ pháp", value: grammar.length, icon: "ri-book-2-line", color: "#e8c84a" },
               { label: "Sơ cấp", value: grammar.filter(g => g.level === "beginner").length, icon: "ri-seedling-line", color: "#34d399" },
-              { label: "Trung cấp", value: grammar.filter(g => g.level === "intermediate").length, icon: "ri-plant-line", color: "app-accent-primary" },
+              { label: "Trung cấp", value: grammar.filter(g => g.level === "intermediate").length, icon: "ri-plant-line", color: "#e8c84a" },
               { label: "Nâng cao", value: grammar.filter(g => g.level === "advanced").length, icon: "ri-tree-line", color: "#f87171" },
             ].map(stat => (
               <div key={stat.label} className="bg-app-surface/50 border border-app-border rounded-xl p-4">

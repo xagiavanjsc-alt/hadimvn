@@ -33,9 +33,9 @@ interface SystemEvent {
 
 // ─── Action type config ───────────────────────────────────────────────────────
 const ACTION_CONFIG: Record<string, { color: string; icon: string; label: string }> = {
-  vip_granted: { color: "app-accent-primary", icon: "ri-vip-crown-line", label: "Cấp VIP" },
+  vip_granted: { color: "#e8c84a", icon: "ri-vip-crown-line", label: "Cấp VIP" },
   vip_revoked: { color: "#f87171", icon: "ri-close-circle-line", label: "Hủy VIP" },
-  bulk_vip_granted: { color: "app-accent-primary", icon: "ri-vip-crown-2-line", label: "Cấp VIP hàng loạt" },
+  bulk_vip_granted: { color: "#e8c84a", icon: "ri-vip-crown-2-line", label: "Cấp VIP hàng loạt" },
   admin_granted: { color: "#f87171", icon: "ri-shield-keyhole-line", label: "Cấp Admin" },
   admin_revoked: { color: "#f87171", icon: "ri-shield-cross-line", label: "Hủy Admin" },
   broadcast_sent: { color: "#a78bfa", icon: "ri-broadcast-line", label: "Broadcast" },
@@ -296,7 +296,7 @@ export default function AdminAuditPage() {
           { label: "Tổng sự kiện", value: systemEvents.length, color: "#a78bfa", icon: "ri-history-line" },
           { label: "Hành động Admin", value: adminActionsCount, color: "#f87171", icon: "ri-shield-keyhole-line" },
           { label: "Hôm nay", value: todayCount, color: "#34d399", icon: "ri-calendar-check-line" },
-          { label: "Lần thi thử", value: typeCount("exam_taken"), color: "app-accent-primary", icon: "ri-file-list-3-line" },
+          { label: "Lần thi thử", value: typeCount("exam_taken"), color: "#e8c84a", icon: "ri-file-list-3-line" },
           { label: "Email đã gửi", value: emailCount, color: "#38bdf8", icon: "ri-mail-send-line" },
         ].map(s => (
           <div key={s.label} className="flex items-center gap-3 px-4 py-3 rounded-xl border"

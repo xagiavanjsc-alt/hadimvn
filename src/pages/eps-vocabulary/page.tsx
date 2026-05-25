@@ -85,7 +85,7 @@ function deduplicateVocab(items: EpsVocabItem[]): EpsVocabItem[] {
   });
 }
 
-const LEVEL_COLORS = { basic: "#34d399", intermediate: "app-accent-primary", advanced: "#f87171" };
+const LEVEL_COLORS = { basic: "#34d399", intermediate: "#e8c84a", advanced: "#f87171" };
 const LEVEL_LABELS = { basic: "Cơ bản", intermediate: "Trung cấp", advanced: "Nâng cao" };
 
 // ─── Flashcard Modal ──────────────────────────────────────────────────────
@@ -337,7 +337,7 @@ function EpsVocabularyPageInner() {
         {[
           { label: "Tổng từ EPS", value: DEDUPED_VOCAB.length, icon: "ri-file-list-3-line", color: "#fb923c" },
           { label: "Đã thuộc", value: totalMastered, icon: "ri-checkbox-circle-line", color: "#34d399" },
-          { label: "Chưa thuộc", value: DEDUPED_VOCAB.length - totalMastered, icon: "ri-time-line", color: "app-accent-primary" },
+          { label: "Chưa thuộc", value: DEDUPED_VOCAB.length - totalMastered, icon: "ri-time-line", color: "#e8c84a" },
           { label: "Tiến độ", value: `${overallPct}%`, icon: "ri-pie-chart-line", color: "#a78bfa" },
         ].map(stat => (
           <div key={stat.label} className="bg-app-bg border border-app-border rounded-xl p-4 flex items-center gap-3">

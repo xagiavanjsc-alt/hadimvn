@@ -248,7 +248,7 @@ export default function SeoulPhrasesPage() {
                 <span className="text-white font-bold text-sm">{accuracy}%</span>
               </div>
               <div className="h-2 bg-white/8 rounded-full overflow-hidden">
-                <div className="h-full rounded-full transition-all duration-700" style={{ width: `${accuracy}%`, backgroundColor: accuracy >= 80 ? "#34d399" : accuracy >= 60 ? "app-accent-primary" : "#f87171" }}></div>
+                <div className="h-full rounded-full transition-all duration-700" style={{ width: `${accuracy}%`, backgroundColor: accuracy >= 80 ? "#34d399" : accuracy >= 60 ? "#e8c84a" : "#f87171" }}></div>
               </div>
             </div>
           </div>

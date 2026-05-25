@@ -15,7 +15,7 @@ interface ReferralRecord {
 const XP_PER_REFERRAL = 100;
 const MILESTONE_REWARDS = [
   { count: 1,  xp: 100,  label: "Người mời đầu tiên",  icon: "ri-user-add-line",    color: "#34d399" },
-  { count: 3,  xp: 300,  label: "Nhóm học nhỏ",        icon: "ri-group-line",       color: "app-accent-primary" },
+  { count: 3,  xp: 300,  label: "Nhóm học nhỏ",        icon: "ri-group-line",       color: "#e8c84a" },
   { count: 5,  xp: 600,  label: "Đại sứ học tập",      icon: "ri-medal-line",       color: "#fb923c" },
   { count: 10, xp: 1500, label: "Huyền thoại mời bạn", icon: "ri-vip-crown-line",   color: "#a78bfa" },
 ];
@@ -142,7 +142,7 @@ export default function ReferralPage() {
             <h3 className="text-white font-semibold text-sm mb-4">Cách hoạt động</h3>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {[
-                { step: "1", icon: "ri-share-line", color: "app-accent-primary", title: "Chia sẻ link", desc: "Gửi link mời hoặc mã giới thiệu cho bạn bè" },
+                { step: "1", icon: "ri-share-line", color: "#e8c84a", title: "Chia sẻ link", desc: "Gửi link mời hoặc mã giới thiệu cho bạn bè" },
                 { step: "2", icon: "ri-user-add-line", color: "#34d399", title: "Bạn đăng ký", desc: "Bạn bè đăng ký tài khoản qua link của bạn" },
                 { step: "3", icon: "ri-star-fill", color: "#fb923c", title: "Cả hai nhận XP", desc: "Bạn +100 XP, bạn bè +50 XP ngay lập tức" },
               ].map(s => (
@@ -215,7 +215,7 @@ export default function ReferralPage() {
             <h3 className="text-white font-semibold text-sm mb-4">Thống kê mời bạn</h3>
             <div className="space-y-3">
               {[
-                { label: "Tổng bạn đã mời", value: referrals.length, color: "app-accent-primary" },
+                { label: "Tổng bạn đã mời", value: referrals.length, color: "#e8c84a" },
                 { label: "Đang hoạt động", value: activeReferrals.length, color: "#34d399" },
                 { label: "Chờ xác nhận", value: pendingReferrals.length, color: "#fb923c" },
                 { label: "XP đã nhận", value: `${totalXPEarned} XP`, color: "#a78bfa" },

@@ -47,8 +47,8 @@ function MemberRow({ user, selected, onToggle, lastStudy }: {
         <div
           className="w-4 h-4 rounded border-2 flex items-center justify-center transition-colors"
           style={{
-            borderColor: selected ? "app-accent-primary" : "rgba(255,255,255,0.2)",
-            backgroundColor: selected ? "app-accent-primary" : "transparent",
+            borderColor: selected ? "#e8c84a" : "rgba(255,255,255,0.2)",
+            backgroundColor: selected ? "#e8c84a" : "transparent",
           }}
         >
           {selected && <i className="ri-check-line text-app-bg text-[10px]" />}
@@ -288,7 +288,7 @@ export default function AdminZaloReminderPage() {
               <button
                 onClick={() => setSchedule(prev => ({ ...prev, enabled: !prev.enabled }))}
                 className="relative w-12 h-6 rounded-full cursor-pointer flex-shrink-0 transition-colors"
-                style={{ backgroundColor: schedule.enabled ? "app-accent-primary" : "rgba(255,255,255,0.1)" }}
+                style={{ backgroundColor: schedule.enabled ? "#e8c84a" : "rgba(255,255,255,0.1)" }}
               >
                 <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-all ${schedule.enabled ? "left-7" : "left-1"}`} />
               </button>
@@ -342,7 +342,7 @@ export default function AdminZaloReminderPage() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {[
               { label: "Chưa học", value: inactiveMembers.length, color: "#f87171", icon: "ri-user-forbid-line" },
-              { label: "Đã chọn", value: selectedIds.size, color: "app-accent-primary", icon: "ri-user-add-line" },
+              { label: "Đã chọn", value: selectedIds.size, color: "#e8c84a", icon: "ri-user-add-line" },
               { label: "Đã gửi (DB)", value: sentCount, color: "#34d399", icon: "ri-send-plane-line" },
             ].map(s => (
               <div key={s.label} className="bg-[#111318] border border-app-border rounded-xl p-3 flex items-center gap-3">

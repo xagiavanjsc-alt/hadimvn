@@ -212,7 +212,7 @@ function QuizReview({ items, allItems }: { items: WrongItem[]; allItems: WrongIt
           <i className="ri-trophy-line text-app-accent-primary text-4xl"></i>
         </div>
         <h3 className="text-white text-2xl font-bold mb-2">Kết quả</h3>
-        <p className="text-5xl font-black mb-2" style={{ color: pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171" }}>
+        <p className="text-5xl font-black mb-2" style={{ color: pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : "#f87171" }}>
           {pct}%
         </p>
         <p className="text-white/50 text-sm mb-6">{score}/{questions.length} câu đúng</p>
@@ -314,7 +314,7 @@ function FillReview({ items }: { items: WrongItem[] }) {
           <i className="ri-trophy-line text-app-accent-primary text-4xl"></i>
         </div>
         <h3 className="text-white text-2xl font-bold mb-2">Kết quả điền từ</h3>
-        <p className="text-5xl font-black mb-2" style={{ color: pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171" }}>
+        <p className="text-5xl font-black mb-2" style={{ color: pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : "#f87171" }}>
           {pct}%
         </p>
         <p className="text-white/50 text-sm mb-6">{score}/{cards.length} câu đúng</p>
@@ -452,7 +452,7 @@ function ListenFillReview({ items }: { items: WrongItem[] }) {
           <i className="ri-trophy-line text-app-accent-primary text-4xl"></i>
         </div>
         <h3 className="text-white text-2xl font-bold mb-2">Kết quả Nghe & Điền</h3>
-        <p className="text-5xl font-black mb-2" style={{ color: pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171" }}>
+        <p className="text-5xl font-black mb-2" style={{ color: pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : "#f87171" }}>
           {pct}%
         </p>
         <p className="text-white/50 text-sm mb-6">{score}/{cards.length} câu đúng</p>

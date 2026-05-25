@@ -212,7 +212,7 @@ export default function TopikStatsPage() {
         {/* Top KPI cards */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
           {[
-            { label: "Tổng từ vựng", value: totalWords, icon: "ri-book-2-line", color: "app-accent-primary" },
+            { label: "Tổng từ vựng", value: totalWords, icon: "ri-book-2-line", color: "#e8c84a" },
             { label: "Đã học", value: totalStudied, icon: "ri-eye-line", color: "#38bdf8" },
             { label: "Đã thuộc", value: totalMastered, icon: "ri-check-double-line", color: "#34d399" },
             { label: "Cần ôn hôm nay", value: totalDue, icon: "ri-alarm-line", color: "#fb923c" },
@@ -256,7 +256,7 @@ export default function TopikStatsPage() {
               <div className="bg-app-surface/50 border border-app-border rounded-2xl p-6 flex flex-col items-center justify-center">
                 <p className="text-white/50 text-sm mb-4">Tiến độ tổng thể</p>
                 <div className="relative">
-                  <RadialProgress value={animated ? overallPct : 0} color="app-accent-primary" size={140} />
+                  <RadialProgress value={animated ? overallPct : 0} color="#e8c84a" size={140} />
                   <div className="absolute inset-0 flex flex-col items-center justify-center">
                     <p className="text-3xl font-bold text-white">{overallPct}%</p>
                     <p className="text-app-text-muted text-xs">đã thuộc</p>
@@ -465,7 +465,7 @@ export default function TopikStatsPage() {
               <div className="space-y-2">
                 {quizHistory.map((q, i) => {
                   const pct = Math.round((q.score / q.total) * 100);
-                  const color = pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171";
+                  const color = pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : "#f87171";
                   const typeLabel = q.quiz_type === "reading" ? "Đọc hiểu" : q.quiz_type === "listening" ? "Nghe" : "Từ vựng";
                   return (
                     <div key={i} className="bg-app-surface/50 border border-app-border rounded-xl p-4 flex items-center gap-4">

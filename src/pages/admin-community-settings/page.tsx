@@ -8,7 +8,7 @@ type AccessMode = "normal" | "holiday" | "maintenance";
 
 const MODE_CONFIG: Record<AccessMode, { label: string; color: string; icon: string; desc: string }> = {
   normal: { label: "Bình thường", color: "#34d399", icon: "ri-shield-check-line", desc: "Áp dụng giới hạn theo cấu hình" },
-  holiday: { label: "Lễ/Sự kiện", color: "app-accent-primary", icon: "ri-gift-line", desc: "Mở full — không giới hạn đăng bài và xem" },
+  holiday: { label: "Lễ/Sự kiện", color: "#e8c84a", icon: "ri-gift-line", desc: "Mở full — không giới hạn đăng bài và xem" },
   maintenance: { label: "Bảo trì", color: "#f87171", icon: "ri-tools-line", desc: "Không ai đăng được bài mới" },
 };
 
@@ -179,7 +179,7 @@ export default function AdminCommunitySettingsPage() {
               {modeNote && <span className="ml-1" style={{ color: currentMode.color }}>({modeNote})</span>}
             </p>
             {!accessControlEnabled && (
-              <p style={{ color: "app-accent-primary" }}>⚠️ Kiểm soát truy cập đang TẮT — tất cả đều truy cập tự do</p>
+              <p style={{ color: "#e8c84a" }}>⚠️ Kiểm soát truy cập đang TẮT — tất cả đều truy cập tự do</p>
             )}
             {accessControlEnabled && accessMode === "normal" && (
               <>

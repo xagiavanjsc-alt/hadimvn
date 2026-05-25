@@ -24,7 +24,7 @@ const TOPICS: TopicDef[] = [
     id: "food",
     label: "Ẩm thực",
     icon: "ri-restaurant-line",
-    color: "app-accent-primary",
+    color: "#e8c84a",
     keywords: ["ăn", "uống", "canh", "cơm", "mỳ", "thịt", "cá", "rau", "ngọt", "mặn", "cay", "chua", "đắng", "nhạt", "món", "bữa", "nhà hàng", "gọi", "đặt", "vị", "hương vị", "nấu", "nướng", "hầm", "kho", "trộn", "miến", "bánh", "sườn", "gà", "bò", "lợn", "đậu", "kim chi"],
   },
   {
@@ -73,7 +73,7 @@ const TOPICS: TopicDef[] = [
     id: "phone",
     label: "Điện thoại",
     icon: "ri-phone-line",
-    color: "app-accent-primary",
+    color: "#e8c84a",
     keywords: ["điện thoại", "gọi", "nhận", "ngắt", "chuyển", "tin nhắn", "gửi", "nhắn", "số điện thoại", "máy bận", "quốc tế", "trong nước", "phí", "a lô", "xóa", "trả lời", "thông tin", "tư vấn", "hỏi"],
   },
   {
@@ -108,7 +108,7 @@ const TOPICS: TopicDef[] = [
     id: "finance",
     label: "Tài chính",
     icon: "ri-money-dollar-circle-line",
-    color: "app-accent-primary",
+    color: "#e8c84a",
     keywords: ["tiền", "đổi tiền", "rút tiền", "nộp tiền", "chuyển tiền", "gửi tiền", "tài khoản", "ngân hàng", "thẻ", "tín dụng", "đặt cọc", "phí", "giá", "đắt", "rẻ", "tiết kiệm", "tỉ giá", "ATM", "chuyển khoản", "số tài khoản"],
   },
   {
@@ -223,8 +223,8 @@ export default function SeoulTopicStudyPage() {
               onClick={() => setSelectedTopic(null)}
               className={`p-3 rounded-xl border text-center transition-all cursor-pointer ${!selectedTopic ? "border-white/25 bg-app-card/50" : "border-app-border bg-white/2 hover:border-white/15"}`}
             >
-              <div className="w-9 h-9 flex items-center justify-center rounded-xl mx-auto mb-2" style={{ backgroundColor: !selectedTopic ? "app-accent-primary20" : "rgba(255,255,255,0.05)" }}>
-                <i className="ri-apps-line text-lg" style={{ color: !selectedTopic ? "app-accent-primary" : "rgba(255,255,255,0.3)" }}></i>
+              <div className="w-9 h-9 flex items-center justify-center rounded-xl mx-auto mb-2" style={{ backgroundColor: !selectedTopic ? "rgba(232,200,74,0.20)" : "rgba(255,255,255,0.05)" }}>
+                <i className="ri-apps-line text-lg" style={{ color: !selectedTopic ? "#e8c84a" : "rgba(255,255,255,0.3)" }}></i>
               </div>
               <p className={`text-xs font-semibold ${!selectedTopic ? "text-white" : "text-app-text-secondary"}`}>Tất cả</p>
               <p className="text-app-text-muted text-[10px] mt-0.5">{allVocab.length} từ</p>

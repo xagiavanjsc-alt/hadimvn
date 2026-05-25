@@ -135,7 +135,7 @@ export default function SeoulVocabExportPage() {
             </div>
             <h2 className="text-white font-bold text-lg mb-2">Chỉ dành cho Admin</h2>
             <p className="text-app-text-secondary text-sm mb-6">Tính năng xuất từ vựng chỉ dành cho quản trị viên.</p>
-            <button onClick={() => navigate(-1)} className="flex items-center gap-2 px-4 py-2.5 rounded-xl mx-auto cursor-pointer whitespace-nowrap" style={{ backgroundColor: "rgba(232,200,74,0.12)", color: "app-accent-primary", border: "1px solid rgba(232,200,74,0.25)" }}>
+            <button onClick={() => navigate(-1)} className="flex items-center gap-2 px-4 py-2.5 rounded-xl mx-auto cursor-pointer whitespace-nowrap" style={{ backgroundColor: "rgba(232,200,74,0.12)", color: "#e8c84a", border: "1px solid rgba(232,200,74,0.25)" }}>
               <i className="ri-arrow-left-line"></i>Quay lại
             </button>
           </div>

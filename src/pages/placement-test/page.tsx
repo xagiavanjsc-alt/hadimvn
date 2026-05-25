@@ -101,7 +101,7 @@ const TEST_QUESTIONS: TestQuestion[] = [
 // ─── Level config ─────────────────────────────────────────────────────────
 const LEVEL_CONFIG = {
   A1: { label: "Sơ cấp", color: "#34d399", desc: "Mới bắt đầu học tiếng Hàn", icon: "ri-seedling-line" },
-  A2: { label: "Cơ bản", color: "app-accent-primary", desc: "Biết giao tiếp cơ bản", icon: "ri-plant-line" },
+  A2: { label: "Cơ bản", color: "#e8c84a", desc: "Biết giao tiếp cơ bản", icon: "ri-plant-line" },
   B1: { label: "Trung cấp", color: "#fb923c", desc: "Có thể làm việc tại Hàn Quốc", icon: "ri-fire-line" },
   B2: { label: "Khá", color: "#a78bfa", desc: "Hiểu pháp luật và văn hóa sâu", icon: "ri-star-line" },
 };
@@ -260,7 +260,7 @@ function ResultScreen({
             <div className="space-y-3">
               {catStats.map(({ cat, correct: c, total: t }) => {
                 const p = t > 0 ? Math.round((c / t) * 100) : 0;
-                const color = p >= 80 ? "#34d399" : p >= 60 ? "app-accent-primary" : "#f87171";
+                const color = p >= 80 ? "#34d399" : p >= 60 ? "#e8c84a" : "#f87171";
                 return (
                   <div key={cat}>
                     <div className="flex items-center justify-between mb-1">
@@ -281,7 +281,7 @@ function ResultScreen({
             <h3 className="text-white font-semibold text-sm mb-3">Bắt đầu ngay</h3>
             <div className="space-y-2">
               {[
-                { icon: "ri-book-open-line", label: "Học EPS theo chủ đề", path: "/eps-topics", color: "app-accent-primary" },
+                { icon: "ri-book-open-line", label: "Học EPS theo chủ đề", path: "/eps-topics", color: "#e8c84a" },
                 { icon: "ri-stack-line", label: "Flashcard từ vựng", path: "/flashcard", color: "#34d399" },
                 { icon: "ri-mic-line", label: "Luyện phát âm", path: "/pronunciation", color: "#06b6d4" },
                 { icon: "ri-timer-line", label: "Thi thử EPS 40 câu", path: "/eps-exam", color: "#f87171" },
@@ -399,7 +399,7 @@ export default function PlacementTestPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
               {[
-                { icon: "ri-survey-line", label: "10 câu hỏi", desc: "Từ A1 đến B2", color: "app-accent-primary" },
+                { icon: "ri-survey-line", label: "10 câu hỏi", desc: "Từ A1 đến B2", color: "#e8c84a" },
                 { icon: "ri-timer-line", label: "5 phút", desc: "Không cần vội", color: "#34d399" },
                 { icon: "ri-route-line", label: "Lộ trình AI", desc: "Cá nhân hóa", color: "#a78bfa" },
               ].map(item => (

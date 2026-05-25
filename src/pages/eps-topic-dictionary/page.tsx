@@ -324,7 +324,7 @@ export default function EpsTopicDictionaryPage() {
                     }`}
                   >
                     <span className="flex items-center gap-2 min-w-0">
-                      <i className={`${topic.icon} text-sm flex-shrink-0`} style={{ color: selectedTopic === topic.id ? "app-accent-primary" : topic.color }}></i>
+                      <i className={`${topic.icon} text-sm flex-shrink-0`} style={{ color: selectedTopic === topic.id ? "#e8c84a" : topic.color }}></i>
                       <span className="truncate text-xs">{topic.label}</span>
                     </span>
                     <span className="text-xs text-app-text-muted flex-shrink-0">{topicCounts[topic.id] || 0}</span>

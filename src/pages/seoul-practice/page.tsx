@@ -366,7 +366,7 @@ function MatchingMode({ words, onFinish, onWrong }: { words: VocabItem[]; onFini
     }
   };
 
-  const bookColor = words[0]?.bookColor || "app-accent-primary";
+  const bookColor = words[0]?.bookColor || "#e8c84a";
 
   return (
     <div className="flex flex-col gap-5 max-w-2xl mx-auto">
@@ -575,7 +575,7 @@ function FillBlankMode({ words, onFinish, onWrong }: { words: VocabItem[]; onFin
 function ResultScreen({ score, total, mode, onRetry, onBack, bookColor }: { score: number; total: number; mode: PracticeMode; onRetry: () => void; onBack: () => void; bookColor: string }) {
   const pct = Math.round((score / total) * 100);
   const grade = pct >= 90 ? "Xuất sắc!" : pct >= 70 ? "Tốt lắm!" : pct >= 50 ? "Cố gắng thêm!" : "Cần ôn lại!";
-  const gradeColor = pct >= 90 ? "#34d399" : pct >= 70 ? "app-accent-primary" : pct >= 50 ? "#fb923c" : "#f87171";
+  const gradeColor = pct >= 90 ? "#34d399" : pct >= 70 ? "#e8c84a" : pct >= 50 ? "#fb923c" : "#f87171";
 
   return (
     <div className="flex flex-col items-center gap-6 py-8 max-w-md mx-auto text-center">
@@ -617,7 +617,7 @@ function LeaderboardPanel() {
   }, [practiceResults, wrongWords]);
 
   const mockLeaderboard = [
-    { rank: 1, name: "Nguyễn Thị Lan", xp: 2840, streak: 45, accuracy: 94, avatar: "ri-user-smile-line", color: "app-accent-primary" },
+    { rank: 1, name: "Nguyễn Thị Lan", xp: 2840, streak: 45, accuracy: 94, avatar: "ri-user-smile-line", color: "#e8c84a" },
     { rank: 2, name: "Trần Văn Minh", xp: 2310, streak: 32, accuracy: 89, avatar: "ri-user-3-line", color: "#34d399" },
     { rank: 3, name: "Lê Thị Hoa", xp: 1980, streak: 28, accuracy: 91, avatar: "ri-user-heart-line", color: "#fb923c" },
     { rank: 4, name: "Phạm Quốc Bảo", xp: 1650, streak: 21, accuracy: 85, avatar: "ri-user-star-line", color: "#a78bfa" },
@@ -851,8 +851,8 @@ export default function SeoulPracticePage() {
                 {(Object.entries(modeInfo) as [PracticeMode, typeof modeInfo[PracticeMode]][]).map(([m, info]) => (
                   <button key={m} onClick={() => setMode(m)}
                     className={`p-4 rounded-xl border text-center transition-all cursor-pointer ${mode === m ? "border-white/25 bg-app-card/50" : "border-app-border bg-white/2 hover:border-white/15"}`}>
-                    <div className="w-10 h-10 flex items-center justify-center rounded-xl mx-auto mb-2" style={{ backgroundColor: mode === m ? `${selectedBook?.color || "app-accent-primary"}20` : "rgba(255,255,255,0.05)" }}>
-                      <i className={`${info.icon} text-lg`} style={{ color: mode === m ? (selectedBook?.color || "app-accent-primary") : "rgba(255,255,255,0.3)" }}></i>
+                    <div className="w-10 h-10 flex items-center justify-center rounded-xl mx-auto mb-2" style={{ backgroundColor: mode === m ? `${selectedBook?.color || "#e8c84a"}20` : "rgba(255,255,255,0.05)" }}>
+                      <i className={`${info.icon} text-lg`} style={{ color: mode === m ? (selectedBook?.color || "#e8c84a") : "rgba(255,255,255,0.3)" }}></i>
                     </div>
                     <p className={`text-sm font-semibold ${mode === m ? "text-white" : "text-white/50"}`}>{info.label}</p>
                     <p className="text-app-text-muted text-xs mt-0.5">{info.desc}</p>
@@ -900,7 +900,7 @@ export default function SeoulPracticePage() {
           </div>
         </div>
       ) : finished ? (
-        <ResultScreen score={finalScore} total={shuffledWords.length} mode={mode} onRetry={handleRetry} onBack={handleBack} bookColor={selectedBook?.color || "app-accent-primary"} />
+        <ResultScreen score={finalScore} total={shuffledWords.length} mode={mode} onRetry={handleRetry} onBack={handleBack} bookColor={selectedBook?.color || "#e8c84a"} />
       ) : (
         <div className="max-w-2xl mx-auto">
           <div className="flex items-center justify-between mb-6">
@@ -908,7 +908,7 @@ export default function SeoulPracticePage() {
               <i className="ri-arrow-left-line"></i>Quay lại
             </button>
             <div className="flex items-center gap-2">
-              <span className="text-xs px-2 py-1 rounded-full font-semibold" style={{ backgroundColor: `${selectedBook?.color || "app-accent-primary"}20`, color: selectedBook?.color || "app-accent-primary" }}>
+              <span className="text-xs px-2 py-1 rounded-full font-semibold" style={{ backgroundColor: `${selectedBook?.color || "#e8c84a"}20`, color: selectedBook?.color || "#e8c84a" }}>
                 {modeInfo[mode].label}
               </span>
               <span className="text-app-text-secondary text-xs">{selectedLesson?.titleVi}</span>

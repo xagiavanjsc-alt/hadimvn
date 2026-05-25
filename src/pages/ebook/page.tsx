@@ -30,7 +30,7 @@ const DEFAULT_META: EbookMeta = {
   subtitle: "Truyện Chêm & Từ Vựng Thực Tế",
   author: "Hà Dím",
   coverColor: "#0f1117",
-  coverAccent: "app-accent-primary",
+  coverAccent: "#e8c84a",
   description: "Tuyển tập bài học tiếng Hàn được biên soạn từ các bài hát K-pop đang hot, giúp bạn học từ vựng và ngữ pháp một cách tự nhiên và thú vị.",
   foreword: "Chào bạn đọc thân mến!\n\nCuốn ebook này được biên soạn với tình yêu dành cho tiếng Hàn và K-pop. Mỗi bài học là một câu chuyện nhỏ — nơi ngôn ngữ và âm nhạc hòa quyện để giúp bạn học tiếng Hàn một cách tự nhiên nhất.\n\nHãy đọc chậm, cảm nhận từng từ, và đừng quên nghe lại bài hát sau mỗi bài học nhé!\n\nChúc bạn học vui!",
   contactInfo: "Email: contact@hanvietkts.com\nFacebook: fb.com/hanvietkts\nZalo: 0901 234 567",

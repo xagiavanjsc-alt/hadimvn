@@ -187,7 +187,7 @@ export default function LearnOverviewPage() {
 
   const moduleCards = [
     {
-      icon: "ri-book-2-line", title: "Ngữ pháp", subtitle: "Mẫu câu & Bài tập", color: "app-accent-primary", path: "/grammar",
+      icon: "ri-book-2-line", title: "Ngữ pháp", subtitle: "Mẫu câu & Bài tập", color: "#e8c84a", path: "/grammar",
       stats: [
         { label: "Bài tập hoàn thành", done: grammarDone, total: grammarTotal },
         { label: "Mẫu câu đã học", done: grammarPatternsDone, total: grammarPatterns.length },
@@ -228,7 +228,7 @@ export default function LearnOverviewPage() {
         <div className="flex items-center gap-6">
           {/* Big radial */}
           <div className="relative flex-shrink-0">
-            <RadialProgress value={overallPct} max={100} color="app-accent-primary" size={120} />
+            <RadialProgress value={overallPct} max={100} color="#e8c84a" size={120} />
             <div className="absolute inset-0 flex flex-col items-center justify-center">
               <span className="text-2xl font-bold text-app-accent-primary">{overallPct}%</span>
               <span className="text-app-text-muted text-[10px]">Tổng thể</span>
@@ -330,7 +330,7 @@ export default function LearnOverviewPage() {
         <p className="text-white/50 text-sm font-semibold mb-4">Gợi ý học hôm nay</p>
         <div className="space-y-2">
           {[
-            grammarDone < grammarTotal && { icon: "ri-book-2-line", color: "app-accent-primary", text: `Còn ${grammarTotal - grammarDone} bài tập ngữ pháp chưa làm`, path: "/grammar" },
+            grammarDone < grammarTotal && { icon: "ri-book-2-line", color: "#e8c84a", text: `Còn ${grammarTotal - grammarDone} bài tập ngữ pháp chưa làm`, path: "/grammar" },
             vocabDone < vocabTotal && { icon: "ri-translate-2", color: "#34d399", text: `Còn ${vocabTotal - vocabDone} từ vựng chưa thuộc`, path: "/vocabulary" },
             hangulDone < hangulTotal && { icon: "ri-edit-2-line", color: "#a78bfa", text: `Còn ${hangulTotal - hangulDone} ký tự Hangul chưa thành thạo`, path: "/hangul-write" },
             topik1Attempts === 0 && { icon: "ri-file-list-2-line", color: "#38bdf8", text: "Thử sức với đề thi TOPIK I lần đầu!", path: "/topik-test" },

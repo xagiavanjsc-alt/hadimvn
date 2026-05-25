@@ -53,7 +53,7 @@ function NotificationBell() {
       message: "7 thử thách mới đã sẵn sàng. Hoàn thành để nhận tới 1.000+ XP thưởng.",
       time: "Đầu tuần",
       icon: "ri-trophy-line",
-      color: "app-accent-primary",
+      color: "#e8c84a",
     });
     items.push({
       id: "community-like-1",
@@ -85,7 +85,7 @@ function NotificationBell() {
       message: n.message,
       time: timeAgo(n.timestamp),
       icon: n.type === "level_up" ? "ri-arrow-up-circle-fill" : n.type === "badge_earned" ? "ri-medal-fill" : "ri-star-fill",
-      color: n.type === "level_up" ? "app-accent-primary" : n.type === "badge_earned" ? "#a78bfa" : "#34d399",
+      color: n.type === "level_up" ? "#e8c84a" : n.type === "badge_earned" ? "#a78bfa" : "#34d399",
       isXP: true,
       xpAmount: n.xpAmount,
     }));

@@ -20,7 +20,7 @@ interface ErrorLog {
 const TYPE_CONFIG: Record<string, { label: string; color: string; icon: string }> = {
   api: { label: "API", color: "#fb923c", icon: "ri-cloud-line" },
   auth: { label: "Auth", color: "#f87171", icon: "ri-shield-keyhole-line" },
-  database: { label: "Database", color: "app-accent-primary", icon: "ri-database-2-line" },
+  database: { label: "Database", color: "#e8c84a", icon: "ri-database-2-line" },
   runtime: { label: "Runtime", color: "#f87171", icon: "ri-bug-line" },
   network: { label: "Network", color: "#60a5fa", icon: "ri-wifi-off-line" },
 };
@@ -113,7 +113,7 @@ export default function AdminErrorLogsPage() {
             { label: "Tổng lỗi", value: stats.total, color: "#a78bfa", icon: "ri-bug-line" },
             { label: "Chưa xử lý", value: stats.unresolved, color: "#f87171", icon: "ri-error-warning-line" },
             { label: "API lỗi", value: stats.api, color: "#fb923c", icon: "ri-cloud-line" },
-            { label: "Auth lỗi", value: stats.auth, color: "app-accent-primary", icon: "ri-shield-keyhole-line" },
+            { label: "Auth lỗi", value: stats.auth, color: "#e8c84a", icon: "ri-shield-keyhole-line" },
           ].map(s => (
             <div key={s.label} className="rounded-xl p-4 border" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
               <div className="flex items-center gap-2 mb-1">

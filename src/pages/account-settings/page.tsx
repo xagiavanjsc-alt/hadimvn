@@ -317,7 +317,7 @@ export default function AccountSettingsPage() {
           <SectionCard title="Cài đặt thông báo" icon="ri-notification-3-line">
             <div className="space-y-1">
               {([
-                { key: "dailyReminder", label: "Nhắc nhở học hàng ngày", desc: "Thông báo khi chưa học trong ngày", icon: "ri-time-line", color: "app-accent-primary" },
+                { key: "dailyReminder", label: "Nhắc nhở học hàng ngày", desc: "Thông báo khi chưa học trong ngày", icon: "ri-time-line", color: "#e8c84a" },
                 { key: "streakAlert", label: "Cảnh báo streak sắp mất", desc: "Nhắc khi streak có nguy cơ bị reset", icon: "ri-fire-line", color: "#fb923c" },
                 { key: "leaderboardUpdate", label: "Cập nhật bảng xếp hạng", desc: "Thông báo khi bị vượt hạng", icon: "ri-trophy-line", color: "#FFD700" },
                 { key: "weeklyReport", label: "Báo cáo học tập hàng tuần", desc: "Tổng kết tiến độ mỗi Chủ nhật", icon: "ri-bar-chart-line", color: "#34d399" },
@@ -450,7 +450,7 @@ export default function AccountSettingsPage() {
                   onClick={handleAutoRenewToggle}
                   disabled={autoRenewSaving}
                   className="relative w-12 h-6 rounded-full cursor-pointer flex-shrink-0 transition-colors disabled:opacity-50"
-                  style={{ backgroundColor: autoRenew ? "app-accent-primary" : "rgba(255,255,255,0.1)" }}
+                  style={{ backgroundColor: autoRenew ? "#e8c84a" : "rgba(255,255,255,0.1)" }}
                 >
                   <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-all ${autoRenew ? "left-7" : "left-1"}`} />
                 </button>

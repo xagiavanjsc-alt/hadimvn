@@ -223,7 +223,7 @@ export default function TopikListeningPage() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
             {[
               { icon: "ri-volume-up-line", color: "#34d399", title: "Nghe", desc: "Hệ thống đọc câu tiếng Hàn" },
-              { icon: "ri-checkbox-multiple-line", color: "app-accent-primary", title: "Chọn đáp án", desc: "4 lựa chọn nghĩa tiếng Việt" },
+              { icon: "ri-checkbox-multiple-line", color: "#e8c84a", title: "Chọn đáp án", desc: "4 lựa chọn nghĩa tiếng Việt" },
               { icon: "ri-bar-chart-line", color: "#fb923c", title: "Xem kết quả", desc: "Giải thích chi tiết từng câu" },
             ].map((step) => (
               <div key={step.title} className="bg-app-surface/50 border border-app-border rounded-xl p-4 text-center">
@@ -382,8 +382,8 @@ export default function TopikListeningPage() {
             <div
               className="w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-4 border-4"
               style={{
-                borderColor: score >= 80 ? "#34d399" : score >= 60 ? "app-accent-primary" : "#f87171",
-                backgroundColor: score >= 80 ? "#34d39920" : score >= 60 ? "app-accent-primary20" : "#f8717120",
+                borderColor: score >= 80 ? "#34d399" : score >= 60 ? "#e8c84a" : "#f87171",
+                backgroundColor: score >= 80 ? "#34d39920" : score >= 60 ? "rgba(232,200,74,0.20)" : "#f8717120",
               }}
             >
               <span className="text-3xl font-bold text-white">{score}%</span>
@@ -401,7 +401,7 @@ export default function TopikListeningPage() {
             {[
               { label: "Đúng", value: correctCount, color: "#34d399" },
               { label: "Sai", value: results.filter((r) => !r.correct).length, color: "#f87171" },
-              { label: "Điểm", value: `${score}%`, color: "app-accent-primary" },
+              { label: "Điểm", value: `${score}%`, color: "#e8c84a" },
               { label: "Thời gian TB", value: `${avgTime}s`, color: "#38bdf8" },
             ].map((s) => (
               <div key={s.label} className="bg-app-surface/50 border border-app-border rounded-xl p-3 text-center">
@@ -494,7 +494,7 @@ export default function TopikListeningPage() {
 
   // ─── Listening Phase ──────────────────────────────────────────────────────
   const timerPercent = (timeLeft / 30) * 100;
-  const timerColor = timeLeft > 15 ? "#34d399" : timeLeft > 7 ? "app-accent-primary" : "#f87171";
+  const timerColor = timeLeft > 15 ? "#34d399" : timeLeft > 7 ? "#e8c84a" : "#f87171";
 
   return (
     <DashboardLayout>

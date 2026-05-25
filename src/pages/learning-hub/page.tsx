@@ -23,7 +23,7 @@ interface UserProgress {
 const MODULE_CONFIG = {
   eps: { name: "EPS-TOPIK", icon: "ri-file-list-3-line", color: "#4ade80", totalLessons: 60 },
   seoul: { name: "Seoul", icon: "ri-book-3-line", color: "#60a5fa", totalLessons: 40 },
-  hanja: { name: "Hán Hàn", icon: "ri-character-recognition-line", color: "app-accent-primary", totalLessons: 100 },
+  hanja: { name: "Hán Hàn", icon: "ri-character-recognition-line", color: "#e8c84a", totalLessons: 100 },
   melon: { name: "K-pop", icon: "ri-music-2-line", color: "#fb923c", totalLessons: 20 },
   topik: { name: "TOPIK", icon: "ri-survey-line", color: "#f472b6", totalLessons: 30 },
 };
@@ -171,7 +171,7 @@ export default function LearningHubPage() {
               <div className="h-3 bg-app-card/50 rounded-full overflow-hidden">
                 <div
                   className="h-full rounded-full transition-all duration-500"
-                  style={{ width: `${overallProgress}%`, backgroundColor: "app-accent-primary" }}
+                  style={{ width: `${overallProgress}%`, backgroundColor: "#e8c84a" }}
                 ></div>
               </div>
             </div>

@@ -452,7 +452,7 @@ export default function TopikReadingPage() {
   const levelInfo = LEVELS.find((l) => l.id === selectedLevel);
   const pct = totalQuestions > 0 ? Math.round((score / totalQuestions) * 100) : 0;
   const timerPct = (timeLeft / 45) * 100;
-  const timerColor = timeLeft > 20 ? "#34d399" : timeLeft > 10 ? "app-accent-primary" : "#f87171";
+  const timerColor = timeLeft > 20 ? "#34d399" : timeLeft > 10 ? "#e8c84a" : "#f87171";
 
   // Global question index
   let globalQIdx = 0;
@@ -691,9 +691,9 @@ export default function TopikReadingPage() {
             <div className="bg-app-surface/50 border border-app-border rounded-2xl p-8 text-center">
               <div
                 className="w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-4"
-                style={{ backgroundColor: `${pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171"}20` }}
+                style={{ backgroundColor: `${pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : "#f87171"}20` }}
               >
-                <p className="text-3xl font-bold" style={{ color: pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171" }}>
+                <p className="text-3xl font-bold" style={{ color: pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : "#f87171" }}>
                   {pct}%
                 </p>
               </div>
@@ -712,7 +712,7 @@ export default function TopikReadingPage() {
               {[
                 { label: "Đúng", value: score, color: "#34d399" },
                 { label: "Sai", value: totalQuestions - score, color: "#f87171" },
-                { label: "Đoạn văn", value: passages.length, color: "app-accent-primary" },
+                { label: "Đoạn văn", value: passages.length, color: "#e8c84a" },
               ].map((s) => (
                 <div key={s.label} className="bg-app-surface/50 border border-app-border rounded-xl p-4 text-center">
                   <p className="text-2xl font-bold" style={{ color: s.color }}>{s.value}</p>

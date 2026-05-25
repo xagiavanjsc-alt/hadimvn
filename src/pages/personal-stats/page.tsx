@@ -131,7 +131,7 @@ function StreakCalendar({ xpLog }: { xpLog: XPEntry[] }) {
     "rgba(232,200,74,0.20)",
     "rgba(232,200,74,0.40)",
     "rgba(232,200,74,0.65)",
-    "app-accent-primary",
+    "#e8c84a",
   ];
 
   const activeDaysThisMonth = calendarDays.filter(d => d && (xpByDay[d] || 0) > 0).length;
@@ -193,7 +193,7 @@ function StreakCalendar({ xpLog }: { xpLog: XPEntry[] }) {
                 border: isToday ? "1px solid rgba(232,200,74,0.5)" : "1px solid transparent",
               }}
             >
-              <span className="text-[10px]" style={{ color: intensity > 0 ? (intensity >= 3 ? "#0f1117" : "app-accent-primary") : "rgba(255,255,255,0.25)" }}>
+              <span className="text-[10px]" style={{ color: intensity > 0 ? (intensity >= 3 ? "#0f1117" : "#e8c84a") : "rgba(255,255,255,0.25)" }}>
                 {dayNum}
               </span>
               {xp > 0 && (
@@ -251,7 +251,7 @@ function WeaknessAnalysis({ examResults }: { examResults: ExamResult[] }) {
   const strongTopics = topicStats.filter(t => t.accuracy >= 80 && t.total >= 3);
 
   const EPS_TOPICS = [
-    { name: "Lao động", icon: "ri-tools-line", color: "app-accent-primary" },
+    { name: "Lao động", icon: "ri-tools-line", color: "#e8c84a" },
     { name: "An toàn", icon: "ri-shield-check-line", color: "#34d399" },
     { name: "Bảo hiểm", icon: "ri-heart-pulse-line", color: "#f87171" },
     { name: "Hợp đồng", icon: "ri-file-text-line", color: "#a78bfa" },
@@ -264,7 +264,7 @@ function WeaknessAnalysis({ examResults }: { examResults: ExamResult[] }) {
       {/* Score overview */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {[
-          { label: "Điểm TB gần đây", value: `${avgScore}%`, color: avgScore >= 80 ? "#34d399" : avgScore >= 60 ? "app-accent-primary" : "#f87171", icon: "ri-bar-chart-line" },
+          { label: "Điểm TB gần đây", value: `${avgScore}%`, color: avgScore >= 80 ? "#34d399" : avgScore >= 60 ? "#e8c84a" : "#f87171", icon: "ri-bar-chart-line" },
           { label: "Chủ đề yếu", value: weakTopics.length, color: "#f87171", icon: "ri-error-warning-line" },
           { label: "Chủ đề mạnh", value: strongTopics.length, color: "#34d399", icon: "ri-checkbox-circle-line" },
         ].map(s => (
@@ -284,7 +284,7 @@ function WeaknessAnalysis({ examResults }: { examResults: ExamResult[] }) {
           <h3 className="text-white font-semibold text-sm mb-5">Phân tích theo chủ đề</h3>
           <div className="space-y-3">
             {topicStats.slice(0, 8).map(t => {
-              const color = t.accuracy < 50 ? "#f87171" : t.accuracy < 70 ? "app-accent-primary" : "#34d399";
+              const color = t.accuracy < 50 ? "#f87171" : t.accuracy < 70 ? "#e8c84a" : "#34d399";
               return (
                 <div key={t.topic} className="flex items-center gap-3">
                   <div className="w-28 text-xs text-white/50 truncate flex-shrink-0">{t.topic}</div>
@@ -358,7 +358,7 @@ function WeaknessAnalysis({ examResults }: { examResults: ExamResult[] }) {
 // ─── XP Breakdown ─────────────────────────────────────────────────────────────
 function XPBreakdown({ xpLog }: { xpLog: XPEntry[] }) {
   const typeLabels: Record<string, { label: string; color: string; icon: string }> = {
-    eps_exam_completed: { label: "Thi thử EPS", color: "app-accent-primary", icon: "ri-file-list-3-line" },
+    eps_exam_completed: { label: "Thi thử EPS", color: "#e8c84a", icon: "ri-file-list-3-line" },
     flashcard_learned: { label: "Flashcard", color: "#a78bfa", icon: "ri-stack-line" },
     quiz_completed: { label: "Quiz", color: "#34d399", icon: "ri-survey-line" },
     streak_bonus: { label: "Streak", color: "#fb923c", icon: "ri-fire-line" },
@@ -452,7 +452,7 @@ function XPBreakdown({ xpLog }: { xpLog: XPEntry[] }) {
                     className="w-full rounded-t-md transition-all duration-500"
                     style={{
                       height: `${Math.max(pct, xp > 0 ? 5 : 0)}%`,
-                      backgroundColor: isMax ? "app-accent-primary" : xp > 0 ? "rgba(232,200,74,0.4)" : "rgba(255,255,255,0.04)",
+                      backgroundColor: isMax ? "#e8c84a" : xp > 0 ? "rgba(232,200,74,0.4)" : "rgba(255,255,255,0.04)",
                     }}
                   />
                 </div>
@@ -573,7 +573,7 @@ export default function PersonalStatsPage() {
         {/* Header stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {[
-            { icon: "ri-flashlight-line", color: "app-accent-primary", bg: "bg-app-accent-primary/10", label: "Tổng XP", value: totalXP.toLocaleString(), sub: `Hạng ${currentRank.name}` },
+            { icon: "ri-flashlight-line", color: "#e8c84a", bg: "bg-app-accent-primary/10", label: "Tổng XP", value: totalXP.toLocaleString(), sub: `Hạng ${currentRank.name}` },
             { icon: "ri-fire-line", color: "#fb923c", bg: "bg-[#fb923c]/10", label: "Streak hiện tại", value: `${streak.currentStreak} ngày`, sub: "Liên tiếp" },
             { icon: "ri-file-list-3-line", color: "#34d399", bg: "bg-emerald-500/10", label: "Lần thi EPS", value: examResults.length, sub: `TB ${avgExamScore}%` },
             { icon: "ri-stack-line", color: "#a78bfa", bg: "bg-[#a78bfa]/10", label: "Từ đã thuộc", value: Object.values(flashcardProgress).filter(Boolean).length, sub: "Qua Flashcard" },
@@ -634,10 +634,10 @@ export default function PersonalStatsPage() {
                   ))}
                 </div>
               </div>
-              <BarChart data={xpByDay} maxVal={maxXPDay} color="app-accent-primary" labels={chartLabels} />
+              <BarChart data={xpByDay} maxVal={maxXPDay} color="#e8c84a" labels={chartLabels} />
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-5 pt-4 border-t border-app-border">
                 {[
-                  { label: "Tổng XP kỳ này", value: totalXPInPeriod.toLocaleString(), color: "app-accent-primary" },
+                  { label: "Tổng XP kỳ này", value: totalXPInPeriod.toLocaleString(), color: "#e8c84a" },
                   { label: "Ngày hoạt động", value: `${activeDays}/${dateRange.length}`, color: "#34d399" },
                   { label: "TB XP/ngày học", value: avgXPPerDay.toLocaleString(), color: "#a78bfa" },
                 ].map(s => (
@@ -666,7 +666,7 @@ export default function PersonalStatsPage() {
                 </div>
                 {examTrend.length >= 2 ? (
                   <>
-                    <LineChart data={examTrend} maxVal={100} color="app-accent-primary" />
+                    <LineChart data={examTrend} maxVal={100} color="#e8c84a" />
                     <div className="mt-3 grid grid-cols-3 gap-3 pt-3 border-t border-app-border">
                       <div className="text-center">
                         <p className="text-app-accent-primary font-bold text-lg">{latestExamScore}%</p>
@@ -709,7 +709,7 @@ export default function PersonalStatsPage() {
                       <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="8" />
                       <circle
                         cx="50" cy="50" r="40" fill="none"
-                        stroke={latestExamScore >= 80 ? "#34d399" : "app-accent-primary"}
+                        stroke={latestExamScore >= 80 ? "#34d399" : "#e8c84a"}
                         strokeWidth="8"
                         strokeLinecap="round"
                         strokeDasharray={`${(latestExamScore / 100) * 251.2} 251.2`}
@@ -750,7 +750,7 @@ export default function PersonalStatsPage() {
             {/* Quick actions */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               {[
-                { label: "Thi thử EPS", icon: "ri-file-list-3-line", color: "app-accent-primary", route: "/eps-exam" },
+                { label: "Thi thử EPS", icon: "ri-file-list-3-line", color: "#e8c84a", route: "/eps-exam" },
                 { label: "Thi theo chủ đề", icon: "ri-focus-3-line", color: "#34d399", route: "/eps-topic-exam" },
                 { label: "Phân tích điểm yếu", icon: "ri-bar-chart-2-line", color: "#a78bfa", route: "/eps-weakness-analysis" },
                 { label: "Lịch sử thi", icon: "ri-history-line", color: "#fb923c", route: "/eps-exam-history" },
@@ -781,7 +781,7 @@ export default function PersonalStatsPage() {
                 { label: "Tổng ngày học", value: new Set(xpLog.map(e => e.date?.split("T")[0]).filter(Boolean)).size, color: "#34d399", icon: "ri-calendar-check-line" },
                 { label: "Tháng này", value: xpLog.filter(e => e.date?.startsWith(new Date().toISOString().slice(0, 7))).length > 0
                   ? new Set(xpLog.filter(e => e.date?.startsWith(new Date().toISOString().slice(0, 7))).map(e => e.date?.split("T")[0])).size
-                  : 0, color: "app-accent-primary", icon: "ri-calendar-line" },
+                  : 0, color: "#e8c84a", icon: "ri-calendar-line" },
               ].map(s => (
                 <div key={s.label} className="bg-app-bg border border-app-border rounded-2xl p-5 text-center">
                   <div className="w-10 h-10 flex items-center justify-center rounded-xl mx-auto mb-3" style={{ backgroundColor: `${s.color}15` }}>

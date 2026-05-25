@@ -10,7 +10,7 @@ export const seoulBooks: SeoulBook[] = [
     name: "Seoul 1A",
     level: "1A",
     levelGroup: 1,
-    color: "app-accent-primary",
+    color: "#e8c84a",
     bgGradient: "from-[app-accent-primary]/20 to-[app-accent-primary]/5",
     description: "Bắt đầu hành trình tiếng Hàn — chào hỏi, giới thiệu bản thân, số đếm và ngày tháng cơ bản",
     totalLessons: 8,

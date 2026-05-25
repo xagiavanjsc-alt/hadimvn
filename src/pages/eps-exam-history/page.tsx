@@ -47,7 +47,7 @@ function formatDate(dateStr: string): string {
 function getScoreColor(score: number, total: number): string {
   const pct = (score / (total * 5)) * 100;
   if (pct >= 80) return "#34d399";
-  if (pct >= 60) return "app-accent-primary";
+  if (pct >= 60) return "#e8c84a";
   if (pct >= 40) return "#fb923c";
   return "#f87171";
 }
@@ -351,7 +351,7 @@ export default function EpsExamHistoryPage() {
     >
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-        <StatCard icon="ri-file-list-3-line" label="Tổng lần thi" value={allHistory.length} sub={`${fullExams.length} lần thi thử 40 câu`} color="app-accent-primary" />
+        <StatCard icon="ri-file-list-3-line" label="Tổng lần thi" value={allHistory.length} sub={`${fullExams.length} lần thi thử 40 câu`} color="#e8c84a" />
         <StatCard icon="ri-trophy-line" label="Điểm cao nhất" value={bestScore} sub="trên 200 điểm" color="#34d399" />
         <StatCard icon="ri-bar-chart-line" label="Điểm trung bình" value={avgScore} sub="thi thử 40 câu" color="#38bdf8" />
         <StatCard icon="ri-checkbox-circle-line" label="Lần đạt điểm đậu" value={passCount} sub={`/ ${fullExams.length} lần thi`} color="#a78bfa" />

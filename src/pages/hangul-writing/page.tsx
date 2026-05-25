@@ -147,7 +147,7 @@ export default function HangulWritingPage() {
 
   const filtered = typeFilter === "all" ? HANGUL_CHARS : HANGUL_CHARS.filter(c => c.type === typeFilter);
 
-  const scoreColor = score === null ? "app-accent-primary" : score >= 80 ? "#34d399" : score >= 60 ? "#fbbf24" : "#f87171";
+  const scoreColor = score === null ? "#e8c84a" : score >= 80 ? "#34d399" : score >= 60 ? "#fbbf24" : "#f87171";
   const scoreLabel = score === null ? "" : score >= 80 ? "Xuất sắc!" : score >= 60 ? "Khá tốt!" : "Cần luyện thêm";
 
   return (
@@ -162,7 +162,7 @@ export default function HangulWritingPage() {
         {/* Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
           {[
-            { label: "Ký tự đang luyện", value: selectedChar.char, color: "app-accent-primary" },
+            { label: "Ký tự đang luyện", value: selectedChar.char, color: "#e8c84a" },
             { label: "Số lần thử", value: attempts, color: "#a78bfa" },
             { label: "Điểm gần nhất", value: score !== null ? `${score}/100` : "—", color: scoreColor },
           ].map(s => (

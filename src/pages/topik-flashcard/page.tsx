@@ -25,7 +25,7 @@ interface FlashcardSession {
 }
 
 const LEVELS = [
-  { id: "all", label: "Tất cả", color: "app-accent-primary" },
+  { id: "all", label: "Tất cả", color: "#e8c84a" },
   { id: "A1", label: "A1", color: "#34d399" },
   { id: "A2", label: "A2", color: "#38bdf8" },
   { id: "B1", label: "B1", color: "#fb923c" },
@@ -560,7 +560,7 @@ ${exportWords.map(w => `
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
             {(["easy", "medium", "hard", "skip"] as Difficulty[]).map((d) => {
-              const colors = { easy: "#34d399", medium: "app-accent-primary", hard: "#fb923c", skip: "#94a3b8" };
+              const colors = { easy: "#34d399", medium: "#e8c84a", hard: "#fb923c", skip: "#94a3b8" };
               const labels = { easy: "Dễ", medium: "Ổn", hard: "Khó", skip: "Bỏ qua" };
               return (
                 <div key={d} className="bg-app-surface/50 border border-app-border rounded-xl p-3 text-center">
@@ -672,7 +672,7 @@ ${exportWords.map(w => `
         {/* Stats row */}
         <div className="flex gap-2 mb-4 justify-center">
           {(["easy", "medium", "hard"] as const).map((d) => {
-            const colors = { easy: "#34d399", medium: "app-accent-primary", hard: "#fb923c" };
+            const colors = { easy: "#34d399", medium: "#e8c84a", hard: "#fb923c" };
             const icons = { easy: "ri-emotion-happy-line", medium: "ri-emotion-normal-line", hard: "ri-emotion-unhappy-line" };
             return (
               <div key={d} className="flex items-center gap-1 px-2 py-1 rounded-lg bg-app-surface/50">
@@ -772,7 +772,7 @@ ${exportWords.map(w => `
             {(["hard", "medium", "easy", "skip"] as Difficulty[]).map((d) => {
               const config = {
                 hard: { label: "Khó", color: "#fb923c", icon: "ri-emotion-unhappy-line" },
-                medium: { label: "Ổn", color: "app-accent-primary", icon: "ri-emotion-normal-line" },
+                medium: { label: "Ổn", color: "#e8c84a", icon: "ri-emotion-normal-line" },
                 easy: { label: "Dễ", color: "#34d399", icon: "ri-emotion-happy-line" },
                 skip: { label: "Bỏ qua", color: "#94a3b8", icon: "ri-skip-right-line" },
               };

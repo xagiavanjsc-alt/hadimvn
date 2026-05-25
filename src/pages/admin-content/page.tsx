@@ -38,13 +38,13 @@ const mockReports: Report[] = [
 const REASON_CONFIG: Record<ReportReason, { label: string; color: string; icon: string }> = {
   spam: { label: "Spam", color: "#fb923c", icon: "ri-spam-line" },
   offensive: { label: "Nội dung xấu", color: "#f87171", icon: "ri-emotion-unhappy-line" },
-  misinformation: { label: "Sai thông tin", color: "app-accent-primary", icon: "ri-error-warning-line" },
+  misinformation: { label: "Sai thông tin", color: "#e8c84a", icon: "ri-error-warning-line" },
   harassment: { label: "Quấy rối", color: "#f87171", icon: "ri-user-forbid-line" },
   other: { label: "Khác", color: "#6b7280", icon: "ri-flag-line" },
 };
 
 const REPORT_STATUS_CONFIG: Record<ReportStatus, { label: string; color: string; bg: string; icon: string }> = {
-  pending: { label: "Chờ xử lý", color: "app-accent-primary", bg: "rgba(232,200,74,0.12)", icon: "ri-time-line" },
+  pending: { label: "Chờ xử lý", color: "#e8c84a", bg: "rgba(232,200,74,0.12)", icon: "ri-time-line" },
   resolved: { label: "Đã xử lý", color: "#34d399", bg: "rgba(52,211,153,0.12)", icon: "ri-checkbox-circle-line" },
   dismissed: { label: "Bỏ qua", color: "#6b7280", bg: "rgba(107,114,128,0.12)", icon: "ri-close-circle-line" },
 };
@@ -93,14 +93,14 @@ const CAT_CONFIG: Record<string, { label: string; color: string; icon: string }>
 };
 
 const STATUS_CONFIG: Record<PostStatus, { label: string; color: string; bg: string; icon: string }> = {
-  pending: { label: "Chờ duyệt", color: "app-accent-primary", bg: "rgba(232,200,74,0.12)", icon: "ri-time-line" },
+  pending: { label: "Chờ duyệt", color: "#e8c84a", bg: "rgba(232,200,74,0.12)", icon: "ri-time-line" },
   approved: { label: "Đã duyệt", color: "#34d399", bg: "rgba(52,211,153,0.12)", icon: "ri-checkbox-circle-line" },
   rejected: { label: "Từ chối", color: "#f87171", bg: "rgba(248,113,113,0.12)", icon: "ri-close-circle-line" },
 };
 
 const LESSON_TYPE_CONFIG: Record<string, { label: string; color: string; icon: string }> = {
   melon: { label: "Melon", color: "#a78bfa", icon: "ri-music-line" },
-  eps: { label: "EPS", color: "app-accent-primary", icon: "ri-file-list-3-line" },
+  eps: { label: "EPS", color: "#e8c84a", icon: "ri-file-list-3-line" },
   grammar: { label: "Ngữ pháp", color: "#34d399", icon: "ri-book-open-line" },
 };
 
@@ -122,7 +122,7 @@ function ConfirmModal({ action, title, onConfirm, onCancel }: {
   const config = {
     approve: { label: "Duyệt", color: "#34d399", icon: "ri-checkbox-circle-line", desc: "Nội dung sẽ được hiển thị công khai." },
     reject: { label: "Từ chối", color: "#f87171", icon: "ri-close-circle-line", desc: "Nội dung sẽ bị ẩn và tác giả sẽ được thông báo." },
-    pin: { label: "Ghim", color: "app-accent-primary", icon: "ri-pushpin-line", desc: "Bài viết sẽ được ghim lên đầu trang cộng đồng." },
+    pin: { label: "Ghim", color: "#e8c84a", icon: "ri-pushpin-line", desc: "Bài viết sẽ được ghim lên đầu trang cộng đồng." },
     delete: { label: "Xóa", color: "#f87171", icon: "ri-delete-bin-line", desc: "Hành động này không thể hoàn tác." },
   }[action];
 
@@ -469,7 +469,7 @@ function CommunityPostsTab() {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
         {[
           { label: "Tổng bài", value: stats.total, color: "#a78bfa", icon: "ri-article-line" },
-          { label: "Chờ duyệt", value: stats.pending, color: "app-accent-primary", icon: "ri-time-line" },
+          { label: "Chờ duyệt", value: stats.pending, color: "#e8c84a", icon: "ri-time-line" },
           { label: "Đã duyệt", value: stats.approved, color: "#34d399", icon: "ri-checkbox-circle-line" },
           { label: "Đang ghim", value: stats.pinned, color: "#fb923c", icon: "ri-pushpin-line" },
         ].map(s => (
@@ -614,7 +614,7 @@ function CommunityPostsTab() {
                         )}
                         <button onClick={() => setConfirmAction({ type: "pin", post })}
                           className="w-7 h-7 flex items-center justify-center rounded-lg cursor-pointer transition-colors"
-                          style={{ backgroundColor: "rgba(232,200,74,0.1)", color: "app-accent-primary" }}
+                          style={{ backgroundColor: "rgba(232,200,74,0.1)", color: "#e8c84a" }}
                           title={post.is_pinned ? "Bỏ ghim" : "Ghim"}>
                           <i className={`${post.is_pinned ? "ri-unpin-line" : "ri-pushpin-line"} text-xs`}></i>
                         </button>
@@ -778,7 +778,7 @@ function LessonsTab() {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
         {[
           { label: "Tổng bài học", value: stats.total, color: "#a78bfa", icon: "ri-book-open-line" },
-          { label: "Chờ duyệt", value: stats.pending, color: "app-accent-primary", icon: "ri-time-line" },
+          { label: "Chờ duyệt", value: stats.pending, color: "#e8c84a", icon: "ri-time-line" },
           { label: "Đã duyệt", value: stats.approved, color: "#34d399", icon: "ri-checkbox-circle-line" },
           { label: "Từ chối", value: stats.rejected, color: "#f87171", icon: "ri-close-circle-line" },
         ].map(s => (
@@ -1131,7 +1131,7 @@ function ReportsTab() {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
         {[
           { label: "Tổng báo cáo", value: stats.total, color: "#a78bfa", icon: "ri-flag-line" },
-          { label: "Chờ xử lý", value: stats.pending, color: "app-accent-primary", icon: "ri-time-line" },
+          { label: "Chờ xử lý", value: stats.pending, color: "#e8c84a", icon: "ri-time-line" },
           { label: "Đã xử lý", value: stats.resolved, color: "#34d399", icon: "ri-shield-check-line" },
           { label: "Bỏ qua", value: stats.dismissed, color: "#6b7280", icon: "ri-close-circle-line" },
         ].map(s => (

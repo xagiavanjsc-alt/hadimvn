@@ -139,7 +139,7 @@ function LessonSelector({
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4">
           {[
-            { label: "Bài có thể thi", value: epsLessons.length, color: "app-accent-primary" },
+            { label: "Bài có thể thi", value: epsLessons.length, color: "#e8c84a" },
             { label: "Đã thi thử", value: Object.keys(quizHistory).length, color: "#34d399" },
             { label: "Bài đã học", value: Object.keys(completedLessons).length, color: "#a78bfa" },
           ].map(s => (
@@ -510,7 +510,7 @@ function ResultScreen({
   const topicInfo = EPS_LESSON_TOPICS.find(t => t.id === lesson.topic);
   const pct = result.percentage;
   const grade = pct >= 90 ? { label: "Xuất sắc", color: "#34d399", icon: "ri-trophy-fill" }
-    : pct >= 75 ? { label: "Tốt", color: "app-accent-primary", icon: "ri-star-fill" }
+    : pct >= 75 ? { label: "Tốt", color: "#e8c84a", icon: "ri-star-fill" }
     : pct >= 60 ? { label: "Khá", color: "#fb923c", icon: "ri-thumb-up-fill" }
     : { label: "Cần cố gắng", color: "#f87171", icon: "ri-refresh-line" };
 
@@ -692,7 +692,7 @@ export default function EpsLessonQuizPage() {
               <p className="text-white font-semibold text-sm mb-3">Cách hoạt động</p>
               <div className="space-y-2.5">
                 {[
-                  { icon: "ri-book-open-line", color: "app-accent-primary", text: "Chọn bài học muốn thi thử" },
+                  { icon: "ri-book-open-line", color: "#e8c84a", text: "Chọn bài học muốn thi thử" },
                   { icon: "ri-question-line", color: "#a78bfa", text: "10 câu hỏi tự động từ từ vựng" },
                   { icon: "ri-timer-line", color: "#fb923c", text: "30 giây mỗi câu" },
                   { icon: "ri-star-line", color: "#34d399", text: "Nhận XP dựa trên điểm số" },

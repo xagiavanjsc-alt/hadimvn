@@ -111,7 +111,7 @@ export default function AdminStatsPage() {
   const maxChart = Math.max(...stats.monthlyChart.map(m => m.value), 1);
 
   const contentStats = [
-    { label: "Câu hỏi EPS", value: epsQuestions.length, max: 200, color: "app-accent-primary", icon: "ri-survey-line" },
+    { label: "Câu hỏi EPS", value: epsQuestions.length, max: 200, color: "#e8c84a", icon: "ri-survey-line" },
     { label: "Câu có ảnh", value: stats.epsWithImage, max: epsQuestions.length, color: "#34d399", icon: "ri-image-line" },
     { label: "Từ vựng EPS", value: epsVocabulary.length, max: 500, color: "#fb923c", icon: "ri-translate-2" },
     { label: "Bài K-pop đã duyệt", value: approvedLessons.length, max: 100, color: "#a78bfa", icon: "ri-music-2-line" },
@@ -136,7 +136,7 @@ export default function AdminStatsPage() {
       {/* Top stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4" style={{ contentVisibility: "auto", containIntrinsicHeight: "120px" }}>
         <StatCard icon="ri-money-dollar-circle-line" label="Tổng doanh thu" value={formatVND(stats.totalRevenue)} sub={`${revenues.length} đơn hàng`} color="#34d399" />
-        <StatCard icon="ri-calendar-line" label="Doanh thu tháng này" value={formatVND(stats.monthRevenue)} color="app-accent-primary" />
+        <StatCard icon="ri-calendar-line" label="Doanh thu tháng này" value={formatVND(stats.monthRevenue)} color="#e8c84a" />
         <StatCard icon="ri-survey-line" label="Câu hỏi EPS" value={epsQuestions.length} sub={`${stats.epsWithImage} có ảnh`} color="#fb923c" />
         <StatCard icon="ri-music-2-line" label="Bài K-pop đã duyệt" value={approvedLessons.length} sub={`${stats.highStarLessons} bài 4-5 sao`} color="#a78bfa" />
       </div>

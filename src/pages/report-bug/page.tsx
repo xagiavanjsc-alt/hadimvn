@@ -8,7 +8,7 @@ import { useAuth } from "@/hooks/useAuth";
 const CATEGORIES = [
   { id: "bug", label: "Lỗi kỹ thuật", icon: "ri-bug-line", color: "#f87171" },
   { id: "ui", label: "Giao diện lỗi", icon: "ri-layout-line", color: "#fb923c" },
-  { id: "content", label: "Nội dung sai", icon: "ri-file-warning-line", color: "app-accent-primary" },
+  { id: "content", label: "Nội dung sai", icon: "ri-file-warning-line", color: "#e8c84a" },
   { id: "feature", label: "Tính năng không hoạt động", icon: "ri-settings-line", color: "#a78bfa" },
   { id: "payment", label: "Vấn đề thanh toán/VIP", icon: "ri-vip-crown-line", color: "#34d399" },
   { id: "other", label: "Khác", icon: "ri-question-line", color: "#94a3b8" },

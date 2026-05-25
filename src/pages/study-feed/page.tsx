@@ -131,7 +131,7 @@ export default function StudyFeedPage() {
   const suggestions = useMemo(() => {
     const items: { title: string; desc: string; path: string; icon: string; color: string; reason: string }[] = [];
     if (epsDone < 50) items.push({ title: "Luyện thi EPS theo chủ đề", desc: "Bạn chưa làm nhiều câu EPS. Bắt đầu với chủ đề An toàn lao động!", path: "/eps-topic-drill", icon: "ri-focus-3-line", color: "#34d399", reason: `Mới làm ${epsDone} câu` });
-    if (vocabMastered < 30) items.push({ title: "Flashcard EPS theo chủ đề", desc: "Học từ vựng theo chủ đề Y tế và Giao thông — quan trọng cho kỳ thi!", path: "/eps-vocab-flashcard", icon: "ri-stack-line", color: "app-accent-primary", reason: `Mới thuộc ${vocabMastered} từ` });
+    if (vocabMastered < 30) items.push({ title: "Flashcard EPS theo chủ đề", desc: "Học từ vựng theo chủ đề Y tế và Giao thông — quan trọng cho kỳ thi!", path: "/eps-vocab-flashcard", icon: "ri-stack-line", color: "#e8c84a", reason: `Mới thuộc ${vocabMastered} từ` });
     if (streak.currentStreak < 7) items.push({ title: "Duy trì streak hàng ngày", desc: `Streak hiện tại: ${streak.currentStreak} ngày. Học thêm hôm nay để giữ streak!`, path: "/daily-review", icon: "ri-fire-line", color: "#fb923c", reason: "Streak chưa đủ 7 ngày" });
     if (epsAccuracy < 70 && epsDone > 10) items.push({ title: "Ôn lại câu sai EPS", desc: `Độ chính xác ${epsAccuracy}% — cần ôn lại các câu sai để cải thiện!`, path: "/study-history", icon: "ri-refresh-line", color: "#f472b6", reason: `Độ chính xác ${epsAccuracy}%` });
     if (flashcardKnown < 20) items.push({ title: "Flashcard từ vựng tổng hợp", desc: "Học từ vựng qua flashcard — cách nhanh nhất để mở rộng vốn từ!", path: "/flashcard", icon: "ri-translate-2", color: "#a78bfa", reason: "Chưa học nhiều từ vựng" });
@@ -166,7 +166,7 @@ export default function StudyFeedPage() {
         title: `Hôm nay bạn đã kiếm ${todayXP} XP`,
         body: `Tiến độ tốt! Tổng XP tích lũy: ${totalXP.toLocaleString()} XP — Cấp ${currentRank.name}.`,
         icon: "ri-star-fill",
-        color: "app-accent-primary",
+        color: "#e8c84a",
         action: { label: "Xem thống kê XP", path: "/xp-stats" },
         time: "Hôm nay",
         xp: todayXP,
@@ -193,7 +193,7 @@ export default function StudyFeedPage() {
         title: `EPS: ${epsDone} câu đã làm — ${epsAccuracy}% chính xác`,
         body: epsAccuracy >= 80 ? "Xuất sắc! Bạn đang ở mức sẵn sàng thi thật. Hãy thử bài thi đầy đủ!" : `Cần cải thiện thêm. Mục tiêu: đạt 80%+ để tự tin thi thật.`,
         icon: "ri-file-list-3-line",
-        color: epsAccuracy >= 80 ? "#34d399" : "app-accent-primary",
+        color: epsAccuracy >= 80 ? "#34d399" : "#e8c84a",
         action: { label: epsAccuracy >= 80 ? "Thi thử ngay" : "Luyện thêm", path: epsAccuracy >= 80 ? "/eps-exam" : "/eps-topic-drill" },
         time: "Cập nhật",
       });
@@ -277,7 +277,7 @@ export default function StudyFeedPage() {
             </p>
           </div>
           <div className="flex items-center gap-6">
-            <DailyProgressRing value={todayXP} max={100} label="XP hôm nay" color="app-accent-primary" />
+            <DailyProgressRing value={todayXP} max={100} label="XP hôm nay" color="#e8c84a" />
             <DailyProgressRing value={streak.currentStreak} max={30} label="Streak" color="#fb923c" />
             <DailyProgressRing value={epsAccuracy} max={100} label="EPS chính xác" color="#34d399" />
           </div>
@@ -353,7 +353,7 @@ export default function StudyFeedPage() {
             <div className="grid grid-cols-2 gap-2">
               {[
                 { label: "Thi EPS", icon: "ri-timer-line", color: "#34d399", path: "/eps-exam" },
-                { label: "Flashcard", icon: "ri-stack-line", color: "app-accent-primary", path: "/eps-flashcard" },
+                { label: "Flashcard", icon: "ri-stack-line", color: "#e8c84a", path: "/eps-flashcard" },
                 { label: "Cộng đồng", icon: "ri-group-line", color: "#f472b6", path: "/community" },
                 { label: "Thử thách", icon: "ri-trophy-line", color: "#fb923c", path: "/weekly-challenge" },
                 { label: "Từ vựng", icon: "ri-translate-2", color: "#a78bfa", path: "/eps-vocab-flashcard" },

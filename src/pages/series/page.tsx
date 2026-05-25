@@ -514,7 +514,7 @@ export interface EbookSeries {
 }
 
 const ACCENT_COLORS = [
-  "app-accent-primary", "#34d399", "#fb923c", "#f472b6", "#a78bfa", "#38bdf8", "#f87171",
+  "#e8c84a", "#34d399", "#fb923c", "#f472b6", "#a78bfa", "#38bdf8", "#f87171",
 ];
 const COVER_COLORS = [
   "#0f1117", "#0d1b2a", "#1a1208", "#13111c", "#0a1628", "#1a0a0a",
@@ -660,7 +660,7 @@ function SeriesForm({ initial, lessons, onSave, onCancel }: SeriesFormProps) {
   const [price, setPrice] = useState(initial?.price ?? "");
   const [tags, setTags] = useState(initial?.tags?.join(", ") ?? "");
   const [coverColor, setCoverColor] = useState(initial?.coverColor ?? "#0f1117");
-  const [coverAccent, setCoverAccent] = useState(initial?.coverAccent ?? "app-accent-primary");
+  const [coverAccent, setCoverAccent] = useState(initial?.coverAccent ?? "#e8c84a");
   const [template, setTemplate] = useState<EbookTemplate>(initial?.template ?? "classic");
   const [selectedRanks, setSelectedRanks] = useState<number[]>(initial?.lessonRanks ?? []);
 
@@ -900,7 +900,7 @@ export default function SeriesPage() {
     subtitle: "Truyện Chêm & Từ Vựng Thực Tế",
     author: "Hà Dím",
     coverColor: "#0f1117",
-    coverAccent: "app-accent-primary",
+    coverAccent: "#e8c84a",
     description: "",
     fontFamily: "sans",
   });
@@ -993,7 +993,7 @@ export default function SeriesPage() {
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
         {[
-          { label: "Tổng series", value: seriesList.length, icon: "ri-stack-line", color: "app-accent-primary" },
+          { label: "Tổng series", value: seriesList.length, icon: "ri-stack-line", color: "#e8c84a" },
           { label: "Tổng bài học", value: totalLessons, icon: "ri-book-open-line", color: "#34d399" },
           { label: "Bài đã duyệt", value: approvedLessons.length, icon: "ri-checkbox-circle-line", color: "#fb923c" },
         ].map((stat) => (

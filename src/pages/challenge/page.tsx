@@ -213,7 +213,7 @@ function CreateChallenge({ onCreated }: { onCreated: (c: ChallengeRecord) => voi
 function ChallengeResult({ challenge, onNew }: { challenge: ChallengeRecord; onNew: () => void }) {
   const [copied, setCopied] = useState(false);
   const pct = Math.round((challenge.creatorScore / challenge.creatorTotal) * 100);
-  const color = pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#fb923c";
+  const color = pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : "#fb923c";
 
   const challengeUrl = `${window.location.origin}/challenge?id=${challenge.id}`;
 
@@ -330,7 +330,7 @@ function AcceptChallenge({ challengeId, challenges }: { challengeId: string; cha
   const myPct = Math.round((myScore / challenge.questionCount) * 100);
   const won = myScore > challenge.creatorScore;
   const tied = myScore === challenge.creatorScore;
-  const resultColor = won ? "#34d399" : tied ? "app-accent-primary" : "#f87171";
+  const resultColor = won ? "#34d399" : tied ? "#e8c84a" : "#f87171";
 
   return (
     <div className="max-w-lg mx-auto space-y-4">
@@ -427,7 +427,7 @@ export default function ChallengePage() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {[
                 { icon: "ri-play-circle-line", color: "#fb923c", label: "Bước 1", desc: "Làm quiz trước" },
-                { icon: "ri-share-line", color: "app-accent-primary", label: "Bước 2", desc: "Gửi link cho bạn" },
+                { icon: "ri-share-line", color: "#e8c84a", label: "Bước 2", desc: "Gửi link cho bạn" },
                 { icon: "ri-trophy-line", color: "#34d399", label: "Bước 3", desc: "So sánh điểm số" },
               ].map(s => (
                 <div key={s.label} className="bg-app-surface/50 rounded-xl p-3 text-center">
@@ -452,7 +452,7 @@ export default function ChallengePage() {
               <div className="space-y-3">
                 {challenges.slice(0, 10).map(c => {
                   const pct = Math.round((c.creatorScore / c.creatorTotal) * 100);
-                  const color = pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#fb923c";
+                  const color = pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : "#fb923c";
                   const topic = EPS_TOPICS.find(t => t.id === c.topicId);
                   return (
                     <div key={c.id} className="flex items-center gap-3 p-3 bg-app-surface/50 rounded-xl border border-app-border">

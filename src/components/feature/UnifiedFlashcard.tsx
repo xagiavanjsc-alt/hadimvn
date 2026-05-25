@@ -17,7 +17,7 @@ interface UnifiedFlashcardProps {
 const MODULE_CONFIG = {
   eps: { name: "EPS-TOPIK", color: "#4ade80", icon: "ri-file-list-3-line" },
   seoul: { name: "Seoul", color: "#60a5fa", icon: "ri-book-3-line" },
-  hanja: { name: "Hán Hàn", color: "app-accent-primary", icon: "ri-character-recognition-line" },
+  hanja: { name: "Hán Hàn", color: "#e8c84a", icon: "ri-character-recognition-line" },
   melon: { name: "K-pop", color: "#fb923c", icon: "ri-music-2-line" },
   topik: { name: "TOPIK", color: "#f472b6", icon: "ri-survey-line" },
 };

@@ -290,7 +290,7 @@ function PhraseCard({ phrase, onSpeak, isFavorite, onToggleFavorite }: {
 }) {
   const [showExample, setShowExample] = useState(false);
   const [showRoman, setShowRoman] = useState(false);
-  const levelColor = phrase.level === "cơ bản" ? "#34d399" : phrase.level === "trung cấp" ? "app-accent-primary" : "#f87171";
+  const levelColor = phrase.level === "cơ bản" ? "#34d399" : phrase.level === "trung cấp" ? "#e8c84a" : "#f87171";
 
   return (
     <div className="bg-app-bg border border-app-border rounded-xl p-4 hover:border-app-border transition-all group">

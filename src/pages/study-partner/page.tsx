@@ -48,12 +48,12 @@ const VOCAB_CHALLENGES = [
 
 const STATUS_CONFIG = {
   online: { color: "#34d399", label: "Online", dot: "bg-emerald-400" },
-  studying: { color: "app-accent-primary", label: "Đang học", dot: "bg-yellow-400" },
+  studying: { color: "#e8c84a", label: "Đang học", dot: "bg-yellow-400" },
   away: { color: "#fb923c", label: "Vắng mặt", dot: "bg-orange-400" },
 };
 
 const LEVEL_COLORS: Record<string, string> = {
-  A1: "#34d399", A2: "#84cc16", B1: "app-accent-primary", B2: "#fb923c", C1: "#f87171",
+  A1: "#34d399", A2: "#84cc16", B1: "#e8c84a", B2: "#fb923c", C1: "#f87171",
 };
 
 // ─── Partner Card ─────────────────────────────────────────────────────────────
@@ -64,7 +64,7 @@ interface PartnerCardProps {
 
 function PartnerCard({ partner, onConnect }: PartnerCardProps) {
   const statusCfg = STATUS_CONFIG[partner.status];
-  const levelColor = LEVEL_COLORS[partner.level] || "app-accent-primary";
+  const levelColor = LEVEL_COLORS[partner.level] || "#e8c84a";
 
   return (
     <div className="bg-app-bg border border-app-border rounded-2xl p-5 hover:border-app-border transition-all">
@@ -142,7 +142,7 @@ function ChatSession({ partner, onClose }: ChatSessionProps) {
   const [sessionTime, setSessionTime] = useState(0);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const levelColor = LEVEL_COLORS[partner.level] || "app-accent-primary";
+  const levelColor = LEVEL_COLORS[partner.level] || "#e8c84a";
 
   useEffect(() => {
     timerRef.current = setInterval(() => setSessionTime(t => t + 1), 1000);
@@ -426,7 +426,7 @@ export default function StudyPartnerPage() {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
           { label: "Học viên online", value: onlineCount, icon: "ri-user-line", color: "#34d399" },
-          { label: "Đang học cùng", value: partners.filter(p => p.status === "studying").length, icon: "ri-group-line", color: "app-accent-primary" },
+          { label: "Đang học cùng", value: partners.filter(p => p.status === "studying").length, icon: "ri-group-line", color: "#e8c84a" },
           { label: "Phiên học hôm nay", value: 3, icon: "ri-history-line", color: "#fb923c" },
           { label: "Thời gian học cùng", value: "47 phút", icon: "ri-time-line", color: "#a78bfa" },
         ].map(s => (

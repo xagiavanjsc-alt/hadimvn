@@ -178,7 +178,7 @@ function TrendHeatmap({ activityData }: { activityData: DayActivity[] }) {
   const getColor = (val: number) => {
     if (val === 0) return "rgba(255,255,255,0.04)";
     const intensity = val / maxVal;
-    if (intensity > 0.8) return "app-accent-primary";
+    if (intensity > 0.8) return "#e8c84a";
     if (intensity > 0.55) return "rgba(232,200,74,0.7)";
     if (intensity > 0.3) return "rgba(232,200,74,0.4)";
     return "rgba(232,200,74,0.18)";
@@ -499,7 +499,7 @@ export default function StudyHistoryPage() {
   const xpChange = prevXP > 0 ? Math.round(((totalXP - prevXP) / prevXP) * 100) : 0;
 
   const metricConfig = {
-    xp: { label: "XP", color: "app-accent-primary", icon: "ri-star-line" },
+    xp: { label: "XP", color: "#e8c84a", icon: "ri-star-line" },
     words: { label: "Từ học", color: "#34d399", icon: "ri-translate-2" },
     sessions: { label: "Phiên học", color: "#fb923c", icon: "ri-time-line" },
     quizzes: { label: "Quiz", color: "#a78bfa", icon: "ri-survey-line" },
@@ -521,7 +521,7 @@ export default function StudyHistoryPage() {
       {/* Summary stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         {[
-          { label: `Tổng XP (${chartRange} ngày)`, value: totalXP.toLocaleString(), icon: "ri-star-line", color: "app-accent-primary", sub: xpChange !== 0 ? `${xpChange > 0 ? "+" : ""}${xpChange}% so với kỳ trước` : undefined },
+          { label: `Tổng XP (${chartRange} ngày)`, value: totalXP.toLocaleString(), icon: "ri-star-line", color: "#e8c84a", sub: xpChange !== 0 ? `${xpChange > 0 ? "+" : ""}${xpChange}% so với kỳ trước` : undefined },
           { label: "Ngày học tích cực", value: `${activeDays}/${chartRange}`, icon: "ri-calendar-check-line", color: "#34d399", sub: `${Math.round((activeDays / chartRange) * 100)}% tỷ lệ` },
           { label: "Từ đã học", value: totalWords.toLocaleString(), icon: "ri-translate-2", color: "#fb923c", sub: `TB ${Math.round(totalWords / Math.max(activeDays, 1))}/ngày` },
           { label: "Cần ôn ngay", value: dueItems.length, icon: "ri-alarm-line", color: dueItems.length > 0 ? "#f87171" : "#34d399", sub: dueItems.length > 0 ? "Hãy ôn ngay!" : "Tất cả đã ôn" },
@@ -625,7 +625,7 @@ export default function StudyHistoryPage() {
               <h3 className="text-white font-semibold text-sm mb-4">So sánh tuần này vs tuần trước</h3>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {[
-                  { label: "XP kiếm được", thisWeek: activityData.slice(-7).reduce((s, d) => s + d.xp, 0), lastWeek: activityData.slice(-14, -7).reduce((s, d) => s + d.xp, 0), color: "app-accent-primary" },
+                  { label: "XP kiếm được", thisWeek: activityData.slice(-7).reduce((s, d) => s + d.xp, 0), lastWeek: activityData.slice(-14, -7).reduce((s, d) => s + d.xp, 0), color: "#e8c84a" },
                   { label: "Từ đã học", thisWeek: activityData.slice(-7).reduce((s, d) => s + d.words, 0), lastWeek: activityData.slice(-14, -7).reduce((s, d) => s + d.words, 0), color: "#34d399" },
                   { label: "Ngày học", thisWeek: activityData.slice(-7).filter(d => d.sessions > 0).length, lastWeek: activityData.slice(-14, -7).filter(d => d.sessions > 0).length, color: "#fb923c" },
                 ].map(item => {
@@ -688,7 +688,7 @@ export default function StudyHistoryPage() {
             <div className="space-y-2">
               <h3 className="text-white font-semibold text-sm mb-2">Ôn tập ngay</h3>
               {[
-                { icon: "ri-file-list-3-line", label: "Luyện thi EPS", path: "/eps", color: "app-accent-primary" },
+                { icon: "ri-file-list-3-line", label: "Luyện thi EPS", path: "/eps", color: "#e8c84a" },
                 { icon: "ri-stack-line", label: "Flashcard EPS", path: "/eps-flashcard", color: "#34d399" },
                 { icon: "ri-brain-line", label: "Kiểm tra đầu vào", path: "/placement-test", color: "#a78bfa" },
               ].map(item => (

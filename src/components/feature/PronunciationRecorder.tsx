@@ -103,10 +103,10 @@ export default function PronunciationRecorder({ targetText, targetTextVi, onClos
 
   const scoreColor = score !== null
     ? score >= 85 ? "#34d399"
-    : score >= 75 ? "app-accent-primary"
+    : score >= 75 ? "#e8c84a"
     : score >= 65 ? "#fb923c"
     : "#f87171"
-    : "app-accent-primary";
+    : "#e8c84a";
 
   return (
     <div className="bg-app-bg border border-app-border rounded-2xl p-5">

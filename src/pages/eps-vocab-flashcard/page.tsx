@@ -11,7 +11,7 @@ const FEATURED_TOPICS = [
   { id: "housing", label: "Nhà ở & Sinh sống", icon: "ri-home-4-line", color: "#84cc16", desc: "Thuê nhà, hóa đơn, hàng xóm, khu phố" },
   { id: "safety", label: "An toàn lao động", icon: "ri-shield-check-line", color: "#fb923c", desc: "Thiết bị bảo hộ, quy trình an toàn" },
   { id: "workplace", label: "Nơi làm việc", icon: "ri-briefcase-line", color: "#38bdf8", desc: "Văn phòng, nhà máy, đồng nghiệp" },
-  { id: "daily", label: "Sinh hoạt hàng ngày", icon: "ri-home-smile-line", color: "app-accent-primary", desc: "Mua sắm, ăn uống, giải trí" },
+  { id: "daily", label: "Sinh hoạt hàng ngày", icon: "ri-home-smile-line", color: "#e8c84a", desc: "Mua sắm, ăn uống, giải trí" },
   { id: "law", label: "Pháp luật lao động", icon: "ri-scales-3-line", color: "#f59e0b", desc: "Hợp đồng, lương, quyền lợi" },
   { id: "greeting", label: "Giao tiếp cơ bản", icon: "ri-chat-smile-2-line", color: "#34d399", desc: "Chào hỏi, xã giao, điện thoại" },
   { id: "culture", label: "Văn hóa Hàn Quốc", icon: "ri-building-2-line", color: "#a78bfa", desc: "Phong tục, lễ hội, ẩm thực" },
@@ -200,7 +200,7 @@ function ResultScreen({
   const pct = Math.round((score / total) * 100);
   return (
     <div className="flex flex-col items-center gap-6 py-8 max-w-md mx-auto text-center">
-      <div className="w-20 h-20 rounded-full flex items-center justify-center" style={{ backgroundColor: pct >= 80 ? "#34d39915" : "app-accent-primary15" }}>
+      <div className="w-20 h-20 rounded-full flex items-center justify-center" style={{ backgroundColor: pct >= 80 ? "#34d39915" : "rgba(232,200,74,0.15)" }}>
         <i className={`text-4xl ${pct >= 80 ? "ri-trophy-fill text-[#34d399]" : "ri-refresh-line text-app-accent-primary"}`}></i>
       </div>
       <div>
@@ -390,7 +390,7 @@ export default function EpsVocabFlashcardPage() {
               <h3 className="text-white font-semibold text-sm mb-4"><i className="ri-bar-chart-line text-app-accent-primary mr-2"></i>Thống kê học tập</h3>
               <div className="space-y-3">
                 {[
-                  { label: "Tổng từ vựng EPS", value: epsVocabulary.length, color: "app-accent-primary" },
+                  { label: "Tổng từ vựng EPS", value: epsVocabulary.length, color: "#e8c84a" },
                   { label: "Chủ đề có sẵn", value: FEATURED_TOPICS.length, color: "#34d399" },
                   { label: "Chủ đề đã học", value: Object.keys(progress).filter(k => progress[k] > 0).length, color: "#60a5fa" },
                 ].map(s => (

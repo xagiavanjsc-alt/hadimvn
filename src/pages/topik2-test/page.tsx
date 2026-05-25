@@ -290,7 +290,7 @@ function ResultScreen({ mcAnswers, fillAnswers, writeAnswers, onRetry }: {
   const pct = Math.round((totalScore / maxTotal) * 100);
 
   const getLevel = () => {
-    if (totalScore >= 230) return { label: "TOPIK II — Cấp 6", color: "app-accent-primary" };
+    if (totalScore >= 230) return { label: "TOPIK II — Cấp 6", color: "#e8c84a" };
     if (totalScore >= 190) return { label: "TOPIK II — Cấp 5", color: "#34d399" };
     if (totalScore >= 150) return { label: "TOPIK II — Cấp 4", color: "#38bdf8" };
     if (totalScore >= 120) return { label: "TOPIK II — Cấp 3", color: "#a78bfa" };
@@ -454,7 +454,7 @@ export default function Topik2TestPage() {
                 { level: "Cấp 3", range: "120-149 điểm", color: "#a78bfa" },
                 { level: "Cấp 4", range: "150-189 điểm", color: "#38bdf8" },
                 { level: "Cấp 5", range: "190-229 điểm", color: "#34d399" },
-                { level: "Cấp 6", range: "230-300 điểm", color: "app-accent-primary" },
+                { level: "Cấp 6", range: "230-300 điểm", color: "#e8c84a" },
               ].map(l => (
                 <div key={l.level} className="flex items-center justify-between px-3 py-2 rounded-lg bg-app-surface/50">
                   <span className="text-xs font-bold" style={{ color: l.color }}>{l.level}</span>
@@ -501,7 +501,7 @@ export default function Topik2TestPage() {
           </div>
           <div className="flex-1">
             <div className="bg-app-card/50 rounded-full h-1.5 overflow-hidden">
-              <div className="h-full rounded-full transition-all" style={{ width: `${pct}%`, backgroundColor: isDanger ? "#f87171" : isWarning ? "app-accent-primary" : "#34d399" }}></div>
+              <div className="h-full rounded-full transition-all" style={{ width: `${pct}%`, backgroundColor: isDanger ? "#f87171" : isWarning ? "#e8c84a" : "#34d399" }}></div>
             </div>
           </div>
           <span className="text-app-text-muted text-xs whitespace-nowrap">180 phút</span>

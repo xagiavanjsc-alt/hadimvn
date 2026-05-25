@@ -22,7 +22,7 @@ const DECK_OPTIONS: DeckOption[] = [
     title: "Hán Hàn",
     subtitle: "Hán tự & Từ gốc Hán",
     icon: "ri-character-recognition-line",
-    color: "app-accent-primary",
+    color: "#e8c84a",
     bgColor: "rgba(232,200,74,0.08)",
     path: "/flashcard",
     totalCards: 3501,

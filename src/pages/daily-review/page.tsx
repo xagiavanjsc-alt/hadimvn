@@ -111,7 +111,7 @@ function generateDailyQuestions(): ReviewQuestion[] {
 }
 
 // ─── Progress Ring ────────────────────────────────────────────────────────────
-function ProgressRing({ value, max, size = 80, color = "app-accent-primary" }: { value: number; max: number; size?: number; color?: string }) {
+function ProgressRing({ value, max, size = 80, color = "#e8c84a" }: { value: number; max: number; size?: number; color?: string }) {
   const r = (size - 8) / 2;
   const circ = 2 * Math.PI * r;
   const offset = circ - (value / max) * circ;
@@ -157,7 +157,7 @@ function QuestionCard({
   const typeColor: Record<QuestionType, string> = {
     vocab_meaning: "#34d399",
     vocab_korean: "#38bdf8",
-    grammar_choose: "app-accent-primary",
+    grammar_choose: "#e8c84a",
     grammar_fill: "#fb923c",
   };
 
@@ -259,7 +259,7 @@ function ResultScreen({
       {/* Score card */}
       <div className="bg-gradient-to-br from-app-surface to-[#0f1117] border border-app-accent-primary/20 rounded-2xl p-8 text-center">
         <div className="relative inline-flex items-center justify-center mb-4">
-          <ProgressRing value={correct} max={questions.length} size={100} color={pct >= 70 ? "#34d399" : pct >= 50 ? "app-accent-primary" : "#f87171"} />
+          <ProgressRing value={correct} max={questions.length} size={100} color={pct >= 70 ? "#34d399" : pct >= 50 ? "#e8c84a" : "#f87171"} />
           <div className="absolute inset-0 flex flex-col items-center justify-center">
             <span className="text-white font-bold text-xl">{correct}/{questions.length}</span>
             <span className="text-app-text-secondary text-[10px]">đúng</span>
@@ -287,7 +287,7 @@ function ResultScreen({
                   className="h-full rounded-full transition-all"
                   style={{
                     width: `${(stat.correct / stat.total) * 100}%`,
-                    backgroundColor: stat.correct / stat.total >= 0.7 ? "#34d399" : "app-accent-primary",
+                    backgroundColor: stat.correct / stat.total >= 0.7 ? "#34d399" : "#e8c84a",
                   }}
                 />
               </div>
@@ -600,7 +600,7 @@ export default function DailyReviewPage() {
                           className="h-full rounded-full"
                           style={{
                             width: `${pct}%`,
-                            backgroundColor: pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171",
+                            backgroundColor: pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : "#f87171",
                           }}
                         />
                       </div>

@@ -25,7 +25,7 @@ const TOPIC_LABELS: Record<string, string> = {
 };
 
 const TOPIC_COLORS: Record<string, string> = {
-  greeting: "#34d399", workplace: "app-accent-primary", safety: "#f87171",
+  greeting: "#34d399", workplace: "#e8c84a", safety: "#f87171",
   law: "#a78bfa", daily: "#fb923c", culture: "#38bdf8",
   emergency: "#f43f5e", listening: "#06b6d4", reading: "#84cc16",
 };
@@ -129,7 +129,7 @@ export default function ChallengeStatsPage() {
     return Object.entries(topics).map(([topic, data]) => ({
       topic,
       label: TOPIC_LABELS[topic] || topic,
-      color: TOPIC_COLORS[topic] || "app-accent-primary",
+      color: TOPIC_COLORS[topic] || "#e8c84a",
       ...data,
       winRate: data.total > 0 ? Math.round((data.wins / data.total) * 100) : 0,
     })).sort((a, b) => b.winRate - a.winRate);
@@ -180,7 +180,7 @@ export default function ChallengeStatsPage() {
       {/* Summary cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "Tổng trận", value: stats.total, icon: "ri-gamepad-line", color: "app-accent-primary" },
+          { label: "Tổng trận", value: stats.total, icon: "ri-gamepad-line", color: "#e8c84a" },
           { label: "Tỷ lệ thắng", value: `${stats.total > 0 ? Math.round((stats.wins / stats.total) * 100) : 0}%`, icon: "ri-trophy-line", color: "#34d399" },
           { label: "Điểm TB", value: `${stats.avgScore}%`, icon: "ri-bar-chart-line", color: "#a78bfa" },
           { label: "Streak hiện tại", value: stats.currentStreak, icon: "ri-fire-line", color: "#fb923c" },
@@ -270,7 +270,7 @@ export default function ChallengeStatsPage() {
               <p className="text-white font-semibold text-sm mb-4">Kỷ lục cá nhân</p>
               <div className="space-y-3">
                 {[
-                  { label: "Điểm cao nhất", value: `${stats.bestScore}%`, icon: "ri-trophy-line", color: "app-accent-primary" },
+                  { label: "Điểm cao nhất", value: `${stats.bestScore}%`, icon: "ri-trophy-line", color: "#e8c84a" },
                   { label: "Streak thắng dài nhất", value: `${stats.maxStreak} trận`, icon: "ri-fire-fill", color: "#fb923c" },
                   { label: "Thời gian TB", value: `${Math.floor(stats.avgTime / 60)}:${String(stats.avgTime % 60).padStart(2, "0")}`, icon: "ri-time-line", color: "#38bdf8" },
                   { label: "Tổng trận đã chơi", value: stats.total, icon: "ri-gamepad-line", color: "#a78bfa" },
@@ -378,9 +378,9 @@ export default function ChallengeStatsPage() {
               const myPct = Math.round((c.myScore! / c.questionCount) * 100);
               const oppPct = Math.round((c.opponentScore! / c.questionCount) * 100);
               const result = c.myScore! > c.opponentScore! ? "win" : c.myScore! < c.opponentScore! ? "loss" : "draw";
-              const resultColor = result === "win" ? "#34d399" : result === "loss" ? "#f87171" : "app-accent-primary";
+              const resultColor = result === "win" ? "#34d399" : result === "loss" ? "#f87171" : "#e8c84a";
               const resultLabel = result === "win" ? "Thắng" : result === "loss" ? "Thua" : "Hòa";
-              const topicColor = TOPIC_COLORS[c.topic] || "app-accent-primary";
+              const topicColor = TOPIC_COLORS[c.topic] || "#e8c84a";
 
               return (
                 <div key={c.id || i} className="bg-app-bg border border-app-border rounded-xl p-4 flex items-center gap-4">

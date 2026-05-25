@@ -146,7 +146,7 @@ function VocabCard({ v, dark = false }: { v: { word: string; meaning: string; ex
     <div className="rounded p-1.5" style={{ backgroundColor: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)" }}>
       <p className="font-black text-[10px]" style={{ color: "#e8e8e8", fontFamily: "'Noto Sans KR', sans-serif" }}>{parsed.korean}</p>
       {parsed.romanization && <p className="text-[7px] italic" style={{ color: "rgba(255,255,255,0.3)" }}>{parsed.romanization}</p>}
-      <p className="text-[9px] font-bold mt-0.5" style={{ color: "app-accent-primary" }}>{parsed.meaning}</p>
+      <p className="text-[9px] font-bold mt-0.5" style={{ color: "#e8c84a" }}>{parsed.meaning}</p>
     </div>
   );
   return (

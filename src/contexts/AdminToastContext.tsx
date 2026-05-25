@@ -24,7 +24,7 @@ const TOAST_CONFIG: Record<AdminToastType, { icon: string; color: string; bg: st
   delete:  { icon: "ri-delete-bin-line",       color: "#f87171", bg: "rgba(248,113,113,0.12)", border: "rgba(248,113,113,0.3)" },
   restore: { icon: "ri-refresh-line",          color: "#fb923c", bg: "rgba(251,146,60,0.12)",  border: "rgba(251,146,60,0.3)" },
   ban:     { icon: "ri-user-forbid-line",      color: "#f87171", bg: "rgba(248,113,113,0.12)", border: "rgba(248,113,113,0.3)" },
-  vip:     { icon: "ri-vip-crown-line",        color: "app-accent-primary", bg: "rgba(232,200,74,0.12)",  border: "rgba(232,200,74,0.3)" },
+  vip:     { icon: "ri-vip-crown-line",        color: "#e8c84a", bg: "rgba(232,200,74,0.12)",  border: "rgba(232,200,74,0.3)" },
   role:    { icon: "ri-shield-keyhole-line",   color: "#a78bfa", bg: "rgba(167,139,250,0.12)", border: "rgba(167,139,250,0.3)" },
   backup:  { icon: "ri-save-line",             color: "#34d399", bg: "rgba(52,211,153,0.12)",  border: "rgba(52,211,153,0.3)" },
   success: { icon: "ri-checkbox-circle-line",  color: "#34d399", bg: "rgba(52,211,153,0.12)",  border: "rgba(52,211,153,0.3)" },

@@ -349,7 +349,7 @@ const PLACEMENT_QUESTIONS: PlacementQuestion[] = [
 // ─── Level mapping ────────────────────────────────────────────────────────
 const LEVEL_ORDER = ["1A", "1B", "2A", "2B", "3A", "3B", "4A", "4B"] as const;
 const LEVEL_COLORS: Record<string, string> = {
-  "1A": "app-accent-primary", "1B": "#fb923c", "2A": "#34d399", "2B": "#06b6d4",
+  "1A": "#e8c84a", "1B": "#fb923c", "2A": "#34d399", "2B": "#06b6d4",
   "3A": "#a78bfa", "3B": "#ec4899", "4A": "#84cc16", "4B": "#f87171",
 };
 const LEVEL_CEFR: Record<string, string> = {

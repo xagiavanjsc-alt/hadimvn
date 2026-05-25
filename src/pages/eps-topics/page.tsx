@@ -88,7 +88,7 @@ function TopicDetailModal({
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-5">
           {[
             { label: "Dễ", count: byDifficulty.easy, color: "#34d399" },
-            { label: "Trung bình", count: byDifficulty.medium, color: "app-accent-primary" },
+            { label: "Trung bình", count: byDifficulty.medium, color: "#e8c84a" },
             { label: "Khó", count: byDifficulty.hard, color: "#f87171" },
           ].map(d => (
             <div key={d.label} className="bg-app-surface/50 rounded-xl p-3 text-center">
@@ -206,7 +206,7 @@ const LEARNING_PATHS = [
     id: "eps",
     label: "Thi EPS-TOPIK",
     icon: "ri-trophy-line",
-    color: "app-accent-primary",
+    color: "#e8c84a",
     desc: "Pháp luật, nghe hiểu, đọc hiểu — chuẩn bị thi",
     topics: ["law", "listening", "reading"],
     duration: "4-6 tuần",
@@ -262,7 +262,7 @@ export default function EpsTopicsPage() {
       {/* Overall stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "Tổng câu hỏi", value: epsQuestions.length, icon: "ri-survey-line", color: "app-accent-primary" },
+          { label: "Tổng câu hỏi", value: epsQuestions.length, icon: "ri-survey-line", color: "#e8c84a" },
           { label: "Đã hoàn thành", value: `${overallPct}%`, icon: "ri-pie-chart-line", color: "#34d399" },
           { label: "Câu đúng", value: totalCorrect, icon: "ri-checkbox-circle-line", color: "#a78bfa" },
           { label: "Chủ đề", value: EPS_TOPICS.length, icon: "ri-folder-line", color: "#fb923c" },

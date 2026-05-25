@@ -29,7 +29,7 @@ function QuizCard({ q, index, total, onAnswer, answered }: {
 }) {
   const isCorrect = (i: number) => i === q.correctIndex;
   const typeLabel = q.type === "vocab" ? "Từ vựng" : q.type === "grammar" ? "Ngữ pháp" : "Điền vào chỗ trống";
-  const typeColor = q.type === "vocab" ? "app-accent-primary" : q.type === "grammar" ? "#a78bfa" : "#34d399";
+  const typeColor = q.type === "vocab" ? "#e8c84a" : q.type === "grammar" ? "#a78bfa" : "#34d399";
 
   const touchStartX = useRef<number | null>(null);
   const touchStartY = useRef<number | null>(null);
@@ -167,7 +167,7 @@ function QuizResult({ score, total, questions, answers, onRetry, onNew, lessonTi
   const [showShare, setShowShare] = useState(false);
   const pct = Math.round((score / total) * 100);
   const grade = pct >= 80 ? { label: "Xuất sắc!", color: "#34d399", icon: "ri-trophy-line" }
-    : pct >= 60 ? { label: "Khá tốt!", color: "app-accent-primary", icon: "ri-medal-line" }
+    : pct >= 60 ? { label: "Khá tốt!", color: "#e8c84a", icon: "ri-medal-line" }
     : { label: "Cần ôn thêm!", color: "#fb923c", icon: "ri-refresh-line" };
 
   return (
@@ -260,7 +260,7 @@ function EpsWeakQuiz({ weakTopicId, onBack }: { weakTopicId: string; onBack: () 
 
   if (done || (currentIdx >= questions.length && questions.length > 0)) {
     const pct = questions.length > 0 ? Math.round((score / questions.length) * 100) : 0;
-    const color = pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171";
+    const color = pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : "#f87171";
     return (
       <div className="bg-app-bg border border-app-border rounded-2xl p-8 text-center">
         <div className="w-14 h-14 flex items-center justify-center rounded-2xl mx-auto mb-4" style={{ backgroundColor: `${color}15` }}>
@@ -487,7 +487,7 @@ export default function QuizPage() {
                   <p className="text-app-text-secondary text-xs mb-5">Chủ đề được sắp xếp từ yếu nhất — tập trung vào những chủ đề đỏ trước!</p>
                   <div className="space-y-2">
                     {weakTopics.map(t => {
-                      const color = t.pct === -1 ? "rgba(255,255,255,0.2)" : t.pct >= 80 ? "#34d399" : t.pct >= 60 ? "app-accent-primary" : "#f87171";
+                      const color = t.pct === -1 ? "rgba(255,255,255,0.2)" : t.pct >= 80 ? "#34d399" : t.pct >= 60 ? "#e8c84a" : "#f87171";
                       return (
                         <button key={t.id} onClick={() => setSelectedWeakTopic(t.id)}
                           className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-app-surface/50 hover:bg-app-card/50 border border-app-border hover:border-app-border transition-all cursor-pointer text-left">
@@ -565,7 +565,7 @@ export default function QuizPage() {
               {/* Question types info */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
                 {[
-                  { type: "Từ vựng", icon: "ri-translate-2", color: "app-accent-primary", desc: "Chọn nghĩa đúng" },
+                  { type: "Từ vựng", icon: "ri-translate-2", color: "#e8c84a", desc: "Chọn nghĩa đúng" },
                   { type: "Ngữ pháp", icon: "ri-graduation-cap-line", color: "#a78bfa", desc: "Chọn cấu trúc đúng" },
                   { type: "Điền chỗ trống", icon: "ri-edit-line", color: "#34d399", desc: "Hoàn thành câu" },
                 ].map(t => (
@@ -648,7 +648,7 @@ export default function QuizPage() {
             <h3 className="text-white font-semibold text-sm mb-4">Thống kê</h3>
             <div className="space-y-3">
               {[
-                { label: "Lần làm quiz", value: quizHistory.length, icon: "ri-survey-line", color: "app-accent-primary" },
+                { label: "Lần làm quiz", value: quizHistory.length, icon: "ri-survey-line", color: "#e8c84a" },
                 { label: "Điểm trung bình", value: `${avgScore}%`, icon: "ri-bar-chart-line", color: "#34d399" },
                 { label: "Bài học có quiz", value: new Set(quizHistory.map(h => h.lesson)).size, icon: "ri-book-2-line", color: "#a78bfa" },
               ].map(stat => (
@@ -672,7 +672,7 @@ export default function QuizPage() {
               <div className="space-y-2 max-h-64 overflow-y-auto">
                 {quizHistory.slice(0, 10).map((h, i) => {
                   const pct = Math.round((h.score / h.total) * 100);
-                  const color = pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#fb923c";
+                  const color = pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : "#fb923c";
                   return (
                     <div key={i} className="flex items-center gap-3 px-3 py-2 bg-app-surface/50 rounded-lg">
                       <div className="w-8 h-8 flex items-center justify-center rounded-lg flex-shrink-0 text-xs font-bold" style={{ backgroundColor: `${color}15`, color }}>

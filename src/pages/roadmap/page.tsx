@@ -40,7 +40,7 @@ const ROADMAP_LEVELS: RoadmapLevel[] = [
     topik: "TOPIK I — Cấp 1",
     title: "Giao tiếp cơ bản",
     subtitle: "Câu đơn giản, từ vựng hàng ngày",
-    color: "app-accent-primary",
+    color: "#e8c84a",
     icon: "ri-plant-line",
     badge: "TOPIK 1",
     skills: ["Giới thiệu bản thân", "Mua sắm, ăn uống", "Hỏi đường", "Nói về sở thích"],
@@ -295,7 +295,7 @@ export default function RoadmapPage() {
             <h3 className="text-white font-semibold text-sm mb-4">Thống kê của bạn</h3>
             <div className="space-y-3">
               {[
-                { label: "Bài học đã tạo", value: approvedLessons.length, icon: "ri-book-2-line", color: "app-accent-primary" },
+                { label: "Bài học đã tạo", value: approvedLessons.length, icon: "ri-book-2-line", color: "#e8c84a" },
                 { label: "Từ vựng tích lũy", value: totalVocab, icon: "ri-translate-2", color: "#34d399" },
                 { label: "Cấp độ hoàn thành", value: `${completedLevels.length}/${ROADMAP_LEVELS.length}`, icon: "ri-award-line", color: "#a78bfa" },
               ].map(stat => (
@@ -346,7 +346,7 @@ export default function RoadmapPage() {
             <h3 className="text-white font-semibold text-sm mb-3">Học ngay</h3>
             <div className="space-y-2">
               {[
-                { icon: "ri-stack-line", label: "Ôn flashcard EPS", sub: "Luyện từ vựng EPS", path: "/eps-flashcard", color: "app-accent-primary" },
+                { icon: "ri-stack-line", label: "Ôn flashcard EPS", sub: "Luyện từ vựng EPS", path: "/eps-flashcard", color: "#e8c84a" },
                 { icon: "ri-timer-line", label: "Thi thử EPS", sub: "40 câu mô phỏng", path: "/eps-exam", color: "#34d399" },
                 { icon: "ri-book-2-line", label: "Ebook Builder", sub: "Xuất bản ebook", path: "/ebook", color: "#fb923c" },
               ].map(item => (

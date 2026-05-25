@@ -253,7 +253,7 @@ export default function Home() {
       });
     suggestions.push({
       icon: "ri-sun-line",
-      color: "app-accent-primary",
+      color: "#e8c84a",
       label: "Học từ mới hôm nay",
       path: "/daily-words",
       desc: `${todayLearned.length}/8 từ đã học`,
@@ -310,7 +310,7 @@ export default function Home() {
           />
           <StatCard
             icon="ri-book-open-line"
-            color="app-accent-primary"
+            color="#e8c84a"
             label="Từ đã học"
             value={totalDailyWords}
             sub={`${todayLearned.length}/8 hôm nay`}
@@ -347,7 +347,7 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
             <QuickCard
               icon="ri-sun-line"
-              color="app-accent-primary"
+              color="#e8c84a"
               label="Từ mới hôm nay"
               desc={`${todayLearned.length}/8 từ đã học`}
               path="/daily-words"
@@ -509,7 +509,7 @@ export default function Home() {
               },
               {
                 icon: "ri-character-recognition-line",
-                color: "app-accent-primary",
+                color: "#e8c84a",
                 label: "Hán Hàn VIP",
                 desc: hanjaCount !== null ? `${hanjaCount.toLocaleString("vi-VN")} từ Hán Hàn` : "2.691 từ Hán Hàn",
                 path: "/hanja-detail",

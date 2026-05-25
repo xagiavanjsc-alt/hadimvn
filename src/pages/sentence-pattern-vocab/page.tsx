@@ -164,7 +164,7 @@ export default function SentencePatternVocabPage() {
         {/* Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
           {[
-            { label: "Mẫu câu", value: patterns.length, color: "app-accent-primary" },
+            { label: "Mẫu câu", value: patterns.length, color: "#e8c84a" },
             { label: "Đã học", value: learnedIds.size, color: "#34d399" },
             { label: "Từ vựng", value: patterns.reduce((s, p) => s + p.keyVocab.length, 0), color: "#a78bfa" },
           ].map(s => (

@@ -23,7 +23,7 @@ function EpsQuestionCard({ q, answered, onAnswer }: {
   onAnswer: (i: number) => void;
 }) {
   const topic = EPS_TOPICS.find(t => t.id === q.topic);
-  const diffColor = q.difficulty === "easy" ? "#34d399" : q.difficulty === "medium" ? "app-accent-primary" : "#f87171";
+  const diffColor = q.difficulty === "easy" ? "#34d399" : q.difficulty === "medium" ? "#e8c84a" : "#f87171";
   const diffLabel = q.difficulty === "easy" ? "Dễ" : q.difficulty === "medium" ? "Trung bình" : "Khó";
 
   return (
@@ -235,7 +235,7 @@ export default function EpsPage() {
       {/* Overall stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "Tổng câu hỏi", value: epsQuestions.length, icon: "ri-survey-line", color: "app-accent-primary" },
+          { label: "Tổng câu hỏi", value: epsQuestions.length, icon: "ri-survey-line", color: "#e8c84a" },
           { label: "Đã làm", value: totalDone, icon: "ri-checkbox-circle-line", color: "#34d399" },
           { label: "Trả lời đúng", value: totalCorrect, icon: "ri-trophy-line", color: "#a78bfa" },
           { label: "Tỷ lệ đúng", value: `${overallPct}%`, icon: "ri-bar-chart-line", color: "#fb923c" },
@@ -403,7 +403,7 @@ export default function EpsPage() {
           {(() => {
             const pct = topicQuestions.length > 0 ? Math.round((sessionScore / topicQuestions.length) * 100) : 0;
             const grade = pct >= 80 ? { label: "Xuất sắc!", color: "#34d399", icon: "ri-trophy-line" }
-              : pct >= 60 ? { label: "Khá tốt!", color: "app-accent-primary", icon: "ri-medal-line" }
+              : pct >= 60 ? { label: "Khá tốt!", color: "#e8c84a", icon: "ri-medal-line" }
               : { label: "Cần ôn thêm!", color: "#fb923c", icon: "ri-refresh-line" };
             return (
               <>

@@ -584,7 +584,7 @@ export default function KpopFlashcardPage() {
         {/* Stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
           {[
-            { label: "Bài hát", value: totalSongs, icon: "ri-music-2-line", color: "app-accent-primary" },
+            { label: "Bài hát", value: totalSongs, icon: "ri-music-2-line", color: "#e8c84a" },
             { label: "Tổng từ", value: totalWords, icon: "ri-book-open-line", color: "#34d399" },
             { label: "Đã thuộc", value: totalMastered, icon: "ri-checkbox-circle-line", color: "#34d399" },
             { label: "Bài xong", value: completedSongs, icon: "ri-trophy-line", color: "#fb923c" },

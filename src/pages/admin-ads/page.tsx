@@ -101,7 +101,7 @@ function AdEditor({
             <button
               onClick={() => setPreviewMode(!previewMode)}
               className="text-xs px-3 py-1.5 rounded-lg cursor-pointer transition-colors"
-              style={{ backgroundColor: previewMode ? "rgba(232,200,74,0.15)" : "var(--admin-hover)", color: previewMode ? "app-accent-primary" : "var(--admin-text-muted)", border: "1px solid var(--admin-border)" }}
+              style={{ backgroundColor: previewMode ? "rgba(232,200,74,0.15)" : "var(--admin-hover)", color: previewMode ? "#e8c84a" : "var(--admin-text-muted)", border: "1px solid var(--admin-border)" }}
             >
               <i className={`${previewMode ? "ri-edit-line" : "ri-eye-line"} mr-1`}></i>
               {previewMode ? "Chỉnh sửa" : "Xem trước"}
@@ -122,7 +122,7 @@ function AdEditor({
                 <img loading="lazy" decoding="async" src={form.content} alt="preview" className="w-full rounded-xl" />
               ) : (
                 <div className="rounded-xl p-4" style={{ backgroundColor: form.bgColor || "rgba(232,200,74,0.06)", border: "1px solid rgba(232,200,74,0.15)" }}>
-                  <p className="font-semibold text-sm" style={{ color: form.textColor || "app-accent-primary" }}>{form.title}</p>
+                  <p className="font-semibold text-sm" style={{ color: form.textColor || "#e8c84a" }}>{form.title}</p>
                   <p className="text-xs text-app-text-secondary mt-1">{form.description}</p>
                 </div>
               )}
@@ -351,7 +351,7 @@ export default function AdminAdsPage() {
         </div>
         <div className="space-y-3">
           {[
-            { key: "melon", icon: "ri-music-2-line", color: "app-accent-primary", title: "K-pop Lesson", desc: "Melon Top 100 → AI → Excel", value: melonDraftMode, toggle: () => setMelonDraftMode(!melonDraftMode) },
+            { key: "melon", icon: "ri-music-2-line", color: "#e8c84a", title: "K-pop Lesson", desc: "Melon Top 100 → AI → Excel", value: melonDraftMode, toggle: () => setMelonDraftMode(!melonDraftMode) },
             { key: "naver", icon: "ri-question-answer-line", color: "#38bdf8", title: "Naver KiN", desc: "Câu hỏi thực tế → AI → Excel", value: naverDraftMode, toggle: () => setNaverDraftMode(!naverDraftMode) },
           ].map((item) => (
             <div key={item.key} className="flex items-center justify-between p-4 rounded-xl" style={{ backgroundColor: "var(--admin-card2)", border: "1px solid var(--admin-border)" }}>

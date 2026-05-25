@@ -21,14 +21,14 @@ interface ExamResult {
 
 const TOPIK_LEVELS = [
   { level: "Nhập môn", range: "0–200 từ", color: "#34d399", minVocab: 0, maxVocab: 200, icon: "ri-seedling-line" },
-  { level: "TOPIK 1", range: "800–1500 từ", color: "app-accent-primary", minVocab: 201, maxVocab: 1500, icon: "ri-star-line" },
+  { level: "TOPIK 1", range: "800–1500 từ", color: "#e8c84a", minVocab: 201, maxVocab: 1500, icon: "ri-star-line" },
   { level: "TOPIK 2", range: "1500–3000 từ", color: "#fb923c", minVocab: 1501, maxVocab: 3000, icon: "ri-star-half-line" },
   { level: "TOPIK 3", range: "3000–5000 từ", color: "#a78bfa", minVocab: 3001, maxVocab: 5000, icon: "ri-star-fill" },
   { level: "TOPIK 4–6", range: "5000+ từ", color: "#f87171", minVocab: 5001, maxVocab: 99999, icon: "ri-vip-crown-line" },
 ];
 
 const BADGES = [
-  { id: "first_eps", icon: "ri-file-list-3-line", label: "EPS Starter", desc: "Làm câu hỏi EPS đầu tiên", color: "app-accent-primary" },
+  { id: "first_eps", icon: "ri-file-list-3-line", label: "EPS Starter", desc: "Làm câu hỏi EPS đầu tiên", color: "#e8c84a" },
   { id: "streak_7", icon: "ri-fire-line", label: "7 ngày liên tiếp", desc: "Học 7 ngày không nghỉ", color: "#fb923c" },
   { id: "hangul_done", icon: "ri-font-size", label: "Hangul Master", desc: "Hoàn thành bảng chữ Hangul", color: "#34d399" },
   { id: "flashcard_50", icon: "ri-stack-line", label: "Flashcard Pro", desc: "Thuộc 50 từ vựng", color: "#a78bfa" },
@@ -275,7 +275,7 @@ export default function ProfilePage() {
     const buckets = [
       { label: "Mới", min: 0, max: 1, color: "#f87171" },
       { label: "1-3 ngày", min: 1, max: 3, color: "#fb923c" },
-      { label: "4-7 ngày", min: 4, max: 7, color: "app-accent-primary" },
+      { label: "4-7 ngày", min: 4, max: 7, color: "#e8c84a" },
       { label: "1-2 tuần", min: 8, max: 14, color: "#34d399" },
       { label: "Thuộc lòng", min: 15, max: 9999, color: "#a78bfa" },
     ];
@@ -604,7 +604,7 @@ export default function ProfilePage() {
                 <div className="space-y-2">
                   {examResults.slice(-5).reverse().map((r, i) => {
                     const pct = Math.round((r.score / r.total) * 100);
-                    const color = pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171";
+                    const color = pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : "#f87171";
                     return (
                       <div key={i} className="flex items-center gap-3 px-3 py-2.5 bg-app-surface/50 rounded-xl">
                         <div className="w-8 h-8 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${color}15` }}>
@@ -694,7 +694,7 @@ export default function ProfilePage() {
             <div className="space-y-3">
               {Object.entries(epsByTopic).map(([topicId, data]) => {
                 const pct = data.total > 0 ? Math.round((data.correct / data.total) * 100) : 0;
-                const color = pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : pct >= 40 ? "#fb923c" : "#f87171";
+                const color = pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : pct >= 40 ? "#fb923c" : "#f87171";
                 const topicLabels: Record<string, string> = {
                   greeting: "Giao tiếp cơ bản", safety: "An toàn lao động", culture: "Văn hóa Hàn Quốc",
                   workplace: "Nơi làm việc", daily: "Sinh hoạt hàng ngày", emergency: "Tình huống khẩn cấp",
@@ -948,7 +948,7 @@ export default function ProfilePage() {
               <div className="space-y-2">
                 {quizHistory.slice(-8).reverse().map((q, i) => {
                   const pct = Math.round((q.score / q.total) * 100);
-                  const color = pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171";
+                  const color = pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : "#f87171";
                   return (
                     <div key={i} className="flex items-center gap-3 px-3 py-2.5 bg-app-surface/50 rounded-xl">
                       <div className="w-8 h-8 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${color}15` }}>
@@ -994,7 +994,7 @@ export default function ProfilePage() {
               <div className="space-y-2">
                 {examResults.slice(-8).reverse().map((r, i) => {
                   const pct = Math.round((r.score / r.total) * 100);
-                  const color = pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171";
+                  const color = pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : "#f87171";
                   return (
                     <div key={i} className="flex items-center gap-3 px-3 py-2.5 bg-app-surface/50 rounded-xl">
                       <div className="w-8 h-8 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${color}15` }}>
@@ -1023,7 +1023,7 @@ export default function ProfilePage() {
           {/* Quick actions */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {[
-              { label: "Lộ trình EPS 30 ngày", icon: "ri-route-line", color: "app-accent-primary", route: "/eps-30day-plan" },
+              { label: "Lộ trình EPS 30 ngày", icon: "ri-route-line", color: "#e8c84a", route: "/eps-30day-plan" },
               { label: "Thống kê EPS", icon: "ri-bar-chart-line", color: "#34d399", route: "/eps-stats" },
               { label: "Thành tích", icon: "ri-trophy-line", color: "#fb923c", route: "/achievements" },
             ].map((item, i) => (

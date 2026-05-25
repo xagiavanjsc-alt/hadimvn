@@ -300,7 +300,7 @@ function IntroScreen({ onStart }: { onStart: () => void }) {
       {/* Exam info */}
       <div className="grid grid-cols-2 gap-4 mb-6">
         {[
-          { icon: "ri-file-list-3-line", label: "Số câu hỏi", value: "40 câu", color: "app-accent-primary" },
+          { icon: "ri-file-list-3-line", label: "Số câu hỏi", value: "40 câu", color: "#e8c84a" },
           { icon: "ri-timer-line", label: "Thời gian", value: "40 phút", color: "#34d399" },
           { icon: "ri-image-line", label: "Câu có ảnh", value: "~10 câu", color: "#a78bfa" },
           { icon: "ri-headphone-line", label: "Câu nghe hiểu", value: "~15 câu", color: "#06b6d4" },
@@ -348,7 +348,7 @@ function IntroScreen({ onStart }: { onStart: () => void }) {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {[
             { label: "Đậu", score: "≥ 80 điểm", color: "#34d399" },
-            { label: "Trung bình", score: "60-79 điểm", color: "app-accent-primary" },
+            { label: "Trung bình", score: "60-79 điểm", color: "#e8c84a" },
             { label: "Chưa đậu", score: "< 60 điểm", color: "#f87171" },
           ].map((item, i) => (
             <div key={i} className="text-center p-2 rounded-lg bg-app-surface/50">
@@ -451,7 +451,7 @@ function ResultScreen({ questions, results, timeUsed, onReview, onRetry }: Resul
         {[
           { label: "Câu đúng", value: correct, color: "#34d399", icon: "ri-check-line" },
           { label: "Câu sai", value: questions.length - correct, color: "#f87171", icon: "ri-close-line" },
-          { label: "Điểm số", value: `${score}/100`, color: "app-accent-primary", icon: "ri-trophy-line" },
+          { label: "Điểm số", value: `${score}/100`, color: "#e8c84a", icon: "ri-trophy-line" },
         ].map((item, i) => (
           <div key={i} className="bg-app-surface/50 border border-app-border rounded-xl p-4 text-center">
             <div className="w-8 h-8 flex items-center justify-center rounded-lg mx-auto mb-2" style={{ backgroundColor: `${item.color}15` }}>
@@ -472,7 +472,7 @@ function ResultScreen({ questions, results, timeUsed, onReview, onRetry }: Resul
         <div className="space-y-3">
           {Object.entries(topicStats).map(([topic, stat]) => {
             const pct = Math.round((stat.correct / stat.total) * 100);
-            const color = pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171";
+            const color = pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : "#f87171";
             return (
               <div key={topic}>
                 <div className="flex items-center justify-between mb-1">

@@ -149,7 +149,7 @@ export default function HangulCanvasPage() {
     if (!ctx) return;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    ctx.strokeStyle = "app-accent-primary";
+    ctx.strokeStyle = "#e8c84a";
     ctx.lineWidth = 4;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";

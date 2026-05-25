@@ -76,7 +76,7 @@ export default function ChallengeLeaderboardPage() {
   const leaderboard = useMemo<LeaderboardEntry[]>(() => {
     if (myStats.total === 0) return [];
     const badge = myStats.wins >= 10 ? "Cao thủ" : myStats.wins >= 5 ? "Giỏi" : myStats.wins >= 1 ? "Khá" : "Mới bắt đầu";
-    const badgeColor = myStats.wins >= 10 ? "app-accent-primary" : myStats.wins >= 5 ? "#fb923c" : myStats.wins >= 1 ? "#38bdf8" : "#64748b";
+    const badgeColor = myStats.wins >= 10 ? "#e8c84a" : myStats.wins >= 5 ? "#fb923c" : myStats.wins >= 1 ? "#38bdf8" : "#64748b";
     return [{
       rank: 1,
       name: "Bạn",

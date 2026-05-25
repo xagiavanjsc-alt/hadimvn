@@ -123,7 +123,7 @@ function getPageStyle(fontFamily: string): React.CSSProperties {
 }
 
 export default function EbookCanvas({ meta, lessons, printRef, template = "classic" }: Props) {
-  const accent = meta.coverAccent || "app-accent-primary";
+  const accent = meta.coverAccent || "#e8c84a";
   const hasForeword = !!meta.foreword?.trim();
   const pageOffsets = calcPageOffsets(lessons, hasForeword);
   const fontFamily = FONT_FAMILY_MAP[meta.fontFamily ?? "sans"];

@@ -65,7 +65,7 @@ export default function NotFound() {
               <circle
                 cx="24" cy="24" r="20"
                 fill="none"
-                stroke="app-accent-primary"
+                stroke="#e8c84a"
                 strokeWidth="3"
                 strokeLinecap="round"
                 strokeDasharray={circumference}

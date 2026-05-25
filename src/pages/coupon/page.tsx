@@ -327,7 +327,7 @@ export default function CouponPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "Tổng coupon", value: coupons.length, icon: "ri-coupon-3-line", color: "app-accent-primary" },
+          { label: "Tổng coupon", value: coupons.length, icon: "ri-coupon-3-line", color: "#e8c84a" },
           { label: "Đang hoạt động", value: coupons.filter(c => c.active).length, icon: "ri-checkbox-circle-line", color: "#34d399" },
           { label: "Tổng lượt dùng", value: totalUsage, icon: "ri-user-received-line", color: "#fb923c" },
           { label: "Kênh đang dùng", value: channelStats.length, icon: "ri-broadcast-line", color: "#a78bfa" },
@@ -358,7 +358,7 @@ export default function CouponPage() {
             <div className="space-y-3">
               {channelStats.map(([ch, data], i) => {
                 const pct = totalUsage > 0 ? Math.round((data.usage / totalUsage) * 100) : 0;
-                const colors = ["app-accent-primary", "#34d399", "#fb923c", "#a78bfa", "#38bdf8"];
+                const colors = ["#e8c84a", "#34d399", "#fb923c", "#a78bfa", "#38bdf8"];
                 const color = colors[i % colors.length];
                 return (
                   <div key={ch}>

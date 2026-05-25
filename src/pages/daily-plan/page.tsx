@@ -78,7 +78,7 @@ function generateDailyPlan(
       duration: 5,
       xp: 10,
       icon: "ri-font-size",
-      color: "app-accent-primary",
+      color: "#e8c84a",
       path: "/hangul",
       priority: "medium",
       reason: "Streak mới bắt đầu — xây dựng thói quen học mỗi ngày",
@@ -491,7 +491,7 @@ export default function DailyPlanPage() {
               { label: "Thi thử EPS", icon: "ri-timer-line", path: "/eps-exam", color: "#fb923c" },
               { label: "So sánh tiến độ", icon: "ri-radar-line", path: "/progress", color: "#a78bfa" },
               { label: "Thống kê EPS", icon: "ri-bar-chart-box-line", path: "/eps-stats", color: "#4ade80" },
-              { label: "Hồ sơ", icon: "ri-user-3-line", path: "/profile", color: "app-accent-primary" },
+              { label: "Hồ sơ", icon: "ri-user-3-line", path: "/profile", color: "#e8c84a" },
             ].map((link) => (
               <button
                 key={link.path}

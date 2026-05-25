@@ -9,7 +9,7 @@ interface ShareLessonModalProps {
 }
 
 const THEMES = [
-  { id: "dark", label: "Tối", bg: "#0f1117", accent: "app-accent-primary", text: "#ffffff", sub: "rgba(255,255,255,0.55)" },
+  { id: "dark", label: "Tối", bg: "#0f1117", accent: "#e8c84a", text: "#ffffff", sub: "rgba(255,255,255,0.55)" },
   { id: "green", label: "K-pop", bg: "#0a1a10", accent: "#00C73C", text: "#ffffff", sub: "rgba(255,255,255,0.55)" },
   { id: "rose", label: "Hồng", bg: "#1a0a10", accent: "#f472b6", text: "#ffffff", sub: "rgba(255,255,255,0.55)" },
   { id: "slate", label: "Xanh", bg: "#0d1523", accent: "#60a5fa", text: "#ffffff", sub: "rgba(255,255,255,0.55)" },

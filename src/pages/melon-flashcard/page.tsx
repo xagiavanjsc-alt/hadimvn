@@ -360,7 +360,7 @@ export default function MelonFlashcardPage() {
                 <div className="relative w-24 h-24 mx-auto mb-3">
                   <svg className="w-full h-full -rotate-90" viewBox="0 0 96 96">
                     <circle cx="48" cy="48" r="40" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="8" />
-                    <circle cx="48" cy="48" r="40" fill="none" stroke="app-accent-primary" strokeWidth="8" strokeLinecap="round"
+                    <circle cx="48" cy="48" r="40" fill="none" stroke="#e8c84a" strokeWidth="8" strokeLinecap="round"
                       strokeDasharray={`${2 * Math.PI * 40}`}
                       strokeDashoffset={`${2 * Math.PI * 40 * (1 - masteredCount / allCards.length)}`}
                       className="transition-all duration-700"

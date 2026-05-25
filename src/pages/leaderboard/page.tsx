@@ -87,7 +87,7 @@ function AvatarCell({ player, size = 36 }: { player: LeaderboardPlayer; size?: n
     );
   }
   const initials = player.display_name.slice(0, 2).toUpperCase();
-  const colors = ["app-accent-primary", "#34d399", "#fb923c", "#a78bfa", "#06b6d4", "#f87171"];
+  const colors = ["#e8c84a", "#34d399", "#fb923c", "#a78bfa", "#06b6d4", "#f87171"];
   const colorIdx = player.display_name.charCodeAt(0) % colors.length;
   return (
     <div
@@ -330,7 +330,7 @@ export default function LeaderboardPage() {
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
               {[
-                { label: "XP", value: myXp.toLocaleString(), color: "app-accent-primary" },
+                { label: "XP", value: myXp.toLocaleString(), color: "#e8c84a" },
                 { label: "Streak", value: `${streakData.currentStreak}d`, color: "#fb923c" },
                 { label: "EPS cao nhất", value: myBestScore > 0 ? `${myBestScore}%` : "—", color: "#4ade80" },
                 { label: "Từ đã học", value: myWordsLearned, color: "#a78bfa" },

@@ -110,7 +110,7 @@ function DrawingCanvas({ targetChar, onScore }: { targetChar: HangulChar; onScor
     ctx.beginPath();
     ctx.moveTo(lastPos.current.x, lastPos.current.y);
     ctx.lineTo(pos.x, pos.y);
-    ctx.strokeStyle = "app-accent-primary";
+    ctx.strokeStyle = "#e8c84a";
     ctx.lineWidth = 5;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
@@ -170,7 +170,7 @@ function CharCard({ char, isSelected, isMastered, onSelect }: { char: HangulChar
   return (
     <button onClick={onSelect}
       className={`flex flex-col items-center gap-1.5 p-3 rounded-xl border transition-all cursor-pointer ${isSelected ? "border-app-accent-primary/40 bg-app-accent-primary/8" : isMastered ? "border-emerald-500/20 bg-emerald-500/5" : "border-app-border bg-white/2 hover:border-white/12"}`}>
-      <span className="text-3xl font-bold" style={{ color: isSelected ? "app-accent-primary" : "white" }}>{char.char}</span>
+      <span className="text-3xl font-bold" style={{ color: isSelected ? "#e8c84a" : "white" }}>{char.char}</span>
       <span className="text-[9px] font-mono" style={{ color: col }}>[{char.romanization}]</span>
       {isMastered && <i className="ri-checkbox-circle-fill text-app-accent-success text-[10px]"></i>}
     </button>
@@ -209,7 +209,7 @@ export default function HangulWritePage() {
     ? Math.round(scoreHistory[selectedChar.char].reduce((a, b) => a + b, 0) / scoreHistory[selectedChar.char].length)
     : null;
 
-  const getScoreColor = (s: number) => s >= 80 ? "#34d399" : s >= 60 ? "app-accent-primary" : "#f87171";
+  const getScoreColor = (s: number) => s >= 80 ? "#34d399" : s >= 60 ? "#e8c84a" : "#f87171";
   const getScoreLabel = (s: number) => s >= 80 ? "Xuất sắc!" : s >= 60 ? "Khá tốt!" : "Cần luyện thêm";
 
   const typeColors: Record<string, string> = { vowel: "#38bdf8", consonant: "#a78bfa", syllable: "#34d399" };

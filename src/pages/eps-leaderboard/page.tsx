@@ -32,7 +32,7 @@ const EXAM_TYPE_LABELS: Record<string, string> = {
 };
 
 const AVATAR_COLORS = [
-  "app-accent-primary", "#34d399", "#06b6d4", "#a78bfa", "#f87171",
+  "#e8c84a", "#34d399", "#06b6d4", "#a78bfa", "#f87171",
   "#fb923c", "#ec4899", "#84cc16", "#22d3ee", "#f59e0b",
 ];
 
@@ -49,7 +49,7 @@ function RankBadge({ rank }: { rank: number }) {
 }
 
 function ScoreBar({ score }: { score: number }) {
-  const color = score >= 80 ? "#34d399" : score >= 60 ? "app-accent-primary" : "#f87171";
+  const color = score >= 80 ? "#34d399" : score >= 60 ? "#e8c84a" : "#f87171";
   return (
     <div className="flex items-center gap-2">
       <div className="w-16 h-1.5 bg-white/8 rounded-full overflow-hidden">
@@ -271,7 +271,7 @@ export default function EpsLeaderboardPage() {
           {[entries[1], entries[0], entries[2]].map((entry, podiumIdx) => {
             if (!entry) return <div key={podiumIdx} />;
             const heights = ["h-24", "h-32", "h-20"];
-            const colors = ["#9ca3af", "app-accent-primary", "#cd7f32"];
+            const colors = ["#9ca3af", "#e8c84a", "#cd7f32"];
             const labels = ["2nd", "1st", "3rd"];
             const avatarColor = AVATAR_COLORS[entry.rank % AVATAR_COLORS.length];
             return (

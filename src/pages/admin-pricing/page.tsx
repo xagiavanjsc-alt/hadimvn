@@ -74,7 +74,7 @@ const DEFAULT_PLANS: PricingPlan[] = [
     features: ["Tất cả tính năng VIP Tháng", "Xuất CSV/Anki/PDF không giới hạn", "Ebook Builder không giới hạn", "Hỗ trợ ưu tiên qua Zalo", "Lịch sử học tập đầy đủ", "Backup dữ liệu học tập"],
     isPopular: true,
     active: true,
-    color: "app-accent-primary",
+    color: "#e8c84a",
     trialDays: 0,
     badge: "Tiết kiệm 25%",
   },
@@ -103,7 +103,7 @@ function PlanEditorModal({ plan, isNew, onSave, onClose }: {
     setEdited(p => ({ ...p, features: arr }));
   };
 
-  const COLORS = ["#6b7280", "#34d399", "app-accent-primary", "#f87171", "#fb923c", "#a78bfa", "#38bdf8"];
+  const COLORS = ["#6b7280", "#34d399", "#e8c84a", "#f87171", "#fb923c", "#a78bfa", "#38bdf8"];
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
@@ -390,7 +390,7 @@ function RevenueAnalytics({ users }: { users: ReturnType<typeof useAdminUsers>["
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {[
           { label: "MRR (ước tính)", value: `${new Intl.NumberFormat("vi-VN").format(Math.round(mrr))}đ`, icon: "ri-money-dollar-circle-line", color: "#34d399", sub: "Doanh thu tháng" },
-          { label: "ARR (ước tính)", value: `${new Intl.NumberFormat("vi-VN").format(Math.round(arr))}đ`, icon: "ri-bar-chart-grouped-line", color: "app-accent-primary", sub: "Doanh thu năm" },
+          { label: "ARR (ước tính)", value: `${new Intl.NumberFormat("vi-VN").format(Math.round(arr))}đ`, icon: "ri-bar-chart-grouped-line", color: "#e8c84a", sub: "Doanh thu năm" },
           { label: "Tỷ lệ chuyển đổi", value: `${conversionRate}%`, icon: "ri-percent-line", color: "#a78bfa", sub: "Free → VIP" },
           { label: "Nguy cơ churn", value: churnRisk, icon: "ri-alarm-warning-line", color: "#f87171", sub: "Hết hạn trong 30 ngày" },
         ].map(s => (
@@ -415,7 +415,7 @@ function RevenueAnalytics({ users }: { users: ReturnType<typeof useAdminUsers>["
           {[
             { label: "Free", count: freeUsers.length, color: "#6b7280", pct: users.length > 0 ? freeUsers.length / users.length * 100 : 0 },
             { label: "VIP Tháng", count: vipMonthUsers.length, color: "#34d399", pct: users.length > 0 ? vipMonthUsers.length / users.length * 100 : 0 },
-            { label: "VIP Năm", count: vipYearUsers.length, color: "app-accent-primary", pct: users.length > 0 ? vipYearUsers.length / users.length * 100 : 0 },
+            { label: "VIP Năm", count: vipYearUsers.length, color: "#e8c84a", pct: users.length > 0 ? vipYearUsers.length / users.length * 100 : 0 },
           ].map(row => (
             <div key={row.label}>
               <div className="flex items-center justify-between mb-1">
@@ -648,7 +648,7 @@ export default function AdminPricingPage() {
               {[
                 { step: "1", title: "Cron Job kích hoạt", desc: "Supabase cron job gọi edge function mỗi ngày lúc 8:00 sáng", color: "#a78bfa" },
                 { step: "2", title: "Quét VIP sắp hết hạn", desc: "Tìm tất cả VIP hết hạn trong 1, 3, 7 ngày tới", color: "#34d399" },
-                { step: "3", title: "Gửi email cá nhân hóa", desc: "Email có tên, số ngày còn lại, màu sắc theo mức độ khẩn cấp", color: "app-accent-primary" },
+                { step: "3", title: "Gửi email cá nhân hóa", desc: "Email có tên, số ngày còn lại, màu sắc theo mức độ khẩn cấp", color: "#e8c84a" },
                 { step: "4", title: "Ghi Audit Log", desc: "Mỗi email gửi được ghi vào admin_audit_logs để theo dõi", color: "#fb923c" },
                 { step: "5", title: "Tránh gửi trùng", desc: "Kiểm tra audit log để không gửi 2 lần trong 24 giờ", color: "#f87171" },
               ].map(s => (

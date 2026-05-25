@@ -137,7 +137,7 @@ function ResultScreen({
         <h2 className="text-white font-bold text-2xl mb-1">{correct}/{results.length} từ đã nhớ</h2>
         <p className="text-app-text-secondary text-sm mb-4">Đạt {pct}%</p>
         <div className="w-full h-3 bg-app-card/50 rounded-full overflow-hidden">
-          <div className="h-full rounded-full transition-all" style={{ width: `${pct}%`, backgroundColor: pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171" }} />
+          <div className="h-full rounded-full transition-all" style={{ width: `${pct}%`, backgroundColor: pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : "#f87171" }} />
         </div>
       </div>
 
@@ -269,7 +269,7 @@ export default function VocabFavoritesPage() {
           {/* Stats */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {[
-              { label: "Từ yêu thích", value: favoriteItems.length, icon: "ri-bookmark-fill", color: "app-accent-primary" },
+              { label: "Từ yêu thích", value: favoriteItems.length, icon: "ri-bookmark-fill", color: "#e8c84a" },
               { label: "A1/A2", value: favoriteItems.filter(v => ["A1","A2"].includes(v.topikLevel)).length, icon: "ri-seedling-line", color: "#34d399" },
               { label: "B1/B2", value: favoriteItems.filter(v => ["B1","B2"].includes(v.topikLevel)).length, icon: "ri-fire-line", color: "#fb923c" },
             ].map(s => (

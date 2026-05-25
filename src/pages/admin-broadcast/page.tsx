@@ -116,7 +116,7 @@ function HistoryRow({ record }: { record: BroadcastRecord }) {
         </div>
       </div>
       <div className="flex-shrink-0 text-right">
-        <p className="text-lg font-black" style={{ color: successRate >= 90 ? "#34d399" : successRate >= 70 ? "app-accent-primary" : "#f87171" }}>{successRate}%</p>
+        <p className="text-lg font-black" style={{ color: successRate >= 90 ? "#34d399" : successRate >= 70 ? "#e8c84a" : "#f87171" }}>{successRate}%</p>
         <p className="text-[10px]" style={{ color: "var(--admin-text-faint)" }}>Thành công</p>
       </div>
     </div>
@@ -180,7 +180,7 @@ export default function AdminBroadcastPage() {
       setTargetOptions([
         { value: "all", label: "Tất cả học viên", count: total, icon: "ri-group-line", color: "#f87171" },
         { value: "free", label: "Học viên Free", count: total - vipCount, icon: "ri-seedling-line", color: "#34d399" },
-        { value: "vip", label: "Học viên VIP", count: vipCount, icon: "ri-vip-crown-line", color: "app-accent-primary" },
+        { value: "vip", label: "Học viên VIP", count: vipCount, icon: "ri-vip-crown-line", color: "#e8c84a" },
         { value: "vip_expiring", label: "VIP sắp hết hạn (7 ngày)", count: 0, icon: "ri-alarm-warning-line", color: "#fb923c" },
         { value: "streak7", label: "Streak ≥ 7 ngày", count: streak7, icon: "ri-fire-line", color: "#fb923c" },
         { value: "streak30", label: "Streak ≥ 30 ngày", count: streak30, icon: "ri-fire-fill", color: "#f87171" },
@@ -333,7 +333,7 @@ export default function AdminBroadcastPage() {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         {[
           { label: "Tổng lần broadcast", value: history.length, icon: "ri-send-plane-line", color: "#34d399" },
-          { label: "Tổng email đã gửi", value: totalSent.toLocaleString(), icon: "ri-mail-send-line", color: "app-accent-primary" },
+          { label: "Tổng email đã gửi", value: totalSent.toLocaleString(), icon: "ri-mail-send-line", color: "#e8c84a" },
           { label: "Tỷ lệ thành công TB", value: `${avgSuccessRate}%`, icon: "ri-checkbox-circle-line", color: "#a78bfa" },
           { label: "Tổng học viên", value: (targetOptions[0]?.count || 0).toLocaleString(), icon: "ri-group-line", color: "#fb923c" },
         ].map(s => (

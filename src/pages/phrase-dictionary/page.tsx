@@ -17,8 +17,8 @@ interface Phrase {
 }
 
 const SITUATIONS: { id: string; icon: string; color: string; label: string }[] = [
-  { id: "all", icon: "ri-apps-line", color: "app-accent-primary", label: "Tất cả" },
-  { id: "greetings", icon: "ri-hand-heart-line", color: "app-accent-primary", label: "Chào hỏi" },
+  { id: "all", icon: "ri-apps-line", color: "#e8c84a", label: "Tất cả" },
+  { id: "greetings", icon: "ri-hand-heart-line", color: "#e8c84a", label: "Chào hỏi" },
   { id: "shopping", icon: "ri-shopping-bag-line", color: "#34d399", label: "Mua sắm" },
   { id: "restaurant", icon: "ri-restaurant-line", color: "#fb923c", label: "Nhà hàng" },
   { id: "transport", icon: "ri-bus-line", color: "#38bdf8", label: "Di chuyển" },
@@ -136,7 +136,7 @@ function PhraseCard({ phrase, isFavorite, onToggleFavorite }: {
 }) {
   const [showRoman, setShowRoman] = useState(false);
   const [copied, setCopied] = useState(false);
-  const levelColor = phrase.level === "cơ bản" ? "#34d399" : phrase.level === "trung cấp" ? "app-accent-primary" : "#f87171";
+  const levelColor = phrase.level === "cơ bản" ? "#34d399" : phrase.level === "trung cấp" ? "#e8c84a" : "#f87171";
 
   const speak = () => {
     if (!window.speechSynthesis) return;

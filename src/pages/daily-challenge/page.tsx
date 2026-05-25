@@ -55,7 +55,7 @@ function XPToast({ xp, onDone }: { xp: number; onDone: () => void }) {
   }, [onDone]);
   return (
     <div className="fixed top-6 right-6 z-50 flex items-center gap-3 px-5 py-3 rounded-2xl shadow-lg animate-bounce"
-      style={{ backgroundColor: "app-accent-primary", color: "#0f1117" }}>
+      style={{ backgroundColor: "#e8c84a", color: "#0f1117" }}>
       <i className="ri-star-fill text-xl"></i>
       <div>
         <p className="font-black text-lg">+{xp} XP</p>
@@ -135,7 +135,7 @@ function QuizChallenge({ challenge, onComplete }: { challenge: Challenge; onComp
   }
 
   const timerPct = (timeLeft / challenge.timeLimit) * 100;
-  const timerColor = timerPct > 50 ? "#34d399" : timerPct > 25 ? "app-accent-primary" : "#f87171";
+  const timerColor = timerPct > 50 ? "#34d399" : timerPct > 25 ? "#e8c84a" : "#f87171";
 
   return (
     <div className="max-w-lg mx-auto">
@@ -374,7 +374,7 @@ export default function DailyChallengePageComponent() {
             xpReward: 50,
             timeLimit: 90,
             icon: "ri-question-answer-line",
-            color: "app-accent-primary",
+            color: "#e8c84a",
             questions: quizQuestions,
           },
           {
@@ -456,7 +456,7 @@ export default function DailyChallengePageComponent() {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
           { label: "Streak hôm nay", value: `${dailyRecord.streak} ngày`, icon: "ri-fire-line", color: "#fb923c" },
-          { label: "XP hôm nay", value: `+${isToday ? dailyRecord.totalXP : 0}`, icon: "ri-star-line", color: "app-accent-primary" },
+          { label: "XP hôm nay", value: `+${isToday ? dailyRecord.totalXP : 0}`, icon: "ri-star-line", color: "#e8c84a" },
           { label: "Đã hoàn thành", value: `${isToday ? dailyRecord.completed.length : 0}/3`, icon: "ri-checkbox-circle-line", color: "#34d399" },
           { label: "Thử thách còn lại", value: `${challenges.filter(c => !dailyRecord.completed.includes(c.id)).length}`, icon: "ri-timer-line", color: "#a78bfa" },
         ].map(s => (

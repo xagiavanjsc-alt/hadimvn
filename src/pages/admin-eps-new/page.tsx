@@ -249,7 +249,7 @@ export default function AdminEpsNewPage() {
         <div>
           <div className="grid grid-cols-3 lg:grid-cols-6 gap-3 mb-5">
             {[
-              { label: "Tổng câu hỏi", value: epsQuestions.length, color: "app-accent-primary" },
+              { label: "Tổng câu hỏi", value: epsQuestions.length, color: "#e8c84a" },
               { label: "Có ảnh", value: questionsWithImage, color: "#34d399" },
               { label: "Chưa có ảnh", value: epsQuestions.length - questionsWithImage, color: "#f87171" },
               { label: "Dễ", value: epsQuestions.filter(q => q.difficulty === "easy").length, color: "#34d399" },
@@ -357,7 +357,7 @@ export default function AdminEpsNewPage() {
         <div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-5">
             {[
-              { label: "Tổng từ gốc", value: epsVocabulary.length, color: "app-accent-primary" },
+              { label: "Tổng từ gốc", value: epsVocabulary.length, color: "#e8c84a" },
               { label: "Sau khi dedup", value: dedupedVocab.result.length, color: "#34d399" },
               { label: "Từ trùng lặp", value: dedupedVocab.dupes.length, color: "#f87171" },
             ].map(s => (

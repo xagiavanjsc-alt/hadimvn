@@ -62,7 +62,7 @@ function normLesson(l: Partial<EpsLesson> & { id: number; title: string; titleVi
 }
 
 export const EPS_LESSON_TOPICS = [
-  { id: "greeting", label: "Chào hỏi & Giới thiệu", color: "app-accent-primary", icon: "ri-hand-heart-line" },
+  { id: "greeting", label: "Chào hỏi & Giới thiệu", color: "#e8c84a", icon: "ri-hand-heart-line" },
   { id: "workplace", label: "Nơi làm việc", color: "#34d399", icon: "ri-building-2-line" },
   { id: "safety", label: "An toàn lao động", color: "#f87171", icon: "ri-shield-check-line" },
   { id: "daily", label: "Sinh hoạt hàng ngày", color: "#a78bfa", icon: "ri-home-3-line" },

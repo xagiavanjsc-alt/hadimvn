@@ -526,7 +526,7 @@ export default function ReadingByLevelPage() {
         {/* Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
           {[
-            { label: "Bài đọc", value: passages.length, icon: "ri-article-line", color: "app-accent-primary" },
+            { label: "Bài đọc", value: passages.length, icon: "ri-article-line", color: "#e8c84a" },
             { label: "Đã hoàn thành", value: completedIds.size, icon: "ri-checkbox-circle-line", color: "#34d399" },
             { label: "Cấp độ", value: "A1–C2", icon: "ri-bar-chart-grouped-line", color: "#a78bfa" },
           ].map(s => (

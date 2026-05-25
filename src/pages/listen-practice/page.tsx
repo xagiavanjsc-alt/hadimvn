@@ -43,7 +43,7 @@ const PRACTICE_ITEMS: PracticeItem[] = [
   { id: "p18", korean: "인공지능 기술이 빠르게 발전하고 있습니다", vietnamese: "Công nghệ AI đang phát triển nhanh chóng", romanization: "in-gong-ji-neung gi-su-ri ppa-reu-ge bal-jeon-ha-go it-seum-ni-da", level: "B2", category: "Công nghệ", tips: "Câu dài — chia nhịp: 인공지능 기술이 / 빠르게 / 발전하고 있습니다" },
 ];
 
-const LEVEL_COLORS: Record<string, string> = { A1: "#34d399", A2: "app-accent-primary", B1: "#fb923c", B2: "#f87171" };
+const LEVEL_COLORS: Record<string, string> = { A1: "#34d399", A2: "#e8c84a", B1: "#fb923c", B2: "#f87171" };
 
 // ─── Speech Recognition Hook ──────────────────────────────────────────────
 function useSpeechRecognition() {
@@ -141,7 +141,7 @@ function PracticeCard({
     }
   };
 
-  const getScoreColor = (s: number) => s >= 80 ? "#34d399" : s >= 55 ? "app-accent-primary" : "#f87171";
+  const getScoreColor = (s: number) => s >= 80 ? "#34d399" : s >= 55 ? "#e8c84a" : "#f87171";
   const getScoreLabel = (s: number) => s >= 80 ? "Xuất sắc!" : s >= 55 ? "Khá tốt!" : "Thử lại nhé!";
 
   return (
@@ -279,7 +279,7 @@ export default function ListenPracticePage() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "Tổng câu", value: PRACTICE_ITEMS.length, icon: "ri-mic-2-line", color: "app-accent-primary" },
+          { label: "Tổng câu", value: PRACTICE_ITEMS.length, icon: "ri-mic-2-line", color: "#e8c84a" },
           { label: "Đã luyện", value: totalPracticed, icon: "ri-checkbox-circle-line", color: "#34d399" },
           { label: "Điểm TB", value: avgScore > 0 ? `${avgScore}` : "—", icon: "ri-bar-chart-line", color: "#38bdf8" },
           { label: "Thành thạo", value: mastered, icon: "ri-trophy-line", color: "#fb923c" },

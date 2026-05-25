@@ -53,7 +53,7 @@ const SEED_NOTIFICATIONS: AdminNotification[] = [
     time: new Date(Date.now() - 2 * 3600 * 1000).toISOString(),
     read: true,
     icon: "ri-trophy-line",
-    color: "app-accent-primary",
+    color: "#e8c84a",
   },
   {
     id: "n5",
@@ -114,7 +114,7 @@ export function useAdminNotifications() {
         const picked = types[Math.floor(Math.random() * types.length)];
         const templates: Record<AdminNotification["type"], { title: string; message: string; icon: string; color: string }> = {
           user: { title: "Người dùng mới", message: "Một học viên mới vừa đăng ký tài khoản", icon: "ri-user-add-line", color: "#f87171" },
-          exam: { title: "Bài thi hoàn thành", message: "Một học viên vừa hoàn thành bài thi EPS thử", icon: "ri-file-list-3-line", color: "app-accent-primary" },
+          exam: { title: "Bài thi hoàn thành", message: "Một học viên vừa hoàn thành bài thi EPS thử", icon: "ri-file-list-3-line", color: "#e8c84a" },
           coupon: { title: "Coupon được dùng", message: `Tổng ${totalUsage} lần dùng coupon hôm nay`, icon: "ri-coupon-3-line", color: "#fb923c" },
           revenue: { title: "Doanh thu mới", message: "Có đơn hàng mới vừa được ghi nhận", icon: "ri-money-dollar-circle-line", color: "#34d399" },
           system: { title: "Hệ thống", message: "Không có cảnh báo hệ thống", icon: "ri-server-line", color: "#a78bfa" },

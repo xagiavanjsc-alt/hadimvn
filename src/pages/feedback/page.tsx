@@ -9,7 +9,7 @@ const CATEGORIES = [
   { id: "feature", label: "Tính năng", icon: "ri-settings-line", color: "#a78bfa" },
   { id: "content", label: "Nội dung học", icon: "ri-book-open-line", color: "#fb923c" },
   { id: "ui", label: "Giao diện", icon: "ri-layout-line", color: "#38bdf8" },
-  { id: "performance", label: "Hiệu suất", icon: "ri-speed-line", color: "app-accent-primary" },
+  { id: "performance", label: "Hiệu suất", icon: "ri-speed-line", color: "#e8c84a" },
   { id: "suggestion", label: "Đề xuất tính năng", icon: "ri-lightbulb-line", color: "#f472b6" },
 ];
 
@@ -32,7 +32,7 @@ function StarRating({ value, onChange }: { value: number; onChange: (v: number) 
           >
             <i
               className={`text-3xl ${(hover || value) >= star ? "ri-star-fill" : "ri-star-line"}`}
-              style={{ color: (hover || value) >= star ? "app-accent-primary" : "rgba(255,255,255,0.15)" }}
+              style={{ color: (hover || value) >= star ? "#e8c84a" : "rgba(255,255,255,0.15)" }}
             />
           </button>
         ))}

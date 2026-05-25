@@ -14,7 +14,7 @@ interface LessonProgress {
 }
 
 const LEVEL_GROUPS = [
-  { group: 1, label: "Sơ cấp", color: "app-accent-primary", books: ["1A", "1B"] },
+  { group: 1, label: "Sơ cấp", color: "#e8c84a", books: ["1A", "1B"] },
   { group: 2, label: "Sơ-Trung cấp", color: "#34d399", books: ["2A", "2B"] },
   { group: 3, label: "Trung cấp", color: "#a78bfa", books: ["3A", "3B"] },
   { group: 4, label: "Cao cấp", color: "#f87171", books: ["4A", "4B"] },

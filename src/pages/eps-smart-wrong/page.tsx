@@ -435,7 +435,7 @@ export default function EpsSmartWrongPage() {
               {[
                 { label: "Tổng câu sai", value: totalWrong, color: "#f87171", icon: "ri-close-circle-line" },
                 { label: "Sai ≥3 lần", value: frequentWrong, color: "#fb923c", icon: "ri-alarm-warning-line" },
-                { label: "Sai tuần này", value: recentWrong, color: "app-accent-primary", icon: "ri-calendar-line" },
+                { label: "Sai tuần này", value: recentWrong, color: "#e8c84a", icon: "ri-calendar-line" },
               ].map((item, i) => (
                 <div key={i} className="bg-app-surface/50 border border-app-border rounded-xl p-4 text-center">
                   <div className="w-8 h-8 flex items-center justify-center rounded-lg mx-auto mb-2" style={{ backgroundColor: `${item.color}15` }}>

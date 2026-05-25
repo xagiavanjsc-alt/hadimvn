@@ -95,7 +95,7 @@ export default function TopikFrequencyVocabPage() {
         {/* Stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
           {[
-            { label: "Tổng từ", value: freqWords.length, color: "app-accent-primary" },
+            { label: "Tổng từ", value: freqWords.length, color: "#e8c84a" },
             { label: "TOPIK I", value: freqWords.filter(w => w.topikLevel === "I").length, color: "#34d399" },
             { label: "TOPIK II", value: freqWords.filter(w => w.topikLevel === "II").length, color: "#f87171" },
             { label: "Đã học", value: learnedIds.size, color: "#a78bfa" },

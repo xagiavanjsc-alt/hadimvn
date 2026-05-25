@@ -42,7 +42,7 @@ interface SecurityCheck {
 const SEVERITY_CONFIG = {
   high: { color: "#f87171", bg: "rgba(248,113,113,0.10)", border: "rgba(248,113,113,0.20)", label: "Cao" },
   medium: { color: "#fb923c", bg: "rgba(251,146,60,0.10)", border: "rgba(251,146,60,0.20)", label: "Trung bình" },
-  low: { color: "app-accent-primary", bg: "rgba(232,200,74,0.10)", border: "rgba(232,200,74,0.20)", label: "Thấp" },
+  low: { color: "#e8c84a", bg: "rgba(232,200,74,0.10)", border: "rgba(232,200,74,0.20)", label: "Thấp" },
 };
 
 const EVENT_ICONS: Record<SuspiciousEvent["type"], string> = {
@@ -211,7 +211,7 @@ function SecurityChecklist() {
 
   const statusConfig = {
     pass: { icon: "ri-checkbox-circle-line", color: "#34d399", label: "Tốt" },
-    warn: { icon: "ri-alert-line", color: "app-accent-primary", label: "Cảnh báo" },
+    warn: { icon: "ri-alert-line", color: "#e8c84a", label: "Cảnh báo" },
     fail: { icon: "ri-close-circle-line", color: "#f87171", label: "Lỗi" },
     loading: { icon: "ri-loader-4-line", color: "var(--admin-text-faint)", label: "Đang kiểm tra" },
   };
@@ -234,13 +234,13 @@ function SecurityChecklist() {
       <div className="mb-4">
         <div className="flex items-center justify-between mb-1">
           <span className="text-xs" style={{ color: "var(--admin-text-muted)" }}>Điểm bảo mật</span>
-          <span className="text-sm font-bold" style={{ color: passCount >= 6 ? "#34d399" : passCount >= 4 ? "app-accent-primary" : "#f87171" }}>
+          <span className="text-sm font-bold" style={{ color: passCount >= 6 ? "#34d399" : passCount >= 4 ? "#e8c84a" : "#f87171" }}>
             {Math.round((passCount / checks.length) * 100)}%
           </span>
         </div>
         <div className="h-2 rounded-full overflow-hidden" style={{ backgroundColor: "var(--admin-hover)" }}>
           <div className="h-full rounded-full transition-all duration-700"
-            style={{ width: `${(passCount / checks.length) * 100}%`, backgroundColor: passCount >= 6 ? "#34d399" : passCount >= 4 ? "app-accent-primary" : "#f87171" }} />
+            style={{ width: `${(passCount / checks.length) * 100}%`, backgroundColor: passCount >= 6 ? "#34d399" : passCount >= 4 ? "#e8c84a" : "#f87171" }} />
         </div>
       </div>
 
@@ -259,11 +259,11 @@ function SecurityChecklist() {
                   <span className="text-[9px] px-1.5 py-0.5 rounded-full font-bold" style={{ backgroundColor: `${cfg.color}15`, color: cfg.color }}>{cfg.label}</span>
                 </div>
                 <p className="text-[10px] mt-0.5" style={{ color: "var(--admin-text-muted)" }}>{check.description}</p>
-                {check.detail && <p className="text-[10px] mt-0.5" style={{ color: check.status === "pass" ? "#34d399" : check.status === "warn" ? "app-accent-primary" : "#f87171" }}>{check.detail}</p>}
+                {check.detail && <p className="text-[10px] mt-0.5" style={{ color: check.status === "pass" ? "#34d399" : check.status === "warn" ? "#e8c84a" : "#f87171" }}>{check.detail}</p>}
               </div>
               {check.action && (
                 <span className="text-[10px] px-2 py-1 rounded-lg cursor-pointer whitespace-nowrap flex-shrink-0"
-                  style={{ backgroundColor: "rgba(232,200,74,0.10)", color: "app-accent-primary", border: "1px solid rgba(232,200,74,0.20)" }}>
+                  style={{ backgroundColor: "rgba(232,200,74,0.10)", color: "#e8c84a", border: "1px solid rgba(232,200,74,0.20)" }}>
                   {check.action}
                 </span>
               )}
@@ -344,7 +344,7 @@ function SecurityRecommendations() {
       sql: "ALTER TABLE user_profiles ENABLE ROW LEVEL SECURITY;\nCREATE POLICY \"Users can only see own profile\" ON user_profiles FOR SELECT USING (auth.uid() = id);",
     },
     {
-      icon: "ri-lock-password-line", color: "app-accent-primary", priority: "Khuyến nghị",
+      icon: "ri-lock-password-line", color: "#e8c84a", priority: "Khuyến nghị",
       title: "Thêm rate limiting cho Edge Functions",
       desc: "Thêm kiểm tra rate limit trong edge functions để tránh spam email hoặc brute force. Có thể dùng Supabase KV hoặc Redis.",
       sql: null,
@@ -380,7 +380,7 @@ function SecurityRecommendations() {
 
   const priorityColors: Record<string, string> = {
     "Quan trọng": "#f87171",
-    "Khuyến nghị": "app-accent-primary",
+    "Khuyến nghị": "#e8c84a",
     "Tốt để có": "#34d399",
   };
 
@@ -636,7 +636,7 @@ export default function AdminSecurityPage() {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             {[
               { label: "Bảng có RLS", value: "11/21", icon: "ri-shield-check-line", color: "#34d399", sub: "52% bảng được bảo vệ" },
-              { label: "Security score", value: "75%", icon: "ri-bar-chart-line", color: "app-accent-primary", sub: "6/8 checks passed" },
+              { label: "Security score", value: "75%", icon: "ri-bar-chart-line", color: "#e8c84a", sub: "6/8 checks passed" },
               { label: "Sự kiện đáng ngờ", value: "5", icon: "ri-alarm-warning-line", color: "#fb923c", sub: "7 ngày qua" },
               { label: "Admin accounts", value: "2", icon: "ri-shield-keyhole-line", color: "#a78bfa", sub: "Tài khoản có quyền admin" },
             ].map(s => (

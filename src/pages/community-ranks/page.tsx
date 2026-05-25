@@ -145,7 +145,7 @@ function LeaderboardRow({ entry, isMe }: { entry: typeof MOCK_LEADERBOARD[0]; is
 
   return (
     <div className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${isMe ? "border" : "hover:bg-app-surface/50"}`}
-      style={isMe ? { backgroundColor: "app-accent-primary08", borderColor: "app-accent-primary25" } : {}}>
+      style={isMe ? { backgroundColor: "rgba(232,200,74,0.08)", borderColor: "rgba(232,200,74,0.25)" } : {}}>
       <div className="w-8 flex items-center justify-center flex-shrink-0">
         {entry.rank <= 3 ? (
           <i className={`${medals[entry.rank - 1]} text-lg`} style={{ color: medalColors[entry.rank - 1] }}></i>
@@ -329,7 +329,7 @@ export default function CommunityRanksPage() {
                 { action: "Đăng bài cộng đồng", xp: "+15 XP/bài", icon: "ri-article-line", color: "#a78bfa" },
                 { action: "Nhận lượt thích", xp: "+2 XP/like", icon: "ri-heart-line", color: "#f43f5e" },
                 { action: "Hoàn thành quiz", xp: "+10 XP/quiz", icon: "ri-survey-line", color: "#22d3ee" },
-                { action: "Streak 7 ngày", xp: "+50 XP bonus", icon: "ri-gift-line", color: "app-accent-primary" },
+                { action: "Streak 7 ngày", xp: "+50 XP bonus", icon: "ri-gift-line", color: "#e8c84a" },
               ].map(item => (
                 <div key={item.action} className="flex items-center gap-3">
                   <div className="w-7 h-7 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${item.color}15` }}>

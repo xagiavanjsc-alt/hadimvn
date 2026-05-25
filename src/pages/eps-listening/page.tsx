@@ -295,7 +295,7 @@ function speakKorean(text: string, rate = 0.75) {
   window.speechSynthesis.speak(u);
 }
 
-const LEVEL_COLORS = { easy: "#34d399", medium: "app-accent-primary", hard: "#f87171" };
+const LEVEL_COLORS = { easy: "#34d399", medium: "#e8c84a", hard: "#f87171" };
 const LEVEL_LABELS = { easy: "Dễ", medium: "Trung bình", hard: "Khó" };
 
 // ─── Question Card ────────────────────────────────────────────────────────
@@ -490,7 +490,7 @@ export default function EpsListeningPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "Tổng câu nghe", value: LISTENING_QUESTIONS.length, icon: "ri-headphone-line", color: "app-accent-primary" },
+          { label: "Tổng câu nghe", value: LISTENING_QUESTIONS.length, icon: "ri-headphone-line", color: "#e8c84a" },
           { label: "Đã luyện", value: totalAnswered, icon: "ri-checkbox-circle-line", color: "#34d399" },
           { label: "Trả lời đúng", value: totalCorrect, icon: "ri-trophy-line", color: "#a78bfa" },
           { label: "Độ chính xác", value: `${accuracy}%`, icon: "ri-bar-chart-line", color: "#fb923c" },
@@ -664,7 +664,7 @@ export default function EpsListeningPage() {
           {(() => {
             const pct = Math.round((examScore / examQuestions.length) * 100);
             const grade = pct >= 80 ? { label: "Xuất sắc!", color: "#34d399", icon: "ri-trophy-line" }
-              : pct >= 60 ? { label: "Khá tốt!", color: "app-accent-primary", icon: "ri-medal-line" }
+              : pct >= 60 ? { label: "Khá tốt!", color: "#e8c84a", icon: "ri-medal-line" }
               : { label: "Cần luyện thêm!", color: "#fb923c", icon: "ri-refresh-line" };
             return (
               <>

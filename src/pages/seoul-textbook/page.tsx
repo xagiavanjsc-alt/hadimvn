@@ -549,7 +549,7 @@ function ProgressChart({ completedLessons }: { completedLessons: Record<string, 
         <button
           onClick={() => navigate("/seoul-progress")}
           className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg cursor-pointer transition-colors whitespace-nowrap"
-          style={{ backgroundColor: "app-accent-primary15", color: "app-accent-primary" }}
+          style={{ backgroundColor: "rgba(232,200,74,0.15)", color: "#e8c84a" }}
         >
           <i className="ri-bar-chart-line"></i>Chi tiết
         </button>
@@ -562,7 +562,7 @@ function ProgressChart({ completedLessons }: { completedLessons: Record<string, 
             <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="12" />
             <circle
               cx="50" cy="50" r="40" fill="none"
-              stroke="app-accent-primary" strokeWidth="12"
+              stroke="#e8c84a" strokeWidth="12"
               strokeDasharray={`${2 * Math.PI * 40}`}
               strokeDashoffset={`${2 * Math.PI * 40 * (1 - overallPct / 100)}`}
               strokeLinecap="round"
@@ -650,7 +650,7 @@ export default function SeoulTextbookPage() {
   };
 
   const levelGroups = [
-    { id: 1, label: "Sơ cấp", books: "1A, 1B", color: "app-accent-primary" },
+    { id: 1, label: "Sơ cấp", books: "1A, 1B", color: "#e8c84a" },
     { id: 2, label: "Sơ-Trung", books: "2A, 2B", color: "#fb923c" },
     { id: 3, label: "Trung cấp", books: "3A, 3B", color: "#a78bfa" },
     { id: 4, label: "Cao cấp", books: "4A, 4B", color: "#f87171" },
@@ -684,7 +684,7 @@ export default function SeoulTextbookPage() {
           {/* Overall stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-5 md:mb-6">
             {[
-              { label: "Tổng bài học", value: totalLessons, icon: "ri-book-open-line", color: "app-accent-primary" },
+              { label: "Tổng bài học", value: totalLessons, icon: "ri-book-open-line", color: "#e8c84a" },
               { label: "Đã hoàn thành", value: totalCompleted, icon: "ri-checkbox-circle-line", color: "#34d399" },
               { label: "Tổng từ vựng", value: `~${totalVocab}`, icon: "ri-translate-2", color: "#a78bfa" },
               { label: "Điểm ngữ pháp", value: totalGrammar, icon: "ri-book-2-line", color: "#fb923c" },

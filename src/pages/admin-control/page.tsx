@@ -10,7 +10,7 @@ type TabId = "ads" | "draft" | "import" | "export";
 
 const TABS: { id: TabId; icon: string; label: string; color: string }[] = [
   { id: "ads", icon: "ri-advertisement-line", label: "Quảng cáo", color: "#fb923c" },
-  { id: "draft", icon: "ri-draft-line", label: "Chế độ nháp", color: "app-accent-primary" },
+  { id: "draft", icon: "ri-draft-line", label: "Chế độ nháp", color: "#e8c84a" },
   { id: "import", icon: "ri-upload-cloud-line", label: "Import dữ liệu", color: "#4ade80" },
   { id: "export", icon: "ri-download-cloud-line", label: "Export dữ liệu", color: "#38bdf8" },
 ];
@@ -69,7 +69,7 @@ function AdsTab() {
           { label: "Tổng quảng cáo", value: adConfigs.length, icon: "ri-advertisement-line", color: "#fb923c" },
           { label: "Đang hiển thị", value: totalEnabled, icon: "ri-eye-line", color: "#4ade80" },
           { label: "Đang tắt", value: adConfigs.length - totalEnabled, icon: "ri-eye-off-line", color: "#f87171" },
-          { label: "Vị trí đang dùng", value: new Set(adConfigs.map((a) => a.position)).size, icon: "ri-layout-line", color: "app-accent-primary" },
+          { label: "Vị trí đang dùng", value: new Set(adConfigs.map((a) => a.position)).size, icon: "ri-layout-line", color: "#e8c84a" },
         ].map((stat) => (
           <div
             key={stat.label}
@@ -183,7 +183,7 @@ function DraftTab() {
     {
       key: "melon",
       icon: "ri-music-2-line",
-      color: "app-accent-primary",
+      color: "#e8c84a",
       title: "K-pop Lesson",
       desc: "Melon Top 100 → AI phân tích → Xuất Excel",
       detail: "Tính năng học tiếng Hàn qua lời bài hát K-pop với AI phân tích từ vựng và ngữ pháp",
@@ -309,7 +309,7 @@ function ImportTab() {
     {
       key: "melon",
       icon: "ri-music-2-line",
-      color: "app-accent-primary",
+      color: "#e8c84a",
       title: "K-pop Lesson (Melon)",
       desc: "Import danh sách bài hát và từ vựng đã xử lý",
       template: "song_title,artist,vocabulary,meaning,example",
@@ -499,7 +499,7 @@ function ExportTab() {
     {
       key: "melon",
       icon: "ri-music-2-line",
-      color: "app-accent-primary",
+      color: "#e8c84a",
       title: "K-pop Lesson (Melon)",
       desc: "Xuất danh sách bài hát và từ vựng đã học",
       filename: "kpop_lesson_export.csv",

@@ -65,7 +65,7 @@ function ShareResultCard({ pct, correct, total, examResults }: { pct: number; co
     window.open("https://zalo.me/", "_blank");
   };
 
-  const gradeColor = pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171";
+  const gradeColor = pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : "#f87171";
   const gradeBg = pct >= 80 ? "from-emerald-900/40 to-emerald-950/60" : pct >= 60 ? "from-amber-900/40 to-amber-950/60" : "from-red-900/30 to-red-950/50";
 
   return (
@@ -316,7 +316,7 @@ export default function EpsExamPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
               {[
-                { icon: "ri-survey-line", color: "app-accent-primary", label: "Số câu hỏi", value: `${Math.min(EXAM_QUESTION_COUNT, epsQuestions.length)} câu` },
+                { icon: "ri-survey-line", color: "#e8c84a", label: "Số câu hỏi", value: `${Math.min(EXAM_QUESTION_COUNT, epsQuestions.length)} câu` },
                 { icon: "ri-timer-line", color: "#34d399", label: "Thời gian", value: "50 phút" },
                 { icon: "ri-trophy-line", color: "#a78bfa", label: "Điểm đậu", value: "≥ 80/200" },
               ].map(item => (
@@ -363,7 +363,7 @@ export default function EpsExamPage() {
               <div className="space-y-2" style={{ contentVisibility: "auto", containIntrinsicSize: "0 300px" }}>
                 {examResults.slice(-5).reverse().map((r, i) => {
                   const pct = Math.round((r.score / r.total) * 100);
-                  const color = pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171";
+                  const color = pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : "#f87171";
                   return (
                     <div key={i} className="flex items-center gap-3 px-3 py-2.5 bg-app-surface/50 rounded-xl">
                       <div className="w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${color}15` }}>
@@ -403,7 +403,7 @@ export default function EpsExamPage() {
           </div>
           <div className="flex-1 flex flex-col gap-0.5 min-w-0">
             <div className="h-1.5 bg-white/8 rounded-full overflow-hidden">
-              <div className="h-full rounded-full transition-all duration-300" style={{ width: `${progressPct}%`, backgroundColor: "app-accent-primary" }} />
+              <div className="h-full rounded-full transition-all duration-300" style={{ width: `${progressPct}%`, backgroundColor: "#e8c84a" }} />
             </div>
             <span className="text-white/35 text-[10px]">{answeredCount}/{examQuestions.length} câu · Câu {currentIdx + 1}</span>
           </div>
@@ -637,7 +637,7 @@ export default function EpsExamPage() {
   if (mode === "result" && resultStats) {
     const { correct, pct, byTopic } = resultStats;
     const grade = pct >= 80 ? { label: "Đậu!", color: "#34d399", icon: "ri-trophy-line", desc: "Xuất sắc! Bạn đã vượt ngưỡng điểm đậu EPS-TOPIK." }
-      : pct >= 60 ? { label: "Gần đậu", color: "app-accent-primary", icon: "ri-medal-line", desc: "Khá tốt! Cần ôn thêm một chút để đạt điểm đậu." }
+      : pct >= 60 ? { label: "Gần đậu", color: "#e8c84a", icon: "ri-medal-line", desc: "Khá tốt! Cần ôn thêm một chút để đạt điểm đậu." }
       : { label: "Cần ôn thêm", color: "#f87171", icon: "ri-refresh-line", desc: "Hãy ôn luyện thêm các chủ đề yếu và thử lại." };
 
     const lastResult = examResults[examResults.length - 1];
@@ -704,7 +704,7 @@ export default function EpsExamPage() {
             <div className="grid grid-cols-2 gap-3">
               {Object.entries(byTopic).map(([topicId, data]) => {
                 const topicPct = data.total > 0 ? Math.round((data.correct / data.total) * 100) : 0;
-                const color = topicPct >= 80 ? "#34d399" : topicPct >= 60 ? "app-accent-primary" : "#f87171";
+                const color = topicPct >= 80 ? "#34d399" : topicPct >= 60 ? "#e8c84a" : "#f87171";
                 return (
                   <div key={topicId} className="bg-app-surface/50 rounded-xl p-3">
                     <div className="flex items-center justify-between mb-2">

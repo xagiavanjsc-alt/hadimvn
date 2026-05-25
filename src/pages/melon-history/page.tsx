@@ -120,13 +120,13 @@ function GoalBanner({
           className="h-full rounded-full transition-all duration-700"
           style={{
             width: `${pct}%`,
-            backgroundColor: done ? "#22c55e" : "app-accent-primary",
+            backgroundColor: done ? "#22c55e" : "#e8c84a",
           }}
         />
       </div>
       <div className="flex justify-between mt-1.5">
         <span className="text-[10px] text-app-text-muted">0</span>
-        <span className="text-[10px]" style={{ color: done ? "#22c55e" : "app-accent-primary" }}>{pct}%</span>
+        <span className="text-[10px]" style={{ color: done ? "#22c55e" : "#e8c84a" }}>{pct}%</span>
         <span className="text-[10px] text-app-text-muted">{goal.songsPerWeek} bài</span>
       </div>
     </div>

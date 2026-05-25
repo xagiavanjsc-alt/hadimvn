@@ -101,7 +101,7 @@ const navGroups = [
   {
     label: "Tiếng Hàn cơ bản",
     icon: "ri-book-open-line",
-    color: "app-accent-primary",
+    color: "#e8c84a",
     items: [
       { path: "/hangul", icon: "ri-text", label: "Bảng chữ cái Hangul" },
       { path: "/vocabulary", icon: "ri-translate-2", label: "Từ vựng tổng quan" },
@@ -438,7 +438,7 @@ function SidebarInner() {
           const isOpen = openGroups[group.label] ?? DEFAULT_OPEN[group.label] ?? false;
           const hasActive = group.items.some(item => location.pathname === item.path);
           const grpWithBadge = group as typeof group & { badge?: string; color?: string };
-          const grpColor = grpWithBadge.color || "app-accent-primary";
+          const grpColor = grpWithBadge.color || "#e8c84a";
 
           return (
             <div key={group.label}>

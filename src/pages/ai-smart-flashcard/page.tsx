@@ -257,7 +257,7 @@ function StatsPanel({ memories, vocab }: { memories: Record<string, CardMemory>;
     <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
       {[
         { label: "Cần ôn hôm nay", value: dueCount, color: "#f87171", icon: "ri-alarm-line" },
-        { label: "Từ mới", value: newCount, color: "app-accent-primary", icon: "ri-add-circle-line" },
+        { label: "Từ mới", value: newCount, color: "#e8c84a", icon: "ri-add-circle-line" },
         { label: "Đã thuộc", value: learnedCount, color: "#34d399", icon: "ri-checkbox-circle-line" },
         { label: "Tổng lần ôn", value: totalReviews, color: "#a78bfa", icon: "ri-repeat-line" },
         { label: "Độ chính xác", value: `${Math.round(avgAccuracy * 100)}%`, color: "#fbbf24", icon: "ri-percent-line" },
@@ -359,7 +359,7 @@ function SessionComplete({ results, onRestart }: {
           { label: "Lại", count: results.filter(r => r.rating === 1).length, color: "#f87171" },
           { label: "Khó", count: results.filter(r => r.rating === 2).length, color: "#fbbf24" },
           { label: "Tốt", count: results.filter(r => r.rating === 3).length, color: "#34d399" },
-          { label: "Dễ", count: results.filter(r => r.rating === 4).length, color: "app-accent-primary" },
+          { label: "Dễ", count: results.filter(r => r.rating === 4).length, color: "#e8c84a" },
         ].map(s => (
           <div key={s.label} className="rounded-xl p-3 border border-app-border bg-app-surface/50">
             <p className="font-bold text-xl" style={{ color: s.color }}>{s.count}</p>
@@ -489,7 +489,7 @@ export default function AISmartFlashcardPage() {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                   {[
                     { value: "due", label: "Đến hạn ôn", icon: "ri-alarm-line", color: "#f87171", count: dueCount },
-                    { value: "new", label: "Từ mới", icon: "ri-add-circle-line", color: "app-accent-primary", count: vocab.filter(v => !memories[v.id] || memories[v.id].totalReviews === 0).length },
+                    { value: "new", label: "Từ mới", icon: "ri-add-circle-line", color: "#e8c84a", count: vocab.filter(v => !memories[v.id] || memories[v.id].totalReviews === 0).length },
                     { value: "weak", label: "Từ yếu", icon: "ri-error-warning-line", color: "#fbbf24", count: suggestions.filter(s => s.accuracy < 0.6 && s.memory.totalReviews > 0).length },
                     { value: "all", label: "Tất cả", icon: "ri-apps-line", color: "#a78bfa", count: vocab.length },
                   ].map(opt => (

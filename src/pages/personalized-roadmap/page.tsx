@@ -33,7 +33,7 @@ const EPS_PATH: LearningPath = {
   description: "Chuẩn bị thi EPS-TOPIK để đi làm tại Hàn Quốc",
   targetLevel: "EPS Pass",
   totalDays: 90,
-  color: "app-accent-primary",
+  color: "#e8c84a",
   icon: "ri-briefcase-line",
   steps: [
     { id: "e1", title: "Hangul cơ bản", description: "Học bảng chữ cái và phát âm chuẩn", path: "/hangul", icon: "ri-font-size", color: "text-amber-400", estimatedDays: 7, xpReward: 200, type: "lesson" },

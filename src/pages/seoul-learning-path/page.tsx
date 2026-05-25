@@ -478,7 +478,7 @@ export default function SeoulLearningPathPage() {
         {/* Quick actions */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {[
-            { icon: "ri-stack-line", color: "app-accent-primary", label: "Flashcard Seoul", path: "/seoul-flashcard" },
+            { icon: "ri-stack-line", color: "#e8c84a", label: "Flashcard Seoul", path: "/seoul-flashcard" },
             { icon: "ri-file-list-3-line", color: "#34d399", label: "Thi thử bài", path: "/seoul-lesson-quiz" },
             { icon: "ri-headphone-line", color: "#06b6d4", label: "Nghe & nhận biết", path: "/seoul-listening-quiz" },
             { icon: "ri-error-warning-line", color: "#f87171", label: "Ôn từ sai", path: "/seoul-wrong-review" },

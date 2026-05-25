@@ -390,7 +390,7 @@ export default function AdminCouponPage() {
         {[
           { label: "Tổng coupon", value: coupons.length, icon: "ri-coupon-3-line", color: "#f87171" },
           { label: "Đang hoạt động", value: coupons.filter(c => c.active).length, icon: "ri-checkbox-circle-line", color: "#34d399" },
-          { label: "Coupon VIP", value: vipCoupons.length, icon: "ri-vip-crown-line", color: "app-accent-primary" },
+          { label: "Coupon VIP", value: vipCoupons.length, icon: "ri-vip-crown-line", color: "#e8c84a" },
           { label: "Tổng lượt dùng", value: totalUsage, icon: "ri-user-received-line", color: "#fb923c" },
           { label: "Kênh đang dùng", value: channelStats.length, icon: "ri-broadcast-line", color: "#a78bfa" },
         ].map(stat => (

@@ -112,7 +112,7 @@ function PairCard({ pair, expanded, onToggle }: { pair: WordPair; expanded: bool
   const typeConfig = {
     synonym: { label: "Đồng nghĩa", color: "#34d399", bg: "bg-emerald-500/10", border: "border-emerald-500/20" },
     antonym: { label: "Trái nghĩa", color: "#f87171", bg: "bg-red-500/10", border: "border-red-500/20" },
-    related: { label: "Liên quan", color: "app-accent-primary", bg: "bg-app-accent-primary/10", border: "border-app-accent-primary/20" },
+    related: { label: "Liên quan", color: "#e8c84a", bg: "bg-app-accent-primary/10", border: "border-app-accent-primary/20" },
   }[pair.type];
 
   const connector = pair.type === "synonym" ? "≈" : pair.type === "antonym" ? "↔" : "~";
@@ -243,7 +243,7 @@ function PairQuiz({ pairs, onBack }: { pairs: WordPair[]; onBack: () => void }) 
   const typeConfig = {
     synonym: { label: "Đồng nghĩa", color: "#34d399" },
     antonym: { label: "Trái nghĩa", color: "#f87171" },
-    related: { label: "Liên quan", color: "app-accent-primary" },
+    related: { label: "Liên quan", color: "#e8c84a" },
   }[q.type];
 
   return (
@@ -374,7 +374,7 @@ export default function SeoulWordPairsPage() {
             {[
               { type: "synonym" as PairType, label: "Đồng nghĩa", color: "#34d399", count: counts.synonym },
               { type: "antonym" as PairType, label: "Trái nghĩa", color: "#f87171", count: counts.antonym },
-              { type: "related" as PairType, label: "Liên quan", color: "app-accent-primary", count: counts.related },
+              { type: "related" as PairType, label: "Liên quan", color: "#e8c84a", count: counts.related },
             ].map(s => (
               <button
                 key={s.type}

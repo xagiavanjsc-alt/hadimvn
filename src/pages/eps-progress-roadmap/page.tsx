@@ -13,7 +13,7 @@ interface LessonProgress {
 type ViewMode = "roadmap" | "grid" | "topic";
 
 const BOOK_RANGES = [
-  { label: "Quyển 1", range: [1, 30], color: "app-accent-primary", icon: "ri-book-open-line" },
+  { label: "Quyển 1", range: [1, 30], color: "#e8c84a", icon: "ri-book-open-line" },
   { label: "Quyển 2", range: [31, 60], color: "#34d399", icon: "ri-book-2-line" },
 ];
 
@@ -100,8 +100,8 @@ export default function EpsProgressRoadmapPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
               { label: "Hoàn thành", value: `${stats.completed}/${stats.total}`, sub: `${stats.percent}%`, icon: "ri-checkbox-circle-line", color: "#34d399" },
-              { label: "Điểm TB", value: stats.avgScore > 0 ? `${Math.round(stats.avgScore)}%` : "—", sub: "Trung bình", icon: "ri-bar-chart-line", color: "app-accent-primary" },
-              { label: "Quyển 1", value: `${stats.book1Done}/30`, sub: `${Math.round((stats.book1Done / 30) * 100)}%`, icon: "ri-book-open-line", color: "app-accent-primary" },
+              { label: "Điểm TB", value: stats.avgScore > 0 ? `${Math.round(stats.avgScore)}%` : "—", sub: "Trung bình", icon: "ri-bar-chart-line", color: "#e8c84a" },
+              { label: "Quyển 1", value: `${stats.book1Done}/30`, sub: `${Math.round((stats.book1Done / 30) * 100)}%`, icon: "ri-book-open-line", color: "#e8c84a" },
               { label: "Quyển 2", value: `${stats.book2Done}/30`, sub: `${Math.round((stats.book2Done / 30) * 100)}%`, icon: "ri-book-2-line", color: "#34d399" },
             ].map((s, i) => (
               <div key={i} className="bg-app-surface/50 border border-app-border rounded-xl p-4">

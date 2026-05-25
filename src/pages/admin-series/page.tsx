@@ -66,7 +66,7 @@ export default function AdminSeriesPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-        <StatCard icon="ri-stack-line" label="Tổng series" value={seriesList.length} color="app-accent-primary" />
+        <StatCard icon="ri-stack-line" label="Tổng series" value={seriesList.length} color="#e8c84a" />
         <StatCard icon="ri-book-open-line" label="Tổng bài học" value={totalLessons} color="#34d399" />
         <StatCard icon="ri-checkbox-circle-line" label="Bài đã duyệt" value={approvedLessons.length} color="#fb923c" />
         <StatCard icon="ri-price-tag-3-line" label="Series có giá" value={withPrice} color="#a78bfa" />

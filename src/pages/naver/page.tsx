@@ -471,7 +471,7 @@ const NaverPage = () => {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-4">
           {[
             { label: "Câu hỏi", value: qaData.length, icon: "ri-question-line", color: "#03C75A" },
-            { label: "Đã thích", value: likedIds.length, icon: "ri-thumb-up-line", color: "app-accent-primary" },
+            { label: "Đã thích", value: likedIds.length, icon: "ri-thumb-up-line", color: "#e8c84a" },
             { label: "Danh mục", value: categories.length - 1, icon: "ri-folder-line", color: "#a78bfa" },
           ].map(s => (
             <div key={s.label} className="rounded-xl p-3 text-center" style={{ backgroundColor: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}>

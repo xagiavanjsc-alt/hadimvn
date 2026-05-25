@@ -19,7 +19,7 @@ interface Feedback {
 }
 
 const STATUS_CONFIG = {
-  new: { label: "Mới", color: "app-accent-primary", bg: "rgba(232,200,74,0.12)", icon: "ri-mail-unread-line" },
+  new: { label: "Mới", color: "#e8c84a", bg: "rgba(232,200,74,0.12)", icon: "ri-mail-unread-line" },
   reviewed: { label: "Đã xem", color: "#38bdf8", bg: "rgba(56,189,248,0.12)", icon: "ri-eye-line" },
   resolved: { label: "Đã xử lý", color: "#34d399", bg: "rgba(52,211,153,0.12)", icon: "ri-checkbox-circle-line" },
   dismissed: { label: "Bỏ qua", color: "#6b7280", bg: "rgba(107,114,128,0.12)", icon: "ri-close-circle-line" },
@@ -236,7 +236,7 @@ export default function AdminFeedbackPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
         {[
-          { label: "Tổng góp ý", value: feedbacks.length, color: "app-accent-primary", icon: "ri-chat-smile-2-line" },
+          { label: "Tổng góp ý", value: feedbacks.length, color: "#e8c84a", icon: "ri-chat-smile-2-line" },
           { label: "Mới chưa xem", value: feedbacks.filter(f => f.status === "new").length, color: "#f87171", icon: "ri-mail-unread-line" },
           { label: "Đã xử lý", value: feedbacks.filter(f => f.status === "resolved").length, color: "#34d399", icon: "ri-checkbox-circle-line" },
           { label: "Đánh giá TB", value: avgRating, color: "#fb923c", icon: "ri-star-line" },
@@ -260,7 +260,7 @@ export default function AdminFeedbackPage() {
         <div className="rounded-2xl border p-5" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
           <p className="font-semibold text-sm mb-1" style={{ color: "var(--admin-text)" }}>Phân bố đánh giá</p>
           <div className="flex items-center gap-2 mb-4">
-            <span className="text-2xl font-bold" style={{ color: "app-accent-primary" }}>{avgRating}</span>
+            <span className="text-2xl font-bold" style={{ color: "#e8c84a" }}>{avgRating}</span>
             <div>
               <div className="flex items-center gap-0.5">
                 {[1,2,3,4,5].map(s => (

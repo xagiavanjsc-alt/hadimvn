@@ -129,7 +129,7 @@ function EmailPreviewModal({ report, email, onClose, onSend, sending }: {
             {/* Stats grid */}
             <div className="p-5 grid grid-cols-2 gap-3">
               {[
-                { icon: "ri-flashlight-line", label: "XP kiếm được", value: `+${report.xpEarned}`, color: "app-accent-primary" },
+                { icon: "ri-flashlight-line", label: "XP kiếm được", value: `+${report.xpEarned}`, color: "#e8c84a" },
                 { icon: "ri-translate-2", label: "Từ đã học", value: report.wordsLearned, color: "#34d399" },
                 { icon: "ri-fire-line", label: "Streak", value: `${report.streakDays} ngày`, color: "#fb923c" },
                 { icon: "ri-percent-line", label: "Độ chính xác", value: `${accuracy}%`, color: "#a78bfa" },
@@ -469,7 +469,7 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
 
       {/* Stats grid */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-        <StatCard icon="ri-flashlight-line" label="XP kiếm được" value={`+${report.xpEarned}`} sub="tuần này" color="app-accent-primary" />
+        <StatCard icon="ri-flashlight-line" label="XP kiếm được" value={`+${report.xpEarned}`} sub="tuần này" color="#e8c84a" />
         <StatCard icon="ri-translate-2" label="Từ đã học" value={report.wordsLearned} sub="tổng cộng" color="#34d399" />
         <StatCard icon="ri-fire-line" label="Streak hiện tại" value={`${report.streakDays} ngày`} sub="liên tiếp" color="#fb923c" />
         <StatCard icon="ri-percent-line" label="Độ chính xác" value={`${accuracy}%`} sub={`${report.correctAnswers}/${report.questionsAnswered} câu`} color="#a78bfa" />
@@ -486,7 +486,7 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
               <p className="text-white font-semibold text-sm">Hoạt động trong tuần</p>
               <span className="text-app-text-muted text-xs">{report.weekLabel}</span>
             </div>
-            <MiniBarChart data={dailyActivity} color="app-accent-primary" />
+            <MiniBarChart data={dailyActivity} color="#e8c84a" />
             <div className="flex items-center gap-4 mt-3">
               <div className="flex items-center gap-1.5">
                 <div className="w-2 h-2 rounded-full bg-app-accent-primary"></div>
@@ -508,7 +508,7 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
               <div className="space-y-2">
                 {report.quizScores.map((q, i) => {
                   const pct = q.total > 0 ? Math.round((q.score / q.total) * 100) : 0;
-                  const color = pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171";
+                  const color = pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : "#f87171";
                   return (
                     <div key={i} className="flex items-center gap-3 p-3 bg-app-surface/50 rounded-xl">
                       <div className="w-8 h-8 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${color}15` }}>
@@ -534,7 +534,7 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
             <p className="text-white font-semibold text-sm mb-4">Tiến độ tổng thể</p>
             <div className="space-y-4">
               {[
-                { label: "Từ vựng EPS", current: report.wordsLearned, total: 1500, color: "app-accent-primary" },
+                { label: "Từ vựng EPS", current: report.wordsLearned, total: 1500, color: "#e8c84a" },
                 { label: "Câu hỏi EPS đã làm", current: report.questionsAnswered, total: epsQuestions.length, color: "#34d399" },
                 { label: "Thẻ SR nắm vững", current: report.srMastered, total: epsVocabulary.length, color: "#a78bfa" },
               ].map(item => {
@@ -638,7 +638,7 @@ Hàn Quốc Ơi! — Học tiếng Hàn hiệu quả
             </div>
             <div className="space-y-2.5">
               {[
-                { label: "Tổng XP tích lũy", value: `${xpData.total.toLocaleString()} XP`, color: "app-accent-primary" },
+                { label: "Tổng XP tích lũy", value: `${xpData.total.toLocaleString()} XP`, color: "#e8c84a" },
                 { label: "Streak hiện tại", value: `${streak.currentStreak} ngày`, color: "#fb923c" },
                 { label: "Từ vựng đã học", value: `${report.wordsLearned} từ`, color: "#34d399" },
                 { label: "Độ chính xác EPS", value: `${accuracy}%`, color: "#a78bfa" },

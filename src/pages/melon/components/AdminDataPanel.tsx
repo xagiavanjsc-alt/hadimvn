@@ -98,7 +98,7 @@ export default function AdminDataPanel({ onClose }: AdminDataPanelProps) {
         <div className="flex items-center justify-between px-5 py-4 border-b" style={{ borderColor: "rgba(255,255,255,0.08)" }}>
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 flex items-center justify-center rounded-xl" style={{ backgroundColor: "rgba(232,200,74,0.12)" }}>
-              <i className="ri-database-2-line text-sm" style={{ color: "app-accent-primary" }}></i>
+              <i className="ri-database-2-line text-sm" style={{ color: "#e8c84a" }}></i>
             </div>
             <div>
               <p className="text-sm font-bold" style={{ color: "rgba(255,255,255,0.85)" }}>Quản lý dữ liệu Melon</p>
@@ -115,7 +115,7 @@ export default function AdminDataPanel({ onClose }: AdminDataPanelProps) {
           {(["download", "upload"] as const).map(t => (
             <button key={t} onClick={() => setActiveTab(t)}
               className="flex-1 py-3 text-xs font-semibold cursor-pointer whitespace-nowrap transition-all"
-              style={{ color: activeTab === t ? "app-accent-primary" : "rgba(255,255,255,0.35)", borderBottom: activeTab === t ? "2px solid app-accent-primary" : "2px solid transparent" }}>
+              style={{ color: activeTab === t ? "#e8c84a" : "rgba(255,255,255,0.35)", borderBottom: activeTab === t ? "2px solid app-accent-primary" : "2px solid transparent" }}>
               {t === "download" ? <><i className="ri-download-line mr-1.5"></i>Tải về xử lý</> : <><i className="ri-upload-line mr-1.5"></i>Upload lên</>}
             </button>
           ))}
@@ -143,16 +143,16 @@ export default function AdminDataPanel({ onClose }: AdminDataPanelProps) {
                 className="w-full flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer transition-all"
                 style={{ backgroundColor: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
                 <div className="w-8 h-8 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: "rgba(232,200,74,0.12)" }}>
-                  <i className="ri-music-2-line text-sm" style={{ color: "app-accent-primary" }}></i>
+                  <i className="ri-music-2-line text-sm" style={{ color: "#e8c84a" }}></i>
                 </div>
                 <div className="text-left">
                   <p className="text-sm font-semibold" style={{ color: "rgba(255,255,255,0.8)" }}>Tải dữ liệu hiện tại</p>
                   <p className="text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>Export toàn bộ bài hát đang có</p>
                 </div>
-                <i className="ri-download-line ml-auto" style={{ color: "app-accent-primary" }}></i>
+                <i className="ri-download-line ml-auto" style={{ color: "#e8c84a" }}></i>
               </button>
               <div className="rounded-xl p-3" style={{ backgroundColor: "rgba(232,200,74,0.06)", border: "1px solid rgba(232,200,74,0.12)" }}>
-                <p className="text-xs font-semibold mb-1" style={{ color: "app-accent-primary" }}><i className="ri-information-line mr-1"></i>Hướng dẫn</p>
+                <p className="text-xs font-semibold mb-1" style={{ color: "#e8c84a" }}><i className="ri-information-line mr-1"></i>Hướng dẫn</p>
                 <ol className="text-xs space-y-1" style={{ color: "rgba(232,200,74,0.6)" }}>
                   <li>1. Tải template hoặc dữ liệu hiện tại</li>
                   <li>2. Chỉnh sửa bằng Excel / Google Sheets</li>
@@ -175,7 +175,7 @@ export default function AdminDataPanel({ onClose }: AdminDataPanelProps) {
                 onClick={() => fileRef.current?.click()}
                 className="rounded-xl p-6 text-center cursor-pointer transition-all"
                 style={{
-                  border: `2px dashed ${dragOver ? "app-accent-primary" : "rgba(255,255,255,0.12)"}`,
+                  border: `2px dashed ${dragOver ? "#e8c84a" : "rgba(255,255,255,0.12)"}`,
                   backgroundColor: dragOver ? "rgba(232,200,74,0.05)" : "rgba(255,255,255,0.02)",
                 }}
               >
@@ -184,7 +184,7 @@ export default function AdminDataPanel({ onClose }: AdminDataPanelProps) {
                   <i className="ri-upload-cloud-2-line text-xl" style={{ color: "rgba(255,255,255,0.3)" }}></i>
                 </div>
                 {uploadFile ? (
-                  <p className="text-sm font-semibold" style={{ color: "app-accent-primary" }}>{uploadFile.name}</p>
+                  <p className="text-sm font-semibold" style={{ color: "#e8c84a" }}>{uploadFile.name}</p>
                 ) : (
                   <>
                     <p className="text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>Kéo thả hoặc click để chọn file</p>
@@ -196,7 +196,7 @@ export default function AdminDataPanel({ onClose }: AdminDataPanelProps) {
               {uploadFile && uploadStatus === "idle" && (
                 <button onClick={handleUpload}
                   className="w-full py-2.5 rounded-xl text-sm font-bold cursor-pointer whitespace-nowrap transition-all"
-                  style={{ backgroundColor: "rgba(232,200,74,0.15)", color: "app-accent-primary", border: "1px solid rgba(232,200,74,0.25)" }}>
+                  style={{ backgroundColor: "rgba(232,200,74,0.15)", color: "#e8c84a", border: "1px solid rgba(232,200,74,0.25)" }}>
                   <i className="ri-upload-line mr-1.5"></i>
                   Upload & Cập nhật dữ liệu
                 </button>

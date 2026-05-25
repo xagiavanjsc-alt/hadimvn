@@ -127,7 +127,7 @@ function AdminPanel() {
         <>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {[
-              { label: "Tổng từ Hán Hàn", value: totalWords.toLocaleString(), icon: "ri-translate-2", color: "app-accent-primary" },
+              { label: "Tổng từ Hán Hàn", value: totalWords.toLocaleString(), icon: "ri-translate-2", color: "#e8c84a" },
               { label: "Đã thuộc", value: totalMastered, icon: "ri-check-double-line", color: "#34d399" },
               { label: "Đang học", value: totalLearning, icon: "ri-book-open-line", color: "#fb923c" },
               { label: "Tổng lần ôn", value: totalReviews.toLocaleString(), icon: "ri-refresh-line", color: "#a78bfa" },
@@ -148,7 +148,7 @@ function AdminPanel() {
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {[
-                { label: "XP tích lũy", value: xpData.toLocaleString() + " XP", color: "app-accent-primary" },
+                { label: "XP tích lũy", value: xpData.toLocaleString() + " XP", color: "#e8c84a" },
                 { label: "Streak hiện tại", value: (streakData?.currentStreak || 0) + " ngày", color: "#fb923c" },
                 { label: "% hoàn thành", value: totalWords > 0 ? Math.round((totalMastered / totalWords) * 100) + "%" : "0%", color: "#34d399" },
               ].map(s => (
@@ -345,7 +345,7 @@ function AdminPanel() {
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {[
               { label: "Từ yêu thích", value: contentStats.favCount, icon: "ri-heart-line", color: "#f43f5e" },
-              { label: "Ghi chú", value: contentStats.noteCount, icon: "ri-sticky-note-line", color: "app-accent-primary" },
+              { label: "Ghi chú", value: contentStats.noteCount, icon: "ri-sticky-note-line", color: "#e8c84a" },
               { label: "Lần thi TOPIK", value: contentStats.topikExams, icon: "ri-file-paper-2-line", color: "#a78bfa" },
               { label: "Lần luyện phát âm", value: contentStats.pronunciationSessions, icon: "ri-mic-line", color: "#34d399" },
               { label: "Thách thức tuần", value: contentStats.hasWeeklyChallenge ? "Đang có" : "Chưa có", icon: "ri-sword-line", color: "#fb923c" },
@@ -370,7 +370,7 @@ function AdminPanel() {
               {[
                 { label: "Từ vựng Hán Hàn", icon: "ri-translate-2", color: "#f43f5e", path: "/hanja-vocab" },
                 { label: "Spaced Repetition", icon: "ri-brain-line", color: "#a78bfa", path: "/hanja-vocab" },
-                { label: "Thi thử TOPIK", icon: "ri-file-paper-2-line", color: "app-accent-primary", path: "/hanja-vocab" },
+                { label: "Thi thử TOPIK", icon: "ri-file-paper-2-line", color: "#e8c84a", path: "/hanja-vocab" },
                 { label: "Luyện phát âm", icon: "ri-mic-line", color: "#34d399", path: "/hanja-vocab" },
                 { label: "So sánh Hán Việt", icon: "ri-translate-2", color: "#06b6d4", path: "/hanja-vocab" },
                 { label: "Câu ví dụ thực tế", icon: "ri-newspaper-line", color: "#fb923c", path: "/hanja-vocab" },
@@ -430,7 +430,7 @@ function AdminPanel() {
                   label: "Reset ghi chú",
                   desc: "Xóa tất cả ghi chú từ vựng",
                   icon: "ri-sticky-note-2-line",
-                  color: "app-accent-primary",
+                  color: "#e8c84a",
                   action: () => { if (confirm("Xóa tất cả ghi chú?")) { localStorage.removeItem(STORAGE_KEYS.HANJA_NOTES); window.location.reload(); } }
                 },
                 {
@@ -871,7 +871,7 @@ interface RewardItem {
 const REWARDS: RewardItem[] = [
   { id: "r4", title: "Huy hiệu Học viên Tích cực", desc: "Huy hiệu đặc biệt hiển thị trên hồ sơ và bảng xếp hạng", xpCost: 500, type: "badge", icon: "ri-medal-2-line", color: "#a78bfa", stock: 999 },
   { id: "r6", title: "Mở khóa giao diện tối", desc: "Dark mode đặc biệt — chỉ dành cho học viên tích cực", xpCost: 1500, type: "feature", icon: "ri-moon-line", color: "#06b6d4", stock: 999 },
-  { id: "r1", title: "Giảm 20% VIP tháng đầu", desc: "Áp dụng khi đăng ký gói VIP lần đầu tiên", xpCost: 2500, type: "discount", icon: "ri-coupon-3-line", color: "app-accent-primary", stock: 50, popular: true },
+  { id: "r1", title: "Giảm 20% VIP tháng đầu", desc: "Áp dụng khi đăng ký gói VIP lần đầu tiên", xpCost: 2500, type: "discount", icon: "ri-coupon-3-line", color: "#e8c84a", stock: 50, popular: true },
   { id: "r2", title: "VIP 7 ngày miễn phí", desc: "Trải nghiệm toàn bộ tính năng VIP trong 1 tuần", xpCost: 5000, type: "vip", icon: "ri-vip-crown-line", color: "#FFD700", stock: 20, popular: true },
   { id: "r3", title: "Giảm 50% VIP tháng đầu", desc: "Ưu đãi lớn cho học viên cực kỳ tích cực", xpCost: 8000, type: "discount", icon: "ri-percent-line", color: "#34d399", stock: 10 },
   { id: "r5", title: "VIP 30 ngày miễn phí", desc: "1 tháng VIP hoàn toàn miễn phí — phần thưởng cao nhất", xpCost: 15000, type: "vip", icon: "ri-vip-diamond-line", color: "#fb923c", stock: 5 },
@@ -882,7 +882,7 @@ const REWARDS: RewardItem[] = [
 // When you edit values there, edit them here too to keep the UI honest.
 const XP_SOURCES = [
   // ── Học tập ─────────────────────────────────────────────────────────
-  { icon: "ri-login-circle-line", label: "Đăng nhập hằng ngày", xp: "+10 XP", color: "app-accent-primary", desc: "1 lần/ngày — giữ streak để nhận bonus" },
+  { icon: "ri-login-circle-line", label: "Đăng nhập hằng ngày", xp: "+10 XP", color: "#e8c84a", desc: "1 lần/ngày — giữ streak để nhận bonus" },
   { icon: "ri-fire-line", label: "Streak 7 ngày liên tiếp", xp: "+50 XP", color: "#fb923c", desc: "Bonus 1 lần khi đạt mốc 7 ngày" },
   { icon: "ri-fire-line", label: "Streak 30 ngày liên tiếp", xp: "+200 XP", color: "#fb923c", desc: "Bonus 1 lần khi đạt mốc 30 ngày" },
   { icon: "ri-fire-fill", label: "Streak 100 ngày liên tiếp", xp: "+500 XP", color: "#f59e0b", desc: "Bonus 1 lần khi đạt mốc 100 ngày" },
@@ -987,7 +987,7 @@ export default function RewardsPage() {
   // XP level (uses rank from useXPSystem for consistency with other pages)
   const xpLevel = {
     label: currentRank.name,
-    color: currentRank.color || "app-accent-primary",
+    color: currentRank.color || "#e8c84a",
     icon: "ri-vip-crown-line",
   };
 

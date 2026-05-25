@@ -42,7 +42,7 @@ function GroupNotificationPanel({
   }, []);
 
   const typeConfig = {
-    exam_done: { icon: "ri-file-list-3-line", color: "app-accent-primary" },
+    exam_done: { icon: "ri-file-list-3-line", color: "#e8c84a" },
     streak: { icon: "ri-fire-line", color: "#ea580c" },
     joined: { icon: "ri-user-add-line", color: "#10b981" },
     top_score: { icon: "ri-trophy-line", color: "#d97706" },
@@ -129,7 +129,7 @@ interface StudyGroup {
 
 // Groups stored in localStorage (no mock data)
 
-const AVATAR_COLORS = ["app-accent-primary", "#34d399", "#06b6d4", "#a78bfa", "#f87171", "#fb923c", "#ec4899", "#84cc16"];
+const AVATAR_COLORS = ["#e8c84a", "#34d399", "#06b6d4", "#a78bfa", "#f87171", "#fb923c", "#ec4899", "#84cc16"];
 
 // ─── Group Card ───────────────────────────────────────────────────────────────
 interface GroupCardProps {
@@ -355,7 +355,7 @@ function GroupDetail({ group, onBack, myName }: GroupDetailProps) {
       {tab === "activity" && (
         <div className="space-y-3">
           {[
-            { member: sorted[0], action: "đạt điểm cao nhất tuần này", score: sorted[0].score, time: "2 giờ trước", icon: "ri-trophy-line", color: "app-accent-primary" },
+            { member: sorted[0], action: "đạt điểm cao nhất tuần này", score: sorted[0].score, time: "2 giờ trước", icon: "ri-trophy-line", color: "#e8c84a" },
             { member: sorted[1], action: "hoàn thành bài thi EPS 40 câu", score: sorted[1].score, time: "5 giờ trước", icon: "ri-file-list-3-line", color: "#06b6d4" },
             { member: sorted[2], action: "duy trì streak 8 ngày", score: null, time: "Hôm qua", icon: "ri-fire-line", color: "#fb923c" },
             { member: sorted[0], action: "ôn tập câu sai thông minh", score: null, time: "Hôm qua", icon: "ri-brain-line", color: "#a78bfa" },
@@ -435,7 +435,7 @@ function SendNotifModal({ group, myName, onClose, onSend }: SendNotifModalProps)
   const [sent, setSent] = useState(false);
 
   const TEMPLATES = [
-    { type: "exam_done" as const, icon: "ri-file-list-3-line", color: "app-accent-primary", label: "Vừa thi xong", placeholder: "VD: Vừa đạt 85% trong bài thi EPS! 🎯" },
+    { type: "exam_done" as const, icon: "ri-file-list-3-line", color: "#e8c84a", label: "Vừa thi xong", placeholder: "VD: Vừa đạt 85% trong bài thi EPS! 🎯" },
     { type: "streak" as const, icon: "ri-fire-line", color: "#ea580c", label: "Streak mới", placeholder: "VD: Đã học 15 ngày liên tiếp! 🔥" },
     { type: "top_score" as const, icon: "ri-trophy-line", color: "#d97706", label: "Điểm cao mới", placeholder: "VD: Phá kỷ lục cá nhân với 92%! 🏆" },
     { type: "joined" as const, icon: "ri-megaphone-line", color: "#10b981", label: "Nhắc nhở nhóm", placeholder: "VD: Nhớ ôn bài hôm nay nhé mọi người! 💪" },
@@ -864,9 +864,9 @@ export default function EpsStudyGroupPage() {
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {[
-              { icon: "ri-add-circle-line", color: "app-accent-primary", title: "Tạo hoặc tham gia", desc: "Tạo nhóm mới hoặc nhập mã nhóm từ bạn bè" },
+              { icon: "ri-add-circle-line", color: "#e8c84a", title: "Tạo hoặc tham gia", desc: "Tạo nhóm mới hoặc nhập mã nhóm từ bạn bè" },
               { icon: "ri-timer-line", color: "#06b6d4", title: "Thi đua cùng nhau", desc: "Làm bài thi EPS, điểm tự động cập nhật BXH nhóm" },
-              { icon: "ri-trophy-line", color: "app-accent-primary", title: "So sánh tiến bộ", desc: "Xem ai đang dẫn đầu, ai cần cố gắng thêm" },
+              { icon: "ri-trophy-line", color: "#e8c84a", title: "So sánh tiến bộ", desc: "Xem ai đang dẫn đầu, ai cần cố gắng thêm" },
             ].map((item, i) => (
               <div key={i} className="text-center">
                 <div className="w-12 h-12 flex items-center justify-center rounded-2xl mx-auto mb-3" style={{ backgroundColor: `${item.color}15` }}>

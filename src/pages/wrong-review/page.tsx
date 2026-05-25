@@ -248,7 +248,7 @@ export default function WrongReviewPage() {
         {[
           { label: "Cần ôn tập", value: pendingCount, icon: "ri-error-warning-line", color: "#f87171" },
           { label: "Đã thành thạo", value: masteredCount, icon: "ri-checkbox-circle-line", color: "#34d399" },
-          { label: "Tổng câu sai", value: wrongItems.length, icon: "ri-file-list-3-line", color: "app-accent-primary" },
+          { label: "Tổng câu sai", value: wrongItems.length, icon: "ri-file-list-3-line", color: "#e8c84a" },
           { label: "Lần ôn tập", value: totalReviews, icon: "ri-refresh-line", color: "#a78bfa" },
         ].map(s => (
           <div key={s.label} className="bg-app-bg border border-app-border rounded-xl p-3 md:p-4 flex items-center gap-3">

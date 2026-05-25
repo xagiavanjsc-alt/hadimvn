@@ -513,7 +513,7 @@ interface Comment {
 }
 
 const CATEGORY_CONFIG: Record<string, { label: string; icon: string; color: string }> = {
-  all: { label: "Tất cả", icon: "ri-apps-line", color: "app-accent-primary" },
+  all: { label: "Tất cả", icon: "ri-apps-line", color: "#e8c84a" },
   question: { label: "Hỏi đáp", icon: "ri-question-answer-line", color: "#60a5fa" },
   share: { label: "Chia sẻ", icon: "ri-share-line", color: "#34d399" },
   result: { label: "Kết quả thi", icon: "ri-trophy-line", color: "#FFD700" },
@@ -2158,7 +2158,7 @@ export default function CommunityPage() {
             <h3 className="text-white font-semibold text-sm mb-4">Cộng đồng Hàn Quốc Ơi!</h3>
             <div className="space-y-3">
               {[
-                { icon: "ri-group-line", label: "Thành viên", value: "10,247", color: "app-accent-primary" },
+                { icon: "ri-group-line", label: "Thành viên", value: "10,247", color: "#e8c84a" },
                 { icon: "ri-article-line", label: "Bài đăng", value: posts.length.toString(), color: "#34d399" },
                 { icon: "ri-fire-line", label: "Streak trung bình", value: "23 ngày", color: "#fb923c" },
                 { icon: "ri-trophy-line", label: "Đậu EPS tháng này", value: "142 người", color: "#FFD700" },

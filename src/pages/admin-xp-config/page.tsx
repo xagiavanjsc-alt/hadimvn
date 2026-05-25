@@ -311,7 +311,7 @@ export default function AdminXPConfigPage() {
           <div className="text-xs space-y-1" style={{ color: "var(--admin-text-muted)" }}>
             <p>Streak {examplePreview.stats.streak} ngày · Best {examplePreview.stats.bestScorePct}% · Avg {examplePreview.stats.avgScorePct}% · {examplePreview.stats.correctAnswers} câu đúng · {examplePreview.stats.wordsLearned} từ · {examplePreview.stats.validExams} exam hợp lệ</p>
           </div>
-          <p className="text-2xl font-bold mt-3" style={{ color: "app-accent-primary" }}>
+          <p className="text-2xl font-bold mt-3" style={{ color: "#e8c84a" }}>
             ≈ {examplePreview.xp.toLocaleString("vi-VN")} XP
           </p>
         </div>
@@ -338,7 +338,7 @@ export default function AdminXPConfigPage() {
             disabled={!isDirty || saving}
             onClick={handleSave}
             className="px-4 py-2 rounded-xl text-xs font-semibold text-app-bg disabled:opacity-40"
-            style={{ background: "app-accent-primary" }}
+            style={{ background: "#e8c84a" }}
           >
             <i className="ri-save-line mr-1"></i>
             {saving ? "Đang lưu..." : isDirty ? "Lưu thay đổi" : "Đã lưu"}

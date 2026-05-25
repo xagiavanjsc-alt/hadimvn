@@ -374,7 +374,7 @@ export default function EpsGlobalLeaderboardPage() {
             {/* Stats summary */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {[
-                { label: "Học viên tham gia", value: "10,247", icon: "ri-group-line", color: "app-accent-primary" },
+                { label: "Học viên tham gia", value: "10,247", icon: "ri-group-line", color: "#e8c84a" },
                 { label: "Bài thi tuần này", value: "3,891", icon: "ri-file-list-3-line", color: "#10b981" },
                 { label: "Điểm TB toàn cầu", value: "74.2", icon: "ri-bar-chart-line", color: "#f59e0b" },
               ].map(s => (

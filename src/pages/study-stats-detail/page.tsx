@@ -116,7 +116,7 @@ export default function StudyStatsDetailPage() {
       {/* KPI */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
         {[
-          { label: "Bài đã học", value: totalLessons, icon: "ri-book-open-line", color: "app-accent-primary" },
+          { label: "Bài đã học", value: totalLessons, icon: "ri-book-open-line", color: "#e8c84a" },
           { label: "Từ vựng", value: `~${totalWords}`, icon: "ri-translate-2", color: "#34d399" },
           { label: "Thời gian (phút)", value: totalMinutes, icon: "ri-time-line", color: "#a78bfa" },
           { label: "Điểm TB", value: `${avgScore}%`, icon: "ri-star-line", color: "#fb923c" },

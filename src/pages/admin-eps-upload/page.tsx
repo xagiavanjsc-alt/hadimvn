@@ -361,7 +361,7 @@ function PhoneticGenerator() {
           <h3 className="text-white font-semibold text-sm mb-3"><i className="ri-lightbulb-line text-[#fb923c] mr-2"></i>Hướng dẫn sử dụng</h3>
           <div className="space-y-2.5">
             {[
-              { icon: "ri-file-text-line", color: "app-accent-primary", text: "Nhập từ vựng: tiếng_hàn,nghĩa_việt (mỗi dòng 1 từ)" },
+              { icon: "ri-file-text-line", color: "#e8c84a", text: "Nhập từ vựng: tiếng_hàn,nghĩa_việt (mỗi dòng 1 từ)" },
               { icon: "ri-magic-line", color: "#a78bfa", text: "AI tạo phiên âm tiếng Việt dễ đọc, không phải Romanization Latin" },
               { icon: "ri-clipboard-line", color: "#34d399", text: "Copy kết quả và paste vào file epsVocabulary.ts để cập nhật" },
               { icon: "ri-shield-line", color: "#fb923c", text: "API key chỉ lưu trong trình duyệt, không gửi lên server của app" },
@@ -465,7 +465,7 @@ export default function AdminEpsUploadPage() {
           {uploads.length > 0 && (
             <div className="flex items-center gap-4 px-4 py-3 bg-app-bg border border-app-border rounded-xl">
               {[
-                { label: "Tổng file", value: uploads.length, color: "app-accent-primary" },
+                { label: "Tổng file", value: uploads.length, color: "#e8c84a" },
                 { label: "Chờ upload", value: pendingCount, color: "#fb923c" },
                 { label: "Đã upload", value: doneCount, color: "#34d399" },
                 { label: "Lỗi", value: uploads.filter(u => u.status === "error").length, color: "#f87171" },
@@ -517,7 +517,7 @@ export default function AdminEpsUploadPage() {
             <h3 className="text-white font-semibold text-sm mb-4"><i className="ri-information-line text-app-accent-primary mr-2"></i>Quy trình âm thanh TTS</h3>
             <div className="space-y-3">
               {[
-                { icon: "ri-translate-2", color: "app-accent-primary", title: "Phiên âm latinh", desc: "안전모 → anjeonmo.mp3 (tên file an toàn cho mọi VPS)" },
+                { icon: "ri-translate-2", color: "#e8c84a", title: "Phiên âm latinh", desc: "안전모 → anjeonmo.mp3 (tên file an toàn cho mọi VPS)" },
                 { icon: "ri-google-line", color: "#34d399", title: "Google TTS miễn phí", desc: "Tạo MP3 chất lượng tốt, không cần API key" },
                 { icon: "ri-save-line", color: "#fb923c", title: "Cache vĩnh viễn", desc: "Lần đầu nghe → cache browser. Lần sau phát từ cache" },
                 { icon: "ri-server-line", color: "#a78bfa", title: "Upload VPS", desc: "Tải file MP3 về → upload lên audio.hanquocoi.vn/tts/" },

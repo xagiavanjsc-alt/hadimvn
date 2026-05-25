@@ -82,7 +82,7 @@ function BulkActionModal({
   };
 
   const actions = [
-    { id: "vip_grant" as const, icon: "ri-vip-crown-line", label: "Cấp VIP hàng loạt", color: "app-accent-primary", desc: `Cấp VIP cho ${selectedUsers.length} thành viên` },
+    { id: "vip_grant" as const, icon: "ri-vip-crown-line", label: "Cấp VIP hàng loạt", color: "#e8c84a", desc: `Cấp VIP cho ${selectedUsers.length} thành viên` },
     { id: "vip_revoke" as const, icon: "ri-close-circle-line", label: "Hủy VIP hàng loạt", color: "#f87171", desc: `Hủy VIP của ${selectedUsers.length} thành viên` },
     { id: "email_expiry" as const, icon: "ri-mail-send-line", label: "Gửi email nhắc gia hạn", color: "#fb923c", desc: "Gửi email nhắc gia hạn VIP" },
     { id: "email_bulk" as const, icon: "ri-broadcast-line", label: "Gửi email thông báo", color: "#a78bfa", desc: "Gửi email tùy chỉnh" },
@@ -166,7 +166,7 @@ function BulkActionModal({
                 <div className="grid grid-cols-2 gap-2">
                   {([
                     { type: "month" as const, label: "VIP Tháng", sub: "30 ngày", color: "#34d399" },
-                    { type: "year" as const, label: "VIP Năm", sub: "365 ngày", color: "app-accent-primary" },
+                    { type: "year" as const, label: "VIP Năm", sub: "365 ngày", color: "#e8c84a" },
                   ]).map(opt => (
                     <button key={opt.type} onClick={() => setVipType(opt.type)}
                       className="flex items-center gap-2 px-3 py-2.5 rounded-xl border transition-all cursor-pointer"
@@ -301,7 +301,7 @@ function VipGrantModal({ user, onClose, onGrant }: {
           <div className="grid grid-cols-2 gap-3">
             {([
               { type: "month" as const, label: "VIP Tháng", sub: "30 ngày", color: "#34d399" },
-              { type: "year" as const, label: "VIP Năm", sub: "365 ngày", color: "app-accent-primary" },
+              { type: "year" as const, label: "VIP Năm", sub: "365 ngày", color: "#e8c84a" },
             ]).map(opt => (
               <button key={opt.type} onClick={() => setVipType(opt.type)}
                 className="flex flex-col items-center gap-2 py-4 rounded-xl border transition-all cursor-pointer"
@@ -324,7 +324,7 @@ function VipGrantModal({ user, onClose, onGrant }: {
           <div className="px-4 py-3 rounded-xl" style={{ backgroundColor: "rgba(232,200,74,0.06)", border: "1px solid rgba(232,200,74,0.15)" }}>
             <p className="text-xs" style={{ color: "var(--admin-text-muted)" }}>
               <span className="font-bold" style={{ color: "var(--admin-text)" }}>{user.display_name}</span> → VIP {vipType === "month" ? "Tháng" : "Năm"} đến{" "}
-              <span className="font-bold" style={{ color: "app-accent-primary" }}>{new Date(expiresAt).toLocaleDateString("vi-VN")}</span> ({daysLeft} ngày)
+              <span className="font-bold" style={{ color: "#e8c84a" }}>{new Date(expiresAt).toLocaleDateString("vi-VN")}</span> ({daysLeft} ngày)
             </p>
           </div>
           <label className="flex items-center gap-2 cursor-pointer">
@@ -489,7 +489,7 @@ function UserDetailDrawer({ user, onClose, onToggleVip, onToggleAdmin, onGrantVi
           <div className="flex items-center gap-2 flex-wrap">
             {user.is_vip ? (
               <span className="text-xs px-3 py-1 rounded-full font-medium"
-                style={{ backgroundColor: vipType === "year" ? "rgba(232,200,74,0.12)" : "rgba(52,211,153,0.10)", color: vipType === "year" ? "app-accent-primary" : "#34d399", border: `1px solid ${vipType === "year" ? "rgba(232,200,74,0.25)" : "rgba(52,211,153,0.20)"}` }}>
+                style={{ backgroundColor: vipType === "year" ? "rgba(232,200,74,0.12)" : "rgba(52,211,153,0.10)", color: vipType === "year" ? "#e8c84a" : "#34d399", border: `1px solid ${vipType === "year" ? "rgba(232,200,74,0.25)" : "rgba(52,211,153,0.20)"}` }}>
                 <i className="ri-vip-crown-line mr-1"></i>VIP {vipType === "year" ? "Năm" : "Tháng"}
               </span>
             ) : (
@@ -515,7 +515,7 @@ function UserDetailDrawer({ user, onClose, onToggleVip, onToggleAdmin, onGrantVi
             <div className="px-4 py-3 rounded-xl space-y-2"
               style={{ backgroundColor: vipType === "year" ? "rgba(232,200,74,0.06)" : "rgba(52,211,153,0.06)", border: `1px solid ${vipType === "year" ? "rgba(232,200,74,0.15)" : "rgba(52,211,153,0.15)"}` }}>
               <div className="flex items-center justify-between">
-                <p className="text-xs font-semibold" style={{ color: vipType === "year" ? "app-accent-primary" : "#34d399" }}>VIP {vipType === "year" ? "Năm" : "Tháng"}</p>
+                <p className="text-xs font-semibold" style={{ color: vipType === "year" ? "#e8c84a" : "#34d399" }}>VIP {vipType === "year" ? "Năm" : "Tháng"}</p>
                 <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${daysLeft !== null && daysLeft <= 7 ? "bg-rose-500/15 text-rose-400" : "bg-app-accent-success/15 text-app-accent-success"}`}>
                   {daysLeft !== null ? (daysLeft <= 0 ? "Đã hết hạn" : `Còn ${daysLeft} ngày`) : ""}
                 </span>
@@ -537,7 +537,7 @@ function UserDetailDrawer({ user, onClose, onToggleVip, onToggleAdmin, onGrantVi
             <p className="text-xs font-semibold mb-3" style={{ color: "var(--admin-text-muted)" }}>Thống kê học tập</p>
             <div className="grid grid-cols-2 gap-2">
               {[
-                { label: "XP tổng", value: (user.xp_total || 0).toLocaleString(), icon: "ri-star-line", color: "app-accent-primary" },
+                { label: "XP tổng", value: (user.xp_total || 0).toLocaleString(), icon: "ri-star-line", color: "#e8c84a" },
                 { label: "Streak", value: `${user.streak_count || 0} ngày`, icon: "ri-fire-line", color: "#fb923c" },
                 { label: "Từ đã học", value: (user.words_learned || 0).toLocaleString(), icon: "ri-book-open-line", color: "#34d399" },
                 { label: "Cấp độ", value: user.level || "A1", icon: "ri-bar-chart-line", color: "#a78bfa" },
@@ -562,7 +562,7 @@ function UserDetailDrawer({ user, onClose, onToggleVip, onToggleAdmin, onGrantVi
             <div className="grid grid-cols-2 gap-2">
               <button onClick={() => onGrantVip(user)}
                 className="flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-semibold cursor-pointer whitespace-nowrap"
-                style={{ backgroundColor: "rgba(232,200,74,0.10)", color: "app-accent-primary", border: "1px solid rgba(232,200,74,0.20)" }}>
+                style={{ backgroundColor: "rgba(232,200,74,0.10)", color: "#e8c84a", border: "1px solid rgba(232,200,74,0.20)" }}>
                 <i className="ri-vip-crown-line"></i>Cấp / Gia hạn VIP
               </button>
               {user.is_vip && (
@@ -657,14 +657,14 @@ function UserRow({ user, selected, onSelect, onToggleVip, onToggleAdmin, onViewD
         )}
         <div className="text-center">
           <p className="text-[10px]" style={{ color: "var(--admin-text-muted)" }}>Hoạt động</p>
-          <p className="text-xs" style={{ color: daysSinceActive !== null && daysSinceActive <= 1 ? "#34d399" : daysSinceActive !== null && daysSinceActive <= 7 ? "app-accent-primary" : "var(--admin-text-faint)" }}>
+          <p className="text-xs" style={{ color: daysSinceActive !== null && daysSinceActive <= 1 ? "#34d399" : daysSinceActive !== null && daysSinceActive <= 7 ? "#e8c84a" : "var(--admin-text-faint)" }}>
             {daysSinceActive === null ? "—" : daysSinceActive === 0 ? "Hôm nay" : `${daysSinceActive}d`}
           </p>
         </div>
       </div>
 
       <div className="flex items-center gap-1 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" onClick={e => e.stopPropagation()}>
-        <button onClick={() => onGrantVip(user)} className="w-7 h-7 flex items-center justify-center rounded-lg cursor-pointer" style={{ backgroundColor: "rgba(232,200,74,0.12)", color: "app-accent-primary" }}>
+        <button onClick={() => onGrantVip(user)} className="w-7 h-7 flex items-center justify-center rounded-lg cursor-pointer" style={{ backgroundColor: "rgba(232,200,74,0.12)", color: "#e8c84a" }}>
           <i className="ri-vip-crown-line text-xs"></i>
         </button>
         {currentUserRole === "super_admin" && (
@@ -699,7 +699,7 @@ function LoginSessionsPanel() {
         {[
           { label: "Tổng phiên", value: sessions.length, icon: "ri-login-circle-line", color: "#34d399" },
           { label: "Bất thường", value: suspicious.length, icon: "ri-alarm-warning-line", color: "#f87171" },
-          { label: "Hôm nay", value: sessions.filter(s => s.created_at.startsWith(new Date().toISOString().split("T")[0])).length, icon: "ri-calendar-check-line", color: "app-accent-primary" },
+          { label: "Hôm nay", value: sessions.filter(s => s.created_at.startsWith(new Date().toISOString().split("T")[0])).length, icon: "ri-calendar-check-line", color: "#e8c84a" },
         ].map(s => (
           <div key={s.label} className="flex items-center gap-3 px-4 py-3 rounded-xl border"
             style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
@@ -786,7 +786,7 @@ function LoginSessionsPanel() {
 
       {/* Security tips */}
       <div className="rounded-xl p-4 space-y-2" style={{ backgroundColor: "rgba(232,200,74,0.05)", border: "1px solid rgba(232,200,74,0.12)" }}>
-        <p className="text-xs font-bold" style={{ color: "app-accent-primary" }}><i className="ri-shield-check-line mr-1.5"></i>Gợi ý bảo mật</p>
+        <p className="text-xs font-bold" style={{ color: "#e8c84a" }}><i className="ri-shield-check-line mr-1.5"></i>Gợi ý bảo mật</p>
         <ul className="space-y-1.5">
           {[
             "Nếu thấy đăng nhập bất thường, liên hệ thành viên để xác nhận",
@@ -1079,7 +1079,7 @@ export default function AdminUsersPage() {
       <div className="grid grid-cols-3 lg:grid-cols-6 gap-3 mb-5">
         {[
           { label: "Tổng thành viên", value: users.length, icon: "ri-user-line", color: "#f87171" },
-          { label: "VIP Năm", value: vipYearCount, icon: "ri-vip-crown-2-line", color: "app-accent-primary" },
+          { label: "VIP Năm", value: vipYearCount, icon: "ri-vip-crown-2-line", color: "#e8c84a" },
           { label: "VIP Tháng", value: vipMonthCount, icon: "ri-vip-crown-line", color: "#34d399" },
           { label: "Admin", value: adminCount, icon: "ri-shield-keyhole-line", color: "#a78bfa" },
           { label: "Hoạt động hôm nay", value: activeToday, icon: "ri-pulse-line", color: "#34d399" },

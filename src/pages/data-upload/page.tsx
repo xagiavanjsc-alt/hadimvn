@@ -240,7 +240,7 @@ export default function DataUploadPage() {
         {/* Type selector */}
         <div className="flex gap-1 bg-app-card/50 rounded-xl p-1 w-fit">
           {([
-            { id: "melon", icon: "ri-music-2-line", label: "K-pop Lesson", color: "app-accent-primary" },
+            { id: "melon", icon: "ri-music-2-line", label: "K-pop Lesson", color: "#e8c84a" },
             { id: "naver", icon: "ri-question-answer-line", label: "Naver KiN", color: "#38bdf8" },
           ] as const).map((t) => (
             <button
@@ -274,7 +274,7 @@ export default function DataUploadPage() {
             >
               <i
                 className={activeType === "melon" ? "ri-music-2-line text-base" : "ri-question-answer-line text-base"}
-                style={{ color: activeType === "melon" ? "app-accent-primary" : "#38bdf8" }}
+                style={{ color: activeType === "melon" ? "#e8c84a" : "#38bdf8" }}
               />
             </div>
             <div className="flex-1">
@@ -292,7 +292,7 @@ export default function DataUploadPage() {
               className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold cursor-pointer whitespace-nowrap transition-all flex-shrink-0"
               style={{
                 backgroundColor: activeType === "melon" ? "rgba(232,200,74,0.12)" : "rgba(56,189,248,0.12)",
-                color: activeType === "melon" ? "app-accent-primary" : "#38bdf8",
+                color: activeType === "melon" ? "#e8c84a" : "#38bdf8",
               }}
             >
               <i className="ri-download-line" />
@@ -433,7 +433,7 @@ export default function DataUploadPage() {
                 disabled={importing}
                 className="flex-1 py-3 rounded-xl text-sm font-bold cursor-pointer transition-all whitespace-nowrap disabled:opacity-50"
                 style={{
-                  backgroundColor: activeType === "melon" ? "app-accent-primary" : "#38bdf8",
+                  backgroundColor: activeType === "melon" ? "#e8c84a" : "#38bdf8",
                   color: "#0f1117",
                 }}
               >
@@ -476,7 +476,7 @@ export default function DataUploadPage() {
           <button
             onClick={() => downloadTemplate(activeType)}
             className="mt-3 flex items-center gap-1.5 text-xs font-semibold cursor-pointer transition-all"
-            style={{ color: activeType === "melon" ? "app-accent-primary" : "#38bdf8" }}
+            style={{ color: activeType === "melon" ? "#e8c84a" : "#38bdf8" }}
           >
             <i className="ri-download-line" />
             Tải file template mẫu

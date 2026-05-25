@@ -150,7 +150,7 @@ function ResultScreen({
   const passed = totalScore >= 80 && listeningScore >= 40 && readingScore >= 40;
 
   const getGrade = () => {
-    if (totalScore >= 140) return { label: "Xuất sắc", color: "app-accent-primary" };
+    if (totalScore >= 140) return { label: "Xuất sắc", color: "#e8c84a" };
     if (totalScore >= 120) return { label: "Giỏi", color: "#34d399" };
     if (totalScore >= 100) return { label: "Khá", color: "#38bdf8" };
     if (totalScore >= 80) return { label: "Đạt", color: "#a78bfa" };
@@ -321,7 +321,7 @@ export default function TopikTestPage() {
           {/* Info cards */}
           <div className="grid grid-cols-2 gap-4">
             {[
-              { icon: "ri-time-line", label: "Thời gian", value: "100 phút", color: "app-accent-primary" },
+              { icon: "ri-time-line", label: "Thời gian", value: "100 phút", color: "#e8c84a" },
               { icon: "ri-question-line", label: "Số câu hỏi", value: "50 câu", color: "#34d399" },
               { icon: "ri-headphone-line", label: "Phần Nghe", value: "30 câu", color: "#38bdf8" },
               { icon: "ri-book-open-line", label: "Phần Đọc", value: "20 câu", color: "#a78bfa" },
@@ -410,7 +410,7 @@ export default function TopikTestPage() {
               <span className="text-app-text-muted text-[10px]">{Math.round(pct)}%</span>
             </div>
             <div className="bg-app-card/50 rounded-full h-1.5 overflow-hidden">
-              <div className="h-full rounded-full transition-all" style={{ width: `${pct}%`, backgroundColor: isDanger ? "#f87171" : isWarning ? "app-accent-primary" : "#34d399" }}></div>
+              <div className="h-full rounded-full transition-all" style={{ width: `${pct}%`, backgroundColor: isDanger ? "#f87171" : isWarning ? "#e8c84a" : "#34d399" }}></div>
             </div>
           </div>
 

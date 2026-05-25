@@ -254,7 +254,7 @@ export default function EpsVocabExportPage() {
             </div>
             <h2 className="text-white font-bold text-lg mb-2">Chỉ dành cho Admin</h2>
             <p className="text-app-text-secondary text-sm mb-6">Tính năng xuất từ vựng chỉ dành cho quản trị viên. Vui lòng đăng nhập với tài khoản admin.</p>
-            <button onClick={() => navigate(-1)} className="flex items-center gap-2 px-4 py-2.5 rounded-xl mx-auto cursor-pointer whitespace-nowrap transition-colors" style={{ backgroundColor: "rgba(232,200,74,0.12)", color: "app-accent-primary", border: "1px solid rgba(232,200,74,0.25)" }}>
+            <button onClick={() => navigate(-1)} className="flex items-center gap-2 px-4 py-2.5 rounded-xl mx-auto cursor-pointer whitespace-nowrap transition-colors" style={{ backgroundColor: "rgba(232,200,74,0.12)", color: "#e8c84a", border: "1px solid rgba(232,200,74,0.25)" }}>
               <i className="ri-arrow-left-line"></i>Quay lại
             </button>
           </div>
@@ -279,7 +279,7 @@ export default function EpsVocabExportPage() {
 
   const formatInfo: Record<ExportFormat, { icon: string; label: string; desc: string; color: string }> = {
     csv: { icon: "ri-table-line", label: "CSV", desc: "Mở bằng Excel, Google Sheets. Dễ in thành bảng.", color: "#34d399" },
-    txt: { icon: "ri-file-text-line", label: "TXT", desc: "File văn bản thuần. Dễ đọc, in ấn đơn giản.", color: "app-accent-primary" },
+    txt: { icon: "ri-file-text-line", label: "TXT", desc: "File văn bản thuần. Dễ đọc, in ấn đơn giản.", color: "#e8c84a" },
     json: { icon: "ri-code-line", label: "JSON", desc: "Dữ liệu có cấu trúc. Dùng cho ứng dụng khác.", color: "#a78bfa" },
     print: { icon: "ri-printer-line", label: "In A4", desc: "Xem trước và in bảng từ vựng đẹp ra giấy A4.", color: "#f97316" },
   };

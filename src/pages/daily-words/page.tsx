@@ -92,7 +92,7 @@ function buildQuiz(words: DailyWord[], extraPool: string[] = []): QuizQuestion[]
 
 const DIFF_COLORS = {
   easy: { bg: "rgba(74,222,128,0.12)", text: "#4ade80", label: "Dễ" },
-  medium: { bg: "rgba(232,200,74,0.12)", text: "app-accent-primary", label: "TB" },
+  medium: { bg: "rgba(232,200,74,0.12)", text: "#e8c84a", label: "TB" },
   hard: { bg: "rgba(248,113,113,0.12)", text: "#f87171", label: "Khó" },
 };
 
@@ -339,7 +339,7 @@ function QuizResult({
   onDone: () => void;
 }) {
   const pct = Math.round((score / total) * 100);
-  const color = pct >= 80 ? "#4ade80" : pct >= 60 ? "app-accent-primary" : "#f87171";
+  const color = pct >= 80 ? "#4ade80" : pct >= 60 ? "#e8c84a" : "#f87171";
   const msg =
     pct >= 80
       ? "Xuất sắc! Bạn đã ghi nhớ rất tốt 🎉"
@@ -560,13 +560,13 @@ export default function DailyWordsPage() {
                   className="h-full rounded-full transition-all duration-700"
                   style={{
                     width: `${(learnedCount / words.length) * 100}%`,
-                    backgroundColor: allDone ? "#4ade80" : "app-accent-primary",
+                    backgroundColor: allDone ? "#4ade80" : "#e8c84a",
                   }}
                 />
               </div>
               <span
                 className="text-sm font-bold whitespace-nowrap"
-                style={{ color: allDone ? "#4ade80" : "app-accent-primary" }}
+                style={{ color: allDone ? "#4ade80" : "#e8c84a" }}
               >
                 {learnedCount}/{words.length}
               </span>

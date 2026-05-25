@@ -33,7 +33,7 @@ export default function StreakWidget() {
       : streak.currentStreak >= 14
       ? "#fb923c"
       : streak.currentStreak >= 7
-      ? "app-accent-primary"
+      ? "#e8c84a"
       : "#fb923c";
 
   return (

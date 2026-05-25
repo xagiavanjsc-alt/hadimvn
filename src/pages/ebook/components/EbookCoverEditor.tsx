@@ -11,7 +11,7 @@ const FONT_OPTIONS: { label: string; value: "sans" | "serif"; desc: string; prev
 ];
 
 const ACCENT_COLORS = [
-  { label: "Vàng KTS", value: "app-accent-primary" },
+  { label: "Vàng KTS", value: "#e8c84a" },
   { label: "Xanh lá", value: "#34d399" },
   { label: "Cam", value: "#fb923c" },
   { label: "Hồng", value: "#f472b6" },
@@ -173,7 +173,7 @@ export default function EbookCoverEditor({ meta, onChange }: Props) {
               <span
                 className="text-xs font-bold"
                 style={{
-                  color: (meta.fontFamily ?? "sans") === f.value ? "app-accent-primary" : "rgba(255,255,255,0.6)",
+                  color: (meta.fontFamily ?? "sans") === f.value ? "#e8c84a" : "rgba(255,255,255,0.6)",
                   fontFamily: f.value === "serif" ? "'Noto Serif KR', serif" : "'Noto Sans KR', sans-serif",
                 }}
               >

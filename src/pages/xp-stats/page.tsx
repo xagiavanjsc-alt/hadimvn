@@ -7,7 +7,7 @@ import { getStreakData } from "@/utils/streak";
 type Period = "7days" | "30days" | "90days";
 
 const XP_SOURCE_CONFIG: Record<string, { label: string; icon: string; color: string }> = {
-  flashcard_learned: { label: "Flashcard", icon: "ri-stack-line", color: "app-accent-primary" },
+  flashcard_learned: { label: "Flashcard", icon: "ri-stack-line", color: "#e8c84a" },
   eps_exam_completed: { label: "Thi EPS", icon: "ri-timer-line", color: "#34d399" },
   topic_drill_completed: { label: "Luyện chủ đề", icon: "ri-focus-3-line", color: "#06b6d4" },
   quiz_completed: { label: "Quiz", icon: "ri-survey-line", color: "#a78bfa" },
@@ -22,7 +22,7 @@ function getSourceLabel(type: string) {
   return XP_SOURCE_CONFIG[type]?.label || type.replace(/_/g, " ");
 }
 function getSourceColor(type: string) {
-  return XP_SOURCE_CONFIG[type]?.color || "app-accent-primary";
+  return XP_SOURCE_CONFIG[type]?.color || "#e8c84a";
 }
 function getSourceIcon(type: string) {
   return XP_SOURCE_CONFIG[type]?.icon || "ri-star-line";
@@ -75,7 +75,7 @@ function groupByWeek(history: { type: string; amount: number; ts: number }[], we
 
 const COMMUNITY_BENCHMARKS = [
   { label: "Top 10%", xpPerDay: 80, color: "#34d399" },
-  { label: "Top 25%", xpPerDay: 45, color: "app-accent-primary" },
+  { label: "Top 25%", xpPerDay: 45, color: "#e8c84a" },
   { label: "Trung bình", xpPerDay: 20, color: "#fb923c" },
   { label: "Mới bắt đầu", xpPerDay: 5, color: "#f87171" },
 ];
@@ -147,7 +147,7 @@ export default function XPStatsPage() {
       {/* Summary cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "Tổng XP tích lũy", value: totalXP.toLocaleString(), icon: "ri-award-line", color: "app-accent-primary", sub: `Cấp ${currentRank.name}` },
+          { label: "Tổng XP tích lũy", value: totalXP.toLocaleString(), icon: "ri-award-line", color: "#e8c84a", sub: `Cấp ${currentRank.name}` },
           { label: `XP trong ${days} ngày`, value: periodXP.toLocaleString(), icon: "ri-bar-chart-line", color: "#34d399", sub: `${avgXPPerDay} XP/ngày TB` },
           { label: "Ngày tốt nhất", value: maxXP > 0 ? maxXP : "—", icon: "ri-trophy-line", color: "#fb923c", sub: bestDay?.label || "Chưa có" },
           { label: "Tỷ lệ nhất quán", value: `${consistency}%`, icon: "ri-calendar-check-line", color: "#a78bfa", sub: `${activeDays}/${days} ngày hoạt động` },
@@ -380,7 +380,7 @@ export default function XPStatsPage() {
             </div>
             <div className="space-y-2">
               {[
-                { icon: "ri-stack-line", text: "Flashcard: +5 XP/từ thuộc", color: "app-accent-primary" },
+                { icon: "ri-stack-line", text: "Flashcard: +5 XP/từ thuộc", color: "#e8c84a" },
                 { icon: "ri-timer-line", text: "Thi EPS: +20–50 XP/lần", color: "#34d399" },
                 { icon: "ri-fire-line", text: "Streak 7 ngày: +50 XP bonus", color: "#fb923c" },
                 { icon: "ri-focus-3-line", text: "Luyện chủ đề: +15 XP/lần", color: "#06b6d4" },

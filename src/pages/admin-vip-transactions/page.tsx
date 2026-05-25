@@ -94,7 +94,7 @@ const ACTION_LABELS: Record<string, { label: string; color: string; icon: string
 
 const VIP_TYPE_LABELS: Record<string, { label: string; price: number; color: string }> = {
   month: { label: "VIP Tháng", price: 79000, color: "#34d399" },
-  year: { label: "VIP Năm", price: 708000, color: "app-accent-primary" },
+  year: { label: "VIP Năm", price: 708000, color: "#e8c84a" },
 };
 
 // ─── Transaction Row ──────────────────────────────────────────────────────────
@@ -407,7 +407,7 @@ export default function AdminVipTransactionsPage() {
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
         {[
           { label: "Tổng doanh thu VIP", value: formatVND(totalRevenue), icon: "ri-money-dollar-circle-line", color: "#34d399" },
-          { label: "Tổng giao dịch", value: transactions.length, icon: "ri-exchange-line", color: "app-accent-primary" },
+          { label: "Tổng giao dịch", value: transactions.length, icon: "ri-exchange-line", color: "#e8c84a" },
           { label: "Lần cấp VIP", value: totalGrants, icon: "ri-vip-crown-line", color: "#a78bfa" },
           { label: "Tự động gia hạn", value: totalAutoRenew, icon: "ri-refresh-line", color: "#fb923c" },
           { label: "VIP đang hoạt động", value: vipUsers, icon: "ri-user-star-line", color: "#f87171" },
@@ -610,7 +610,7 @@ export default function AdminVipTransactionsPage() {
                 {
                   label: "Số giao dịch",
                   value: transactions.filter(t => t.user_id === selectedUser.id).length,
-                  color: "app-accent-primary",
+                  color: "#e8c84a",
                 },
               ].map(row => (
                 <div key={row.label} className="flex items-center justify-between px-3 py-2 rounded-xl" style={{ backgroundColor: "var(--admin-card2)", border: "1px solid var(--admin-border)" }}>

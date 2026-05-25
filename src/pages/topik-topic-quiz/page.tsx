@@ -19,7 +19,7 @@ type QuizResult = {
 };
 
 const LEVELS = [
-  { id: "all", label: "Tất cả", color: "app-accent-primary" },
+  { id: "all", label: "Tất cả", color: "#e8c84a" },
   { id: "A1", label: "A1", color: "#34d399" },
   { id: "A2", label: "A2", color: "#38bdf8" },
   { id: "B1", label: "B1", color: "#fb923c" },
@@ -387,10 +387,10 @@ export default function TopikTopicQuizPage() {
           <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4"
             style={{
               background: accuracy >= 80 ? "rgba(52,211,153,0.15)" : accuracy >= 60 ? "rgba(232,200,74,0.15)" : "rgba(248,113,113,0.15)",
-              border: `2px solid ${accuracy >= 80 ? "#34d399" : accuracy >= 60 ? "app-accent-primary" : "#f87171"}40`,
+              border: `2px solid ${accuracy >= 80 ? "#34d399" : accuracy >= 60 ? "#e8c84a" : "#f87171"}40`,
             }}
           >
-            <span className="text-xl font-bold" style={{ color: accuracy >= 80 ? "#34d399" : accuracy >= 60 ? "app-accent-primary" : "#f87171" }}>
+            <span className="text-xl font-bold" style={{ color: accuracy >= 80 ? "#34d399" : accuracy >= 60 ? "#e8c84a" : "#f87171" }}>
               {accuracy}%
             </span>
           </div>

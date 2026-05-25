@@ -22,7 +22,7 @@ interface ScoreRecord {
 
 // ─── Data ─────────────────────────────────────────────────────────────────
 const CATEGORIES = [
-  { id: "all", label: "Tất cả", icon: "ri-apps-line", color: "app-accent-primary" },
+  { id: "all", label: "Tất cả", icon: "ri-apps-line", color: "#e8c84a" },
   { id: "greeting", label: "Chào hỏi", icon: "ri-chat-smile-2-line", color: "#34d399" },
   { id: "safety", label: "An toàn", icon: "ri-shield-check-line", color: "#fb923c" },
   { id: "workplace", label: "Công sở", icon: "ri-briefcase-line", color: "#38bdf8" },
@@ -59,7 +59,7 @@ const PRONUNCIATION_ITEMS: PronunciationItem[] = [
 // ─── Score color helper ───────────────────────────────────────────────────
 function getScoreColor(score: number) {
   if (score >= 85) return "#34d399";
-  if (score >= 70) return "app-accent-primary";
+  if (score >= 70) return "#e8c84a";
   if (score >= 55) return "#fb923c";
   return "#f87171";
 }
@@ -159,7 +159,7 @@ function PronunciationCard({
     setRecordState("idle");
   }, [audioUrl]);
 
-  const diffColor = item.difficulty === "easy" ? "#34d399" : item.difficulty === "medium" ? "app-accent-primary" : "#f87171";
+  const diffColor = item.difficulty === "easy" ? "#34d399" : item.difficulty === "medium" ? "#e8c84a" : "#f87171";
   const diffLabel = item.difficulty === "easy" ? "Dễ" : item.difficulty === "medium" ? "Trung bình" : "Khó";
 
   return (
@@ -301,7 +301,7 @@ export default function PronunciationPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "Tổng từ/câu", value: PRONUNCIATION_ITEMS.length, icon: "ri-translate-2", color: "app-accent-primary" },
+          { label: "Tổng từ/câu", value: PRONUNCIATION_ITEMS.length, icon: "ri-translate-2", color: "#e8c84a" },
           { label: "Đã luyện", value: practicedCount, icon: "ri-mic-line", color: "#34d399" },
           { label: "Điểm TB", value: avgScore > 0 ? `${avgScore}/100` : "—", icon: "ri-bar-chart-line", color: "#a78bfa" },
           { label: "Lần ghi âm", value: totalAttempts, icon: "ri-repeat-line", color: "#fb923c" },

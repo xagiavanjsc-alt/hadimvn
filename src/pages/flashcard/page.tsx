@@ -529,7 +529,7 @@ function FlashcardPageInner() {
       {/* Stats bar */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "Tổng từ vựng", value: allCards.length, icon: "ri-translate-2", color: "app-accent-primary" },
+          { label: "Tổng từ vựng", value: allCards.length, icon: "ri-translate-2", color: "#e8c84a" },
           { label: "Đã thuộc", value: masteredCount, icon: "ri-checkbox-circle-line", color: "#34d399" },
           { label: "Chưa thuộc", value: allCards.length - masteredCount, icon: "ri-time-line", color: "#fb923c" },
           { label: "Lần ôn tập", value: sessions.length, icon: "ri-refresh-line", color: "#a78bfa" },

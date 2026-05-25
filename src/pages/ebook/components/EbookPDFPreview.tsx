@@ -105,7 +105,7 @@ const FONT_FAMILY_MAP: Record<string, string> = {
 };
 
 function buildHtmlContent(meta: EbookMeta, lessons: ApprovedLesson[], template: EbookTemplate): string {
-  const accent = meta.coverAccent || "app-accent-primary";
+  const accent = meta.coverAccent || "#e8c84a";
   const isDark = template === "dark";
   const hasForeword = !!meta.foreword?.trim();
   const pageOffsets = calcPageOffsets(lessons, hasForeword);
@@ -139,7 +139,7 @@ function buildHtmlContent(meta: EbookMeta, lessons: ApprovedLesson[], template: 
     const subColor = darkMode ? "rgba(255,255,255,0.5)" : "#666";
     const exColor = darkMode ? "rgba(255,255,255,0.35)" : "#888";
     const borderColor = darkMode ? "rgba(255,255,255,0.06)" : "#f0e8c0";
-    const patternColor = darkMode ? "app-accent-primary" : "#1a1a1a";
+    const patternColor = darkMode ? "#e8c84a" : "#1a1a1a";
 
     return points.map((gp, gi) => `
       <div style="margin-bottom:${gi < points.length - 1 ? "18px" : "0"};padding-bottom:${gi < points.length - 1 ? "18px" : "0"};border-bottom:${gi < points.length - 1 ? `1px solid ${borderColor}` : "none"};">

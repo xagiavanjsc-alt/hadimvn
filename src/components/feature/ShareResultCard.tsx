@@ -50,7 +50,7 @@ function ShareResultCard({
           title: `${pct}% — ${score}/${total} câu đúng`,
           subtitle: `${quizType === "topik" ? "TOPIK" : quizType === "hanja" ? "Hán Hàn" : "Quiz từ vựng"} · Cấp ${level}`,
           text: `${pct >= 90 ? "🏆" : pct >= 70 ? "⭐" : "💪"} Mình vừa đạt ${pct}% (${score}/${total} câu) trong bài ${quizType === "topik" ? "TOPIK" : "Quiz Hán Hàn"} trên Hàn Quốc Ơi!\n\n📅 ${today}\n\nLuyện tiếng Hàn miễn phí: hanquocoi.app\n#HànQuốcƠi #HọcTiếngHàn #TOPIK`,
-          color: pct >= 90 ? "#34d399" : pct >= 70 ? "app-accent-primary" : "#fb923c",
+          color: pct >= 90 ? "#34d399" : pct >= 70 ? "#e8c84a" : "#fb923c",
           bg: pct >= 90 ? "from-emerald-900/40 to-[#0f1117]" : pct >= 70 ? "from-app-surface to-[#0f1117]" : "from-[#1a0a00] to-[#0f1117]",
         };
       case "streak":
@@ -59,7 +59,7 @@ function ShareResultCard({
           title: `${streakCount} ngày liên tiếp`,
           subtitle: "Streak học tiếng Hàn",
           text: `🔥 Mình đã học tiếng Hàn ${streakCount} ngày liên tiếp trên Hàn Quốc Ơi!\n\n📅 ${today}\n\nCùng học tiếng Hàn miễn phí: hanquocoi.app\n#HànQuốcƠi #HọcTiếngHàn #Streak${streakCount}Ngày`,
-          color: streakCount >= 30 ? "#f87171" : streakCount >= 14 ? "#fb923c" : "app-accent-primary",
+          color: streakCount >= 30 ? "#f87171" : streakCount >= 14 ? "#fb923c" : "#e8c84a",
           bg: "from-[#1a0800] to-[#0f1117]",
         };
       case "sr":
@@ -77,7 +77,7 @@ function ShareResultCard({
           title: "Học tiếng Hàn",
           subtitle: "Hàn Quốc Ơi!",
           text: `📚 Mình đang học tiếng Hàn trên Hàn Quốc Ơi!\n\nhanquocoi.app\n#HànQuốcƠi #HọcTiếngHàn`,
-          color: "app-accent-primary",
+          color: "#e8c84a",
           bg: "from-app-surface to-[#0f1117]",
         };
     }

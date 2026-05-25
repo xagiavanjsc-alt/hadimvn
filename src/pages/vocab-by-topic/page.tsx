@@ -15,7 +15,7 @@ interface VocabEntry {
 
 const DIFFICULTY_LABELS: Record<number, { label: string; color: string }> = {
   1: { label: "Cơ bản", color: "#34d399" },
-  2: { label: "Trung cấp", color: "app-accent-primary" },
+  2: { label: "Trung cấp", color: "#e8c84a" },
   3: { label: "Nâng cao", color: "#f87171" },
 };
 
@@ -35,7 +35,7 @@ const CATEGORY_COLORS: Record<string, string> = {
   "Địa điểm": "#60a5fa",
   "Đời sống & Cá nhân": "#f472b6",
   "Ngoại hình & Cơ thể": "#a78bfa",
-  "Học thuật & Xin việc": "app-accent-primary",
+  "Học thuật & Xin việc": "#e8c84a",
   "TOPIK I - Cơ bản": "#38bdf8",
 };
 
@@ -48,7 +48,7 @@ function VocabCard({ entry, onFlip }: VocabCardProps) {
   const [flipped, setFlipped] = useState(false);
   const [learned, setLearned] = useState(false);
   const diff = DIFFICULTY_LABELS[entry.difficulty] || DIFFICULTY_LABELS[1];
-  const color = CATEGORY_COLORS[entry.category] || "app-accent-primary";
+  const color = CATEGORY_COLORS[entry.category] || "#e8c84a";
 
   const speak = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -208,7 +208,7 @@ export default function VocabByTopicPage() {
           </span>
         </button>
         {categories.map(cat => {
-          const color = CATEGORY_COLORS[cat] || "app-accent-primary";
+          const color = CATEGORY_COLORS[cat] || "#e8c84a";
           const icon = CATEGORY_ICONS[cat] || "ri-book-line";
           const isActive = selectedCategory === cat;
           return (
@@ -323,7 +323,7 @@ export default function VocabByTopicPage() {
       ) : (
         <div className="space-y-2">
           {sorted.map(entry => {
-            const color = CATEGORY_COLORS[entry.category] || "app-accent-primary";
+            const color = CATEGORY_COLORS[entry.category] || "#e8c84a";
             const diff = DIFFICULTY_LABELS[entry.difficulty] || DIFFICULTY_LABELS[1];
             return (
               <div

@@ -29,7 +29,7 @@ const PRESET_MESSAGES = [
 ];
 
 const REMINDER_TYPES = [
-  { id: "study", label: "Học tập chung", icon: "ri-book-open-line", color: "app-accent-primary", desc: "Nhắc nhở học bài hàng ngày" },
+  { id: "study", label: "Học tập chung", icon: "ri-book-open-line", color: "#e8c84a", desc: "Nhắc nhở học bài hàng ngày" },
   { id: "streak", label: "Duy trì Streak", icon: "ri-fire-line", color: "#fb923c", desc: "Nhắc trước khi mất streak" },
   { id: "challenge", label: "Thử thách tuần", icon: "ri-trophy-line", color: "#34d399", desc: "Nhắc hoàn thành thử thách" },
   { id: "custom", label: "Tùy chỉnh", icon: "ri-settings-3-line", color: "#a78bfa", desc: "Tự đặt nội dung nhắc nhở" },
@@ -397,7 +397,7 @@ export default function StudyReminderPage() {
             <h3 className="text-white font-semibold text-sm mb-4">Trạng thái</h3>
             <div className="space-y-3">
               {[
-                { label: "Tổng nhắc nhở", value: reminders.length, color: "app-accent-primary" },
+                { label: "Tổng nhắc nhở", value: reminders.length, color: "#e8c84a" },
                 { label: "Đang bật", value: enabledCount, color: "#34d399" },
                 { label: "Đang tắt", value: reminders.length - enabledCount, color: "#f87171" },
                 { label: "Quyền thông báo", value: permission === "granted" ? "Đã bật" : "Chưa bật", color: permission === "granted" ? "#34d399" : "#fb923c" },

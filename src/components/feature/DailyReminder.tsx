@@ -13,7 +13,7 @@ interface ReminderSettings {
 }
 
 const STUDY_TOPICS = [
-  { id: "eps", label: "EPS-TOPIK", icon: "ri-file-list-3-line", color: "app-accent-primary" },
+  { id: "eps", label: "EPS-TOPIK", icon: "ri-file-list-3-line", color: "#e8c84a" },
   { id: "topik1", label: "TOPIK I", icon: "ri-book-2-line", color: "#10b981" },
   { id: "topik2", label: "TOPIK II", icon: "ri-book-3-line", color: "#7c3aed" },
   { id: "vocab", label: "Từ vựng", icon: "ri-translate-2", color: "#f59e0b" },

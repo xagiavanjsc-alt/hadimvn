@@ -112,7 +112,7 @@ export default function TranslationPracticePage() {
         {/* Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
           {[
-            { label: "Đã dịch", value: Object.keys(scores).length, icon: "ri-translate-2", color: "app-accent-primary" },
+            { label: "Đã dịch", value: Object.keys(scores).length, icon: "ri-translate-2", color: "#e8c84a" },
             { label: "Điểm TB", value: `${avgScore}%`, icon: "ri-percent-line", color: "#34d399" },
             { label: "Tổng câu", value: items.length, icon: "ri-list-check", color: "#a78bfa" },
           ].map(s => (

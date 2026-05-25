@@ -182,10 +182,10 @@ export default function EpsTopicExamPage() {
                       <div className="space-y-2 mb-4">
                         <div className="flex items-center justify-between text-[10px]">
                           <span className="text-app-text-muted">Điểm cao nhất</span>
-                          <span className="font-bold" style={{ color: bestScore >= 80 ? "#34d399" : bestScore >= 60 ? "app-accent-primary" : "#f87171" }}>{bestScore}%</span>
+                          <span className="font-bold" style={{ color: bestScore >= 80 ? "#34d399" : bestScore >= 60 ? "#e8c84a" : "#f87171" }}>{bestScore}%</span>
                         </div>
                         <div className="h-1.5 bg-app-card/50 rounded-full overflow-hidden">
-                          <div className="h-full rounded-full transition-all" style={{ width: `${bestScore}%`, backgroundColor: bestScore >= 80 ? "#34d399" : bestScore >= 60 ? "app-accent-primary" : "#f87171" }} />
+                          <div className="h-full rounded-full transition-all" style={{ width: `${bestScore}%`, backgroundColor: bestScore >= 80 ? "#34d399" : bestScore >= 60 ? "#e8c84a" : "#f87171" }} />
                         </div>
                         <p className="text-app-text-muted text-[10px]">{topicHistory.length} lần thi · TB {avgScore}%</p>
                       </div>
@@ -214,7 +214,7 @@ export default function EpsTopicExamPage() {
               <h3 className="text-white font-semibold text-sm mb-4"><i className="ri-information-line text-app-accent-primary mr-2"></i>Thông tin đề thi</h3>
               <div className="space-y-3">
                 {[
-                  { icon: "ri-survey-line", color: "app-accent-primary", label: "Số câu hỏi", value: "20 câu" },
+                  { icon: "ri-survey-line", color: "#e8c84a", label: "Số câu hỏi", value: "20 câu" },
                   { icon: "ri-timer-line", color: "#34d399", label: "Thời gian", value: "25 phút" },
                   { icon: "ri-focus-3-line", color: "#a78bfa", label: "Phạm vi", value: "1 chủ đề" },
                   { icon: "ri-trophy-line", color: "#fb923c", label: "Điểm đậu", value: "≥ 80%" },
@@ -239,7 +239,7 @@ export default function EpsTopicExamPage() {
                 <div className="space-y-2">
                   {history.slice(-5).reverse().map((h, i) => {
                     const pct = Math.round((h.score / h.total) * 100);
-                    const color = pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171";
+                    const color = pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : "#f87171";
                     const topic = EPS_TOPICS.find(t => t.id === h.topicId);
                     return (
                       <div key={i} className="flex items-center gap-2.5 px-3 py-2 bg-app-surface/50 rounded-xl">
@@ -419,7 +419,7 @@ export default function EpsTopicExamPage() {
     const grade = pct >= 80
       ? { label: "Xuất sắc!", color: "#34d399", icon: "ri-trophy-line", desc: "Bạn đã nắm vững chủ đề này!" }
       : pct >= 60
-      ? { label: "Khá tốt", color: "app-accent-primary", icon: "ri-medal-line", desc: "Cần ôn thêm một chút nữa." }
+      ? { label: "Khá tốt", color: "#e8c84a", icon: "ri-medal-line", desc: "Cần ôn thêm một chút nữa." }
       : { label: "Cần ôn thêm", color: "#f87171", icon: "ri-refresh-line", desc: "Hãy ôn luyện thêm chủ đề này." };
 
     const lastResult = history[history.length - 1];

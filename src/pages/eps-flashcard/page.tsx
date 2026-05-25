@@ -20,7 +20,7 @@ function EpsFlipCard({
 }) {
   const [flipped, setFlipped] = useState(false);
   const topic = EPS_VOCAB_TOPICS.find(t => t.id === card.topic);
-  const diffColor = card.difficulty === "easy" ? "#34d399" : card.difficulty === "medium" ? "app-accent-primary" : "#f87171";
+  const diffColor = card.difficulty === "easy" ? "#34d399" : card.difficulty === "medium" ? "#e8c84a" : "#f87171";
 
   const touchStartX = useRef<number | null>(null);
   const touchStartY = useRef<number | null>(null);
@@ -191,7 +191,7 @@ function SessionResult({
   hasWrong: boolean;
 }) {
   const pct = total > 0 ? Math.round((known / total) * 100) : 0;
-  const color = pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#fb923c";
+  const color = pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : "#fb923c";
   const label = pct >= 80 ? "Xuất sắc!" : pct >= 60 ? "Khá tốt!" : "Cần ôn thêm!";
 
   return (
@@ -333,7 +333,7 @@ export default function EpsFlashcardPage() {
       {/* Overall stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
         {[
-          { label: "Tổng từ vựng", value: epsVocabulary.length, icon: "ri-translate-2", color: "app-accent-primary" },
+          { label: "Tổng từ vựng", value: epsVocabulary.length, icon: "ri-translate-2", color: "#e8c84a" },
           { label: "Đã thuộc", value: totalMastered, icon: "ri-checkbox-circle-line", color: "#34d399" },
           { label: "Chưa thuộc", value: epsVocabulary.length - totalMastered, icon: "ri-time-line", color: "#fb923c" },
           { label: "Tiến độ", value: `${overallPct}%`, icon: "ri-pie-chart-line", color: "#a78bfa" },
@@ -427,7 +427,7 @@ export default function EpsFlashcardPage() {
                 {filteredCards.map(card => {
                   const topic = EPS_VOCAB_TOPICS.find(t => t.id === card.topic);
                   const isMastered = masteredIds.includes(card.id);
-                  const diffColor = card.difficulty === "easy" ? "#34d399" : card.difficulty === "medium" ? "app-accent-primary" : "#f87171";
+                  const diffColor = card.difficulty === "easy" ? "#34d399" : card.difficulty === "medium" ? "#e8c84a" : "#f87171";
                   return (
                     <div
                       key={card.id}

@@ -37,7 +37,7 @@ function getDailyWords(all: VocabEntry[], count = 5): VocabEntry[] {
 function DiffBadge({ d }: { d: number }) {
   const map = [
     { label: "Cơ bản", color: "#34d399" },
-    { label: "Trung cấp", color: "app-accent-primary" },
+    { label: "Trung cấp", color: "#e8c84a" },
     { label: "Nâng cao", color: "#f87171" },
   ];
   const info = map[Math.min(d - 1, 2)] || map[0];
@@ -62,7 +62,7 @@ function DailyVocabCard({
     <div className={`bg-app-bg border rounded-2xl p-5 transition-all ${isLearned ? "border-emerald-500/25" : "border-app-border hover:border-app-border"}`}>
       <div className="flex items-start justify-between mb-3">
         <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-xl flex items-center justify-center text-xs font-bold flex-shrink-0" style={{ backgroundColor: "rgba(232,200,74,0.12)", color: "app-accent-primary" }}>
+          <div className="w-7 h-7 rounded-xl flex items-center justify-center text-xs font-bold flex-shrink-0" style={{ backgroundColor: "rgba(232,200,74,0.12)", color: "#e8c84a" }}>
             {index + 1}
           </div>
           <DiffBadge d={word.difficulty} />
@@ -227,7 +227,7 @@ export default function DailyVocabPage() {
           </div>
         </div>
         <div className="h-2 bg-app-card/50 rounded-full overflow-hidden">
-          <div className="h-full rounded-full transition-all duration-700" style={{ width: `${progress}%`, backgroundColor: progress === 100 ? "#34d399" : "app-accent-primary" }}></div>
+          <div className="h-full rounded-full transition-all duration-700" style={{ width: `${progress}%`, backgroundColor: progress === 100 ? "#34d399" : "#e8c84a" }}></div>
         </div>
         {progress === 100 && (
           <div className="mt-3 flex items-center gap-2 text-app-accent-success text-sm">
@@ -240,7 +240,7 @@ export default function DailyVocabPage() {
       {/* Stats row */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "Từ hôm nay", value: dailyWords.length, icon: "ri-book-open-line", color: "app-accent-primary" },
+          { label: "Từ hôm nay", value: dailyWords.length, icon: "ri-book-open-line", color: "#e8c84a" },
           { label: "Đã xem nghĩa", value: revealedCount, icon: "ri-eye-line", color: "#60a5fa" },
           { label: "Đã thuộc", value: learnedCount, icon: "ri-checkbox-circle-line", color: "#34d399" },
           { label: "Streak", value: `${streak.count} ngày`, icon: "ri-fire-line", color: "#fb923c" },

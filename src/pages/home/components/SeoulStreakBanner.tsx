@@ -48,7 +48,7 @@ export default function SeoulStreakBanner() {
       : seoulStreak.count >= 14
       ? "#fb923c"
       : seoulStreak.count >= 7
-      ? "app-accent-primary"
+      ? "#e8c84a"
       : "#f97316";
 
   return (

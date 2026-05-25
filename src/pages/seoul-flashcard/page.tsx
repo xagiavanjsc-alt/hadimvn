@@ -298,7 +298,7 @@ export default function SeoulFlashcardPage() {
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
           {[
-            { label: "Tổng từ vựng", value: ALL_FLASHCARDS.length, color: "app-accent-primary", icon: "ri-stack-line" },
+            { label: "Tổng từ vựng", value: ALL_FLASHCARDS.length, color: "#e8c84a", icon: "ri-stack-line" },
             { label: "Đã thuộc", value: totalKnown, color: "#34d399", icon: "ri-checkbox-circle-line" },
             { label: "Đang học", value: totalLearning, color: "#fb923c", icon: "ri-refresh-line" },
             { label: "Chưa học", value: totalNew, color: "#a78bfa", icon: "ri-time-line" },

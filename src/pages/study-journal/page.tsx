@@ -71,7 +71,7 @@ function ShareJournalModal({ entry, onClose }: ShareJournalModalProps) {
     great: "#34d399", good: "#60a5fa", okay: "#fbbf24", tired: "#f87171", hard: "#a78bfa",
   };
 
-  const accent = moodAccent[entry.mood] || "app-accent-primary";
+  const accent = moodAccent[entry.mood] || "#e8c84a";
   const bg = moodBg[entry.mood] || moodBg.okay;
 
   const handleDownload = useCallback(async () => {
@@ -761,7 +761,7 @@ export default function StudyJournalPage() {
           {/* Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
             {[
-              { icon: "ri-calendar-check-line", label: "Tổng ngày ghi", value: entries.length, color: "app-accent-primary", unit: "ngày" },
+              { icon: "ri-calendar-check-line", label: "Tổng ngày ghi", value: entries.length, color: "#e8c84a", unit: "ngày" },
               { icon: "ri-time-line", label: "Tổng thời gian", value: Math.round(totalMinutes / 60), color: "#34d399", unit: "giờ" },
               { icon: "ri-translate-2", label: "Tổng từ học", value: totalWords, color: "#60a5fa", unit: "từ" },
               { icon: "ri-fire-line", label: "Streak hiện tại", value: streak, color: "#f87171", unit: "ngày" },

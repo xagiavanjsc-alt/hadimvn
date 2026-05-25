@@ -77,7 +77,7 @@ function AttemptCard({ attempt, isSelected, onClick }: {
   onClick: () => void;
 }) {
   const pct = Math.round((attempt.score / attempt.total) * 100);
-  const color = pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : pct >= 40 ? "#fb923c" : "#f87171";
+  const color = pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : pct >= 40 ? "#fb923c" : "#f87171";
   const label = pct >= 80 ? "Xuất sắc" : pct >= 60 ? "Tốt" : pct >= 40 ? "Trung bình" : "Cần cố gắng";
   const date = new Date(attempt.date);
   const dateStr = date.toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" });
@@ -198,7 +198,7 @@ export default function QuizHistoryDetailPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "Tổng lần làm", value: totalAttempts, icon: "ri-history-line", color: "app-accent-primary" },
+          { label: "Tổng lần làm", value: totalAttempts, icon: "ri-history-line", color: "#e8c84a" },
           { label: "Điểm trung bình", value: `${avgScore}%`, icon: "ri-bar-chart-line", color: "#34d399" },
           { label: "Điểm cao nhất", value: `${bestScore}%`, icon: "ri-trophy-line", color: "#fb923c" },
           { label: "Tổng câu sai", value: totalWrong, icon: "ri-close-circle-line", color: "#f87171" },

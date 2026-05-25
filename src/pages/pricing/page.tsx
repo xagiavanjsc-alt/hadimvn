@@ -190,7 +190,7 @@ function FeatureRow({ feature }: { feature: PlanFeature }) {
     }
     if (val === true) {
       return (
-        <div className="w-6 h-6 flex items-center justify-center rounded-full mx-auto" style={{ backgroundColor: isVip ? "app-accent-primary20" : "#34d39920" }}>
+        <div className="w-6 h-6 flex items-center justify-center rounded-full mx-auto" style={{ backgroundColor: isVip ? "rgba(232,200,74,0.20)" : "#34d39920" }}>
           <i className={`ri-check-line text-sm ${isVip ? "text-app-accent-primary" : "text-app-accent-success"}`}></i>
         </div>
       );
@@ -286,7 +286,7 @@ function AutoRenewSection({ isVip, vipExpiresAt }: { isVip: boolean; vipExpiresA
           onClick={handleToggle}
           disabled={saving}
           className="relative w-12 h-6 rounded-full cursor-pointer flex-shrink-0 transition-colors disabled:opacity-50"
-          style={{ backgroundColor: autoRenew ? "app-accent-primary" : "rgba(255,255,255,0.1)" }}
+          style={{ backgroundColor: autoRenew ? "#e8c84a" : "rgba(255,255,255,0.1)" }}
         >
           <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-all ${autoRenew ? "left-7" : "left-1"}`} />
         </button>

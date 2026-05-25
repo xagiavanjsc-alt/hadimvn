@@ -30,7 +30,7 @@ interface PathPhase {
   steps: PathStep[];
 }
 
-const PHASE_COLORS = ["app-accent-primary", "#34d399", "#fb923c", "#a78bfa", "#06b6d4", "#f87171"];
+const PHASE_COLORS = ["#e8c84a", "#34d399", "#fb923c", "#a78bfa", "#06b6d4", "#f87171"];
 
 export default function LearningPathPage() {
   const navigate = useNavigate();
@@ -68,7 +68,7 @@ export default function LearningPathPage() {
           titleVi: "Học 40 ký tự cơ bản",
           description: "Nắm vững nguyên âm và phụ âm tiếng Hàn",
           icon: "ri-font-size",
-          color: "app-accent-primary",
+          color: "#e8c84a",
           route: "/hangul",
           type: "hangul",
           estimatedMinutes: 30,
@@ -83,7 +83,7 @@ export default function LearningPathPage() {
           titleVi: "자기소개 — 40 từ vựng",
           description: "Học cách giới thiệu bản thân, quốc tịch, nghề nghiệp",
           icon: "ri-hand-heart-line",
-          color: "app-accent-primary",
+          color: "#e8c84a",
           route: "/eps-lessons",
           type: "lesson",
           estimatedMinutes: 20,
@@ -97,7 +97,7 @@ export default function LearningPathPage() {
           titleVi: "생활용품 — 27 từ vựng",
           description: "Tên các đồ dùng hàng ngày trong tiếng Hàn",
           icon: "ri-home-3-line",
-          color: "app-accent-primary",
+          color: "#e8c84a",
           route: "/eps-lessons",
           type: "lesson",
           estimatedMinutes: 20,
@@ -637,7 +637,7 @@ export default function LearningPathPage() {
       {/* Bottom stats */}
       <div className="mt-6 grid grid-cols-4 gap-4">
         {[
-          { label: "Bài học hoàn thành", value: lessonsDone, icon: "ri-book-open-line", color: "app-accent-primary" },
+          { label: "Bài học hoàn thành", value: lessonsDone, icon: "ri-book-open-line", color: "#e8c84a" },
           { label: "Từ vựng đã thuộc", value: flashcardKnown, icon: "ri-stack-line", color: "#34d399" },
           { label: "Câu EPS đã làm", value: epsDone, icon: "ri-file-list-3-line", color: "#fb923c" },
           { label: "Điểm thi cao nhất", value: `${bestExamScore}%`, icon: "ri-trophy-line", color: "#a78bfa" },

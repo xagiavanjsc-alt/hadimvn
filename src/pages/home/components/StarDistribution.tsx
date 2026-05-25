@@ -45,7 +45,7 @@ export default function StarDistribution({ lessons }: StarDistributionProps) {
                 style={{
                   width: `${barPct}%`,
                   backgroundColor:
-                    d.stars >= 4 ? "app-accent-primary" : d.stars >= 3 ? "#fb923c" : "rgba(255,255,255,0.2)",
+                    d.stars >= 4 ? "#e8c84a" : d.stars >= 3 ? "#fb923c" : "rgba(255,255,255,0.2)",
                 }}
               />
             </div>

@@ -36,7 +36,7 @@ function getLevelConfig(level: TopicAnalysis["level"]) {
   switch (level) {
     case "critical": return { label: "Rất yếu", color: "#f87171", bg: "rgba(248,113,113,0.08)", border: "rgba(248,113,113,0.2)", icon: "ri-alarm-warning-line" };
     case "weak": return { label: "Yếu", color: "#fb923c", bg: "rgba(251,146,60,0.08)", border: "rgba(251,146,60,0.2)", icon: "ri-error-warning-line" };
-    case "average": return { label: "Trung bình", color: "app-accent-primary", bg: "rgba(232,200,74,0.08)", border: "rgba(232,200,74,0.2)", icon: "ri-subtract-line" };
+    case "average": return { label: "Trung bình", color: "#e8c84a", bg: "rgba(232,200,74,0.08)", border: "rgba(232,200,74,0.2)", icon: "ri-subtract-line" };
     case "strong": return { label: "Tốt", color: "#34d399", bg: "rgba(52,211,153,0.08)", border: "rgba(52,211,153,0.2)", icon: "ri-checkbox-circle-line" };
   }
 }
@@ -99,7 +99,7 @@ function TopicBar({ analysis, rank, onClick, isSelected }: {
 
 // ─── Roadmap Card ─────────────────────────────────────────────────────────
 function RoadmapCard({ step }: { step: RoadmapStep }) {
-  const priorityColor = step.priority === "high" ? "#f87171" : step.priority === "medium" ? "app-accent-primary" : "#34d399";
+  const priorityColor = step.priority === "high" ? "#f87171" : step.priority === "medium" ? "#e8c84a" : "#34d399";
   const priorityLabel = step.priority === "high" ? "Ưu tiên cao" : step.priority === "medium" ? "Ưu tiên TB" : "Ưu tiên thấp";
   return (
     <div className="flex items-start gap-4 p-4 bg-app-bg border border-app-border rounded-xl">
@@ -155,7 +155,7 @@ function ShareModal({
     navigate("/community");
   }, [navigate, onClose]);
 
-  const scoreColor = overallAccuracy >= 70 ? "#34d399" : overallAccuracy >= 50 ? "app-accent-primary" : "#f87171";
+  const scoreColor = overallAccuracy >= 70 ? "#34d399" : overallAccuracy >= 50 ? "#e8c84a" : "#f87171";
   const worstTopics = [...topicAnalysis].sort((a, b) => a.accuracy - b.accuracy).slice(0, 3);
   const bestTopics = [...topicAnalysis].sort((a, b) => b.accuracy - a.accuracy).slice(0, 3);
 
@@ -440,8 +440,8 @@ export default function EpsWeaknessAnalysisPage() {
       )}
       {/* Stats overview */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-        <StatCard icon="ri-question-answer-line" label="Câu đã làm" value={totalAnswered} sub={`/ ${epsQuestions.length} câu`} color="app-accent-primary" />
-        <StatCard icon="ri-percent-line" label="Độ chính xác tổng" value={`${overallAccuracy}%`} sub={`${totalCorrect} câu đúng`} color={overallAccuracy >= 70 ? "#34d399" : overallAccuracy >= 50 ? "app-accent-primary" : "#f87171"} />
+        <StatCard icon="ri-question-answer-line" label="Câu đã làm" value={totalAnswered} sub={`/ ${epsQuestions.length} câu`} color="#e8c84a" />
+        <StatCard icon="ri-percent-line" label="Độ chính xác tổng" value={`${overallAccuracy}%`} sub={`${totalCorrect} câu đúng`} color={overallAccuracy >= 70 ? "#34d399" : overallAccuracy >= 50 ? "#e8c84a" : "#f87171"} />
         <StatCard icon="ri-alarm-warning-line" label="Chủ đề cần ôn" value={criticalTopics.length} sub="yếu + rất yếu" color="#f87171" />
         <StatCard icon="ri-trophy-line" label="Chủ đề tốt" value={strongTopics.length} sub="trên 80% chính xác" color="#34d399" />
       </div>
@@ -661,7 +661,7 @@ export default function EpsWeaknessAnalysisPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {[
                     { label: "Ôn chủ đề yếu", value: `${criticalTopics.length * 3}–${criticalTopics.length * 5} ngày`, color: "#f87171" },
-                    { label: "Luyện tổng hợp", value: "3–5 ngày", color: "app-accent-primary" },
+                    { label: "Luyện tổng hợp", value: "3–5 ngày", color: "#e8c84a" },
                     { label: "Tổng cộng", value: `${criticalTopics.length * 3 + 3}–${criticalTopics.length * 5 + 5} ngày`, color: "#34d399" },
                   ].map(s => (
                     <div key={s.label} className="text-center p-3 bg-app-surface/50 rounded-xl">
@@ -680,7 +680,7 @@ export default function EpsWeaknessAnalysisPage() {
               <p className="text-white font-semibold text-sm mb-3">Mẹo học hiệu quả</p>
               <div className="space-y-3">
                 {[
-                  { icon: "ri-time-line", color: "app-accent-primary", tip: "Học 15–20 phút mỗi ngày hiệu quả hơn học 2 tiếng 1 lần/tuần" },
+                  { icon: "ri-time-line", color: "#e8c84a", tip: "Học 15–20 phút mỗi ngày hiệu quả hơn học 2 tiếng 1 lần/tuần" },
                   { icon: "ri-brain-line", color: "#a78bfa", tip: "Dùng Spaced Repetition để ôn câu sai — não nhớ lâu hơn 5x" },
                   { icon: "ri-focus-3-line", color: "#34d399", tip: "Tập trung vào 1–2 chủ đề yếu nhất trước, đừng học dàn trải" },
                   { icon: "ri-headphone-line", color: "#38bdf8", tip: "Nghe TTS phát âm khi học flashcard để nhớ từ nhanh hơn" },
@@ -700,7 +700,7 @@ export default function EpsWeaknessAnalysisPage() {
               <p className="text-white font-semibold text-sm mb-3">Mục tiêu EPS-TOPIK</p>
               <div className="space-y-2.5">
                 {[
-                  { label: "Điểm đậu tối thiểu", value: "80/200", color: "app-accent-primary" },
+                  { label: "Điểm đậu tối thiểu", value: "80/200", color: "#e8c84a" },
                   { label: "Độ chính xác cần đạt", value: "≥ 70%", color: "#34d399" },
                   { label: "Số câu đúng tối thiểu", value: "32/40 câu", color: "#38bdf8" },
                   { label: "Thời gian làm bài", value: "70 phút", color: "#a78bfa" },

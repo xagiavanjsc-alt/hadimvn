@@ -143,7 +143,7 @@ export default function VocabStatsPage() {
     rating: r,
     count: srsEntries.filter(e => e.lastRating === r).length,
     label: ["Không nhớ", "Khó", "Nhớ được", "Dễ", "Rất dễ"][r - 1],
-    color: ["#f87171", "#fb923c", "app-accent-primary", "#34d399", "#a78bfa"][r - 1],
+    color: ["#f87171", "#fb923c", "#e8c84a", "#34d399", "#a78bfa"][r - 1],
   }));
   const maxRating = Math.max(...ratingDist.map(r => r.count), 1);
 
@@ -161,7 +161,7 @@ export default function VocabStatsPage() {
       {/* Top stats */}
       <div className="grid grid-cols-5 gap-4 mb-6">
         {[
-          { label: "Tổng từ vựng", value: totalVocab, icon: "ri-book-open-line", color: "app-accent-primary", sub: "trong database" },
+          { label: "Tổng từ vựng", value: totalVocab, icon: "ri-book-open-line", color: "#e8c84a", sub: "trong database" },
           { label: "Đã thuộc", value: masteredCount, icon: "ri-check-double-line", color: "#34d399", sub: `${totalVocab > 0 ? Math.round((masteredCount / totalVocab) * 100) : 0}% tổng số` },
           { label: "Đã ôn tập", value: totalReviewed, icon: "ri-refresh-line", color: "#fb923c", sub: "lần với SRS" },
           { label: "Streak hiện tại", value: `${currentStreak} ngày`, icon: "ri-fire-line", color: "#f87171", sub: "liên tiếp" },
@@ -225,7 +225,7 @@ export default function VocabStatsPage() {
                         className="w-full rounded-t-lg transition-all duration-500"
                         style={{
                           height: `${Math.max(pct, 4)}%`,
-                          backgroundColor: isToday ? "app-accent-primary" : "rgba(255,255,255,0.1)",
+                          backgroundColor: isToday ? "#e8c84a" : "rgba(255,255,255,0.1)",
                         }}
                       ></div>
                     </div>
@@ -247,7 +247,7 @@ export default function VocabStatsPage() {
               <div className="space-y-2.5">
                 {categoryStats.map((cat, i) => {
                   const pct = totalVocab > 0 ? (cat.count / totalVocab) * 100 : 0;
-                  const colors = ["app-accent-primary", "#34d399", "#fb923c", "#f87171", "#a78bfa", "#84cc16", "#06b6d4", "#f472b6"];
+                  const colors = ["#e8c84a", "#34d399", "#fb923c", "#f87171", "#a78bfa", "#84cc16", "#06b6d4", "#f472b6"];
                   const color = colors[i % colors.length];
                   return (
                     <div key={cat.category}>
@@ -302,7 +302,7 @@ export default function VocabStatsPage() {
                   <circle cx="18" cy="18" r="15" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="3" />
                   <circle
                     cx="18" cy="18" r="15" fill="none"
-                    stroke="app-accent-primary" strokeWidth="3"
+                    stroke="#e8c84a" strokeWidth="3"
                     strokeDasharray={`${totalVocab > 0 ? (masteredCount / totalVocab) * 94.2 : 0} 94.2`}
                     strokeLinecap="round"
                   />

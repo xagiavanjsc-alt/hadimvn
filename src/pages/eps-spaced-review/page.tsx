@@ -57,7 +57,7 @@ function getDefaultCard(id: string): SRCard {
 const QUALITY_LABELS = [
   { q: 0 as const, label: "Không nhớ", color: "#f87171", bg: "bg-red-500/10 border-red-500/20 hover:bg-red-500/20", icon: "ri-close-circle-line" },
   { q: 2 as const, label: "Khó", color: "#fb923c", bg: "bg-orange-500/10 border-orange-500/20 hover:bg-orange-500/20", icon: "ri-emotion-sad-line" },
-  { q: 3 as const, label: "Được", color: "app-accent-primary", bg: "bg-app-accent-primary/10 border-app-accent-primary/20 hover:bg-app-accent-primary/20", icon: "ri-emotion-normal-line" },
+  { q: 3 as const, label: "Được", color: "#e8c84a", bg: "bg-app-accent-primary/10 border-app-accent-primary/20 hover:bg-app-accent-primary/20", icon: "ri-emotion-normal-line" },
   { q: 5 as const, label: "Dễ", color: "#34d399", bg: "bg-emerald-500/10 border-emerald-500/20 hover:bg-emerald-500/20", icon: "ri-emotion-happy-line" },
 ];
 
@@ -71,7 +71,7 @@ function StatsPanel({ cards, srData }: { cards: EpsVocabItem[]; srData: Record<s
     <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
       {[
         { label: "Cần ôn hôm nay", value: dueToday, color: dueToday > 0 ? "#f87171" : "#34d399", icon: "ri-time-line" },
-        { label: "Đã học", value: learned, color: "app-accent-primary", icon: "ri-book-open-line" },
+        { label: "Đã học", value: learned, color: "#e8c84a", icon: "ri-book-open-line" },
         { label: "Thuộc lòng", value: mastered, color: "#a78bfa", icon: "ri-brain-line" },
         { label: "Tổng từ", value: cards.length, color: "#fb923c", icon: "ri-file-list-3-line" },
       ].map(s => (
@@ -570,7 +570,7 @@ function WrongQuestionsTab() {
               {[
                 { icon: "ri-error-warning-line", color: "#f87171", text: "Câu EPS làm sai tự động được thêm vào hàng đợi SR" },
                 { icon: "ri-time-line", color: "#fb923c", text: "SM-2 tính toán thời điểm ôn lại tối ưu cho từng câu" },
-                { icon: "ri-brain-line", color: "app-accent-primary", text: "Câu khó xuất hiện lại sớm hơn, câu dễ ôn sau nhiều ngày" },
+                { icon: "ri-brain-line", color: "#e8c84a", text: "Câu khó xuất hiện lại sớm hơn, câu dễ ôn sau nhiều ngày" },
                 { icon: "ri-checkbox-circle-line", color: "#34d399", text: "Sau 4+ lần ôn đúng, câu được đánh dấu nắm vững" },
               ].map((item, i) => (
                 <div key={i} className="flex items-start gap-3">
@@ -655,7 +655,7 @@ function VocabSRTab() {
     const buckets = [
       { label: "Mới", min: 0, max: 0, color: "#f87171" },
       { label: "1 ngày", min: 1, max: 1, color: "#fb923c" },
-      { label: "2-6 ngày", min: 2, max: 6, color: "app-accent-primary" },
+      { label: "2-6 ngày", min: 2, max: 6, color: "#e8c84a" },
       { label: "1-2 tuần", min: 7, max: 14, color: "#34d399" },
       { label: "Thuộc lòng", min: 15, max: 9999, color: "#a78bfa" },
     ];
@@ -766,7 +766,7 @@ export default function EpsSpacedReviewPage() {
   const [activeTab, setActiveTab] = useState<"vocab" | "wrong">("vocab");
 
   const tabs = [
-    { id: "vocab" as const, label: "Từ vựng EPS", icon: "ri-translate-2", color: "app-accent-primary" },
+    { id: "vocab" as const, label: "Từ vựng EPS", icon: "ri-translate-2", color: "#e8c84a" },
     { id: "wrong" as const, label: "Câu hỏi sai", icon: "ri-error-warning-line", color: "#f87171" },
   ];
 

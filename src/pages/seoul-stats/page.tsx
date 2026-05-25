@@ -31,7 +31,7 @@ const BOOK_COLORS: Record<string, string> = {
 // ─── Mini bar chart ───────────────────────────────────────────────────────────
 function BarChart({
   data,
-  color = "app-accent-primary",
+  color = "#e8c84a",
   isEmpty = false,
 }: {
   data: { label: string; value: number; max: number }[];
@@ -245,7 +245,7 @@ export default function SeoulStatsPage() {
           {[
             { label: "Bài đã hoàn thành", value: totalCompleted, max: totalLessons, icon: "ri-checkbox-circle-line", color: "#34d399" },
             { label: "Tổng quiz đã làm", value: totalQuizzes, max: null, icon: "ri-file-list-3-line", color: "#60a5fa" },
-            { label: "Tỷ lệ đúng TB", value: overallAccuracy, max: null, icon: "ri-percent-line", color: "app-accent-primary", suffix: "%" },
+            { label: "Tỷ lệ đúng TB", value: overallAccuracy, max: null, icon: "ri-percent-line", color: "#e8c84a", suffix: "%" },
             { label: "Streak hiện tại", value: streakData.count, max: null, icon: "ri-fire-line", color: "#fb923c", suffix: " ngày" },
           ].map((kpi, i) => (
             <div key={i} className="bg-[#1a1d27] border border-app-border rounded-xl p-4">
@@ -280,7 +280,7 @@ export default function SeoulStatsPage() {
               <h3 className="text-white font-semibold text-sm mb-5">Tiến độ tổng thể</h3>
               <div className="flex items-center justify-around">
                 <DonutChart value={totalCompleted} max={totalLessons} color="#34d399" label="Bài hoàn thành" />
-                <DonutChart value={overallAccuracy} max={100} color="app-accent-primary" label="Tỷ lệ đúng TB" />
+                <DonutChart value={overallAccuracy} max={100} color="#e8c84a" label="Tỷ lệ đúng TB" />
                 <DonutChart value={wrongWords.length} max={Math.max(wrongWords.length, 50)} color="#f87171" label="Từ sai tích lũy" />
               </div>
             </div>
@@ -290,7 +290,7 @@ export default function SeoulStatsPage() {
               <div className="space-y-4">
                 {[
                   { label: "Streak hiện tại", value: `${streakData.count} ngày`, icon: "ri-fire-line", color: "#fb923c" },
-                  { label: "Streak dài nhất", value: `${streakData.longestStreak || streakData.count} ngày`, icon: "ri-trophy-line", color: "app-accent-primary" },
+                  { label: "Streak dài nhất", value: `${streakData.longestStreak || streakData.count} ngày`, icon: "ri-trophy-line", color: "#e8c84a" },
                   { label: "Tổng từ vựng giáo trình", value: `${totalVocab.toLocaleString()} từ`, icon: "ri-translate-2", color: "#34d399" },
                   { label: "Từ sai cần ôn", value: `${wrongWords.length} từ`, icon: "ri-error-warning-line", color: "#f87171" },
                 ].map((s, i) => (
@@ -350,7 +350,7 @@ export default function SeoulStatsPage() {
                     <span className="text-[10px] text-white/50">{b.accuracy > 0 ? `${b.accuracy}%` : "-"}</span>
                     <div className="w-full rounded-t-md transition-all duration-700 group-hover:opacity-80" style={{
                       height: `${Math.max(4, b.accuracy)}px`,
-                      backgroundColor: b.accuracy > 0 ? (BOOK_COLORS[b.bookId] || "app-accent-primary") : "rgba(255,255,255,0.06)",
+                      backgroundColor: b.accuracy > 0 ? (BOOK_COLORS[b.bookId] || "#e8c84a") : "rgba(255,255,255,0.06)",
                       opacity: !hasRealData ? 0.5 : 1,
                     }}></div>
                     <span className="text-[10px] text-white/35">{b.bookId}</span>
@@ -361,7 +361,7 @@ export default function SeoulStatsPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
               {bookStats.map(book => {
-                const color = BOOK_COLORS[book.id] || "app-accent-primary";
+                const color = BOOK_COLORS[book.id] || "#e8c84a";
                 const pct = book.total > 0 ? Math.round((book.completed / book.total) * 100) : 0;
                 return (
                   <div key={book.id} className="bg-[#1a1d27] border border-app-border rounded-xl p-4">
@@ -415,7 +415,7 @@ export default function SeoulStatsPage() {
               <p className="text-app-text-muted text-xs mb-5">Số từ vựng đã ôn qua quiz mỗi ngày</p>
               <BarChart
                 data={displayWeeklyData.map(d => ({ label: d.label, value: d.value, max: maxWeekly }))}
-                color="app-accent-primary"
+                color="#e8c84a"
                 isEmpty={!hasRealData}
               />
               {hasRealData && weeklyData.every(d => d.value === 0) && (
@@ -458,7 +458,7 @@ export default function SeoulStatsPage() {
                     const pct = Math.round((q.score / q.total) * 100);
                     const book = seoulBooks.find(b => b.id === q.bookId);
                     const lesson = book?.lessons.find(l => l.id === q.lessonId);
-                    const color = BOOK_COLORS[q.bookId] || "app-accent-primary";
+                    const color = BOOK_COLORS[q.bookId] || "#e8c84a";
                     return (
                       <div key={i} className="flex items-center gap-3 p-3 bg-app-surface/50 rounded-xl">
                         <div className="w-8 h-8 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: color + "18" }}>
@@ -469,7 +469,7 @@ export default function SeoulStatsPage() {
                           <p className="text-app-text-muted text-[10px]">{q.date ? new Date(q.date).toLocaleDateString("vi-VN") : "—"}</p>
                         </div>
                         <div className="text-right flex-shrink-0">
-                          <p className="text-sm font-semibold" style={{ color: pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171" }}>{pct}%</p>
+                          <p className="text-sm font-semibold" style={{ color: pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : "#f87171" }}>{pct}%</p>
                           <p className="text-app-text-muted text-[10px]">{q.score}/{q.total}</p>
                         </div>
                       </div>
@@ -488,7 +488,7 @@ export default function SeoulStatsPage() {
               {[
                 { label: "Tổng từ sai", value: wrongWords.length, color: "#f87171", icon: "ri-error-warning-line" },
                 { label: "Cuốn nhiều lỗi nhất", value: Object.entries(wrongByBook).sort((a, b) => b[1] - a[1])[0]?.[0] || "—", color: "#fb923c", icon: "ri-book-3-line" },
-                { label: "Cần ôn lại", value: `${wrongWords.length} từ`, color: "app-accent-primary", icon: "ri-refresh-line" },
+                { label: "Cần ôn lại", value: `${wrongWords.length} từ`, color: "#e8c84a", icon: "ri-refresh-line" },
               ].map((s, i) => (
                 <div key={i} className="bg-[#1a1d27] border border-app-border rounded-xl p-4 flex items-center gap-3">
                   <div className="w-9 h-9 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: s.color + "18" }}>
@@ -511,7 +511,7 @@ export default function SeoulStatsPage() {
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                 {wrongWords.slice(0, 30).map((w, i) => {
-                  const color = BOOK_COLORS[w.bookId] || "app-accent-primary";
+                  const color = BOOK_COLORS[w.bookId] || "#e8c84a";
                   return (
                     <div key={i} className="bg-[#1a1d27] border border-red-500/15 rounded-xl p-4">
                       <div className="flex items-start justify-between gap-2 mb-2">

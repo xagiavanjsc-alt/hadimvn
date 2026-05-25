@@ -179,7 +179,7 @@ function WeeklyChart({
   const maxVal = Math.max(...values, 1);
 
   const metricLabel = metric === "minutes" ? "phút" : metric === "xp" ? "XP" : "từ";
-  const metricColor = metric === "minutes" ? "app-accent-primary" : metric === "xp" ? "#a78bfa" : "#34d399";
+  const metricColor = metric === "minutes" ? "#e8c84a" : metric === "xp" ? "#a78bfa" : "#34d399";
 
   return (
     <div className="space-y-3">
@@ -299,7 +299,7 @@ function ModuleProgressCard({
 // ─── Vocabulary Heatmap by Topic ──────────────────────────────────────────
 function VocabTopicChart({ completedLessons }: { completedLessons: Record<number, { score: number }> }) {
   const topics = [
-    { label: "Chào hỏi", range: [1, 5], color: "app-accent-primary" },
+    { label: "Chào hỏi", range: [1, 5], color: "#e8c84a" },
     { label: "Sinh hoạt", range: [6, 12], color: "#a78bfa" },
     { label: "Cuối tuần", range: [13, 19], color: "#34d399" },
     { label: "Internet", range: [20, 25], color: "#06b6d4" },
@@ -397,7 +397,7 @@ export default function StudyAnalyticsPage() {
         {[
           { label: "Streak hiện tại", value: `${streak.currentStreak} ngày`, icon: "ri-fire-line", color: "#fb923c", sub: "Liên tiếp" },
           { label: "Ngày học (30 ngày)", value: `${activeDays30} ngày`, icon: "ri-calendar-check-line", color: "#34d399", sub: `${Math.round((activeDays30 / 30) * 100)}% tháng này` },
-          { label: "Tổng XP", value: totalXP.toLocaleString(), icon: "ri-star-line", color: "app-accent-primary", sub: "Điểm kinh nghiệm" },
+          { label: "Tổng XP", value: totalXP.toLocaleString(), icon: "ri-star-line", color: "#e8c84a", sub: "Điểm kinh nghiệm" },
           { label: "Từ vựng đã học", value: `~${totalVocabLearned}`, icon: "ri-book-2-line", color: "#a78bfa", sub: `${totalLessons} bài hoàn thành` },
         ].map(s => (
           <div key={s.label} className="bg-app-bg border border-app-border rounded-xl p-4">
@@ -439,7 +439,7 @@ export default function StudyAnalyticsPage() {
           <div className="space-y-4">
             {[
               { label: "Ngày học", value: `${activeDays7}/7`, icon: "ri-calendar-line", color: "#34d399" },
-              { label: "Tổng thời gian", value: `${totalMinutes7} phút`, icon: "ri-time-line", color: "app-accent-primary" },
+              { label: "Tổng thời gian", value: `${totalMinutes7} phút`, icon: "ri-time-line", color: "#e8c84a" },
               { label: "TB mỗi ngày học", value: `${avgMinutes7} phút`, icon: "ri-bar-chart-line", color: "#a78bfa" },
               { label: "Từ vựng ôn", value: `~${totalWords7} từ`, icon: "ri-book-open-line", color: "#06b6d4" },
               { label: "Ngày học tốt nhất", value: bestDay.date ? `${formatDate(bestDay.date)} (${bestDay.minutes}p)` : "—", icon: "ri-trophy-line", color: "#fb923c" },
@@ -470,7 +470,7 @@ export default function StudyAnalyticsPage() {
           <ModuleProgressCard
             title="EPS-TOPIK"
             icon="ri-book-open-line"
-            color="app-accent-primary"
+            color="#e8c84a"
             completed={totalLessons}
             total={60}
             details={[
@@ -586,7 +586,7 @@ export default function StudyAnalyticsPage() {
         <h3 className="text-white font-semibold text-sm mb-4">Hành động nhanh</h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {[
-            { label: "Tiếp tục học EPS", icon: "ri-book-open-line", color: "app-accent-primary", href: "/eps-lessons" },
+            { label: "Tiếp tục học EPS", icon: "ri-book-open-line", color: "#e8c84a", href: "/eps-lessons" },
             { label: "Ôn flashcard", icon: "ri-stack-line", color: "#a78bfa", href: "/eps-flashcard" },
             { label: "Thi thử EPS", icon: "ri-file-text-line", color: "#34d399", href: "/eps-exam" },
             { label: "Lộ trình học", icon: "ri-map-2-line", color: "#fb923c", href: "/learning-path" },

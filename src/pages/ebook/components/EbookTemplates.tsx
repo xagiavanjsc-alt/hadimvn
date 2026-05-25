@@ -21,7 +21,7 @@ export const TEMPLATES: TemplateConfig[] = [
     name: "Classic",
     description: "1 cột, nền trắng, chữ đen — dễ đọc nhất",
     icon: "ri-file-text-line",
-    preview: { bg: "#ffffff", text: "#1a1a1a", accent: "app-accent-primary", secondary: "#f5f5f5" },
+    preview: { bg: "#ffffff", text: "#1a1a1a", accent: "#e8c84a", secondary: "#f5f5f5" },
   },
   {
     id: "minimal",
@@ -59,7 +59,7 @@ export const TEMPLATES: TemplateConfig[] = [
     name: "Dark Mode",
     description: "Nền tối, chữ sáng — phong cách hiện đại",
     icon: "ri-moon-line",
-    preview: { bg: "#0f1117", text: "#e8e8e8", accent: "app-accent-primary", secondary: "#1a1d27" },
+    preview: { bg: "#0f1117", text: "#e8e8e8", accent: "#e8c84a", secondary: "#1a1d27" },
   },
   {
     id: "album",

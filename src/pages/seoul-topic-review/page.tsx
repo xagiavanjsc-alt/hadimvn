@@ -5,7 +5,7 @@ import { seoulBooks } from "@/mocks/seoulTextbook";
 
 // ─── Topic definitions ───────────────────────────────────────────────────────
 const TOPICS = [
-  { id: "all", label: "Tất cả", icon: "ri-apps-line", color: "app-accent-primary" },
+  { id: "all", label: "Tất cả", icon: "ri-apps-line", color: "#e8c84a" },
   { id: "love", label: "Tình yêu & Hôn nhân", icon: "ri-heart-line", color: "#f87171" },
   { id: "work", label: "Công việc & Nghề nghiệp", icon: "ri-briefcase-line", color: "#60a5fa" },
   { id: "health", label: "Sức khỏe & Thể dục", icon: "ri-heart-pulse-line", color: "#34d399" },

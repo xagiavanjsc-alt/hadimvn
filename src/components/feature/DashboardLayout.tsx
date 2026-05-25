@@ -57,7 +57,7 @@ export default function DashboardLayout({ children, title, subtitle, actions }: 
                 <button
                   onClick={() => setShowAuth(true)}
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold cursor-pointer whitespace-nowrap transition-all"
-                  style={{ backgroundColor: "rgba(232,200,74,0.12)", color: "app-accent-primary", border: "1px solid rgba(232,200,74,0.25)" }}
+                  style={{ backgroundColor: "rgba(232,200,74,0.12)", color: "#e8c84a", border: "1px solid rgba(232,200,74,0.25)" }}
                 >
                   <i className="ri-user-line text-xs"></i>
                   Đăng nhập

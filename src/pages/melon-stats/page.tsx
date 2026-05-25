@@ -229,7 +229,7 @@ export default function MelonStatsPage() {
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                   {[
                     { icon: "ri-music-2-line", val: learnedSongs.length, label: "Bài đã học", color: "#22c55e" },
-                    { icon: "ri-translate-2", val: allVocab.length, label: "Từ vựng", color: "app-accent-primary" },
+                    { icon: "ri-translate-2", val: allVocab.length, label: "Từ vựng", color: "#e8c84a" },
                     { icon: "ri-lightbulb-flash-line", val: quizDone, label: "Quiz hoàn thành", color: "#f97316" },
                     { icon: "ri-percent-line", val: quizDone > 0 ? `${avgScore}%` : "—", label: "Điểm TB quiz", color: "#ec4899" },
                   ].map(s => (
@@ -265,7 +265,7 @@ export default function MelonStatsPage() {
                     <DonutChart
                       value={quizDone}
                       total={learnedSongs.length}
-                      color="app-accent-primary"
+                      color="#e8c84a"
                       label="Đã làm quiz"
                     />
                     <DonutChart
@@ -311,7 +311,7 @@ export default function MelonStatsPage() {
                       label: s.song?.title.slice(0, 6) ?? "",
                       value: s.analysis?.vocabulary.length ?? 0,
                     }))}
-                    color="app-accent-primary"
+                    color="#e8c84a"
                   />
                 </div>
 
@@ -445,7 +445,7 @@ export default function MelonStatsPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {[
                     { val: quizDone, label: "Quiz đã làm", color: "#22c55e", icon: "ri-check-double-line" },
-                    { val: `${avgScore}%`, label: "Điểm trung bình", color: "app-accent-primary", icon: "ri-percent-line" },
+                    { val: `${avgScore}%`, label: "Điểm trung bình", color: "#e8c84a", icon: "ri-percent-line" },
                     { val: perfectQuiz, label: "Quiz hoàn hảo", color: "#ec4899", icon: "ri-trophy-line" },
                   ].map(s => (
                     <div key={s.label} className="bg-app-surface/50 border border-app-border rounded-2xl p-4 text-center">
@@ -504,13 +504,13 @@ export default function MelonStatsPage() {
                                   className="h-full rounded-full"
                                   style={{
                                     width: `${pct}%`,
-                                    backgroundColor: pct >= 80 ? "#22c55e" : pct >= 60 ? "app-accent-primary" : "#f97316",
+                                    backgroundColor: pct >= 80 ? "#22c55e" : pct >= 60 ? "#e8c84a" : "#f97316",
                                   }}
                                 />
                               </div>
                               <span
                                 className="text-xs font-bold w-10 text-right"
-                                style={{ color: pct >= 80 ? "#22c55e" : pct >= 60 ? "app-accent-primary" : "#f97316" }}
+                                style={{ color: pct >= 80 ? "#22c55e" : pct >= 60 ? "#e8c84a" : "#f97316" }}
                               >
                                 {q.score}/{q.total}
                               </span>

@@ -65,7 +65,7 @@ export default function EpsLessonsPage() {
       {/* Overall stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-6">
         {[
-          { label: "Tổng bài học", value: epsLessons.length, icon: "ri-book-open-line", color: "app-accent-primary" },
+          { label: "Tổng bài học", value: epsLessons.length, icon: "ri-book-open-line", color: "#e8c84a" },
           { label: "Đã hoàn thành", value: totalCompleted, icon: "ri-checkbox-circle-line", color: "#34d399" },
           { label: "Tiến độ", value: `${overallProgress}%`, icon: "ri-pie-chart-2-line", color: "#a78bfa" },
           { label: "XP đã nhận", value: `+${totalXPEarned}`, icon: "ri-star-line", color: "#fb923c" },

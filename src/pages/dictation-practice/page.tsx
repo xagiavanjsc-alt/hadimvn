@@ -207,7 +207,7 @@ export default function DictationPracticePage() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
           {[
             { label: "Đã luyện", value: Object.keys(scores).length, icon: "ri-checkbox-circle-line", color: "#34d399" },
-            { label: "Điểm TB", value: `${avgScore}%`, icon: "ri-percent-line", color: "app-accent-primary" },
+            { label: "Điểm TB", value: `${avgScore}%`, icon: "ri-percent-line", color: "#e8c84a" },
             { label: "Tổng câu", value: dictationItems.length, icon: "ri-list-check", color: "#a78bfa" },
           ].map(s => (
             <div key={s.label} className="rounded-xl border border-app-border bg-app-surface/50 p-4 text-center">

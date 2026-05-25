@@ -31,7 +31,7 @@ export default function ExamScorePrediction({
 
   const getScoreColor = (score: number) => {
     if (score >= 80) return "#34d399";
-    if (score >= 60) return "app-accent-primary";
+    if (score >= 60) return "#e8c84a";
     if (score >= 40) return "#fb923c";
     return "#f87171";
   };
@@ -39,7 +39,7 @@ export default function ExamScorePrediction({
   const getConfidenceColor = (confidence: string) => {
     switch (confidence) {
       case "high": return "#34d399";
-      case "medium": return "app-accent-primary";
+      case "medium": return "#e8c84a";
       case "low": return "#fb923c";
     }
   };

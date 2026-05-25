@@ -375,7 +375,7 @@ export default function AdminUploadPage() {
           {uploads.length > 0 && (
             <div className="flex items-center gap-4 px-4 py-3 bg-app-bg border border-app-border rounded-xl">
               {[
-                { label: "Tổng file", value: uploads.length, color: "app-accent-primary" },
+                { label: "Tổng file", value: uploads.length, color: "#e8c84a" },
                 { label: "Chờ upload", value: pendingCount, color: "#fb923c" },
                 { label: "Đã upload", value: doneCount, color: "#34d399" },
                 { label: "Lỗi", value: uploads.filter(u => u.status === "error").length, color: "#f87171" },
@@ -427,7 +427,7 @@ export default function AdminUploadPage() {
             <h3 className="text-white font-semibold text-sm mb-4"><i className="ri-information-line text-rose-400 mr-2"></i>Quy trình âm thanh TTS</h3>
             <div className="space-y-3">
               {[
-                { icon: "ri-translate-2", color: "app-accent-primary", title: "Phiên âm latinh", desc: "안전모 → anjeonmo.mp3 (tên file an toàn cho mọi VPS)" },
+                { icon: "ri-translate-2", color: "#e8c84a", title: "Phiên âm latinh", desc: "안전모 → anjeonmo.mp3 (tên file an toàn cho mọi VPS)" },
                 { icon: "ri-google-line", color: "#34d399", title: "Google TTS miễn phí", desc: "Tạo MP3 chất lượng tốt, không cần API key" },
                 { icon: "ri-save-line", color: "#fb923c", title: "Cache vĩnh viễn", desc: "Lần đầu nghe → cache browser. Lần sau phát từ cache" },
                 { icon: "ri-server-line", color: "#a78bfa", title: "Upload VPS", desc: "Tải file MP3 về → upload lên audio.hanquocoi.vn/tts/" },

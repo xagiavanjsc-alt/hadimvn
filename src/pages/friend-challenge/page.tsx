@@ -31,7 +31,7 @@ interface QuizQuestion {
 }
 
 const TOPICS = [
-  { id: "all", label: "Tất cả chủ đề", icon: "ri-apps-line", color: "app-accent-primary" },
+  { id: "all", label: "Tất cả chủ đề", icon: "ri-apps-line", color: "#e8c84a" },
   { id: "greeting", label: "Chào hỏi", icon: "ri-hand-heart-line", color: "#34d399" },
   { id: "workplace", label: "Nơi làm việc", icon: "ri-building-line", color: "#fb923c" },
   { id: "safety", label: "An toàn lao động", icon: "ri-shield-check-line", color: "#f87171" },
@@ -388,7 +388,7 @@ export default function FriendChallengePage() {
             {[
               { label: "Zalo", icon: "ri-message-2-line", color: "#0068ff", bg: "#0068ff15" },
               { label: "Facebook", icon: "ri-facebook-circle-line", color: "#1877f2", bg: "#1877f215" },
-              { label: "Copy text", icon: "ri-clipboard-line", color: "app-accent-primary", bg: "app-accent-primary15" },
+              { label: "Copy text", icon: "ri-clipboard-line", color: "#e8c84a", bg: "rgba(232,200,74,0.15)" },
             ].map(s => (
               <button
                 key={s.label}
@@ -428,7 +428,7 @@ export default function FriendChallengePage() {
             {[
               { label: "Thắng", value: wins, icon: "ri-trophy-line", color: "#34d399" },
               { label: "Thua", value: losses, icon: "ri-close-circle-line", color: "#f87171" },
-              { label: "Hòa", value: draws, icon: "ri-scales-3-line", color: "app-accent-primary" },
+              { label: "Hòa", value: draws, icon: "ri-scales-3-line", color: "#e8c84a" },
             ].map(s => (
               <div key={s.label} className="bg-app-bg border border-app-border rounded-xl p-4 flex items-center gap-3">
                 <div className="w-9 h-9 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>
@@ -575,7 +575,7 @@ export default function FriendChallengePage() {
             <p className="text-white font-semibold text-sm mb-4">Cách thức hoạt động</p>
             <div className="space-y-4">
               {[
-                { step: "1", icon: "ri-add-circle-line", color: "app-accent-primary", title: "Tạo thách đấu", desc: "Chọn chủ đề và số câu hỏi, sau đó làm bài" },
+                { step: "1", icon: "ri-add-circle-line", color: "#e8c84a", title: "Tạo thách đấu", desc: "Chọn chủ đề và số câu hỏi, sau đó làm bài" },
                 { step: "2", icon: "ri-share-line", color: "#34d399", title: "Chia sẻ link", desc: "Sao chép link và gửi cho bạn bè qua Zalo/Facebook" },
                 { step: "3", icon: "ri-user-received-line", color: "#a78bfa", title: "Bạn bè tham gia", desc: "Bạn bè mở link và làm cùng bộ câu hỏi" },
                 { step: "4", icon: "ri-trophy-line", color: "#fb923c", title: "So sánh điểm", desc: "Xem ai đúng nhiều hơn và nhanh hơn!" },

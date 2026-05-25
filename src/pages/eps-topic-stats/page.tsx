@@ -131,7 +131,7 @@ export default function EpsTopicStatsPage() {
       {/* Overall summary */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
         {[
-          { label: "Bài đã học", value: `${overallStats.completedCount}/${overallStats.totalLessons}`, icon: "ri-book-open-line", color: "app-accent-primary" },
+          { label: "Bài đã học", value: `${overallStats.completedCount}/${overallStats.totalLessons}`, icon: "ri-book-open-line", color: "#e8c84a" },
           { label: "Từ đã học", value: `${overallStats.studiedVocab}`, icon: "ri-translate-2", color: "#34d399" },
           { label: "Tỷ lệ đúng", value: overallStats.overallAccuracy !== null ? `${overallStats.overallAccuracy}%` : "—", icon: "ri-pie-chart-2-line", color: "#a78bfa" },
           { label: "Thời gian học", value: formatMinutes(overallStats.totalMinutes), icon: "ri-time-line", color: "#fb923c" },
@@ -245,7 +245,7 @@ export default function EpsTopicStatsPage() {
                 <div className="space-y-3">
                   {[
                     { label: "Bài đã hoàn thành", value: `${selectedTopicData.completedLessons}/${selectedTopicData.totalLessons}`, icon: "ri-checkbox-circle-line", color: "#34d399" },
-                    { label: "Từ vựng đã học", value: `${selectedTopicData.studiedVocab}/${selectedTopicData.totalVocab}`, icon: "ri-translate-2", color: "app-accent-primary" },
+                    { label: "Từ vựng đã học", value: `${selectedTopicData.studiedVocab}/${selectedTopicData.totalVocab}`, icon: "ri-translate-2", color: "#e8c84a" },
                     { label: "Tỷ lệ đúng bài tập", value: selectedTopicData.accuracy !== null ? `${selectedTopicData.accuracy}%` : "Chưa có dữ liệu", icon: "ri-pie-chart-2-line", color: "#a78bfa" },
                     { label: "Từ cần ôn lại", value: selectedTopicData.totalWrong > 0 ? `${selectedTopicData.totalWrong} từ (${selectedTopicData.totalWrongCount} lần sai)` : "Không có", icon: "ri-error-warning-line", color: "#f87171" },
                     { label: "Thời gian đã học", value: selectedTopicData.totalMinutes > 0 ? formatMinutes(selectedTopicData.totalMinutes) : "Chưa học", icon: "ri-time-line", color: "#fb923c" },

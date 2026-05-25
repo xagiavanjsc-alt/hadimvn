@@ -265,7 +265,7 @@ export default function EpsSmartFlashcardPage() {
               <div className="space-y-3">
                 {[
                   { label: "Cần ôn hôm nay", value: stats.dueToday, color: "#f87171", icon: "ri-alarm-line" },
-                  { label: "Đang học", value: stats.learning, color: "app-accent-primary", icon: "ri-book-open-line" },
+                  { label: "Đang học", value: stats.learning, color: "#e8c84a", icon: "ri-book-open-line" },
                   { label: "Thuộc lòng", value: stats.mastered, color: "#34d399", icon: "ri-checkbox-circle-line" },
                   { label: "Từ mới chưa học", value: stats.newCards, color: "#a78bfa", icon: "ri-add-circle-line" },
                 ].map(s => (
@@ -298,7 +298,7 @@ export default function EpsSmartFlashcardPage() {
               <div className="space-y-1.5">
                 {SR_INTERVALS.map((days, i) => {
                   const count = Object.values(cardData).filter(c => c.interval === i).length;
-                  const colors = ["#f87171", "#fb923c", "app-accent-primary", "#34d399", "#06b6d4", "#a78bfa", "#ec4899"];
+                  const colors = ["#f87171", "#fb923c", "#e8c84a", "#34d399", "#06b6d4", "#a78bfa", "#ec4899"];
                   return (
                     <div key={i} className="flex items-center gap-2">
                       <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: colors[i] }}></div>
@@ -489,7 +489,7 @@ export default function EpsSmartFlashcardPage() {
     return (
       <DashboardLayout title="Hoàn thành phiên học!" subtitle="Kết quả phiên flashcard thông minh">
         <div className="max-w-md mx-auto text-center py-8 space-y-6">
-          <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto" style={{ backgroundColor: pct >= 70 ? "#34d39915" : "app-accent-primary15" }}>
+          <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto" style={{ backgroundColor: pct >= 70 ? "#34d39915" : "rgba(232,200,74,0.15)" }}>
             <i className={`text-4xl ${pct >= 70 ? "ri-trophy-fill text-[#34d399]" : "ri-refresh-line text-app-accent-primary"}`}></i>
           </div>
 

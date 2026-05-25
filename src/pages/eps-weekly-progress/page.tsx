@@ -93,7 +93,7 @@ export default function EpsWeeklyProgressPage() {
 
   const getScoreColor = (score: number) => {
     if (score >= 80) return "#34d399";
-    if (score >= 60) return "app-accent-primary";
+    if (score >= 60) return "#e8c84a";
     return "#f87171";
   };
 
@@ -222,7 +222,7 @@ export default function EpsWeeklyProgressPage() {
                   { label: "Số lần thi", curr: currentWeek.count, prev: prevWeek.count, unit: " lần" },
                 ].map(item => {
                   const diff = item.curr - item.prev;
-                  const color = diff > 0 ? "#34d399" : diff < 0 ? "#f87171" : "app-accent-primary";
+                  const color = diff > 0 ? "#34d399" : diff < 0 ? "#f87171" : "#e8c84a";
                   return (
                     <div key={item.label}>
                       <div className="flex items-center justify-between mb-1.5">
@@ -400,7 +400,7 @@ export default function EpsWeeklyProgressPage() {
               },
               {
                 icon: "ri-focus-3-line",
-                color: "app-accent-primary",
+                color: "#e8c84a",
                 title: "Thi theo chủ đề yếu",
                 desc: "Xác định chủ đề điểm thấp nhất và thi thử tập trung vào đó",
                 path: "/eps-topic-exam",

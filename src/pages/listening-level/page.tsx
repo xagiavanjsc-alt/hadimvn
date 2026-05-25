@@ -39,7 +39,7 @@ interface ListeningTrack {
 const LEVEL_CONFIG: Record<string, { color: string; bg: string; border: string; label: string; desc: string }> = {
   A1: { color: "#34d399", bg: "bg-emerald-500/10", border: "border-emerald-500/20", label: "Sơ cấp 1", desc: "Người mới bắt đầu" },
   A2: { color: "#84cc16", bg: "bg-lime-500/10", border: "border-lime-500/20", label: "Sơ cấp 2", desc: "Cơ bản" },
-  B1: { color: "app-accent-primary", bg: "bg-yellow-500/10", border: "border-yellow-500/20", label: "Trung cấp 1", desc: "Trung bình" },
+  B1: { color: "#e8c84a", bg: "bg-yellow-500/10", border: "border-yellow-500/20", label: "Trung cấp 1", desc: "Trung bình" },
   B2: { color: "#fb923c", bg: "bg-orange-500/10", border: "border-orange-500/20", label: "Trung cấp 2", desc: "Trên trung bình" },
   C1: { color: "#f87171", bg: "bg-red-500/10", border: "border-red-500/20", label: "Cao cấp", desc: "Nâng cao" },
 };

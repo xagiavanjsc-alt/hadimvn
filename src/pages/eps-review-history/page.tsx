@@ -160,7 +160,7 @@ export default function EpsReviewHistoryPage() {
           {/* Overall Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {[
-              { label: "Phiên ôn tập", value: overallStats.totalSessions, icon: "ri-history-line", color: "app-accent-primary" },
+              { label: "Phiên ôn tập", value: overallStats.totalSessions, icon: "ri-history-line", color: "#e8c84a" },
               { label: "Từ đã ôn", value: overallStats.totalWords, icon: "ri-translate-2", color: "#34d399" },
               { label: "Độ chính xác", value: `${overallStats.avgAccuracy}%`, icon: "ri-bar-chart-line", color: "#60a5fa" },
               { label: "Tổng thời gian", value: formatDuration(overallStats.totalTime), icon: "ri-time-line", color: "#f59e0b" },

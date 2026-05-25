@@ -31,7 +31,7 @@ interface SuggestionGroup {
 
 // ─── Difficulty label ─────────────────────────────────────────────────────────
 const diffLabel = (d: number) => d === 1 ? "Cơ bản" : d === 2 ? "Trung cấp" : "Nâng cao";
-const diffColor = (d: number) => d === 1 ? "#34d399" : d === 2 ? "app-accent-primary" : "#f87171";
+const diffColor = (d: number) => d === 1 ? "#34d399" : d === 2 ? "#e8c84a" : "#f87171";
 
 // ─── Vocab Card ───────────────────────────────────────────────────────────────
 function VocabCard({ word, isFlipped, onFlip, onMastered, isMastered }: {
@@ -186,7 +186,7 @@ export default function VocabSuggestionPage() {
     groups.push({
       reason: topCat ? `Chủ đề hay sai: ${topCat}` : "Tính cách & Cảm xúc",
       icon: "ri-apps-line",
-      color: "app-accent-primary",
+      color: "#e8c84a",
       words: catWords,
     });
 
@@ -235,7 +235,7 @@ export default function VocabSuggestionPage() {
       {/* Stats bar */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "Tổng từ vựng", value: totalCount, icon: "ri-book-open-line", color: "app-accent-primary" },
+          { label: "Tổng từ vựng", value: totalCount, icon: "ri-book-open-line", color: "#e8c84a" },
           { label: "Đã thuộc", value: masteredCount, icon: "ri-check-double-line", color: "#34d399" },
           { label: "Cần ôn tập", value: totalCount - masteredCount, icon: "ri-refresh-line", color: "#fb923c" },
           { label: "Từ hay sai", value: wrongHistory.length, icon: "ri-error-warning-line", color: "#f87171" },

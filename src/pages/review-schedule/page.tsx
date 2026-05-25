@@ -199,7 +199,7 @@ const MONTHS_VI = ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "
 
 const REMINDER_COLORS = [
   { label: "Quan trọng", color: "#f87171", bg: "bg-red-500/10", border: "border-red-500/25", text: "text-red-400" },
-  { label: "Bình thường", color: "app-accent-primary", bg: "bg-app-accent-primary/10", border: "border-app-accent-primary/25", text: "text-app-accent-primary" },
+  { label: "Bình thường", color: "#e8c84a", bg: "bg-app-accent-primary/10", border: "border-app-accent-primary/25", text: "text-app-accent-primary" },
   { label: "Nhẹ nhàng", color: "#34d399", bg: "bg-emerald-500/10", border: "border-emerald-500/25", text: "text-app-accent-success" },
 ];
 
@@ -559,7 +559,7 @@ export default function ReviewSchedulePage() {
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
         {[
-          { label: "Tổng lịch ôn", value: totalScheduled, icon: "ri-calendar-line", color: "app-accent-primary" },
+          { label: "Tổng lịch ôn", value: totalScheduled, icon: "ri-calendar-line", color: "#e8c84a" },
           { label: "Đã hoàn thành", value: totalCompleted, icon: "ri-checkbox-circle-line", color: "#34d399" },
           { label: "Hôm nay", value: todaySchedules.length, icon: "ri-sun-line", color: "#fb923c" },
           { label: "Sắp tới", value: upcomingCount, icon: "ri-time-line", color: "#a78bfa" },

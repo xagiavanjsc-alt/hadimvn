@@ -173,7 +173,7 @@ export default function VipHistoryPage() {
       {transactions.length > 0 && (
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-6">
           {[
-            { label: "Tổng giao dịch", value: String(transactions.length), icon: "ri-exchange-line", color: "app-accent-primary" },
+            { label: "Tổng giao dịch", value: String(transactions.length), icon: "ri-exchange-line", color: "#e8c84a" },
             { label: "Đang hoạt động", value: String(activeCount), icon: "ri-checkbox-circle-line", color: "#34d399" },
             { label: "Tổng chi tiêu", value: formatVND(totalSpent), icon: "ri-money-dollar-circle-line", color: "#a78bfa" },
           ].map(s => (
@@ -283,11 +283,11 @@ export default function VipHistoryPage() {
             {/* Body */}
             <div className="p-5 space-y-3">
               {[
-                { label: "Loại gói", value: `VIP ${selectedTx.vip_type === "year" ? "Năm" : "Tháng"}`, icon: "ri-vip-crown-line", color: selectedTx.vip_type === "year" ? "app-accent-primary" : "#34d399" },
+                { label: "Loại gói", value: `VIP ${selectedTx.vip_type === "year" ? "Năm" : "Tháng"}`, icon: "ri-vip-crown-line", color: selectedTx.vip_type === "year" ? "#e8c84a" : "#34d399" },
                 { label: "Ngày kích hoạt", value: formatDate(selectedTx.granted_at), icon: "ri-calendar-check-line", color: "#a78bfa" },
                 { label: "Ngày hết hạn", value: formatDate(selectedTx.expires_at), icon: "ri-calendar-close-line", color: "#fb923c" },
                 { label: "Số tiền", value: selectedTx.amount > 0 ? formatVND(selectedTx.amount) : "Miễn phí / Admin cấp", icon: "ri-money-dollar-circle-line", color: "#34d399" },
-                ...(selectedTx.note ? [{ label: "Ghi chú", value: selectedTx.note, icon: "ri-sticky-note-line", color: "app-accent-primary" }] : []),
+                ...(selectedTx.note ? [{ label: "Ghi chú", value: selectedTx.note, icon: "ri-sticky-note-line", color: "#e8c84a" }] : []),
               ].map(item => (
                 <div key={item.label} className="flex items-center gap-3 px-4 py-3 bg-app-surface/50 rounded-xl">
                   <div className="w-8 h-8 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${item.color}15` }}>

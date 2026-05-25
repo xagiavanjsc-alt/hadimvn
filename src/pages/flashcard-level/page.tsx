@@ -53,14 +53,14 @@ function updateSRS(srs: SRSData, cardId: string, rating: number): SRSData {
 
 const LEVEL_MAP: Record<number, { label: string; color: string; bg: string; border: string; koreanLevel: string }> = {
   1: { label: "A1 · Sơ cấp 1", color: "#34d399", bg: "bg-emerald-500/10", border: "border-emerald-500/20", koreanLevel: "A1" },
-  2: { label: "A2–B1 · Trung cấp", color: "app-accent-primary", bg: "bg-yellow-500/10", border: "border-yellow-500/20", koreanLevel: "A2" },
+  2: { label: "A2–B1 · Trung cấp", color: "#e8c84a", bg: "bg-yellow-500/10", border: "border-yellow-500/20", koreanLevel: "A2" },
   3: { label: "B2–C1 · Nâng cao", color: "#f87171", bg: "bg-red-500/10", border: "border-red-500/20", koreanLevel: "C1" },
 };
 
 const RATING_LABELS = [
   { value: 1, label: "Không nhớ", color: "#f87171", icon: "ri-close-circle-line" },
   { value: 2, label: "Khó", color: "#fb923c", icon: "ri-emotion-unhappy-line" },
-  { value: 3, label: "Nhớ được", color: "app-accent-primary", icon: "ri-emotion-normal-line" },
+  { value: 3, label: "Nhớ được", color: "#e8c84a", icon: "ri-emotion-normal-line" },
   { value: 4, label: "Dễ", color: "#34d399", icon: "ri-emotion-happy-line" },
   { value: 5, label: "Rất dễ", color: "#a78bfa", icon: "ri-emotion-laugh-line" },
 ];
@@ -255,7 +255,7 @@ export default function FlashcardLevelPage() {
           {/* Stats */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
             {[
-              { label: "Tổng từ vựng", value: allCards.length, icon: "ri-book-open-line", color: "app-accent-primary" },
+              { label: "Tổng từ vựng", value: allCards.length, icon: "ri-book-open-line", color: "#e8c84a" },
               { label: "Cần ôn hôm nay", value: dueCards.length, icon: "ri-calendar-check-line", color: "#fb923c" },
               { label: "Đã ôn tập", value: totalReviewed, icon: "ri-refresh-line", color: "#34d399" },
               { label: "Đã thuộc (3+ lần)", value: masteredCount, icon: "ri-check-double-line", color: "#a78bfa" },
@@ -280,7 +280,7 @@ export default function FlashcardLevelPage() {
               <div>
                 <p className="text-app-text-muted text-xs mb-2">Cấp độ</p>
                 <div className="flex flex-wrap gap-2">
-                  {([["all", "Tất cả", "app-accent-primary"], [1, "A1 · Cơ bản", "#34d399"], [2, "A2-B1 · Trung cấp", "app-accent-primary"], [3, "B2-C1 · Nâng cao", "#f87171"]] as const).map(([val, label, color]) => (
+                  {([["all", "Tất cả", "#e8c84a"], [1, "A1 · Cơ bản", "#34d399"], [2, "A2-B1 · Trung cấp", "#e8c84a"], [3, "B2-C1 · Nâng cao", "#f87171"]] as const).map(([val, label, color]) => (
                     <button
                       key={String(val)}
                       onClick={() => setSelectedDifficulty(val as number | "all")}
@@ -394,7 +394,7 @@ export default function FlashcardLevelPage() {
             {[
               { label: "Nhớ được", value: sessionStats.correct, color: "#34d399", icon: "ri-check-line" },
               { label: "Cần ôn thêm", value: sessionStats.hard, color: "#f87171", icon: "ri-close-line" },
-              { label: "Tổng từ", value: sessionStats.total, color: "app-accent-primary", icon: "ri-stack-line" },
+              { label: "Tổng từ", value: sessionStats.total, color: "#e8c84a", icon: "ri-stack-line" },
             ].map(s => (
               <div key={s.label} className="text-center">
                 <div className="w-14 h-14 flex items-center justify-center rounded-2xl mx-auto mb-2" style={{ backgroundColor: `${s.color}15` }}>

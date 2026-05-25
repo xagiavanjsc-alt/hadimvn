@@ -103,7 +103,7 @@ export default function SpeedListeningPage() {
 
   const filteredTracks = levelFilter === "all" ? tracks : tracks.filter(t => t.level === levelFilter);
 
-  const speedColor = speed < 1 ? "#34d399" : speed === 1 ? "app-accent-primary" : speed <= 1.5 ? "#fb923c" : "#f87171";
+  const speedColor = speed < 1 ? "#34d399" : speed === 1 ? "#e8c84a" : speed <= 1.5 ? "#fb923c" : "#f87171";
 
   return (
     <DashboardLayout>
@@ -117,7 +117,7 @@ export default function SpeedListeningPage() {
         {/* Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
           {[
-            { label: "Tổng bài", value: tracks.length, color: "app-accent-primary" },
+            { label: "Tổng bài", value: tracks.length, color: "#e8c84a" },
             { label: "Đã nghe", value: completedIds.size, color: "#34d399" },
             { label: "Tốc độ hiện tại", value: `${speed}x`, color: speedColor },
           ].map(s => (
@@ -230,7 +230,7 @@ export default function SpeedListeningPage() {
                 </button>
                 <button onClick={() => setShowTranslation(v => !v)}
                   className="px-4 py-3 rounded-xl text-sm cursor-pointer whitespace-nowrap transition-all"
-                  style={{ backgroundColor: showTranslation ? "rgba(232,200,74,0.15)" : "rgba(255,255,255,0.05)", color: showTranslation ? "app-accent-primary" : "rgba(255,255,255,0.5)" }}>
+                  style={{ backgroundColor: showTranslation ? "rgba(232,200,74,0.15)" : "rgba(255,255,255,0.05)", color: showTranslation ? "#e8c84a" : "rgba(255,255,255,0.5)" }}>
                   <i className="ri-translate-2 mr-1"></i>Dịch
                 </button>
               </div>

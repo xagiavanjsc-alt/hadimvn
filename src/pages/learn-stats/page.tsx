@@ -109,13 +109,13 @@ export default function LearnStatsPage() {
     return score;
   }, [epsDone, epsCorrect, knownCount, hangulCount, examResults, quizHistory, streak, newsLessons]);
 
-  const scoreLevel = overallScore >= 1000 ? { label: "Bậc thầy", color: "app-accent-primary", icon: "ri-vip-crown-line" }
+  const scoreLevel = overallScore >= 1000 ? { label: "Bậc thầy", color: "#e8c84a", icon: "ri-vip-crown-line" }
     : overallScore >= 500 ? { label: "Nâng cao", color: "#a78bfa", icon: "ri-star-fill" }
     : overallScore >= 200 ? { label: "Trung cấp", color: "#34d399", icon: "ri-star-half-line" }
     : { label: "Mới bắt đầu", color: "#06b6d4", icon: "ri-seedling-line" };
 
   const activities = [
-    { label: "Câu EPS đã làm", value: epsDone, max: epsQuestions.length, color: "app-accent-primary", icon: "ri-file-list-3-line", path: "/eps" },
+    { label: "Câu EPS đã làm", value: epsDone, max: epsQuestions.length, color: "#e8c84a", icon: "ri-file-list-3-line", path: "/eps" },
     { label: "Từ vựng đã thuộc", value: knownCount, max: 200, color: "#a78bfa", icon: "ri-stack-line", path: "/flashcard" },
     { label: "Hangul đã học", value: hangulCount, max: 40, color: "#34d399", icon: "ri-font-size", path: "/hangul" },
     { label: "Lần thi thử EPS", value: examResults.length, max: 20, color: "#06b6d4", icon: "ri-timer-line", path: "/eps-exam" },
@@ -155,7 +155,7 @@ export default function LearnStatsPage() {
             {[
               { label: "Streak", value: `${streak.currentStreak}d`, color: "#fb923c" },
               { label: "EPS đúng", value: `${epsAccuracy}%`, color: "#34d399" },
-              { label: "Thi cao nhất", value: bestExam > 0 ? `${bestExam}%` : "—", color: "app-accent-primary" },
+              { label: "Thi cao nhất", value: bestExam > 0 ? `${bestExam}%` : "—", color: "#e8c84a" },
               { label: "TB Quiz", value: avgQuiz > 0 ? `${avgQuiz}%` : "—", color: "#a78bfa" },
             ].map(s => (
               <div key={s.label} className="bg-app-surface/50 rounded-xl p-3 text-center min-w-[80px]">
@@ -219,7 +219,7 @@ export default function LearnStatsPage() {
               <div className="flex items-end gap-3 h-28 mb-2">
                 {monthlyExam.map((m, i) => {
                   const barH = Math.max((m.avg / maxMonthly) * 96, 4);
-                  const color = m.avg >= 80 ? "#34d399" : m.avg >= 60 ? "app-accent-primary" : "#f87171";
+                  const color = m.avg >= 80 ? "#34d399" : m.avg >= 60 ? "#e8c84a" : "#f87171";
                   return (
                     <div key={i} className="flex-1 flex flex-col items-center gap-1 group relative">
                       <div className="absolute bottom-5 left-1/2 -translate-x-1/2 bg-[#1a1d27] border border-app-border text-white/70 text-[9px] px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
@@ -275,7 +275,7 @@ export default function LearnStatsPage() {
           <div className="space-y-2 max-h-64 overflow-y-auto">
             {examResults.slice().reverse().map((r, i) => {
               const pct = Math.round((r.score / r.total) * 100);
-              const color = pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171";
+              const color = pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : "#f87171";
               return (
                 <div key={r.id} className="flex items-center gap-3 px-4 py-2.5 bg-app-surface/50 rounded-xl">
                   <span className="text-app-text-muted text-xs w-5 flex-shrink-0">#{examResults.length - i}</span>

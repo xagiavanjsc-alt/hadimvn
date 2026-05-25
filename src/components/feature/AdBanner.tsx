@@ -120,10 +120,10 @@ function AdItem({ ad, onDismiss }: { ad: AdConfig; onDismiss: () => void }) {
       <button onClick={handleDismiss} className="absolute top-2 right-2 w-5 h-5 flex items-center justify-center rounded-full bg-app-card/50 text-app-text-muted hover:text-white/60 cursor-pointer">
         <i className="ri-close-line text-[10px]"></i>
       </button>
-      <p className="text-sm font-semibold mb-1 pr-6" style={{ color: ad.textColor || "app-accent-primary" }}>{ad.title}</p>
+      <p className="text-sm font-semibold mb-1 pr-6" style={{ color: ad.textColor || "#e8c84a" }}>{ad.title}</p>
       {ad.description && <p className="text-xs text-app-text-secondary">{ad.description}</p>}
       {ad.linkUrl && (
-        <a href={ad.linkUrl} className="mt-2 inline-block text-xs font-semibold underline" style={{ color: ad.textColor || "app-accent-primary" }}>
+        <a href={ad.linkUrl} className="mt-2 inline-block text-xs font-semibold underline" style={{ color: ad.textColor || "#e8c84a" }}>
           Xem thêm →
         </a>
       )}

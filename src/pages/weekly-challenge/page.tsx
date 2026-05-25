@@ -54,7 +54,7 @@ const WEEKLY_CHALLENGES: Challenge[] = [
     title: "Flashcard Marathon",
     description: "Học 50 từ vựng qua flashcard trong tuần này",
     icon: "ri-stack-line",
-    color: "app-accent-primary",
+    color: "#e8c84a",
     target: 50,
     unit: "từ",
     xpReward: 100,
@@ -309,7 +309,7 @@ export default function WeeklyChallengePage() {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
           { label: "Thử thách hoàn thành", value: `${completedCount}/${WEEKLY_CHALLENGES.length}`, icon: "ri-checkbox-circle-line", color: "#34d399" },
-          { label: "XP đã nhận tuần này", value: `${earnedXP}`, icon: "ri-star-line", color: "app-accent-primary" },
+          { label: "XP đã nhận tuần này", value: `${earnedXP}`, icon: "ri-star-line", color: "#e8c84a" },
           { label: "XP có thể nhận", value: `${totalXPAvailable}`, icon: "ri-gift-line", color: "#a78bfa" },
           { label: "Ngày còn lại", value: daysLeft, icon: "ri-time-line", color: "#fb923c" },
         ].map(s => (

@@ -89,8 +89,8 @@ function TopicSelector({
                   <span
                     className="text-[10px] font-bold px-2 py-0.5 rounded-full"
                     style={{
-                      backgroundColor: acc >= 80 ? "#34d39920" : acc >= 60 ? "app-accent-primary20" : "#f8717120",
-                      color: acc >= 80 ? "#34d399" : acc >= 60 ? "app-accent-primary" : "#f87171",
+                      backgroundColor: acc >= 80 ? "#34d39920" : acc >= 60 ? "rgba(232,200,74,0.20)" : "#f8717120",
+                      color: acc >= 80 ? "#34d399" : acc >= 60 ? "#e8c84a" : "#f87171",
                     }}
                   >
                     {acc}%
@@ -203,7 +203,7 @@ function QuestionCard({
   };
 
   const timerPct = Math.max(0, (timeLeft / 30) * 100);
-  const timerColor = timeLeft > 15 ? "#34d399" : timeLeft > 7 ? "app-accent-primary" : "#f87171";
+  const timerColor = timeLeft > 15 ? "#34d399" : timeLeft > 7 ? "#e8c84a" : "#f87171";
 
   return (
     <div className="max-w-2xl mx-auto space-y-4">
@@ -212,7 +212,7 @@ function QuestionCard({
         <div className="flex-1 h-1.5 bg-app-card/50 rounded-full overflow-hidden">
           <div
             className="h-full rounded-full transition-all"
-            style={{ width: `${((index) / total) * 100}%`, backgroundColor: topic?.color || "app-accent-primary" }}
+            style={{ width: `${((index) / total) * 100}%`, backgroundColor: topic?.color || "#e8c84a" }}
           />
         </div>
         <span className="text-app-text-secondary text-xs whitespace-nowrap">{index + 1}/{total}</span>
@@ -343,7 +343,7 @@ function ResultsScreen({
 
   const grade =
     pct >= 90 ? { label: "Xuất sắc!", color: "#34d399", icon: "ri-trophy-fill" } :
-    pct >= 75 ? { label: "Tốt!", color: "app-accent-primary", icon: "ri-thumb-up-fill" } :
+    pct >= 75 ? { label: "Tốt!", color: "#e8c84a", icon: "ri-thumb-up-fill" } :
     pct >= 60 ? { label: "Khá", color: "#fb923c", icon: "ri-emotion-normal-fill" } :
     { label: "Cần ôn thêm", color: "#f87171", icon: "ri-emotion-sad-fill" };
 
@@ -362,7 +362,7 @@ function ResultsScreen({
           {[
             { label: "Đúng", value: correct, color: "#34d399" },
             { label: "Sai", value: total - correct, color: "#f87171" },
-            { label: "Thời gian TB", value: `${avgTime}s`, color: "app-accent-primary" },
+            { label: "Thời gian TB", value: `${avgTime}s`, color: "#e8c84a" },
           ].map(s => (
             <div key={s.label} className="bg-app-surface/50 rounded-xl p-3">
               <p className="font-bold text-lg" style={{ color: s.color }}>{s.value}</p>
@@ -401,7 +401,7 @@ function ResultsScreen({
         <button
           onClick={onRetry}
           className="flex-1 py-3 rounded-xl font-bold text-sm text-app-bg cursor-pointer whitespace-nowrap hover:opacity-90"
-          style={{ backgroundColor: topic?.color || "app-accent-primary" }}
+          style={{ backgroundColor: topic?.color || "#e8c84a" }}
         >
           <i className="ri-refresh-line mr-2"></i>Luyện lại
         </button>

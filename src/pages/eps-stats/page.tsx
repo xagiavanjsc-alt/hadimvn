@@ -185,7 +185,7 @@ export default function EpsStatsPage() {
                 value: examResults.length.toString(),
                 sub: examStats ? `Điểm TB: ${examStats.avg}%` : "Chưa thi lần nào",
                 icon: "ri-file-list-3-line",
-                color: "app-accent-primary",
+                color: "#e8c84a",
               },
               {
                 label: "Điểm cao nhất",
@@ -254,7 +254,7 @@ export default function EpsStatsPage() {
               ) : (
                 <div className="flex items-end gap-1.5 h-24">
                   {scoreTrend.map((item, i) => {
-                    const color = item.score >= 80 ? "#34d399" : item.score >= 60 ? "app-accent-primary" : "#f87171";
+                    const color = item.score >= 80 ? "#34d399" : item.score >= 60 ? "#e8c84a" : "#f87171";
                     return (
                       <div key={i} className="flex-1 flex flex-col items-center gap-1">
                         <span className="text-[8px] font-bold" style={{ color }}>{item.score}%</span>
@@ -289,7 +289,7 @@ export default function EpsStatsPage() {
           {/* Quick actions */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {[
-              { icon: "ri-timer-line", label: "Thi thử EPS 40 câu", sub: "Ngẫu nhiên toàn chủ đề", color: "app-accent-primary", path: "/eps-exam" },
+              { icon: "ri-timer-line", label: "Thi thử EPS 40 câu", sub: "Ngẫu nhiên toàn chủ đề", color: "#e8c84a", path: "/eps-exam" },
               { icon: "ri-translate-2", label: "Ôn từ vựng EPS", sub: `${vocabStats.total - vocabStats.mastered} từ chưa thuộc`, color: "#34d399", path: "/eps-vocabulary" },
               { icon: "ri-file-list-3-line", label: "Luyện câu hỏi EPS", sub: `${epsQuestions.length} câu theo chủ đề`, color: "#fb923c", path: "/eps" },
             ].map(action => (
@@ -326,8 +326,8 @@ export default function EpsStatsPage() {
               {examStats && (
                 <div className="grid grid-cols-5 gap-3">
                   {[
-                    { label: "Tổng lần thi", value: examStats.total, color: "app-accent-primary" },
-                    { label: "Điểm TB", value: `${examStats.avg}%`, color: examStats.avg >= 80 ? "#34d399" : "app-accent-primary" },
+                    { label: "Tổng lần thi", value: examStats.total, color: "#e8c84a" },
+                    { label: "Điểm TB", value: `${examStats.avg}%`, color: examStats.avg >= 80 ? "#34d399" : "#e8c84a" },
                     { label: "Điểm cao nhất", value: `${examStats.best}%`, color: "#34d399" },
                     { label: "Điểm gần nhất", value: `${examStats.latest}%`, color: examStats.latest >= 80 ? "#34d399" : "#f87171" },
                     { label: "Số lần đậu", value: `${examStats.passed}/${examStats.total}`, color: "#a78bfa" },
@@ -348,7 +348,7 @@ export default function EpsStatsPage() {
                 <div className="divide-y divide-white/3 max-h-[500px] overflow-y-auto">
                   {[...examResults].reverse().map((r, i) => {
                     const pct = Math.round((r.score / r.total) * 100);
-                    const color = pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : "#f87171";
+                    const color = pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : "#f87171";
                     const passed = pct >= 80;
                     return (
                       <div key={r.id} className="flex items-center gap-4 px-5 py-4 hover:bg-white/2 transition-colors">
@@ -398,7 +398,7 @@ export default function EpsStatsPage() {
                   {[
                     { label: "Đã thuộc", value: vocabStats.mastered, color: "#34d399" },
                     { label: "Chưa thuộc", value: vocabStats.total - vocabStats.mastered, color: "#f87171" },
-                    { label: "Tổng từ EPS", value: vocabStats.total, color: "app-accent-primary" },
+                    { label: "Tổng từ EPS", value: vocabStats.total, color: "#e8c84a" },
                   ].map(s => (
                     <div key={s.label} className="bg-app-surface/50 rounded-xl p-3 text-center">
                       <p className="font-bold text-xl" style={{ color: s.color }}>{s.value}</p>
@@ -421,7 +421,7 @@ export default function EpsStatsPage() {
                       <i className={`${topic.icon} text-xs`} style={{ color: topic.color }}></i>
                     </div>
                     <span className="text-white/60 text-xs font-medium flex-1 truncate">{topic.label}</span>
-                    <span className="text-xs font-bold" style={{ color: topic.pct >= 80 ? "#34d399" : topic.pct >= 50 ? "app-accent-primary" : "#f87171" }}>{topic.pct}%</span>
+                    <span className="text-xs font-bold" style={{ color: topic.pct >= 80 ? "#34d399" : topic.pct >= 50 ? "#e8c84a" : "#f87171" }}>{topic.pct}%</span>
                   </div>
                   <div className="h-1.5 bg-app-card/50 rounded-full overflow-hidden mb-1">
                     <div className="h-full rounded-full transition-all" style={{ width: `${topic.pct}%`, backgroundColor: topic.color }} />
@@ -478,7 +478,7 @@ export default function EpsStatsPage() {
                   <div className="flex gap-1.5">
                     {[
                       { label: "Dễ", value: easy, color: "#34d399" },
-                      { label: "TB", value: medium, color: "app-accent-primary" },
+                      { label: "TB", value: medium, color: "#e8c84a" },
                       { label: "Khó", value: hard, color: "#f87171" },
                     ].map(d => (
                       <div key={d.label} className="flex-1 text-center bg-app-surface/50 rounded-lg py-1.5">
@@ -497,7 +497,7 @@ export default function EpsStatsPage() {
             <div className="space-y-3">
               {[
                 { icon: "ri-alert-line", color: "#f87171", title: "Chủ đề cần ôn thêm", desc: "Pháp luật lao động & Tình huống khẩn cấp — nhiều câu khó, ít câu dễ", action: "Ôn ngay", path: "/eps" },
-                { icon: "ri-star-line", color: "app-accent-primary", title: "Chủ đề đang tốt", desc: "Giao tiếp cơ bản & Nghe hiểu — nhiều câu dễ, phù hợp ôn nhanh", action: "Tiếp tục", path: "/eps" },
+                { icon: "ri-star-line", color: "#e8c84a", title: "Chủ đề đang tốt", desc: "Giao tiếp cơ bản & Nghe hiểu — nhiều câu dễ, phù hợp ôn nhanh", action: "Tiếp tục", path: "/eps" },
                 { icon: "ri-lightbulb-line", color: "#34d399", title: "Mẹo thi EPS", desc: "Đọc kỹ câu hỏi tiếng Việt trước, loại trừ đáp án sai, chú ý từ phủ định", action: "Xem mẹo", path: "/eps-topics" },
               ].map(tip => (
                 <div key={tip.title} className="flex items-start gap-3 p-4 bg-app-surface/50 rounded-xl">

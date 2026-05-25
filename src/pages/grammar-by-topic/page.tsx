@@ -300,7 +300,7 @@ const grammarTopics: GrammarTopic[] = [
     name: "존댓말과 경어",
     nameVi: "Kính ngữ & Lịch sự",
     icon: "ri-user-star-line",
-    color: "app-accent-primary",
+    color: "#e8c84a",
     description: "Ngữ pháp kính ngữ và cách nói lịch sự",
     points: [
       {
@@ -573,7 +573,7 @@ export default function GrammarByTopicPage() {
             {/* Stats */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
               {[
-                { label: "Chủ đề", value: grammarTopics.length, icon: "ri-apps-line", color: "app-accent-primary" },
+                { label: "Chủ đề", value: grammarTopics.length, icon: "ri-apps-line", color: "#e8c84a" },
                 { label: "Cấu trúc", value: totalPoints, icon: "ri-book-2-line", color: "#34d399" },
                 { label: "Cấp độ", value: "A1–C1", icon: "ri-bar-chart-line", color: "#a78bfa" },
               ].map(s => (

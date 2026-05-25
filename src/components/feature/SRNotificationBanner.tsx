@@ -57,7 +57,7 @@ const SRNotificationBanner = memo(function SRNotificationBanner() {
 
   if (!visible || dueCards.length === 0) return null;
 
-  const urgencyColor = dueCards.length >= 20 ? "#f87171" : dueCards.length >= 10 ? "#fb923c" : "app-accent-primary";
+  const urgencyColor = dueCards.length >= 20 ? "#f87171" : dueCards.length >= 10 ? "#fb923c" : "#e8c84a";
   const urgencyLabel = dueCards.length >= 20 ? "Nhiều từ cần ôn!" : dueCards.length >= 10 ? "Cần ôn tập ngay" : "Có từ cần ôn";
 
   // Show minimized pill

@@ -154,7 +154,7 @@ export default function QuickStartGuide() {
         <button
           onClick={() => navigate("/onboarding")}
           className="w-full flex items-center justify-center gap-1.5 py-2 rounded-xl text-xs font-semibold cursor-pointer transition-all"
-          style={{ backgroundColor: "rgba(232,200,74,0.08)", color: "app-accent-primary", border: "1px solid rgba(232,200,74,0.15)" }}
+          style={{ backgroundColor: "rgba(232,200,74,0.08)", color: "#e8c84a", border: "1px solid rgba(232,200,74,0.15)" }}
         >
           <i className="ri-route-line" />
           Tạo lộ trình cá nhân

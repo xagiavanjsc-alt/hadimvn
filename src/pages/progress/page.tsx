@@ -62,7 +62,7 @@ function RadarChart({ data, size = 280 }: {
       <polygon
         points={dataPoints}
         fill="rgba(232,200,74,0.12)"
-        stroke="app-accent-primary"
+        stroke="#e8c84a"
         strokeWidth="2"
         strokeLinejoin="round"
       />
@@ -70,7 +70,7 @@ function RadarChart({ data, size = 280 }: {
       {data.map((d, i) => {
         const p = pointAt(i, d.value / 100);
         return (
-          <circle key={i} cx={p.x} cy={p.y} r="4" fill="app-accent-primary" stroke="#0f1117" strokeWidth="2" />
+          <circle key={i} cx={p.x} cy={p.y} r="4" fill="#e8c84a" stroke="#0f1117" strokeWidth="2" />
         );
       })}
       {/* Labels */}
@@ -189,7 +189,7 @@ export default function ProgressPage() {
       {/* Overall stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "Câu đã làm", value: totalDone, sub: `/ ${epsQuestions.length} tổng`, color: "app-accent-primary", icon: "ri-survey-line" },
+          { label: "Câu đã làm", value: totalDone, sub: `/ ${epsQuestions.length} tổng`, color: "#e8c84a", icon: "ri-survey-line" },
           { label: "Tỷ lệ đúng", value: `${overallPct}%`, sub: `${totalCorrect} câu đúng`, color: "#34d399", icon: "ri-checkbox-circle-line" },
           { label: "Lần thi thử", value: examResults.length, sub: "bài thi đã làm", color: "#06b6d4", icon: "ri-timer-line" },
           { label: "Điểm cao nhất", value: bestExam > 0 ? `${bestExam}%` : "—", sub: "trong thi thử", color: "#a78bfa", icon: "ri-trophy-line" },
@@ -233,7 +233,7 @@ export default function ProgressPage() {
             {EPS_TOPICS.map(t => {
               const d = practiceByTopic[t.id] ?? { correct: 0, total: 0 };
               const pct = d.total > 0 ? Math.round((d.correct / d.total) * 100) : 0;
-              const color = pct >= 80 ? "#34d399" : pct >= 60 ? "app-accent-primary" : pct > 0 ? "#f87171" : "rgba(255,255,255,0.1)";
+              const color = pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : pct > 0 ? "#f87171" : "rgba(255,255,255,0.1)";
               const totalQ = epsQuestions.filter(q => q.topic === t.id).length;
               return (
                 <div key={t.id}>
@@ -292,7 +292,7 @@ export default function ProgressPage() {
               <div className="flex items-end gap-3 h-28 mb-3">
                 {trend.map((t, i) => {
                   const barH = Math.max((t.pct / maxTrend) * 96, 4);
-                  const color = t.pct >= 80 ? "#34d399" : t.pct >= 60 ? "app-accent-primary" : "#f87171";
+                  const color = t.pct >= 80 ? "#34d399" : t.pct >= 60 ? "#e8c84a" : "#f87171";
                   return (
                     <div key={i} className="flex-1 flex flex-col items-center gap-1 group relative">
                       <div className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 bg-[#1a1d27] border border-app-border text-white/70 text-[9px] px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
@@ -340,7 +340,7 @@ export default function ProgressPage() {
                     <p className="text-app-text-muted text-[10px]">{t.done} câu đã làm</p>
                   </div>
                   <div className="flex items-center gap-2 flex-shrink-0">
-                    <span className="text-xs font-bold" style={{ color: t.pct >= 60 ? "app-accent-primary" : "#f87171" }}>{t.pct}%</span>
+                    <span className="text-xs font-bold" style={{ color: t.pct >= 60 ? "#e8c84a" : "#f87171" }}>{t.pct}%</span>
                     <i className="ri-arrow-right-line text-app-text-muted text-xs"></i>
                   </div>
                 </button>

@@ -27,7 +27,7 @@ interface RoadmapStep {
 
 const LEVEL_COLORS = {
   beginner: "#34d399",
-  intermediate: "app-accent-primary",
+  intermediate: "#e8c84a",
   advanced: "#f87171",
 };
 
@@ -93,7 +93,7 @@ function PlacementQuiz({ onComplete }: { onComplete: (result: PlacementResult) =
         <p className="text-app-text-muted text-xs mb-8">Thời gian: ~5-10 phút · Không giới hạn thời gian</p>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
           {[
-            { icon: "ri-survey-line", label: "20 câu hỏi", color: "app-accent-primary" },
+            { icon: "ri-survey-line", label: "20 câu hỏi", color: "#e8c84a" },
             { icon: "ri-folder-line", label: "9 chủ đề", color: "#34d399" },
             { icon: "ri-route-line", label: "Lộ trình cá nhân", color: "#a78bfa" },
           ].map(s => (
@@ -182,11 +182,11 @@ function StepCard({
   index: number;
   onStart: (step: RoadmapStep) => void;
 }) {
-  const priorityColor = step.priority === "high" ? "#f87171" : step.priority === "medium" ? "app-accent-primary" : "#34d399";
+  const priorityColor = step.priority === "high" ? "#f87171" : step.priority === "medium" ? "#e8c84a" : "#34d399";
   const priorityLabel = step.priority === "high" ? "Ưu tiên cao" : step.priority === "medium" ? "Trung bình" : "Bổ sung";
 
   const typeIcon = step.type === "lesson" ? "ri-book-open-line" : step.type === "quiz" ? "ri-survey-line" : step.type === "review" ? "ri-refresh-line" : "ri-trophy-line";
-  const typeColor = step.type === "lesson" ? "app-accent-primary" : step.type === "quiz" ? "#a78bfa" : step.type === "review" ? "#34d399" : "#fb923c";
+  const typeColor = step.type === "lesson" ? "#e8c84a" : step.type === "quiz" ? "#a78bfa" : step.type === "review" ? "#34d399" : "#fb923c";
 
   return (
     <div className={`relative flex gap-4 ${!step.isUnlocked ? "opacity-40" : ""}`}>
@@ -371,7 +371,7 @@ export default function EpsPersonalizedRoadmapPage() {
 
     return [
       { phase: 1, title: "Giai đoạn 1: Củng cố nền tảng", color: "#f87171", steps: phase1Steps, desc: `Tập trung vào ${weakTopics.length} chủ đề điểm yếu` },
-      { phase: 2, title: "Giai đoạn 2: Nâng cao kỹ năng", color: "app-accent-primary", steps: phase2Steps, desc: `Cải thiện ${mediumTopics.length} chủ đề trung bình` },
+      { phase: 2, title: "Giai đoạn 2: Nâng cao kỹ năng", color: "#e8c84a", steps: phase2Steps, desc: `Cải thiện ${mediumTopics.length} chủ đề trung bình` },
       { phase: 3, title: "Giai đoạn 3: Luyện thi tổng hợp", color: "#34d399", steps: [...phase3Steps, milestone], desc: "Thi thử và ôn tập toàn diện" },
     ];
   }, [placementResult, completedLessons]);
@@ -501,7 +501,7 @@ export default function EpsPersonalizedRoadmapPage() {
               <div className="space-y-3">
                 {Object.entries(placementResult.topicScores).map(([topicId, score]) => {
                   const topicInfo = EPS_TOPICS.find(t => t.id === topicId);
-                  const color = score >= 80 ? "#34d399" : score >= 50 ? "app-accent-primary" : "#f87171";
+                  const color = score >= 80 ? "#34d399" : score >= 50 ? "#e8c84a" : "#f87171";
                   return (
                     <div key={topicId}>
                       <div className="flex items-center justify-between mb-1">
@@ -523,7 +523,7 @@ export default function EpsPersonalizedRoadmapPage() {
             <p className="text-white font-semibold text-sm mb-3">Tiến độ lộ trình</p>
             <div className="space-y-2">
               {[
-                { label: "Tổng bước", value: totalSteps, color: "app-accent-primary" },
+                { label: "Tổng bước", value: totalSteps, color: "#e8c84a" },
                 { label: "Đã hoàn thành", value: completedSteps, color: "#34d399" },
                 { label: "Còn lại", value: totalSteps - completedSteps, color: "#f87171" },
               ].map(s => (

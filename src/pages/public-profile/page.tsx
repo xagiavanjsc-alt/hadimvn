@@ -82,7 +82,7 @@ function ShareCard({ profile, stats }: { profile: PublicProfile; stats: PublicSt
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {[
           { icon: "ri-fire-line", color: "#fb923c", label: "Streak", value: `${stats.streak} ngày` },
-          { icon: "ri-trophy-line", color: "app-accent-primary", label: "Điểm EPS cao nhất", value: `${stats.epsBestScore}%` },
+          { icon: "ri-trophy-line", color: "#e8c84a", label: "Điểm EPS cao nhất", value: `${stats.epsBestScore}%` },
           { icon: "ri-file-list-3-line", color: "#06b6d4", label: "Lần thi EPS", value: stats.epsExamCount },
           { icon: "ri-medal-line", color: "#a78bfa", label: "Huy hiệu", value: stats.badgeCount },
         ].map((item, i) => (
@@ -291,7 +291,7 @@ export default function PublicProfilePage() {
             <div className="grid grid-cols-2 gap-3">
               {[
                 { icon: "ri-fire-line", color: "#fb923c", bg: "bg-orange-50", label: "Streak hiện tại", value: `${stats.streak} ngày` },
-                { icon: "ri-star-line", color: "app-accent-primary", bg: "bg-yellow-50", label: "Tổng XP", value: stats.totalXP.toLocaleString() },
+                { icon: "ri-star-line", color: "#e8c84a", bg: "bg-yellow-50", label: "Tổng XP", value: stats.totalXP.toLocaleString() },
                 { icon: "ri-trophy-line", color: "#34d399", bg: "bg-emerald-50", label: "Điểm EPS cao nhất", value: `${stats.epsBestScore}%` },
                 { icon: "ri-file-list-3-line", color: "#06b6d4", bg: "bg-cyan-50", label: "Lần thi EPS", value: stats.epsExamCount },
                 { icon: "ri-stack-line", color: "#a78bfa", bg: "bg-purple-50", label: "Từ vựng đã thuộc", value: stats.flashcardKnown },

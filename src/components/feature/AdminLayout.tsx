@@ -81,7 +81,7 @@ const adminNavGroups = [
   },
   {
     label: "Hệ thống",
-    color: "app-accent-primary",
+    color: "#e8c84a",
     items: [
       { path: "/admin/control", icon: "ri-settings-4-line", label: "Cài đặt admin", permission: "system.settings" as Permission },
       { path: "/admin/xp-config", icon: "ri-scales-3-line", label: "Cấu hình XP & Anti-cheat", permission: "system.settings" as Permission },

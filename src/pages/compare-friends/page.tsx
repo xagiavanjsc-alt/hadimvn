@@ -29,7 +29,7 @@ interface FriendData {
 // Friend data giờ được fetch thật từ Supabase (không còn mock)
 
 const COMPARE_METRICS = [
-  { key: "xp", label: "Tổng XP", icon: "ri-star-line", color: "app-accent-primary", format: (v: number) => v.toLocaleString() },
+  { key: "xp", label: "Tổng XP", icon: "ri-star-line", color: "#e8c84a", format: (v: number) => v.toLocaleString() },
   { key: "streak", label: "Streak hiện tại", icon: "ri-fire-line", color: "#fb923c", format: (v: number) => `${v} ngày` },
   { key: "epsAccuracy", label: "Độ chính xác EPS", icon: "ri-percent-line", color: "#34d399", format: (v: number) => `${v}%` },
   { key: "epsDone", label: "Câu EPS đã làm", icon: "ri-file-list-3-line", color: "#06b6d4", format: (v: number) => `${v} câu` },
@@ -278,7 +278,7 @@ export default function CompareFriendsPage() {
 
                 {/* Result banner */}
                 <div className={`mt-4 p-3 rounded-xl text-center ${winsCount > COMPARE_METRICS.length / 2 ? "bg-emerald-500/10 border border-emerald-500/20" : winsCount === COMPARE_METRICS.length / 2 ? "bg-app-accent-primary/10 border border-app-accent-primary/20" : "bg-red-500/10 border border-red-500/20"}`}>
-                  <p className="font-bold text-sm" style={{ color: winsCount > COMPARE_METRICS.length / 2 ? "#34d399" : winsCount === COMPARE_METRICS.length / 2 ? "app-accent-primary" : "#f87171" }}>
+                  <p className="font-bold text-sm" style={{ color: winsCount > COMPARE_METRICS.length / 2 ? "#34d399" : winsCount === COMPARE_METRICS.length / 2 ? "#e8c84a" : "#f87171" }}>
                     {winsCount > COMPARE_METRICS.length / 2 ? "🏆 Bạn đang dẫn trước!" : winsCount === COMPARE_METRICS.length / 2 ? "🤝 Ngang nhau!" : "💪 Cần cố gắng thêm!"}
                   </p>
                   <p className="text-app-text-muted text-xs mt-0.5">

@@ -14,7 +14,7 @@ interface FriendStreak {
   avatar_color: string;
 }
 
-const AVATAR_COLORS = ["app-accent-primary", "#34d399", "#fb923c", "#f472b6", "#38bdf8", "#a78bfa", "#f87171", "#06b6d4"];
+const AVATAR_COLORS = ["#e8c84a", "#34d399", "#fb923c", "#f472b6", "#38bdf8", "#a78bfa", "#f87171", "#06b6d4"];
 
 function getAvatarColor(name: string) {
   let hash = 0;
@@ -34,7 +34,7 @@ function timeAgo(dateStr: string) {
 
 function StreakFlame({ count }: { count: number }) {
   const size = count >= 30 ? "text-2xl" : count >= 7 ? "text-xl" : "text-base";
-  const color = count >= 30 ? "#ef4444" : count >= 14 ? "#fb923c" : count >= 7 ? "app-accent-primary" : "#94a3b8";
+  const color = count >= 30 ? "#ef4444" : count >= 14 ? "#fb923c" : count >= 7 ? "#e8c84a" : "#94a3b8";
   return (
     <div className="flex items-center gap-1">
       <i className={`ri-fire-fill ${size}`} style={{ color }}></i>
@@ -238,7 +238,7 @@ export default function FriendStreakPage() {
             <div className="space-y-3">
               {[
                 { days: 3, icon: "ri-seedling-line", color: "#34d399", label: "Khởi đầu", desc: "3 ngày liên tiếp" },
-                { days: 7, icon: "ri-fire-line", color: "app-accent-primary", label: "Tuần đầu", desc: "7 ngày liên tiếp" },
+                { days: 7, icon: "ri-fire-line", color: "#e8c84a", label: "Tuần đầu", desc: "7 ngày liên tiếp" },
                 { days: 14, icon: "ri-fire-fill", color: "#fb923c", label: "Hai tuần", desc: "14 ngày liên tiếp" },
                 { days: 30, icon: "ri-fire-fill", color: "#ef4444", label: "Một tháng", desc: "30 ngày liên tiếp" },
                 { days: 100, icon: "ri-vip-crown-fill", color: "#FFD700", label: "Huyền thoại", desc: "100 ngày liên tiếp" },
@@ -287,7 +287,7 @@ export default function FriendStreakPage() {
             <h3 className="text-white font-semibold text-sm mb-3">Thống kê cộng đồng</h3>
             <div className="space-y-2.5">
               {[
-                { icon: "ri-group-line", label: "Đang học", value: `${leaderboard.length}+ người`, color: "app-accent-primary" },
+                { icon: "ri-group-line", label: "Đang học", value: `${leaderboard.length}+ người`, color: "#e8c84a" },
                 { icon: "ri-fire-line", label: "Streak TB", value: `${Math.round(leaderboard.reduce((s, f) => s + f.streak_count, 0) / Math.max(leaderboard.length, 1))} ngày`, color: "#fb923c" },
                 { icon: "ri-trophy-line", label: "Streak cao nhất", value: `${Math.max(...leaderboard.map(f => f.streak_count), 0)} ngày`, color: "#FFD700" },
               ].map(s => (

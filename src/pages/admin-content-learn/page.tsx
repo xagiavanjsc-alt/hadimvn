@@ -206,7 +206,7 @@ function TopikVocabTab() {
                   </span>
                   <p className="text-xs" style={{ color: "var(--admin-text-faint)" }}>{v.part_of_speech}</p>
                   <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <button onClick={() => setEditEntry({ ...v })} className="w-7 h-7 flex items-center justify-center rounded-lg cursor-pointer" style={{ backgroundColor: "rgba(232,200,74,0.12)", color: "app-accent-primary" }}>
+                    <button onClick={() => setEditEntry({ ...v })} className="w-7 h-7 flex items-center justify-center rounded-lg cursor-pointer" style={{ backgroundColor: "rgba(232,200,74,0.12)", color: "#e8c84a" }}>
                       <i className="ri-edit-line text-xs"></i>
                     </button>
                     <button onClick={() => handleDelete(v.id)} className="w-7 h-7 flex items-center justify-center rounded-lg cursor-pointer" style={{ backgroundColor: "rgba(248,113,113,0.12)", color: "#f87171" }}>
@@ -370,7 +370,7 @@ function SeoulVocabTab() {
                   <span className="text-[10px] px-2 py-0.5 rounded-full font-bold w-fit bg-[#a78bfa]/15 text-[#a78bfa]">{v.book_id}</span>
                   <p className="text-xs" style={{ color: "var(--admin-text-faint)" }}>{v.lesson_id}</p>
                   <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <button onClick={() => setEditEntry({ ...v })} className="w-7 h-7 flex items-center justify-center rounded-lg cursor-pointer" style={{ backgroundColor: "rgba(232,200,74,0.12)", color: "app-accent-primary" }}>
+                    <button onClick={() => setEditEntry({ ...v })} className="w-7 h-7 flex items-center justify-center rounded-lg cursor-pointer" style={{ backgroundColor: "rgba(232,200,74,0.12)", color: "#e8c84a" }}>
                       <i className="ri-edit-line text-xs"></i>
                     </button>
                   </div>
@@ -501,16 +501,16 @@ function HanjaTab() {
                 <div key={e.id} className="grid grid-cols-[2fr_1fr_2fr_1fr_1fr_auto] px-4 py-3 items-center group"
                   style={{ backgroundColor: "var(--admin-card)" }}>
                   <p className="font-bold text-sm" style={{ color: "var(--admin-text)" }}>{e.korean}</p>
-                  <p className="text-sm font-bold" style={{ color: "app-accent-primary" }}>{e.hanja}</p>
+                  <p className="text-sm font-bold" style={{ color: "#e8c84a" }}>{e.hanja}</p>
                   <p className="text-sm" style={{ color: "var(--admin-text-muted)" }}>{e.vietnamese}</p>
                   <p className="text-xs" style={{ color: "var(--admin-text-faint)" }}>{e.category}</p>
                   <div className="flex gap-0.5">
                     {Array.from({ length: 5 }, (_, i) => (
-                      <div key={i} className="w-2 h-2 rounded-full" style={{ backgroundColor: i < (e.difficulty || 1) ? "app-accent-primary" : "var(--admin-hover)" }} />
+                      <div key={i} className="w-2 h-2 rounded-full" style={{ backgroundColor: i < (e.difficulty || 1) ? "#e8c84a" : "var(--admin-hover)" }} />
                     ))}
                   </div>
                   <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <button onClick={() => setEditEntry({ ...e })} className="w-7 h-7 flex items-center justify-center rounded-lg cursor-pointer" style={{ backgroundColor: "rgba(232,200,74,0.12)", color: "app-accent-primary" }}>
+                    <button onClick={() => setEditEntry({ ...e })} className="w-7 h-7 flex items-center justify-center rounded-lg cursor-pointer" style={{ backgroundColor: "rgba(232,200,74,0.12)", color: "#e8c84a" }}>
                       <i className="ri-edit-line text-xs"></i>
                     </button>
                   </div>
@@ -648,7 +648,7 @@ function GrammarTab() {
                   <span className="text-[10px] px-2 py-0.5 rounded-full font-bold w-fit bg-[#a78bfa]/15 text-[#a78bfa]">{e.level}</span>
                   <p className="text-xs" style={{ color: "var(--admin-text-faint)" }}>{e.book_id}</p>
                   <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <button onClick={() => setEditEntry({ ...e })} className="w-7 h-7 flex items-center justify-center rounded-lg cursor-pointer" style={{ backgroundColor: "rgba(232,200,74,0.12)", color: "app-accent-primary" }}>
+                    <button onClick={() => setEditEntry({ ...e })} className="w-7 h-7 flex items-center justify-center rounded-lg cursor-pointer" style={{ backgroundColor: "rgba(232,200,74,0.12)", color: "#e8c84a" }}>
                       <i className="ri-edit-line text-xs"></i>
                     </button>
                   </div>
@@ -699,7 +699,7 @@ export default function AdminContentLearnPage() {
   const tabs = [
     { id: "topik" as Tab, label: "Từ vựng TOPIK", icon: "ri-book-open-line", color: "#34d399" },
     { id: "seoul" as Tab, label: "Từ vựng Seoul", icon: "ri-book-3-line", color: "#a78bfa" },
-    { id: "hanja" as Tab, label: "Hán Hàn", icon: "ri-character-recognition-line", color: "app-accent-primary" },
+    { id: "hanja" as Tab, label: "Hán Hàn", icon: "ri-character-recognition-line", color: "#e8c84a" },
     { id: "grammar" as Tab, label: "Ngữ pháp Seoul", icon: "ri-book-2-line", color: "#fb923c" },
   ];
 

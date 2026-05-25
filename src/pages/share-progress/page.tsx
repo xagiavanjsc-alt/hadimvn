@@ -18,7 +18,7 @@ interface ProgressData {
 }
 
 const THEMES: { id: CardTheme; label: string; bg: string; accent: string; text: string; sub: string }[] = [
-  { id: "dark", label: "Tối sang trọng", bg: "linear-gradient(135deg, #0f1117 0%, #1a1d27 50%, #0f1117 100%)", accent: "app-accent-primary", text: "#ffffff", sub: "rgba(255,255,255,0.5)" },
+  { id: "dark", label: "Tối sang trọng", bg: "linear-gradient(135deg, #0f1117 0%, #1a1d27 50%, #0f1117 100%)", accent: "#e8c84a", text: "#ffffff", sub: "rgba(255,255,255,0.5)" },
   { id: "gold", label: "Vàng rực rỡ", bg: "linear-gradient(135deg, #1a1200 0%, #2d2000 50%, #1a1200 100%)", accent: "#fbbf24", text: "#ffffff", sub: "rgba(255,255,255,0.55)" },
   { id: "green", label: "Xanh tươi mát", bg: "linear-gradient(135deg, #022c22 0%, #064e3b 50%, #022c22 100%)", accent: "#34d399", text: "#ffffff", sub: "rgba(255,255,255,0.55)" },
   { id: "pink", label: "Hồng năng động", bg: "linear-gradient(135deg, #1a0010 0%, #2d0020 50%, #1a0010 100%)", accent: "#f472b6", text: "#ffffff", sub: "rgba(255,255,255,0.55)" },
@@ -404,10 +404,10 @@ export default function ShareProgressPage() {
                     }}
                   >
                     <div className="w-6 sm:w-8 h-6 sm:h-8 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: layout === l.id ? "rgba(232,200,74,0.15)" : "rgba(255,255,255,0.05)" }}>
-                      <i className={`${l.icon} text-xs sm:text-sm`} style={{ color: layout === l.id ? "app-accent-primary" : "rgba(255,255,255,0.3)" }} />
+                      <i className={`${l.icon} text-xs sm:text-sm`} style={{ color: layout === l.id ? "#e8c84a" : "rgba(255,255,255,0.3)" }} />
                     </div>
                     <div className="flex-1 text-left">
-                      <p className="text-[11px] sm:text-sm font-medium" style={{ color: layout === l.id ? "app-accent-primary" : "rgba(255,255,255,0.6)" }}>{l.label}</p>
+                      <p className="text-[11px] sm:text-sm font-medium" style={{ color: layout === l.id ? "#e8c84a" : "rgba(255,255,255,0.6)" }}>{l.label}</p>
                       <p className="text-[9px] sm:text-[10px]" style={{ color: "rgba(255,255,255,0.25)" }}>{l.w} × {l.h}px</p>
                     </div>
                     {layout === l.id && <i className="ri-check-line text-app-accent-primary text-[10px] sm:text-sm" />}
@@ -422,7 +422,7 @@ export default function ShareProgressPage() {
               <div className="grid grid-cols-2 gap-1.5 sm:gap-2">
                 {[
                   { label: "Streak", value: `${progressData.streak} ngày`, icon: "ri-fire-line", color: "#fb923c" },
-                  { label: "XP tổng", value: progressData.xp.toLocaleString(), icon: "ri-flashlight-line", color: "app-accent-primary" },
+                  { label: "XP tổng", value: progressData.xp.toLocaleString(), icon: "ri-flashlight-line", color: "#e8c84a" },
                   { label: "Từ đã học", value: progressData.wordsLearned.toLocaleString(), icon: "ri-book-open-line", color: "#34d399" },
                   { label: "Cấp độ", value: progressData.level, icon: "ri-medal-line", color: "#a78bfa" },
                 ].map(s => (

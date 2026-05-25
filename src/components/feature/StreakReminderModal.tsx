@@ -84,7 +84,7 @@ function StreakReminderModal() {
 
   if (!visible) return null;
 
-  const streakColor = streakCount >= 30 ? "#ef4444" : streakCount >= 7 ? "#fb923c" : "app-accent-primary";
+  const streakColor = streakCount >= 30 ? "#ef4444" : streakCount >= 7 ? "#fb923c" : "#e8c84a";
   const urgencyMsg = hoursSince >= 48
     ? "Bạn đã không học hơn 2 ngày rồi!"
     : hoursSince >= 24

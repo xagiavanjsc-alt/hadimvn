@@ -68,7 +68,7 @@ interface LeaderboardEntry {
 }
 
 const LEADERBOARD_DATA: LeaderboardEntry[] = [
-  { rank: 1, name: "Minh Tuấn", color: "app-accent-primary", level: "B2", studyMinutes: 342, wordsLearned: 187, streak: 47, room: "EPS-TOPIK Cùng Chinh Phục", badge: "ri-vip-crown-fill" },
+  { rank: 1, name: "Minh Tuấn", color: "#e8c84a", level: "B2", studyMinutes: 342, wordsLearned: 187, streak: 47, room: "EPS-TOPIK Cùng Chinh Phục", badge: "ri-vip-crown-fill" },
   { rank: 2, name: "Thu Hà", color: "#fb923c", level: "B1", studyMinutes: 298, wordsLearned: 154, streak: 32, room: "EPS-TOPIK Cùng Chinh Phục", badge: "ri-medal-fill" },
   { rank: 3, name: "Hải Đăng", color: "#a78bfa", level: "C1", studyMinutes: 276, wordsLearned: 201, streak: 28, room: "TOPIK II Nâng Cao", badge: "ri-medal-fill" },
   { rank: 4, name: "Lan Anh", color: "#34d399", level: "A2", studyMinutes: 215, wordsLearned: 98, streak: 15, room: "Hangul Cho Người Mới", badge: "ri-star-fill" },
@@ -81,7 +81,7 @@ const LEADERBOARD_DATA: LeaderboardEntry[] = [
 function RoomLeaderboard() {
   const [sortKey, setSortKey] = useState<"studyMinutes" | "wordsLearned" | "streak">("studyMinutes");
   const sorted = [...LEADERBOARD_DATA].sort((a, b) => b[sortKey] - a[sortKey]).map((e, i) => ({ ...e, rank: i + 1 }));
-  const rankColors = ["app-accent-primary", "#c0c0c0", "#cd7f32"];
+  const rankColors = ["#e8c84a", "#c0c0c0", "#cd7f32"];
 
   return (
     <div className="bg-app-bg border border-app-border rounded-2xl overflow-hidden">
@@ -218,7 +218,7 @@ interface StudyRoomChatProps {
 
 function StudyRoomChat({ room, onLeave, profile }: StudyRoomChatProps) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
-  const [members] = useState<RoomMember[]>(profile ? [{ id: "me", name: profile.display_name, level: "", color: "app-accent-primary", joinedAt: Date.now(), activity: "Đang học", streak: 0, isHost: true }] : []);
+  const [members] = useState<RoomMember[]>(profile ? [{ id: "me", name: profile.display_name, level: "", color: "#e8c84a", joinedAt: Date.now(), activity: "Đang học", streak: 0, isHost: true }] : []);
   const [inputText, setInputText] = useState("");
   const [studyTimer, setStudyTimer] = useState(0);
   const [timerRunning, setTimerRunning] = useState(true);
@@ -252,7 +252,7 @@ function StudyRoomChat({ room, onLeave, profile }: StudyRoomChatProps) {
       id: `my_${Date.now()}`,
       userId: "me",
       userName: profile?.display_name || "Bạn",
-      color: "app-accent-primary",
+      color: "#e8c84a",
       text: text.trim(),
       time: Date.now(),
       type: "message",
@@ -324,7 +324,7 @@ function StudyRoomChat({ room, onLeave, profile }: StudyRoomChatProps) {
                     )}
                     <div className="px-3 py-2 rounded-xl text-sm" style={{
                       backgroundColor: msg.userId === "me" ? "rgba(232,200,74,0.15)" : "rgba(255,255,255,0.05)",
-                      color: msg.userId === "me" ? "app-accent-primary" : "rgba(255,255,255,0.75)",
+                      color: msg.userId === "me" ? "#e8c84a" : "rgba(255,255,255,0.75)",
                       border: msg.userId === "me" ? "1px solid rgba(232,200,74,0.2)" : "1px solid rgba(255,255,255,0.06)",
                     }}>
                       {msg.text}
@@ -353,7 +353,7 @@ function StudyRoomChat({ room, onLeave, profile }: StudyRoomChatProps) {
         <div className="px-4 py-3 border-t border-app-border flex-shrink-0">
           <div className="flex gap-2">
             <button onClick={() => setShowPhrases(v => !v)} className="w-9 h-9 flex items-center justify-center rounded-xl cursor-pointer flex-shrink-0 transition-colors" style={{ backgroundColor: showPhrases ? "rgba(232,200,74,0.15)" : "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)" }}>
-              <i className="ri-emotion-line text-sm" style={{ color: showPhrases ? "app-accent-primary" : "rgba(255,255,255,0.4)" }}></i>
+              <i className="ri-emotion-line text-sm" style={{ color: showPhrases ? "#e8c84a" : "rgba(255,255,255,0.4)" }}></i>
             </button>
             <input
               value={inputText}
@@ -363,7 +363,7 @@ function StudyRoomChat({ room, onLeave, profile }: StudyRoomChatProps) {
               className="flex-1 rounded-xl px-4 py-2.5 text-sm focus:outline-none"
               style={{ backgroundColor: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.8)" }}
             />
-            <button onClick={() => sendMessage(inputText)} disabled={!inputText.trim()} className="w-9 h-9 flex items-center justify-center rounded-xl cursor-pointer flex-shrink-0 disabled:opacity-40 transition-colors" style={{ backgroundColor: "app-accent-primary" }}>
+            <button onClick={() => sendMessage(inputText)} disabled={!inputText.trim()} className="w-9 h-9 flex items-center justify-center rounded-xl cursor-pointer flex-shrink-0 disabled:opacity-40 transition-colors" style={{ backgroundColor: "#e8c84a" }}>
               <i className="ri-send-plane-fill text-sm text-app-bg"></i>
             </button>
           </div>
@@ -405,7 +405,7 @@ function StudyRoomChat({ room, onLeave, profile }: StudyRoomChatProps) {
           <h4 className="text-white/50 text-[10px] tracking-normal mb-3">Phiên học này</h4>
           <div className="space-y-2">
             {[
-              { label: "Thời gian học", value: formatTimer(studyTimer), icon: "ri-timer-line", color: "app-accent-primary" },
+              { label: "Thời gian học", value: formatTimer(studyTimer), icon: "ri-timer-line", color: "#e8c84a" },
               { label: "Tin nhắn", value: messages.filter(m => m.type === "message").length, icon: "ri-chat-3-line", color: "#34d399" },
               { label: "Thành viên", value: members.length, icon: "ri-group-line", color: "#60a5fa" },
             ].map(s => (
@@ -467,7 +467,7 @@ export default function StudyRoomPage() {
       hostName: profile?.display_name || "Bạn",
       language: "Tiếng Hàn",
       tags: [newRoomTopic],
-      color: "app-accent-primary",
+      color: "#e8c84a",
     };
     setRooms(prev => [newRoom, ...prev]);
     setShowCreate(false);
@@ -500,7 +500,7 @@ export default function StudyRoomPage() {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
           { label: "Phòng đang mở", value: rooms.filter(r => r.memberCount < r.maxMembers).length, icon: "ri-door-open-line", color: "#34d399" },
-          { label: "Học viên online", value: rooms.reduce((s, r) => s + r.memberCount, 0), icon: "ri-group-line", color: "app-accent-primary" },
+          { label: "Học viên online", value: rooms.reduce((s, r) => s + r.memberCount, 0), icon: "ri-group-line", color: "#e8c84a" },
           { label: "Phòng công khai", value: rooms.filter(r => r.isPublic).length, icon: "ri-global-line", color: "#60a5fa" },
           { label: "Chủ đề", value: [...new Set(rooms.map(r => r.topic))].length, icon: "ri-book-open-line", color: "#a78bfa" },
         ].map(s => (

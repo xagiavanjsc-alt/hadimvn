@@ -19,7 +19,7 @@ interface ActivityItem {
   color: string;
 }
 
-const COLORS = ["app-accent-primary", "#34d399", "#60a5fa", "#f472b6", "#fb923c", "#a78bfa"];
+const COLORS = ["#e8c84a", "#34d399", "#60a5fa", "#f472b6", "#fb923c", "#a78bfa"];
 
 function timeAgoShort(seconds: number) {
   if (seconds < 60) return `${seconds}s`;
@@ -121,7 +121,7 @@ export default function OnlineUsersWidget() {
           detail: `${row.exam_type.toUpperCase()} - ${pct}%`,
           time: Math.max(0, Math.floor((now - new Date(row.created_at).getTime()) / 1000)),
           icon: "ri-trophy-line",
-          color: pct >= 80 ? "#34d399" : "app-accent-primary",
+          color: pct >= 80 ? "#34d399" : "#e8c84a",
         });
       });
 

@@ -213,7 +213,7 @@ export default function StudyStatsPage() {
             },
             {
               icon: "ri-book-open-line",
-              color: "app-accent-primary",
+              color: "#e8c84a",
               bg: "rgba(232,200,74,0.1)",
               label: "Từ đã học",
               value: `${totalDailyWords}`,
@@ -296,7 +296,7 @@ export default function StudyStatsPage() {
                 <BarChart
                   data={thisWeekStats}
                   valueKey="wordsLearned"
-                  color="app-accent-primary"
+                  color="#e8c84a"
                   label="Từ mới"
                 />
               </div>
@@ -364,7 +364,7 @@ export default function StudyStatsPage() {
               <h3 className="text-white font-semibold text-sm mb-4">Thống kê tổng hợp</h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {[
-                  { label: "Ngày học", value: studyDays, unit: "ngày", color: "app-accent-primary" },
+                  { label: "Ngày học", value: studyDays, unit: "ngày", color: "#e8c84a" },
                   { label: "Câu EPS đã làm", value: epsDone, unit: "câu", color: "#4ade80" },
                   { label: "Điểm thi cao nhất", value: bestExamPct, unit: "%", color: "#fb923c" },
                   { label: "Từ thuộc lòng", value: knownCount, unit: "từ", color: "#a78bfa" },
@@ -442,7 +442,7 @@ export default function StudyStatsPage() {
                 {[
                   {
                     icon: "ri-sun-line",
-                    color: "app-accent-primary",
+                    color: "#e8c84a",
                     tip: "Học từ mới mỗi sáng — chỉ cần 5 phút với 8 từ hôm nay",
                     action: "/daily-words",
                     actionLabel: "Học ngay",
@@ -506,7 +506,7 @@ export default function StudyStatsPage() {
                   label="Từ mới đã học"
                   thisWeek={thisWeekTotals.words}
                   lastWeek={lastWeekTotals.words}
-                  color="app-accent-primary"
+                  color="#e8c84a"
                   unit="từ"
                 />
                 <CompareBar
@@ -539,7 +539,7 @@ export default function StudyStatsPage() {
                 <p className="text-app-text-muted text-xs mb-3">Tuần này</p>
                 <div className="space-y-2">
                   {[
-                    { label: "Từ mới", value: thisWeekTotals.words, color: "app-accent-primary" },
+                    { label: "Từ mới", value: thisWeekTotals.words, color: "#e8c84a" },
                     { label: "Câu EPS", value: thisWeekTotals.eps, color: "#4ade80" },
                     { label: "Flashcard", value: thisWeekTotals.flashcard, color: "#a78bfa" },
                     { label: "Phút học", value: thisWeekTotals.minutes, color: "#38bdf8" },
@@ -557,7 +557,7 @@ export default function StudyStatsPage() {
                 <p className="text-app-text-muted text-xs mb-3">Tuần trước</p>
                 <div className="space-y-2">
                   {[
-                    { label: "Từ mới", value: lastWeekTotals.words, color: "app-accent-primary55" },
+                    { label: "Từ mới", value: lastWeekTotals.words, color: "rgba(232,200,74,0.55)" },
                     { label: "Câu EPS", value: lastWeekTotals.eps, color: "#4ade8055" },
                     { label: "Flashcard", value: lastWeekTotals.flashcard, color: "#a78bfa55" },
                     { label: "Phút học", value: lastWeekTotals.minutes, color: "#38bdf855" },
@@ -578,7 +578,7 @@ export default function StudyStatsPage() {
         {/* Quick actions */}
         <div className="flex flex-wrap gap-3">
           {[
-            { path: "/daily-words", icon: "ri-sun-line", label: "Học từ hôm nay", color: "app-accent-primary" },
+            { path: "/daily-words", icon: "ri-sun-line", label: "Học từ hôm nay", color: "#e8c84a" },
             { path: "/eps-exam", icon: "ri-timer-line", label: "Thi thử EPS", color: "#4ade80" },
             { path: "/eps-flashcard", icon: "ri-stack-line", label: "Flashcard EPS", color: "#a78bfa" },
             { path: "/profile", icon: "ri-user-3-line", label: "Hồ sơ cá nhân", color: "#38bdf8" },

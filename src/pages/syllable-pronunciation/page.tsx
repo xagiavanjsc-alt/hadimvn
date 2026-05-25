@@ -26,7 +26,7 @@ const syllableGroups: SyllableGroup[] = [
     title: "Nguyên âm khó",
     description: "Các nguyên âm dễ nhầm lẫn",
     icon: "ri-sound-module-line",
-    color: "app-accent-primary",
+    color: "#e8c84a",
     syllables: [
       { id: "eu", syllable: "으", romanization: "eu", tip: "Phát âm như 'ư' trong tiếng Việt, môi không tròn", similar: "ư (Việt)", words: [{ korean: "으로", meaning: "bằng/theo hướng" }, { korean: "크다", meaning: "to lớn" }], difficulty: "medium" },
       { id: "oe", syllable: "외", romanization: "oe", tip: "Phát âm như 'oe' — môi tròn, lưỡi ở vị trí 'e'", similar: "oe", words: [{ korean: "외국", meaning: "nước ngoài" }, { korean: "외롭다", meaning: "cô đơn" }], difficulty: "hard" },
@@ -145,7 +145,7 @@ export default function SyllablePronunciationPage() {
         {/* Stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
           {[
-            { label: "Tổng âm tiết", value: allSyllables.length, color: "app-accent-primary" },
+            { label: "Tổng âm tiết", value: allSyllables.length, color: "#e8c84a" },
             { label: "Đã thành thạo", value: masteredIds.size, color: "#34d399" },
             { label: "Nhóm", value: syllableGroups.length, color: "#a78bfa" },
             { label: "Khó", value: allSyllables.filter(s => s.difficulty === "hard").length, color: "#f87171" },

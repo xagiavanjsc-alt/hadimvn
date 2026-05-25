@@ -22,7 +22,7 @@ export interface GrammarExercise {
 }
 
 export const GRAMMAR_CATEGORIES = [
-  { id: "tense", label: "Thì & Thời gian", icon: "ri-time-line", color: "app-accent-primary" },
+  { id: "tense", label: "Thì & Thời gian", icon: "ri-time-line", color: "#e8c84a" },
   { id: "particle", label: "Trợ từ", icon: "ri-link", color: "#34d399" },
   { id: "ending", label: "Đuôi câu", icon: "ri-chat-1-line", color: "#fb923c" },
   { id: "connective", label: "Liên kết câu", icon: "ri-git-merge-line", color: "#a78bfa" },
