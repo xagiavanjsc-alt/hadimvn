@@ -5,12 +5,53 @@ import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/lib/supabase";
 import { vocabularyData, VOCAB_CATEGORIES, type VocabItem } from "@/mocks/vocabularyData";
+import type { SeoulBook } from "@/mocks/seoulTextbook";
 
 const LEVELS = ["A1", "A2", "B1", "B2"] as const;
 const LEVEL_COLORS: Record<string, string> = { A1: "#34d399", A2: "app-accent-primary", B1: "#fb923c", B2: "#f87171" };
 const POS_LABELS: Record<string, string> = {
   noun: "Danh từ", verb: "Động từ", adjective: "Tính từ", adverb: "Trạng từ", expression: "Biểu đạt",
 };
+
+// Map Seoul textbook level → TOPIK CEFR level for filter compatibility
+const SEOUL_LEVEL_TO_TOPIK: Record<string, "A1" | "A2" | "B1" | "B2"> = {
+  "1A": "A1", "1B": "A1", "2A": "A2", "2B": "A2",
+  "3A": "B1", "3B": "B1", "4A": "B2", "4B": "B2",
+};
+
+// Map Seoul partOfSpeech (Korean) → VocabItem partOfSpeech enum
+function mapPos(pos: string): VocabItem["partOfSpeech"] {
+  if (!pos) return "expression";
+  if (pos.includes("명사")) return "noun";
+  if (pos.includes("동사")) return "verb";
+  if (pos.includes("형용사")) return "adjective";
+  if (pos.includes("부사")) return "adverb";
+  return "expression";
+}
+
+// Flatten Seoul books → VocabItem[] compatible with existing UI
+function flattenSeoulVocab(books: SeoulBook[]): VocabItem[] {
+  const items: VocabItem[] = [];
+  books.forEach(book => {
+    book.lessons.forEach(lesson => {
+      lesson.vocabulary.forEach((v, idx) => {
+        items.push({
+          id: `seoul-${book.level}-l${lesson.lessonNumber}-${idx}`,
+          korean: v.korean,
+          reading: v.pronunciation,
+          vietnamese: v.vietnamese,
+          example: v.example,
+          exampleVi: v.exampleVi,
+          category: "school",
+          topikLevel: SEOUL_LEVEL_TO_TOPIK[book.level] ?? "A1",
+          partOfSpeech: mapPos(v.partOfSpeech),
+        });
+      });
+    });
+  });
+  return items;
+}
+
 
 // ─── Mini Flashcard Modal ─────────────────────────────────────────────────
 function FlashcardModal({
@@ -139,6 +180,27 @@ export default function VocabularyPage() {
   const [flashcardItem, setFlashcardItem] = useState<{ items: VocabItem[]; startIdx: number } | null>(null);
   const [syncStatus, setSyncStatus] = useState<"idle" | "saving" | "saved">("idle");
 
+  // ─── Source filter: TOPIK chung (default, instant) vs Seoul A1-4B (lazy load 4070 từ)
+  const [selectedSource, setSelectedSource] = useState<"topik" | "seoul">("topik");
+  const [seoulVocab, setSeoulVocab] = useState<VocabItem[] | null>(null);
+  const [seoulLoading, setSeoulLoading] = useState(false);
+
+  // Lazy load Seoul vocab only when user selects "Seoul" source
+  useEffect(() => {
+    if (selectedSource !== "seoul" || seoulVocab !== null) return;
+    setSeoulLoading(true);
+    import("@/mocks/data/seoul-books-data").then(m => {
+      setSeoulVocab(flattenSeoulVocab(m.seoulBooks));
+      setSeoulLoading(false);
+    }).catch(() => setSeoulLoading(false));
+  }, [selectedSource, seoulVocab]);
+
+  // Active vocab dataset = TOPIK chung (always loaded) OR Seoul (lazy)
+  const activeVocabData = useMemo<VocabItem[]>(() => {
+    if (selectedSource === "seoul") return seoulVocab ?? [];
+    return vocabularyData;
+  }, [selectedSource, seoulVocab]);
+
   // Load favorites from Supabase on login
   useEffect(() => {
     if (!user) return;
@@ -193,23 +255,23 @@ export default function VocabularyPage() {
   }, [syncMasteredToCloud]);
 
   const filteredItems = useMemo(() => {
-    return vocabularyData.filter(v => {
+    return activeVocabData.filter(v => {
       const matchCat = selectedCategory === "all" || v.category === selectedCategory;
       const matchLevel = selectedLevel === "all" || v.topikLevel === selectedLevel;
       const matchFilter = filterMode === "all" || (filterMode === "unmastered" && !masteredIds.includes(v.id)) || (filterMode === "favorites" && favoriteIds.includes(v.id));
       const matchSearch = !searchQuery || v.korean.includes(searchQuery) || v.vietnamese.toLowerCase().includes(searchQuery.toLowerCase());
       return matchCat && matchLevel && matchFilter && matchSearch;
     });
-  }, [selectedCategory, selectedLevel, filterMode, masteredIds, favoriteIds, searchQuery]);
+  }, [activeVocabData, selectedCategory, selectedLevel, filterMode, masteredIds, favoriteIds, searchQuery]);
 
   const handleFlashcard = (item: VocabItem) => {
     const idx = filteredItems.findIndex(v => v.id === item.id);
     setFlashcardItem({ items: filteredItems, startIdx: Math.max(0, idx) });
   };
 
-  const totalMastered = masteredIds.filter(id => vocabularyData.some(v => v.id === id)).length;
-  const totalFavorites = favoriteIds.filter(id => vocabularyData.some(v => v.id === id)).length;
-  const overallPct = vocabularyData.length > 0 ? Math.round((totalMastered / vocabularyData.length) * 100) : 0;
+  const totalMastered = masteredIds.filter(id => activeVocabData.some(v => v.id === id)).length;
+  const totalFavorites = favoriteIds.filter(id => activeVocabData.some(v => v.id === id)).length;
+  const overallPct = activeVocabData.length > 0 ? Math.round((totalMastered / activeVocabData.length) * 100) : 0;
 
   return (
     <DashboardLayout
@@ -245,7 +307,7 @@ export default function VocabularyPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
-          { label: "Tổng từ vựng", value: vocabularyData.length, icon: "ri-translate-2", color: "app-accent-primary" },
+          { label: "Tổng từ vựng", value: activeVocabData.length, icon: "ri-translate-2", color: "app-accent-primary" },
           { label: "Đã thuộc", value: totalMastered, icon: "ri-checkbox-circle-line", color: "#34d399" },
           { label: "Từ yêu thích", value: totalFavorites, icon: "ri-bookmark-fill", color: "#f472b6" },
           { label: "Tiến độ", value: `${overallPct}%`, icon: "ri-pie-chart-line", color: "#a78bfa" },
@@ -260,6 +322,27 @@ export default function VocabularyPage() {
             </div>
           </div>
         ))}
+      </div>
+
+      {/* Source filter — TOPIK chung (1055) vs Seoul A1-4B (4070, lazy load) */}
+      <div className="flex items-center gap-2 mb-4 flex-wrap">
+        <span className="text-app-text-secondary text-xs font-semibold">Nguồn:</span>
+        <button
+          onClick={() => setSelectedSource("topik")}
+          className={`px-3.5 py-1.5 rounded-xl text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${selectedSource === "topik" ? "bg-app-accent-primary text-app-bg" : "bg-app-card/50 text-app-text-secondary hover:text-white/60"}`}
+        >
+          TOPIK chung <span className="opacity-60">(1055)</span>
+        </button>
+        <button
+          onClick={() => setSelectedSource("seoul")}
+          className={`px-3.5 py-1.5 rounded-xl text-xs font-medium cursor-pointer whitespace-nowrap transition-all flex items-center gap-1.5 ${selectedSource === "seoul" ? "bg-app-accent-primary text-app-bg" : "bg-app-card/50 text-app-text-secondary hover:text-white/60"}`}
+        >
+          {seoulLoading && <i className="ri-loader-4-line animate-spin text-sm"></i>}
+          Seoul A1–4B <span className="opacity-60">(4070)</span>
+        </button>
+        {selectedSource === "seoul" && (
+          <span className="text-app-text-muted text-[10px] italic">Từ giáo trình Seoul đại học Hàn Quốc</span>
+        )}
       </div>
 
       {/* Filters */}
