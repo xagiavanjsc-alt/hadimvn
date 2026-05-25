@@ -354,7 +354,7 @@ export default function ConversationPage() {
   const [practiceIdx, setPracticeIdx] = useState(0);
   const [showAnswer, setShowAnswer] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const PAGE_SIZE = 20;
+  const PAGE_SIZE = 10;
 
   // Reset to page 1 when filters change
   useEffect(() => { setCurrentPage(1); }, [selectedTopic, search, levelFilter, showFavoritesOnly]);
