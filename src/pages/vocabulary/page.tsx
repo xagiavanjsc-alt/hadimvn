@@ -180,13 +180,13 @@ export default function VocabularyPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const PAGE_SIZE = 10;
 
-  // Reset to page 1 when any filter changes
-  useEffect(() => { setCurrentPage(1); }, [selectedCategory, selectedLevel, filterMode, searchQuery, selectedSource]);
-
   // ─── Source filter: TOPIK chung (default, instant) vs Seoul A1-4B (lazy load 4070 từ)
   const [selectedSource, setSelectedSource] = useState<"topik" | "seoul">("topik");
   const [seoulVocab, setSeoulVocab] = useState<VocabItem[] | null>(null);
   const [seoulLoading, setSeoulLoading] = useState(false);
+
+  // Reset to page 1 when any filter changes
+  useEffect(() => { setCurrentPage(1); }, [selectedCategory, selectedLevel, filterMode, searchQuery, selectedSource]);
 
   // Lazy load Seoul vocab only when user selects "Seoul" source
   useEffect(() => {
