@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -353,6 +353,11 @@ export default function ConversationPage() {
   const [practiceMode, setPracticeMode] = useState(false);
   const [practiceIdx, setPracticeIdx] = useState(0);
   const [showAnswer, setShowAnswer] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const PAGE_SIZE = 20;
+
+  // Reset to page 1 when filters change
+  useEffect(() => { setCurrentPage(1); }, [selectedTopic, search, levelFilter, showFavoritesOnly]);
 
   const speak = (text: string) => {
     if (!window.speechSynthesis) return;
@@ -451,8 +456,17 @@ export default function ConversationPage() {
       subtitle="Câu giao tiếp đời sống hàng ngày — từ cơ bản đến nâng cao"
     >
       <div className="grid grid-cols-1 lg:grid-cols-[240px_1fr] gap-4 lg:gap-6">
-        {/* Sidebar topics — vertical on desktop, horizontal scroll on mobile */}
-        <div className="flex lg:flex-col gap-2 lg:space-y-2 lg:gap-0 overflow-x-auto lg:overflow-x-visible pb-1 lg:pb-0 -mx-1 lg:mx-0 px-1 lg:px-0 [&::-webkit-scrollbar]:hidden">
+        {/* Sidebar topics — desktop: sticky w/ internal scroll · mobile: horizontal scroll */}
+        <div className="flex lg:flex-col gap-2 lg:space-y-2 lg:gap-0
+                        overflow-x-auto lg:overflow-x-visible lg:overflow-y-auto
+                        lg:sticky lg:top-4 lg:max-h-[calc(100vh-6rem)]
+                        pb-1 lg:pb-2 -mx-1 lg:mx-0 px-1 lg:pr-2
+                        [&::-webkit-scrollbar]:hidden lg:[&::-webkit-scrollbar]:block
+                        lg:[&::-webkit-scrollbar]:w-1.5
+                        lg:[&::-webkit-scrollbar-track]:bg-transparent
+                        lg:[&::-webkit-scrollbar-thumb]:bg-app-border
+                        lg:[&::-webkit-scrollbar-thumb]:rounded-full
+                        lg:hover:[&::-webkit-scrollbar-thumb]:bg-app-text-muted/50">
           <button
             onClick={() => setSelectedTopic(null)}
             className={`flex-shrink-0 lg:flex-shrink min-w-[150px] lg:min-w-0 lg:w-full flex items-center gap-2 lg:gap-3 px-3 py-2.5 rounded-xl text-sm transition-all cursor-pointer text-left ${!selectedTopic ? "bg-app-accent-primary/10 border border-app-accent-primary/20 text-app-accent-primary" : "bg-app-surface/50 border border-app-border text-white/50 hover:text-white/70 hover:bg-app-card/50"}`}
@@ -564,19 +578,44 @@ export default function ConversationPage() {
             </button>
           </div>
 
-          {/* Phrases grid */}
+          {/* Phrases grid (paginated) */}
           {filteredPhrases.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-16 text-center">
               <i className="ri-chat-3-line text-white/10 text-4xl mb-3"></i>
               <p className="text-app-text-muted text-sm">Không tìm thấy câu nào</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-              {filteredPhrases.map(p => (
-                <PhraseCard key={p.id} phrase={p} onSpeak={speak}
-                  isFavorite={favorites.includes(p.id)} onToggleFavorite={toggleFavorite} />
-              ))}
-            </div>
+            <>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+                {filteredPhrases.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE).map(p => (
+                  <PhraseCard key={p.id} phrase={p} onSpeak={speak}
+                    isFavorite={favorites.includes(p.id)} onToggleFavorite={toggleFavorite} />
+                ))}
+              </div>
+              {/* Pagination */}
+              {filteredPhrases.length > PAGE_SIZE && (() => {
+                const totalPages = Math.ceil(filteredPhrases.length / PAGE_SIZE);
+                const goTo = (n: number) => { setCurrentPage(Math.max(1, Math.min(totalPages, n))); window.scrollTo({ top: 0, behavior: "smooth" }); };
+                const start = (currentPage - 1) * PAGE_SIZE + 1;
+                const end = Math.min(currentPage * PAGE_SIZE, filteredPhrases.length);
+                return (
+                  <div className="flex items-center justify-between mt-5 gap-2 flex-wrap">
+                    <p className="text-app-text-muted text-xs">Câu {start}–{end} / {filteredPhrases.length}</p>
+                    <div className="flex items-center gap-1.5">
+                      <button onClick={() => goTo(currentPage - 1)} disabled={currentPage === 1}
+                        className="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-app-border text-white/60 hover:bg-app-card/50 text-xs cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed transition-colors whitespace-nowrap">
+                        <i className="ri-arrow-left-s-line"></i>Trước
+                      </button>
+                      <span className="px-3 py-1.5 text-white text-xs font-semibold whitespace-nowrap">{currentPage} / {totalPages}</span>
+                      <button onClick={() => goTo(currentPage + 1)} disabled={currentPage === totalPages}
+                        className="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-app-border text-white/60 hover:bg-app-card/50 text-xs cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed transition-colors whitespace-nowrap">
+                        Sau<i className="ri-arrow-right-s-line"></i>
+                      </button>
+                    </div>
+                  </div>
+                );
+              })()}
+            </>
           )}
         </div>
       </div>
