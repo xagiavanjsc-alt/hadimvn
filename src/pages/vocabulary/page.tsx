@@ -1,5 +1,4 @@
 ﻿import { useState, useMemo, useCallback, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
@@ -8,7 +7,7 @@ import { vocabularyData, VOCAB_CATEGORIES, type VocabItem } from "@/mocks/vocabu
 import type { SeoulBook } from "@/mocks/seoulTextbook";
 
 const LEVELS = ["A1", "A2", "B1", "B2"] as const;
-const LEVEL_COLORS: Record<string, string> = { A1: "#34d399", A2: "app-accent-primary", B1: "#fb923c", B2: "#f87171" };
+const LEVEL_COLORS: Record<string, string> = { A1: "#34d399", A2: "#e8c84a", B1: "#fb923c", B2: "#f87171" };
 const POS_LABELS: Record<string, string> = {
   noun: "Danh từ", verb: "Động từ", adjective: "Tính từ", adverb: "Trạng từ", expression: "Biểu đạt",
 };
@@ -169,7 +168,6 @@ function VocabCard({
 
 // ─── Main Page ────────────────────────────────────────────────────────────
 export default function VocabularyPage() {
-  const navigate = useNavigate();
   const { user } = useAuth();
   const [masteredIds, setMasteredIds] = useLocalStorage<string[]>("kts_vocab_mastered", []);
   const [favoriteIds, setFavoriteIds] = useLocalStorage<string[]>("kts_vocab_favorites", []);
@@ -179,6 +177,11 @@ export default function VocabularyPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [flashcardItem, setFlashcardItem] = useState<{ items: VocabItem[]; startIdx: number } | null>(null);
   const [syncStatus, setSyncStatus] = useState<"idle" | "saving" | "saved">("idle");
+  const [currentPage, setCurrentPage] = useState(1);
+  const PAGE_SIZE = 10;
+
+  // Reset to page 1 when any filter changes
+  useEffect(() => { setCurrentPage(1); }, [selectedCategory, selectedLevel, filterMode, searchQuery, selectedSource]);
 
   // ─── Source filter: TOPIK chung (default, instant) vs Seoul A1-4B (lazy load 4070 từ)
   const [selectedSource, setSelectedSource] = useState<"topik" | "seoul">("topik");
@@ -269,6 +272,20 @@ export default function VocabularyPage() {
     setFlashcardItem({ items: filteredItems, startIdx: Math.max(0, idx) });
   };
 
+  const startPractice = () => {
+    if (filteredItems.length === 0) return;
+    setFlashcardItem({ items: filteredItems, startIdx: 0 });
+  };
+
+  // Counts per category for sidebar
+  const categoryCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    activeVocabData.forEach(v => { counts[v.category] = (counts[v.category] || 0) + 1; });
+    return counts;
+  }, [activeVocabData]);
+
+  const currentCategory = VOCAB_CATEGORIES.find(c => c.id === selectedCategory);
+
   const totalMastered = masteredIds.filter(id => activeVocabData.some(v => v.id === id)).length;
   const totalFavorites = favoriteIds.filter(id => activeVocabData.some(v => v.id === id)).length;
   const overallPct = activeVocabData.length > 0 ? Math.round((totalMastered / activeVocabData.length) * 100) : 0;
@@ -277,48 +294,35 @@ export default function VocabularyPage() {
     <DashboardLayout
       title="Từ vựng tổng hợp"
       subtitle="Phân loại theo chủ đề và cấp độ TOPIK — học flashcard ngay tại chỗ"
-      actions={
-        <div className="flex items-center gap-3">
+    >
+      {/* Sync status */}
+      {(user && syncStatus !== "idle") || !user ? (
+        <div className="flex items-center justify-end gap-3 mb-3 text-xs">
           {user && syncStatus !== "idle" && (
-            <span className={`text-xs flex items-center gap-1 ${syncStatus === "saving" ? "text-app-text-secondary" : "text-app-accent-success"}`}>
+            <span className={`flex items-center gap-1 ${syncStatus === "saving" ? "text-app-text-secondary" : "text-app-accent-success"}`}>
               <i className={`${syncStatus === "saving" ? "ri-loader-4-line animate-spin" : "ri-cloud-line"} text-sm`}></i>
               {syncStatus === "saving" ? "Đang lưu..." : "Đã lưu cloud"}
             </span>
           )}
-          {!user && <span className="text-app-text-muted text-xs"><i className="ri-cloud-off-line mr-1"></i>Đăng nhập để lưu cloud</span>}
-          {totalFavorites > 0 && (
-            <button
-              onClick={() => navigate("/vocab-favorites")}
-              className="flex items-center gap-2 bg-app-accent-primary/10 hover:bg-app-accent-primary/20 border border-app-accent-primary/30 text-app-accent-primary font-bold text-sm px-4 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
-            >
-              <i className="ri-bookmark-fill"></i>Ôn từ yêu thích ({totalFavorites})
-            </button>
-          )}
-          <button
-            onClick={() => setFlashcardItem({ items: filteredItems, startIdx: 0 })}
-            disabled={filteredItems.length === 0}
-            className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-40 text-app-bg font-bold text-sm px-5 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
-          >
-            <i className="ri-play-line"></i>Học Flashcard ({filteredItems.length})
-          </button>
+          {!user && <span className="text-app-text-muted"><i className="ri-cloud-off-line mr-1"></i>Đăng nhập để lưu cloud</span>}
         </div>
-      }
-    >
+      ) : null}
+
       {/* Stats */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-5">
         {[
-          { label: "Tổng từ vựng", value: activeVocabData.length, icon: "ri-translate-2", color: "app-accent-primary" },
+          { label: "Tổng từ vựng", value: activeVocabData.length, icon: "ri-translate-2", color: "#e8c84a" },
           { label: "Đã thuộc", value: totalMastered, icon: "ri-checkbox-circle-line", color: "#34d399" },
           { label: "Từ yêu thích", value: totalFavorites, icon: "ri-bookmark-fill", color: "#f472b6" },
           { label: "Tiến độ", value: `${overallPct}%`, icon: "ri-pie-chart-line", color: "#a78bfa" },
         ].map(stat => (
-          <div key={stat.label} className="bg-app-bg border border-app-border rounded-xl p-4 flex items-center gap-3">
-            <div className="w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${stat.color}15` }}>
-              <i className={`${stat.icon} text-lg`} style={{ color: stat.color }}></i>
+          <div key={stat.label} className="bg-app-bg border border-app-border rounded-xl p-3 sm:p-4 flex items-center gap-2.5 sm:gap-3">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${stat.color}15` }}>
+              <i className={`${stat.icon} text-base sm:text-lg`} style={{ color: stat.color }}></i>
             </div>
-            <div>
-              <p className="text-white font-bold text-xl leading-none">{stat.value}</p>
-              <p className="text-app-text-secondary text-xs mt-0.5">{stat.label}</p>
+            <div className="min-w-0">
+              <p className="text-white font-bold text-lg sm:text-xl leading-none truncate">{stat.value}</p>
+              <p className="text-app-text-secondary text-[11px] sm:text-xs mt-0.5 truncate">{stat.label}</p>
             </div>
           </div>
         ))}
@@ -340,73 +344,185 @@ export default function VocabularyPage() {
           {seoulLoading && <i className="ri-loader-4-line animate-spin text-sm"></i>}
           Seoul A1–4B <span className="opacity-60">(4070)</span>
         </button>
-        {selectedSource === "seoul" && (
-          <span className="text-app-text-muted text-[10px] italic">Từ giáo trình Seoul đại học Hàn Quốc</span>
-        )}
       </div>
 
-      {/* Filters */}
-      <div className="flex items-center gap-3 mb-5 flex-wrap">
-        <div className="flex items-center bg-app-card/50 rounded-xl p-1">
-          <button onClick={() => setSelectedLevel("all")} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedLevel === "all" ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/60"}`}>Tất cả</button>
-          {LEVELS.map(lv => (
-            <button key={lv} onClick={() => setSelectedLevel(lv)} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedLevel === lv ? "text-app-bg font-bold" : "text-app-text-secondary hover:text-white/60"}`} style={selectedLevel === lv ? { backgroundColor: LEVEL_COLORS[lv] } : {}}>{lv}</button>
-          ))}
-        </div>
-        <div className="flex items-center bg-app-card/50 rounded-xl p-1">
-          {([["all", "Tất cả"], ["unmastered", "Chưa thuộc"], ["favorites", `Yêu thích (${totalFavorites})`]] as [string, string][]).map(([f, label]) => (
-            <button key={f} onClick={() => setFilterMode(f as "all" | "unmastered" | "favorites")} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${filterMode === f ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/60"}`}>{label}</button>
-          ))}
-        </div>
-        <div className="flex items-center gap-2 bg-app-card/50 border border-app-border rounded-xl px-3 py-2 flex-1 min-w-[180px]">
-          <i className="ri-search-line text-app-text-muted text-sm"></i>
-          <input type="text" placeholder="Tìm từ vựng..." value={searchQuery} onChange={e => setSearchQuery(e.target.value)} className="flex-1 bg-transparent text-white/70 text-sm outline-none placeholder-white/20" />
-        </div>
-        <p className="text-app-text-muted text-xs whitespace-nowrap">{filteredItems.length} từ</p>
-      </div>
-
-      {/* Category tabs */}
-      <div className="flex items-center gap-2 mb-5 flex-wrap">
-        <button onClick={() => setSelectedCategory("all")} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedCategory === "all" ? "bg-app-accent-primary text-app-bg" : "bg-app-card/50 text-app-text-secondary hover:text-white/60"}`}>
-          <i className="ri-apps-line text-xs"></i>Tất cả
-        </button>
-        {VOCAB_CATEGORIES.map(cat => (
-          <button key={cat.id} onClick={() => setSelectedCategory(cat.id)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedCategory === cat.id ? "text-app-bg" : "bg-app-card/50 text-app-text-secondary hover:text-white/60"}`} style={selectedCategory === cat.id ? { backgroundColor: cat.color } : {}}>
-            <i className={`${cat.icon} text-xs`}></i>{cat.label}
+      {/* Main: sidebar categories + content */}
+      <div className="grid grid-cols-1 lg:grid-cols-[240px_1fr] gap-4 lg:gap-6">
+        {/* Sidebar — desktop sticky + scroll, mobile horizontal chips */}
+        <div className="flex lg:flex-col gap-2 lg:space-y-2 lg:gap-0
+                        overflow-x-auto lg:overflow-x-visible lg:overflow-y-auto
+                        lg:sticky lg:top-4 lg:max-h-[calc(100vh-6rem)]
+                        pb-1 lg:pb-2 -mx-1 lg:mx-0 px-1 lg:pr-2
+                        [&::-webkit-scrollbar]:hidden lg:[&::-webkit-scrollbar]:block
+                        lg:[&::-webkit-scrollbar]:w-1.5
+                        lg:[&::-webkit-scrollbar-track]:bg-transparent
+                        lg:[&::-webkit-scrollbar-thumb]:bg-app-border
+                        lg:[&::-webkit-scrollbar-thumb]:rounded-full">
+          <button
+            onClick={() => setSelectedCategory("all")}
+            className={`flex-shrink-0 lg:flex-shrink min-w-[150px] lg:min-w-0 lg:w-full flex items-center gap-2 lg:gap-3 px-3 py-2.5 rounded-xl text-sm transition-all cursor-pointer text-left ${selectedCategory === "all" ? "bg-app-accent-primary/10 border border-app-accent-primary/20 text-app-accent-primary" : "bg-app-surface/50 border border-app-border text-white/50 hover:text-white/70 hover:bg-app-card/50"}`}
+          >
+            <div className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-card/50 flex-shrink-0">
+              <i className="ri-apps-line text-sm"></i>
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="font-medium text-xs truncate">Tất cả chủ đề</p>
+              <p className="text-[10px] opacity-60">{activeVocabData.length} từ</p>
+            </div>
           </button>
-        ))}
+
+          {VOCAB_CATEGORIES.map(cat => {
+            const cnt = categoryCounts[cat.id] || 0;
+            if (cnt === 0) return null;
+            return (
+              <button
+                key={cat.id}
+                onClick={() => setSelectedCategory(cat.id)}
+                className={`flex-shrink-0 lg:flex-shrink min-w-[150px] lg:min-w-0 lg:w-full flex items-center gap-2 lg:gap-3 px-3 py-2.5 rounded-xl text-sm transition-all cursor-pointer text-left ${selectedCategory === cat.id ? "border" : "bg-app-surface/50 border border-app-border text-white/50 hover:text-white/70 hover:bg-app-card/50"}`}
+                style={selectedCategory === cat.id ? { backgroundColor: `${cat.color}10`, borderColor: `${cat.color}25`, color: cat.color } : {}}
+              >
+                <div className="w-7 h-7 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${cat.color}15` }}>
+                  <i className={`${cat.icon} text-sm`} style={{ color: cat.color }}></i>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="font-medium text-xs truncate">{cat.label}</p>
+                  <p className="text-[10px] opacity-60">{cnt} từ</p>
+                </div>
+              </button>
+            );
+          })}
+
+          {/* Favorites shortcut */}
+          {totalFavorites > 0 && (
+            <button
+              onClick={() => setFilterMode(m => m === "favorites" ? "all" : "favorites")}
+              className={`flex-shrink-0 lg:flex-shrink min-w-[150px] lg:min-w-0 lg:w-full flex items-center gap-2 lg:gap-3 px-3 py-2.5 rounded-xl text-sm transition-all cursor-pointer text-left lg:mt-2 ${filterMode === "favorites" ? "bg-app-accent-primary/10 border border-app-accent-primary/20 text-app-accent-primary" : "bg-app-surface/50 border border-app-border text-white/50 hover:text-white/70"}`}
+            >
+              <div className="w-7 h-7 flex items-center justify-center rounded-lg bg-app-accent-primary/10 flex-shrink-0">
+                <i className="ri-bookmark-fill text-app-accent-primary text-sm"></i>
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="font-medium text-xs truncate">Yêu thích</p>
+                <p className="text-[10px] opacity-60">{totalFavorites} từ đã lưu</p>
+              </div>
+            </button>
+          )}
+        </div>
+
+        {/* Main content */}
+        <div>
+          {/* Header per category or overview */}
+          {currentCategory ? (
+            <div className="flex items-center gap-3 mb-5 p-4 rounded-xl border" style={{ backgroundColor: `${currentCategory.color}08`, borderColor: `${currentCategory.color}20` }}>
+              <div className="w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${currentCategory.color}15` }}>
+                <i className={`${currentCategory.icon} text-lg`} style={{ color: currentCategory.color }}></i>
+              </div>
+              <div className="flex-1 min-w-0">
+                <h2 className="text-white font-bold text-base truncate">{currentCategory.label}</h2>
+                <p className="text-app-text-secondary text-xs truncate">Chủ đề từ vựng · {categoryCounts[currentCategory.id] || 0} từ</p>
+              </div>
+              {filteredItems.length > 0 && (
+                <button onClick={startPractice}
+                  className="flex items-center gap-1.5 px-3 md:px-4 py-2 rounded-xl text-xs font-bold cursor-pointer whitespace-nowrap transition-opacity hover:opacity-90 flex-shrink-0"
+                  style={{ backgroundColor: currentCategory.color, color: "#0a0d14" }}>
+                  <i className="ri-play-fill"></i>Luyện {filteredItems.length} từ
+                </button>
+              )}
+            </div>
+          ) : (
+            <div className="flex items-center gap-3 mb-5 p-4 rounded-xl border border-app-border bg-app-surface/30">
+              <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-app-accent-primary/10 flex-shrink-0">
+                <i className={`${filterMode === "favorites" ? "ri-bookmark-fill" : "ri-apps-line"} text-lg text-app-accent-primary`}></i>
+              </div>
+              <div className="flex-1 min-w-0">
+                <h2 className="text-white font-bold text-base truncate">{filterMode === "favorites" ? "Từ yêu thích" : "Tất cả chủ đề"}</h2>
+                <p className="text-app-text-secondary text-xs truncate">{filterMode === "favorites" ? "Từ bạn đã đánh dấu lưu" : `Toàn bộ ${VOCAB_CATEGORIES.length} chủ đề từ vựng`}</p>
+              </div>
+              {filteredItems.length > 0 && (
+                <button onClick={startPractice}
+                  className="flex items-center gap-1.5 px-3 md:px-4 py-2 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg text-xs font-bold cursor-pointer whitespace-nowrap transition-colors flex-shrink-0">
+                  <i className="ri-play-fill"></i>Luyện {filteredItems.length} từ
+                </button>
+              )}
+            </div>
+          )}
+
+          {/* Filters row: search + level + status */}
+          <div className="flex items-center gap-2 mb-4 flex-wrap">
+            <div className="flex items-center gap-2 bg-app-card/50 border border-app-border rounded-xl px-3 py-2 flex-1 min-w-[180px]">
+              <i className="ri-search-line text-app-text-muted text-sm"></i>
+              <input type="text" placeholder="Tìm từ vựng..." value={searchQuery} onChange={e => setSearchQuery(e.target.value)} className="flex-1 bg-transparent text-white/70 text-sm outline-none placeholder-white/20" />
+            </div>
+            <div className="flex items-center bg-app-card/50 rounded-xl p-1">
+              <button onClick={() => setSelectedLevel("all")} className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedLevel === "all" ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/60"}`}>Tất cả</button>
+              {LEVELS.map(lv => (
+                <button key={lv} onClick={() => setSelectedLevel(lv)} className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedLevel === lv ? "text-app-bg font-bold" : "text-app-text-secondary hover:text-white/60"}`} style={selectedLevel === lv ? { backgroundColor: LEVEL_COLORS[lv] } : {}}>{lv}</button>
+              ))}
+            </div>
+            <div className="flex items-center bg-app-card/50 rounded-xl p-1">
+              {([["all", "Tất cả"], ["unmastered", "Chưa thuộc"]] as [string, string][]).map(([f, label]) => (
+                <button key={f} onClick={() => setFilterMode(f as "all" | "unmastered" | "favorites")} className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${filterMode === f ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/60"}`}>{label}</button>
+              ))}
+            </div>
+          </div>
+
+          {/* Favorites empty state */}
+          {filterMode === "favorites" && filteredItems.length === 0 && (
+            <div className="text-center py-16 bg-app-bg border border-app-border rounded-2xl">
+              <i className="ri-bookmark-line text-app-text-muted text-3xl mb-3 block"></i>
+              <p className="text-app-text-muted text-sm">Chưa có từ yêu thích nào</p>
+              <p className="text-app-text-muted text-xs mt-1">Nhấn nút <i className="ri-bookmark-line"></i> trên thẻ từ để lưu từ khó</p>
+            </div>
+          )}
+
+          {/* Grid (paginated) */}
+          {filteredItems.length > 0 ? (
+            <>
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
+                {filteredItems.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE).map(item => (
+                  <VocabCard
+                    key={item.id}
+                    item={item}
+                    isMastered={masteredIds.includes(item.id)}
+                    isFavorite={favoriteIds.includes(item.id)}
+                    onMaster={handleMaster}
+                    onFavorite={handleFavorite}
+                    onFlashcard={() => handleFlashcard(item)}
+                  />
+                ))}
+              </div>
+              {/* Pagination */}
+              {filteredItems.length > PAGE_SIZE && (() => {
+                const totalPages = Math.ceil(filteredItems.length / PAGE_SIZE);
+                const goTo = (n: number) => { setCurrentPage(Math.max(1, Math.min(totalPages, n))); window.scrollTo({ top: 0, behavior: "smooth" }); };
+                const start = (currentPage - 1) * PAGE_SIZE + 1;
+                const end = Math.min(currentPage * PAGE_SIZE, filteredItems.length);
+                return (
+                  <div className="flex items-center justify-between mt-5 gap-2 flex-wrap">
+                    <p className="text-app-text-muted text-xs">Từ {start}–{end} / {filteredItems.length}</p>
+                    <div className="flex items-center gap-1.5">
+                      <button onClick={() => goTo(currentPage - 1)} disabled={currentPage === 1}
+                        className="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-app-border text-white/60 hover:bg-app-card/50 text-xs cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed transition-colors whitespace-nowrap">
+                        <i className="ri-arrow-left-s-line"></i>Trước
+                      </button>
+                      <span className="px-3 py-1.5 text-white text-xs font-semibold whitespace-nowrap">{currentPage} / {totalPages}</span>
+                      <button onClick={() => goTo(currentPage + 1)} disabled={currentPage === totalPages}
+                        className="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-app-border text-white/60 hover:bg-app-card/50 text-xs cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed transition-colors whitespace-nowrap">
+                        Sau<i className="ri-arrow-right-s-line"></i>
+                      </button>
+                    </div>
+                  </div>
+                );
+              })()}
+            </>
+          ) : filterMode !== "favorites" ? (
+            <div className="text-center py-16 bg-app-bg border border-app-border rounded-2xl">
+              <i className="ri-search-line text-app-text-muted text-3xl mb-3 block"></i>
+              <p className="text-app-text-muted text-sm">Không tìm thấy từ vựng nào</p>
+            </div>
+          ) : null}
+        </div>
       </div>
-
-      {/* Favorites empty state */}
-      {filterMode === "favorites" && filteredItems.length === 0 && (
-        <div className="text-center py-16 bg-app-bg border border-app-border rounded-2xl">
-          <i className="ri-bookmark-line text-app-text-muted text-3xl mb-3 block"></i>
-          <p className="text-app-text-muted text-sm">Chưa có từ yêu thích nào</p>
-          <p className="text-app-text-muted text-xs mt-1">Nhấn nút <i className="ri-bookmark-line"></i> trên thẻ từ để lưu từ khó</p>
-        </div>
-      )}
-
-      {/* Grid */}
-      {filteredItems.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          {filteredItems.map(item => (
-            <VocabCard
-              key={item.id}
-              item={item}
-              isMastered={masteredIds.includes(item.id)}
-              isFavorite={favoriteIds.includes(item.id)}
-              onMaster={handleMaster}
-              onFavorite={handleFavorite}
-              onFlashcard={() => handleFlashcard(item)}
-            />
-          ))}
-        </div>
-      ) : filterMode !== "favorites" ? (
-        <div className="text-center py-16 bg-app-bg border border-app-border rounded-2xl">
-          <i className="ri-search-line text-app-text-muted text-3xl mb-3 block"></i>
-          <p className="text-app-text-muted text-sm">Không tìm thấy từ vựng nào</p>
-        </div>
-      ) : null}
 
       {flashcardItem && (
         <FlashcardModal items={flashcardItem.items} startIdx={flashcardItem.startIdx} onClose={() => setFlashcardItem(null)} masteredIds={masteredIds} onMaster={handleMaster} />
