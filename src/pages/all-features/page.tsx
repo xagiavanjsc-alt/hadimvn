@@ -49,8 +49,18 @@ const ALL_FEATURES: Feature[] = [
   { path: "/seoul-word-pairs", label: "Cặp từ Seoul", icon: "ri-links-line", tags: ["Seoul", "Từ vựng"], description: "Học từ vựng Seoul theo cặp đối lập" },
   { path: "/seoul-writing", label: "Luyện viết Seoul", icon: "ri-edit-line", tags: ["Seoul", "Viết"], description: "Luyện viết câu theo bài học Seoul" },
 
-  // TOPIK hidden features
-  { path: "/topik-topic-quiz", label: "Quiz chủ đề TOPIK", icon: "ri-survey-line", tags: ["TOPIK", "Quiz"], description: "Quiz từ vựng TOPIK theo từng chủ đề" },
+  // TOPIK (du học)
+  { path: "/topik-test", label: "Test TOPIK I", icon: "ri-survey-line", tags: ["TOPIK", "Du học", "Đề thi"], description: "Thi thử TOPIK I — cấp độ 1-2 cho du học sinh mới bắt đầu" },
+  { path: "/topik2-test", label: "Test TOPIK II", icon: "ri-survey-line", tags: ["TOPIK", "Du học", "Đề thi"], description: "Thi thử TOPIK II — cấp độ 3-6 cho du học sinh nâng cao" },
+  { path: "/topik-vocab-level", label: "Từ vựng TOPIK theo level", icon: "ri-bar-chart-grouped-line", tags: ["TOPIK", "Du học", "Từ vựng"], description: "Học từ vựng TOPIK phân theo 6 cấp độ (TOPIK 1-6)" },
+  { path: "/topik-frequency-vocab", label: "Từ vựng TOPIK tần suất cao", icon: "ri-line-chart-line", tags: ["TOPIK", "Du học", "Từ vựng"], description: "Học từ vựng xuất hiện nhiều nhất trong đề thi TOPIK" },
+  { path: "/topik-flashcard", label: "Flashcard TOPIK", icon: "ri-stack-line", tags: ["TOPIK", "Du học", "Flashcard"], description: "Flashcard từ vựng TOPIK theo Spaced Repetition" },
+  { path: "/topik-listening", label: "Luyện nghe TOPIK", icon: "ri-headphone-line", tags: ["TOPIK", "Du học", "Nghe"], description: "Luyện kỹ năng nghe theo format đề thi TOPIK" },
+  { path: "/topik-reading", label: "Luyện đọc TOPIK", icon: "ri-book-read-line", tags: ["TOPIK", "Du học", "Đọc"], description: "Luyện kỹ năng đọc hiểu theo format đề thi TOPIK" },
+  { path: "/topik-exam-writing", label: "Luyện viết TOPIK", icon: "ri-quill-pen-line", tags: ["TOPIK", "Du học", "Viết"], description: "Luyện kỹ năng viết — quan trọng cho TOPIK II" },
+  { path: "/topik-topic-quiz", label: "Quiz chủ đề TOPIK", icon: "ri-question-line", tags: ["TOPIK", "Du học", "Quiz"], description: "Quiz từ vựng TOPIK theo từng chủ đề" },
+  { path: "/topik-dictionary", label: "Từ điển TOPIK", icon: "ri-book-open-line", tags: ["TOPIK", "Du học", "Từ điển"], description: "Từ điển tra cứu nhanh cho từ vựng TOPIK" },
+  { path: "/topik-stats", label: "Thống kê TOPIK", icon: "ri-pie-chart-line", tags: ["TOPIK", "Du học", "Thống kê"], description: "Theo dõi tiến độ học TOPIK theo level và kỹ năng" },
 
   // Hangul hidden features
   // HIDDEN 2026-05-25 (focus EPS+du học): duplicate hangul, keep /hangul-write

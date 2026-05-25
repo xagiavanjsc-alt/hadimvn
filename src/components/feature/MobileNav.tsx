@@ -13,10 +13,10 @@ const BOTTOM_NAV = [
   { path: "/eps-flashcard", icon: "ri-stack-line", label: "Flashcard" },
 ];
 
-// ─── Slide-up menu — mirror desktop Sidebar (focus EPS-XKLĐ) ────────────────
+// ─── Slide-up menu — mirror desktop Sidebar (EPS + TOPIK) ───────────────────
 const MENU_GROUPS = [
   {
-    label: "Luyện thi EPS-TOPIK",
+    label: "Luyện thi EPS (XKLĐ)",
     items: [
       { path: "/eps", icon: "ri-dashboard-line", label: "Trang EPS" },
       { path: "/eps-lessons", icon: "ri-file-list-3-line", label: "60 bài học EPS" },
@@ -35,6 +35,22 @@ const MENU_GROUPS = [
     ],
   },
   {
+    label: "Luyện thi TOPIK (du học)",
+    items: [
+      { path: "/topik-test", icon: "ri-survey-line", label: "Test TOPIK I" },
+      { path: "/topik2-test", icon: "ri-survey-line", label: "Test TOPIK II" },
+      { path: "/topik-vocab-level", icon: "ri-bar-chart-grouped-line", label: "Từ vựng theo level" },
+      { path: "/topik-frequency-vocab", icon: "ri-line-chart-line", label: "Từ vựng tần suất cao" },
+      { path: "/topik-flashcard", icon: "ri-stack-line", label: "Flashcard TOPIK" },
+      { path: "/topik-listening", icon: "ri-headphone-line", label: "Luyện nghe TOPIK" },
+      { path: "/topik-reading", icon: "ri-book-read-line", label: "Luyện đọc TOPIK" },
+      { path: "/topik-exam-writing", icon: "ri-quill-pen-line", label: "Luyện viết TOPIK" },
+      { path: "/topik-topic-quiz", icon: "ri-question-line", label: "Quiz theo chủ đề" },
+      { path: "/topik-dictionary", icon: "ri-book-open-line", label: "Từ điển TOPIK" },
+      { path: "/topik-stats", icon: "ri-pie-chart-line", label: "Thống kê TOPIK" },
+    ],
+  },
+  {
     label: "Tiếng Hàn cơ bản",
     items: [
       { path: "/hangul", icon: "ri-text", label: "Bảng chữ cái Hangul" },
@@ -42,7 +58,6 @@ const MENU_GROUPS = [
       { path: "/grammar", icon: "ri-book-2-line", label: "Ngữ pháp tổng quan" },
       { path: "/conversation", icon: "ri-chat-3-line", label: "Giao tiếp tình huống" },
       { path: "/dictionary", icon: "ri-search-2-line", label: "Từ điển" },
-      { path: "/topik-test", icon: "ri-survey-line", label: "TOPIK (du học)" },
     ],
   },
   {

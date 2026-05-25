@@ -71,12 +71,12 @@ function StreakBadge() {
   );
 }
 
-// ─── Nav groups — Focus EPS-XKLĐ (2026-05-25 cleanup) ──────────────────────
+// ─── Nav groups — Focus EPS-XKLĐ + TOPIK (du học) ──────────────────────────
 // Đã ẩn: Seoul textbook, Hanja Pro, AI features, VIP, duplicates
 // Code/route gốc vẫn còn — chỉ gỡ khỏi sidebar.
 const navGroups = [
   {
-    label: "Luyện thi EPS-TOPIK",
+    label: "Luyện thi EPS (XKLĐ)",
     icon: "ri-target-line",
     color: "#4ade80",
     items: [
@@ -99,6 +99,24 @@ const navGroups = [
     ],
   },
   {
+    label: "Luyện thi TOPIK (du học)",
+    icon: "ri-graduation-cap-line",
+    color: "#60a5fa",
+    items: [
+      { path: "/topik-test", icon: "ri-survey-line", label: "Test TOPIK I" },
+      { path: "/topik2-test", icon: "ri-survey-line", label: "Test TOPIK II" },
+      { path: "/topik-vocab-level", icon: "ri-bar-chart-grouped-line", label: "Từ vựng theo level" },
+      { path: "/topik-frequency-vocab", icon: "ri-line-chart-line", label: "Từ vựng tần suất cao" },
+      { path: "/topik-flashcard", icon: "ri-stack-line", label: "Flashcard TOPIK" },
+      { path: "/topik-listening", icon: "ri-headphone-line", label: "Luyện nghe TOPIK" },
+      { path: "/topik-reading", icon: "ri-book-read-line", label: "Luyện đọc TOPIK" },
+      { path: "/topik-exam-writing", icon: "ri-quill-pen-line", label: "Luyện viết TOPIK" },
+      { path: "/topik-topic-quiz", icon: "ri-question-line", label: "Quiz theo chủ đề" },
+      { path: "/topik-dictionary", icon: "ri-book-open-line", label: "Từ điển TOPIK" },
+      { path: "/topik-stats", icon: "ri-pie-chart-line", label: "Thống kê TOPIK" },
+    ],
+  },
+  {
     label: "Tiếng Hàn cơ bản",
     icon: "ri-book-open-line",
     color: "#e8c84a",
@@ -108,7 +126,6 @@ const navGroups = [
       { path: "/grammar", icon: "ri-book-2-line", label: "Ngữ pháp tổng quan" },
       { path: "/conversation", icon: "ri-chat-3-line", label: "Giao tiếp tình huống" },
       { path: "/dictionary", icon: "ri-search-2-line", label: "Từ điển" },
-      { path: "/topik-test", icon: "ri-survey-line", label: "TOPIK (du học)" },
     ],
   },
   {
@@ -127,8 +144,9 @@ const navGroups = [
 // Admin group removed from user sidebar — admin has its own dedicated panel at /admin
 
 const DEFAULT_OPEN: Record<string, boolean> = {
-  "Luyện thi EPS-TOPIK": true,
+  "Luyện thi EPS (XKLĐ)": true,
   "Đề thi EPS": true,
+  "Luyện thi TOPIK (du học)": false,
   "Tiếng Hàn cơ bản": false,
   "Học giải trí": false,
 };
@@ -283,6 +301,15 @@ function SidebarInner() {
       "/hanja-vocab": () => import("@/pages/hanja-vocab/page"),
       "/topik-test": () => import("@/pages/topik-test/page"),
       "/topik2-test": () => import("@/pages/topik2-test/page"),
+      "/topik-vocab-level": () => import("@/pages/topik-vocab-level/page"),
+      "/topik-frequency-vocab": () => import("@/pages/topik-frequency-vocab/page"),
+      "/topik-flashcard": () => import("@/pages/topik-flashcard/page"),
+      "/topik-listening": () => import("@/pages/topik-listening/page"),
+      "/topik-reading": () => import("@/pages/topik-reading/page"),
+      "/topik-exam-writing": () => import("@/pages/topik-exam-writing/page"),
+      "/topik-topic-quiz": () => import("@/pages/topik-topic-quiz/page"),
+      "/topik-dictionary": () => import("@/pages/topik-dictionary/page"),
+      "/topik-stats": () => import("@/pages/topik-stats/page"),
       "/seoul-textbook": () => import("@/pages/seoul-textbook/page"),
       "/naver": () => import("@/pages/naver/page"),
       "/news": () => import("@/pages/news/page"),
