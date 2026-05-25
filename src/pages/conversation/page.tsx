@@ -449,14 +449,6 @@ export default function ConversationPage() {
     <DashboardLayout
       title="Tiếng Hàn Giao Tiếp"
       subtitle="Câu giao tiếp đời sống hàng ngày — từ cơ bản đến nâng cao"
-      actions={
-        filteredPhrases.length > 0 ? (
-          <button onClick={startPractice}
-            className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm px-4 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap">
-            <i className="ri-play-line"></i>Luyện flashcard ({filteredPhrases.length})
-          </button>
-        ) : undefined
-      }
     >
       <div className="grid grid-cols-1 lg:grid-cols-[240px_1fr] gap-4 lg:gap-6">
         {/* Sidebar topics — vertical on desktop, horizontal scroll on mobile */}
@@ -510,21 +502,39 @@ export default function ConversationPage() {
 
         {/* Main content */}
         <div>
-          {/* Header */}
-          {currentTopic && (
+          {/* Header — topic-specific or overview */}
+          {currentTopic ? (
             <div className="flex items-center gap-3 mb-5 p-4 rounded-xl border" style={{ backgroundColor: `${currentTopic.color}08`, borderColor: `${currentTopic.color}20` }}>
               <div className="w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${currentTopic.color}15` }}>
                 <i className={`${currentTopic.icon} text-lg`} style={{ color: currentTopic.color }}></i>
               </div>
               <div className="flex-1 min-w-0">
                 <h2 className="text-white font-bold text-base truncate">{currentTopic.title}</h2>
-                <p className="text-app-text-secondary text-xs truncate">{currentTopic.subtitle} · {currentTopic.phrases.length} câu</p>
+                <p className="text-app-text-secondary text-xs truncate">{currentTopic.subtitle}</p>
               </div>
-              <button onClick={startPractice}
-                className="flex items-center gap-1.5 px-3 md:px-4 py-2 rounded-xl text-xs font-bold cursor-pointer whitespace-nowrap transition-opacity hover:opacity-90 flex-shrink-0"
-                style={{ backgroundColor: currentTopic.color, color: "#0a0d14" }}>
-                <i className="ri-play-fill"></i><span className="hidden sm:inline">Luyện ngay</span><span className="sm:hidden">Luyện</span>
-              </button>
+              {filteredPhrases.length > 0 && (
+                <button onClick={startPractice}
+                  className="flex items-center gap-1.5 px-3 md:px-4 py-2 rounded-xl text-xs font-bold cursor-pointer whitespace-nowrap transition-opacity hover:opacity-90 flex-shrink-0"
+                  style={{ backgroundColor: currentTopic.color, color: "#0a0d14" }}>
+                  <i className="ri-play-fill"></i>Luyện {filteredPhrases.length} câu
+                </button>
+              )}
+            </div>
+          ) : (
+            <div className="flex items-center gap-3 mb-5 p-4 rounded-xl border border-app-border bg-app-surface/30">
+              <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-app-accent-primary/10 flex-shrink-0">
+                <i className={`${showFavoritesOnly ? "ri-star-fill" : "ri-apps-line"} text-lg text-app-accent-primary`}></i>
+              </div>
+              <div className="flex-1 min-w-0">
+                <h2 className="text-white font-bold text-base truncate">{showFavoritesOnly ? "Câu yêu thích" : "Tất cả chủ đề"}</h2>
+                <p className="text-app-text-secondary text-xs truncate">{showFavoritesOnly ? "Câu bạn đã lưu" : "Toàn bộ 11+ chủ đề giao tiếp"}</p>
+              </div>
+              {filteredPhrases.length > 0 && (
+                <button onClick={startPractice}
+                  className="flex items-center gap-1.5 px-3 md:px-4 py-2 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg text-xs font-bold cursor-pointer whitespace-nowrap transition-colors flex-shrink-0">
+                  <i className="ri-play-fill"></i>Luyện {filteredPhrases.length} câu
+                </button>
+              )}
             </div>
           )}
 
@@ -546,9 +556,8 @@ export default function ConversationPage() {
             </div>
           </div>
 
-          {/* Count */}
-          <div className="flex items-center justify-between mb-3">
-            <p className="text-app-text-muted text-xs">{filteredPhrases.length} câu</p>
+          {/* Actions row */}
+          <div className="flex items-center justify-end mb-3">
             <button onClick={() => { filteredPhrases.forEach(p => toggleFavorite(p.id)); }}
               className="text-app-text-muted hover:text-app-accent-primary/60 text-xs cursor-pointer whitespace-nowrap transition-colors">
               <i className="ri-star-line mr-1"></i>Lưu tất cả
