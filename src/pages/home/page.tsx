@@ -13,7 +13,7 @@ import { getStreakData } from "@/utils/streak";
 const SRReviewWidget = lazy(() => import("@/pages/home/components/SRReviewWidget"));
 const StreakWidget = lazy(() => import("@/pages/home/components/StreakWidget"));
 const SeoulStreakBanner = lazy(() => import("@/pages/home/components/SeoulStreakBanner"));
-const DailyVocabWidget = lazy(() => import("@/pages/home/components/DailyVocabWidget"));
+// DailyVocabWidget HIDDEN 2026-05-25 (focus EPS+du học): depended on melon lessons
 
 function WidgetSkeleton({ className = "" }: { className?: string }) {
   return (
@@ -56,28 +56,7 @@ function StatCardSkeleton() {
   );
 }
 
-interface ApprovedLesson {
-  song: { rank: number; title: string; artist: string; genre: string };
-  story: string;
-  vocabulary: { word: string; meaning: string; example: string }[];
-  explanation: string;
-  approvedAt: string;
-  stars?: number;
-}
-
-interface ApprovedQA {
-  question: { id: string; questionKr: string; category: string; views: number };
-  translatedQuestion: string;
-  rewrittenAnswer: string;
-  hashtags: string[];
-  approvedAt: string;
-}
-
-interface CachedSearch {
-  keyword: string;
-  questions: { id: string; processed?: boolean }[];
-  fetchedAt: string;
-}
+// Interfaces for K-pop/Naver data shape removed 2026-05-25 — re-add if melon is re-enabled
 
 // ─── Quick action card ────────────────────────────────────────────────────────
 function QuickCard({
@@ -227,9 +206,6 @@ export default function Home() {
       .then(({ count }) => { if (count !== null) setHanjaCount(count); });
   }, []);
   const isAdmin = useIsAdmin();
-  const [approvedLessons] = useLocalStorage<ApprovedLesson[]>("kts_melon_lessons", []);
-  const [approvedQAs] = useLocalStorage<ApprovedQA[]>("kts_naver_qas", []);
-  const [cachedSearches] = useLocalStorage<CachedSearch[]>("kts_naver_cache", []);
 
   const streak = getStreakData();
   const [answeredMap] = useLocalStorage<Record<string, number>>("kts_eps_answers", {});
@@ -240,35 +216,7 @@ export default function Home() {
   );
   const [learnedIds] = useLocalStorage<Record<string, string[]>>("daily_learned", {});
 
-  // Draft mode settings from admin
-  const [melonDraftMode] = useLocalStorage<boolean>("kts_melon_draft_mode", false);
-  const [naverDraftMode] = useLocalStorage<boolean>("kts_naver_draft_mode", false);
-
-  const melonStats = useMemo(() => {
-    const cutoff = Date.now() - 7 * 86400000;
-    const recentCount = approvedLessons.filter(
-      (l) => new Date(l.approvedAt).getTime() > cutoff
-    ).length;
-    const avgVocab =
-      approvedLessons.length > 0
-        ? Math.round(
-            approvedLessons.reduce((sum, l) => sum + l.vocabulary.length, 0) /
-              approvedLessons.length
-          )
-        : 0;
-    return { total: approvedLessons.length, recentCount, avgVocab };
-  }, [approvedLessons]);
-
-  const naverStats = useMemo(() => {
-    const totalScanned = cachedSearches.reduce((sum, c) => sum + c.questions.length, 0);
-    const cutoff = Date.now() - 7 * 86400000;
-    const recentCount = approvedQAs.filter(
-      (qa) => new Date(qa.approvedAt).getTime() > cutoff
-    ).length;
-    const overallRate =
-      totalScanned > 0 ? Math.round((approvedQAs.length / totalScanned) * 100) : 0;
-    return { total: approvedQAs.length, recentCount, overallRate };
-  }, [approvedQAs, cachedSearches]);
+  // HIDDEN 2026-05-25 (focus EPS+du học): melon/naver stats removed, K-pop tools off-focus
 
   const epsDone = Object.keys(answeredMap).length;
   const epsCorrect = epsQuestions.filter((q) => answeredMap[q.id] === q.correctIndex).length;
@@ -484,30 +432,28 @@ export default function Home() {
           </div>
           <div className="bg-app-bg border border-app-border rounded-2xl overflow-hidden divide-y divide-white/5">
             <ToolRow
-              icon="ri-music-2-line"
-              color="app-accent-primary"
-              title="K-pop Lesson"
-              desc="Melon Top 100 → AI → Excel"
-              stat={`${melonStats.total} bài · TB ${melonStats.avgVocab} từ/bài`}
-              path="/melon"
-              draftMode={melonDraftMode}
+              icon="ri-list-check-3"
+              color="#4ade80"
+              title="EPS theo chủ đề"
+              desc="Học từ vựng theo từng chủ đề EPS"
+              stat={`${Object.keys(answeredMap).length} câu đã làm`}
+              path="/eps-topics"
             />
             <ToolRow
-              icon="ri-question-answer-line"
+              icon="ri-file-text-line"
               color="#38bdf8"
-              title="Naver KiN"
-              desc="Câu hỏi thực tế → AI → Excel"
-              stat={`${naverStats.total} Q&A · ${naverStats.overallRate}% xử lý`}
-              path="/naver"
-              draftMode={naverDraftMode}
+              title="Đề thi EPS thật"
+              desc="Đề 1, Đề 2 — 40 câu mô phỏng"
+              stat="2 đề chính thức"
+              path="/eps-exams"
             />
             <ToolRow
               icon="ri-book-2-line"
               color="#a78bfa"
-              title="Ebook Builder"
-              desc="Gom bài chọn lọc → Xuất PDF"
-              stat={`${approvedLessons.filter((l) => (l.stars ?? 0) >= 4).length} bài 4-5 sao`}
-              path="/ebook"
+              title="Ngữ pháp EPS"
+              desc="Tổng hợp ngữ pháp cần thiết"
+              stat="Theo trình độ"
+              path="/eps-grammar"
             />
             <ToolRow
               icon="ri-bar-chart-2-line"
@@ -522,8 +468,8 @@ export default function Home() {
                 icon="ri-upload-cloud-2-line"
                 color="#fb923c"
                 title="Tải lên dữ liệu (Admin)"
-                desc="Nhập bài học K-pop và Naver từ CSV"
-                stat="K-pop · Naver KiN"
+                desc="Nhập EPS vocab / lessons từ CSV"
+                stat="Excel · CSV"
                 path="/data-upload"
               />
             )}
@@ -600,10 +546,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* ── Daily vocab widget ── */}
-        <Suspense fallback={<WidgetSkeleton />}>
-          <DailyVocabWidget lessons={approvedLessons} />
-        </Suspense>
+        {/* DailyVocabWidget HIDDEN 2026-05-25 (focus EPS+du học): depended on melon lessons data which is now off-focus */}
 
         {/* ── Ad banner bottom ── */}
         <AdBanner position="bottom" />
