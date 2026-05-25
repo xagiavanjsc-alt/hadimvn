@@ -11,7 +11,10 @@ const EpsLessonQuizPage = lazyPage(() => import("../../pages/eps-lesson-quiz/pag
 const EpsListeningPage = lazyPage(() => import("../../pages/eps-listening/page"));
 const EpsSpeakingPage = lazyPage(() => import("../../pages/eps-speaking/page"));
 const EpsMockExamPage = lazyPage(() => import("../../pages/eps-mock-exam/page"), "exam");
-const EpsOfficialExamPage = lazyPage(() => import("../../pages/eps-official-exam/page"), "exam");
+// HIDDEN 2026-05-26: eps-official-exam has fake upload parser, non-decrementing
+// timer, and previously shipped fake "Đề thi EPS-TOPIK 2023/2022" with random
+// correctIndex (CLAUDE.md Rule 5 violation). Code preserved per Rule 4.
+// const EpsOfficialExamPage = lazyPage(() => import("../../pages/eps-official-exam/page"), "exam");
 const EpsDe1ExamPage = lazyPage(() => import("../../pages/eps-de1-exam/page"), "exam");
 const EpsDe2ExamPage = lazyPage(() => import("../../pages/eps-de2-exam/page"), "exam");
 const EpsPersonalizedRoadmapPage = lazyPage(() => import("../../pages/eps-personalized-roadmap/page"));
@@ -53,7 +56,8 @@ export const epsRoutes: RouteObject[] = [
   { path: "/eps-listening", element: <EpsListeningPage /> },
   { path: "/eps-speaking", element: <EpsSpeakingPage /> },
   { path: "/eps-mock-exam", element: <EpsMockExamPage /> },
-  { path: "/eps-official-exam", element: <EpsOfficialExamPage /> },
+  // HIDDEN 2026-05-26: see lazyPage block above
+  // { path: "/eps-official-exam", element: <EpsOfficialExamPage /> },
   { path: "/eps-personalized-roadmap", element: <EpsPersonalizedRoadmapPage /> },
   { path: "/eps-progress-roadmap", element: <EpsProgressRoadmapPage /> },
   { path: "/eps-quick-review", element: <EpsQuickReviewPage /> },

@@ -116,7 +116,7 @@ function generateRoadmap(level: Level, goal: Goal, timeFrame: TimeFrame): Roadma
         description: "Ôn tập toàn diện, tập trung vào điểm yếu cuối cùng",
         tasks: ["Ôn tập toàn bộ từ vựng", "Làm đề thi chính thức", "Luyện nghe tốc độ cao"],
         resources: [
-          { label: "Đề thi chính thức", path: "/eps-official-exam", icon: "ri-file-list-2-line" },
+          { label: "Đề thi chính thức Đề 1", path: "/eps-de1", icon: "ri-file-list-2-line" },
           { label: "Spaced Repetition", path: "/eps-spaced-review", icon: "ri-brain-line" },
         ],
         milestone: "Sẵn sàng thi EPS thật",

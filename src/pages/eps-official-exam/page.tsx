@@ -23,39 +23,13 @@ interface UploadedExam {
 
 type Phase = "upload" | "exam" | "result";
 
-// ─── Official Exam Library (built-in sample sets) ─────────────────────────────
-const OFFICIAL_EXAM_SAMPLES: UploadedExam[] = [
-  {
-    id: "eps2023",
-    name: "Đề thi EPS-TOPIK 2023 (Mẫu)",
-    year: "2023",
-    source: "Bộ Lao động Hàn Quốc",
-    uploadedAt: new Date().toISOString(),
-    questions: Array.from({ length: 40 }, (_, i) => ({
-      id: `q${i + 1}`,
-      number: i + 1,
-      text: `Câu ${i + 1}: [Đề thi EPS-TOPIK 2023] Chọn đáp án đúng nhất cho câu hỏi sau về ${["giao tiếp cơ bản", "an toàn lao động", "văn hóa Hàn Quốc", "pháp luật lao động"][i % 4]}.`,
-      options: ["Đáp án A", "Đáp án B", "Đáp án C", "Đáp án D"],
-      correctIndex: Math.floor(Math.random() * 4),
-      userAnswer: null,
-    })),
-  },
-  {
-    id: "eps2022",
-    name: "Đề thi EPS-TOPIK 2022 (Mẫu)",
-    year: "2022",
-    source: "Bộ Lao động Hàn Quốc",
-    uploadedAt: new Date().toISOString(),
-    questions: Array.from({ length: 40 }, (_, i) => ({
-      id: `q${i + 1}`,
-      number: i + 1,
-      text: `Câu ${i + 1}: [Đề thi EPS-TOPIK 2022] Câu hỏi về ${["nghe hiểu", "đọc hiểu", "sinh hoạt hàng ngày", "nơi làm việc"][i % 4]}.`,
-      options: ["Đáp án A", "Đáp án B", "Đáp án C", "Đáp án D"],
-      correctIndex: Math.floor(Math.random() * 4),
-      userAnswer: null,
-    })),
-  },
-];
+// ─── Official Exam Library ────────────────────────────────────────────────────
+// Removed 2026-05-26: previous "OFFICIAL_EXAM_SAMPLES" placeholder labeled
+// "Đề thi EPS-TOPIK 2023/2022 (Bộ Lao động Hàn Quốc)" with answers generated
+// via Math.random(). This violated CLAUDE.md Rule 5 (no AI-fabricated exam
+// content presented as official). Real official exams live in `/eps-de1`,
+// `/eps-de2`, `/eps-de3` pages. This page is for user-uploaded exams only.
+const OFFICIAL_EXAM_SAMPLES: UploadedExam[] = [];
 
 // ─── Upload Zone ──────────────────────────────────────────────────────────────
 interface UploadZoneProps {

@@ -28,7 +28,7 @@ const ALL_FEATURES: Feature[] = [
   { path: "/eps-wrong-topic", label: "Câu sai theo chủ đề EPS", icon: "ri-error-warning-line", tags: ["EPS", "Ôn tập"], description: "Xem và ôn lại câu sai phân loại theo chủ đề" },
   { path: "/eps-review-history", label: "Lịch sử ôn tập EPS", icon: "ri-history-line", tags: ["EPS", "Lịch sử"], description: "Xem lại toàn bộ lịch sử ôn tập EPS" },
   { path: "/eps-quick-review", label: "Ôn nhanh EPS", icon: "ri-flashlight-line", tags: ["EPS", "Ôn tập"], description: "Ôn tập nhanh 10 phút mỗi ngày với EPS" },
-  { path: "/eps-official-exam", label: "Đề thi chính thức EPS", icon: "ri-file-paper-2-line", tags: ["EPS", "Thi thử"], description: "Làm đề thi EPS chính thức từ các năm trước" },
+  // HIDDEN 2026-05-26: /eps-official-exam has fake upload parser + non-decrementing timer. Real exams live in /eps-de1, /eps-de2, /eps-exams.
   { path: "/eps-personalized-roadmap", label: "Lộ trình cá nhân EPS", icon: "ri-route-line", tags: ["EPS", "Lộ trình"], description: "Lộ trình học EPS được cá nhân hóa theo trình độ" },
   { path: "/eps-progress-roadmap", label: "Bản đồ tiến độ EPS", icon: "ri-map-2-line", tags: ["EPS", "Tiến độ"], description: "Bản đồ trực quan tiến độ học EPS" },
   { path: "/eps-study-group", label: "Nhóm học EPS", icon: "ri-group-line", tags: ["EPS", "Cộng đồng"], description: "Tham gia nhóm học EPS cùng bạn bè" },
