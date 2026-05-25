@@ -4,6 +4,7 @@ import { supabase, UserProfile, isSupabaseConfigured } from "@/lib/supabase";
 import { trackLoginSession } from "@/hooks/useAdminUsers";
 import { reportError } from "@/lib/errorReporting";
 import { getActiveRefCode, clearRefCode } from "@/hooks/useRefTracking";
+import { normalizeEmail } from "@/lib/emailValidation";
 
 interface AuthState {
   user: User | null;
@@ -72,13 +73,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, [fetchProfile]);
 
-  const createProfile = useCallback(async (userId: string, displayName: string) => {
+  const createProfile = useCallback(async (userId: string, displayName: string, email: string | null) => {
     const refCode = getActiveRefCode();
     // Avatar mặc định từ DiceBear API (miễn phí, ổn định)
     const defaultAvatar = `https://api.dicebear.com/7.x/adventurer/svg?seed=${encodeURIComponent(displayName)}&backgroundColor=b6e3f4`;
+    // Canonicalize email so Gmail dot/+alias variants share one profile row.
+    // Mirrors the server-side normalize_email() in migration 117; the UNIQUE
+    // index on email_normalized is the authoritative dedup.
+    const emailNorm = email ? normalizeEmail(email) : null;
     const { data, error } = await supabase
       .from("user_profiles")
-      .insert({ id: userId, display_name: displayName, avatar_url: defaultAvatar, ...(refCode ? { ref_code: refCode } : {}) })
+      .insert({
+        id: userId,
+        display_name: displayName,
+        avatar_url: defaultAvatar,
+        ...(refCode ? { ref_code: refCode } : {}),
+        ...(emailNorm ? { email_normalized: emailNorm } : {}),
+      })
       .select()
       .maybeSingle();
     if (error) {
@@ -118,7 +129,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             let profile = await fetchProfile(session.user.id);
             if (!profile && mounted) {
               const name = pickInitialDisplayName(session.user);
-              profile = await createProfile(session.user.id, name);
+              profile = await createProfile(session.user.id, name, session.user.email ?? null);
             }
             if (mounted) {
               setState(prev => ({ ...prev, profile }));
@@ -166,7 +177,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                 let profile = await fetchProfile(session.user.id);
                 if (!profile && mounted) {
                   const name = pickInitialDisplayName(session.user);
-                  profile = await createProfile(session.user.id, name);
+                  profile = await createProfile(session.user.id, name, session.user.email ?? null);
                 }
                 if (mounted) setState(prev => ({ ...prev, profile }));
               } catch (err) {

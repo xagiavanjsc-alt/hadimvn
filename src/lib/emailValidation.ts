@@ -92,3 +92,38 @@ export function validateSignupEmail(emailRaw: string): EmailValidationResult {
 export function allowedEmailDomainsList(): string {
   return Array.from(ALLOWED_EMAIL_DOMAINS).sort().join(", ");
 }
+
+const GMAIL_DOT_DOMAINS: ReadonlySet<string> = new Set(["gmail.com", "googlemail.com"]);
+
+/**
+ * Canonicalize an email so that all variants routing to the same inbox
+ * resolve to the same string. Must mirror `public.normalize_email` in
+ * supabase/migrations/117_email_normalization.sql — drifting between
+ * client and server normalization re-opens the abuse vector.
+ *
+ * Rules:
+ *   - lowercase + trim
+ *   - drop everything after `+` in the local part (Gmail/Outlook/Yahoo
+ *     all forward +addressing to the base inbox)
+ *   - for gmail.com / googlemail.com, strip every dot from the local part
+ *     (Gmail itself treats `n.guyen@` and `nguyen@` as the same account)
+ *
+ * Returns null when the input doesn't parse as `local@domain`. The UI
+ * treats that as "skip the dedup check, let validateSignupEmail handle
+ * the shape error".
+ */
+export function normalizeEmail(emailRaw: string): string | null {
+  const email = emailRaw.trim().toLowerCase();
+  if (!email) return null;
+  const at = email.lastIndexOf("@");
+  if (at < 1 || at === email.length - 1) return null;
+  let local = email.slice(0, at);
+  const domain = email.slice(at + 1);
+  const plus = local.indexOf("+");
+  if (plus >= 0) local = local.slice(0, plus);
+  if (!local) return null;
+  if (GMAIL_DOT_DOMAINS.has(domain)) {
+    local = local.replace(/\./g, "");
+  }
+  return `${local}@${domain}`;
+}

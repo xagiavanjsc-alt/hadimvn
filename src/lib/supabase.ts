@@ -70,6 +70,7 @@ export type UserProfile = {
   is_admin: boolean;
   user_role: "super_admin" | "smod" | "moderator" | "member";
   onboarded_at: string | null;
+  email_normalized: string | null;
   created_at: string;
   updated_at: string;
 };

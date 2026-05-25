@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { useStudySync } from "@/hooks/useStudySync";
 import { supabase } from "@/lib/supabase";
-import { validateSignupEmail } from "@/lib/emailValidation";
+import { validateSignupEmail, normalizeEmail } from "@/lib/emailValidation";
 
 interface AuthModalProps {
   onClose: () => void;
@@ -106,6 +106,21 @@ export default function AuthModal({ onClose }: AuthModalProps) {
         if (password.length < 6) { setError("Mật khẩu phải có ít nhất 6 ký tự"); return; }
         const emailCheck = validateSignupEmail(email);
         if (!emailCheck.ok) { setError(emailCheck.reason || "Email không hợp lệ"); return; }
+        // Pre-check normalized email — catches Gmail dot/+alias variants that
+        // route to an already-registered inbox. See migration 117. Soft-fails
+        // if the RPC is unreachable (network, RLS misconfig) — Supabase's own
+        // duplicate-email error catches the most common case downstream.
+        const normalized = normalizeEmail(email);
+        if (normalized) {
+          const { data: taken, error: rpcErr } = await supabase
+            .rpc("is_email_taken", { p_email: email });
+          if (rpcErr) {
+            console.warn("[AuthModal] is_email_taken RPC failed:", rpcErr.message);
+          } else if (taken === true) {
+            setError("Email này đã được đăng ký. Hãy đăng nhập hoặc dùng email khác.");
+            return;
+          }
+        }
         const { data, error: err } = await signUp(email, password, displayName);
         if (err) {
           setError(translateError(err.message));
