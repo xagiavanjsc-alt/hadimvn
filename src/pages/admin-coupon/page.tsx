@@ -287,6 +287,7 @@ export default function AdminCouponPage() {
   const [recordingCoupon, setRecordingCoupon] = useState<Coupon | null>(null);
   const [filterChannel, setFilterChannel] = useState("all");
   const [filterType, setFilterType] = useState<"all" | "ebook" | "vip">("all");
+  const [showInactive, setShowInactive] = useState(false);
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
   const [toast, setToast] = useState<string | null>(null);
 
@@ -330,10 +331,16 @@ export default function AdminCouponPage() {
 
   const filtered = useMemo(() => {
     let list = [...coupons];
+    if (!showInactive) list = list.filter(c => c.active);
     if (filterChannel !== "all") list = list.filter(c => c.channel === filterChannel);
     if (filterType !== "all") list = list.filter(c => c.couponType === filterType);
     return list;
-  }, [coupons, filterChannel, filterType]);
+  }, [coupons, filterChannel, filterType, showInactive]);
+
+  const inactiveCount = useMemo(
+    () => coupons.filter(c => !c.active).length,
+    [coupons]
+  );
 
   const channelStats = useMemo(() => {
     const map: Record<string, { count: number; usage: number }> = {};
@@ -444,7 +451,19 @@ export default function AdminCouponPage() {
               <h3 className="text-white font-semibold text-sm">Danh sách coupon</h3>
               <p className="text-app-text-muted text-xs mt-0.5">{filtered.length} coupon · Supabase</p>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap">
+              <button
+                onClick={() => setShowInactive(v => !v)}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors cursor-pointer whitespace-nowrap border ${
+                  showInactive
+                    ? "bg-app-accent-primary/10 border-app-accent-primary/30 text-app-accent-primary"
+                    : "bg-app-card/50 border-app-border text-app-text-muted hover:text-white/70"
+                }`}
+                title={showInactive ? "Đang hiển thị cả coupon đã tắt" : "Đang ẩn coupon đã tắt"}
+              >
+                <i className={showInactive ? "ri-eye-line" : "ri-eye-off-line"}></i>
+                {showInactive ? "Đang hiện đã tắt" : `Ẩn đã tắt${inactiveCount > 0 ? ` (${inactiveCount})` : ""}`}
+              </button>
               <select
                 value={filterType}
                 onChange={e => setFilterType(e.target.value as "all" | "ebook" | "vip")}
@@ -534,29 +553,32 @@ export default function AdminCouponPage() {
                       )}
                     </div>
 
-                    <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="flex items-center gap-1 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
                       <button
                         onClick={() => setRecordingCoupon(c)}
-                        className="w-6 h-6 flex items-center justify-center bg-app-card/50 hover:bg-app-card/70 rounded-lg transition-colors cursor-pointer"
+                        className="w-7 h-7 md:w-6 md:h-6 flex items-center justify-center bg-app-card/50 hover:bg-app-card/70 rounded-lg transition-colors cursor-pointer"
                         title="Ghi nhận sử dụng"
                       >
-                        <i className="ri-add-line text-app-text-secondary text-[10px]"></i>
+                        <i className="ri-add-line text-app-text-secondary text-xs md:text-[10px]"></i>
                       </button>
                       <button
                         onClick={() => handleToggle(c.id)}
-                        className="w-6 h-6 flex items-center justify-center bg-app-card/50 hover:bg-app-card/70 rounded-lg transition-colors cursor-pointer"
+                        className="w-7 h-7 md:w-6 md:h-6 flex items-center justify-center bg-app-card/50 hover:bg-app-card/70 rounded-lg transition-colors cursor-pointer"
+                        title={c.active ? "Tắt coupon" : "Bật coupon"}
                       >
-                        <i className={`text-[10px] ${c.active ? "ri-pause-line text-app-text-secondary" : "ri-play-line text-app-accent-success"}`}></i>
+                        <i className={`text-xs md:text-[10px] ${c.active ? "ri-pause-line text-app-text-secondary" : "ri-play-line text-app-accent-success"}`}></i>
                       </button>
                       <button
                         onClick={() => { setEditingCoupon(c); setShowForm(true); }}
-                        className="w-6 h-6 flex items-center justify-center bg-app-card/50 hover:bg-app-card/70 rounded-lg transition-colors cursor-pointer"
+                        className="w-7 h-7 md:w-6 md:h-6 flex items-center justify-center bg-app-card/50 hover:bg-app-card/70 rounded-lg transition-colors cursor-pointer"
+                        title="Chỉnh sửa"
                       >
-                        <i className="ri-edit-line text-app-text-secondary text-[10px]"></i>
+                        <i className="ri-edit-line text-app-text-secondary text-xs md:text-[10px]"></i>
                       </button>
                       <button
                         onClick={() => handleDelete(c.id)}
-                        className="w-6 h-6 flex items-center justify-center bg-red-500/10 hover:bg-red-500/20 rounded-lg transition-colors cursor-pointer"
+                        className="w-7 h-7 md:w-6 md:h-6 flex items-center justify-center bg-red-500/10 hover:bg-red-500/20 rounded-lg transition-colors cursor-pointer"
+                        title="Xóa"
                       >
                         <i className="ri-delete-bin-line text-red-400 text-[10px]"></i>
                       </button>
