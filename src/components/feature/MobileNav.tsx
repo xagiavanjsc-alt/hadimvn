@@ -40,6 +40,7 @@ const MENU_GROUPS = [
       { path: "/hangul", icon: "ri-text", label: "Bảng chữ cái Hangul" },
       { path: "/vocabulary", icon: "ri-translate-2", label: "Từ vựng tổng quan" },
       { path: "/grammar", icon: "ri-book-2-line", label: "Ngữ pháp tổng quan" },
+      { path: "/conversation", icon: "ri-chat-3-line", label: "Giao tiếp tình huống" },
       { path: "/dictionary", icon: "ri-search-2-line", label: "Từ điển" },
       { path: "/topik-test", icon: "ri-survey-line", label: "TOPIK (du học)" },
     ],

@@ -2,9 +2,10 @@ import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { SITUATION_TOPICS } from "@/data/conversationSituations";
 
 // ─── Data ─────────────────────────────────────────────────────────────────
-interface Phrase {
+export interface Phrase {
   id: string;
   korean: string;
   romanization: string;
@@ -14,7 +15,7 @@ interface Phrase {
   level: "cơ bản" | "trung cấp" | "nâng cao";
 }
 
-interface Topic {
+export interface ConversationTopic {
   id: string;
   icon: string;
   color: string;
@@ -23,7 +24,7 @@ interface Topic {
   phrases: Phrase[];
 }
 
-const TOPICS: Topic[] = [
+const BASE_TOPICS: ConversationTopic[] = [
   {
     id: "greetings",
     icon: "ri-hand-heart-line",
@@ -277,6 +278,8 @@ const TOPICS: Topic[] = [
     ],
   },
 ];
+
+const TOPICS: ConversationTopic[] = [...BASE_TOPICS, ...SITUATION_TOPICS];
 
 // ─── Phrase Card ──────────────────────────────────────────────────────────
 function PhraseCard({ phrase, onSpeak, isFavorite, onToggleFavorite }: {
