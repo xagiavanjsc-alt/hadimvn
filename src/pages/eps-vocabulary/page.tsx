@@ -6,6 +6,7 @@ import { supabase } from "@/lib/supabase";
 import { useAudioCache } from "@/hooks/useAudioCache";
 import { type EpsVocabItem, type EpsVocabTopic } from "@/mocks/epsVocabulary";
 import { EpsVocabProvider, useEpsVocab, useEpsVocabLoading } from "@/contexts/EpsVocabContext";
+import { usePageSEO } from "@/hooks/usePageSEO";
 
 // ─── PDF Export ───────────────────────────────────────────────────────────
 function exportToPDF(items: EpsVocabItem[], topicId: string, topics: EpsVocabTopic[]) {
@@ -221,6 +222,29 @@ function EpsVocabularyPageInner() {
   const [masteredIds, setMasteredIds] = useLocalStorage<string[]>("kts_eps_vocab_mastered", []);
   const [selectedTopic, setSelectedTopic] = useState("all");
   const [selectedLevel, setSelectedLevel] = useState("all");
+
+  usePageSEO({
+    title: "Từ vựng EPS-TOPIK theo chủ đề [Có Audio + Pinyin] | Hàn Quốc Ơi!",
+    description: "Học từ vựng EPS-TOPIK chia theo chủ đề. Mỗi từ có nghĩa Việt, ví dụ, audio phát âm chuẩn. Đầy đủ từ vựng cho kỳ thi EPS đi XKLĐ Hàn Quốc.",
+    keywords: "từ vựng EPS, từ vựng EPS-TOPIK, từ vựng tiếng Hàn theo chủ đề, từ vựng XKLĐ Hàn Quốc, audio tiếng Hàn",
+    path: "/eps-vocabulary",
+    ogType: "website",
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "LearningResource",
+      name: "Từ vựng EPS-TOPIK",
+      description: "Bộ từ vựng EPS-TOPIK chia theo chủ đề với audio phát âm.",
+      learningResourceType: "Vocabulary",
+      educationalLevel: "EPS-TOPIK",
+      inLanguage: ["vi", "ko"],
+      isAccessibleForFree: true,
+      provider: {
+        "@type": "EducationalOrganization",
+        name: "Hàn Quốc Ơi!",
+        url: "https://hanquocoi.vn",
+      },
+    },
+  });
   const [filterMode, setFilterMode] = useState<"all" | "unmastered">("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [flashcardItem, setFlashcardItem] = useState<{ items: EpsVocabItem[]; startIdx: number } | null>(null);

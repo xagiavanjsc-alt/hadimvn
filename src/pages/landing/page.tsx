@@ -1,6 +1,7 @@
 ﻿import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
+import { usePageSEO } from "@/hooks/usePageSEO";
 import { STATS, TESTIMONIALS, FAQ_ITEMS } from "@/mocks/landingData";
 
 const FEATURE_GROUPS = [
@@ -133,6 +134,46 @@ export default function LandingPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [activeVocab, setActiveVocab] = useState(0);
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  usePageSEO({
+    title: "Học tiếng Hàn EPS-TOPIK miễn phí | Hàn Quốc Ơi!",
+    description: "Luyện thi EPS-TOPIK đi XKLĐ Hàn Quốc miễn phí. 60 bài học chính thức, đề thi 2025 có đáp án + audio, từ vựng theo chủ đề, flashcard ghi nhớ.",
+    keywords: "học tiếng Hàn EPS, EPS-TOPIK, XKLĐ Hàn Quốc, đề thi EPS 2025, từ vựng EPS, hangul, học tiếng Hàn miễn phí",
+    path: "/landing",
+    ogType: "website",
+    jsonLd: [
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        name: "Hàn Quốc Ơi!",
+        url: "https://hanquocoi.vn",
+        description: "Nền tảng luyện thi EPS-TOPIK miễn phí cho người Việt đi XKLĐ Hàn Quốc.",
+        inLanguage: "vi",
+        potentialAction: {
+          "@type": "SearchAction",
+          target: "https://hanquocoi.vn/dictionary?q={search_term_string}",
+          "query-input": "required name=search_term_string",
+        },
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "EducationalOrganization",
+        name: "Hàn Quốc Ơi!",
+        url: "https://hanquocoi.vn",
+        description: "Nền tảng học tiếng Hàn online tập trung vào kỳ thi EPS-TOPIK cho lao động Việt Nam đi Hàn Quốc.",
+        inLanguage: ["vi", "ko"],
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: FAQ_ITEMS.map(item => ({
+          "@type": "Question",
+          name: item.q,
+          acceptedAnswer: { "@type": "Answer", text: item.a },
+        })),
+      },
+    ],
+  });
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);

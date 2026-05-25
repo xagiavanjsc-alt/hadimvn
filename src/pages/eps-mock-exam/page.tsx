@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { epsQuestions, EpsQuestion } from "@/mocks/epsQuestions";
 import { STORAGE_KEYS } from "@/lib/storageKeys";
+import { usePageSEO } from "@/hooks/usePageSEO";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 interface ExamResult {
@@ -525,6 +526,31 @@ export default function EpsMockExamPage() {
   const [results, setResults] = useState<ExamResult[]>([]);
   const [timeLeft, setTimeLeft] = useState(EXAM_DURATION);
   const [timeUsed, setTimeUsed] = useState(0);
+
+  usePageSEO({
+    title: "Thi thử EPS-TOPIK online — 40 câu, 50 phút | Hàn Quốc Ơi!",
+    description: "Thi thử EPS-TOPIK miễn phí: 40 câu nghe + đọc trong 50 phút, đúng format đề thi chính thức. Có đáp án + giải thích sau khi thi. Phân tích điểm yếu theo chủ đề.",
+    keywords: "thi thử EPS, thi thử EPS-TOPIK online, đề thi EPS 40 câu, luyện thi EPS XKLĐ Hàn Quốc, kiểm tra EPS",
+    path: "/eps-mock-exam",
+    ogType: "article",
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "Quiz",
+      name: "Thi thử EPS-TOPIK online",
+      description: "Bài thi thử EPS-TOPIK 40 câu trong 50 phút theo chuẩn đề thi chính thức.",
+      educationalLevel: "EPS-TOPIK",
+      learningResourceType: "Practice Exam",
+      inLanguage: ["ko", "vi"],
+      timeRequired: "PT50M",
+      numberOfQuestions: 40,
+      isAccessibleForFree: true,
+      provider: {
+        "@type": "EducationalOrganization",
+        name: "Hàn Quốc Ơi!",
+        url: "https://hanquocoi.vn",
+      },
+    },
+  });
   const [questionStartTime, setQuestionStartTime] = useState(Date.now());
   const [reviewMode, setReviewMode] = useState(false);
   const [reviewIndex, setReviewIndex] = useState(0);

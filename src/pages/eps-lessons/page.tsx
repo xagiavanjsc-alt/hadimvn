@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useXPSystem } from "@/hooks/useXPSystem";
+import { usePageSEO } from "@/hooks/usePageSEO";
 import { epsLessons, EPS_LESSON_TOPICS } from "@/mocks/epsLessons";
 import LessonCard from "./components/LessonCard";
 import WrongSavedToast from "./components/WrongSavedToast";
@@ -20,6 +21,28 @@ export default function EpsLessonsPage() {
   const [filterStatus, setFilterStatus] = useState<"all" | "completed" | "pending">("all");
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+
+  usePageSEO({
+    title: `${epsLessons.length} Bài học EPS-TOPIK chính thức [Miễn Phí] | Hàn Quốc Ơi!`,
+    description: `Trọn bộ ${epsLessons.length} bài học EPS-TOPIK miễn phí. Mỗi bài có từ vựng, ngữ pháp, hội thoại Hàn-Việt và quiz luyện tập. Cập nhật theo giáo trình EPS chính thức.`,
+    keywords: "bài học EPS, giáo trình EPS-TOPIK, 60 bài EPS, học tiếng Hàn EPS, từ vựng theo bài EPS",
+    path: "/eps-lessons",
+    ogType: "website",
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "Course",
+      name: "Giáo trình EPS-TOPIK chính thức",
+      description: `Bộ ${epsLessons.length} bài học EPS-TOPIK miễn phí cho người Việt thi XKLĐ Hàn Quốc.`,
+      inLanguage: ["vi", "ko"],
+      educationalLevel: "EPS-TOPIK",
+      isAccessibleForFree: true,
+      provider: {
+        "@type": "EducationalOrganization",
+        name: "Hàn Quốc Ơi!",
+        url: "https://hanquocoi.vn",
+      },
+    },
+  });
 
   const filteredLessons = useMemo(() => {
     return epsLessons.filter(l => {

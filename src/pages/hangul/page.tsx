@@ -1,6 +1,7 @@
 import { useState } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { usePageSEO } from "@/hooks/usePageSEO";
 
 function speakKorean(text: string, rate = 0.7) {
   if (!window.speechSynthesis) return;
@@ -219,6 +220,29 @@ export default function HangulPage() {
   const [selectedChar, setSelectedChar] = useState<string | null>(null);
   const [masteredChars, setMasteredChars] = useLocalStorage<string[]>("kts_hangul_mastered", []);
   const [practiceMode, setPracticeMode] = useState(false);
+
+  usePageSEO({
+    title: "Học bảng chữ cái Hàn Quốc Hangul [Có Audio] | Hàn Quốc Ơi!",
+    description: "Học bảng chữ cái Hangul từ A đến Z: phụ âm, nguyên âm, phụ âm kép. Audio phát âm chuẩn, ghi nhớ bằng flashcard, luyện viết. Miễn phí 100% cho người Việt.",
+    keywords: "học hangul, bảng chữ cái Hàn Quốc, học tiếng Hàn cơ bản, hangul audio, phát âm tiếng Hàn",
+    path: "/hangul",
+    ogType: "article",
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "LearningResource",
+      name: "Học bảng chữ cái Hangul",
+      description: "Trọn bộ phụ âm, nguyên âm, phụ âm kép Hangul kèm audio phát âm.",
+      learningResourceType: "Lesson",
+      educationalLevel: "Beginner",
+      inLanguage: ["vi", "ko"],
+      isAccessibleForFree: true,
+      provider: {
+        "@type": "EducationalOrganization",
+        name: "Hàn Quốc Ơi!",
+        url: "https://hanquocoi.vn",
+      },
+    },
+  });
 
   const currentChars = tab === "consonant" ? CONSONANTS
     : tab === "double" ? DOUBLE_CONSONANTS
