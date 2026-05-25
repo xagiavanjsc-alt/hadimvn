@@ -313,7 +313,7 @@ function ImportTab() {
       title: "K-pop Lesson (Melon)",
       desc: "Import danh sách bài hát và từ vựng đã xử lý",
       template: "song_title,artist,vocabulary,meaning,example",
-      link: "/melon",
+      link: "/admin-melon",
     },
     {
       key: "naver",

@@ -100,7 +100,7 @@ export default function NotFound() {
             <p className="text-app-text-muted text-xs mb-3">Hoặc đến nhanh:</p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
               {[
-                { label: "Melon Chart", icon: "ri-music-2-line", path: "/melon" },
+                { label: "Lộ trình 30 ngày", icon: "ri-route-line", path: "/eps-30day-plan" },
                 { label: "EPS", icon: "ri-book-open-line", path: "/eps" },
                 { label: "Từ điển", icon: "ri-search-line", path: "/dictionary" },
                 { label: "Ngữ pháp", icon: "ri-file-list-3-line", path: "/grammar" },

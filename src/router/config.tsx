@@ -8,6 +8,8 @@ import { lazyPage, preload } from "./utils";
 import { epsRoutes } from "./routes/eps";
 import { seoulRoutes } from "./routes/seoul";
 import { adminRoutes } from "./routes/admin";
+import { topikRoutes } from "./routes/topik";
+import { hanjaRoutes } from "./routes/hanja";
 
 export { cancelPreloads } from "./utils";
 
@@ -60,15 +62,7 @@ export function PreloadCommonRoutes() {
 // ─── EPS, Seoul, Admin routes ────────────────────────────────────────────────
 // Lazy imports moved to ./routes/eps.tsx, ./routes/seoul.tsx, ./routes/admin.tsx
 
-// ─── TOPIK ───────────────────────────────────────────────────────────────────
-const TopikTestPage = lazyPage(() => import("../pages/topik-test/page"), "exam");
-const Topik2TestPage = lazyPage(() => import("../pages/topik2-test/page"), "exam");
-const TopikDictionaryPage = lazyPage(() => import("../pages/topik-dictionary/page"), "vocab");
-const TopikFlashcardPage = lazyPage(() => import("../pages/topik-flashcard/page"), "flashcard");
-const TopikListeningPage = lazyPage(() => import("../pages/topik-listening/page"));
-const TopikReadingPage = lazyPage(() => import("../pages/topik-reading/page"));
-const TopikStatsPage = lazyPage(() => import("../pages/topik-stats/page"));
-const TopikTopicQuizPage = lazyPage(() => import("../pages/topik-topic-quiz/page"));
+// ─── TOPIK + Hanja moved to ./routes/topik.tsx and ./routes/hanja.tsx ────────
 
 // ─── Hangul ──────────────────────────────────────────────────────────────────
 const HangulPage = lazyPage(() => import("../pages/hangul/page"));
@@ -76,9 +70,7 @@ const HangulPage = lazyPage(() => import("../pages/hangul/page"));
 // const HangulCanvasPage = lazyPage(() => import("../pages/hangul-canvas/page"));
 const HangulWritePage = lazyPage(() => import("../pages/hangul-write/page"));
 
-// ─── Hanja ───────────────────────────────────────────────────────────────────
-const HanjaVocabPage = lazyPage(() => import("../pages/hanja-vocab/page"));
-const HanjaFlashcardPage = lazyPage(() => import("../pages/hanja-flashcard/page"), "flashcard");
+// ─── Hanja basic routes moved to ./routes/hanja.tsx ─────────────────────────
 
 // ─── Community ────────────────────────────────────────────────────────────────
 const CommunityPage = lazyPage(() => import("../pages/community/page"));
@@ -220,18 +212,13 @@ const OfflineVocabPage = lazyPage(() => import("../pages/offline-vocab/page"));
 const GlobalLeaderboardPage = lazyPage(() => import("../pages/global-leaderboard/page"));
 // HIDDEN 2026-05-25 (focus EPS+du học): Korean news, off-focus
 // const KoreanNewsPage = lazyPage(() => import("../pages/korean-news/page"));
-const HanjaDetailPage = lazyPage(() => import("../pages/hanja-detail/page"));
-const HanjaDashboardPage = lazyPage(() => import("../pages/hanja-dashboard/page"));
-const HanjaProPage = lazyPage(() => import("../pages/hanja-pro/page"));
-const HanjaProDetailPage = lazyPage(() => import("../pages/hanja-pro-detail/page"));
-const HanjaAnalyticsPage = lazyPage(() => import("../pages/hanja-analytics/page"));
-const HanjaStoriesPage = lazyPage(() => import("../pages/hanja-stories/page"));
+// Hanja detail/pro/analytics/stories moved to ./routes/hanja.tsx
 // HIDDEN 2026-05-25 (focus EPS+du học): generic flashcard hub duplicate, use /eps-flashcard or /seoul-flashcard
 // const FlashcardHubPage = lazyPage(() => import("../pages/flashcard-hub/page"), "flashcard");
 const SpeakingLevelPage = lazyPage(() => import("../pages/speaking-level/page"));
 // HIDDEN 2026-05-25 (focus EPS+du học): duplicate hangul page, keep /hangul-write as canonical
 // const HangulWritingPage = lazyPage(() => import("../pages/hangul-writing/page"));
-const TopikVocabLevelPage = lazyPage(() => import("../pages/topik-vocab-level/page"));
+// TopikVocabLevel moved to ./routes/topik.tsx
 const VocabGamesPage = lazyPage(() => import("../pages/vocab-games/page"));
 // HIDDEN 2026-05-25 (focus EPS+du học): duplicate of /listening-level (same level-based listening concept)
 // const ListeningByLevelPage = lazyPage(() => import("../pages/listening-by-level/page"));
@@ -246,7 +233,7 @@ const WritingByLevelPage = lazyPage(() => import("../pages/writing-by-level/page
 const VocabInContextPage = lazyPage(() => import("../pages/vocab-in-context/page"));
 const DictationPracticePage = lazyPage(() => import("../pages/dictation-practice/page"));
 const TranslationPracticePage = lazyPage(() => import("../pages/translation-practice/page"));
-const TopikFrequencyVocabPage = lazyPage(() => import("../pages/topik-frequency-vocab/page"));
+// TopikFrequencyVocab moved to ./routes/topik.tsx
 const SyllablePronunciationPage = lazyPage(() => import("../pages/syllable-pronunciation/page"));
 const SpeedListeningPage = lazyPage(() => import("../pages/speed-listening/page"));
 const SentencePatternVocabPage = lazyPage(() => import("../pages/sentence-pattern-vocab/page"));
@@ -255,7 +242,7 @@ const SentencePatternVocabPage = lazyPage(() => import("../pages/sentence-patter
 // AdminContentLearnPage moved to ./routes/admin.tsx
 // HIDDEN 2026-05-25 (focus EPS+du học): generic grammar by level duplicate, EPS audience uses /eps-grammar
 // const GrammarByLevelPage = lazyPage(() => import("../pages/grammar-by-level/page"));
-const TopikExamWritingPage = lazyPage(() => import("../pages/topik-exam-writing/page"));
+// TopikExamWriting moved to ./routes/topik.tsx
 
 // ─── Admin lazy imports moved to ./routes/admin.tsx ──────────────────────────
 const FeedbackPage = lazyPage(() => import("../pages/feedback/page"));
@@ -291,14 +278,8 @@ const routes: RouteObject[] = [
   ...seoulRoutes,
 
   // TOPIK
-  { path: "/topik-test", element: <TopikTestPage /> },
-  { path: "/topik2-test", element: <Topik2TestPage /> },
-  { path: "/topik-dictionary", element: <TopikDictionaryPage /> },
-  { path: "/topik-flashcard", element: <TopikFlashcardPage /> },
-  { path: "/topik-listening", element: <TopikListeningPage /> },
-  { path: "/topik-reading", element: <TopikReadingPage /> },
-  { path: "/topik-stats", element: <TopikStatsPage /> },
-  { path: "/topik-topic-quiz", element: <TopikTopicQuizPage /> },
+  // TOPIK — moved to ./routes/topik.tsx
+  ...topikRoutes,
 
   // Hangul
   { path: "/hangul", element: <HangulPage /> },
@@ -307,8 +288,8 @@ const routes: RouteObject[] = [
   { path: "/hangul-write", element: <HangulWritePage /> },
 
   // Hanja
-  { path: "/hanja-vocab", element: <HanjaVocabPage /> },
-  { path: "/hanja-flashcard", element: <HanjaFlashcardPage /> },
+  // Hanja — moved to ./routes/hanja.tsx
+  ...hanjaRoutes,
 
   // Community
   { path: "/community", element: <CommunityPage /> },
@@ -457,18 +438,13 @@ const routes: RouteObject[] = [
   { path: "/global-leaderboard", element: <GlobalLeaderboardPage /> },
   // HIDDEN 2026-05-25 (focus EPS+du học): Korean news, off-focus
   // { path: "/korean-news", element: <KoreanNewsPage /> },
-  { path: "/hanja-detail", element: <HanjaDetailPage /> },
-  { path: "/hanja-dashboard", element: <HanjaDashboardPage /> },
-  { path: "/hanja-pro", element: <HanjaProPage /> },
-  { path: "/hanja-pro/:slug", element: <HanjaProDetailPage /> },
-  { path: "/hanja-analytics", element: <HanjaAnalyticsPage /> },
-  { path: "/hanja-stories", element: <HanjaStoriesPage /> },
+  // Hanja extras moved to ./routes/hanja.tsx (included in ...hanjaRoutes above)
   // HIDDEN 2026-05-25 (focus EPS+du học): generic flashcard hub, use /eps-flashcard or /seoul-flashcard
   // { path: "/flashcard-hub", element: <FlashcardHubPage /> },
   { path: "/speaking-level", element: <SpeakingLevelPage /> },
   // HIDDEN 2026-05-25 (focus EPS+du học): duplicate hangul, keep /hangul-write
   // { path: "/hangul-writing", element: <HangulWritingPage /> },
-  { path: "/topik-vocab-level", element: <TopikVocabLevelPage /> },
+  // TopikVocabLevel moved to ./routes/topik.tsx
   { path: "/vocab-games", element: <VocabGamesPage /> },
   // HIDDEN 2026-05-25 (focus EPS+du học): duplicate of /listening-level
   // { path: "/listening-by-level", element: <ListeningByLevelPage /> },
@@ -483,14 +459,14 @@ const routes: RouteObject[] = [
   { path: "/vocab-in-context", element: <VocabInContextPage /> },
   { path: "/dictation-practice", element: <DictationPracticePage /> },
   { path: "/translation-practice", element: <TranslationPracticePage /> },
-  { path: "/topik-frequency-vocab", element: <TopikFrequencyVocabPage /> },
+  // TopikFrequencyVocab moved to ./routes/topik.tsx
   { path: "/syllable-pronunciation", element: <SyllablePronunciationPage /> },
   { path: "/speed-listening", element: <SpeedListeningPage /> },
   { path: "/sentence-pattern-vocab", element: <SentencePatternVocabPage /> },
   // /admin/content-learn moved to ./routes/admin.tsx (already in adminRoutes spread above)
   // HIDDEN 2026-05-25 (focus EPS+du học): EPS users use /eps-grammar
   // { path: "/grammar-by-level", element: <GrammarByLevelPage /> },
-  { path: "/topik-exam-writing", element: <TopikExamWritingPage /> },
+  // TopikExamWriting moved to ./routes/topik.tsx
 
   // Misc
   { path: "*", element: <NotFound /> },

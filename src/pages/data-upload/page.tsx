@@ -329,7 +329,7 @@ export default function DataUploadPage() {
               <p className="text-app-accent-success font-semibold text-sm">{success}</p>
             </div>
             <button
-              onClick={() => navigate(activeType === "melon" ? "/melon" : "/naver")}
+              onClick={() => navigate(activeType === "melon" ? "/admin-melon" : "/admin-naver-kin")}
               className="px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer whitespace-nowrap bg-emerald-500/20 text-app-accent-success"
             >
               Xem ngay
