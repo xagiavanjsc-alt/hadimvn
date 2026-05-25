@@ -4,7 +4,7 @@ import DashboardLayout from "@/components/feature/DashboardLayout";
 import { epsQuestions, EpsQuestion } from "@/mocks/epsQuestions";
 import { STORAGE_KEYS } from "@/lib/storageKeys";
 import { usePageSEO } from "@/hooks/usePageSEO";
-import { SITE_URL } from "@/lib/siteConfig";
+import { ORG_SCHEMA } from "@/lib/siteConfig";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 interface ExamResult {
@@ -578,11 +578,7 @@ export default function EpsMockExamPage() {
       timeRequired: "PT50M",
       numberOfQuestions: 40,
       isAccessibleForFree: true,
-      provider: {
-        "@type": "EducationalOrganization",
-        name: "Hàn Quốc Ơi!",
-        url: SITE_URL,
-      },
+      provider: ORG_SCHEMA,
     },
   });
   const [questionStartTime, setQuestionStartTime] = useState(Date.now());

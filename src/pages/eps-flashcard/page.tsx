@@ -4,7 +4,7 @@ import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { epsVocabulary, EPS_VOCAB_TOPICS, type EpsVocabItem } from "@/mocks/epsVocabulary";
 import { useXPSystem } from "@/hooks/useXPSystem";
 import { usePageSEO } from "@/hooks/usePageSEO";
-import { SITE_URL } from "@/lib/siteConfig";
+import { ORG_SCHEMA } from "@/lib/siteConfig";
 
 // ─── Flip Card ────────────────────────────────────────────────────────────
 function EpsFlipCard({
@@ -251,11 +251,7 @@ export default function EpsFlashcardPage() {
       educationalLevel: "EPS-TOPIK",
       inLanguage: ["vi", "ko"],
       isAccessibleForFree: true,
-      provider: {
-        "@type": "EducationalOrganization",
-        name: "Hàn Quốc Ơi!",
-        url: SITE_URL,
-      },
+      provider: ORG_SCHEMA,
     },
   });
   const [currentIdx, setCurrentIdx] = useState(0);

@@ -4,7 +4,7 @@ import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { topikQuestions, type TopikQuestion } from "@/mocks/topikQuestions";
 import ShareResultCard from "@/components/feature/ShareResultCard";
 import { usePageSEO } from "@/hooks/usePageSEO";
-import { SITE_URL } from "@/lib/siteConfig";
+import { ORG_SCHEMA } from "@/lib/siteConfig";
 
 const TOTAL_TIME = 100 * 60; // 100 phút = 6000 giây
 const TOTAL_QUESTIONS = 50;
@@ -278,11 +278,7 @@ export default function TopikTestPage() {
       timeRequired: "PT100M",
       numberOfQuestions: 50,
       isAccessibleForFree: true,
-      provider: {
-        "@type": "EducationalOrganization",
-        name: "Hàn Quốc Ơi!",
-        url: SITE_URL,
-      },
+      provider: ORG_SCHEMA,
     },
   });
 

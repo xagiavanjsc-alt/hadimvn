@@ -20,3 +20,17 @@ export const SITE_HOST: string = (() => {
     return "hanquocoi.vn";
   }
 })();
+
+/**
+ * Canonical EducationalOrganization block for JSON-LD schemas.
+ *
+ * Pages typically embed this as `provider: ORG_SCHEMA` inside Quiz/Course/
+ * LearningResource schemas. For pages that want it as a top-level entity
+ * with extra fields, spread it: `{ "@context": "https://schema.org",
+ * ...ORG_SCHEMA, description: "...", inLanguage: [...] }`.
+ */
+export const ORG_SCHEMA = {
+  "@type": "EducationalOrganization",
+  name: "Hàn Quốc Ơi!",
+  url: SITE_URL,
+} as const;

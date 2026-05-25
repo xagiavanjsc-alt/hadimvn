@@ -3,7 +3,7 @@ import DashboardLayout from "@/components/feature/DashboardLayout";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/hooks/useAuth";
 import { usePageSEO } from "@/hooks/usePageSEO";
-import { SITE_URL } from "@/lib/siteConfig";
+import { ORG_SCHEMA } from "@/lib/siteConfig";
 
 interface GrammarItem {
   id: number;
@@ -75,11 +75,7 @@ export default function EpsGrammarPage() {
       educationalLevel: "EPS-TOPIK",
       inLanguage: ["vi", "ko"],
       isAccessibleForFree: true,
-      provider: {
-        "@type": "EducationalOrganization",
-        name: "Hàn Quốc Ơi!",
-        url: SITE_URL,
-      },
+      provider: ORG_SCHEMA,
     },
   });
   const [expandedId, setExpandedId] = useState<number | null>(null);

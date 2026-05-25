@@ -4,7 +4,7 @@ import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useXPSystem } from "@/hooks/useXPSystem";
 import { usePageSEO } from "@/hooks/usePageSEO";
-import { SITE_URL } from "@/lib/siteConfig";
+import { ORG_SCHEMA } from "@/lib/siteConfig";
 import { epsLessons, EPS_LESSON_TOPICS } from "@/mocks/epsLessons";
 import LessonCard from "./components/LessonCard";
 import WrongSavedToast from "./components/WrongSavedToast";
@@ -37,11 +37,7 @@ export default function EpsLessonsPage() {
       inLanguage: ["vi", "ko"],
       educationalLevel: "EPS-TOPIK",
       isAccessibleForFree: true,
-      provider: {
-        "@type": "EducationalOrganization",
-        name: "Hàn Quốc Ơi!",
-        url: SITE_URL,
-      },
+      provider: ORG_SCHEMA,
     },
   });
 

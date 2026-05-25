@@ -4,7 +4,7 @@ import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useXPSystem } from "@/hooks/useXPSystem";
 import { EPS_LESSON_TOPICS } from "@/mocks/epsLessons";
 import { usePageSEO } from "@/hooks/usePageSEO";
-import { SITE_URL } from "@/lib/siteConfig";
+import { ORG_SCHEMA } from "@/lib/siteConfig";
 
 // ─── Types ────────────────────────────────────────────────────────────────
 interface ListeningQuestion {
@@ -453,11 +453,7 @@ export default function EpsListeningPage() {
       educationalLevel: "EPS-TOPIK",
       inLanguage: ["ko", "vi"],
       isAccessibleForFree: true,
-      provider: {
-        "@type": "EducationalOrganization",
-        name: "Hàn Quốc Ơi!",
-        url: SITE_URL,
-      },
+      provider: ORG_SCHEMA,
     },
   });
   const [examAnswers, setExamAnswers] = useState<Record<string, number>>({});

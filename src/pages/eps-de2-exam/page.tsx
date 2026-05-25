@@ -3,7 +3,7 @@ import DashboardLayout from "@/components/feature/DashboardLayout";
 import { DE2_QUESTIONS, DE2_INFO, DE2_EXPLANATIONS, type De2Question } from "@/data/eps_de2";
 import { useXPSystem } from "@/hooks/useXPSystem";
 import { usePageSEO } from "@/hooks/usePageSEO";
-import { SITE_URL } from "@/lib/siteConfig";
+import { ORG_SCHEMA } from "@/lib/siteConfig";
 
 // ─── TTS Hook ────────────────────────────────────────────────────────────────
 function useTTS() {
@@ -453,11 +453,7 @@ export default function EpsDe2ExamPage() {
       timeRequired: `PT${DE2_INFO.timeMinutes}M`,
       numberOfQuestions: DE2_QUESTIONS.length,
       isAccessibleForFree: true,
-      provider: {
-        "@type": "EducationalOrganization",
-        name: "Hàn Quốc Ơi!",
-        url: SITE_URL,
-      },
+      provider: ORG_SCHEMA,
     },
   });
 

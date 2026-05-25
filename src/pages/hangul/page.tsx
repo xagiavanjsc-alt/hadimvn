@@ -2,7 +2,7 @@ import { useState } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { usePageSEO } from "@/hooks/usePageSEO";
-import { SITE_URL } from "@/lib/siteConfig";
+import { ORG_SCHEMA } from "@/lib/siteConfig";
 
 function speakKorean(text: string, rate = 0.7) {
   if (!window.speechSynthesis) return;
@@ -237,11 +237,7 @@ export default function HangulPage() {
       educationalLevel: "Beginner",
       inLanguage: ["vi", "ko"],
       isAccessibleForFree: true,
-      provider: {
-        "@type": "EducationalOrganization",
-        name: "Hàn Quốc Ơi!",
-        url: SITE_URL,
-      },
+      provider: ORG_SCHEMA,
     },
   });
 

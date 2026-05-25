@@ -7,7 +7,7 @@ import { useAudioCache } from "@/hooks/useAudioCache";
 import { type EpsVocabItem, type EpsVocabTopic } from "@/mocks/epsVocabulary";
 import { EpsVocabProvider, useEpsVocab, useEpsVocabLoading } from "@/contexts/EpsVocabContext";
 import { usePageSEO } from "@/hooks/usePageSEO";
-import { SITE_URL } from "@/lib/siteConfig";
+import { ORG_SCHEMA } from "@/lib/siteConfig";
 
 // ─── PDF Export ───────────────────────────────────────────────────────────
 function exportToPDF(items: EpsVocabItem[], topicId: string, topics: EpsVocabTopic[]) {
@@ -239,11 +239,7 @@ function EpsVocabularyPageInner() {
       educationalLevel: "EPS-TOPIK",
       inLanguage: ["vi", "ko"],
       isAccessibleForFree: true,
-      provider: {
-        "@type": "EducationalOrganization",
-        name: "Hàn Quốc Ơi!",
-        url: SITE_URL,
-      },
+      provider: ORG_SCHEMA,
     },
   });
   const [filterMode, setFilterMode] = useState<"all" | "unmastered">("all");

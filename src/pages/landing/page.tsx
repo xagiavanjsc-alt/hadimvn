@@ -2,7 +2,7 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { usePageSEO } from "@/hooks/usePageSEO";
-import { SITE_URL } from "@/lib/siteConfig";
+import { SITE_URL, ORG_SCHEMA } from "@/lib/siteConfig";
 import { STATS, TESTIMONIALS, FAQ_ITEMS } from "@/mocks/landingData";
 
 const FEATURE_GROUPS = [
@@ -158,9 +158,7 @@ export default function LandingPage() {
       },
       {
         "@context": "https://schema.org",
-        "@type": "EducationalOrganization",
-        name: "Hàn Quốc Ơi!",
-        url: SITE_URL,
+        ...ORG_SCHEMA,
         description: "Nền tảng học tiếng Hàn online tập trung vào kỳ thi EPS-TOPIK cho lao động Việt Nam đi Hàn Quốc.",
         inLanguage: ["vi", "ko"],
       },
