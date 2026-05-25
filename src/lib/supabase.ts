@@ -7,19 +7,6 @@ export const isSupabaseConfigured =
   Boolean(import.meta.env.VITE_PUBLIC_SUPABASE_URL) &&
   Boolean(import.meta.env.VITE_PUBLIC_SUPABASE_ANON_KEY);
 
-// Detect if WebSocket is available (blocked on some iOS/mobile browsers)
-export const isWebSocketAvailable = (() => {
-  try {
-    if (typeof WebSocket === "undefined") return false;
-    // Some browsers have WebSocket defined but blocked (e.g. iOS in-app browser)
-    const ws = new WebSocket("wss://echo.websocket.org");
-    ws.close();
-    return true;
-  } catch {
-    return false;
-  }
-})();
-
 // Create Supabase client - disable realtime if WebSocket not available
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   realtime: {
