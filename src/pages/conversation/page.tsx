@@ -28,7 +28,7 @@ const BASE_TOPICS: ConversationTopic[] = [
   {
     id: "greetings",
     icon: "ri-hand-heart-line",
-    color: "app-accent-primary",
+    color: "#e8c84a",
     title: "Chào hỏi & Giới thiệu",
     subtitle: "Những câu đầu tiên cần biết",
     phrases: [
