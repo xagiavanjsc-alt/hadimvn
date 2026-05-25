@@ -53,7 +53,8 @@ const ALL_FEATURES: Feature[] = [
   { path: "/topik-topic-quiz", label: "Quiz chủ đề TOPIK", icon: "ri-survey-line", tags: ["TOPIK", "Quiz"], description: "Quiz từ vựng TOPIK theo từng chủ đề" },
 
   // Hangul hidden features
-  { path: "/hangul-canvas", label: "Vẽ Hangul", icon: "ri-brush-line", tags: ["Hangul", "Viết tay"], description: "Luyện viết tay Hangul trên canvas" },
+  // HIDDEN 2026-05-25 (focus EPS+du học): duplicate hangul, keep /hangul-write
+  // { path: "/hangul-canvas", label: "Vẽ Hangul", icon: "ri-brush-line", tags: ["Hangul", "Viết tay"], description: "Luyện viết tay Hangul trên canvas" },
   { path: "/hangul-write", label: "Luyện viết Hangul", icon: "ri-pencil-line", tags: ["Hangul", "Viết"], description: "Luyện viết từng ký tự Hangul" },
   { path: "/handwriting-practice", label: "Luyện viết nâng cao", icon: "ri-edit-line", tags: ["Hangul", "Hán tự", "Viết"], description: "Luyện viết chữ Hán và Hangul với nhận diện nét" },
 
@@ -62,10 +63,12 @@ const ALL_FEATURES: Feature[] = [
   { path: "/challenge-history", label: "Lịch sử thử thách", icon: "ri-history-line", tags: ["Cộng đồng", "Lịch sử"], description: "Xem lại lịch sử các thử thách đã tham gia" },
   { path: "/challenge-leaderboard", label: "BXH thử thách", icon: "ri-trophy-line", tags: ["Cộng đồng", "Xếp hạng"], description: "Bảng xếp hạng thử thách bạn bè" },
   { path: "/challenge-stats", label: "Thống kê thử thách", icon: "ri-bar-chart-line", tags: ["Cộng đồng", "Thống kê"], description: "Thống kê kết quả các thử thách" },
-  { path: "/friend-challenge", label: "Thách đấu bạn bè", icon: "ri-sword-line", tags: ["Cộng đồng", "Thử thách"], description: "Thách đấu trực tiếp với bạn bè" },
-  { path: "/friend-streak", label: "Streak bạn bè", icon: "ri-fire-line", tags: ["Cộng đồng", "Streak"], description: "So sánh streak học tập với bạn bè" },
+  // HIDDEN 2026-05-25 (focus EPS+du học): social games, not EPS audience
+  // { path: "/friend-challenge", label: "Thách đấu bạn bè", icon: "ri-sword-line", tags: ["Cộng đồng", "Thử thách"], description: "Thách đấu trực tiếp với bạn bè" },
+  // { path: "/friend-streak", label: "Streak bạn bè", icon: "ri-fire-line", tags: ["Cộng đồng", "Streak"], description: "So sánh streak học tập với bạn bè" },
   { path: "/compare", label: "So sánh tiến độ", icon: "ri-scales-line", tags: ["Cộng đồng", "So sánh"], description: "So sánh tiến độ học tập với người khác" },
-  { path: "/compare-friends", label: "So sánh với bạn bè", icon: "ri-group-line", tags: ["Cộng đồng", "So sánh"], description: "So sánh chi tiết với từng người bạn" },
+  // HIDDEN 2026-05-25 (focus EPS+du học): social comparison, not EPS audience
+  // { path: "/compare-friends", label: "So sánh với bạn bè", icon: "ri-group-line", tags: ["Cộng đồng", "So sánh"], description: "So sánh chi tiết với từng người bạn" },
 
   // Stats hidden features
   { path: "/personal-stats", label: "Thống kê cá nhân", icon: "ri-user-3-line", tags: ["Thống kê", "Cá nhân"], description: "Thống kê học tập chi tiết của cá nhân" },
@@ -83,7 +86,8 @@ const ALL_FEATURES: Feature[] = [
   { path: "/scheduler", label: "Lịch học", icon: "ri-calendar-schedule-line", tags: ["Kế hoạch", "Lịch"], description: "Sắp xếp lịch học tập theo tuần" },
   { path: "/study-reminder", label: "Nhắc nhở học", icon: "ri-notification-3-line", tags: ["Kế hoạch", "Nhắc nhở"], description: "Cài đặt nhắc nhở học tập hàng ngày" },
   { path: "/study-journal", label: "Nhật ký học tập", icon: "ri-book-2-line", tags: ["Kế hoạch", "Nhật ký"], description: "Ghi chép nhật ký học tập hàng ngày" },
-  { path: "/study-feed", label: "Feed học tập", icon: "ri-rss-line", tags: ["Kế hoạch", "Feed"], description: "Xem hoạt động học tập của cộng đồng" },
+  // HIDDEN 2026-05-25 (focus EPS+du học): social feed, not EPS audience
+  // { path: "/study-feed", label: "Feed học tập", icon: "ri-rss-line", tags: ["Kế hoạch", "Feed"], description: "Xem hoạt động học tập của cộng đồng" },
   { path: "/review-schedule", label: "Lịch ôn tập", icon: "ri-calendar-event-line", tags: ["Kế hoạch", "Ôn tập"], description: "Lịch ôn tập theo Spaced Repetition" },
 
   // Profile hidden features
@@ -100,8 +104,9 @@ const ALL_FEATURES: Feature[] = [
   { path: "/quiz", label: "Quiz tổng hợp", icon: "ri-gamepad-line", tags: ["Học tập", "Quiz"], description: "Quiz tổng hợp nhiều chủ đề và cấp độ" },
   { path: "/pronunciation", label: "Luyện phát âm", icon: "ri-mic-2-line", tags: ["Học tập", "Phát âm"], description: "Luyện phát âm tiếng Hàn với AI" },
   { path: "/wrong-review", label: "Ôn tập câu sai", icon: "ri-error-warning-line", tags: ["Học tập", "Ôn tập"], description: "Ôn lại tất cả câu trả lời sai" },
-  { path: "/melon-history", label: "Lịch sử K-pop", icon: "ri-history-line", tags: ["K-pop", "Lịch sử"], description: "Lịch sử các bài K-pop đã học" },
-  { path: "/melon-stats", label: "Thống kê K-pop", icon: "ri-bar-chart-line", tags: ["K-pop", "Thống kê"], description: "Thống kê tiến độ học qua K-pop" },
+  // HIDDEN 2026-05-25 (focus EPS+du học): K-pop entertainment, not EPS audience
+  // { path: "/melon-history", label: "Lịch sử K-pop", icon: "ri-history-line", tags: ["K-pop", "Lịch sử"], description: "Lịch sử các bài K-pop đã học" },
+  // { path: "/melon-stats", label: "Thống kê K-pop", icon: "ri-bar-chart-line", tags: ["K-pop", "Thống kê"], description: "Thống kê tiến độ học qua K-pop" },
   { path: "/series", label: "Quản lý Series", icon: "ri-stack-line", tags: ["Nội dung", "Series"], description: "Xem và quản lý các series ebook" },
   { path: "/placement-test", label: "Kiểm tra đầu vào", icon: "ri-test-tube-line", tags: ["Học tập", "Kiểm tra"], description: "Kiểm tra trình độ tiếng Hàn đầu vào" },
   { path: "/learn-overview", label: "Tổng quan học tập", icon: "ri-dashboard-line", tags: ["Học tập", "Tổng quan"], description: "Tổng quan toàn bộ tiến độ học tập" },
@@ -147,14 +152,14 @@ function getStudySuggestions(studyHistory: Record<string, number>): Feature[] {
     });
   }
 
-  // K-pop learners
-  const melonCount = Object.entries(pathCounts).filter(([k]) => k.startsWith("/melon")).reduce((s, [, v]) => s + v, 0);
-  if (melonCount > 0) {
-    ["/melon-stats", "/melon-history", "/melon-flashcard"].forEach(p => {
-      const f = ALL_FEATURES.find(x => x.path === p);
-      if (f && !pathCounts[p]) suggestions.push(f);
-    });
-  }
+  // K-pop learners — HIDDEN 2026-05-25 (focus EPS+du học): melon routes hidden
+  // const melonCount = Object.entries(pathCounts).filter(([k]) => k.startsWith("/melon")).reduce((s, [, v]) => s + v, 0);
+  // if (melonCount > 0) {
+  //   ["/melon-stats", "/melon-history", "/melon-flashcard"].forEach(p => {
+  //     const f = ALL_FEATURES.find(x => x.path === p);
+  //     if (f && !pathCounts[p]) suggestions.push(f);
+  //   });
+  // }
 
   // Default suggestions if no history
   if (suggestions.length === 0) {

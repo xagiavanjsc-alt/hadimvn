@@ -85,7 +85,8 @@ export function PreloadCommonRoutes() {
       
       // Core pages only - reduce initial load
       preload(() => import("../pages/eps/page"), "eps");
-      preload(() => import("../pages/melon/page"), "melon");
+      // HIDDEN 2026-05-25 (focus EPS+du học): melon = K-pop, not EPS audience
+      // preload(() => import("../pages/melon/page"), "melon");
       preload(() => import("../pages/community/page"), "community");
       preload(() => import("../pages/profile/page"), "profile");
     };
@@ -104,14 +105,15 @@ export function PreloadCommonRoutes() {
 }
 
 // ─── Melon ────────────────────────────────────────────────────────────────────
-const MelonPage = lazyPage(() => import("../pages/melon/page"));
-const MelonDetailPage = lazyPage(() => import("../pages/melon-detail/page"));
-const MelonHistoryPage = lazyPage(() => import("../pages/melon-history/page"));
-const MelonStatsPage = lazyPage(() => import("../pages/melon-stats/page"));
-const MelonFlashcardPage = lazyPage(() => import("../pages/melon-flashcard/page"));
-const MelonFlashcardSharedPage = lazyPage(() => import("../pages/melon-flashcard-shared/page"));
-const KpopFlashcardPage = lazyPage(() => import("../pages/kpop-flashcard/page"));
-const EpsMelonPage = lazyPage(() => import("../pages/eps-melon/page"));
+// HIDDEN 2026-05-25 (focus EPS+du học): K-pop / entertainment, not EPS audience. Code preserved per CLAUDE.md Rule 4.
+// const MelonPage = lazyPage(() => import("../pages/melon/page"));
+// const MelonDetailPage = lazyPage(() => import("../pages/melon-detail/page"));
+// const MelonHistoryPage = lazyPage(() => import("../pages/melon-history/page"));
+// const MelonStatsPage = lazyPage(() => import("../pages/melon-stats/page"));
+// const MelonFlashcardPage = lazyPage(() => import("../pages/melon-flashcard/page"));
+// const MelonFlashcardSharedPage = lazyPage(() => import("../pages/melon-flashcard-shared/page"));
+// const KpopFlashcardPage = lazyPage(() => import("../pages/kpop-flashcard/page"));
+// const EpsMelonPage = lazyPage(() => import("../pages/eps-melon/page"));
 
 // ─── EPS ──────────────────────────────────────────────────────────────────────
 const EpsPage = lazyPage(() => import("../pages/eps/page"));
@@ -191,7 +193,8 @@ const TopikTopicQuizPage = lazyPage(() => import("../pages/topik-topic-quiz/page
 
 // ─── Hangul ──────────────────────────────────────────────────────────────────
 const HangulPage = lazyPage(() => import("../pages/hangul/page"));
-const HangulCanvasPage = lazyPage(() => import("../pages/hangul-canvas/page"));
+// HIDDEN 2026-05-25 (focus EPS+du học): duplicate hangul page, keep /hangul-write as canonical
+// const HangulCanvasPage = lazyPage(() => import("../pages/hangul-canvas/page"));
 const HangulWritePage = lazyPage(() => import("../pages/hangul-write/page"));
 
 // ─── Hanja ───────────────────────────────────────────────────────────────────
@@ -208,8 +211,9 @@ const ChallengePage = lazyPage(() => import("../pages/challenge/page"));
 const ChallengeHistoryPage = lazyPage(() => import("../pages/challenge-history/page"));
 const ChallengeLeaderboardPage = lazyPage(() => import("../pages/challenge-leaderboard/page"));
 const ChallengeStatsPage = lazyPage(() => import("../pages/challenge-stats/page"));
-const FriendChallengePage = lazyPage(() => import("../pages/friend-challenge/page"));
-const FriendStreakPage = lazyPage(() => import("../pages/friend-streak/page"));
+// HIDDEN 2026-05-25 (focus EPS+du học): social games, not EPS audience
+// const FriendChallengePage = lazyPage(() => import("../pages/friend-challenge/page"));
+// const FriendStreakPage = lazyPage(() => import("../pages/friend-streak/page"));
 const WeeklyChallengePage = lazyPage(() => import("../pages/weekly-challenge/page"));
 
 // ─── Stats & Progress ────────────────────────────────────────────────────────
@@ -250,7 +254,8 @@ const StudyCalendarPage = lazyPage(() => import("../pages/study-calendar/page"))
 const StudyReminderPage = lazyPage(() => import("../pages/study-reminder/page"));
 const StudyJournalPage = lazyPage(() => import("../pages/study-journal/page"));
 const StudyHistoryPage = lazyPage(() => import("../pages/study-history/page"));
-const StudyFeedPage = lazyPage(() => import("../pages/study-feed/page"));
+// HIDDEN 2026-05-25 (focus EPS+du học): social feed, not EPS audience
+// const StudyFeedPage = lazyPage(() => import("../pages/study-feed/page"));
 const WeeklyReportPage = lazyPage(() => import("../pages/weekly-report/page"));
 
 // ─── Profile & Account ───────────────────────────────────────────────────────
@@ -264,7 +269,8 @@ const MemberPage = lazyPage(() => import("../pages/member/page"));
 // ─── Social & Leaderboard ────────────────────────────────────────────────────
 const LeaderboardPage = lazyPage(() => import("../pages/leaderboard/page"));
 const ComparePage = lazyPage(() => import("../pages/compare/page"));
-const CompareFriendsPage = lazyPage(() => import("../pages/compare-friends/page"));
+// HIDDEN 2026-05-25 (focus EPS+du học): social comparison, not EPS audience
+// const CompareFriendsPage = lazyPage(() => import("../pages/compare-friends/page"));
 
 // ─── Rewards & Gamification ──────────────────────────────────────────────────
 const RewardsPage = lazyPage(() => import("../pages/rewards/page"));
@@ -294,7 +300,8 @@ const LearningCertificatePage = lazyPage(() => import("../pages/learning-certifi
 const AllFeaturesPage = lazyPage(() => import("../pages/all-features/page"));
 
 // ─── New Features ────────────────────────────────────────────────────────────
-const StudyRoomPage = lazyPage(() => import("../pages/study-room/page"));
+// HIDDEN 2026-05-25 (focus EPS+du học): social games, not EPS audience
+// const StudyRoomPage = lazyPage(() => import("../pages/study-room/page"));
 const DailyVocabPage = lazyPage(() => import("../pages/daily-vocab/page"));
 const QuickQuizPage = lazyPage(() => import("../pages/quick-quiz/page"));
 const VocabByTopicPage = lazyPage(() => import("../pages/vocab-by-topic/page"));
@@ -304,23 +311,29 @@ const VocabSuggestionPage = lazyPage(() => import("../pages/vocab-suggestion/pag
 const QuizHistoryDetailPage = lazyPage(() => import("../pages/quiz-history-detail/page"));
 const FlashcardLevelPage = lazyPage(() => import("../pages/flashcard-level/page"));
 const VocabStatsPage = lazyPage(() => import("../pages/vocab-stats/page"));
-const StudyPartnerPage = lazyPage(() => import("../pages/study-partner/page"));
-const PersonalRoadmapAIPage = lazyPage(() => import("../pages/personal-roadmap-ai/page"));
-const Battle1v1Page = lazyPage(() => import("../pages/battle-1v1/page"));
+// HIDDEN 2026-05-25 (focus EPS+du học): off-focus social/AI features. Code preserved per CLAUDE.md Rule 4.
+// const StudyPartnerPage = lazyPage(() => import("../pages/study-partner/page"));
+// const PersonalRoadmapAIPage = lazyPage(() => import("../pages/personal-roadmap-ai/page"));
+// const Battle1v1Page = lazyPage(() => import("../pages/battle-1v1/page"));
 const VideoLessonsPage = lazyPage(() => import("../pages/video-lessons/page"));
-const AIPronunciationPage = lazyPage(() => import("../pages/ai-pronunciation/page"));
+// HIDDEN 2026-05-25 (focus EPS+du học): AI gimmick
+// const AIPronunciationPage = lazyPage(() => import("../pages/ai-pronunciation/page"));
 const ShadowingPracticePage = lazyPage(() => import("../pages/shadowing-practice/page"));
 const ListeningDictationPage = lazyPage(() => import("../pages/listening-dictation/page"));
 const HandwritingPracticePage = lazyPage(() => import("../pages/handwriting-practice/page"));
-const CulturalContentPage = lazyPage(() => import("../pages/cultural-content/page"));
+// HIDDEN 2026-05-25 (focus EPS+du học): cultural content, off-focus
+// const CulturalContentPage = lazyPage(() => import("../pages/cultural-content/page"));
 const OfflineManagerPage = lazyPage(() => import("../pages/offline-manager/page"));
-const AIWritingPage = lazyPage(() => import("../pages/ai-writing/page"));
-const KDramaLearnPage = lazyPage(() => import("../pages/kdrama-learn/page"));
+// HIDDEN 2026-05-25 (focus EPS+du học): AI gimmick + K-drama, off-focus
+// const AIWritingPage = lazyPage(() => import("../pages/ai-writing/page"));
+// const KDramaLearnPage = lazyPage(() => import("../pages/kdrama-learn/page"));
 const OfflineVocabPage = lazyPage(() => import("../pages/offline-vocab/page"));
-const AIChatbotPage = lazyPage(() => import("../pages/ai-chatbot/page"));
-const PodcastLearnPage = lazyPage(() => import("../pages/podcast-learn/page"));
+// HIDDEN 2026-05-25 (focus EPS+du học): AI chatbot + podcast, off-focus
+// const AIChatbotPage = lazyPage(() => import("../pages/ai-chatbot/page"));
+// const PodcastLearnPage = lazyPage(() => import("../pages/podcast-learn/page"));
 const GlobalLeaderboardPage = lazyPage(() => import("../pages/global-leaderboard/page"));
-const KoreanNewsPage = lazyPage(() => import("../pages/korean-news/page"));
+// HIDDEN 2026-05-25 (focus EPS+du học): Korean news, off-focus
+// const KoreanNewsPage = lazyPage(() => import("../pages/korean-news/page"));
 const HanjaDetailPage = lazyPage(() => import("../pages/hanja-detail/page"));
 const HanjaDashboardPage = lazyPage(() => import("../pages/hanja-dashboard/page"));
 const HanjaProPage = lazyPage(() => import("../pages/hanja-pro/page"));
@@ -329,7 +342,8 @@ const HanjaAnalyticsPage = lazyPage(() => import("../pages/hanja-analytics/page"
 const HanjaStoriesPage = lazyPage(() => import("../pages/hanja-stories/page"));
 const FlashcardHubPage = lazyPage(() => import("../pages/flashcard-hub/page"), "flashcard");
 const SpeakingLevelPage = lazyPage(() => import("../pages/speaking-level/page"));
-const HangulWritingPage = lazyPage(() => import("../pages/hangul-writing/page"));
+// HIDDEN 2026-05-25 (focus EPS+du học): duplicate hangul page, keep /hangul-write as canonical
+// const HangulWritingPage = lazyPage(() => import("../pages/hangul-writing/page"));
 const TopikVocabLevelPage = lazyPage(() => import("../pages/topik-vocab-level/page"));
 const VocabGamesPage = lazyPage(() => import("../pages/vocab-games/page"));
 const ListeningByLevelPage = lazyPage(() => import("../pages/listening-by-level/page"));
@@ -337,7 +351,8 @@ const AdvancedDictionaryPage = lazyPage(() => import("../pages/advanced-dictiona
 const StudyHistoryDetailPage = lazyPage(() => import("../pages/study-history-detail/page"));
 const ReadingByLevelPage = lazyPage(() => import("../pages/reading-by-level/page"));
 const GrammarByTopicPage = lazyPage(() => import("../pages/grammar-by-topic/page"));
-const AISmartFlashcardPage = lazyPage(() => import("../pages/ai-smart-flashcard/page"));
+// HIDDEN 2026-05-25 (focus EPS+du học): AI gimmick, off-focus
+// const AISmartFlashcardPage = lazyPage(() => import("../pages/ai-smart-flashcard/page"));
 const WritingByLevelPage = lazyPage(() => import("../pages/writing-by-level/page"));
 const VocabInContextPage = lazyPage(() => import("../pages/vocab-in-context/page"));
 const DictationPracticePage = lazyPage(() => import("../pages/dictation-practice/page"));
@@ -346,7 +361,8 @@ const TopikFrequencyVocabPage = lazyPage(() => import("../pages/topik-frequency-
 const SyllablePronunciationPage = lazyPage(() => import("../pages/syllable-pronunciation/page"));
 const SpeedListeningPage = lazyPage(() => import("../pages/speed-listening/page"));
 const SentencePatternVocabPage = lazyPage(() => import("../pages/sentence-pattern-vocab/page"));
-const HangulWritingNewPage = lazyPage(() => import("../pages/hangul-writing/page"));
+// HIDDEN 2026-05-25 (focus EPS+du học): duplicate of HangulWritingPage above
+// const HangulWritingNewPage = lazyPage(() => import("../pages/hangul-writing/page"));
 const AdminContentLearnPage = lazyPage(() => import("../pages/admin-content-learn/page"));
 const GrammarByLevelPage = lazyPage(() => import("../pages/grammar-by-level/page"));
 const TopikExamWritingPage = lazyPage(() => import("../pages/topik-exam-writing/page"));
@@ -408,15 +424,15 @@ const routes: RouteObject[] = [
   { path: "/dashboard", element: <Home /> },
   { path: "/landing", element: <LandingPage /> },
 
-  // Melon
-  { path: "/melon", element: <MelonPage /> },
-  { path: "/melon/:rank", element: <MelonDetailPage /> },
-  { path: "/melon-history", element: <MelonHistoryPage /> },
-  { path: "/melon-stats", element: <MelonStatsPage /> },
-  { path: "/melon-flashcard", element: <MelonFlashcardPage /> },
-  { path: "/melon-flashcard/shared/:shareId", element: <MelonFlashcardSharedPage /> },
-  { path: "/kpop-flashcard", element: <KpopFlashcardPage /> },
-  { path: "/eps-melon", element: <EpsMelonPage /> },
+  // Melon — HIDDEN 2026-05-25 (focus EPS+du học): K-pop entertainment, not EPS audience
+  // { path: "/melon", element: <MelonPage /> },
+  // { path: "/melon/:rank", element: <MelonDetailPage /> },
+  // { path: "/melon-history", element: <MelonHistoryPage /> },
+  // { path: "/melon-stats", element: <MelonStatsPage /> },
+  // { path: "/melon-flashcard", element: <MelonFlashcardPage /> },
+  // { path: "/melon-flashcard/shared/:shareId", element: <MelonFlashcardSharedPage /> },
+  // { path: "/kpop-flashcard", element: <KpopFlashcardPage /> },
+  // { path: "/eps-melon", element: <EpsMelonPage /> },
 
   // EPS
   { path: "/eps", element: <EpsPage /> },
@@ -496,7 +512,8 @@ const routes: RouteObject[] = [
 
   // Hangul
   { path: "/hangul", element: <HangulPage /> },
-  { path: "/hangul-canvas", element: <HangulCanvasPage /> },
+  // HIDDEN 2026-05-25 (focus EPS+du học): duplicate hangul, keep /hangul-write as canonical
+  // { path: "/hangul-canvas", element: <HangulCanvasPage /> },
   { path: "/hangul-write", element: <HangulWritePage /> },
 
   // Hanja
@@ -513,8 +530,9 @@ const routes: RouteObject[] = [
   { path: "/challenge-history", element: <ChallengeHistoryPage /> },
   { path: "/challenge-leaderboard", element: <ChallengeLeaderboardPage /> },
   { path: "/challenge-stats", element: <ChallengeStatsPage /> },
-  { path: "/friend-challenge", element: <FriendChallengePage /> },
-  { path: "/friend-streak", element: <FriendStreakPage /> },
+  // HIDDEN 2026-05-25 (focus EPS+du học): social games, not EPS audience
+  // { path: "/friend-challenge", element: <FriendChallengePage /> },
+  // { path: "/friend-streak", element: <FriendStreakPage /> },
   { path: "/weekly-challenge", element: <WeeklyChallengePage /> },
 
   // Stats & Progress
@@ -555,7 +573,8 @@ const routes: RouteObject[] = [
   { path: "/study-reminder", element: <StudyReminderPage /> },
   { path: "/study-journal", element: <RequireAuth title="Nhật ký học"><StudyJournalPage /></RequireAuth> },
   { path: "/study-history", element: <RequireAuth title="Lịch sử học"><StudyHistoryPage /></RequireAuth> },
-  { path: "/study-feed", element: <StudyFeedPage /> },
+  // HIDDEN 2026-05-25 (focus EPS+du học): social feed, not EPS audience
+  // { path: "/study-feed", element: <StudyFeedPage /> },
   { path: "/weekly-report", element: <RequireAuth title="Báo cáo tuần"><WeeklyReportPage /></RequireAuth> },
 
   // Profile & Account
@@ -569,7 +588,8 @@ const routes: RouteObject[] = [
   // Social & Leaderboard
   { path: "/leaderboard", element: <LeaderboardPage /> },
   { path: "/compare", element: <ComparePage /> },
-  { path: "/compare-friends", element: <CompareFriendsPage /> },
+  // HIDDEN 2026-05-25 (focus EPS+du học): social comparison, not EPS audience
+  // { path: "/compare-friends", element: <CompareFriendsPage /> },
 
   // Rewards & Gamification
   { path: "/rewards", element: <RewardsPage /> },
@@ -652,7 +672,8 @@ const routes: RouteObject[] = [
   { path: "/all-features", element: <AllFeaturesPage /> },
 
   // New Features
-  { path: "/study-room", element: <StudyRoomPage /> },
+  // HIDDEN 2026-05-25 (focus EPS+du học): social games, not EPS audience
+  // { path: "/study-room", element: <StudyRoomPage /> },
   { path: "/daily-vocab", element: <DailyVocabPage /> },
   { path: "/quick-quiz", element: <QuickQuizPage /> },
   { path: "/vocab-by-topic", element: <VocabByTopicPage /> },
@@ -662,23 +683,29 @@ const routes: RouteObject[] = [
   { path: "/quiz-history-detail", element: <QuizHistoryDetailPage /> },
   { path: "/flashcard-level", element: <FlashcardLevelPage /> },
   { path: "/vocab-stats", element: <VocabStatsPage /> },
-  { path: "/study-partner", element: <StudyPartnerPage /> },
-  { path: "/personal-roadmap-ai", element: <PersonalRoadmapAIPage /> },
-  { path: "/battle-1v1", element: <Battle1v1Page /> },
+  // HIDDEN 2026-05-25 (focus EPS+du học): off-focus social/AI features. Code preserved per CLAUDE.md Rule 4.
+  // { path: "/study-partner", element: <StudyPartnerPage /> },
+  // { path: "/personal-roadmap-ai", element: <PersonalRoadmapAIPage /> },
+  // { path: "/battle-1v1", element: <Battle1v1Page /> },
   { path: "/video-lessons", element: <VideoLessonsPage /> },
-  { path: "/ai-pronunciation", element: <AIPronunciationPage /> },
+  // HIDDEN 2026-05-25 (focus EPS+du học): AI gimmick
+  // { path: "/ai-pronunciation", element: <AIPronunciationPage /> },
   { path: "/shadowing-practice", element: <ShadowingPracticePage /> },
   { path: "/listening-dictation", element: <ListeningDictationPage /> },
   { path: "/handwriting-practice", element: <HandwritingPracticePage /> },
-  { path: "/cultural-content", element: <CulturalContentPage /> },
+  // HIDDEN 2026-05-25 (focus EPS+du học): cultural content, off-focus
+  // { path: "/cultural-content", element: <CulturalContentPage /> },
   { path: "/offline-manager", element: <OfflineManagerPage /> },
-  { path: "/ai-writing", element: <AIWritingPage /> },
-  { path: "/kdrama-learn", element: <KDramaLearnPage /> },
+  // HIDDEN 2026-05-25 (focus EPS+du học): AI gimmick + K-drama, off-focus
+  // { path: "/ai-writing", element: <AIWritingPage /> },
+  // { path: "/kdrama-learn", element: <KDramaLearnPage /> },
   { path: "/offline-vocab", element: <OfflineVocabPage /> },
-  { path: "/ai-chatbot", element: <AIChatbotPage /> },
-  { path: "/podcast-learn", element: <PodcastLearnPage /> },
+  // HIDDEN 2026-05-25 (focus EPS+du học): AI chatbot + podcast, off-focus
+  // { path: "/ai-chatbot", element: <AIChatbotPage /> },
+  // { path: "/podcast-learn", element: <PodcastLearnPage /> },
   { path: "/global-leaderboard", element: <GlobalLeaderboardPage /> },
-  { path: "/korean-news", element: <KoreanNewsPage /> },
+  // HIDDEN 2026-05-25 (focus EPS+du học): Korean news, off-focus
+  // { path: "/korean-news", element: <KoreanNewsPage /> },
   { path: "/hanja-detail", element: <HanjaDetailPage /> },
   { path: "/hanja-dashboard", element: <HanjaDashboardPage /> },
   { path: "/hanja-pro", element: <HanjaProPage /> },
@@ -687,7 +714,8 @@ const routes: RouteObject[] = [
   { path: "/hanja-stories", element: <HanjaStoriesPage /> },
   { path: "/flashcard-hub", element: <FlashcardHubPage /> },
   { path: "/speaking-level", element: <SpeakingLevelPage /> },
-  { path: "/hangul-writing", element: <HangulWritingPage /> },
+  // HIDDEN 2026-05-25 (focus EPS+du học): duplicate hangul, keep /hangul-write
+  // { path: "/hangul-writing", element: <HangulWritingPage /> },
   { path: "/topik-vocab-level", element: <TopikVocabLevelPage /> },
   { path: "/vocab-games", element: <VocabGamesPage /> },
   { path: "/listening-by-level", element: <ListeningByLevelPage /> },
@@ -695,7 +723,8 @@ const routes: RouteObject[] = [
   { path: "/study-history-detail", element: <StudyHistoryDetailPage /> },
   { path: "/reading-by-level", element: <ReadingByLevelPage /> },
   { path: "/grammar-by-topic", element: <GrammarByTopicPage /> },
-  { path: "/ai-smart-flashcard", element: <AISmartFlashcardPage /> },
+  // HIDDEN 2026-05-25 (focus EPS+du học): AI gimmick, off-focus
+  // { path: "/ai-smart-flashcard", element: <AISmartFlashcardPage /> },
   { path: "/writing-by-level", element: <WritingByLevelPage /> },
   { path: "/vocab-in-context", element: <VocabInContextPage /> },
   { path: "/dictation-practice", element: <DictationPracticePage /> },

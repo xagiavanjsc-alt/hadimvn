@@ -20,7 +20,7 @@ const levelPaths: LevelPath[] = [
       { icon: "ri-font-size", label: "Học bảng chữ Hangul", path: "/hangul", desc: "Bước đầu tiên bắt buộc", badge: "Bắt đầu" },
       { icon: "ri-translate-2", label: "Từ vựng A1 cơ bản", path: "/topik-vocab-level", desc: "200 từ thiết yếu nhất" },
       { icon: "ri-book-read-line", label: "Đọc bài A1", path: "/reading-by-level", desc: "Bài đọc đơn giản" },
-      { icon: "ri-stack-line", label: "Flashcard AI", path: "/ai-smart-flashcard", desc: "Ôn tập thông minh" },
+      { icon: "ri-stack-line", label: "EPS Flashcard thông minh", path: "/eps-smart-flashcard", desc: "Ôn tập từ vựng EPS" },
     ],
   },
   {
@@ -42,7 +42,7 @@ const levelPaths: LevelPath[] = [
     desc: "Giao tiếp được, muốn lên TOPIK",
     steps: [
       { icon: "ri-survey-line", label: "Thi thử TOPIK I", path: "/topik-test", desc: "Kiểm tra trình độ", badge: "TOPIK" },
-      { icon: "ri-newspaper-line", label: "Đọc báo Hàn", path: "/korean-news", desc: "Từ vựng thực tế" },
+      { icon: "ri-newspaper-line", label: "Từ vựng EPS theo chủ đề", path: "/eps-vocabulary", desc: "Từ vựng EPS thực tế" },
       { icon: "ri-character-recognition-line", label: "Hán Hàn chi tiết", path: "/hanja-detail", desc: "Mở rộng từ vựng" },
       { icon: "ri-book-read-line", label: "Đọc bài B1-B2", path: "/reading-by-level", desc: "Nâng cao đọc hiểu" },
     ],
@@ -55,7 +55,7 @@ const levelPaths: LevelPath[] = [
     steps: [
       { icon: "ri-file-list-3-line", label: "Thi thử TOPIK II", path: "/topik2-test", desc: "Luyện đề thật", badge: "TOPIK II" },
       { icon: "ri-quill-pen-line", label: "Luyện viết C1", path: "/writing-by-level", desc: "Viết luận tiếng Hàn" },
-      { icon: "ri-robot-2-line", label: "AI chatbot", path: "/ai-chatbot", desc: "Luyện hội thoại tự do" },
+      { icon: "ri-mic-line", label: "Luyện nói EPS", path: "/eps-speaking", desc: "Phỏng vấn EPS" },
       { icon: "ri-book-read-line", label: "Đọc bài C1-C2", path: "/reading-by-level", desc: "Văn bản phức tạp" },
     ],
   },

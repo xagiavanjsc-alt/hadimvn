@@ -164,16 +164,18 @@ const GOAL_ROADMAPS: Record<Goal, { title: string; subtitle: string; icon: strin
         { id: "conv-basic", title: "Từ vựng giao tiếp cơ bản", description: "200 từ và cụm từ thường dùng nhất trong giao tiếp", icon: "ri-translate-2", color: "#fb923c", path: "/vocabulary", estimatedDays: 14 },
       ]},
       { label: "Luyện phát âm", steps: [
-        { id: "conv-pronunciation", title: "Luyện phát âm AI", description: "AI chấm phát âm và sửa lỗi theo thời gian thực", icon: "ri-mic-line", color: "#f472b6", path: "/ai-pronunciation", estimatedDays: 21 },
+        // HIDDEN 2026-05-25 (focus EPS+du học): /ai-pronunciation hidden, replaced with /pronunciation
+        { id: "conv-pronunciation", title: "Luyện phát âm", description: "Luyện phát âm cơ bản với mic", icon: "ri-mic-line", color: "#f472b6", path: "/pronunciation", estimatedDays: 21 },
         { id: "conv-phrases", title: "Cụm từ giao tiếp", description: "Học các cụm từ thực tế: mua sắm, nhà hàng, đường phố", icon: "ri-chat-3-line", color: "#60a5fa", path: "/phrase-dictionary", estimatedDays: 14 },
       ]},
       { label: "Luyện hội thoại", steps: [
-        { id: "conv-ai", title: "Gia sư AI", description: "Luyện hội thoại với AI — không ngại nói sai", icon: "ri-robot-2-line", color: "#a78bfa", path: "/ai-chatbot", estimatedDays: 30, badge: "AI" },
-        { id: "conv-kdrama", title: "Học qua phim Hàn", description: "Nghe và học từ vựng tự nhiên qua phim, K-pop", icon: "ri-film-line", color: "#fb923c", path: "/kdrama-learn", estimatedDays: 30, isOptional: true },
+        // HIDDEN 2026-05-25 (focus EPS+du học): /ai-chatbot + /kdrama-learn hidden, replaced with /conversation
+        { id: "conv-real", title: "Hội thoại thực tế", description: "Học hội thoại tiếng Hàn theo tình huống", icon: "ri-chat-voice-line", color: "#a78bfa", path: "/conversation", estimatedDays: 30 },
       ]},
       { label: "Nâng cao", steps: [
-        { id: "conv-podcast", title: "Luyện nghe Podcast", description: "Nghe podcast tiếng Hàn theo cấp độ", icon: "ri-headphone-line", color: "#34d399", path: "/podcast-learn", estimatedDays: 30 },
-        { id: "conv-writing", title: "Luyện viết AI", description: "AI chấm bài viết và gợi ý cải thiện", icon: "ri-quill-pen-line", color: "#fb923c", path: "/ai-writing", estimatedDays: 21, isOptional: true },
+        // HIDDEN 2026-05-25 (focus EPS+du học): /podcast-learn + /ai-writing hidden, replaced with /listen-practice + /seoul-writing
+        { id: "conv-listen", title: "Luyện nghe", description: "Bài tập nghe theo cấp độ", icon: "ri-headphone-line", color: "#34d399", path: "/listen-practice", estimatedDays: 30 },
+        { id: "conv-writing", title: "Luyện viết", description: "Bài tập viết theo bài Seoul", icon: "ri-quill-pen-line", color: "#fb923c", path: "/seoul-writing", estimatedDays: 21, isOptional: true },
       ]},
     ],
   },

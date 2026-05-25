@@ -115,7 +115,8 @@ const navGroups = [
     icon: "ri-music-2-line",
     color: "#a78bfa",
     items: [
-      { path: "/melon", icon: "ri-music-2-line", label: "Học qua K-pop" },
+      // HIDDEN 2026-05-25 (focus EPS+du học): K-pop = off-focus
+      // { path: "/melon", icon: "ri-music-2-line", label: "Học qua K-pop" },
       { path: "/daily-words", icon: "ri-sun-line", label: "Từ mới mỗi ngày" },
       { path: "/profile", icon: "ri-user-3-line", label: "Hồ sơ cá nhân" },
     ],
@@ -267,7 +268,8 @@ function SidebarInner() {
       "/eps-lessons": () => import("@/pages/eps-lessons/page"),
       "/eps-topic-dictionary": () => import("@/pages/eps-topic-dictionary/page"),
       "/eps-topics": () => import("@/pages/eps-topics/page"),
-      "/melon": () => import("@/pages/melon/page"),
+      // HIDDEN 2026-05-25 (focus EPS+du học): melon route hidden, preload disabled
+      // "/melon": () => import("@/pages/melon/page"),
       "/community": () => import("@/pages/community/page"),
       "/profile": () => import("@/pages/profile/page"),
       "/leaderboard": () => import("@/pages/leaderboard/page"),
