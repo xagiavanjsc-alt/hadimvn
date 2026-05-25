@@ -38,6 +38,7 @@
   "name": "react",
   "private": true,
   "scripts": {
+    "prebuild": "node scripts/generate-sitemap.mjs",
     "build": "vite build",
     "dev": "vite",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
@@ -46,6 +47,7 @@
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
+    "sitemap": "node scripts/generate-sitemap.mjs",
     "backup": "node scripts/backup-supabase.mjs",
     "discover-tables": "node scripts/discover-tables.mjs"
   },

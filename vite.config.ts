@@ -6,6 +6,9 @@ import AutoImport from "unplugin-auto-import/vite";
 
 const base = process.env.BASE_PATH || "/";
 const isPreview = process.env.IS_PREVIEW ? true : false;
+// Single source of truth for public URL. Mirrors src/lib/siteConfig.ts default
+// so static index.html, dynamic React SEO, and the sitemap generator agree.
+const siteUrl = (process.env.VITE_SITE_URL || "https://hanquocoi.vn").replace(/\/+$/, "");
 //const proxyPlugins = isPreview ? [readdyJsxRuntimeProxyPlugin()] : [];
 // https://vite.dev/config/
 export default defineConfig({
@@ -18,6 +21,14 @@ export default defineConfig({
   },
   plugins: [
     // ...proxyPlugins,
+    {
+      // Replace __SITE_URL__ tokens in index.html with the resolved site URL
+      // so canonical/og:url/JSON-LD don't need source edits on domain change.
+      name: "inject-site-url",
+      transformIndexHtml(html: string) {
+        return html.replaceAll("__SITE_URL__", siteUrl);
+      },
+    },
     react(),
     AutoImport({
       imports: [

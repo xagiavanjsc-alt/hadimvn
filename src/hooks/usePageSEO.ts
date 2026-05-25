@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { SITE_URL } from "@/lib/siteConfig";
 
 // ─── usePageSEO ────────────────────────────────────────────────────────────────
 // Reusable hook: update <title>, <meta name=description>, canonical, og:*, twitter:*
@@ -9,7 +10,6 @@ import { useEffect } from "react";
 //   - og:url luôn update để social share hiển thị đúng URL trang
 //   - og:image nên dùng ảnh riêng của trang nếu có (fallback homepage image)
 
-const SITE_URL = "https://hanquocoi.vn";
 const DEFAULT_OG_IMAGE = "/images/brand/logo.svg";
 
 export interface SEOConfig {
