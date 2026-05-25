@@ -44,7 +44,7 @@ function generateRoadmap(level: string, goal: string, dailyTime: string): Roadma
         { week: "Tuần 1–2", title: "Nền tảng Hangul & Từ vựng cơ bản", tasks: ["Học bảng chữ Hangul", "100 từ vựng EPS cơ bản", "Luyện phát âm chuẩn"], path: "/hangul", icon: "ri-font-size", color: "#34d399" },
         { week: "Tuần 3–5", title: "60 Bài học EPS chính thức", tasks: ["Học 60 bài EPS theo thứ tự", "Flashcard từ vựng mỗi bài", "Luyện nghe theo bài"], path: "/eps-lessons", icon: "ri-book-open-line", color: "#fb923c" },
         { week: "Tuần 6–8", title: "Luyện thi & Ôn tập chuyên sâu", tasks: ["Thi thử 40 câu hàng ngày", "Ôn tập câu sai", "Spaced Repetition"], path: "/eps-exam", icon: "ri-timer-line", color: "#60a5fa" },
-        { week: "Tuần 9+", title: "Thi mô phỏng & Hoàn thiện", tasks: ["Thi mô phỏng thật (200 câu)", "Phân tích điểm yếu", "Luyện nghe chuyên sâu"], path: "/eps-mock-exam", icon: "ri-trophy-line", color: "app-accent-primary" },
+        { week: "Tuần 9+", title: "Thi mô phỏng & Hoàn thiện", tasks: ["Thi mô phỏng thật (200 câu)", "Phân tích điểm yếu", "Luyện nghe chuyên sâu"], path: "/eps-mock-exam", icon: "ri-trophy-line", color: "#e8c84a" },
       ],
     };
   }
@@ -60,7 +60,7 @@ function generateRoadmap(level: string, goal: string, dailyTime: string): Roadma
         { week: "Tuần 1–3", title: "Từ vựng TOPIK & Ngữ pháp cơ bản", tasks: ["Từ điển TOPIK 2000 từ", "Ngữ pháp A1–B1", "Flashcard Spaced Repetition"], path: "/topik-dictionary", icon: "ri-search-2-line", color: "#34d399" },
         { week: "Tuần 4–6", title: "Luyện nghe & Đọc hiểu", tasks: ["Luyện nghe TOPIK I", "Luyện đọc TOPIK I", "Quiz theo chủ đề"], path: "/topik-listening", icon: "ri-headphone-line", color: "#60a5fa" },
         { week: "Tuần 7–9", title: "Thi thử TOPIK I & II", tasks: ["Thi thử TOPIK I đầy đủ", "Phân tích kết quả", "Ôn tập điểm yếu"], path: "/topik-test", icon: "ri-file-list-2-line", color: "#fb923c" },
-        { week: "Tuần 10+", title: "TOPIK II & Hoàn thiện", tasks: ["Thi thử TOPIK II", "Luyện viết luận", "Mô phỏng thi thật"], path: "/topik2-test", icon: "ri-trophy-line", color: "app-accent-primary" },
+        { week: "Tuần 10+", title: "TOPIK II & Hoàn thiện", tasks: ["Thi thử TOPIK II", "Luyện viết luận", "Mô phỏng thi thật"], path: "/topik2-test", icon: "ri-trophy-line", color: "#e8c84a" },
       ],
     };
   }
@@ -88,7 +88,7 @@ function generateRoadmap(level: string, goal: string, dailyTime: string): Roadma
       { week: "Tuần 1–3", title: "Nền tảng & Từ vựng kinh doanh", tasks: ["Hangul & Phát âm", "Từ vựng văn phòng", "Kính ngữ tiếng Hàn"], path: "/vocabulary", icon: "ri-translate-2", color: "#34d399" },
       { week: "Tuần 4–6", title: "Giao tiếp công sở", tasks: ["Hội thoại AI công sở", "Email & Văn bản", "Ngữ pháp trung cấp"], path: "/conversation", icon: "ri-chat-voice-line", color: "#60a5fa" },
       { week: "Tuần 7–10", title: "Giáo trình Seoul (B1–B2)", tasks: ["Giáo trình Seoul 2A–3B", "Luyện đọc hiểu", "Từ điển Seoul"], path: "/seoul-textbook", icon: "ri-book-3-line", color: "#a78bfa" },
-      { week: "Tuần 11+", title: "TOPIK & Chứng chỉ", tasks: ["Thi thử TOPIK II", "Luyện viết luận", "Chứng chỉ học tập"], path: "/topik2-test", icon: "ri-trophy-line", color: "app-accent-primary" },
+      { week: "Tuần 11+", title: "TOPIK & Chứng chỉ", tasks: ["Thi thử TOPIK II", "Luyện viết luận", "Chứng chỉ học tập"], path: "/topik2-test", icon: "ri-trophy-line", color: "#e8c84a" },
     ],
   };
 }
@@ -98,7 +98,7 @@ const LEVEL_OPTIONS = [
   { label: "Mới bắt đầu hoàn toàn", icon: "ri-seedling-line", desc: "Chưa biết gì về tiếng Hàn", color: "#34d399" },
   { label: "Sơ cấp (A1–A2)", icon: "ri-plant-line", desc: "Biết Hangul, vài từ cơ bản", color: "#60a5fa" },
   { label: "Trung cấp (B1–B2)", icon: "ri-tree-line", desc: "Giao tiếp được những câu đơn giản", color: "#fb923c" },
-  { label: "Nâng cao (C1–C2)", icon: "ri-award-line", desc: "Đọc hiểu tốt, muốn hoàn thiện", color: "app-accent-primary" },
+  { label: "Nâng cao (C1–C2)", icon: "ri-award-line", desc: "Đọc hiểu tốt, muốn hoàn thiện", color: "#e8c84a" },
 ];
 
 const GOAL_OPTIONS = [
@@ -114,7 +114,7 @@ const TIME_OPTIONS = [
   { label: "5 phút / ngày", icon: "ri-time-line", desc: "Nhẹ nhàng, duy trì thói quen", color: "#34d399" },
   { label: "10 phút / ngày", icon: "ri-timer-line", desc: "Cân bằng, phù hợp người bận", color: "#60a5fa" },
   { label: "20 phút / ngày", icon: "ri-timer-2-line", desc: "Tiến bộ nhanh, được khuyến nghị", color: "#fb923c", recommended: true },
-  { label: "30 phút / ngày", icon: "ri-fire-line", desc: "Học nghiêm túc, kết quả vượt trội", color: "app-accent-primary" },
+  { label: "30 phút / ngày", icon: "ri-fire-line", desc: "Học nghiêm túc, kết quả vượt trội", color: "#e8c84a" },
 ];
 
 function OptionCard({
@@ -167,8 +167,8 @@ function RoadmapScreen({ roadmap, onStart, onRedo }: { roadmap: RoadmapResult; o
     <div className={`transition-all duration-500 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
       {/* Header */}
       <div className="text-center mb-6">
-        <div className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-3" style={{ backgroundColor: "app-accent-primary20" }}>
-          <i className="ri-robot-2-line text-2xl" style={{ color: "app-accent-primary" }}></i>
+        <div className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-3" style={{ backgroundColor: "rgba(232,200,74,0.12)" }}>
+          <i className="ri-robot-2-line text-2xl" style={{ color: "#e8c84a" }}></i>
         </div>
         <h2 className="text-xl font-bold text-white mb-1">AI đã tạo lộ trình cho bạn!</h2>
         <p className="text-sm" style={{ color: "rgba(255,255,255,0.45)" }}>Được cá nhân hóa dựa trên mục tiêu và trình độ của bạn</p>
@@ -231,7 +231,7 @@ function RoadmapScreen({ roadmap, onStart, onRedo }: { roadmap: RoadmapResult; o
       <button
         onClick={async () => { await onStart(); navigate(roadmap.primaryPath); }}
         className="w-full py-4 rounded-2xl font-bold text-base transition-all cursor-pointer whitespace-nowrap mb-2"
-        style={{ backgroundColor: "app-accent-primary", color: "#0f1117" }}
+        style={{ backgroundColor: "#e8c84a", color: "#0f1117" }}
       >
         <span className="flex items-center justify-center gap-2">
           <i className="ri-rocket-line"></i>
@@ -325,7 +325,7 @@ export default function OnboardingPage() {
               <div
                 key={i}
                 className="h-1 flex-1 rounded-full transition-all duration-400"
-                style={{ backgroundColor: i <= step ? "app-accent-primary" : "rgba(255,255,255,0.08)" }}
+                style={{ backgroundColor: i <= step ? "#e8c84a" : "rgba(255,255,255,0.08)" }}
               />
             ))}
           </div>
@@ -339,7 +339,7 @@ export default function OnboardingPage() {
         {step === 0 && (
           <div className="text-center">
             <div className="w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-5" style={{ backgroundColor: "rgba(232,200,74,0.12)", border: "1px solid rgba(232,200,74,0.2)" }}>
-              <i className="ri-robot-2-line text-4xl" style={{ color: "app-accent-primary" }}></i>
+              <i className="ri-robot-2-line text-4xl" style={{ color: "#e8c84a" }}></i>
             </div>
             <h1 className="text-2xl font-bold text-white mb-2">AI tạo lộ trình học</h1>
             <p className="text-sm leading-relaxed mb-6" style={{ color: "rgba(255,255,255,0.45)" }}>
@@ -354,7 +354,7 @@ export default function OnboardingPage() {
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-3 px-4 py-2.5 rounded-xl" style={{ backgroundColor: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>
                   <div className="w-7 h-7 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: "rgba(232,200,74,0.12)" }}>
-                    <i className={`${item.icon} text-sm`} style={{ color: "app-accent-primary" }}></i>
+                    <i className={`${item.icon} text-sm`} style={{ color: "#e8c84a" }}></i>
                   </div>
                   <span className="text-sm" style={{ color: "rgba(255,255,255,0.65)" }}>{item.text}</span>
                 </div>
@@ -406,13 +406,13 @@ export default function OnboardingPage() {
         {generating && (
           <div className="text-center py-8">
             <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: "rgba(232,200,74,0.12)" }}>
-              <i className="ri-robot-2-line text-3xl animate-pulse" style={{ color: "app-accent-primary" }}></i>
+              <i className="ri-robot-2-line text-3xl animate-pulse" style={{ color: "#e8c84a" }}></i>
             </div>
             <h3 className="text-white font-bold text-lg mb-2">AI đang phân tích...</h3>
             <p className="text-sm" style={{ color: "rgba(255,255,255,0.4)" }}>Đang tạo lộ trình cá nhân hóa cho bạn</p>
             <div className="flex justify-center gap-1.5 mt-4">
               {[0, 1, 2].map(i => (
-                <div key={i} className="w-2 h-2 rounded-full animate-bounce" style={{ backgroundColor: "app-accent-primary", animationDelay: `${i * 0.15}s` }}></div>
+                <div key={i} className="w-2 h-2 rounded-full animate-bounce" style={{ backgroundColor: "#e8c84a", animationDelay: `${i * 0.15}s` }}></div>
               ))}
             </div>
           </div>
@@ -449,7 +449,7 @@ export default function OnboardingPage() {
             disabled={!canProceed(step)}
             className="w-full py-4 rounded-2xl font-bold text-base transition-all cursor-pointer whitespace-nowrap"
             style={{
-              backgroundColor: canProceed(step) ? "app-accent-primary" : "rgba(255,255,255,0.06)",
+              backgroundColor: canProceed(step) ? "#e8c84a" : "rgba(255,255,255,0.06)",
               color: canProceed(step) ? "#0f1117" : "rgba(255,255,255,0.2)",
               cursor: canProceed(step) ? "pointer" : "not-allowed",
             }}
