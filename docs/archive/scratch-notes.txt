@@ -1,0 +1,4 @@
+  Lần sau muốn tiết kiệm, vài mẹo:
+  - Gom yêu cầu thành 1 message dài thay vì hỏi từng bước → ít round-trip context
+  - Bảo mình "đừng đọc lại file" khi mình hay re-read không cần thiết
+  - Dùng /clear giữa các topic khác nhau để reset context — mỗi message lúc context dài tốn nhiều token hơn
