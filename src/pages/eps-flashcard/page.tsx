@@ -4,6 +4,7 @@ import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { epsVocabulary, EPS_VOCAB_TOPICS, type EpsVocabItem } from "@/mocks/epsVocabulary";
 import { useXPSystem } from "@/hooks/useXPSystem";
 import { usePageSEO } from "@/hooks/usePageSEO";
+import { SITE_URL } from "@/lib/siteConfig";
 
 // ─── Flip Card ────────────────────────────────────────────────────────────
 function EpsFlipCard({
@@ -253,7 +254,7 @@ export default function EpsFlashcardPage() {
       provider: {
         "@type": "EducationalOrganization",
         name: "Hàn Quốc Ơi!",
-        url: "https://hanquocoi.vn",
+        url: SITE_URL,
       },
     },
   });

@@ -6,6 +6,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { supabase, resolveStoragePaths } from "@/lib/supabase";
 import { sanitizeHtml } from "@/lib/sanitize";
 import { usePageSEO } from "@/hooks/usePageSEO";
+import { SITE_URL } from "@/lib/siteConfig";
 import DisplayNamePromptModal from "@/components/feature/DisplayNamePromptModal";
 import { isEmailLikeName } from "@/hooks/useDisplayNameStatus";
 
@@ -26,7 +27,7 @@ function PostSEO({ post, slug }: { post: Post; slug: string }) {
     "image": firstImage || undefined,
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": `https://hanquocoi.vn/community/${slug}`,
+      "@id": `${SITE_URL}/community/${slug}`,
     },
     "publisher": {
       "@type": "Organization",

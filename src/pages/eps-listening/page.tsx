@@ -4,6 +4,7 @@ import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useXPSystem } from "@/hooks/useXPSystem";
 import { EPS_LESSON_TOPICS } from "@/mocks/epsLessons";
 import { usePageSEO } from "@/hooks/usePageSEO";
+import { SITE_URL } from "@/lib/siteConfig";
 
 // ─── Types ────────────────────────────────────────────────────────────────
 interface ListeningQuestion {
@@ -455,7 +456,7 @@ export default function EpsListeningPage() {
       provider: {
         "@type": "EducationalOrganization",
         name: "Hàn Quốc Ơi!",
-        url: "https://hanquocoi.vn",
+        url: SITE_URL,
       },
     },
   });

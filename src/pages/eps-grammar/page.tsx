@@ -3,6 +3,7 @@ import DashboardLayout from "@/components/feature/DashboardLayout";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/hooks/useAuth";
 import { usePageSEO } from "@/hooks/usePageSEO";
+import { SITE_URL } from "@/lib/siteConfig";
 
 interface GrammarItem {
   id: number;
@@ -77,7 +78,7 @@ export default function EpsGrammarPage() {
       provider: {
         "@type": "EducationalOrganization",
         name: "Hàn Quốc Ơi!",
-        url: "https://hanquocoi.vn",
+        url: SITE_URL,
       },
     },
   });

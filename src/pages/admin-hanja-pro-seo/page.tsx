@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import AdminLayout from "@/components/feature/AdminLayout";
 import { supabase } from "@/lib/supabase";
+import { SITE_URL } from "@/lib/siteConfig";
 
 interface HanjaProEntry {
   id: number;
@@ -13,7 +14,6 @@ interface HanjaProEntry {
   og_image: string | null;
 }
 
-const SITE_URL = "https://hanquocoi.vn";
 const PAGE_SIZE = 30;
 const TITLE_MAX = 60;
 const DESC_MAX = 140;

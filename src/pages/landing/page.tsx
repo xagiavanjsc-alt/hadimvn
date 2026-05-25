@@ -2,6 +2,7 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { usePageSEO } from "@/hooks/usePageSEO";
+import { SITE_URL } from "@/lib/siteConfig";
 import { STATS, TESTIMONIALS, FAQ_ITEMS } from "@/mocks/landingData";
 
 const FEATURE_GROUPS = [
@@ -146,12 +147,12 @@ export default function LandingPage() {
         "@context": "https://schema.org",
         "@type": "WebSite",
         name: "Hàn Quốc Ơi!",
-        url: "https://hanquocoi.vn",
+        url: SITE_URL,
         description: "Nền tảng luyện thi EPS-TOPIK miễn phí cho người Việt đi XKLĐ Hàn Quốc.",
         inLanguage: "vi",
         potentialAction: {
           "@type": "SearchAction",
-          target: "https://hanquocoi.vn/dictionary?q={search_term_string}",
+          target: `${SITE_URL}/dictionary?q={search_term_string}`,
           "query-input": "required name=search_term_string",
         },
       },
@@ -159,7 +160,7 @@ export default function LandingPage() {
         "@context": "https://schema.org",
         "@type": "EducationalOrganization",
         name: "Hàn Quốc Ơi!",
-        url: "https://hanquocoi.vn",
+        url: SITE_URL,
         description: "Nền tảng học tiếng Hàn online tập trung vào kỳ thi EPS-TOPIK cho lao động Việt Nam đi Hàn Quốc.",
         inLanguage: ["vi", "ko"],
       },

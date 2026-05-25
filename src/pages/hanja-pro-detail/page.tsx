@@ -6,6 +6,7 @@ import { useHanjaProgress } from "@/hooks/useHanjaProgress";
 import { useToast } from "@/components/base/Toast";
 import { supabase } from "@/lib/supabase";
 import { usePageSEO } from "@/hooks/usePageSEO";
+import { SITE_URL } from "@/lib/siteConfig";
 
 interface HanjaEntry {
   id: number;
@@ -163,7 +164,7 @@ export default function HanjaProDetailPage() {
         inDefinedTermSet: {
           "@type": "DefinedTermSet",
           name: "Hán Hàn Chuyên Sâu",
-          url: "https://hanquocoi.vn/hanja-pro",
+          url: `${SITE_URL}/hanja-pro`,
         },
       },
     };

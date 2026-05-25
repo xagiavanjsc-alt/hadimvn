@@ -9,6 +9,7 @@ import { useToast } from "@/components/base/Toast";
 import { epsQuestions } from "@/mocks/epsQuestions";
 import { isExamTooFast, isInCooldown, MIN_EPS_EXAM_TIME_SEC } from "@/lib/xp";
 import { usePageSEO } from "@/hooks/usePageSEO";
+import { SITE_URL } from "@/lib/siteConfig";
 import { STORAGE_KEYS } from "@/lib/storageKeys";
 
 interface ExamResult {
@@ -188,7 +189,7 @@ export default function EpsExamPage() {
       provider: {
         "@type": "EducationalOrganization",
         name: "Hàn Quốc Ơi!",
-        url: "https://hanquocoi.vn",
+        url: SITE_URL,
       },
     },
   });

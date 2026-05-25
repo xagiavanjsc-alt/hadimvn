@@ -3,6 +3,7 @@ import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { topik2Questions, type T2Question } from "@/mocks/topik2Questions";
 import { usePageSEO } from "@/hooks/usePageSEO";
+import { SITE_URL } from "@/lib/siteConfig";
 
 const TOTAL_TIME = 180 * 60;
 type Phase = "intro" | "exam" | "result";
@@ -391,7 +392,7 @@ export default function Topik2TestPage() {
       provider: {
         "@type": "EducationalOrganization",
         name: "Hàn Quốc Ơi!",
-        url: "https://hanquocoi.vn",
+        url: SITE_URL,
       },
     },
   });

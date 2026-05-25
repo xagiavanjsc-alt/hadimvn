@@ -7,6 +7,7 @@ import { epsQuestions, EPS_TOPICS, type EpsQuestion } from "@/mocks/epsQuestions
 import PronunciationRecorder from "@/components/feature/PronunciationRecorder";
 import ImageWithFallback from "@/components/base/ImageWithFallback";
 import { usePageSEO } from "@/hooks/usePageSEO";
+import { SITE_URL } from "@/lib/siteConfig";
 
 function speakKorean(text: string) {
   if (!window.speechSynthesis) return;
@@ -175,7 +176,7 @@ export default function EpsPage() {
       provider: {
         "@type": "EducationalOrganization",
         name: "Hàn Quốc Ơi!",
-        url: "https://hanquocoi.vn",
+        url: SITE_URL,
       },
     },
   });

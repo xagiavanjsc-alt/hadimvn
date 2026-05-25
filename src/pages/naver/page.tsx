@@ -5,6 +5,7 @@ import { useAuthContext } from "@/contexts/AuthContext";
 import VipUpgradeModal from "@/components/feature/VipUpgradeModal";
 import realNaverData from "@/mocks/naver_kin_real.json";
 import { STORAGE_KEYS } from "@/lib/storageKeys";
+import { SITE_URL } from "@/lib/siteConfig";
 
 interface VocabItem  { korean: string; vn: string; level?: string; }
 interface GrammarItem { pattern: string; meaning: string; example?: string; level?: string; }
@@ -369,7 +370,7 @@ const NaverPage = () => {
     setMeta("keywords", "học tiếng Hàn, câu hỏi tiếng Hàn, Naver KiN, TOPIK, EPS-TOPIK, ngữ pháp tiếng Hàn, từ vựng tiếng Hàn");
     setProp("og:title", "Naver KiN - Hỏi đáp học tiếng Hàn | Hàn Quốc Ơi");
     setProp("og:description", "Hàng trăm câu hỏi học tiếng Hàn từ người Hàn thực trả lời, dịch tiếng Việt kèm từ vựng và ngữ pháp.");
-    setProp("og:url", "https://hanquocoi.vn/naver");
+    setProp("og:url", `${SITE_URL}/naver`);
 
     const top20 = qaData.slice(0, 20).filter(q => q.question && q.answer);
     const schema = {

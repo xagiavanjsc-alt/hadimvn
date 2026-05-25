@@ -7,6 +7,7 @@ import { useAudioCache } from "@/hooks/useAudioCache";
 import { type EpsVocabItem, type EpsVocabTopic } from "@/mocks/epsVocabulary";
 import { EpsVocabProvider, useEpsVocab, useEpsVocabLoading } from "@/contexts/EpsVocabContext";
 import { usePageSEO } from "@/hooks/usePageSEO";
+import { SITE_URL } from "@/lib/siteConfig";
 
 // ─── PDF Export ───────────────────────────────────────────────────────────
 function exportToPDF(items: EpsVocabItem[], topicId: string, topics: EpsVocabTopic[]) {
@@ -241,7 +242,7 @@ function EpsVocabularyPageInner() {
       provider: {
         "@type": "EducationalOrganization",
         name: "Hàn Quốc Ơi!",
-        url: "https://hanquocoi.vn",
+        url: SITE_URL,
       },
     },
   });
