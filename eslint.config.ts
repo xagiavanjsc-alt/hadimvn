@@ -40,9 +40,6 @@ const autoImportGlobals = {
   NavLink: 'readonly',
   Navigate: 'readonly',
   Outlet: 'readonly',
-  // React i18n
-  useTranslation: 'readonly',
-  Trans: 'readonly',
 }
 
 export default [

@@ -1,7 +1,5 @@
 import { BrowserRouter } from "react-router-dom";
 import { AppRoutes } from "./router";
-import { I18nextProvider } from "react-i18next";
-import i18n from "./i18n";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { AdminToastProvider } from "@/contexts/AdminToastContext";
 import ErrorBoundary from "@/components/base/ErrorBoundary";
@@ -19,24 +17,22 @@ function RefTracker() {
 
 function App() {
   return (
-    <I18nextProvider i18n={i18n}>
-      <AuthProvider>
-        <AdminToastProvider>
-          <BrowserRouter basename={__BASE_PATH__}>
-            <ErrorBoundary>
-              <PreloadCommonRoutes />
-              <RefTracker />
-              <OnboardingGate />
-              <DailyLoginBonusGate />
-              <PageTransition>
-                <AppRoutes />
-              </PageTransition>
-              <XPNotificationToast />
-            </ErrorBoundary>
-          </BrowserRouter>
-        </AdminToastProvider>
-      </AuthProvider>
-    </I18nextProvider>
+    <AuthProvider>
+      <AdminToastProvider>
+        <BrowserRouter basename={__BASE_PATH__}>
+          <ErrorBoundary>
+            <PreloadCommonRoutes />
+            <RefTracker />
+            <OnboardingGate />
+            <DailyLoginBonusGate />
+            <PageTransition>
+              <AppRoutes />
+            </PageTransition>
+            <XPNotificationToast />
+          </ErrorBoundary>
+        </BrowserRouter>
+      </AdminToastProvider>
+    </AuthProvider>
   );
 }
 
