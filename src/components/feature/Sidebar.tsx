@@ -275,7 +275,8 @@ function SidebarInner() {
       "/leaderboard": () => import("@/pages/leaderboard/page"),
       "/vocabulary": () => import("@/pages/vocabulary/page"),
       "/grammar": () => import("@/pages/grammar/page"),
-      "/grammar-by-level": () => import("@/pages/grammar-by-level/page"),
+      // HIDDEN 2026-05-25 (focus EPS+du học): generic grammar by level, EPS audience uses /eps-grammar
+      // "/grammar-by-level": () => import("@/pages/grammar-by-level/page"),
       "/flashcard": () => import("@/pages/flashcard/page"),
       "/hangul": () => import("@/pages/hangul/page"),
       "/hanja-vocab": () => import("@/pages/hanja-vocab/page"),

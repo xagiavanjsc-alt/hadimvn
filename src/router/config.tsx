@@ -189,7 +189,8 @@ const DailyVocabPage = lazyPage(() => import("../pages/daily-vocab/page"));
 const QuickQuizPage = lazyPage(() => import("../pages/quick-quiz/page"));
 const VocabByTopicPage = lazyPage(() => import("../pages/vocab-by-topic/page"));
 const DailyChallengePage = lazyPage(() => import("../pages/daily-challenge/page"));
-const ListeningLevelPage = lazyPage(() => import("../pages/listening-level/page"));
+// HIDDEN 2026-05-25 (focus EPS+du học): generic listening level duplicate, use /eps-listening or /listen-practice
+// const ListeningLevelPage = lazyPage(() => import("../pages/listening-level/page"));
 const VocabSuggestionPage = lazyPage(() => import("../pages/vocab-suggestion/page"));
 const QuizHistoryDetailPage = lazyPage(() => import("../pages/quiz-history-detail/page"));
 // HIDDEN 2026-05-25 (focus EPS+du học): generic flashcard duplicate, use /eps-flashcard
@@ -232,11 +233,13 @@ const SpeakingLevelPage = lazyPage(() => import("../pages/speaking-level/page"))
 // const HangulWritingPage = lazyPage(() => import("../pages/hangul-writing/page"));
 const TopikVocabLevelPage = lazyPage(() => import("../pages/topik-vocab-level/page"));
 const VocabGamesPage = lazyPage(() => import("../pages/vocab-games/page"));
-const ListeningByLevelPage = lazyPage(() => import("../pages/listening-by-level/page"));
+// HIDDEN 2026-05-25 (focus EPS+du học): duplicate of /listening-level (same level-based listening concept)
+// const ListeningByLevelPage = lazyPage(() => import("../pages/listening-by-level/page"));
 const AdvancedDictionaryPage = lazyPage(() => import("../pages/advanced-dictionary/page"));
 const StudyHistoryDetailPage = lazyPage(() => import("../pages/study-history-detail/page"));
 const ReadingByLevelPage = lazyPage(() => import("../pages/reading-by-level/page"));
-const GrammarByTopicPage = lazyPage(() => import("../pages/grammar-by-topic/page"));
+// HIDDEN 2026-05-25 (focus EPS+du học): generic grammar by topic duplicate, EPS audience uses /eps-grammar
+// const GrammarByTopicPage = lazyPage(() => import("../pages/grammar-by-topic/page"));
 // HIDDEN 2026-05-25 (focus EPS+du học): AI gimmick, off-focus
 // const AISmartFlashcardPage = lazyPage(() => import("../pages/ai-smart-flashcard/page"));
 const WritingByLevelPage = lazyPage(() => import("../pages/writing-by-level/page"));
@@ -250,7 +253,8 @@ const SentencePatternVocabPage = lazyPage(() => import("../pages/sentence-patter
 // HIDDEN 2026-05-25 (focus EPS+du học): duplicate of HangulWritingPage above
 // const HangulWritingNewPage = lazyPage(() => import("../pages/hangul-writing/page"));
 // AdminContentLearnPage moved to ./routes/admin.tsx
-const GrammarByLevelPage = lazyPage(() => import("../pages/grammar-by-level/page"));
+// HIDDEN 2026-05-25 (focus EPS+du học): generic grammar by level duplicate, EPS audience uses /eps-grammar
+// const GrammarByLevelPage = lazyPage(() => import("../pages/grammar-by-level/page"));
 const TopikExamWritingPage = lazyPage(() => import("../pages/topik-exam-writing/page"));
 
 // ─── Admin lazy imports moved to ./routes/admin.tsx ──────────────────────────
@@ -423,7 +427,8 @@ const routes: RouteObject[] = [
   { path: "/quick-quiz", element: <QuickQuizPage /> },
   { path: "/vocab-by-topic", element: <VocabByTopicPage /> },
   { path: "/daily-challenge", element: <DailyChallengePage /> },
-  { path: "/listening-level", element: <ListeningLevelPage /> },
+  // HIDDEN 2026-05-25 (focus EPS+du học): use /eps-listening or /listen-practice
+  // { path: "/listening-level", element: <ListeningLevelPage /> },
   { path: "/vocab-suggestion", element: <VocabSuggestionPage /> },
   { path: "/quiz-history-detail", element: <QuizHistoryDetailPage /> },
   // HIDDEN 2026-05-25 (focus EPS+du học): generic duplicates, use EPS-specific equivalents
@@ -465,11 +470,13 @@ const routes: RouteObject[] = [
   // { path: "/hangul-writing", element: <HangulWritingPage /> },
   { path: "/topik-vocab-level", element: <TopikVocabLevelPage /> },
   { path: "/vocab-games", element: <VocabGamesPage /> },
-  { path: "/listening-by-level", element: <ListeningByLevelPage /> },
+  // HIDDEN 2026-05-25 (focus EPS+du học): duplicate of /listening-level
+  // { path: "/listening-by-level", element: <ListeningByLevelPage /> },
   { path: "/advanced-dictionary", element: <AdvancedDictionaryPage /> },
   { path: "/study-history-detail", element: <StudyHistoryDetailPage /> },
   { path: "/reading-by-level", element: <ReadingByLevelPage /> },
-  { path: "/grammar-by-topic", element: <GrammarByTopicPage /> },
+  // HIDDEN 2026-05-25 (focus EPS+du học): EPS users use /eps-grammar
+  // { path: "/grammar-by-topic", element: <GrammarByTopicPage /> },
   // HIDDEN 2026-05-25 (focus EPS+du học): AI gimmick, off-focus
   // { path: "/ai-smart-flashcard", element: <AISmartFlashcardPage /> },
   { path: "/writing-by-level", element: <WritingByLevelPage /> },
@@ -481,7 +488,8 @@ const routes: RouteObject[] = [
   { path: "/speed-listening", element: <SpeedListeningPage /> },
   { path: "/sentence-pattern-vocab", element: <SentencePatternVocabPage /> },
   // /admin/content-learn moved to ./routes/admin.tsx (already in adminRoutes spread above)
-  { path: "/grammar-by-level", element: <GrammarByLevelPage /> },
+  // HIDDEN 2026-05-25 (focus EPS+du học): EPS users use /eps-grammar
+  // { path: "/grammar-by-level", element: <GrammarByLevelPage /> },
   { path: "/topik-exam-writing", element: <TopikExamWritingPage /> },
 
   // Misc

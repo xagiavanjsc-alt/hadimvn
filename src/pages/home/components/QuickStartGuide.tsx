@@ -30,8 +30,8 @@ const levelPaths: LevelPath[] = [
     desc: "Biết Hangul, muốn giao tiếp cơ bản",
     steps: [
       { icon: "ri-chat-voice-line", label: "Tiếng Hàn giao tiếp", path: "/conversation", desc: "Hội thoại hàng ngày", badge: "Hot" },
-      { icon: "ri-book-2-line", label: "Ngữ pháp theo chủ đề", path: "/grammar-by-topic", desc: "Cấu trúc A1-A2" },
-      { icon: "ri-headphone-line", label: "Luyện nghe A2", path: "/listening-by-level", desc: "Nghe và hiểu" },
+      { icon: "ri-book-2-line", label: "Ngữ pháp EPS", path: "/eps-grammar", desc: "Ngữ pháp EPS thiết yếu" },
+      { icon: "ri-headphone-line", label: "Nghe EPS", path: "/eps-listening", desc: "Bài nghe EPS" },
       { icon: "ri-mic-2-line", label: "Luyện nói A2", path: "/speaking-level", desc: "Phát âm chuẩn" },
     ],
   },
