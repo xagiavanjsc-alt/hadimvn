@@ -1,5 +1,6 @@
 ﻿import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
+import { usePageSEO } from "@/hooks/usePageSEO";
 
 interface FreqWord {
   rank: number;
@@ -50,6 +51,12 @@ const freqWords: FreqWord[] = [
 const categories = ["Tất cả", ...new Set(freqWords.map(w => w.category))];
 
 export default function TopikFrequencyVocabPage() {
+  usePageSEO({
+    title: "Từ vựng TOPIK tần suất cao — học từ thường gặp | Hàn Quốc Ơi!",
+    description: "Học top từ vựng xuất hiện nhiều nhất trong đề thi TOPIK. Phân theo loại từ và tần suất xuất hiện, có ví dụ thực tế.",
+    keywords: "từ vựng TOPIK tần suất cao, từ thường gặp TOPIK, top từ vựng tiếng Hàn",
+    path: "/topik-frequency-vocab",
+  });
   const [topikFilter, setTopikFilter] = useState<"all" | "I" | "II">("all");
   const [categoryFilter, setCategoryFilter] = useState("Tất cả");
   const [searchQuery, setSearchQuery] = useState("");

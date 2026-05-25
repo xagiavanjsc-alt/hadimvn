@@ -3,6 +3,7 @@ import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/lib/supabase";
 import ShareResultModal from "@/components/feature/ShareResultModal";
+import { usePageSEO } from "@/hooks/usePageSEO";
 
 interface ReadingQuestion {
   id: string;
@@ -323,6 +324,12 @@ const PASSAGES: ReadingPassage[] = [
 type Phase = "setup" | "reading" | "result";
 
 export default function TopikReadingPage() {
+  usePageSEO({
+    title: "Luyện đọc TOPIK — bài đọc hiểu có Việt dịch | Hàn Quốc Ơi!",
+    description: "Luyện đọc hiểu TOPIK với bài đọc gốc + dịch tiếng Việt, câu hỏi đa dạng. Phân theo level A1-B2. Miễn phí cho du học sinh.",
+    keywords: "luyện đọc TOPIK, bài đọc tiếng Hàn, reading TOPIK, đọc hiểu tiếng Hàn",
+    path: "/topik-reading",
+  });
   const { user } = useAuth();
   const [phase, setPhase] = useState<Phase>("setup");
   const [selectedLevel, setSelectedLevel] = useState<string>("B1");

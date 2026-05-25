@@ -4,6 +4,7 @@ import { vocabularyData, VOCAB_CATEGORIES } from "@/mocks/vocabularyData";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/lib/supabase";
+import { usePageSEO } from "@/hooks/usePageSEO";
 
 interface SpacedCard {
   id: string;
@@ -75,6 +76,12 @@ function RadialProgress({ value, color, size = 80 }: RadialProgressProps) {
 }
 
 export default function TopikStatsPage() {
+  usePageSEO({
+    title: "Thống kê tiến độ TOPIK — theo dõi level và kỹ năng | Hàn Quốc Ơi!",
+    description: "Theo dõi tiến độ học TOPIK chi tiết: số câu đúng/sai, level đã chinh phục, lịch sử quiz. Đồng bộ giữa các thiết bị.",
+    keywords: "thống kê TOPIK, tiến độ học TOPIK, lịch sử thi TOPIK, theo dõi học tiếng Hàn",
+    path: "/topik-stats",
+  });
   const { user } = useAuth();
   const [spacedData] = useLocalStorage<FlashcardSession>("topik_spaced_v1", { cards: [], lastUpdated: Date.now() });
   const [localQuizHistory] = useLocalStorage<QuizHistory[]>("topik_quiz_history", []);

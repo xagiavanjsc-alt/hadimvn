@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { STORAGE_KEYS } from "@/lib/storageKeys";
+import { usePageSEO } from "@/hooks/usePageSEO";
 
 type QType = 51 | 52 | 53 | 54;
 
@@ -442,6 +443,12 @@ interface WritingHistory {
 }
 
 export default function TopikExamWritingPage() {
+  usePageSEO({
+    title: "Luyện viết TOPIK II câu 51-54 — đề thi thật + bài mẫu | Hàn Quốc Ơi!",
+    description: "Luyện viết TOPIK II câu 51, 52, 53, 54 với đề thi thật các năm + bài mẫu chuẩn. Phân tích cấu trúc + cụm từ hay cho từng dạng.",
+    keywords: "luyện viết TOPIK, viết TOPIK 51 52 53 54, đề viết TOPIK II, bài mẫu TOPIK writing",
+    path: "/topik-exam-writing",
+  });
   const [filterType, setFilterType] = useState<"all" | 51 | 52 | 53 | 54>("all");
   const [filterYear, setFilterYear] = useState<number | "all">("all");
   const [selectedQ, setSelectedQ] = useState<TopikWritingQ>(QUESTIONS[0]);

@@ -3,6 +3,7 @@ import DashboardLayout from "@/components/feature/DashboardLayout";
 import { supabase } from "@/lib/supabase";
 import { seoulBooks } from "@/mocks/data/seoul-books-data";
 import { STORAGE_KEYS } from "@/lib/storageKeys";
+import { usePageSEO } from "@/hooks/usePageSEO";
 
 interface VocabWord {
   id: number;
@@ -254,6 +255,12 @@ const MOCK_VOCAB: Record<number, VocabWord[]> = {
 };
 
 export default function TopikVocabLevelPage() {
+  usePageSEO({
+    title: "Từ vựng TOPIK theo level 1-6 — học theo cấp độ | Hàn Quốc Ơi!",
+    description: "Học từ vựng TOPIK phân theo 6 cấp độ chuẩn (TOPIK 1-6). Lộ trình học du học sinh từ A1 đến C2, mapping với giáo trình Seoul.",
+    keywords: "từ vựng TOPIK, TOPIK level, từ vựng tiếng Hàn du học, TOPIK 1-6, học theo cấp độ",
+    path: "/topik-vocab-level",
+  });
   const [selectedLevel, setSelectedLevel] = useState<number | null>(null);
   const [words, setWords] = useState<VocabWord[]>([]);
   const [loading, setLoading] = useState(false);

@@ -1,6 +1,7 @@
 ﻿import { useState, useEffect, useRef, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { vocabularyData, VOCAB_CATEGORIES, type VocabItem } from "@/mocks/vocabularyData";
+import { usePageSEO } from "@/hooks/usePageSEO";
 
 type Phase = "setup" | "listening" | "result";
 type QuestionType = "word-meaning" | "sentence-fill" | "dialogue";
@@ -84,6 +85,12 @@ function generateQuestions(words: VocabItem[], count: number): ListeningQuestion
 }
 
 export default function TopikListeningPage() {
+  usePageSEO({
+    title: "Luyện nghe TOPIK online — bài tập có audio | Hàn Quốc Ơi!",
+    description: "Luyện kỹ năng nghe TOPIK với bài tập có audio thực tế. Phân theo level A1-B2, đa dạng tình huống. Miễn phí cho du học sinh.",
+    keywords: "luyện nghe TOPIK, nghe tiếng Hàn online, listening TOPIK, học nghe tiếng Hàn",
+    path: "/topik-listening",
+  });
   const [phase, setPhase] = useState<Phase>("setup");
   const [selectedLevel, setSelectedLevel] = useState("A1");
   const [selectedCategory, setSelectedCategory] = useState("all");

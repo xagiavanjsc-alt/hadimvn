@@ -2,6 +2,7 @@ import { useState, useMemo, useCallback, useRef, useEffect } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { vocabularyData, VOCAB_CATEGORIES, type VocabItem } from "@/mocks/vocabularyData";
+import { usePageSEO } from "@/hooks/usePageSEO";
 
 const LEVELS = ["Tất cả", "A1", "A2", "B1", "B2"];
 const PARTS = [
@@ -240,6 +241,12 @@ const WordRow = ({
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
 export default function TopikDictionaryPage() {
+  usePageSEO({
+    title: "Từ điển TOPIK — tra cứu từ vựng theo level | Hàn Quốc Ơi!",
+    description: "Từ điển TOPIK online: tra cứu từ vựng theo level A1-B2, loại từ, chủ đề. Có ghi chú cá nhân và đánh dấu từ khó. Miễn phí.",
+    keywords: "từ điển TOPIK, tra cứu tiếng Hàn, từ vựng TOPIK, dictionary TOPIK",
+    path: "/topik-dictionary",
+  });
   const [search, setSearch] = useState("");
   const [selectedLevel, setSelectedLevel] = useState("Tất cả");
   const [selectedCategory, setSelectedCategory] = useState("all");

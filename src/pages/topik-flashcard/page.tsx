@@ -6,6 +6,7 @@ import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/hooks/useAuth";
 import { useVipYearGuard } from "@/hooks/useVipYearGuard";
 import VipUpgradeModal from "@/components/feature/VipUpgradeModal";
+import { usePageSEO } from "@/hooks/usePageSEO";
 
 type CardState = "front" | "back";
 type Difficulty = "easy" | "medium" | "hard" | "skip";
@@ -69,6 +70,12 @@ function updateCard(card: SpacedCard, difficulty: Difficulty): SpacedCard {
 }
 
 export default function TopikFlashcardPage() {
+  usePageSEO({
+    title: "Flashcard TOPIK — học từ vựng Spaced Repetition | Hàn Quốc Ơi!",
+    description: "Flashcard từ vựng TOPIK theo thuật toán Spaced Repetition (SM-2). Nhớ lâu hơn, ôn đúng thời điểm. Miễn phí cho du học sinh.",
+    keywords: "flashcard TOPIK, học từ vựng TOPIK, spaced repetition tiếng Hàn, học TOPIK hiệu quả",
+    path: "/topik-flashcard",
+  });
   const [phase, setPhase] = useState<"setup" | "study" | "done">("setup");
   const [selectedLevel, setSelectedLevel] = useState("A1");
   const [selectedCategory, setSelectedCategory] = useState("all");

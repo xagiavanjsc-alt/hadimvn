@@ -2,6 +2,7 @@
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { vocabularyData, VOCAB_CATEGORIES, type VocabItem } from "@/mocks/vocabularyData";
 import ShareResultModal from "@/components/feature/ShareResultModal";
+import { usePageSEO } from "@/hooks/usePageSEO";
 
 type QuizQuestion = {
   id: string;
@@ -62,6 +63,12 @@ function generateQuestions(
 }
 
 export default function TopikTopicQuizPage() {
+  usePageSEO({
+    title: "Quiz từ vựng TOPIK theo chủ đề | Hàn Quốc Ơi!",
+    description: "Quiz từ vựng TOPIK phân theo chủ đề: gia đình, công việc, du lịch... Luyện nhanh, có giải thích từng câu. Miễn phí.",
+    keywords: "quiz TOPIK, từ vựng TOPIK theo chủ đề, kiểm tra từ vựng tiếng Hàn",
+    path: "/topik-topic-quiz",
+  });
   const [phase, setPhase] = useState<"setup" | "quiz" | "result">("setup");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedLevel, setSelectedLevel] = useState("all");
