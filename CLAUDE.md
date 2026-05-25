@@ -78,7 +78,7 @@ Cho EPS content (đề thi, từ vựng, ngữ pháp):
 - ✅ Đề thi 2025 đề 1, đề 2 là **đề thật**
 - ✅ Vocab phải đối chiếu với sách EPS chính thức
 - ❌ KHÔNG cho AI sinh đề thi "tự chế" rồi gán nhãn "đề chính thức"
-- ❌ KHÔNG để meta tag "10,000+ học viên" khi chỉ có 20 user
+- ❌ KHÔNG để meta tag "10,000+ học viên" khi user thật chỉ vài chục
 
 ### Rule 6: SEO is law
 
@@ -119,17 +119,16 @@ supabase/
 
 ## 🚀 Khi nào MỚI được mở thêm feature
 
-Default: KHÔNG mở thêm. Trừ khi đạt mốc:
+Web đang trong giai đoạn build + test trên user thật (~34 user, đa số người
+quen). **Không gate feature theo user count** — gate theo **audience fit**:
 
-| Mốc | Mở được |
-|---|---|
-| < 100 user | KHÔNG mở gì mới, chỉ content + SEO |
-| 100-500 user | Mở 1 feature/tháng, có metric đo |
-| 500-1000 user | Mở community features (đã ẩn) |
-| 1000+ user paying | Mở monetization (VIP, payment) |
-| 5000+ user | Mở advanced content (Hanja, du học) |
+1. EPS user (lao động XKLĐ) dùng được? → cứ làm, đơn giản nhất.
+2. Chỉ audience khác (du học advanced, học giả, K-pop) dùng? → KHÔNG làm.
+3. SEO / content / bug fix / refactor / perf → ưu tiên cao, không cần justify.
+4. Community / VIP / CTV / pricing → đã active (revenue thật) — sửa, đừng ẩn.
 
-Hiện tại: **20 user** → tuyệt đối không mở feature mới.
+Vì đang test trên user thật: bất cứ thứ gì làm break flow đăng ký / học bài /
+nộp đề / thanh toán đều là blocker, fix trước feature mới.
 
 ## 📝 Commit conventions
 
