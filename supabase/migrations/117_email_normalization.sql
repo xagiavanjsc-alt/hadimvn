@@ -70,8 +70,10 @@ ALTER TABLE public.user_profiles
   ADD COLUMN IF NOT EXISTS email_normalized TEXT;
 
 -- Backfill from auth.users for everyone who already has a profile.
+-- auth.users.email is VARCHAR; explicit ::TEXT cast avoids a function-
+-- dispatch miss against normalize_email(TEXT).
 UPDATE public.user_profiles up
-SET email_normalized = public.normalize_email(au.email)
+SET email_normalized = public.normalize_email(au.email::TEXT)
 FROM auth.users au
 WHERE up.id = au.id
   AND up.email_normalized IS NULL
