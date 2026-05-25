@@ -1,10 +1,15 @@
-import { lazy, Suspense, useEffect, Component, ReactNode } from "react";
+import { useEffect } from "react";
 import type { RouteObject } from "react-router-dom";
-import PageSkeleton from "@/components/base/PageSkeleton";
 import RequireAuth from "@/components/feature/RequireAuth";
 import AdminGuard from "@/components/feature/AdminGuard";
 import RequirePermission from "@/components/feature/RequirePermission";
 import AdminLayout from "@/components/feature/AdminLayout";
+import { lazyPage, preload } from "./utils";
+import { epsRoutes } from "./routes/eps";
+import { seoulRoutes } from "./routes/seoul";
+import { adminRoutes } from "./routes/admin";
+
+export { cancelPreloads } from "./utils";
 
 // ─── Eager (critical path) ────────────────────────────────────────────────────
 import RootPage from "../pages/root/page";
@@ -12,77 +17,14 @@ import Home from "../pages/home/page";
 import LandingPage from "../pages/landing/page";
 import NotFound from "../pages/NotFound";
 
-type SkeletonVariant = "dashboard" | "full" | "vocab" | "exam" | "flashcard";
-
-// ─── Error Boundary for lazy routes ─────────────────────────────────────────
-interface ErrorBoundaryProps { children: ReactNode; name?: string }
-interface ErrorBoundaryState { hasError: boolean; error?: Error }
-
-class LazyErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
-  state: ErrorBoundaryState = { hasError: false };
-  static getDerivedStateFromError(error: Error) { return { hasError: true, error }; }
-  render() {
-    if (this.state.hasError) {
-      return (
-        <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4 px-4">
-          <i className="ri-error-warning-line text-4xl text-red-400"></i>
-          <h2 className="text-white text-lg font-semibold">Đã xảy ra lỗi</h2>
-          <p className="text-white/50 text-sm text-center max-w-md">{this.state.error?.message || "Không thể tải trang này. Thử lại sau."}</p>
-          <button onClick={() => { this.setState({ hasError: false }); window.location.reload(); }} className="mt-2 px-5 py-2 rounded-lg bg-app-accent-primary text-app-bg font-semibold text-sm hover:bg-app-accent-primary/90 transition-colors cursor-pointer">Tải lại trang</button>
-        </div>
-      );
-    }
-    return this.props.children;
-  }
-}
-
-// ─── Lazy page helper — returns a stable wrapper component ─────────────────────
-function lazyPage(
-  factory: () => Promise<{ default: React.ComponentType<unknown> }>,
-  skeleton: SkeletonVariant = "dashboard"
-) {
-  const LazyComponent = lazy(factory);
-  return function LazyRouteWrapper() {
-    return (
-      <LazyErrorBoundary>
-        <Suspense fallback={<PageSkeleton variant={skeleton} />}>
-          <LazyComponent />
-        </Suspense>
-      </LazyErrorBoundary>
-    );
-  };
-}
-
-// ─── Preload helper — kick off import() without blocking render ───────────────
-const preloadCache = new Set<string>();
-const abortControllers = new Map<string, AbortController>();
-
-function preload(factory: () => Promise<unknown>, key: string) {
-  if (preloadCache.has(key)) return;
-  preloadCache.add(key);
-  
-  const controller = new AbortController();
-  abortControllers.set(key, controller);
-  
-  factory().catch(() => {/* ignore */}).finally(() => {
-    abortControllers.delete(key);
-  });
-}
-
-// Cleanup function for preloading
-export function cancelPreloads() {
-  abortControllers.forEach((controller) => controller.abort());
-  abortControllers.clear();
-}
-
 // ─── PreloadOnMount — preloads common routes after app is idle ────────────────
 export function PreloadCommonRoutes() {
   useEffect(() => {
     const mounted = { current: true };
-    
+
     const doPreload = () => {
       if (!mounted.current) return;
-      
+
       // Core pages only - reduce initial load
       preload(() => import("../pages/eps/page"), "eps");
       // HIDDEN 2026-05-25 (focus EPS+du học): melon = K-pop, not EPS audience
@@ -90,7 +32,7 @@ export function PreloadCommonRoutes() {
       preload(() => import("../pages/community/page"), "community");
       preload(() => import("../pages/profile/page"), "profile");
     };
-    
+
     const id = requestIdleCallback
       ? requestIdleCallback(doPreload, { timeout: 2000 })
       : setTimeout(doPreload, 1500);
@@ -115,71 +57,8 @@ export function PreloadCommonRoutes() {
 // const KpopFlashcardPage = lazyPage(() => import("../pages/kpop-flashcard/page"));
 // const EpsMelonPage = lazyPage(() => import("../pages/eps-melon/page"));
 
-// ─── EPS ──────────────────────────────────────────────────────────────────────
-const EpsPage = lazyPage(() => import("../pages/eps/page"));
-const EpsExamPage = lazyPage(() => import("../pages/eps-exam/page"), "exam");
-const EpsExamHistoryPage = lazyPage(() => import("../pages/eps-exam-history/page"));
-const EpsExamSchedulePage = lazyPage(() => import("../pages/eps-exam-schedule/page"));
-const EpsFlashcardPage = lazyPage(() => import("../pages/eps-flashcard/page"), "flashcard");
-const EpsLessonsPage = lazyPage(() => import("../pages/eps-lessons/page"));
-const EpsLessonQuizPage = lazyPage(() => import("../pages/eps-lesson-quiz/page"));
-const EpsListeningPage = lazyPage(() => import("../pages/eps-listening/page"));
-const EpsSpeakingPage = lazyPage(() => import("../pages/eps-speaking/page"));
-const EpsMockExamPage = lazyPage(() => import("../pages/eps-mock-exam/page"), "exam");
-const EpsOfficialExamPage = lazyPage(() => import("../pages/eps-official-exam/page"), "exam");
-const EpsDe1ExamPage = lazyPage(() => import("../pages/eps-de1-exam/page"), "exam");
-const EpsDe2ExamPage = lazyPage(() => import("../pages/eps-de2-exam/page"), "exam");
-const EpsPersonalizedRoadmapPage = lazyPage(() => import("../pages/eps-personalized-roadmap/page"));
-const EpsProgressRoadmapPage = lazyPage(() => import("../pages/eps-progress-roadmap/page"));
-const EpsQuickReviewPage = lazyPage(() => import("../pages/eps-quick-review/page"));
-const EpsReviewHistoryPage = lazyPage(() => import("../pages/eps-review-history/page"));
-const EpsSmartFlashcardPage = lazyPage(() => import("../pages/eps-smart-flashcard/page"), "flashcard");
-const EpsSmartWrongPage = lazyPage(() => import("../pages/eps-smart-wrong/page"));
-const EpsSpacedReviewPage = lazyPage(() => import("../pages/eps-spaced-review/page"), "flashcard");
-const EpsStatsPage = lazyPage(() => import("../pages/eps-stats/page"));
-const EpsStudyGroupPage = lazyPage(() => import("../pages/eps-study-group/page"));
-const EpsTopicDictionaryPage = lazyPage(() => import("../pages/eps-topic-dictionary/page"));
-const EpsTopicDrillPage = lazyPage(() => import("../pages/eps-topic-drill/page"));
-const EpsTopicExamPage = lazyPage(() => import("../pages/eps-topic-exam/page"));
-const EpsTopicStatsPage = lazyPage(() => import("../pages/eps-topic-stats/page"));
-const EpsTopicStudyPage = lazyPage(() => import("../pages/eps-topic-study/page"));
-const EpsTopicsPage = lazyPage(() => import("../pages/eps-topics/page"));
-const EpsVocabExportPage = lazyPage(() => import("../pages/eps-vocab-export/page"));
-const EpsVocabFlashcardPage = lazyPage(() => import("../pages/eps-vocab-flashcard/page"), "flashcard");
-const EpsVocabularyPage = lazyPage(() => import("../pages/eps-vocabulary/page"), "vocab");
-const EpsWeaknessAnalysisPage = lazyPage(() => import("../pages/eps-weakness-analysis/page"));
-const EpsWeeklyProgressPage = lazyPage(() => import("../pages/eps-weekly-progress/page"));
-const EpsWrongTopicPage = lazyPage(() => import("../pages/eps-wrong-topic/page"));
-const EpsLeaderboardPage = lazyPage(() => import("../pages/eps-leaderboard/page"));
-const EpsGlobalLeaderboardPage = lazyPage(() => import("../pages/eps-global-leaderboard/page"));
-const Eps30dayPlanPage = lazyPage(() => import("../pages/eps-30day-plan/page"));
-
-// ─── Seoul ────────────────────────────────────────────────────────────────────
-const SeoulTextbookPage = lazyPage(() => import("../pages/seoul-textbook/page"));
-const SeoulDictionaryPage = lazyPage(() => import("../pages/seoul-dictionary/page"));
-const SeoulExamPage = lazyPage(() => import("../pages/seoul-exam/page"));
-const SeoulFlashcardPage = lazyPage(() => import("../pages/seoul-flashcard/page"));
-const SeoulHanjaPage = lazyPage(() => import("../pages/seoul-hanja/page"));
-const SeoulLearningPathPage = lazyPage(() => import("../pages/seoul-learning-path/page"));
-const SeoulLessonQuizPage = lazyPage(() => import("../pages/seoul-lesson-quiz/page"));
-const SeoulListeningQuizPage = lazyPage(() => import("../pages/seoul-listening-quiz/page"));
-const SeoulPhrasesPage = lazyPage(() => import("../pages/seoul-phrases/page"));
-const SeoulPlacementPage = lazyPage(() => import("../pages/seoul-placement/page"));
-const SeoulPracticePage = lazyPage(() => import("../pages/seoul-practice/page"));
-const SeoulProgressPage = lazyPage(() => import("../pages/seoul-progress/page"));
-const SeoulStatsPage = lazyPage(() => import("../pages/seoul-stats/page"));
-const SeoulStreakPage = lazyPage(() => import("../pages/seoul-streak/page"));
-const SeoulTopicReviewPage = lazyPage(() => import("../pages/seoul-topic-review/page"));
-const SeoulTopicStudyPage = lazyPage(() => import("../pages/seoul-topic-study/page"));
-const SeoulVocabExportPage = lazyPage(() => import("../pages/seoul-vocab-export/page"));
-const SeoulWordPairsPage = lazyPage(() => import("../pages/seoul-word-pairs/page"));
-const SeoulWritingPage = lazyPage(() => import("../pages/seoul-writing/page"));
-const SeoulWrongReviewPage = lazyPage(() => import("../pages/seoul-wrong-review/page"));
-const SeoulVocabPracticePage = lazyPage(() => import("../pages/seoul-vocab-practice/page"), "flashcard");
-const SeoulGrammarPage = lazyPage(() => import("../pages/seoul-grammar/page"));
-const EpsGrammarPage = lazyPage(() => import("../pages/eps-grammar/page"));
-const EpsLessonDetailPage = lazyPage(() => import("../pages/eps-lesson-detail/page"));
-const EpsExamsPage = lazyPage(() => import("../pages/eps-exams/page"), "exam");
+// ─── EPS, Seoul, Admin routes ────────────────────────────────────────────────
+// Lazy imports moved to ./routes/eps.tsx, ./routes/seoul.tsx, ./routes/admin.tsx
 
 // ─── TOPIK ───────────────────────────────────────────────────────────────────
 const TopikTestPage = lazyPage(() => import("../pages/topik-test/page"), "exam");
@@ -280,7 +159,7 @@ const ReferralPage = lazyPage(() => import("../pages/referral/page"));
 const CTVPage = lazyPage(() => import("../pages/ctv/page"));
 const CTVInfoPage = lazyPage(() => import("../pages/ctv-info/page"));
 const PricingPage = lazyPage(() => import("../pages/pricing/page"));
-const AdminCTVPage = lazyPage(() => import("../pages/admin-ctv/page"));
+// AdminCTVPage moved to ./routes/admin.tsx
 
 // ─── Content ───────────────────────────────────────────────────────────────────
 const NaverPage = lazyPage(() => import("../pages/naver/page"));
@@ -363,59 +242,18 @@ const SpeedListeningPage = lazyPage(() => import("../pages/speed-listening/page"
 const SentencePatternVocabPage = lazyPage(() => import("../pages/sentence-pattern-vocab/page"));
 // HIDDEN 2026-05-25 (focus EPS+du học): duplicate of HangulWritingPage above
 // const HangulWritingNewPage = lazyPage(() => import("../pages/hangul-writing/page"));
-const AdminContentLearnPage = lazyPage(() => import("../pages/admin-content-learn/page"));
+// AdminContentLearnPage moved to ./routes/admin.tsx
 const GrammarByLevelPage = lazyPage(() => import("../pages/grammar-by-level/page"));
 const TopikExamWritingPage = lazyPage(() => import("../pages/topik-exam-writing/page"));
 
-// ─── Admin ───────────────────────────────────────────────────────────────────
-const AdminDashboardPage = lazyPage(() => import("../pages/admin-dashboard/page"));
-const AdminUsersPage = lazyPage(() => import("../pages/admin-users/page"));
-const AdminEpsPage = lazyPage(() => import("../pages/admin-eps/page"));
-const AdminEpsUploadPage = lazyPage(() => import("../pages/admin-eps-upload/page"));
-const AdminCouponPage = lazyPage(() => import("../pages/admin-coupon/page"));
-const AdminXPConfigPage = lazyPage(() => import("../pages/admin-xp-config/page"));
-const AdminWeeklyRewardsPage = lazyPage(() => import("../pages/admin-weekly-rewards/page"));
-const AdminGrammarPage = lazyPage(() => import("../pages/admin-grammar/page"));
-const AdminPricingPage = lazyPage(() => import("../pages/admin-pricing/page"));
-const AdminSeriesPage = lazyPage(() => import("../pages/admin-series/page"));
-const AdminStatsPage = lazyPage(() => import("../pages/admin-stats/page"));
-const AdminSettingsPage = lazyPage(() => import("../pages/admin-settings/page"));
-const AdminSEOPage = lazyPage(() => import("../pages/admin-seo/page"));
-const AdminCategorySEOPage = lazyPage(() => import("../pages/admin-category-seo/page"));
-const AdminPaymentPage = lazyPage(() => import("../pages/admin-payment/page"));
-const AdminLearnStatsPage = lazyPage(() => import("../pages/admin-learn-stats/page"));
-const AdminEpsNewPage = lazyPage(() => import("../pages/admin-eps-new/page"));
-const AdminUploadPage = lazyPage(() => import("../pages/admin-upload/page"));
-const AdminContentPage = lazyPage(() => import("../pages/admin-content/page"));
-const AdminBackupPage = lazyPage(() => import("../pages/admin-backup/page"));
-const AdminRolesPage = lazyPage(() => import("../pages/admin-roles/page"));
-const AdminAuditPage = lazyPage(() => import("../pages/admin-audit/page"));
-const AdminBroadcastPage = lazyPage(() => import("../pages/admin-broadcast/page"));
-const AdminSecurityPage = lazyPage(() => import("../pages/admin-security/page"));
-const AdminRevenuePage = lazyPage(() => import("../pages/admin-revenue/page"));
-const AdminAdsPage = lazyPage(() => import("../pages/admin-ads/page"));
-const AdminHanjaPage = lazyPage(() => import("../pages/admin-hanja/page"));
-const AdminHanjaExcelPage = lazyPage(() => import("../pages/admin-hanja-excel/page"));
-const AdminEpsVocabExcelPage = lazyPage(() => import("../pages/admin-eps-vocab-excel/page"));
-const AdminHanjaAudioPage = lazyPage(() => import("../pages/admin-hanja-audio/page"));
-const AdminAudioPage = lazyPage(() => import("../pages/admin-audio/page"));
-const AdminHanjaProSEOPage = lazyPage(() => import("../pages/admin-hanja-pro-seo/page"));
-const AdminControlPage = lazyPage(() => import("../pages/admin-control/page"));
-const AdminErrorLogsPage = lazyPage(() => import("../pages/admin-error-logs/page"));
-const AdminCommunitySettingsPage = lazyPage(() => import("../pages/admin-community-settings/page"));
-const AdminBugsPage = lazyPage(() => import("../pages/admin-bugs/page"));
-const AdminVipTransactionsPage = lazyPage(() => import("../pages/admin-vip-transactions/page"));
-const AdminZaloReminderPage = lazyPage(() => import("../pages/admin-zalo-reminder/page"));
-const AdminFeedbackPage = lazyPage(() => import("../pages/admin-feedback/page"));
-const AdminMelonPage = lazyPage(() => import("../pages/admin-melon/page"));
-const AdminNaverKinPage = lazyPage(() => import("../pages/admin-naver-kin/page"));
+// ─── Admin lazy imports moved to ./routes/admin.tsx ──────────────────────────
 const FeedbackPage = lazyPage(() => import("../pages/feedback/page"));
 const ReportBugPage = lazyPage(() => import("../pages/report-bug/page"));
 const VipHistoryPage = lazyPage(() => import("../pages/vip-history/page"));
 const DailyWordsPage = lazyPage(() => import("../pages/daily-words/page"));
 const LearningRoadmapPage = lazyPage(() => import("../pages/learning-roadmap/page"));
 const StudyStatsPage = lazyPage(() => import("../pages/study-stats/page"));
-const DataUploadPage = lazyPage(() => import("../pages/data-upload/page"));
+// DataUploadPage moved to ./routes/admin.tsx
 const ShareProgressPage = lazyPage(() => import("../pages/share-progress/page"));
 
 // ─── Routes ───────────────────────────────────────────────────────────────────
@@ -434,71 +272,11 @@ const routes: RouteObject[] = [
   // { path: "/kpop-flashcard", element: <KpopFlashcardPage /> },
   // { path: "/eps-melon", element: <EpsMelonPage /> },
 
-  // EPS
-  { path: "/eps", element: <EpsPage /> },
-  { path: "/eps-exam", element: <EpsExamPage /> },
-  { path: "/eps-exam-history", element: <EpsExamHistoryPage /> },
-  { path: "/eps-exam-schedule", element: <EpsExamSchedulePage /> },
-  { path: "/eps-flashcard", element: <EpsFlashcardPage /> },
-  { path: "/eps-lessons", element: <EpsLessonsPage /> },
-  { path: "/eps-lesson-quiz", element: <EpsLessonQuizPage /> },
-  { path: "/eps-listening", element: <EpsListeningPage /> },
-  { path: "/eps-speaking", element: <EpsSpeakingPage /> },
-  { path: "/eps-mock-exam", element: <EpsMockExamPage /> },
-  { path: "/eps-official-exam", element: <EpsOfficialExamPage /> },
-  { path: "/eps-personalized-roadmap", element: <EpsPersonalizedRoadmapPage /> },
-  { path: "/eps-progress-roadmap", element: <EpsProgressRoadmapPage /> },
-  { path: "/eps-quick-review", element: <EpsQuickReviewPage /> },
-  { path: "/eps-review-history", element: <EpsReviewHistoryPage /> },
-  { path: "/eps-smart-flashcard", element: <EpsSmartFlashcardPage /> },
-  { path: "/eps-smart-wrong", element: <EpsSmartWrongPage /> },
-  { path: "/eps-spaced-review", element: <EpsSpacedReviewPage /> },
-  { path: "/eps-stats", element: <EpsStatsPage /> },
-  { path: "/eps-study-group", element: <EpsStudyGroupPage /> },
-  { path: "/eps-topic-dictionary", element: <EpsTopicDictionaryPage /> },
-  { path: "/eps-topic-drill", element: <EpsTopicDrillPage /> },
-  { path: "/eps-topic-exam", element: <EpsTopicExamPage /> },
-  { path: "/eps-topic-stats", element: <EpsTopicStatsPage /> },
-  { path: "/eps-topic-study", element: <EpsTopicStudyPage /> },
-  { path: "/eps-topics", element: <EpsTopicsPage /> },
-  { path: "/eps-vocab-export", element: <EpsVocabExportPage /> },
-  { path: "/eps-vocab-flashcard", element: <EpsVocabFlashcardPage /> },
-  { path: "/eps-vocabulary", element: <EpsVocabularyPage /> },
-  { path: "/eps-weakness-analysis", element: <EpsWeaknessAnalysisPage /> },
-  { path: "/eps-weekly-progress", element: <EpsWeeklyProgressPage /> },
-  { path: "/eps-wrong-topic", element: <EpsWrongTopicPage /> },
-  { path: "/eps-leaderboard", element: <EpsLeaderboardPage /> },
-  { path: "/eps-global-leaderboard", element: <EpsGlobalLeaderboardPage /> },
-  { path: "/eps-30day-plan", element: <Eps30dayPlanPage /> },
-  { path: "/eps-grammar", element: <EpsGrammarPage /> },
-  { path: "/eps-lesson/:id", element: <EpsLessonDetailPage /> },
-  { path: "/eps-exams", element: <EpsExamsPage /> },
-  { path: "/eps-de1", element: <EpsDe1ExamPage /> },
-  { path: "/eps-de2", element: <EpsDe2ExamPage /> },
+  // EPS — moved to ./routes/eps.tsx
+  ...epsRoutes,
 
-  // Seoul
-  { path: "/seoul-textbook", element: <SeoulTextbookPage /> },
-  { path: "/seoul-dictionary", element: <SeoulDictionaryPage /> },
-  { path: "/seoul-exam", element: <SeoulExamPage /> },
-  { path: "/seoul-flashcard", element: <SeoulFlashcardPage /> },
-  { path: "/seoul-hanja", element: <SeoulHanjaPage /> },
-  { path: "/seoul-learning-path", element: <SeoulLearningPathPage /> },
-  { path: "/seoul-lesson-quiz", element: <SeoulLessonQuizPage /> },
-  { path: "/seoul-listening-quiz", element: <SeoulListeningQuizPage /> },
-  { path: "/seoul-phrases", element: <SeoulPhrasesPage /> },
-  { path: "/seoul-placement", element: <SeoulPlacementPage /> },
-  { path: "/seoul-practice", element: <SeoulPracticePage /> },
-  { path: "/seoul-progress", element: <SeoulProgressPage /> },
-  { path: "/seoul-stats", element: <SeoulStatsPage /> },
-  { path: "/seoul-streak", element: <SeoulStreakPage /> },
-  { path: "/seoul-topic-review", element: <SeoulTopicReviewPage /> },
-  { path: "/seoul-topic-study", element: <SeoulTopicStudyPage /> },
-  { path: "/seoul-vocab-export", element: <SeoulVocabExportPage /> },
-  { path: "/seoul-word-pairs", element: <SeoulWordPairsPage /> },
-  { path: "/seoul-writing", element: <SeoulWritingPage /> },
-  { path: "/seoul-wrong-review", element: <SeoulWrongReviewPage /> },
-  { path: "/seoul-vocab-practice", element: <SeoulVocabPracticePage /> },
-  { path: "/seoul-grammar", element: <SeoulGrammarPage /> },
+  // Seoul — moved to ./routes/seoul.tsx
+  ...seoulRoutes,
 
   // TOPIK
   { path: "/topik-test", element: <TopikTestPage /> },
@@ -614,59 +392,15 @@ const routes: RouteObject[] = [
   { path: "/learn-overview", element: <LearnOverviewPage /> },
   { path: "/learning-certificate", element: <LearningCertificatePage /> },
 
-  // Admin
-  { path: "/admin", element: <AdminDashboardPage /> },
-  { path: "/admin/users", element: <AdminUsersPage /> },
-  { path: "/admin/coupon", element: <RequirePermission permission="users.vip"><AdminCouponPage /></RequirePermission> },
-  { path: "/admin/xp-config", element: <RequirePermission permission="system.settings"><AdminXPConfigPage /></RequirePermission> },
-  { path: "/admin/weekly-rewards", element: <AdminWeeklyRewardsPage /> },
-  { path: "/admin/grammar", element: <AdminGrammarPage /> },
-  { path: "/admin/pricing", element: <RequirePermission permission="system.settings"><AdminPricingPage /></RequirePermission> },
-  { path: "/admin/series", element: <AdminSeriesPage /> },
-  { path: "/admin/stats", element: <AdminStatsPage /> },
-  { path: "/admin/settings", element: <RequirePermission permission="system.settings"><AdminSettingsPage /></RequirePermission> },
-  { path: "/admin/seo", element: <RequirePermission permission="system.settings"><AdminSEOPage /></RequirePermission> },
-  { path: "/admin/category-seo", element: <RequirePermission permission="system.settings"><AdminCategorySEOPage /></RequirePermission> },
-  { path: "/admin/payment", element: <RequirePermission permission="users.vip"><AdminPaymentPage /></RequirePermission> },
-  { path: "/admin/learn-stats", element: <AdminLearnStatsPage /> },
-  { path: "/admin/eps", element: <AdminEpsNewPage /> },
-  { path: "/admin/eps-new", element: <AdminEpsNewPage /> },
-  { path: "/admin/upload", element: <RequirePermission permission="eps.upload"><AdminUploadPage /></RequirePermission> },
-  { path: "/admin/content", element: <AdminContentPage /> },
-  { path: "/admin/backup", element: <RequirePermission permission="system.settings"><AdminBackupPage /></RequirePermission> },
-  { path: "/admin/roles", element: <RequirePermission permission="system.roles"><AdminRolesPage /></RequirePermission> },
-  { path: "/admin/audit", element: <RequirePermission permission="system.settings"><AdminAuditPage /></RequirePermission> },
-  { path: "/admin/broadcast", element: <RequirePermission permission="system.broadcast"><AdminBroadcastPage /></RequirePermission> },
-  { path: "/admin/security", element: <RequirePermission permission="system.settings"><AdminSecurityPage /></RequirePermission> },
-  { path: "/admin/revenue", element: <RequirePermission permission="users.vip"><AdminRevenuePage /></RequirePermission> },
-  { path: "/admin/ads", element: <RequirePermission permission="system.settings"><AdminAdsPage /></RequirePermission> },
-  { path: "/admin/hanja", element: <AdminGuard><AdminHanjaPage /></AdminGuard> },
-  { path: "/admin/hanja-audio", element: <AdminGuard><AdminHanjaAudioPage /></AdminGuard> },
-  { path: "/admin/audio", element: <AdminGuard><AdminAudioPage /></AdminGuard> },
-  { path: "/admin/hanja-excel", element: <RequirePermission permission="eps.upload"><AdminHanjaExcelPage /></RequirePermission> },
-  { path: "/admin/eps-vocab-excel", element: <RequirePermission permission="eps.upload"><AdminEpsVocabExcelPage /></RequirePermission> },
-  { path: "/admin/hanja-pro-seo", element: <AdminGuard><AdminHanjaProSEOPage /></AdminGuard> },
-  { path: "/admin/ctv", element: <AdminGuard><AdminCTVPage /></AdminGuard> },
-  { path: "/admin/control", element: <RequirePermission permission="system.settings"><AdminControlPage /></RequirePermission> },
-  { path: "/admin/bugs", element: <AdminBugsPage /> },
-  { path: "/admin/vip-transactions", element: <RequirePermission permission="users.vip"><AdminVipTransactionsPage /></RequirePermission> },
-  { path: "/admin/zalo-reminder", element: <RequirePermission permission="system.broadcast"><AdminZaloReminderPage /></RequirePermission> },
-  { path: "/admin/feedback", element: <AdminFeedbackPage /> },
-  { path: "/admin/error-logs", element: <RequirePermission permission="system.settings"><AdminErrorLogsPage /></RequirePermission> },
-  { path: "/admin/community-settings", element: <RequirePermission permission="content.view"><AdminCommunitySettingsPage /></RequirePermission> },
-  { path: "/admin-melon", element: <AdminGuard><AdminMelonPage /></AdminGuard> },
-  { path: "/admin-naver-kin", element: <AdminGuard><AdminNaverKinPage /></AdminGuard> },
+  // Admin — moved to ./routes/admin.tsx
+  ...adminRoutes,
   { path: "/feedback", element: <FeedbackPage /> },
   { path: "/report-bug", element: <ReportBugPage /> },
   { path: "/vip-history", element: <RequireAuth title="Lịch sử VIP"><VipHistoryPage /></RequireAuth> },
   { path: "/daily-words", element: <DailyWordsPage /> },
   { path: "/learning-roadmap", element: <LearningRoadmapPage /> },
   { path: "/study-stats", element: <RequireAuth title="Thống kê học tập"><StudyStatsPage /></RequireAuth> },
-  { path: "/data-upload", element: <AdminGuard><DataUploadPage /></AdminGuard> },
   { path: "/share-progress", element: <RequireAuth title="Chia sẻ tiến độ" message="Đăng nhập để tạo và tải ảnh tiến độ học tập của bạn."><ShareProgressPage /></RequireAuth> },
-  // Legacy routes (giữ lại để không break links cũ)
-  { path: "/admin-eps", element: <AdminEpsPage /> },
-  { path: "/admin-eps-upload", element: <AdminEpsUploadPage /> },
 
   // All Features
   { path: "/all-features", element: <AllFeaturesPage /> },
@@ -733,7 +467,7 @@ const routes: RouteObject[] = [
   { path: "/syllable-pronunciation", element: <SyllablePronunciationPage /> },
   { path: "/speed-listening", element: <SpeedListeningPage /> },
   { path: "/sentence-pattern-vocab", element: <SentencePatternVocabPage /> },
-  { path: "/admin/content-learn", element: <AdminContentLearnPage /> },
+  // /admin/content-learn moved to ./routes/admin.tsx (already in adminRoutes spread above)
   { path: "/grammar-by-level", element: <GrammarByLevelPage /> },
   { path: "/topik-exam-writing", element: <TopikExamWritingPage /> },
 
