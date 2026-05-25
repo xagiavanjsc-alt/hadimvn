@@ -4,6 +4,7 @@ import DashboardLayout from "@/components/feature/DashboardLayout";
 import { supabase, isVipActive } from "@/lib/supabase";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/components/base/Toast";
+import { usePageSEO } from "@/hooks/usePageSEO";
 
 interface PlanFeature {
   label: string;
@@ -319,6 +320,15 @@ export default function PricingPage() {
   const [showViolationModal, setShowViolationModal] = useState(false);
   const [paySettings, setPaySettings] = useState<any>(null);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
+
+  usePageSEO({
+    title: "Gói VIP — Mở khóa toàn bộ tính năng | Hàn Quốc Ơi!",
+    description: "Nâng cấp VIP để mở khóa AI lộ trình cá nhân, không quảng cáo, đề thi không giới hạn, ưu tiên hỗ trợ. Hỗ trợ thanh toán chuyển khoản — kích hoạt trong ngày.",
+    keywords: "VIP Hàn Quốc Ơi, giá VIP học tiếng Hàn, nâng cấp VIP EPS-TOPIK, gói trả phí XKLĐ Hàn",
+    path: "/pricing",
+    ogType: "website",
+    robots: "index, follow",
+  });
   const [payTab, setPayTab] = useState<"bank" | "momo">("bank");
   const [paymentProof, setPaymentProof] = useState<File | null>(null);
   const [paymentNote, setPaymentNote] = useState("");

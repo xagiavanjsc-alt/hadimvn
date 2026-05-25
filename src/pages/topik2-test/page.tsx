@@ -2,6 +2,7 @@
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { topik2Questions, type T2Question } from "@/mocks/topik2Questions";
+import { usePageSEO } from "@/hooks/usePageSEO";
 
 const TOTAL_TIME = 180 * 60;
 type Phase = "intro" | "exam" | "result";
@@ -370,6 +371,30 @@ export default function Topik2TestPage() {
   const [writeAnswers, setWriteAnswers] = useState<Record<string, string>>({});
   const [bestScore, setBestScore] = useLocalStorage<number>("kts_topik2_best", 0);
   const [attempts, setAttempts] = useLocalStorage<number>("kts_topik2_attempts", 0);
+
+  usePageSEO({
+    title: "Thi thử TOPIK II online — Nghe + Đọc + Viết | Hàn Quốc Ơi!",
+    description: "Thi thử TOPIK II miễn phí: nghe, đọc, viết luận trong 180 phút theo chuẩn đề thi TOPIK II chính thức. Phù hợp du học sinh và người muốn lên trung-cao cấp.",
+    keywords: "thi thử TOPIK II, đề TOPIK 2, đề TOPIK 4-5-6, luyện thi TOPIK II, viết luận TOPIK",
+    path: "/topik2-test",
+    ogType: "article",
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "Quiz",
+      name: "Thi thử TOPIK II online",
+      description: "Bài thi thử TOPIK II gồm Nghe + Đọc + Viết theo chuẩn đề chính thức.",
+      educationalLevel: "TOPIK II",
+      learningResourceType: "Practice Exam",
+      inLanguage: ["ko", "vi"],
+      timeRequired: "PT180M",
+      isAccessibleForFree: true,
+      provider: {
+        "@type": "EducationalOrganization",
+        name: "Hàn Quốc Ơi!",
+        url: "https://hanquocoi.vn",
+      },
+    },
+  });
 
   const handleExpire = useCallback(() => setPhase("result"), []);
   const { minutes, seconds, pct, isWarning, isDanger } = useTimer(phase === "exam", handleExpire);

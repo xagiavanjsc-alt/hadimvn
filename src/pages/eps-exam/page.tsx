@@ -8,6 +8,7 @@ import { useXPSystem } from "@/hooks/useXPSystem";
 import { useToast } from "@/components/base/Toast";
 import { epsQuestions } from "@/mocks/epsQuestions";
 import { isExamTooFast, isInCooldown, MIN_EPS_EXAM_TIME_SEC } from "@/lib/xp";
+import { usePageSEO } from "@/hooks/usePageSEO";
 import { STORAGE_KEYS } from "@/lib/storageKeys";
 
 interface ExamResult {
@@ -168,6 +169,29 @@ export default function EpsExamPage() {
   const [mode, setMode] = useState<"intro" | "exam" | "result">("intro");
   const [syncing, setSyncing] = useState(false);
   const [answers, setAnswers] = useState<Record<string, number>>({});
+
+  usePageSEO({
+    title: "Ngân hàng đề thi EPS-TOPIK [Online + Audio] | Hàn Quốc Ơi!",
+    description: "Ngân hàng câu hỏi EPS-TOPIK đa dạng theo chủ đề. Thi không giới hạn, nhận XP khi đạt điểm cao, theo dõi điểm yếu. Đáp án và giải thích chi tiết.",
+    keywords: "đề thi EPS, ngân hàng câu hỏi EPS, đề thi EPS-TOPIK online, luyện thi EPS XKLĐ",
+    path: "/eps-exam",
+    ogType: "article",
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "Quiz",
+      name: "Ngân hàng đề thi EPS-TOPIK",
+      description: "Bộ câu hỏi EPS-TOPIK phong phú, đa dạng chủ đề.",
+      educationalLevel: "EPS-TOPIK",
+      learningResourceType: "Quiz",
+      inLanguage: ["ko", "vi"],
+      isAccessibleForFree: true,
+      provider: {
+        "@type": "EducationalOrganization",
+        name: "Hàn Quốc Ơi!",
+        url: "https://hanquocoi.vn",
+      },
+    },
+  });
   const [currentIdx, setCurrentIdx] = useState(0);
   const [timeLeft, setTimeLeft] = useState(EXAM_DURATION);
   const [flagged, setFlagged] = useState<Set<string>>(new Set());

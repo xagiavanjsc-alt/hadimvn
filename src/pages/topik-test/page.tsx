@@ -3,6 +3,7 @@ import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { topikQuestions, type TopikQuestion } from "@/mocks/topikQuestions";
 import ShareResultCard from "@/components/feature/ShareResultCard";
+import { usePageSEO } from "@/hooks/usePageSEO";
 
 const TOTAL_TIME = 100 * 60; // 100 phút = 6000 giây
 const TOTAL_QUESTIONS = 50;
@@ -258,6 +259,31 @@ export default function TopikTestPage() {
   const [currentSection, setCurrentSection] = useState<"listening" | "reading">("listening");
   const [bestScore, setBestScore] = useLocalStorage<number>("kts_topik1_best", 0);
   const [attemptCount, setAttemptCount] = useLocalStorage<number>("kts_topik1_attempts", 0);
+
+  usePageSEO({
+    title: "Thi thử TOPIK I online — 50 câu, 100 phút | Hàn Quốc Ơi!",
+    description: "Thi thử TOPIK I miễn phí: 50 câu nghe + đọc trong 100 phút. Đúng format đề thi TOPIK I chính thức, có đáp án và giải thích. Dành cho người mới đến trung cấp.",
+    keywords: "thi thử TOPIK I, đề TOPIK 1, thi TOPIK online, luyện thi TOPIK, đề thi tiếng Hàn TOPIK",
+    path: "/topik-test",
+    ogType: "article",
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "Quiz",
+      name: "Thi thử TOPIK I online",
+      description: "Bài thi thử TOPIK I 50 câu trong 100 phút theo chuẩn đề chính thức.",
+      educationalLevel: "TOPIK I",
+      learningResourceType: "Practice Exam",
+      inLanguage: ["ko", "vi"],
+      timeRequired: "PT100M",
+      numberOfQuestions: 50,
+      isAccessibleForFree: true,
+      provider: {
+        "@type": "EducationalOrganization",
+        name: "Hàn Quốc Ơi!",
+        url: "https://hanquocoi.vn",
+      },
+    },
+  });
 
   const handleExpire = useCallback(() => {
     setPhase("result");

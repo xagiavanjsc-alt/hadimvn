@@ -2,6 +2,7 @@
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/hooks/useAuth";
+import { usePageSEO } from "@/hooks/usePageSEO";
 
 interface GrammarItem {
   id: number;
@@ -57,6 +58,29 @@ export default function EpsGrammarPage() {
   const [levelFilter, setLevelFilter] = useState<LevelFilter>("all");
   const [lessonFilter, setLessonFilter] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+
+  usePageSEO({
+    title: "Ngữ pháp EPS-TOPIK — Cấu trúc câu + Ví dụ | Hàn Quốc Ơi!",
+    description: "Trọn bộ ngữ pháp EPS-TOPIK theo từng bài. Mỗi cấu trúc có nghĩa Việt, ví dụ song ngữ, lọc theo bài và trình độ. Miễn phí cho người Việt thi XKLĐ.",
+    keywords: "ngữ pháp EPS, ngữ pháp tiếng Hàn EPS-TOPIK, cấu trúc câu tiếng Hàn, ngữ pháp XKLĐ Hàn Quốc",
+    path: "/eps-grammar",
+    ogType: "website",
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "LearningResource",
+      name: "Ngữ pháp EPS-TOPIK",
+      description: "Bộ ngữ pháp EPS-TOPIK theo từng bài có ví dụ song ngữ.",
+      learningResourceType: "Lesson",
+      educationalLevel: "EPS-TOPIK",
+      inLanguage: ["vi", "ko"],
+      isAccessibleForFree: true,
+      provider: {
+        "@type": "EducationalOrganization",
+        name: "Hàn Quốc Ơi!",
+        url: "https://hanquocoi.vn",
+      },
+    },
+  });
   const [expandedId, setExpandedId] = useState<number | null>(null);
   const [favorites, setFavorites] = useState<Set<number>>(new Set());
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);

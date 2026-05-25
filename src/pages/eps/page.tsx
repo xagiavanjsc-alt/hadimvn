@@ -6,6 +6,7 @@ import { useStudySync } from "@/hooks/useStudySync";
 import { epsQuestions, EPS_TOPICS, type EpsQuestion } from "@/mocks/epsQuestions";
 import PronunciationRecorder from "@/components/feature/PronunciationRecorder";
 import ImageWithFallback from "@/components/base/ImageWithFallback";
+import { usePageSEO } from "@/hooks/usePageSEO";
 
 function speakKorean(text: string) {
   if (!window.speechSynthesis) return;
@@ -156,6 +157,28 @@ export default function EpsPage() {
   const [selectedTopic, setSelectedTopic] = useState<string>("greeting");
   const [answeredMap, setAnsweredMap] = useLocalStorage<Record<string, number>>("kts_eps_answers", {});
   const [currentIdx, setCurrentIdx] = useState(0);
+
+  usePageSEO({
+    title: "EPS-TOPIK Hub — Học, luyện thi, đề thi 2025 | Hàn Quốc Ơi!",
+    description: "Tổng hợp tài liệu EPS-TOPIK cho người Việt đi XKLĐ Hàn Quốc: 60 bài học, ngân hàng câu hỏi theo chủ đề, đề thi 2025 có đáp án + audio, flashcard.",
+    keywords: "EPS-TOPIK, học EPS, đề thi EPS, từ vựng EPS, XKLĐ Hàn Quốc, luyện thi EPS",
+    path: "/eps",
+    ogType: "website",
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "Course",
+      name: "EPS-TOPIK Hub",
+      description: "Trung tâm tài liệu EPS-TOPIK miễn phí: bài học, đề thi, từ vựng, flashcard.",
+      educationalLevel: "EPS-TOPIK",
+      inLanguage: ["vi", "ko"],
+      isAccessibleForFree: true,
+      provider: {
+        "@type": "EducationalOrganization",
+        name: "Hàn Quốc Ơi!",
+        url: "https://hanquocoi.vn",
+      },
+    },
+  });
   const [mode, setMode] = useState<"topics" | "practice" | "result">("topics");
   const [sessionAnswers, setSessionAnswers] = useState<Record<string, number>>({});
   const [showRecorder, setShowRecorder] = useState(false);

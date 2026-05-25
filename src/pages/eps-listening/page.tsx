@@ -3,6 +3,7 @@ import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useXPSystem } from "@/hooks/useXPSystem";
 import { EPS_LESSON_TOPICS } from "@/mocks/epsLessons";
+import { usePageSEO } from "@/hooks/usePageSEO";
 
 // ─── Types ────────────────────────────────────────────────────────────────
 interface ListeningQuestion {
@@ -435,6 +436,29 @@ export default function EpsListeningPage() {
   const [showScripts, setShowScripts] = useState<Record<string, boolean>>({});
   const [mode, setMode] = useState<"browse" | "exam">("browse");
   const [examIdx, setExamIdx] = useState(0);
+
+  usePageSEO({
+    title: "Luyện nghe EPS-TOPIK — Audio + Script Hàn-Việt | Hàn Quốc Ơi!",
+    description: "Luyện kỹ năng nghe EPS-TOPIK theo chủ đề. Audio gốc tốc độ chuẩn + bản dịch Việt + câu hỏi trắc nghiệm. Cải thiện điểm nghe trong kỳ thi EPS XKLĐ.",
+    keywords: "luyện nghe EPS, nghe tiếng Hàn EPS-TOPIK, audio EPS, listening EPS, đề nghe EPS XKLĐ",
+    path: "/eps-listening",
+    ogType: "article",
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "LearningResource",
+      name: "Luyện nghe EPS-TOPIK",
+      description: "Bài luyện nghe EPS-TOPIK theo chủ đề có audio + script.",
+      learningResourceType: "Audio",
+      educationalLevel: "EPS-TOPIK",
+      inLanguage: ["ko", "vi"],
+      isAccessibleForFree: true,
+      provider: {
+        "@type": "EducationalOrganization",
+        name: "Hàn Quốc Ơi!",
+        url: "https://hanquocoi.vn",
+      },
+    },
+  });
   const [examAnswers, setExamAnswers] = useState<Record<string, number>>({});
   const [examDone, setExamDone] = useState(false);
 

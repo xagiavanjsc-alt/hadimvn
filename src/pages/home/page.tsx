@@ -8,6 +8,7 @@ import { useApiCostTracker } from "@/hooks/useApiCostTracker";
 import { epsQuestions } from "@/mocks/epsQuestions";
 import QuickStartGuide from "@/pages/home/components/QuickStartGuide";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
+import { usePageSEO } from "@/hooks/usePageSEO";
 import { getStreakData } from "@/utils/streak";
 
 const SRReviewWidget = lazy(() => import("@/pages/home/components/SRReviewWidget"));
@@ -201,6 +202,15 @@ function ToolRow({
 export default function Home() {
   const navigate = useNavigate();
   const [hanjaCount, setHanjaCount] = useState<number | null>(null);
+
+  usePageSEO({
+    title: "Hàn Quốc Ơi! — Luyện thi EPS-TOPIK, học tiếng Hàn miễn phí",
+    description: "Trang chủ Hàn Quốc Ơi! — Bắt đầu hành trình EPS-TOPIK của bạn: 60 bài học, ngân hàng đề thi, từ vựng theo chủ đề, flashcard, luyện nghe. Miễn phí.",
+    keywords: "Hàn Quốc Ơi, học tiếng Hàn, EPS-TOPIK, XKLĐ Hàn Quốc, học tiếng Hàn online",
+    path: "/home",
+    ogType: "website",
+  });
+
   useEffect(() => {
     supabase.from("hanja_pro").select("id", { count: "exact", head: true })
       .then(({ count }) => { if (count !== null) setHanjaCount(count); });

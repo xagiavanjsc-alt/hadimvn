@@ -3,6 +3,7 @@ import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { epsVocabulary, EPS_VOCAB_TOPICS, type EpsVocabItem } from "@/mocks/epsVocabulary";
 import { useXPSystem } from "@/hooks/useXPSystem";
+import { usePageSEO } from "@/hooks/usePageSEO";
 
 // ─── Flip Card ────────────────────────────────────────────────────────────
 function EpsFlipCard({
@@ -233,6 +234,29 @@ export default function EpsFlashcardPage() {
   const [filterMode, setFilterMode] = useState<"all" | "unmastered">("unmastered");
   const [mode, setMode] = useState<"browse" | "study" | "done">("browse");
   const [studyQueue, setStudyQueue] = useState<EpsVocabItem[]>([]);
+
+  usePageSEO({
+    title: "Flashcard EPS-TOPIK — Ghi nhớ từ vựng nhanh | Hàn Quốc Ơi!",
+    description: "Flashcard từ vựng EPS-TOPIK theo chủ đề, có audio phát âm. Lật thẻ để ghi nhớ nghĩa Việt-Hàn, theo dõi tiến độ từ đã thuộc. Miễn phí 100%.",
+    keywords: "flashcard EPS, flashcard tiếng Hàn, ghi nhớ từ vựng EPS, học từ vựng Hàn Quốc, flashcard XKLĐ",
+    path: "/eps-flashcard",
+    ogType: "website",
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "LearningResource",
+      name: "Flashcard EPS-TOPIK",
+      description: "Bộ flashcard từ vựng EPS-TOPIK chia theo chủ đề, có audio.",
+      learningResourceType: "Flashcard",
+      educationalLevel: "EPS-TOPIK",
+      inLanguage: ["vi", "ko"],
+      isAccessibleForFree: true,
+      provider: {
+        "@type": "EducationalOrganization",
+        name: "Hàn Quốc Ơi!",
+        url: "https://hanquocoi.vn",
+      },
+    },
+  });
   const [currentIdx, setCurrentIdx] = useState(0);
   const [sessionKnown, setSessionKnown] = useState<string[]>([]);
   const [sessionWrong, setSessionWrong] = useState<string[]>([]);
