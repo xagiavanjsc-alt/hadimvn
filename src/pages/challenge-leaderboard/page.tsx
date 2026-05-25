@@ -273,7 +273,7 @@ export default function ChallengeLeaderboardPage() {
               </div>
             )}
             <div className="mt-4 pt-4 border-t border-app-border">
-              <a href="/friend-challenge" className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap transition-colors">
+              <a href="/challenge" className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm cursor-pointer whitespace-nowrap transition-colors">
                 <i className="ri-sword-line"></i>Tạo thách đấu mới
               </a>
             </div>

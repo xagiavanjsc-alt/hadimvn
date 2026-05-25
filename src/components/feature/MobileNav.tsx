@@ -10,7 +10,7 @@ const BOTTOM_NAV = [
   { path: "/", icon: "ri-home-4-line", label: "Trang chủ", exact: true },
   { path: "/eps-lessons", icon: "ri-book-open-line", label: "Học EPS" },
   { path: "/eps-exam", icon: "ri-survey-line", label: "Đề thi" },
-  { path: "/melon", icon: "ri-music-2-line", label: "K-pop" },
+  { path: "/eps-flashcard", icon: "ri-stack-line", label: "Flashcard" },
 ];
 
 // ─── Slide-up menu — mirror desktop Sidebar (focus EPS-XKLĐ) ────────────────
@@ -45,9 +45,10 @@ const MENU_GROUPS = [
     ],
   },
   {
-    label: "Học giải trí",
+    label: "Học thêm",
     items: [
-      { path: "/melon", icon: "ri-music-2-line", label: "Học qua K-pop" },
+      // HIDDEN 2026-05-25 (focus EPS+du học): K-pop off-focus
+      // { path: "/melon", icon: "ri-music-2-line", label: "Học qua K-pop" },
       { path: "/daily-words", icon: "ri-sun-line", label: "Từ mới mỗi ngày" },
     ],
   },

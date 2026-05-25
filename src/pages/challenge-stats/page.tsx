@@ -170,7 +170,7 @@ export default function ChallengeStatsPage() {
       subtitle="Phân tích chi tiết kết quả thách đấu — chủ đề mạnh/yếu, xu hướng theo tuần"
       actions={
         <button
-          onClick={() => navigate("/friend-challenge")}
+          onClick={() => navigate("/challenge")}
           className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm px-5 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
         >
           <i className="ri-sword-line"></i>Tạo thách đấu mới
@@ -371,7 +371,7 @@ export default function ChallengeStatsPage() {
             <div className="text-center py-16 bg-app-bg border border-app-border rounded-2xl">
               <i className="ri-history-line text-white/10 text-3xl mb-2 block"></i>
               <p className="text-app-text-muted text-sm">Chưa có lịch sử thách đấu</p>
-              <button onClick={() => navigate("/friend-challenge")} className="mt-3 text-app-accent-primary text-xs cursor-pointer">Tạo thách đấu ngay →</button>
+              <button onClick={() => navigate("/challenge")} className="mt-3 text-app-accent-primary text-xs cursor-pointer">Tạo thách đấu ngay →</button>
             </div>
           ) : (
             completed.map((c, i) => {
