@@ -69,6 +69,7 @@ export type UserProfile = {
   vip_expires_at: string | null;
   is_admin: boolean;
   user_role: "super_admin" | "smod" | "moderator" | "member";
+  onboarded_at: string | null;
   created_at: string;
   updated_at: string;
 };

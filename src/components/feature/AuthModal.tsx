@@ -3,7 +3,6 @@ import { useAuth } from "@/hooks/useAuth";
 import { useStudySync } from "@/hooks/useStudySync";
 import { supabase } from "@/lib/supabase";
 import { validateSignupEmail } from "@/lib/emailValidation";
-import { STORAGE_KEYS } from "@/lib/storageKeys";
 
 interface AuthModalProps {
   onClose: () => void;
@@ -112,11 +111,8 @@ export default function AuthModal({ onClose }: AuthModalProps) {
           setError(translateError(err.message));
           return;
         }
-        // Set BEFORE auth state propagates — OnboardingGate (in App.tsx) reads this
-        // on the next SIGNED_IN event and navigates to /onboarding. localStorage so
-        // it survives email-confirm opening a new tab.
-        localStorage.setItem(STORAGE_KEYS.JUST_SIGNED_UP, "1");
-        localStorage.removeItem(STORAGE_KEYS.ONBOARDING_DONE);
+        // Onboarding redirect is now driven by user_profiles.onboarded_at via
+        // OnboardingGate — see migration 116. No client-side flag needed.
         if (data.user && data.session) {
           // Auto-confirmed: gate handles navigation; just sync + close.
           await syncToCloud(data.user.id);
@@ -124,7 +120,6 @@ export default function AuthModal({ onClose }: AuthModalProps) {
           onClose();
           return;
         }
-        // Email-confirm: show verify screen; magic link in any tab triggers gate.
         setMode("verify");
       }
     } finally {

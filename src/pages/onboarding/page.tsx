@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { STORAGE_KEYS } from "@/lib/storageKeys";
+import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/lib/supabase";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface RoadmapItem {
@@ -152,7 +154,7 @@ function OptionCard({
 }
 
 // ─── Roadmap Result Screen ────────────────────────────────────────────────────
-function RoadmapScreen({ roadmap, onStart, onRedo }: { roadmap: RoadmapResult; onStart: () => void; onRedo: () => void }) {
+function RoadmapScreen({ roadmap, onStart, onRedo }: { roadmap: RoadmapResult; onStart: () => Promise<void> | void; onRedo: () => void }) {
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
 
@@ -227,7 +229,7 @@ function RoadmapScreen({ roadmap, onStart, onRedo }: { roadmap: RoadmapResult; o
 
       {/* Actions */}
       <button
-        onClick={() => { onStart(); navigate(roadmap.primaryPath); }}
+        onClick={async () => { await onStart(); navigate(roadmap.primaryPath); }}
         className="w-full py-4 rounded-2xl font-bold text-base transition-all cursor-pointer whitespace-nowrap mb-2"
         style={{ backgroundColor: "app-accent-primary", color: "#0f1117" }}
       >
@@ -250,6 +252,7 @@ function RoadmapScreen({ roadmap, onStart, onRedo }: { roadmap: RoadmapResult; o
 // ─── Main Page ────────────────────────────────────────────────────────────────
 export default function OnboardingPage() {
   const navigate = useNavigate();
+  const { user, refreshProfile } = useAuth();
   const [step, setStep] = useState(0); // 0=welcome, 1=level, 2=goal, 3=time, 4=result
   const [level, setLevel] = useState("");
   const [goal, setGoal] = useState("");
@@ -269,11 +272,24 @@ export default function OnboardingPage() {
     }, 1800);
   };
 
-  const handleStart = () => {
-    // Save onboarding complete
+  const handleStart = async () => {
+    // Local marker (kept for legacy code that may still check it).
     localStorage.setItem(STORAGE_KEYS.ONBOARDING_DONE, "1");
-    // Defensive: clear the post-signup flag if it lingered (gate normally clears it)
-    localStorage.removeItem(STORAGE_KEYS.JUST_SIGNED_UP);
+    // Authoritative: mark the user's profile as onboarded so OnboardingGate
+    // doesn't redirect them on the next login from any device.
+    if (user) {
+      const { error } = await supabase
+        .from("user_profiles")
+        .update({ onboarded_at: new Date().toISOString() })
+        .eq("id", user.id);
+      if (error) {
+        console.warn("[onboarding] failed to persist onboarded_at:", error.message);
+        // Non-fatal: user still proceeds. Gate will redirect again next login,
+        // which is annoying but recoverable. Logging surfaces it for triage.
+      } else {
+        await refreshProfile();
+      }
+    }
   };
 
   const canProceed = (s: number) => {

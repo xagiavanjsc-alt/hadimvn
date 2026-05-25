@@ -33,7 +33,6 @@ export const STORAGE_KEYS = {
   // ─── Settings / onboarding ──────────────────────────────────────────────
   SETTINGS: "kts_settings",
   ONBOARDING_DONE: "kts_onboarding_done",
-  JUST_SIGNED_UP: "kts_just_signed_up",
   LAST_STUDY_TIME: "kts_last_study_time",
   BEST_SCORE: "kts_best_score",
   COUPONS: "kts_coupons",

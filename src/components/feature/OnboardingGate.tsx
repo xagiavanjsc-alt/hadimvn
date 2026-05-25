@@ -1,28 +1,34 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
-import { STORAGE_KEYS } from "@/lib/storageKeys";
 
 /**
- * Redirects new signups to /onboarding on first authenticated render after
- * signup. The flag is set in AuthModal.handleSubmit (signup branch) and lives
- * in localStorage so it survives email-confirm opening a different tab/window.
- * One-shot: cleared after the redirect so the user can leave /onboarding
- * freely without being yanked back.
+ * Redirects users with no completed onboarding to /onboarding on every
+ * authenticated render. Source of truth is `user_profiles.onboarded_at`:
+ *   NULL → never finished the quiz → force redirect.
+ *   NOT NULL → completed at that timestamp → stay out of the way.
  *
- * Why this lives outside AuthModal:
- *   The email-confirm magic link can open in a new tab where AuthModal isn't
- *   mounted. Putting the redirect at the App level means any tab that becomes
- *   authenticated with the flag set will trigger the redirect.
+ * Why DB instead of localStorage:
+ *   The original localStorage flag broke whenever the email-confirm magic
+ *   link landed in a different storage partition than where signup happened
+ *   (incognito↔regular, mobile↔desktop). A column on the user row works
+ *   across browsers, devices, sessions.
+ *
+ * Skips redirecting when already on /onboarding (avoids an infinite loop
+ * while the page itself runs).
  */
 export default function OnboardingGate() {
-  const { user } = useAuth();
+  const { user, profile } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+
   useEffect(() => {
     if (!user) return;
-    if (localStorage.getItem(STORAGE_KEYS.JUST_SIGNED_UP) !== "1") return;
-    localStorage.removeItem(STORAGE_KEYS.JUST_SIGNED_UP);
+    if (!profile) return; // wait for profile fetch
+    if (profile.onboarded_at) return; // already onboarded
+    if (location.pathname === "/onboarding") return; // don't loop
     navigate("/onboarding", { replace: true });
-  }, [user, navigate]);
+  }, [user, profile, location.pathname, navigate]);
+
   return null;
 }
