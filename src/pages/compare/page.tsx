@@ -199,13 +199,13 @@ export default function ComparePage() {
             <i className="ri-layout-column-line text-app-text-muted text-3xl"></i>
           </div>
           <p className="text-app-text-secondary text-sm font-medium">Cần ít nhất 2 bài học đã duyệt</p>
-          <p className="text-app-text-muted text-xs mt-1 mb-5">Hiện có {approvedLessons.length} bài — duyệt thêm trong K-pop Lesson</p>
+          <p className="text-app-text-muted text-xs mt-1 mb-5">Hiện có {approvedLessons.length} bài — học thêm bài EPS để so sánh</p>
           <a
-            href="/melon"
+            href="/eps-lessons"
             className="flex items-center gap-2 bg-app-accent-primary/10 hover:bg-app-accent-primary/20 text-app-accent-primary text-sm font-medium px-5 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
           >
-            <i className="ri-music-2-line"></i>
-            Đến K-pop Lesson
+            <i className="ri-book-open-line"></i>
+            Đến bài học EPS
           </a>
         </div>
       ) : (

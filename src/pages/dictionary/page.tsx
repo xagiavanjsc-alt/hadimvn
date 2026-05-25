@@ -319,13 +319,13 @@ export default function DictionaryPage() {
             <i className="ri-book-open-line text-app-text-muted text-3xl"></i>
           </div>
           <p className="text-app-text-secondary text-sm font-medium">Chưa có từ vựng nào</p>
-          <p className="text-app-text-muted text-xs mt-1 mb-5">Duyệt bài học trong K-pop Lesson để tích lũy từ vựng</p>
+          <p className="text-app-text-muted text-xs mt-1 mb-5">Học từ vựng EPS để tích lũy vốn từ</p>
           <a
-            href="/melon"
+            href="/eps-vocabulary"
             className="flex items-center gap-2 bg-app-accent-primary/10 hover:bg-app-accent-primary/20 text-app-accent-primary text-sm font-medium px-5 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap"
           >
-            <i className="ri-music-2-line"></i>
-            Đến K-pop Lesson
+            <i className="ri-book-open-line"></i>
+            Học từ vựng EPS
           </a>
         </div>
       ) : (
