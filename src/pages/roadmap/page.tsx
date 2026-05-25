@@ -346,8 +346,8 @@ export default function RoadmapPage() {
             <h3 className="text-white font-semibold text-sm mb-3">Học ngay</h3>
             <div className="space-y-2">
               {[
-                { icon: "ri-stack-line", label: "Ôn flashcard", sub: "Luyện từ vựng", path: "/flashcard", color: "app-accent-primary" },
-                { icon: "ri-music-2-line", label: "K-pop Lesson", sub: "Tạo bài học mới", path: "/melon", color: "#34d399" },
+                { icon: "ri-stack-line", label: "Ôn flashcard EPS", sub: "Luyện từ vựng EPS", path: "/eps-flashcard", color: "app-accent-primary" },
+                { icon: "ri-timer-line", label: "Thi thử EPS", sub: "40 câu mô phỏng", path: "/eps-exam", color: "#34d399" },
                 { icon: "ri-book-2-line", label: "Ebook Builder", sub: "Xuất bản ebook", path: "/ebook", color: "#fb923c" },
               ].map(item => (
                 <button

@@ -16,7 +16,8 @@ const GUIDE_SECTIONS: Omit<Section, "content">[] = [
   { id: "features", title: "Tính năng nổi bật", icon: "ri-star-line", color: "text-amber-600", bg: "bg-amber-50" },
   { id: "hanja", title: "Học Hán-Hàn hiệu quả", icon: "ri-translate-2", color: "text-indigo-600", bg: "bg-indigo-50" },
   { id: "topik", title: "Luyện thi TOPIK", icon: "ri-file-paper-2-line", color: "text-green-600", bg: "bg-green-50" },
-  { id: "kpop", title: "Học qua K-pop", icon: "ri-music-2-line", color: "text-pink-600", bg: "bg-pink-50" },
+  // HIDDEN 2026-05-25 (focus EPS+du học): K-pop tab off-focus, /melon hidden
+  // { id: "kpop", title: "Học qua K-pop", icon: "ri-music-2-line", color: "text-pink-600", bg: "bg-pink-50" },
   { id: "tips", title: "Mẹo học tiếng Hàn", icon: "ri-lightbulb-line", color: "text-orange-600", bg: "bg-orange-50" },
   { id: "roadmap", title: "Lộ trình học", icon: "ri-route-line", color: "text-teal-600", bg: "bg-teal-50" },
   { id: "community", title: "Cộng đồng & Chia sẻ", icon: "ri-team-line", color: "text-violet-600", bg: "bg-violet-50" },
@@ -614,7 +615,8 @@ const SECTION_CONTENT: Record<string, React.ReactNode> = {
   features: <FeaturesSection />,
   hanja: <HanjaSection />,
   topik: <TopikSection />,
-  kpop: <KpopSection />,
+  // kpop tab hidden 2026-05-25 (focus EPS+du học)
+  // kpop: <KpopSection />,
   tips: <TipsSection />,
   roadmap: <RoadmapSection />,
   community: <CommunitySection />,

@@ -64,35 +64,15 @@ function generateRoadmap(level: string, goal: string, dailyTime: string): Roadma
   }
 
   if (goal === "K-Pop & K-Drama") {
-    return {
-      title: "Lộ trình học qua K-pop & K-Drama",
-      description: "Học tiếng Hàn tự nhiên qua âm nhạc và phim ảnh — cách học vui nhất và hiệu quả nhất!",
-      dailyTime: timeMap[dailyTime] || "20 phút",
-      estimatedWeeks: 12,
-      primaryPath: "/melon",
-      items: [
-        { week: "Tuần 1–2", title: "Hangul & Phát âm cơ bản", tasks: ["Học Hangul trong 7 ngày", "Luyện phát âm AI", "Từ vựng K-pop cơ bản"], path: "/hangul", icon: "ri-font-size", color: "#f472b6" },
-        { week: "Tuần 3–5", title: "Học qua bài hát K-pop", tasks: ["Phân tích lời bài hát", "Flashcard từ vựng K-pop", "Luyện hát theo"], path: "/melon", icon: "ri-music-2-line", color: "app-accent-primary" },
-        { week: "Tuần 6–8", title: "Hội thoại & Giao tiếp", tasks: ["Hội thoại AI thực tế", "Từ vựng giao tiếp hàng ngày", "Ngữ pháp cơ bản"], path: "/conversation", icon: "ri-chat-voice-line", color: "#34d399" },
-        { week: "Tuần 9+", title: "Nâng cao & Cộng đồng", tasks: ["Tham gia cộng đồng", "Chia sẻ tiến độ", "Học từ tin tức Hàn"], path: "/community", icon: "ri-group-line", color: "#60a5fa" },
-      ],
-    };
+    // HIDDEN 2026-05-25 (focus EPS+du học): K-pop goal off-focus, /melon hidden.
+    // Fall through to default (Công việc & Kinh doanh).
+    return generateRoadmap(level, "Công việc & Kinh doanh", dailyTime);
   }
 
   if (goal === "Du lịch Hàn Quốc") {
-    return {
-      title: "Lộ trình tiếng Hàn du lịch",
-      description: "Tập trung vào giao tiếp thực tế — đặt phòng, hỏi đường, mua sắm, ăn uống tại Hàn Quốc.",
-      dailyTime: timeMap[dailyTime] || "10 phút",
-      estimatedWeeks: 6,
-      primaryPath: "/conversation",
-      items: [
-        { week: "Tuần 1", title: "Hangul & Phát âm", tasks: ["Đọc được bảng hiệu Hangul", "Phát âm cơ bản", "Số đếm & Tiền tệ"], path: "/hangul", icon: "ri-font-size", color: "#34d399" },
-        { week: "Tuần 2–3", title: "Giao tiếp cơ bản", tasks: ["Chào hỏi & Giới thiệu", "Hỏi đường & Chỉ đường", "Đặt đồ ăn tại nhà hàng"], path: "/conversation", icon: "ri-chat-voice-line", color: "#fb923c" },
-        { week: "Tuần 4–5", title: "Mua sắm & Di chuyển", tasks: ["Từ vựng mua sắm", "Tàu điện ngầm Seoul", "Giao tiếp tại cửa hàng"], path: "/vocabulary", icon: "ri-translate-2", color: "#60a5fa" },
-        { week: "Tuần 6", title: "Thực hành & Tự tin", tasks: ["Hội thoại AI thực tế", "Luyện phát âm chuẩn", "Từ điển cụm từ du lịch"], path: "/phrase-dictionary", icon: "ri-map-pin-line", color: "app-accent-primary" },
-      ],
-    };
+    // HIDDEN 2026-05-25 (focus EPS+du học): tourism goal off-focus.
+    // Fall through to default (Công việc & Kinh doanh).
+    return generateRoadmap(level, "Công việc & Kinh doanh", dailyTime);
   }
 
   // Default: Công việc & Kinh doanh
@@ -120,11 +100,12 @@ const LEVEL_OPTIONS = [
 ];
 
 const GOAL_OPTIONS = [
-  { label: "Du lịch Hàn Quốc", icon: "ri-plane-line", desc: "Tự tin giao tiếp khi đi du lịch", color: "#34d399" },
-  { label: "Thi TOPIK I/II", icon: "ri-file-text-line", desc: "Lấy chứng chỉ TOPIK quốc tế", color: "#60a5fa" },
   { label: "Đi làm tại Hàn (EPS)", icon: "ri-briefcase-line", desc: "Vượt qua kỳ thi EPS-TOPIK", color: "#fb923c" },
-  { label: "K-Pop & K-Drama", icon: "ri-music-2-line", desc: "Hiểu lời bài hát, phim Hàn", color: "#f472b6" },
+  { label: "Thi TOPIK I/II", icon: "ri-file-text-line", desc: "Lấy chứng chỉ TOPIK quốc tế", color: "#60a5fa" },
   { label: "Công việc & Kinh doanh", icon: "ri-building-line", desc: "Tiếng Hàn thương mại chuyên nghiệp", color: "#a78bfa" },
+  // HIDDEN 2026-05-25 (focus EPS+du học): off-focus goals fall back to default in generateRoadmap
+  // { label: "Du lịch Hàn Quốc", icon: "ri-plane-line", desc: "Tự tin giao tiếp khi đi du lịch", color: "#34d399" },
+  // { label: "K-Pop & K-Drama", icon: "ri-music-2-line", desc: "Hiểu lời bài hát, phim Hàn", color: "#f472b6" },
 ];
 
 const TIME_OPTIONS = [
