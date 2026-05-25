@@ -517,14 +517,47 @@ function ResultScreen({ questions, results, timeUsed, onReview, onRetry }: Resul
   );
 }
 
+// ─── Persisted session shape ─────────────────────────────────────────────────
+// EPS users typically take the exam on mobile with flaky 4G — an accidental
+// refresh or backgrounded tab would otherwise wipe 20+ minutes of work.
+interface PersistedExamSession {
+  questions: EpsQuestion[];
+  answers: (number | null)[];
+  currentIndex: number;
+  timeLeft: number;
+  savedAt: number;
+}
+
+function loadPersistedSession(): PersistedExamSession | null {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEYS.EPS_MOCK_EXAM_SESSION);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as PersistedExamSession;
+    if (!Array.isArray(parsed.questions) || parsed.questions.length === 0) return null;
+    if (!Array.isArray(parsed.answers) || parsed.answers.length !== parsed.questions.length) return null;
+    // Drop sessions older than 2× exam duration to avoid resuming abandoned attempts
+    if (Date.now() - parsed.savedAt > EXAM_DURATION * 2 * 1000) return null;
+    return parsed;
+  } catch {
+    return null;
+  }
+}
+
+function clearPersistedSession(): void {
+  try { localStorage.removeItem(STORAGE_KEYS.EPS_MOCK_EXAM_SESSION); } catch {}
+}
+
 // ─── Main Page ────────────────────────────────────────────────────────────────
 export default function EpsMockExamPage() {
-  const [phase, setPhase] = useState<ExamPhase>("intro");
-  const [questions, setQuestions] = useState<EpsQuestion[]>([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [answers, setAnswers] = useState<(number | null)[]>([]);
+  // Lazily resume any in-progress exam saved before an accidental refresh
+  const resumed = useRef<PersistedExamSession | null>(typeof window !== "undefined" ? loadPersistedSession() : null);
+
+  const [phase, setPhase] = useState<ExamPhase>(resumed.current ? "exam" : "intro");
+  const [questions, setQuestions] = useState<EpsQuestion[]>(resumed.current?.questions ?? []);
+  const [currentIndex, setCurrentIndex] = useState(resumed.current?.currentIndex ?? 0);
+  const [answers, setAnswers] = useState<(number | null)[]>(resumed.current?.answers ?? []);
   const [results, setResults] = useState<ExamResult[]>([]);
-  const [timeLeft, setTimeLeft] = useState(EXAM_DURATION);
+  const [timeLeft, setTimeLeft] = useState(resumed.current?.timeLeft ?? EXAM_DURATION);
   const [timeUsed, setTimeUsed] = useState(0);
 
   usePageSEO({
@@ -584,6 +617,18 @@ export default function EpsMockExamPage() {
     };
   }, [phase]);
 
+  // Persist in-progress exam so an accidental refresh / tab close doesn't lose
+  // 20+ minutes of work for users on flaky mobile connections.
+  useEffect(() => {
+    if (phase !== "exam" || questions.length === 0) return;
+    try {
+      const session: PersistedExamSession = { questions, answers, currentIndex, timeLeft, savedAt: Date.now() };
+      localStorage.setItem(STORAGE_KEYS.EPS_MOCK_EXAM_SESSION, JSON.stringify(session));
+    } catch {
+      // Quota or storage unavailable — silent fallback, exam continues in-memory
+    }
+  }, [phase, questions, answers, currentIndex, timeLeft]);
+
   const selectAnswer = useCallback((idx: number) => {
     setAnswers(prev => {
       const next = [...prev];
@@ -618,6 +663,7 @@ export default function EpsMockExamPage() {
     }));
     setResults(res);
     setPhase("result");
+    clearPersistedSession();
   }, [questions, answers, timeLeft]);
 
   const answered = answers.filter(a => a !== null).length;
@@ -691,7 +737,7 @@ export default function EpsMockExamPage() {
             results={results}
             timeUsed={timeUsed}
             onReview={() => { setReviewMode(true); setReviewIndex(0); }}
-            onRetry={() => { setPhase("intro"); setResults([]); }}
+            onRetry={() => { setPhase("intro"); setResults([]); clearPersistedSession(); }}
           />
         </div>
       </DashboardLayout>

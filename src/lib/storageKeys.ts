@@ -68,6 +68,7 @@ export const STORAGE_KEYS = {
   EPS_WRONG_ANSWERS: "kts_eps_wrong_answers",
   EPS_START_TOPIC: "kts_eps_start_topic",
   EPS_MELON_LEARNED: "eps_melon_learned",
+  EPS_MOCK_EXAM_SESSION: "kts_eps_mock_exam_session",
 
   // ─── Melon ──────────────────────────────────────────────────────────────
   MELON_SONGS: "kts_melon_songs",
