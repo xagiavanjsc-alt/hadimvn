@@ -1,586 +1,528 @@
-﻿import { useState, useMemo, useEffect, useCallback } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
-import { useLocalStorage } from "@/hooks/useLocalStorage";
-import { useAuth } from "@/hooks/useAuth";
-import { supabase } from "@/lib/supabase";
-import { grammarPatterns, GRAMMAR_CATEGORIES, type GrammarPattern, type GrammarExercise } from "@/mocks/grammarData";
+import type { GrammarPattern } from "@/data/grammarPatterns";
 
-// ─── Exercise Component ───────────────────────────────────────────────────
-function ExerciseItem({
-  ex,
-  onAnswer,
-  answered,
-}: {
-  ex: GrammarExercise;
-  onAnswer: (id: string, correct: boolean) => void;
-  answered: boolean | null;
-}) {
-  const [selected, setSelected] = useState<string | null>(null);
-  const [fillValue, setFillValue] = useState("");
+// Replaced 2026-05-25: merged 352-pattern TOPIK grammar (formerly /grammar-by-level)
+// into /grammar as canonical grammar page. Old 52-pattern mocks/grammarData.ts unused now.
 
-  const handleChoose = (opt: string) => {
-    if (answered !== null) return;
-    setSelected(opt);
-    onAnswer(ex.id, opt === ex.answer);
+const LEVELS = ["Tất cả", "TOPIK 1", "TOPIK 2", "TOPIK 3", "TOPIK 4", "TOPIK 5", "TOPIK 6"];
+
+export default function GrammarPage() {
+  const [GRAMMAR_PATTERNS, setPatterns] = useState<GrammarPattern[]>([]);
+  const [patternsLoaded, setPatternsLoaded] = useState(false);
+  const [selectedLevel, setSelectedLevel] = useState("Tất cả");
+  const [selectedPattern, setSelectedPattern] = useState<GrammarPattern | null>(null);
+  const [activeTab, setActiveTab] = useState<"explain" | "examples" | "exercise" | "write">("explain");
+  const [answers, setAnswers] = useState<Record<number, number>>({});
+  const [showResults, setShowResults] = useState(false);
+  const [writeSentence, setWriteSentence] = useState("");
+  const [writeFeedback, setWriteFeedback] = useState<{ ok: boolean; message: string; sample?: string } | null>(null);
+  const [search, setSearch] = useState("");
+  const [openLevels, setOpenLevels] = useState<Set<string>>(new Set<string>());
+
+  const location = useLocation();
+
+  // Dynamic-import the ~620KB grammar dataset so it doesn't block the route chunk.
+  useEffect(() => {
+    let mounted = true;
+    import("@/data/grammarPatterns").then(m => {
+      if (!mounted) return;
+      setPatterns(m.GRAMMAR_PATTERNS);
+      setPatternsLoaded(true);
+    });
+    return () => { mounted = false; };
+  }, []);
+
+  useEffect(() => {
+    if (window.innerWidth >= 1024 && !selectedPattern && GRAMMAR_PATTERNS.length > 0) {
+      setSelectedPattern(GRAMMAR_PATTERNS[0]);
+    }
+  }, [GRAMMAR_PATTERNS, selectedPattern]);
+
+  useEffect(() => {
+    const id = new URLSearchParams(location.search).get('id');
+    if (id && GRAMMAR_PATTERNS.length > 0) {
+      const pattern = GRAMMAR_PATTERNS.find(p => p.id === id);
+      if (pattern) {
+        setSelectedPattern(pattern);
+        setActiveTab("explain");
+        setAnswers({});
+        setShowResults(false);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+  }, [location.search, GRAMMAR_PATTERNS]);
+
+  const filtered = useMemo(() => {
+    let list = selectedLevel === "Tất cả" ? GRAMMAR_PATTERNS : GRAMMAR_PATTERNS.filter(p => p.level === selectedLevel);
+    if (search.trim()) {
+      const q = search.toLowerCase();
+      list = list.filter(p =>
+        p.pattern.toLowerCase().includes(q) ||
+        p.meaning.toLowerCase().includes(q) ||
+        p.tags.some(t => t.toLowerCase().includes(q))
+      );
+    }
+    return list;
+  }, [selectedLevel, search, GRAMMAR_PATTERNS]);
+
+  const levelStats = useMemo(() => {
+    const stats: Record<string, number> = {};
+    GRAMMAR_PATTERNS.forEach(p => { stats[p.level] = (stats[p.level] || 0) + 1; });
+    return stats;
+  }, [GRAMMAR_PATTERNS]);
+
+  const toggleLevel = (lv: string) => setOpenLevels(prev => { const n = new Set(prev); n.has(lv) ? n.delete(lv) : n.add(lv); return n; });
+
+  useEffect(() => {
+    setWriteSentence("");
+    setWriteFeedback(null);
+  }, [selectedPattern]);
+
+  const handleAnswer = (qIdx: number, optIdx: number) => {
+    if (showResults) return;
+    setAnswers(prev => ({ ...prev, [qIdx]: optIdx }));
   };
 
-  const handleFillSubmit = () => {
-    if (answered !== null) return;
-    const trimmed = fillValue.trim();
-    onAnswer(ex.id, trimmed === ex.answer);
+  const handleSubmit = () => setShowResults(true);
+  const handleReset = () => { setAnswers({}); setShowResults(false); };
+
+  const checkWriteSentence = (pattern: GrammarPattern, sentence: string) => {
+    const trimmed = sentence.trim();
+    if (!trimmed || !/[가-힣]/.test(trimmed)) {
+      setWriteFeedback({ ok: false, message: "Hãy viết câu bằng tiếng Hàn." });
+      return;
+    }
+    const raw = pattern.pattern;
+    const keywords = raw
+      .replace(/[~A-Za-z\/\s\(\)]/g, " ")
+      .split(/\s+/)
+      .filter(s => /[가-힣]/.test(s) && s.length >= 2);
+    const found = keywords.some(kw => trimmed.includes(kw));
+    const sample = pattern.examples[0]?.korean ?? "";
+    if (found) {
+      setWriteFeedback({ ok: true, message: "✓ Câu của bạn có dùng mẫu này. Tốt lắm!", sample });
+    } else {
+      setWriteFeedback({ ok: false, message: `✗ Chưa thấy mẫu ngữ pháp trong câu. Hãy thử lại.`, sample });
+    }
   };
 
-  const isCorrect = answered === true;
+  const correctCount = selectedPattern
+    ? selectedPattern.exercises.filter((ex, i) => answers[i] === ex.answer).length
+    : 0;
 
-  return (
-    <div className={`p-4 rounded-xl border transition-all ${answered === null ? "border-app-border bg-app-surface/50" : isCorrect ? "border-emerald-500/25 bg-emerald-500/5" : "border-red-500/25 bg-red-500/5"}`}>
-      <p className="text-white/70 text-sm mb-1">{ex.question}</p>
-      <p className="text-white/35 text-xs italic mb-3">{ex.questionVi}</p>
-
-      {ex.type === "choose" && ex.options && (
-        <div className="grid grid-cols-2 gap-2">
-          {ex.options.map((opt, i) => {
-            let cls = "border-app-border bg-app-surface/50 hover:border-white/15 cursor-pointer";
-            if (answered !== null) {
-              if (opt === ex.answer) cls = "border-emerald-500/40 bg-emerald-500/10 cursor-default";
-              else if (opt === selected) cls = "border-red-500/40 bg-red-500/10 cursor-default";
-              else cls = "border-app-border opacity-40 cursor-default";
-            }
-            return (
-              <button
-                key={opt}
-                onClick={() => handleChoose(opt)}
-                disabled={answered !== null}
-                className={`flex items-center gap-2 px-3 py-2 rounded-lg border text-left transition-all ${cls}`}
-              >
-                <span className="text-app-text-muted text-[10px] font-bold">{["A","B","C","D"][i]}</span>
-                <div>
-                  <p className={`text-xs font-medium ${answered !== null && opt === ex.answer ? "text-app-accent-success" : answered !== null && opt === selected ? "text-red-400" : "text-white/60"}`}>{opt}</p>
-                  {ex.optionsVi && <p className="text-app-text-muted text-[10px]">{ex.optionsVi[i]}</p>}
-                </div>
-                {answered !== null && opt === ex.answer && <i className="ri-checkbox-circle-fill text-app-accent-success ml-auto text-sm"></i>}
-                {answered !== null && opt === selected && opt !== ex.answer && <i className="ri-close-circle-fill text-red-400 ml-auto text-sm"></i>}
-              </button>
-            );
-          })}
-        </div>
-      )}
-
-      {ex.type === "fill" && (
-        <div className="flex items-center gap-2">
-          <input
-            type="text"
-            value={fillValue}
-            onChange={e => setFillValue(e.target.value)}
-            onKeyDown={e => e.key === "Enter" && handleFillSubmit()}
-            disabled={answered !== null}
-            placeholder="Điền vào chỗ trống..."
-            className={`flex-1 bg-app-card/50 border rounded-lg px-3 py-2 text-sm outline-none ${answered === null ? "border-app-border text-white/70" : isCorrect ? "border-emerald-500/40 text-app-accent-success" : "border-red-500/40 text-red-400"}`}
-          />
-          {answered === null && (
-            <button
-              onClick={handleFillSubmit}
-              disabled={!fillValue.trim()}
-              className="px-4 py-2 rounded-lg bg-app-accent-primary text-app-bg text-xs font-bold disabled:opacity-40 cursor-pointer whitespace-nowrap"
-            >
-              Kiểm tra
-            </button>
-          )}
-          {answered !== null && (
-            <div className={`flex items-center gap-1 text-xs font-bold ${isCorrect ? "text-app-accent-success" : "text-red-400"}`}>
-              <i className={isCorrect ? "ri-checkbox-circle-fill" : "ri-close-circle-fill"}></i>
-              {isCorrect ? "Đúng!" : `Đáp án: ${ex.answer}`}
-            </div>
-          )}
-        </div>
-      )}
-
-      {answered !== null && (
-        <div className="mt-3 flex items-start gap-2 bg-app-surface/50 rounded-lg p-2.5">
-          <i className="ri-lightbulb-line text-app-accent-primary text-xs flex-shrink-0 mt-0.5"></i>
-          <p className="text-app-text-secondary text-[10px] leading-relaxed">{ex.explanation}</p>
-        </div>
-      )}
-    </div>
-  );
-}
-
-// ─── Roadmap Panel ────────────────────────────────────────────────────────
-function RoadmapPanel({
-  exerciseAnswers,
-  onSelectPattern,
-}: {
-  exerciseAnswers: Record<string, boolean>;
-  onSelectPattern: (id: string) => void;
-}) {
-  const LEVELS = ["A1", "A2", "B1", "B2"] as const;
-  const levelColors: Record<string, string> = { A1: "#34d399", A2: "app-accent-primary", B1: "#fb923c", B2: "#f87171" };
-
-  // Tính % hoàn thành mỗi level
-  const levelStats = LEVELS.map(lv => {
-    const patterns = grammarPatterns.filter(p => p.level === lv);
-    const totalEx = patterns.reduce((s, p) => s + p.exercises.length, 0);
-    const doneEx = patterns.reduce((s, p) => s + p.exercises.filter(ex => exerciseAnswers[ex.id] !== undefined).length, 0);
-    const correctEx = patterns.reduce((s, p) => s + p.exercises.filter(ex => exerciseAnswers[ex.id] === true).length, 0);
-    const pct = totalEx > 0 ? Math.round((doneEx / totalEx) * 100) : 0;
-    return { lv, patterns, totalEx, doneEx, correctEx, pct };
-  });
-
-  // Xác định level hiện tại (level đầu tiên chưa hoàn thành 80%)
-  const currentLevelIdx = levelStats.findIndex(s => s.pct < 80);
-  const currentLevel = currentLevelIdx >= 0 ? LEVELS[currentLevelIdx] : "B2";
-
-  // Gợi ý mẫu câu tiếp theo: chưa làm bài tập nào, ưu tiên level hiện tại
-  const suggestions = useMemo(() => {
-    const currentPatterns = grammarPatterns.filter(p => p.level === currentLevel);
-    const notStarted = currentPatterns.filter(p =>
-      p.exercises.every(ex => exerciseAnswers[ex.id] === undefined)
-    );
-    const inProgress = currentPatterns.filter(p =>
-      p.exercises.some(ex => exerciseAnswers[ex.id] !== undefined) &&
-      p.exercises.some(ex => exerciseAnswers[ex.id] === undefined)
-    );
-    const needReview = currentPatterns.filter(p =>
-      p.exercises.some(ex => exerciseAnswers[ex.id] === false)
-    );
-    return { notStarted: notStarted.slice(0, 2), inProgress: inProgress.slice(0, 2), needReview: needReview.slice(0, 2) };
-  }, [exerciseAnswers, currentLevel]);
-
-  const hasSuggestions = suggestions.notStarted.length > 0 || suggestions.inProgress.length > 0 || suggestions.needReview.length > 0;
-
-  return (
-    <div className="bg-app-bg border border-app-border rounded-2xl p-5 mb-6">
-      <div className="flex items-center gap-3 mb-4">
-        <div className="w-9 h-9 flex items-center justify-center rounded-xl bg-app-accent-primary/10">
-          <i className="ri-route-line text-app-accent-primary text-lg"></i>
-        </div>
-        <div>
-          <p className="text-white font-semibold text-sm">Học theo lộ trình</p>
-          <p className="text-app-text-muted text-xs">Gợi ý dựa trên tiến độ của bạn</p>
-        </div>
-        <div className="ml-auto flex items-center gap-2 bg-app-card/50 rounded-xl px-3 py-1.5">
-          <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: levelColors[currentLevel] }}></div>
-          <span className="text-xs font-bold" style={{ color: levelColors[currentLevel] }}>Đang học: {currentLevel}</span>
-        </div>
-      </div>
-
-      {/* Level progress bars */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
-        {levelStats.map(({ lv, pct, doneEx, totalEx }) => (
-          <div key={lv} className={`rounded-xl p-3 border transition-all ${lv === currentLevel ? "border-white/12 bg-app-surface/50" : "border-app-border"}`}>
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-bold" style={{ color: levelColors[lv] }}>{lv}</span>
-              <span className="text-[10px] text-app-text-muted">{pct}%</span>
-            </div>
-            <div className="bg-app-card/50 rounded-full h-1.5 overflow-hidden mb-1.5">
-              <div className="h-full rounded-full transition-all duration-700" style={{ width: `${pct}%`, backgroundColor: levelColors[lv] }}></div>
-            </div>
-            <p className="text-app-text-muted text-[9px]">{doneEx}/{totalEx} bài tập</p>
-            {pct >= 80 && <p className="text-app-accent-success text-[9px] mt-0.5">✓ Hoàn thành</p>}
+  if (!patternsLoaded) {
+    return (
+      <DashboardLayout>
+        <div className="max-w-5xl mx-auto px-4 py-8">
+          <div className="mb-6">
+            <h1 className="text-2xl font-bold text-white">Ngữ pháp tiếng Hàn</h1>
+            <p className="text-white/50 text-sm mt-1">Đang tải dữ liệu ngữ pháp...</p>
           </div>
-        ))}
-      </div>
-
-      {/* Suggestions */}
-      {hasSuggestions ? (
-        <div className="space-y-3">
-          {suggestions.needReview.length > 0 && (
-            <div>
-              <p className="text-red-400/70 text-[10px] tracking-normal mb-2 flex items-center gap-1.5">
-                <i className="ri-refresh-line"></i>Cần ôn lại ({suggestions.needReview.length})
-              </p>
-              <div className="flex gap-2 flex-wrap">
-                {suggestions.needReview.map(p => (
-                  <button key={p.id} onClick={() => onSelectPattern(p.id)}
-                    className="flex items-center gap-2 px-3 py-2 rounded-xl bg-red-500/8 border border-red-500/20 hover:border-red-500/35 cursor-pointer transition-all">
-                    <span className="text-white/70 text-sm font-mono font-bold">{p.pattern}</span>
-                    <span className="text-app-text-muted text-[10px]">{p.meaning}</span>
-                    <i className="ri-arrow-right-line text-red-400/50 text-xs"></i>
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-          {suggestions.inProgress.length > 0 && (
-            <div>
-              <p className="text-app-accent-primary/70 text-[10px] tracking-normal mb-2 flex items-center gap-1.5">
-                <i className="ri-loader-line"></i>Đang học dở ({suggestions.inProgress.length})
-              </p>
-              <div className="flex gap-2 flex-wrap">
-                {suggestions.inProgress.map(p => (
-                  <button key={p.id} onClick={() => onSelectPattern(p.id)}
-                    className="flex items-center gap-2 px-3 py-2 rounded-xl bg-app-accent-primary/8 border border-app-accent-primary/20 hover:border-app-accent-primary/35 cursor-pointer transition-all">
-                    <span className="text-white/70 text-sm font-mono font-bold">{p.pattern}</span>
-                    <span className="text-app-text-muted text-[10px]">{p.meaning}</span>
-                    <i className="ri-arrow-right-line text-app-accent-primary/50 text-xs"></i>
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-          {suggestions.notStarted.length > 0 && (
-            <div>
-              <p className="text-app-text-muted text-[10px] tracking-normal mb-2 flex items-center gap-1.5">
-                <i className="ri-add-circle-line"></i>Học tiếp theo ({suggestions.notStarted.length})
-              </p>
-              <div className="flex gap-2 flex-wrap">
-                {suggestions.notStarted.map(p => (
-                  <button key={p.id} onClick={() => onSelectPattern(p.id)}
-                    className="flex items-center gap-2 px-3 py-2 rounded-xl bg-app-card/50 border border-app-border hover:border-white/15 cursor-pointer transition-all">
-                    <span className="text-white/70 text-sm font-mono font-bold">{p.pattern}</span>
-                    <span className="text-app-text-muted text-[10px]">{p.meaning}</span>
-                    <i className="ri-arrow-right-line text-app-text-muted text-xs"></i>
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
+          <div className="space-y-3">
+            {[...Array(6)].map((_, i) => (
+              <div key={i} className="h-16 bg-app-card/40 border border-app-border rounded-xl animate-pulse" />
+            ))}
+          </div>
         </div>
-      ) : (
-        <div className="text-center py-4 bg-emerald-500/5 border border-emerald-500/15 rounded-xl">
-          <i className="ri-trophy-fill text-app-accent-success text-xl mb-1 block"></i>
-          <p className="text-app-accent-success text-sm font-semibold">Xuất sắc! Bạn đã hoàn thành tất cả mẫu câu!</p>
-        </div>
-      )}
-    </div>
-  );
-}
-
-// ─── Pattern Card ─────────────────────────────────────────────────────────
-function PatternCard({
-  pattern,
-  isExpanded,
-  onToggle,
-  masteredExercises,
-  onExerciseAnswer,
-}: {
-  pattern: GrammarPattern;
-  isExpanded: boolean;
-  onToggle: () => void;
-  masteredExercises: Record<string, boolean | null>;
-  onExerciseAnswer: (exId: string, correct: boolean) => void;
-}) {
-  const category = GRAMMAR_CATEGORIES.find(c => c.id === pattern.category);
-  const levelColors: Record<string, string> = { A1: "#34d399", A2: "app-accent-primary", B1: "#fb923c", B2: "#f87171" };
-  const doneCount = pattern.exercises.filter(ex => masteredExercises[ex.id] !== undefined).length;
+      </DashboardLayout>
+    );
+  }
 
   return (
-    <div className={`bg-app-bg border rounded-2xl overflow-hidden transition-all ${isExpanded ? "border-white/12" : "border-app-border"}`}>
-      {/* Header */}
-      <button
-        onClick={onToggle}
-        className="w-full flex items-center gap-4 p-5 text-left hover:bg-white/2 transition-colors cursor-pointer"
-      >
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 mb-1 flex-wrap">
-            <span className="text-lg font-bold text-white font-mono">{pattern.pattern}</span>
-            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: `${levelColors[pattern.level]}15`, color: levelColors[pattern.level] }}>{pattern.level}</span>
-            {category && (
-              <span className="text-[10px] px-2 py-0.5 rounded-full" style={{ backgroundColor: `${category.color}10`, color: category.color }}>
-                <i className={`${category.icon} mr-1`}></i>{category.label}
-              </span>
+    <DashboardLayout>
+      <div className="max-w-5xl mx-auto px-4 py-8">
+        {/* Header */}
+        <div className="mb-6">
+          <h1 className="text-2xl font-bold text-white">Ngữ pháp tiếng Hàn</h1>
+          <p className="text-white/50 text-sm mt-1">{GRAMMAR_PATTERNS.length} cấu trúc ngữ pháp từ TOPIK 1 đến TOPIK 6 — giải thích, ví dụ, bài tập</p>
+        </div>
+
+        {/* Stats bar - compact on mobile */}
+        <div className="mb-5 p-3.5 bg-gradient-to-r from-app-surface/50 to-app-card/50 border border-app-border rounded-xl">
+          <div className="flex items-center justify-between flex-wrap gap-2">
+            <div className="flex items-center gap-2">
+              <i className="ri-book-2-line text-app-accent-primary"></i>
+              <span className="text-sm font-bold text-white">Tổng: <span className="text-app-accent-primary">{GRAMMAR_PATTERNS.length}</span> cấu trúc</span>
+            </div>
+            <div className="flex items-center gap-1.5 flex-wrap">
+              {["TOPIK 1", "TOPIK 2", "TOPIK 3", "TOPIK 4", "TOPIK 5", "TOPIK 6"].map(lv => (
+                <span key={lv} className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-white/10 text-white/70 border border-white/10">
+                  {lv}: {levelStats[lv] || 0}
+                </span>
+              ))}
+            </div>
+          </div>
+          {(selectedLevel !== "Tất cả" || search.trim()) && (
+            <div className="mt-2 pt-2 border-t border-app-border text-xs text-white/50">
+              Đang hiển thị <span className="font-bold text-app-accent-primary">{filtered.length}</span> / {GRAMMAR_PATTERNS.length} cấu trúc
+              {selectedLevel !== "Tất cả" && <span> • Cấp độ: <span className="font-bold">{selectedLevel}</span></span>}
+              {search.trim() && <span> • Tìm: "<span className="font-bold">{search}</span>"</span>}
+            </div>
+          )}
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Left: Pattern list - sticky on desktop, hidden on mobile when detail open */}
+          <div className={`lg:col-span-1 lg:sticky lg:top-4 lg:h-[calc(100vh-8rem)] lg:overflow-y-auto ${selectedPattern ? 'hidden lg:block' : ''}`}>
+            {/* Filters - sticky on mobile */}
+            <div className="mb-3 sticky top-0 bg-app-bg z-10 pb-3">
+              <div className="relative mb-3">
+                <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-white/40 text-sm"></i>
+                <input
+                  type="text"
+                  placeholder="Tìm cấu trúc..."
+                  value={search}
+                  onChange={e => setSearch(e.target.value)}
+                  className="w-full pl-9 pr-3 py-2.5 border border-app-border rounded-xl text-sm bg-app-surface/50 text-white focus:outline-none focus:ring-2 focus:ring-app-accent-primary"
+                />
+              </div>
+              <div className="flex flex-wrap gap-1.5">
+                {LEVELS.map(lv => (
+                  <button
+                    key={lv}
+                    onClick={() => setSelectedLevel(lv)}
+                    className={`px-2.5 py-1 rounded-full text-xs font-medium cursor-pointer whitespace-nowrap transition-all ${selectedLevel === lv ? "bg-app-accent-primary text-app-bg" : "bg-app-surface/50 text-white/60 hover:bg-app-surface/70"}`}
+                  >
+                    {lv}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Pattern list */}
+            {selectedLevel !== "Tất cả" || search.trim() ? (
+              /* Flat list (filtered / search mode) */
+              <div className="grid grid-cols-2 sm:grid-cols-1 lg:grid-cols-1 gap-2">
+                {filtered.map(pattern => (
+                  <button
+                    key={pattern.id}
+                    onClick={() => { setSelectedPattern(pattern); setActiveTab("explain"); handleReset(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                    className={`text-left p-2.5 rounded-lg border cursor-pointer transition-all ${selectedPattern?.id === pattern.id ? "border-app-accent-primary bg-app-accent-primary/10" : "border-app-border bg-app-surface/50 hover:bg-app-surface/70"}`}
+                  >
+                    <div className="flex items-center gap-1.5 mb-1">
+                      <span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold text-white" style={{ backgroundColor: pattern.levelColor }}>
+                        {pattern.level.replace('TOPIK ', '')}
+                      </span>
+                      <span className="font-semibold text-xs text-white truncate">{pattern.pattern}</span>
+                    </div>
+                    <p className="text-[10px] text-white/50 truncate">{pattern.meaning}</p>
+                  </button>
+                ))}
+                {filtered.length === 0 && (
+                  <div className="col-span-2 text-center py-8 text-white/40 text-sm">Không tìm thấy cấu trúc nào</div>
+                )}
+              </div>
+            ) : (
+              /* Grouped accordion by level */
+              <div className="space-y-2">
+                {LEVELS.filter(lv => lv !== "Tất cả" && (levelStats[lv] || 0) > 0).map(lv => {
+                  const lvPatterns = GRAMMAR_PATTERNS.filter(p => p.level === lv);
+                  const lvColor = lvPatterns[0]?.levelColor ?? "#888";
+                  const isOpen = openLevels.has(lv);
+                  return (
+                    <div key={lv} className="border border-app-border rounded-xl overflow-hidden">
+                      <button
+                        onClick={() => toggleLevel(lv)}
+                        className="w-full flex items-center justify-between px-3 py-2.5 bg-app-surface/70 hover:bg-app-surface/90 transition-colors"
+                      >
+                        <div className="flex items-center gap-2">
+                          <span className="px-2 py-0.5 rounded-full text-[10px] font-bold text-white" style={{ backgroundColor: lvColor }}>
+                            {lv}
+                          </span>
+                          <span className="text-white/50 text-xs">({levelStats[lv] || 0} cấu trúc)</span>
+                        </div>
+                        <i className={`${isOpen ? 'ri-arrow-up-s-line' : 'ri-arrow-down-s-line'} text-white/50`}></i>
+                      </button>
+                      {isOpen && (
+                        <div className="grid grid-cols-2 sm:grid-cols-1 lg:grid-cols-1 gap-1.5 p-2 bg-app-bg/20">
+                          {lvPatterns.map(pattern => (
+                            <button
+                              key={pattern.id}
+                              onClick={() => { setSelectedPattern(pattern); setActiveTab("explain"); handleReset(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                              className={`text-left p-2.5 rounded-lg border cursor-pointer transition-all ${selectedPattern?.id === pattern.id ? "border-app-accent-primary bg-app-accent-primary/10" : "border-app-border bg-app-surface/50 hover:bg-app-surface/70"}`}
+                            >
+                              <span className="font-semibold text-xs text-white truncate block mb-0.5">{pattern.pattern}</span>
+                              <p className="text-[10px] text-white/50 truncate">{pattern.meaning}</p>
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
             )}
           </div>
-          <p className="text-white/50 text-sm">{pattern.meaning}</p>
-        </div>
-        <div className="flex items-center gap-3 flex-shrink-0">
-          {doneCount > 0 && (
-            <span className="text-[10px] text-app-accent-success/70">{doneCount}/{pattern.exercises.length} bài tập</span>
-          )}
-          <i className={`ri-arrow-down-s-line text-app-text-muted text-lg transition-transform ${isExpanded ? "rotate-180" : ""}`}></i>
-        </div>
-      </button>
 
-      {/* Expanded content */}
-      {isExpanded && (
-        <div className="px-5 pb-5 border-t border-app-border pt-4">
-          {/* Explanation */}
-          <div className="bg-app-surface/50 rounded-xl p-4 mb-4">
-            <p className="text-white/60 text-sm leading-relaxed">{pattern.explanation}</p>
-          </div>
-
-          {/* Examples */}
-          <div className="mb-5">
-            <p className="text-app-text-muted text-[10px] tracking-normal mb-2">Ví dụ</p>
-            <div className="space-y-2">
-              {pattern.examples.map((ex, i) => (
-                <div key={i} className="flex items-start gap-3">
-                  <span className="w-5 h-5 flex items-center justify-center rounded-full bg-app-accent-primary/10 text-app-accent-primary text-[10px] font-bold flex-shrink-0 mt-0.5">{i + 1}</span>
-                  <div>
-                    <p className="text-white/70 text-sm font-medium">{ex.korean}</p>
-                    <p className="text-white/35 text-xs">{ex.vietnamese}</p>
+          {/* Right: Detail */}
+          <div className={`lg:col-span-2 ${!selectedPattern ? 'hidden lg:block' : ''}`}>
+            {!selectedPattern ? (
+              <div className="flex flex-col items-center justify-center h-64 text-white/40">
+                <i className="ri-book-open-line text-5xl mb-3"></i>
+                <p className="text-sm">Chọn một cấu trúc ngữ pháp để xem chi tiết</p>
+              </div>
+            ) : (
+              <div className="bg-app-surface/50 rounded-2xl border border-app-border overflow-hidden">
+                {/* Pattern header with back button on mobile */}
+                <div className="px-4 sm:px-6 py-4 sm:py-5 border-b border-app-border">
+                  <div className="flex items-center gap-2 mb-2">
+                    <button
+                      onClick={() => setSelectedPattern(null)}
+                      className="lg:hidden flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-app-surface/70 text-white/70 hover:text-white text-sm border border-app-border"
+                    >
+                      <i className="ri-arrow-left-line"></i>Danh sách
+                    </button>
+                  </div>
+                  <div className="flex items-center gap-2 sm:gap-3 mb-2">
+                    <span className="px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-bold text-white" style={{ backgroundColor: selectedPattern.levelColor }}>
+                      {selectedPattern.level}
+                    </span>
+                    <h2 className="text-lg sm:text-xl font-bold text-white">{selectedPattern.pattern}</h2>
+                  </div>
+                  <p className="text-white/70 font-medium text-sm sm:text-base">{selectedPattern.meaning}</p>
+                  <div className="mt-2 px-3 py-2 bg-app-card/50 rounded-lg">
+                    <span className="text-xs text-white/50 font-semibold">Cấu trúc: </span>
+                    <span className="text-xs text-white font-mono">{selectedPattern.formation}</span>
                   </div>
                 </div>
-              ))}
-            </div>
-          </div>
 
-          {/* Exercises */}
-          <div>
-            <p className="text-app-text-muted text-[10px] tracking-normal mb-3">Bài tập luyện tập</p>
-            <div className="space-y-3">
-              {pattern.exercises.map(ex => (
-                <ExerciseItem
-                  key={ex.id}
-                  ex={ex}
-                  answered={masteredExercises[ex.id] ?? null}
-                  onAnswer={onExerciseAnswer}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
+                {/* Tabs - better touch targets on mobile */}
+                <div className="flex border-b border-app-border">
+                  {([
+                    { id: "explain", label: "Giải thích", icon: "ri-book-2-line" },
+                    { id: "examples", label: "Ví dụ", icon: "ri-chat-quote-line" },
+                    { id: "exercise", label: "Bài tập", icon: "ri-pencil-line" },
+                    { id: "write", label: "Viết câu", icon: "ri-edit-2-line" },
+                  ] as const).map(tab => (
+                    <button
+                      key={tab.id}
+                      onClick={() => setActiveTab(tab.id)}
+                      className={`flex-1 flex items-center justify-center gap-1.5 sm:gap-2 py-3 text-xs sm:text-sm font-medium cursor-pointer transition-colors whitespace-nowrap ${activeTab === tab.id ? "text-app-accent-primary border-b-2 border-app-accent-primary" : "text-white/50 hover:text-white/70"}`}
+                    >
+                      <i className={tab.icon}></i>{tab.label}
+                    </button>
+                  ))}
+                </div>
 
-// ─── Quick Search Dropdown ───────────────────────────────────────────────────
-function QuickSearchDropdown({
-  query,
-  onSelect,
-  onClose,
-}: {
-  query: string;
-  onSelect: (id: string) => void;
-  onClose: () => void;
-}) {
-  const suggestions = useMemo(() => {
-    if (!query.trim()) return [];
-    const q = query.toLowerCase();
-    return grammarPatterns
-      .filter(p =>
-        p.pattern.includes(query) ||
-        p.meaning.toLowerCase().includes(q) ||
-        p.explanation.toLowerCase().includes(q) ||
-        p.examples.some(ex => ex.korean.includes(query) || ex.vietnamese.toLowerCase().includes(q))
-      )
-      .slice(0, 8);
-  }, [query]);
+                {/* Tab content - better padding for mobile */}
+                <div className="p-4 sm:p-6">
+                  {activeTab === "explain" && (
+                    <div className="space-y-5">
+                      <div>
+                        <h3 className="text-sm font-semibold text-white mb-2">Giải thích</h3>
+                        <p className="text-sm text-white/70 leading-relaxed whitespace-pre-line">{selectedPattern.explanation}</p>
+                      </div>
+                      {selectedPattern.notes && selectedPattern.notes.length > 0 && (
+                        <div>
+                          <h3 className="text-sm font-semibold text-white mb-2">Quy tắc sử dụng</h3>
+                          <div className="bg-app-accent-primary/10 border border-app-accent-primary/20 rounded-xl p-4 space-y-2">
+                            {selectedPattern.notes.map((note, i) => (
+                              <div key={i} className="flex items-start gap-2.5 text-sm">
+                                <span className="flex-shrink-0 w-5 h-5 flex items-center justify-center rounded-full bg-app-accent-primary/20 text-app-accent-primary text-[10px] font-bold mt-0.5">{i + 1}</span>
+                                <span className="text-white leading-relaxed">{note}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                      <div>
+                        <h3 className="text-sm font-semibold text-white mb-2">Lỗi thường gặp</h3>
+                        <div className="space-y-2">
+                          {selectedPattern.commonMistakes.map((m, i) => (
+                            <div key={i} className="flex items-start gap-2 text-sm">
+                              <i className="ri-error-warning-line text-amber-500 flex-shrink-0 mt-0.5"></i>
+                              <span className="text-white/70">{m}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                      {selectedPattern.comparison && (
+                        <div>
+                          <h3 className="text-sm font-semibold text-white mb-2">{selectedPattern.comparison.title}</h3>
+                          <div className="border border-app-border rounded-xl overflow-hidden">
+                            <table className="w-full text-sm">
+                              <thead>
+                                <tr className="bg-app-surface/50">
+                                  <th className="px-4 py-2.5 text-left font-bold text-app-accent-primary border-r border-app-border">{selectedPattern.comparison.headers[0]}</th>
+                                  <th className="px-4 py-2.5 text-left font-bold text-blue-400">{selectedPattern.comparison.headers[1]}</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {selectedPattern.comparison.rows.map((row, i) => (
+                                  <tr key={i} className={i % 2 === 0 ? "bg-app-card/30" : "bg-app-surface/30"}>
+                                    <td className="px-4 py-2.5 text-white/70 border-r border-app-border align-top">{row[0]}</td>
+                                    <td className="px-4 py-2.5 text-white/70 align-top">{row[1]}</td>
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      )}
+                      <div>
+                        <h3 className="text-sm font-semibold text-white mb-2">Tags</h3>
+                        <div className="flex flex-wrap gap-2">
+                          {selectedPattern.tags.map(tag => (
+                            <span key={tag} className="px-2.5 py-1 bg-app-accent-primary/10 text-app-accent-primary text-xs rounded-full font-medium">{tag}</span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
 
-  if (suggestions.length === 0) return null;
+                  {activeTab === "examples" && (
+                    <div className="space-y-3 sm:space-y-4">
+                      {selectedPattern.examples.map((ex, i) => (
+                        <div key={i} className="p-3 sm:p-4 bg-app-card/50 rounded-xl">
+                          <p className="text-sm sm:text-base font-bold text-white mb-1">{ex.korean}</p>
+                          <p className="text-xs sm:text-sm text-white/50">{ex.vietnamese}</p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
 
-  const levelColors: Record<string, string> = { A1: "#34d399", A2: "app-accent-primary", B1: "#fb923c", B2: "#f87171" };
+                  {activeTab === "write" && (() => {
+                    const currentIdx = filtered.findIndex(p => p.id === selectedPattern.id);
+                    const prevP = currentIdx > 0 ? filtered[currentIdx - 1] : null;
+                    const nextP = currentIdx < filtered.length - 1 ? filtered[currentIdx + 1] : null;
+                    const goTo = (p: GrammarPattern) => { setSelectedPattern(p); setActiveTab("write"); handleReset(); window.scrollTo({ top: 0, behavior: "smooth" }); };
+                    return (
+                      <div className="space-y-4">
+                        {/* Progress indicator */}
+                        <div className="flex items-center justify-between text-xs text-white/40">
+                          <span>{currentIdx + 1} / {filtered.length} mẫu</span>
+                          <span>{selectedPattern.level}</span>
+                        </div>
+                        <div className="h-1 bg-app-border rounded-full overflow-hidden">
+                          <div className="h-full bg-app-accent-primary rounded-full" style={{ width: `${((currentIdx + 1) / filtered.length) * 100}%` }} />
+                        </div>
 
-  return (
-    <div className="absolute top-full left-0 right-0 mt-1.5 bg-[#1a1d27] border border-app-border rounded-xl shadow-2xl z-50 overflow-hidden max-h-80 overflow-y-auto">
-      <div className="px-3 py-2 border-b border-app-border">
-        <p className="text-app-text-muted text-[10px] tracking-normal">{suggestions.length} mẫu câu phù hợp</p>
-      </div>
-      {suggestions.map(p => {
-        const matchedEx = p.examples.find(ex =>
-          ex.korean.includes(query) || ex.vietnamese.toLowerCase().includes(query.toLowerCase())
-        );
-        return (
-          <button
-            key={p.id}
-            onClick={() => { onSelect(p.id); onClose(); }}
-            className="w-full flex items-start gap-3 px-4 py-3 hover:bg-app-card/50 cursor-pointer transition-colors text-left border-b border-white/3 last:border-0"
-          >
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 mb-0.5 flex-wrap">
-                <span className="text-white/80 font-mono font-bold text-sm">{p.pattern}</span>
-                <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full" style={{ backgroundColor: `${levelColors[p.level]}15`, color: levelColors[p.level] }}>{p.level}</span>
+                        <div className="p-3 bg-app-accent-primary/8 border border-app-accent-primary/20 rounded-xl text-sm text-white/70">
+                          Viết 1–2 câu có dùng mẫu <span className="text-app-accent-primary font-semibold">{selectedPattern.pattern}</span>
+                          <span className="block text-xs text-white/40 mt-0.5">Cấu trúc: {selectedPattern.formation}</span>
+                        </div>
+                        <textarea
+                          value={writeSentence}
+                          onChange={e => { setWriteSentence(e.target.value); setWriteFeedback(null); }}
+                          placeholder="저는... (Viết câu tiếng Hàn tại đây)"
+                          rows={4}
+                          className="w-full bg-app-card/40 border border-app-border rounded-xl px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none focus:border-app-accent-primary resize-none"
+                        />
+                        <button
+                          onClick={() => checkWriteSentence(selectedPattern, writeSentence)}
+                          disabled={!writeSentence.trim()}
+                          className="w-full py-2.5 rounded-xl text-sm font-semibold cursor-pointer transition-colors whitespace-nowrap disabled:opacity-40 disabled:cursor-not-allowed bg-app-accent-primary hover:bg-app-accent-primary/90 text-app-bg"
+                        >
+                          Kiểm tra
+                        </button>
+                        {writeFeedback && (
+                          <div className={`p-3 rounded-xl text-sm border ${writeFeedback.ok ? "bg-green-500/8 border-green-500/25 text-green-400" : "bg-red-500/8 border-red-500/25 text-red-400"}`}>
+                            <p className="font-medium mb-2">{writeFeedback.message}</p>
+                            {writeFeedback.sample && (
+                              <p className="text-xs text-white/40">Câu mẫu: <span className="text-white/60">{writeFeedback.sample}</span></p>
+                            )}
+                          </div>
+                        )}
+
+                        {/* Prev / Next navigation */}
+                        <div className="flex gap-2 pt-1">
+                          <button
+                            onClick={() => prevP && goTo(prevP)}
+                            disabled={!prevP}
+                            className="flex-1 py-2 rounded-xl text-sm border border-app-border text-white/50 hover:bg-app-surface/50 cursor-pointer disabled:opacity-25 disabled:cursor-not-allowed transition-colors whitespace-nowrap"
+                          >
+                            <i className="ri-arrow-left-line mr-1"></i>Trước
+                            {prevP && <span className="ml-1 text-white/30 text-xs truncate">{prevP.pattern}</span>}
+                          </button>
+                          <button
+                            onClick={() => nextP && goTo(nextP)}
+                            disabled={!nextP}
+                            className="flex-1 py-2 rounded-xl text-sm border border-app-accent-primary/40 text-app-accent-primary hover:bg-app-accent-primary/10 cursor-pointer disabled:opacity-25 disabled:cursor-not-allowed transition-colors whitespace-nowrap"
+                          >
+                            Tiếp
+                            {nextP && <span className="ml-1 text-app-accent-primary/50 text-xs truncate">{nextP.pattern}</span>}
+                            <i className="ri-arrow-right-line ml-1"></i>
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })()}
+
+                  {activeTab === "exercise" && (
+                    <div className="space-y-6">
+                      {selectedPattern.exercises.map((ex, qIdx) => (
+                        <div key={qIdx} className="space-y-3">
+                          <p className="text-sm font-semibold text-white">
+                            {qIdx + 1}. {ex.question}
+                          </p>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            {ex.options.map((opt, optIdx) => {
+                              const isSelected = answers[qIdx] === optIdx;
+                              const isCorrect = ex.answer === optIdx;
+                              let btnClass = "px-4 py-3 rounded-xl text-sm font-medium cursor-pointer transition-all border text-left whitespace-nowrap ";
+                              if (!showResults) {
+                                btnClass += isSelected
+                                  ? "bg-app-accent-primary/10 border-app-accent-primary text-app-accent-primary"
+                                  : "bg-app-card/30 border-app-border text-white/70 hover:border-app-border";
+                              } else {
+                                if (isCorrect) btnClass += "bg-green-500/10 border-green-500 text-green-400";
+                                else if (isSelected && !isCorrect) btnClass += "bg-red-500/10 border-red-500 text-red-400";
+                                else btnClass += "bg-app-card/30 border-app-border text-white/40";
+                              }
+                              return (
+                                <button key={optIdx} onClick={() => handleAnswer(qIdx, optIdx)} className={btnClass}>
+                                  {showResults && isCorrect && <i className="ri-check-line mr-1 text-green-600"></i>}
+                                  {showResults && isSelected && !isCorrect && <i className="ri-close-line mr-1 text-red-600"></i>}
+                                  {opt}
+                                </button>
+                              );
+                            })}
+                          </div>
+                          {showResults && (
+                            <div className={`p-3 rounded-lg text-xs ${answers[qIdx] === ex.answer ? "bg-green-500/10 text-green-400" : "bg-red-500/10 text-red-400"}`}>
+                              <i className={`${answers[qIdx] === ex.answer ? "ri-check-line" : "ri-close-line"} mr-1`}></i>
+                              {ex.explanation}
+                            </div>
+                          )}
+                        </div>
+                      ))}
+
+                      {!showResults ? (
+                        <button
+                          onClick={handleSubmit}
+                          disabled={Object.keys(answers).length < selectedPattern.exercises.length}
+                          className={`w-full py-3 rounded-xl font-semibold text-sm cursor-pointer transition-colors whitespace-nowrap ${Object.keys(answers).length < selectedPattern.exercises.length ? "bg-app-surface/50 text-white/40 cursor-not-allowed" : "bg-app-accent-primary hover:bg-app-accent-primary/90 text-app-bg"}`}
+                        >
+                          Kiểm tra đáp án
+                        </button>
+                      ) : (
+                        <div className="space-y-3">
+                          <div className={`p-4 rounded-xl text-center ${correctCount === selectedPattern.exercises.length ? "bg-green-500/10" : "bg-amber-500/10"}`}>
+                            <p className="text-xl font-bold mb-1" style={{ color: correctCount === selectedPattern.exercises.length ? "#22c55e" : "#f59e0b" }}>
+                              {correctCount}/{selectedPattern.exercises.length}
+                            </p>
+                            <p className="text-sm font-medium text-white/70">
+                              {correctCount === selectedPattern.exercises.length ? "Hoàn hảo! Bạn đã nắm vững cấu trúc này." : "Hãy xem lại phần giải thích và thử lại!"}
+                            </p>
+                          </div>
+                          <button
+                            onClick={handleReset}
+                            className="w-full py-2.5 rounded-xl font-semibold text-sm cursor-pointer border border-app-border text-white/70 hover:bg-app-surface/50 transition-colors whitespace-nowrap"
+                          >
+                            Làm lại
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
               </div>
-              <p className="text-white/45 text-xs truncate">{p.meaning}</p>
-              {matchedEx && (
-                <p className="text-app-text-muted text-[10px] truncate mt-0.5 italic">{matchedEx.korean} — {matchedEx.vietnamese}</p>
-              )}
-            </div>
-            <i className="ri-arrow-right-line text-app-text-muted text-xs flex-shrink-0 mt-1" />
-          </button>
-        );
-      })}
-    </div>
-  );
-}
-
-// ─── Main Page ────────────────────────────────────────────────────────────────
-export default function GrammarPage() {
-  const { user } = useAuth();
-  const [selectedCategory, setSelectedCategory] = useState("all");
-  const [selectedLevel, setSelectedLevel] = useState<string>("all");
-  const [expandedId, setExpandedId] = useState<string | null>(null);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [showRoadmap, setShowRoadmap] = useState(true);
-  const [showSearchDropdown, setShowSearchDropdown] = useState(false);
-  const [exerciseAnswers, setExerciseAnswers] = useLocalStorage<Record<string, boolean>>("kts_grammar_answers", {});
-  const [syncStatus, setSyncStatus] = useState<"idle" | "saving" | "saved">("idle");
-
-  // Load grammar progress from Supabase on login
-  useEffect(() => {
-    if (!user) return;
-    let cancelled = false;
-    supabase.from("study_progress").select("grammar_progress").eq("user_id", user.id).maybeSingle()
-      .then(
-        ({ data, error }) => {
-          if (cancelled || error) return;
-          if (data?.grammar_progress && typeof data.grammar_progress === "object" && Object.keys(data.grammar_progress).length > 0) {
-            setExerciseAnswers(data.grammar_progress as Record<string, boolean>);
-          }
-        },
-        () => { /* network error — keep local state */ }
-      );
-    return () => { cancelled = true; };
-  }, [user?.id]);
-
-  // Sync grammar progress to Supabase
-  const syncGrammarToCloud = useCallback(async (answers: Record<string, boolean>) => {
-    if (!user) return;
-    setSyncStatus("saving");
-    await supabase.from("study_progress").upsert(
-      { user_id: user.id, grammar_progress: answers, updated_at: new Date().toISOString() },
-      { onConflict: "user_id" }
-    );
-    setSyncStatus("saved");
-    setTimeout(() => setSyncStatus("idle"), 2000);
-  }, [user]);
-
-  const filteredPatterns = useMemo(() => {
-    return grammarPatterns.filter(p => {
-      const matchCat = selectedCategory === "all" || p.category === selectedCategory;
-      const matchLevel = selectedLevel === "all" || p.level === selectedLevel;
-      const matchSearch = !searchQuery || p.pattern.includes(searchQuery) || p.meaning.toLowerCase().includes(searchQuery.toLowerCase());
-      return matchCat && matchLevel && matchSearch;
-    });
-  }, [selectedCategory, selectedLevel, searchQuery]);
-
-  const handleExerciseAnswer = (exId: string, correct: boolean) => {
-    setExerciseAnswers(prev => {
-      const next = { ...prev, [exId]: correct };
-      syncGrammarToCloud(next);
-      return next;
-    });
-  };
-
-  const handleSelectFromRoadmap = (patternId: string) => {
-    setExpandedId(patternId);
-    setSelectedLevel("all");
-    setSelectedCategory("all");
-    setSearchQuery("");
-    setShowSearchDropdown(false);
-    setTimeout(() => {
-      document.getElementById(`pattern-${patternId}`)?.scrollIntoView({ behavior: "smooth", block: "center" });
-    }, 100);
-  };
-
-  const totalExercises = grammarPatterns.reduce((sum, p) => sum + p.exercises.length, 0);
-  const doneExercises = Object.keys(exerciseAnswers).length;
-  const correctExercises = Object.values(exerciseAnswers).filter(Boolean).length;
-
-  const levels = ["A1", "A2", "B1", "B2"];
-  const levelColors: Record<string, string> = { A1: "#34d399", A2: "app-accent-primary", B1: "#fb923c", B2: "#f87171" };
-
-  return (
-    <DashboardLayout
-      title="Ngữ pháp tiếng Hàn"
-      subtitle="Mẫu câu từ cơ bản đến nâng cao — giải thích rõ ràng, luyện tập ngay"
-      actions={
-        <div className="flex items-center gap-3">
-          {user && syncStatus !== "idle" && (
-            <span className={`text-xs flex items-center gap-1 ${syncStatus === "saving" ? "text-app-text-secondary" : "text-app-accent-success"}`}>
-              <i className={`${syncStatus === "saving" ? "ri-loader-4-line animate-spin" : "ri-cloud-line"} text-sm`}></i>
-              {syncStatus === "saving" ? "Đang lưu..." : "Đã lưu cloud"}
-            </span>
-          )}
-          {!user && <span className="text-app-text-muted text-xs"><i className="ri-cloud-off-line mr-1"></i>Đăng nhập để lưu tiến độ</span>}
-          <button
-            onClick={() => setShowRoadmap(r => !r)}
-            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer whitespace-nowrap ${showRoadmap ? "bg-app-accent-primary/10 border-app-accent-primary/25 text-app-accent-primary" : "bg-app-card/50 border-app-border text-app-text-secondary hover:text-white/60"}`}
-          >
-            <i className="ri-route-line"></i>
-            {showRoadmap ? "Ẩn lộ trình" : "Học theo lộ trình"}
-          </button>
-        </div>
-      }
-    >
-      {/* Roadmap Panel */}
-      {showRoadmap && (
-        <RoadmapPanel exerciseAnswers={exerciseAnswers} onSelectPattern={handleSelectFromRoadmap} />
-      )}
-
-      {/* Stats */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-        {[
-          { label: "Mẫu câu", value: grammarPatterns.length, icon: "ri-book-open-line", color: "app-accent-primary" },
-          { label: "Bài tập", value: totalExercises, icon: "ri-pencil-line", color: "#34d399" },
-          { label: "Đã làm", value: doneExercises, icon: "ri-checkbox-circle-line", color: "#a78bfa" },
-          { label: "Làm đúng", value: correctExercises, icon: "ri-trophy-line", color: "#fb923c" },
-        ].map(stat => (
-          <div key={stat.label} className="bg-app-bg border border-app-border rounded-xl p-4 flex items-center gap-3">
-            <div className="w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0" style={{ backgroundColor: `${stat.color}15` }}>
-              <i className={`${stat.icon} text-lg`} style={{ color: stat.color }}></i>
-            </div>
-            <div>
-              <p className="text-white font-bold text-xl leading-none">{stat.value}</p>
-              <p className="text-app-text-secondary text-xs mt-0.5">{stat.label}</p>
-            </div>
+            )}
           </div>
-        ))}
-      </div>
-
-      {/* Filters */}
-      <div className="flex items-center gap-3 mb-5 flex-wrap">
-        <div className="flex items-center bg-app-card/50 rounded-xl p-1">
-          <button onClick={() => setSelectedLevel("all")} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedLevel === "all" ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/60"}`}>Tất cả</button>
-          {levels.map(lv => (
-            <button key={lv} onClick={() => setSelectedLevel(lv)} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedLevel === lv ? "text-app-bg font-bold" : "text-app-text-secondary hover:text-white/60"}`} style={selectedLevel === lv ? { backgroundColor: levelColors[lv] } : {}}>{lv}</button>
-          ))}
         </div>
-        <div className="flex items-center bg-app-card/50 rounded-xl p-1 flex-wrap gap-0.5">
-          <button onClick={() => setSelectedCategory("all")} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedCategory === "all" ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/60"}`}>Tất cả</button>
-          {GRAMMAR_CATEGORIES.map(cat => (
-            <button key={cat.id} onClick={() => setSelectedCategory(cat.id)} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${selectedCategory === cat.id ? "text-app-bg" : "text-app-text-secondary hover:text-white/60"}`} style={selectedCategory === cat.id ? { backgroundColor: cat.color } : {}}>{cat.label}</button>
-          ))}
-        </div>
-        <div className="relative flex items-center gap-2 bg-app-card/50 border border-app-border rounded-xl px-3 py-2 flex-1 min-w-[200px]">
-          <i className="ri-search-line text-app-text-muted text-sm flex-shrink-0"></i>
-          <input
-            type="text"
-            placeholder="Tìm mẫu câu tiếng Hàn hoặc tiếng Việt..."
-            value={searchQuery}
-            onChange={e => { setSearchQuery(e.target.value); setShowSearchDropdown(true); }}
-            onFocus={() => setShowSearchDropdown(true)}
-            onBlur={() => setTimeout(() => setShowSearchDropdown(false), 200)}
-            className="flex-1 bg-transparent text-white/70 text-sm outline-none placeholder-white/20"
-          />
-          {searchQuery && (
-            <button onClick={() => { setSearchQuery(""); setShowSearchDropdown(false); }} className="text-app-text-muted hover:text-white/50 cursor-pointer flex-shrink-0">
-              <i className="ri-close-line text-sm" />
-            </button>
-          )}
-          {showSearchDropdown && searchQuery && (
-            <QuickSearchDropdown
-              query={searchQuery}
-              onSelect={handleSelectFromRoadmap}
-              onClose={() => setShowSearchDropdown(false)}
-            />
-          )}
-        </div>
-        <p className="text-app-text-muted text-xs whitespace-nowrap">{filteredPatterns.length} mẫu câu</p>
-      </div>
-
-      {/* Pattern list */}
-      <div className="space-y-3">
-        {filteredPatterns.map(pattern => (
-          <div key={pattern.id} id={`pattern-${pattern.id}`}>
-            <PatternCard
-              pattern={pattern}
-              isExpanded={expandedId === pattern.id}
-              onToggle={() => setExpandedId(expandedId === pattern.id ? null : pattern.id)}
-              masteredExercises={exerciseAnswers}
-              onExerciseAnswer={handleExerciseAnswer}
-            />
-          </div>
-        ))}
-        {filteredPatterns.length === 0 && (
-          <div className="text-center py-16 bg-app-bg border border-app-border rounded-2xl">
-            <i className="ri-search-line text-app-text-muted text-3xl mb-3 block"></i>
-            <p className="text-app-text-muted text-sm">Không tìm thấy mẫu câu nào</p>
-          </div>
-        )}
       </div>
     </DashboardLayout>
   );
 }
-
