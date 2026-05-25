@@ -1,14 +1,17 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { useStudySync } from "@/hooks/useStudySync";
 import { supabase } from "@/lib/supabase";
 import { validateSignupEmail } from "@/lib/emailValidation";
+import { STORAGE_KEYS } from "@/lib/storageKeys";
 
 interface AuthModalProps {
   onClose: () => void;
 }
 
 export default function AuthModal({ onClose }: AuthModalProps) {
+  const navigate = useNavigate();
   const { signIn, signUp } = useAuth();
   const { syncToCloud, loadFromCloud, updateLeaderboard } = useStudySync();
   const [mode, setMode] = useState<"login" | "register" | "forgot" | "verify">("login");
@@ -98,6 +101,13 @@ export default function AuthModal({ onClose }: AuthModalProps) {
         if (data.user) {
           await loadFromCloud(data.user.id);
           await updateLeaderboard(data.user.id, data.user.user_metadata?.display_name || email.split("@")[0]);
+          const justSignedUp = sessionStorage.getItem("kts_just_signed_up") === "1";
+          if (justSignedUp) {
+            sessionStorage.removeItem("kts_just_signed_up");
+            onClose();
+            navigate("/onboarding");
+            return;
+          }
           setSuccess("Đăng nhập thành công! Đang đồng bộ dữ liệu...");
           setTimeout(onClose, 1000);
         }
@@ -111,13 +121,19 @@ export default function AuthModal({ onClose }: AuthModalProps) {
           setError(translateError(err.message));
           return;
         }
-        // Show email verification screen
-        setMode("verify");
         if (data.user && data.session) {
-          // Auto-confirmed (email confirmation disabled in Supabase)
+          // Auto-confirmed (email confirmation disabled in Supabase) → straight to onboarding
           await syncToCloud(data.user.id);
           await updateLeaderboard(data.user.id, displayName);
+          localStorage.removeItem(STORAGE_KEYS.ONBOARDING_DONE);
+          onClose();
+          navigate("/onboarding");
+          return;
         }
+        // Email confirmation required → flag signup so the first login redirects to onboarding
+        sessionStorage.setItem("kts_just_signed_up", "1");
+        localStorage.removeItem(STORAGE_KEYS.ONBOARDING_DONE);
+        setMode("verify");
       }
     } finally {
       setLoading(false);
