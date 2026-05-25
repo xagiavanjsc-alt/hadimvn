@@ -259,7 +259,7 @@ export default function StudyCalendarPage() {
             <p className="text-app-text-secondary text-sm mt-1">Theo dõi hành trình học tiếng Hàn của bạn</p>
           </div>
           <button
-            onClick={() => navigate("/learn-stats")}
+            onClick={() => navigate("/eps-stats")}
             className="flex items-center gap-2 px-4 py-2 bg-app-card/50 hover:bg-app-card/70 border border-app-border rounded-lg text-white/60 text-sm transition-all cursor-pointer whitespace-nowrap"
           >
             <i className="ri-bar-chart-box-line text-sm"></i>

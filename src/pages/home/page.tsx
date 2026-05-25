@@ -299,9 +299,9 @@ export default function Home() {
       suggestions.push({
         icon: "ri-stack-line",
         color: "#a78bfa",
-        label: "Ôn 10 flashcard",
-        path: "/flashcard-hub",
-        desc: "Tăng vốn từ vựng mỗi ngày",
+        label: "Ôn 10 flashcard EPS",
+        path: "/eps-flashcard",
+        desc: "Tăng vốn từ vựng EPS mỗi ngày",
       });
     suggestions.push({
       icon: "ri-sun-line",
@@ -390,7 +390,7 @@ export default function Home() {
               Bắt đầu học ngay
             </h2>
             <button
-              onClick={() => navigate("/learning-roadmap")}
+              onClick={() => navigate("/eps-30day-plan")}
               className="text-app-accent-primary text-xs hover:text-[#d4b43a] cursor-pointer whitespace-nowrap flex items-center gap-1"
             >
               Lộ trình <i className="ri-arrow-right-line" />
@@ -408,9 +408,9 @@ export default function Home() {
             <QuickCard
               icon="ri-stack-line"
               color="#a78bfa"
-              label="Thẻ ghi nhớ"
-              desc="Chọn bộ thẻ để ôn tập"
-              path="/flashcard-hub"
+              label="Flashcard EPS"
+              desc="Ôn tập từ vựng EPS"
+              path="/eps-flashcard"
             />
             <QuickCard
               icon="ri-timer-line"
@@ -423,9 +423,9 @@ export default function Home() {
             <QuickCard
               icon="ri-route-line"
               color="#fb923c"
-              label="Lộ trình học"
-              desc="Cá nhân hóa theo mục tiêu"
-              path="/learning-roadmap"
+              label="Lộ trình 30 ngày"
+              desc="Kế hoạch học EPS"
+              path="/eps-30day-plan"
             />
           </div>
         </div>

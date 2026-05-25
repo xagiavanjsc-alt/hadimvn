@@ -451,7 +451,7 @@ export default function StudyStatsPage() {
                     icon: "ri-stack-line",
                     color: "#a78bfa",
                     tip: "Ôn 10 flashcard trước khi ngủ để ghi nhớ lâu hơn",
-                    action: "/flashcard-hub",
+                    action: "/eps-flashcard",
                     actionLabel: "Ôn tập",
                   },
                   {
@@ -580,7 +580,7 @@ export default function StudyStatsPage() {
           {[
             { path: "/daily-words", icon: "ri-sun-line", label: "Học từ hôm nay", color: "app-accent-primary" },
             { path: "/eps-exam", icon: "ri-timer-line", label: "Thi thử EPS", color: "#4ade80" },
-            { path: "/flashcard-hub", icon: "ri-stack-line", label: "Ôn Flashcard", color: "#a78bfa" },
+            { path: "/eps-flashcard", icon: "ri-stack-line", label: "Flashcard EPS", color: "#a78bfa" },
             { path: "/profile", icon: "ri-user-3-line", label: "Hồ sơ cá nhân", color: "#38bdf8" },
           ].map((a) => (
             <button

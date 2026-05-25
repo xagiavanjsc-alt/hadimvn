@@ -104,7 +104,7 @@ export default function NotFound() {
                 { label: "EPS", icon: "ri-book-open-line", path: "/eps" },
                 { label: "Từ điển", icon: "ri-search-line", path: "/dictionary" },
                 { label: "Ngữ pháp", icon: "ri-file-list-3-line", path: "/grammar" },
-                { label: "Flashcard", icon: "ri-stack-line", path: "/flashcard-hub" },
+                { label: "Flashcard EPS", icon: "ri-stack-line", path: "/eps-flashcard" },
                 { label: "Cộng đồng", icon: "ri-group-line", path: "/community" },
               ].map((link) => (
                 <button

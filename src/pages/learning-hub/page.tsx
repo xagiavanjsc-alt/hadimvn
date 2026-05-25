@@ -86,7 +86,7 @@ export default function LearningHubPage() {
         {/* Quick Actions */}
         <div className="grid grid-cols-2 gap-4">
           <button
-            onClick={() => navigate("/flashcard-hub")}
+            onClick={() => navigate("/eps-flashcard")}
             className="p-4 rounded-xl border border-app-border bg-white/2 hover:bg-app-card/50 hover:border-app-border transition-all text-left"
           >
             <div className="flex items-center gap-3 mb-2">

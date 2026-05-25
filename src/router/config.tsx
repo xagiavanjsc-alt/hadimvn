@@ -97,13 +97,16 @@ const WeeklyChallengePage = lazyPage(() => import("../pages/weekly-challenge/pag
 
 // ─── Stats & Progress ────────────────────────────────────────────────────────
 const StatsPage = lazyPage(() => import("../pages/stats/page"));
-const OverallStatsPage = lazyPage(() => import("../pages/overall-stats/page"));
+// HIDDEN 2026-05-25 (focus EPS+du học): generic stats duplicate, use /eps-stats or /study-stats
+// const OverallStatsPage = lazyPage(() => import("../pages/overall-stats/page"));
 const PersonalStatsPage = lazyPage(() => import("../pages/personal-stats/page"));
-const LearnStatsPage = lazyPage(() => import("../pages/learn-stats/page"));
-const StudyAnalyticsPage = lazyPage(() => import("../pages/study-analytics/page"));
-const StudyStatsDetailPage = lazyPage(() => import("../pages/study-stats-detail/page"));
+// HIDDEN 2026-05-25 (focus EPS+du học): generic stats duplicates
+// const LearnStatsPage = lazyPage(() => import("../pages/learn-stats/page"));
+// const StudyAnalyticsPage = lazyPage(() => import("../pages/study-analytics/page"));
+// const StudyStatsDetailPage = lazyPage(() => import("../pages/study-stats-detail/page"));
 const ProgressPage = lazyPage(() => import("../pages/progress/page"));
-const XpStatsPage = lazyPage(() => import("../pages/xp-stats/page"));
+// HIDDEN 2026-05-25 (focus EPS+du học): XP gamification noise, not EPS-relevant
+// const XpStatsPage = lazyPage(() => import("../pages/xp-stats/page"));
 const LearningHubPage = lazyPage(() => import("../pages/learning-hub/page"));
 const ExamHubPage = lazyPage(() => import("../pages/exam-hub/page"));
 
@@ -125,8 +128,9 @@ const ReviewSchedulePage = lazyPage(() => import("../pages/review-schedule/page"
 
 // ─── Planning & Roadmap ──────────────────────────────────────────────────────
 const RoadmapPage = lazyPage(() => import("../pages/roadmap/page"));
-const LearningPathPage = lazyPage(() => import("../pages/learning-path/page"));
-const PersonalizedRoadmapPage = lazyPage(() => import("../pages/personalized-roadmap/page"));
+// HIDDEN 2026-05-25 (focus EPS+du học): generic roadmap duplicates, EPS audience uses /eps-30day-plan or /eps-personalized-roadmap
+// const LearningPathPage = lazyPage(() => import("../pages/learning-path/page"));
+// const PersonalizedRoadmapPage = lazyPage(() => import("../pages/personalized-roadmap/page"));
 const DailyPlanPage = lazyPage(() => import("../pages/daily-plan/page"));
 const SchedulerPage = lazyPage(() => import("../pages/scheduler/page"));
 const StudyCalendarPage = lazyPage(() => import("../pages/study-calendar/page"));
@@ -188,8 +192,10 @@ const DailyChallengePage = lazyPage(() => import("../pages/daily-challenge/page"
 const ListeningLevelPage = lazyPage(() => import("../pages/listening-level/page"));
 const VocabSuggestionPage = lazyPage(() => import("../pages/vocab-suggestion/page"));
 const QuizHistoryDetailPage = lazyPage(() => import("../pages/quiz-history-detail/page"));
-const FlashcardLevelPage = lazyPage(() => import("../pages/flashcard-level/page"));
-const VocabStatsPage = lazyPage(() => import("../pages/vocab-stats/page"));
+// HIDDEN 2026-05-25 (focus EPS+du học): generic flashcard duplicate, use /eps-flashcard
+// const FlashcardLevelPage = lazyPage(() => import("../pages/flashcard-level/page"));
+// HIDDEN 2026-05-25 (focus EPS+du học): generic vocab stats duplicate, /eps-topic-stats covers this
+// const VocabStatsPage = lazyPage(() => import("../pages/vocab-stats/page"));
 // HIDDEN 2026-05-25 (focus EPS+du học): off-focus social/AI features. Code preserved per CLAUDE.md Rule 4.
 // const StudyPartnerPage = lazyPage(() => import("../pages/study-partner/page"));
 // const PersonalRoadmapAIPage = lazyPage(() => import("../pages/personal-roadmap-ai/page"));
@@ -219,7 +225,8 @@ const HanjaProPage = lazyPage(() => import("../pages/hanja-pro/page"));
 const HanjaProDetailPage = lazyPage(() => import("../pages/hanja-pro-detail/page"));
 const HanjaAnalyticsPage = lazyPage(() => import("../pages/hanja-analytics/page"));
 const HanjaStoriesPage = lazyPage(() => import("../pages/hanja-stories/page"));
-const FlashcardHubPage = lazyPage(() => import("../pages/flashcard-hub/page"), "flashcard");
+// HIDDEN 2026-05-25 (focus EPS+du học): generic flashcard hub duplicate, use /eps-flashcard or /seoul-flashcard
+// const FlashcardHubPage = lazyPage(() => import("../pages/flashcard-hub/page"), "flashcard");
 const SpeakingLevelPage = lazyPage(() => import("../pages/speaking-level/page"));
 // HIDDEN 2026-05-25 (focus EPS+du học): duplicate hangul page, keep /hangul-write as canonical
 // const HangulWritingPage = lazyPage(() => import("../pages/hangul-writing/page"));
@@ -251,7 +258,8 @@ const FeedbackPage = lazyPage(() => import("../pages/feedback/page"));
 const ReportBugPage = lazyPage(() => import("../pages/report-bug/page"));
 const VipHistoryPage = lazyPage(() => import("../pages/vip-history/page"));
 const DailyWordsPage = lazyPage(() => import("../pages/daily-words/page"));
-const LearningRoadmapPage = lazyPage(() => import("../pages/learning-roadmap/page"));
+// HIDDEN 2026-05-25 (focus EPS+du học): generic learning roadmap duplicate, EPS audience uses /eps-30day-plan
+// const LearningRoadmapPage = lazyPage(() => import("../pages/learning-roadmap/page"));
 const StudyStatsPage = lazyPage(() => import("../pages/study-stats/page"));
 // DataUploadPage moved to ./routes/admin.tsx
 const ShareProgressPage = lazyPage(() => import("../pages/share-progress/page"));
@@ -315,13 +323,14 @@ const routes: RouteObject[] = [
 
   // Stats & Progress
   { path: "/stats", element: <StatsPage /> },
-  { path: "/overall-stats", element: <OverallStatsPage /> },
+  // HIDDEN 2026-05-25 (focus EPS+du học): generic stats duplicates. EPS users use /eps-stats; du học users use /seoul-stats, /topik-stats
+  // { path: "/overall-stats", element: <OverallStatsPage /> },
   { path: "/personal-stats", element: <PersonalStatsPage /> },
-  { path: "/learn-stats", element: <LearnStatsPage /> },
-  { path: "/study-analytics", element: <StudyAnalyticsPage /> },
-  { path: "/study-stats-detail", element: <StudyStatsDetailPage /> },
+  // { path: "/learn-stats", element: <LearnStatsPage /> },
+  // { path: "/study-analytics", element: <StudyAnalyticsPage /> },
+  // { path: "/study-stats-detail", element: <StudyStatsDetailPage /> },
   { path: "/progress", element: <ProgressPage /> },
-  { path: "/xp-stats", element: <XpStatsPage /> },
+  // { path: "/xp-stats", element: <XpStatsPage /> },
   { path: "/learning-hub", element: <RequireAuth title="Learning Hub"><LearningHubPage /></RequireAuth> },
   { path: "/exam-hub", element: <RequireAuth title="Exam Hub"><ExamHubPage /></RequireAuth> },
 
@@ -343,8 +352,9 @@ const routes: RouteObject[] = [
 
   // Planning & Roadmap
   { path: "/roadmap", element: <RoadmapPage /> },
-  { path: "/learning-path", element: <LearningPathPage /> },
-  { path: "/personalized-roadmap", element: <PersonalizedRoadmapPage /> },
+  // HIDDEN 2026-05-25 (focus EPS+du học): generic roadmap duplicates. EPS audience uses /eps-30day-plan or /eps-personalized-roadmap
+  // { path: "/learning-path", element: <LearningPathPage /> },
+  // { path: "/personalized-roadmap", element: <PersonalizedRoadmapPage /> },
   { path: "/daily-plan", element: <DailyPlanPage /> },
   { path: "/scheduler", element: <SchedulerPage /> },
   { path: "/study-calendar", element: <StudyCalendarPage /> },
@@ -398,7 +408,8 @@ const routes: RouteObject[] = [
   { path: "/report-bug", element: <ReportBugPage /> },
   { path: "/vip-history", element: <RequireAuth title="Lịch sử VIP"><VipHistoryPage /></RequireAuth> },
   { path: "/daily-words", element: <DailyWordsPage /> },
-  { path: "/learning-roadmap", element: <LearningRoadmapPage /> },
+  // HIDDEN 2026-05-25 (focus EPS+du học): generic learning roadmap duplicate, EPS audience uses /eps-30day-plan
+  // { path: "/learning-roadmap", element: <LearningRoadmapPage /> },
   { path: "/study-stats", element: <RequireAuth title="Thống kê học tập"><StudyStatsPage /></RequireAuth> },
   { path: "/share-progress", element: <RequireAuth title="Chia sẻ tiến độ" message="Đăng nhập để tạo và tải ảnh tiến độ học tập của bạn."><ShareProgressPage /></RequireAuth> },
 
@@ -415,8 +426,9 @@ const routes: RouteObject[] = [
   { path: "/listening-level", element: <ListeningLevelPage /> },
   { path: "/vocab-suggestion", element: <VocabSuggestionPage /> },
   { path: "/quiz-history-detail", element: <QuizHistoryDetailPage /> },
-  { path: "/flashcard-level", element: <FlashcardLevelPage /> },
-  { path: "/vocab-stats", element: <VocabStatsPage /> },
+  // HIDDEN 2026-05-25 (focus EPS+du học): generic duplicates, use EPS-specific equivalents
+  // { path: "/flashcard-level", element: <FlashcardLevelPage /> },
+  // { path: "/vocab-stats", element: <VocabStatsPage /> },
   // HIDDEN 2026-05-25 (focus EPS+du học): off-focus social/AI features. Code preserved per CLAUDE.md Rule 4.
   // { path: "/study-partner", element: <StudyPartnerPage /> },
   // { path: "/personal-roadmap-ai", element: <PersonalRoadmapAIPage /> },
@@ -446,7 +458,8 @@ const routes: RouteObject[] = [
   { path: "/hanja-pro/:slug", element: <HanjaProDetailPage /> },
   { path: "/hanja-analytics", element: <HanjaAnalyticsPage /> },
   { path: "/hanja-stories", element: <HanjaStoriesPage /> },
-  { path: "/flashcard-hub", element: <FlashcardHubPage /> },
+  // HIDDEN 2026-05-25 (focus EPS+du học): generic flashcard hub, use /eps-flashcard or /seoul-flashcard
+  // { path: "/flashcard-hub", element: <FlashcardHubPage /> },
   { path: "/speaking-level", element: <SpeakingLevelPage /> },
   // HIDDEN 2026-05-25 (focus EPS+du học): duplicate hangul, keep /hangul-write
   // { path: "/hangul-writing", element: <HangulWritingPage /> },

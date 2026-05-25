@@ -1023,8 +1023,8 @@ export default function ProfilePage() {
           {/* Quick actions */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {[
-              { label: "Lộ trình học", icon: "ri-route-line", color: "app-accent-primary", route: "/learning-path" },
-              { label: "Thống kê XP", icon: "ri-bar-chart-line", color: "#34d399", route: "/xp-stats" },
+              { label: "Lộ trình EPS 30 ngày", icon: "ri-route-line", color: "app-accent-primary", route: "/eps-30day-plan" },
+              { label: "Thống kê EPS", icon: "ri-bar-chart-line", color: "#34d399", route: "/eps-stats" },
               { label: "Thành tích", icon: "ri-trophy-line", color: "#fb923c", route: "/achievements" },
             ].map((item, i) => (
               <button

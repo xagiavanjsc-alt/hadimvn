@@ -72,16 +72,18 @@ const ALL_FEATURES: Feature[] = [
 
   // Stats hidden features
   { path: "/personal-stats", label: "Thống kê cá nhân", icon: "ri-user-3-line", tags: ["Thống kê", "Cá nhân"], description: "Thống kê học tập chi tiết của cá nhân" },
-  { path: "/study-analytics", label: "Phân tích học tập", icon: "ri-line-chart-line", tags: ["Thống kê", "Phân tích"], description: "Phân tích sâu về thói quen và hiệu quả học" },
-  { path: "/study-stats-detail", label: "Chi tiết thống kê", icon: "ri-bar-chart-box-line", tags: ["Thống kê", "Chi tiết"], description: "Xem chi tiết thống kê theo từng môn học" },
+  // HIDDEN 2026-05-25 (focus EPS+du học): generic stats duplicates. Use /eps-stats / /seoul-stats / /topik-stats instead.
+  // { path: "/study-analytics", label: "Phân tích học tập", icon: "ri-line-chart-line", tags: ["Thống kê", "Phân tích"], description: "Phân tích sâu về thói quen và hiệu quả học" },
+  // { path: "/study-stats-detail", label: "Chi tiết thống kê", icon: "ri-bar-chart-box-line", tags: ["Thống kê", "Chi tiết"], description: "Xem chi tiết thống kê theo từng môn học" },
   { path: "/progress", label: "Tiến độ tổng thể", icon: "ri-progress-3-line", tags: ["Thống kê", "Tiến độ"], description: "Tổng quan tiến độ học tập toàn bộ" },
-  { path: "/xp-stats", label: "Thống kê XP", icon: "ri-star-line", tags: ["Thống kê", "XP"], description: "Xem lịch sử và thống kê điểm XP" },
+  // { path: "/xp-stats", label: "Thống kê XP", icon: "ri-star-line", tags: ["Thống kê", "XP"], description: "Xem lịch sử và thống kê điểm XP" },
   { path: "/weekly-report", label: "Báo cáo tuần", icon: "ri-file-chart-line", tags: ["Thống kê", "Báo cáo"], description: "Báo cáo tổng kết học tập hàng tuần" },
 
   // Planning hidden features
   { path: "/roadmap", label: "Lộ trình học", icon: "ri-map-2-line", tags: ["Kế hoạch", "Lộ trình"], description: "Lộ trình học tiếng Hàn từ cơ bản đến nâng cao" },
-  { path: "/learning-path", label: "Con đường học tập", icon: "ri-route-line", tags: ["Kế hoạch", "Lộ trình"], description: "Con đường học tập được cá nhân hóa" },
-  { path: "/personalized-roadmap", label: "Lộ trình cá nhân hóa", icon: "ri-brain-line", tags: ["Kế hoạch", "AI"], description: "AI tạo lộ trình học phù hợp với bạn", isNew: true },
+  // HIDDEN 2026-05-25 (focus EPS+du học): generic roadmap duplicates. EPS audience uses /eps-30day-plan or /eps-personalized-roadmap.
+  // { path: "/learning-path", label: "Con đường học tập", icon: "ri-route-line", tags: ["Kế hoạch", "Lộ trình"], description: "Con đường học tập được cá nhân hóa" },
+  // { path: "/personalized-roadmap", label: "Lộ trình cá nhân hóa", icon: "ri-brain-line", tags: ["Kế hoạch", "AI"], description: "AI tạo lộ trình học phù hợp với bạn", isNew: true },
   { path: "/daily-plan", label: "Kế hoạch ngày", icon: "ri-calendar-todo-line", tags: ["Kế hoạch", "Hàng ngày"], description: "Lập kế hoạch học tập chi tiết theo ngày" },
   { path: "/scheduler", label: "Lịch học", icon: "ri-calendar-schedule-line", tags: ["Kế hoạch", "Lịch"], description: "Sắp xếp lịch học tập theo tuần" },
   { path: "/study-reminder", label: "Nhắc nhở học", icon: "ri-notification-3-line", tags: ["Kế hoạch", "Nhắc nhở"], description: "Cài đặt nhắc nhở học tập hàng ngày" },
@@ -163,7 +165,8 @@ function getStudySuggestions(studyHistory: Record<string, number>): Feature[] {
 
   // Default suggestions if no history
   if (suggestions.length === 0) {
-    ["/personalized-roadmap", "/placement-test", "/eps-30day-plan", "/learning-certificate"].forEach(p => {
+    // /personalized-roadmap hidden 2026-05-25 — replaced with /eps-personalized-roadmap
+    ["/eps-personalized-roadmap", "/placement-test", "/eps-30day-plan", "/learning-certificate"].forEach(p => {
       const f = ALL_FEATURES.find(x => x.path === p);
       if (f) suggestions.push(f);
     });
