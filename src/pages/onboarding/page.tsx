@@ -272,6 +272,8 @@ export default function OnboardingPage() {
   const handleStart = () => {
     // Save onboarding complete
     localStorage.setItem(STORAGE_KEYS.ONBOARDING_DONE, "1");
+    // Defensive: clear the post-signup flag if it lingered (gate normally clears it)
+    localStorage.removeItem(STORAGE_KEYS.JUST_SIGNED_UP);
   };
 
   const canProceed = (s: number) => {
