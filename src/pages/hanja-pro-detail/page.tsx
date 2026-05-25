@@ -45,7 +45,7 @@ async function copyToClipboard(text: string) {
 }
 
 function shareWord(hangul: string, hanja: string, slug: string) {
-  const url = `https://hanquocoi.vn/hanja-pro/${slug}`;
+  const url = `${SITE_URL}/hanja-pro/${slug}`;
   const text = `Học từ Hán Hàn: ${hangul} (${hanja})`;
   if (navigator.share) {
     navigator.share({ title: text, text, url });

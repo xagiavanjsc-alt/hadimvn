@@ -4,6 +4,7 @@ import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/components/base/Toast";
 import { supabase } from "@/lib/supabase";
+import { SITE_URL, SITE_HOST } from "@/lib/siteConfig";
 
 type CardTheme = "dark" | "gold" | "green" | "pink";
 type CardLayout = "square" | "story" | "wide";
@@ -94,7 +95,7 @@ function ProgressCard({
             }}>🇰🇷</div>
             <div>
               <div style={{ color: t.text, fontWeight: 700, fontSize: 15 }}>Hàn Quốc Ơi!</div>
-              <div style={{ color: t.sub, fontSize: 11 }}>hanquocoi.vn</div>
+              <div style={{ color: t.sub, fontSize: 11 }}>{SITE_HOST}</div>
             </div>
             <div style={{ marginLeft: "auto" }}>
               <div style={{
@@ -163,7 +164,7 @@ function ProgressCard({
               color: t.accent, fontSize: 11, fontWeight: 600,
               display: "flex", alignItems: "center", gap: 4,
             }}>
-              <span>Học cùng tại hanquocoi.vn</span>
+              <span>Học cùng tại {SITE_HOST}</span>
             </div>
           </div>
         </div>
@@ -262,16 +263,16 @@ export default function ShareProgressPage() {
   }, [layout]);
 
   const handleCopyLink = useCallback(() => {
-    const url = `https://hanquocoi.vn/public-profile/${user?.id || ""}`;
+    const url = `${SITE_URL}/public-profile/${user?.id || ""}`;
     navigator.clipboard.writeText(url);
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
   }, [user?.id]);
 
   const shareTexts = [
-    `🇰🇷 Mình đang học tiếng Hàn được ${progressData.streak} ngày liên tiếp rồi! Cùng học với mình tại hanquocoi.vn nhé! #HànQuốcƠi #HọcTiếngHàn`,
-    `⚡ ${progressData.xp.toLocaleString()} XP và ${progressData.wordsLearned} từ vựng tiếng Hàn — hành trình chinh phục EPS-TOPIK của mình tại hanquocoi.vn`,
-    `🔥 ${progressData.streak} ngày streak học tiếng Hàn! Ai muốn học cùng thì vào hanquocoi.vn nhé, miễn phí luôn!`,
+    `🇰🇷 Mình đang học tiếng Hàn được ${progressData.streak} ngày liên tiếp rồi! Cùng học với mình tại ${SITE_HOST} nhé! #HànQuốcƠi #HọcTiếngHàn`,
+    `⚡ ${progressData.xp.toLocaleString()} XP và ${progressData.wordsLearned} từ vựng tiếng Hàn — hành trình chinh phục EPS-TOPIK của mình tại ${SITE_HOST}`,
+    `🔥 ${progressData.streak} ngày streak học tiếng Hàn! Ai muốn học cùng thì vào ${SITE_HOST} nhé, miễn phí luôn!`,
   ];
   const [shareTextIdx, setShareTextIdx] = useState(0);
 
@@ -345,8 +346,8 @@ export default function ShareProgressPage() {
             {/* Social share buttons */}
             <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
               {[
-                { label: "Facebook", icon: "ri-facebook-fill", color: "#1877f2", bg: "rgba(24,119,242,0.12)", url: `https://www.facebook.com/sharer/sharer.php?u=https://hanquocoi.vn` },
-                { label: "Zalo", icon: "ri-chat-1-line", color: "#0068ff", bg: "rgba(0,104,255,0.12)", url: `https://zalo.me/share?url=https://hanquocoi.vn` },
+                { label: "Facebook", icon: "ri-facebook-fill", color: "#1877f2", bg: "rgba(24,119,242,0.12)", url: `https://www.facebook.com/sharer/sharer.php?u=${SITE_URL}` },
+                { label: "Zalo", icon: "ri-chat-1-line", color: "#0068ff", bg: "rgba(0,104,255,0.12)", url: `https://zalo.me/share?url=${SITE_URL}` },
                 { label: "Twitter", icon: "ri-twitter-x-line", color: "#ffffff", bg: "rgba(255,255,255,0.08)", url: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareTexts[shareTextIdx])}` },
               ].map(s => (
                 <a

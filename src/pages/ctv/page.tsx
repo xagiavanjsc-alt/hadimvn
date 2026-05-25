@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/lib/supabase";
+import { SITE_URL, SITE_HOST } from "@/lib/siteConfig";
 
 interface CTVProfile {
   id: string;
@@ -245,7 +246,7 @@ export default function CTVPage() {
     }
   };
 
-  const referralLink = profile ? `https://hanquocoi.vn?ref=${profile.ref_code}` : "";
+  const referralLink = profile ? `${SITE_URL}?ref=${profile.ref_code}` : "";
   const handleCopy = (type: "link" | "code") => {
     navigator.clipboard.writeText(type === "link" ? referralLink : (profile?.ref_code || ""));
     setCopied(type);
@@ -568,7 +569,7 @@ export default function CTVPage() {
                 </h3>
                 <p className="text-xs text-app-text-muted">Tùy chỉnh mã nhận diện của bạn. Ví dụ: <span className="font-mono text-rose-400">HANGUOCOI-ANH</span>, <span className="font-mono text-rose-400">HQO-THANHVIEN01</span></p>
                 <div className="flex gap-2 items-center">
-                  <span className="text-xs text-app-text-muted font-mono flex-shrink-0">hanquocoi.vn?ref=</span>
+                  <span className="text-xs text-app-text-muted font-mono flex-shrink-0">{SITE_HOST}?ref=</span>
                   <input
                     value={editRefCode}
                     onChange={e => setEditRefCode(e.target.value.toUpperCase().replace(/[^A-Z0-9-]/g, ""))}
