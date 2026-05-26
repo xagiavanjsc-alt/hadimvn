@@ -223,19 +223,19 @@ function QuestionCard({ q, answer, onAnswer, showResult, player }: QuestionCardP
           ))}
         </div>
       ) : (
-        <div className={isCompactImageLayout ? "grid md:grid-cols-3 gap-3 items-start" : ""}>
+        <div className={isCompactImageLayout ? "grid md:grid-cols-2 gap-4 items-start" : ""}>
           {isCompactImageLayout && (
-            <div className="md:col-span-1 md:order-2 flex justify-center">
+            <div className="md:order-2 flex justify-center md:sticky md:top-24">
               <img
                 src={q.contentImage}
                 alt=""
-                className="max-h-44 md:max-h-56 w-auto rounded-xl border border-gray-200 object-contain shadow-sm"
+                className="max-h-44 md:max-h-64 w-auto rounded-xl border border-gray-200 object-contain shadow-sm"
               />
             </div>
           )}
           <div className={`${
             isCompactImageLayout
-              ? "md:col-span-2 md:order-1 grid grid-cols-2 gap-2"
+              ? "md:order-1 space-y-1.5"
               : "space-y-2"
           }`}>
             {q.options.map((opt, i) => {
@@ -245,7 +245,7 @@ function QuestionCard({ q, answer, onAnswer, showResult, player }: QuestionCardP
                 <button
                   key={i}
                   onClick={() => !showResult && onAnswer(i)}
-                  className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-xl border text-left transition-all cursor-pointer text-sm ${
+                  className={`w-full flex items-center gap-3 ${isCompactImageLayout ? "px-3 py-2" : "px-4 py-3.5"} rounded-xl border text-left transition-all cursor-pointer text-sm ${
                     isCorrect
                       ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-300"
                       : isWrong
@@ -255,7 +255,7 @@ function QuestionCard({ q, answer, onAnswer, showResult, player }: QuestionCardP
                       : "bg-app-card/50 border-app-border text-white/75 hover:border-app-accent-primary/30 hover:bg-app-accent-primary/5"
                   }`}
                 >
-                  <span className={`w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold flex-shrink-0 ${
+                  <span className={`${isCompactImageLayout ? "w-7 h-7" : "w-8 h-8"} flex items-center justify-center rounded-full text-sm font-bold flex-shrink-0 ${
                     isCorrect ? "bg-emerald-500 text-white" :
                     isWrong ? "bg-rose-400 text-white" :
                     answer === i ? "bg-app-accent-primary text-app-bg" : "bg-app-card text-app-text-muted"
