@@ -262,12 +262,13 @@ export default function ShareProgressPage() {
     }
   }, [layout]);
 
+  const profileUrl = `${SITE_URL}/public-profile/${user?.id || ""}`;
+
   const handleCopyLink = useCallback(() => {
-    const url = `${SITE_URL}/public-profile/${user?.id || ""}`;
-    navigator.clipboard.writeText(url);
+    navigator.clipboard.writeText(profileUrl);
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
-  }, [user?.id]);
+  }, [profileUrl]);
 
   const shareTexts = [
     `🇰🇷 Mình đang học tiếng Hàn được ${progressData.streak} ngày liên tiếp rồi! Cùng học với mình tại ${SITE_HOST} nhé! #HànQuốcƠi #HọcTiếngHàn`,
@@ -346,8 +347,8 @@ export default function ShareProgressPage() {
             {/* Social share buttons */}
             <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
               {[
-                { label: "Facebook", icon: "ri-facebook-fill", color: "#1877f2", bg: "rgba(24,119,242,0.12)", url: `https://www.facebook.com/sharer/sharer.php?u=${SITE_URL}` },
-                { label: "Zalo", icon: "ri-chat-1-line", color: "#0068ff", bg: "rgba(0,104,255,0.12)", url: `https://zalo.me/share?url=${SITE_URL}` },
+                { label: "Facebook", icon: "ri-facebook-fill", color: "#1877f2", bg: "rgba(24,119,242,0.12)", url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(profileUrl)}` },
+                { label: "Zalo", icon: "ri-chat-1-line", color: "#0068ff", bg: "rgba(0,104,255,0.12)", url: `https://zalo.me/share?url=${encodeURIComponent(profileUrl)}` },
                 { label: "Twitter", icon: "ri-twitter-x-line", color: "#ffffff", bg: "rgba(255,255,255,0.08)", url: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareTexts[shareTextIdx])}` },
               ].map(s => (
                 <a
