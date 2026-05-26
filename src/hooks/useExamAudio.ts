@@ -17,7 +17,7 @@
  *   play({ text, audioUrl, onEnd });
  *   stop();
  */
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export interface PlayOptions {
   /** Text tiếng Hàn dùng cho TTS (fallback khi MP3 lỗi, hoặc khi không có audioUrl). */
@@ -108,6 +108,10 @@ export function useExamAudio() {
     },
     [stop, ttsSupported]
   );
+
+  // Stop playback whenever the consuming component unmounts (e.g. user
+  // navigates away from /eps-de1 to home while a clip is still playing).
+  useEffect(() => stop, [stop]);
 
   return { play, stop, playing };
 }

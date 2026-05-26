@@ -442,6 +442,10 @@ export default function EpsDe2ExamPage() {
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const { awardXP } = useXPSystem();
 
+  // Stop audio khi chuyển câu hoặc rời khỏi exam phase — tránh tình trạng
+  // user next/prev/submit mà MP3 câu cũ vẫn chạy nền.
+  useEffect(() => { player.stop(); }, [currentIdx, phase, player]);
+
   const TOTAL = DE2_INFO.timeMinutes * 60;
   const readingQs   = DE2_QUESTIONS.filter(q => q.section === "reading");
   const listeningQs = DE2_QUESTIONS.filter(q => q.section === "listening");
