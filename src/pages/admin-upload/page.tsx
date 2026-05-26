@@ -3,6 +3,7 @@ import AdminLayout from "@/components/feature/AdminLayout";
 import { epsQuestions, type EpsQuestion } from "@/mocks/epsQuestions";
 import { koreanToRomanization } from "@/hooks/useAudioCache";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { AUDIO_HOST_URL, IMG_HOST_URL, SITE_HOST, SITE_URL } from "@/lib/siteConfig";
 
 interface UploadItem {
   id: string;
@@ -14,8 +15,8 @@ interface UploadItem {
   targetUrl?: string;
 }
 
-const VPS_IMAGE_BASE = "https://img.hanquocoi.vn/eps";
-const VPS_AUDIO_BASE = "https://audio.hanquocoi.vn/tts";
+const VPS_IMAGE_BASE = `${IMG_HOST_URL}/eps`;
+const VPS_AUDIO_BASE = `${AUDIO_HOST_URL}/tts`;
 
 const OPENROUTER_MODELS = [
   { id: "google/gemma-3-12b-it:free", label: "Gemma 3 12B (Miễn phí)" },
@@ -148,7 +149,7 @@ async function generatePhonetic(korean: string, meaning: string, apiKey: string,
   const prompt = `Bạn là chuyên gia tiếng Hàn. Tạo phiên âm tiếng Việt cho từ: ${korean} (nghĩa: ${meaning}). Chỉ trả về phiên âm, không giải thích.`;
   const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
     method: "POST",
-    headers: { "Authorization": `Bearer ${apiKey}`, "Content-Type": "application/json", "HTTP-Referer": "https://hanquocoi.vn", "X-Title": "Hàn Quốc Ơi! Admin" },
+    headers: { "Authorization": `Bearer ${apiKey}`, "Content-Type": "application/json", "HTTP-Referer": SITE_URL, "X-Title": "Hàn Quốc Ơi! Admin" },
     body: JSON.stringify({ model, messages: [{ role: "user", content: prompt }], max_tokens: 100, temperature: 0.3 }),
   });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -430,7 +431,7 @@ export default function AdminUploadPage() {
                 { icon: "ri-translate-2", color: "#e8c84a", title: "Phiên âm latinh", desc: "안전모 → anjeonmo.mp3 (tên file an toàn cho mọi VPS)" },
                 { icon: "ri-google-line", color: "#34d399", title: "Google TTS miễn phí", desc: "Tạo MP3 chất lượng tốt, không cần API key" },
                 { icon: "ri-save-line", color: "#fb923c", title: "Cache vĩnh viễn", desc: "Lần đầu nghe → cache browser. Lần sau phát từ cache" },
-                { icon: "ri-server-line", color: "#a78bfa", title: "Upload VPS", desc: "Tải file MP3 về → upload lên audio.hanquocoi.vn/tts/" },
+                { icon: "ri-server-line", color: "#a78bfa", title: "Upload VPS", desc: `Tải file MP3 về → upload lên audio.${SITE_HOST}/tts/` },
               ].map(s => (
                 <div key={s.title} className="flex items-start gap-3 p-3 bg-app-surface/50 rounded-xl">
                   <div className="w-8 h-8 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>

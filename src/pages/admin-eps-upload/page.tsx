@@ -3,6 +3,7 @@ import DashboardLayout from "@/components/feature/DashboardLayout";
 import { epsQuestions, type EpsQuestion } from "@/mocks/epsQuestions";
 import { koreanToRomanization } from "@/hooks/useAudioCache";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { AUDIO_HOST_URL, IMG_HOST_URL, SITE_HOST, SITE_URL } from "@/lib/siteConfig";
 
 interface UploadItem {
   id: string;
@@ -14,8 +15,8 @@ interface UploadItem {
   targetUrl?: string;
 }
 
-const VPS_IMAGE_BASE = "https://img.hanquocoi.vn/eps";
-const VPS_AUDIO_BASE = "https://audio.hanquocoi.vn/tts";
+const VPS_IMAGE_BASE = `${IMG_HOST_URL}/eps`;
+const VPS_AUDIO_BASE = `${AUDIO_HOST_URL}/tts`;
 
 // ─── Drag & Drop Zone ─────────────────────────────────────────────────────────
 function DropZone({ onFiles }: { onFiles: (files: File[]) => void }) {
@@ -152,8 +153,8 @@ function VPSGuide() {
     navigator.clipboard.writeText(text).then(() => { setCopied(key); setTimeout(() => setCopied(null), 2000); });
   };
   const configs = [
-    { label: "Cấu trúc thư mục ảnh", key: "dir", code: `/var/www/img.hanquocoi.vn/\n├── eps/\n│   ├── safety/\n│   ├── greeting/\n│   ├── workplace/\n│   ├── daily/\n│   ├── emergency/\n│   ├── culture/\n│   ├── law/\n│   ├── listening/\n│   └── reading/` },
-    { label: "Nginx config (CORS)", key: "nginx", code: `server {\n    listen 80;\n    server_name img.hanquocoi.vn;\n    root /var/www/img.hanquocoi.vn;\n    add_header Access-Control-Allow-Origin *;\n    add_header Cache-Control "public, max-age=31536000";\n    location / { try_files $uri $uri/ =404; }\n}` },
+    { label: "Cấu trúc thư mục ảnh", key: "dir", code: `/var/www/img.${SITE_HOST}/\n├── eps/\n│   ├── safety/\n│   ├── greeting/\n│   ├── workplace/\n│   ├── daily/\n│   ├── emergency/\n│   ├── culture/\n│   ├── law/\n│   ├── listening/\n│   └── reading/` },
+    { label: "Nginx config (CORS)", key: "nginx", code: `server {\n    listen 80;\n    server_name img.${SITE_HOST};\n    root /var/www/img.${SITE_HOST};\n    add_header Access-Control-Allow-Origin *;\n    add_header Cache-Control "public, max-age=31536000";\n    location / { try_files $uri $uri/ =404; }\n}` },
   ];
   return (
     <div className="bg-app-bg border border-app-border rounded-2xl p-5">
@@ -197,7 +198,7 @@ async function generatePhonetic(korean: string, meaning: string, apiKey: string,
   const prompt = `Bạn là chuyên gia tiếng Hàn. Hãy tạo phiên âm tiếng Việt (cách đọc) cho từ tiếng Hàn sau theo chuẩn phiên âm tiếng Việt dễ đọc (không dùng IPA, không dùng Romanization Latin).\n\nTừ tiếng Hàn: ${korean}\nNghĩa tiếng Việt: ${meaning}\n\nChỉ trả về phiên âm tiếng Việt, không giải thích thêm. Ví dụ: 안녕하세요 → "an-nhơng-ha-xê-yo"`;
   const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
     method: "POST",
-    headers: { "Authorization": `Bearer ${apiKey}`, "Content-Type": "application/json", "HTTP-Referer": "https://hanquocoi.vn", "X-Title": "Hàn Quốc Ơi! Admin" },
+    headers: { "Authorization": `Bearer ${apiKey}`, "Content-Type": "application/json", "HTTP-Referer": SITE_URL, "X-Title": "Hàn Quốc Ơi! Admin" },
     body: JSON.stringify({ model, messages: [{ role: "user", content: prompt }], max_tokens: 100, temperature: 0.3 }),
   });
   if (!res.ok) {
@@ -520,7 +521,7 @@ export default function AdminEpsUploadPage() {
                 { icon: "ri-translate-2", color: "#e8c84a", title: "Phiên âm latinh", desc: "안전모 → anjeonmo.mp3 (tên file an toàn cho mọi VPS)" },
                 { icon: "ri-google-line", color: "#34d399", title: "Google TTS miễn phí", desc: "Tạo MP3 chất lượng tốt, không cần API key" },
                 { icon: "ri-save-line", color: "#fb923c", title: "Cache vĩnh viễn", desc: "Lần đầu nghe → cache browser. Lần sau phát từ cache" },
-                { icon: "ri-server-line", color: "#a78bfa", title: "Upload VPS", desc: "Tải file MP3 về → upload lên audio.hanquocoi.vn/tts/" },
+                { icon: "ri-server-line", color: "#a78bfa", title: "Upload VPS", desc: `Tải file MP3 về → upload lên audio.${SITE_HOST}/tts/` },
               ].map(s => (
                 <div key={s.title} className="flex items-start gap-3 p-3 bg-app-surface/50 rounded-xl">
                   <div className="w-8 h-8 flex items-center justify-center rounded-lg flex-shrink-0" style={{ backgroundColor: `${s.color}15` }}>

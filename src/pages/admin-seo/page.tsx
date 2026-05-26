@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import AdminLayout from "@/components/feature/AdminLayout";
 import { supabase } from "@/lib/supabase";
+import { SITE_HOST } from "@/lib/siteConfig";
 
 interface SEOSettings {
   siteName: string;
@@ -150,7 +151,7 @@ export default function AdminSEOPage() {
                 value={settings.ogImage}
                 onChange={(e) => handleChange("ogImage", e.target.value)}
                 className="w-full bg-app-bg border border-app-border rounded-lg px-4 py-2.5 text-white text-sm focus:outline-none focus:border-app-accent-primary"
-                placeholder="https://hanquocoi.vn/og-image.png"
+                placeholder={`https://${SITE_HOST}/og-image.png`}
               />
               {settings.ogImage && (
                 <img loading="lazy" decoding="async" src={settings.ogImage} alt="OG Preview" className="mt-3 max-w-xs rounded-lg border border-app-border" />

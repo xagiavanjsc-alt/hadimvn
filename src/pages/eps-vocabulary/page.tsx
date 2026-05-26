@@ -7,7 +7,7 @@ import { useAudioCache } from "@/hooks/useAudioCache";
 import { type EpsVocabItem, type EpsVocabTopic } from "@/mocks/epsVocabulary";
 import { EpsVocabProvider, useEpsVocab, useEpsVocabLoading } from "@/contexts/EpsVocabContext";
 import { usePageSEO } from "@/hooks/usePageSEO";
-import { ORG_SCHEMA } from "@/lib/siteConfig";
+import { ORG_SCHEMA, SITE_HOST } from "@/lib/siteConfig";
 
 // ─── PDF Export ───────────────────────────────────────────────────────────
 function exportToPDF(items: EpsVocabItem[], topicId: string, topics: EpsVocabTopic[]) {
@@ -50,7 +50,7 @@ function exportToPDF(items: EpsVocabItem[], topicId: string, topics: EpsVocabTop
 </head>
 <body>
 <h1>Từ vựng EPS-TOPIK</h1>
-<p class="meta">Chủ đề: ${topicLabel} &nbsp;·&nbsp; ${items.length} từ &nbsp;·&nbsp; Xuất ngày ${date} &nbsp;·&nbsp; hanquocoi.vn</p>
+<p class="meta">Chủ đề: ${topicLabel} &nbsp;·&nbsp; ${items.length} từ &nbsp;·&nbsp; Xuất ngày ${date} &nbsp;·&nbsp; ${SITE_HOST}</p>
 <table>
   <thead>
     <tr>
@@ -64,7 +64,7 @@ function exportToPDF(items: EpsVocabItem[], topicId: string, topics: EpsVocabTop
   </thead>
   <tbody>${rows}</tbody>
 </table>
-<p class="footer">Hàn Quốc Ơi! — Học tiếng Hàn cùng cộng đồng · hanquocoi.vn</p>
+<p class="footer">Hàn Quốc Ơi! — Học tiếng Hàn cùng cộng đồng · ${SITE_HOST}</p>
 <script>window.onload = () => window.print();</script>
 </body>
 </html>`;

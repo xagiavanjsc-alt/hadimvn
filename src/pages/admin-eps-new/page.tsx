@@ -8,6 +8,7 @@ import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useToast } from "@/components/base/Toast";
 import { epsQuestions, EPS_TOPICS, type EpsQuestion } from "@/mocks/epsQuestions";
 import { epsVocabulary, EPS_VOCAB_TOPICS, type EpsVocabItem } from "@/mocks/epsVocabulary";
+import { SITE_HOST } from "@/lib/siteConfig";
 import ImageWithFallback from "@/components/base/ImageWithFallback";
 import VirtualList from "@/components/base/VirtualList";
 
@@ -36,7 +37,7 @@ function QuestionEditor({ question, onSave, onCancel }: {
         <div>
           <label className="text-app-text-secondary text-xs mb-1 block">URL ảnh minh họa</label>
           <input type="text" value={imageUrl} onChange={e => setImageUrl(e.target.value)}
-            placeholder="https://img.hanquocoi.vn/eps/safety/helmet-01.jpg"
+            placeholder={`https://img.${SITE_HOST}/eps/safety/helmet-01.jpg`}
             className="w-full bg-app-card/50 border border-app-border rounded-xl px-3 py-2.5 text-white/70 text-sm outline-none focus:border-rose-400/40 placeholder-white/20" />
         </div>
         <div>
@@ -154,8 +155,8 @@ function ImportPanel() {
 function VpsGuide() {
   const [copied, setCopied] = useState<string | null>(null);
   const copy = (text: string, key: string) => { navigator.clipboard.writeText(text); setCopied(key); setTimeout(() => setCopied(null), 2000); };
-  const nginxConfig = `server {\n    listen 80;\n    server_name img.hanquocoi.vn;\n    root /var/www/img.hanquocoi.vn;\n    add_header Access-Control-Allow-Origin *;\n    add_header Cache-Control "public, max-age=31536000";\n    location / { try_files $uri $uri/ =404; }\n}`;
-  const folderStructure = `/var/www/img.hanquocoi.vn/\n├── eps/\n│   ├── safety/\n│   ├── greeting/\n│   ├── workplace/\n│   ├── daily/\n│   ├── emergency/\n│   ├── culture/\n│   ├── law/\n│   ├── listening/\n│   └── reading/`;
+  const nginxConfig = `server {\n    listen 80;\n    server_name img.${SITE_HOST};\n    root /var/www/img.${SITE_HOST};\n    add_header Access-Control-Allow-Origin *;\n    add_header Cache-Control "public, max-age=31536000";\n    location / { try_files $uri $uri/ =404; }\n}`;
+  const folderStructure = `/var/www/img.${SITE_HOST}/\n├── eps/\n│   ├── safety/\n│   ├── greeting/\n│   ├── workplace/\n│   ├── daily/\n│   ├── emergency/\n│   ├── culture/\n│   ├── law/\n│   ├── listening/\n│   └── reading/`;
   return (
     <div className="space-y-5">
       {[

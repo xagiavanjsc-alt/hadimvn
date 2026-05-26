@@ -5,6 +5,7 @@ import { useToast } from "@/components/base/Toast";
 import { epsQuestions, EPS_TOPICS, type EpsQuestion } from "@/mocks/epsQuestions";
 import { epsVocabulary, EPS_VOCAB_TOPICS, type EpsVocabItem } from "@/mocks/epsVocabulary";
 import ImageWithFallback from "@/components/base/ImageWithFallback";
+import { SITE_HOST } from "@/lib/siteConfig";
 
 // ─── Dedup helper ─────────────────────────────────────────────────────────
 function deduplicateVocab(items: EpsVocabItem[]): EpsVocabItem[] {
@@ -55,10 +56,10 @@ function QuestionEditor({
             type="text"
             value={imageUrl}
             onChange={e => { setImageUrl(e.target.value); setPreviewError(false); }}
-            placeholder="https://img.hanquocoi.vn/eps/safety/helmet-01.jpg"
+            placeholder={`https://img.${SITE_HOST}/eps/safety/helmet-01.jpg`}
             className="w-full bg-app-card/50 border border-app-border rounded-xl px-3 py-2.5 text-white/70 text-sm outline-none focus:border-app-accent-primary/40 placeholder-white/20"
           />
-          <p className="text-app-text-muted text-[10px] mt-1">Hỗ trợ: img.hanquocoi.vn hoặc bất kỳ URL ảnh nào</p>
+          <p className="text-app-text-muted text-[10px] mt-1">Hỗ trợ: img.{SITE_HOST} hoặc bất kỳ URL ảnh nào</p>
         </div>
         <div>
           <label className="text-app-text-secondary text-xs mb-1 block">Alt text (mô tả ảnh)</label>
@@ -262,11 +263,11 @@ function VpsGuide() {
     setTimeout(() => setCopied(null), 2000);
   };
 
-  const nginxConfig = `# /etc/nginx/sites-available/img.hanquocoi.vn
+  const nginxConfig = `# /etc/nginx/sites-available/img.${SITE_HOST}
 server {
     listen 80;
-    server_name img.hanquocoi.vn;
-    
+    server_name img.${SITE_HOST};
+
     # Ảnh EPS câu hỏi
     location /eps/ {
         root /var/www/hanquocoi/media;
@@ -274,7 +275,7 @@ server {
         add_header Cache-Control "public, immutable";
         add_header Access-Control-Allow-Origin "*";
     }
-    
+
     # Ảnh từ vựng
     location /vocab/ {
         root /var/www/hanquocoi/media;
@@ -284,11 +285,11 @@ server {
     }
 }
 
-# /etc/nginx/sites-available/audio.hanquocoi.vn
+# /etc/nginx/sites-available/audio.${SITE_HOST}
 server {
     listen 80;
-    server_name audio.hanquocoi.vn;
-    
+    server_name audio.${SITE_HOST};
+
     # File âm thanh TTS (cache vĩnh viễn)
     location /tts/ {
         root /var/www/hanquocoi/media;
@@ -339,7 +340,7 @@ VPS_HOST="your-vps-ip"
 VPS_PATH="/var/www/hanquocoi/media"
 
 scp "$LOCAL_FILE" "$VPS_USER@$VPS_HOST:$VPS_PATH/$CATEGORY/$FILENAME"
-echo "✅ Uploaded: https://img.hanquocoi.vn/$CATEGORY/$FILENAME"`;
+echo "✅ Uploaded: https://img.${SITE_HOST}/$CATEGORY/$FILENAME"`;
 
   return (
     <div className="space-y-5">
@@ -356,7 +357,7 @@ echo "✅ Uploaded: https://img.hanquocoi.vn/$CATEGORY/$FILENAME"`;
 
       <div className="bg-app-bg border border-app-border rounded-2xl p-5">
         <h3 className="text-white font-semibold text-sm mb-1"><i className="ri-settings-3-line text-app-accent-primary mr-2"></i>Nginx config</h3>
-        <p className="text-app-text-secondary text-xs mb-3">Cấu hình Nginx cho img.hanquocoi.vn và audio.hanquocoi.vn</p>
+        <p className="text-app-text-secondary text-xs mb-3">Cấu hình Nginx cho img.{SITE_HOST} và audio.{SITE_HOST}</p>
         <div className="relative">
           <pre className="bg-black/40 rounded-xl p-4 text-[#38bdf8] text-[10px] font-mono leading-relaxed overflow-x-auto">{nginxConfig}</pre>
           <button onClick={() => copy(nginxConfig, "nginx")} className="absolute top-2 right-2 text-[10px] text-app-text-muted hover:text-white/60 bg-app-card/50 px-2 py-1 rounded cursor-pointer whitespace-nowrap">
@@ -379,10 +380,10 @@ echo "✅ Uploaded: https://img.hanquocoi.vn/$CATEGORY/$FILENAME"`;
       <div className="bg-app-accent-primary/5 border border-app-accent-primary/20 rounded-xl p-4">
         <p className="text-app-accent-primary text-sm font-semibold mb-2"><i className="ri-lightbulb-line mr-2"></i>Chiến lược cache âm thanh TTS</p>
         <div className="space-y-2 text-white/50 text-xs leading-relaxed">
-          <p>1. <strong className="text-white/70">Lần đầu nghe:</strong> App gọi API TTS → nhận file MP3 → lưu vào <code className="text-app-accent-primary/70">audio.hanquocoi.vn/tts/[từ].mp3</code></p>
+          <p>1. <strong className="text-white/70">Lần đầu nghe:</strong> App gọi API TTS → nhận file MP3 → lưu vào <code className="text-app-accent-primary/70">audio.{SITE_HOST}/tts/[từ].mp3</code></p>
           <p>2. <strong className="text-white/70">Lần sau:</strong> App kiểm tra Cache Storage → nếu có thì phát ngay, không tốn API</p>
           <p>3. <strong className="text-white/70">Vĩnh viễn:</strong> File MP3 lưu trên VPS không bao giờ xóa → không cần tạo lại</p>
-          <p>4. <strong className="text-white/70">SEO:</strong> URL <code className="text-app-accent-primary/70">audio.hanquocoi.vn</code> giúp Google index âm thanh gắn với domain của bạn</p>
+          <p>4. <strong className="text-white/70">SEO:</strong> URL <code className="text-app-accent-primary/70">audio.{SITE_HOST}</code> giúp Google index âm thanh gắn với domain của bạn</p>
         </div>
       </div>
     </div>

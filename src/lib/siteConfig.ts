@@ -22,6 +22,30 @@ export const SITE_HOST: string = (() => {
 })();
 
 /**
+ * Hosts for static-asset subdomains (audio TTS, EPS images).
+ *
+ * Derived from `SITE_HOST` so a single `VITE_SITE_URL` change cascades
+ * to all three (main + audio + img). When you point the env at a new
+ * domain like `https://hanquoc.io`, audio becomes
+ * `https://audio.hanquoc.io` and img becomes `https://img.hanquoc.io`
+ * automatically — no manual find/replace in code or admin docs.
+ *
+ * Override individually via `VITE_AUDIO_HOST_URL` / `VITE_IMG_HOST_URL`
+ * if the assets ever need a fully different host (e.g. dedicated CDN).
+ *
+ * No trailing slash; consumers append `/tts`, `/eps`, `/upload`, etc.
+ */
+export const AUDIO_HOST_URL: string = (
+  (import.meta.env.VITE_AUDIO_HOST_URL as string | undefined) ||
+  `https://audio.${SITE_HOST}`
+).replace(/\/+$/, "");
+
+export const IMG_HOST_URL: string = (
+  (import.meta.env.VITE_IMG_HOST_URL as string | undefined) ||
+  `https://img.${SITE_HOST}`
+).replace(/\/+$/, "");
+
+/**
  * Canonical EducationalOrganization block for JSON-LD schemas.
  *
  * Pages typically embed this as `provider: ORG_SCHEMA` inside Quiz/Course/
