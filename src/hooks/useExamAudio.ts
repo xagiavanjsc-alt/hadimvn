@@ -36,9 +36,16 @@ export function useExamAudio() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const stop = useCallback(() => {
-    if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current.src = "";
+    const old = audioRef.current;
+    if (old) {
+      // Detach handlers BEFORE pausing/clearing src, otherwise the error event
+      // that fires when src is reset will re-trigger fallback for the previous
+      // play() call — that was the "phát cả MP3 lẫn TTS" bug on rapid clicks.
+      old.onplay = null;
+      old.onended = null;
+      old.onerror = null;
+      old.pause();
+      old.src = "";
       audioRef.current = null;
     }
     if (typeof window !== "undefined" && window.speechSynthesis) {
@@ -72,14 +79,26 @@ export function useExamAudio() {
       if (opts.audioUrl) {
         const audio = new Audio(opts.audioUrl);
         audioRef.current = audio;
+        let playStarted = false;
         let fellBack = false;
         const fallbackOnce = () => {
           if (fellBack) return;
+          // Already superseded by stop()/another play() — owner has cleaned up,
+          // do not run side effects for this stale closure.
+          if (audioRef.current !== audio) return;
           fellBack = true;
           audioRef.current = null;
-          speakTTS();
+          if (playStarted) {
+            // MP3 started OK then errored mid-playback. Treat as ended —
+            // do NOT speak TTS over what the user just heard.
+            setPlaying(false);
+            opts.onEnd?.();
+          } else {
+            // Never got to play (404, decode error, autoplay block) → TTS.
+            speakTTS();
+          }
         };
-        audio.onplay = () => setPlaying(true);
+        audio.onplay = () => { playStarted = true; setPlaying(true); };
         audio.onended = () => { setPlaying(false); opts.onEnd?.(); };
         audio.onerror = fallbackOnce;
         audio.play().catch(fallbackOnce);

@@ -22,6 +22,8 @@ export const DE2_INFO = {
   listeningQuestions: 20,
   timeMinutes: 50,
   level: "EPS-TOPIK",
+  /** Listening MP3 tại /images/audio/de2/{id}.mp3. Xem src/hooks/useExamAudio.ts. */
+  audioBase: "/images/audio/de2",
 };
 
 export const DE2_QUESTIONS: De2Question[] = [
