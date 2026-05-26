@@ -233,7 +233,7 @@ function QuestionCard({ q, answer, onAnswer, showResult, player }: QuestionCardP
                 <button
                   key={i}
                   onClick={() => !showResult && onAnswer(i)}
-                  className={`w-full flex items-center gap-3 ${isCompactImageLayout ? "px-3 py-2" : "px-4 py-3.5"} rounded-xl border text-left transition-all cursor-pointer text-sm ${
+                  className={`w-full flex items-center gap-3 ${isCompactImageLayout ? "px-3 py-3" : "px-4 py-3.5"} rounded-xl border text-left transition-all cursor-pointer text-sm ${
                     isCorrect
                       ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-300"
                       : isWrong
@@ -461,7 +461,11 @@ export default function EpsDe2ExamPage() {
 
   // Stop audio khi chuyển câu hoặc rời khỏi exam phase — tránh tình trạng
   // user next/prev/submit mà MP3 câu cũ vẫn chạy nền.
-  useEffect(() => { player.stop(); }, [currentIdx, phase, player]);
+  // Stop audio khi chuyển câu hoặc rời khỏi exam phase.
+  // ⚠️ Depend on player.stop (stable useCallback), KHÔNG depend on `player`
+  // object — object đó tạo mới mỗi render → effect chạy liên tục → audio bị
+  // stop ngay khi vừa play.
+  useEffect(() => { player.stop(); }, [currentIdx, phase, player.stop]);
 
   const TOTAL = DE2_INFO.timeMinutes * 60;
   const readingQs   = DE2_QUESTIONS.filter(q => q.section === "reading");
