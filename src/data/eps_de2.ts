@@ -329,7 +329,7 @@ export const DE2_QUESTIONS: De2Question[] = [
       "/de2/p13_img3.webp",
       "/de2/p13_img4.webp",
     ],
-    options: ["독서하기", "신발 끈 묶기", "분리수거", "축구하기"],
+    options: ["1", "2", "3", "4"],
     correct: 0,
   },
   {
@@ -345,7 +345,7 @@ export const DE2_QUESTIONS: De2Question[] = [
       "/de2/p13_img7.webp",
       "/de2/p13_img8.webp",
     ],
-    options: ["사자", "코끼리", "얼룩말", "곰"],
+    options: ["1", "2", "3", "4"],
     correct: 2,
   },
 
@@ -358,7 +358,7 @@ export const DE2_QUESTIONS: De2Question[] = [
     contentImage: "/de2/p14_img1.webp",
     audioScript: "이것으로 상점에서 물건을 살 수 있습니다. 현금이 없을 때 편리합니다.",
     audioHint: "Nghe mô tả đồ vật → xem ảnh thẻ",
-    options: ["현금", "카드", "통장", "영수증"],
+    options: ["1", "2", "3", "4"],
     correct: 1,
   },
   {
@@ -369,7 +369,7 @@ export const DE2_QUESTIONS: De2Question[] = [
     contentImage: "/de2/p14_img2.webp",
     audioScript: "여기는 샤워기가 있고 몸을 씻을 수 있는 곳입니다.",
     audioHint: "Nhìn ảnh phòng tắm → nghe mô tả",
-    options: ["욕실", "부엌", "거실", "창고"],
+    options: ["1", "2", "3", "4"],
     correct: 0,
   },
   {
@@ -380,7 +380,7 @@ export const DE2_QUESTIONS: De2Question[] = [
     contentImage: "/de2/p14_img3.webp",
     audioScript: "이 사람은 마스크를 쓰고 털이개로 먼지를 털고 있습니다.",
     audioHint: "Nhìn ảnh người đang làm vệ sinh → nghe mô tả",
-    options: ["청소하고 있습니다", "요리하고 있습니다", "세탁하고 있습니다", "운동하고 있습니다"],
+    options: ["1", "2", "3", "4"],
     correct: 0,
   },
   {
@@ -391,7 +391,7 @@ export const DE2_QUESTIONS: De2Question[] = [
     contentImage: "/de2/p14_img4.webp",
     audioScript: "연필이 여섯 자루 있습니다.",
     audioHint: "Nhìn hình đếm bút chì → nghe đáp án",
-    options: ["세 자루", "네 자루", "다섯 자루", "여섯 자루"],
+    options: ["1", "2", "3", "4"],
     correct: 3,
   },
   {
@@ -402,7 +402,7 @@ export const DE2_QUESTIONS: De2Question[] = [
     contentImage: "/de2/p15_img1.webp",
     audioScript: "은행은 편의점 위에 있습니다.",
     audioHint: "Nhìn sơ đồ vị trí → nghe mô tả vị trí ngân hàng",
-    options: ["서점 옆에 있습니다", "병원 옆에 있습니다", "편의점 위에 있습니다", "우체국 왼쪽에 있습니다"],
+    options: ["1", "2", "3", "4"],
     correct: 2,
   },
 

@@ -300,7 +300,7 @@ export const DE1_QUESTIONS: De1Question[] = [
     audioScript: "저는 매일 지하철을 타고 회사에 갑니다.",
     audioHint: "Nghe cách di chuyển → chọn hình phương tiện đúng",
     optionImages: ["/de1/p5_img1.webp", "/de1/p5_img2.webp", "/de1/p5_img3.webp", "/de1/p5_img4.webp"],
-    options: ["비행기", "지하철", "배", "버스"],
+    options: ["1", "2", "3", "4"],
     correct: 1,
   },
   {
@@ -311,7 +311,7 @@ export const DE1_QUESTIONS: De1Question[] = [
     audioScript: "여자가 요리를 하고 있습니다.",
     audioHint: "Nghe mô tả hành động của người phụ nữ → chọn hình đúng",
     optionImages: ["/de1/p6_img2.webp", "/de1/p6_img3.webp", "/de1/p6_img4.webp", "/de1/p6_img5.webp"],
-    options: ["요리하기", "청소기 사용", "컴퓨터 작업", "물고기 보기"],
+    options: ["1", "2", "3", "4"],
     correct: 0,
   },
   {
@@ -319,9 +319,11 @@ export const DE1_QUESTIONS: De1Question[] = [
     section: "listening",
     optionType: "text",
     prompt: "이것은 무엇입니까?",
+    contentImage: "/de1/p6_img6.webp",
     audioScript: "이것은 매일 아침 세수할 때 사용합니다. 손이나 얼굴을 깨끗이 씻을 수 있습니다.",
     audioHint: "Nghe mô tả đồ vật dùng khi rửa mặt",
-    options: ["세면도구", "청소도구", "주방용품", "사무용품"],
+    audioOptions: ["세면도구입니다.", "청소도구입니다.", "주방용품입니다.", "사무용품입니다."],
+    options: ["1", "2", "3", "4"],
     correct: 0,
   },
   {
@@ -333,7 +335,7 @@ export const DE1_QUESTIONS: De1Question[] = [
     audioScript: "두 사람이 앉아서 음료를 마시며 이야기하고 있습니다. 자판기도 있습니다.",
     audioHint: "Nghe mô tả nơi có máy bán hàng tự động, nghỉ ngơi",
     audioOptions: ["공장 식당입니다.", "휴게실입니다.", "회의실입니다.", "사무실입니다."],
-    options: ["공장 식당", "휴게실", "회의실", "사무실"],
+    options: ["1", "2", "3", "4"],
     correct: 1,
   },
   {
@@ -345,7 +347,7 @@ export const DE1_QUESTIONS: De1Question[] = [
     audioScript: "이 사람은 용접 작업을 하고 있습니다.",
     audioHint: "Nghe mô tả công việc → chọn đáp án đúng",
     audioOptions: ["청소하고 있습니다.", "용접하고 있습니다.", "운전하고 있습니다.", "요리하고 있습니다."],
-    options: ["청소하고 있습니다", "용접하고 있습니다", "운전하고 있습니다", "요리하고 있습니다"],
+    options: ["1", "2", "3", "4"],
     correct: 1,
   },
   {
@@ -357,7 +359,7 @@ export const DE1_QUESTIONS: De1Question[] = [
     audioScript: "그릇이 네 개 있습니다.",
     audioHint: "Nhìn hình → Nghe số lượng → chọn đúng",
     audioOptions: ["한 개입니다.", "두 개입니다.", "세 개입니다.", "네 개입니다."],
-    options: ["한 개", "두 개", "세 개", "네 개"],
+    options: ["1", "2", "3", "4"],
     correct: 3,
   },
   {
@@ -369,7 +371,7 @@ export const DE1_QUESTIONS: De1Question[] = [
     audioScript: "수건이 선반 왼쪽 위에 있습니다.",
     audioHint: "Nhìn hình kệ phòng tắm → Nghe vị trí khăn",
     audioOptions: ["선반 왼쪽 위에 있습니다.", "선반 오른쪽에 있습니다.", "세면대 위에 있습니다.", "욕조 안에 있습니다."],
-    options: ["선반 왼쪽 위", "선반 오른쪽", "세면대 위", "욕조 안"],
+    options: ["1", "2", "3", "4"],
     correct: 0,
   },
 
