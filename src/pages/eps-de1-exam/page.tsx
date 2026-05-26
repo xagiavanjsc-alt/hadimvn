@@ -82,6 +82,8 @@ function QuestionCard({ q, answer, onAnswer, showResult, player }: QuestionCardP
   const isListening = q.section === "listening";
   const isImageOpts = q.optionType === "image";
   const isAudioOpts = !!q.audioOptions?.length;
+  // Q25-29 pattern: text options + ảnh đề bài → layout 3 cột trên desktop
+  const isCompactImageLayout = !!q.contentImage && !isImageOpts;
 
   return (
     <div className="space-y-4">
@@ -107,8 +109,8 @@ function QuestionCard({ q, answer, onAnswer, showResult, player }: QuestionCardP
         </div>
       )}
 
-      {/* Content image (sign, chart, ticket, scene...) */}
-      {q.contentImage && (
+      {/* Content image (sign, chart, ticket, scene...) — chỉ render standalone khi không phải Q25-29 layout */}
+      {q.contentImage && !isCompactImageLayout && (
         <div className="flex justify-center">
           <img
             src={q.contentImage}
@@ -221,35 +223,50 @@ function QuestionCard({ q, answer, onAnswer, showResult, player }: QuestionCardP
           ))}
         </div>
       ) : (
-        <div className="space-y-2">
-          {q.options.map((opt, i) => {
-            const isCorrect = showResult && i === q.correct;
-            const isWrong = showResult && answer === i && i !== q.correct;
-            return (
-              <button
-                key={i}
-                onClick={() => !showResult && onAnswer(i)}
-                className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-xl border text-left transition-all cursor-pointer text-sm ${
-                  isCorrect
-                    ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-300"
-                    : isWrong
-                    ? "bg-rose-500/10 border-rose-500/30 text-rose-300"
-                    : answer === i
-                    ? "bg-app-accent-primary/10 border-app-accent-primary/40 text-white"
-                    : "bg-app-card/50 border-app-border text-white/75 hover:border-app-accent-primary/30 hover:bg-app-accent-primary/5"
-                }`}
-              >
-                <span className={`w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold flex-shrink-0 ${
-                  isCorrect ? "bg-emerald-500 text-white" :
-                  isWrong ? "bg-rose-400 text-white" :
-                  answer === i ? "bg-app-accent-primary text-app-bg" : "bg-app-card text-app-text-muted"
-                }`}>
-                  {isCorrect ? <i className="ri-check-line" /> : isWrong ? <i className="ri-close-line" /> : i + 1}
-                </span>
-                <span className="leading-relaxed">{opt}</span>
-              </button>
-            );
-          })}
+        <div className={isCompactImageLayout ? "grid md:grid-cols-3 gap-3 items-start" : ""}>
+          {isCompactImageLayout && (
+            <div className="md:col-span-1 md:order-2 flex justify-center">
+              <img
+                src={q.contentImage}
+                alt=""
+                className="max-h-44 md:max-h-56 w-auto rounded-xl border border-gray-200 object-contain shadow-sm"
+              />
+            </div>
+          )}
+          <div className={`${
+            isCompactImageLayout
+              ? "md:col-span-2 md:order-1 grid grid-cols-2 gap-2"
+              : "space-y-2"
+          }`}>
+            {q.options.map((opt, i) => {
+              const isCorrect = showResult && i === q.correct;
+              const isWrong = showResult && answer === i && i !== q.correct;
+              return (
+                <button
+                  key={i}
+                  onClick={() => !showResult && onAnswer(i)}
+                  className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-xl border text-left transition-all cursor-pointer text-sm ${
+                    isCorrect
+                      ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-300"
+                      : isWrong
+                      ? "bg-rose-500/10 border-rose-500/30 text-rose-300"
+                      : answer === i
+                      ? "bg-app-accent-primary/10 border-app-accent-primary/40 text-white"
+                      : "bg-app-card/50 border-app-border text-white/75 hover:border-app-accent-primary/30 hover:bg-app-accent-primary/5"
+                  }`}
+                >
+                  <span className={`w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold flex-shrink-0 ${
+                    isCorrect ? "bg-emerald-500 text-white" :
+                    isWrong ? "bg-rose-400 text-white" :
+                    answer === i ? "bg-app-accent-primary text-app-bg" : "bg-app-card text-app-text-muted"
+                  }`}>
+                    {isCorrect ? <i className="ri-check-line" /> : isWrong ? <i className="ri-close-line" /> : i + 1}
+                  </span>
+                  {opt && <span className="leading-relaxed">{opt}</span>}
+                </button>
+              );
+            })}
+          </div>
         </div>
       )}
     </div>
