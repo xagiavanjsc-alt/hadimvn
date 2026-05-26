@@ -1,6 +1,10 @@
 // ĐỀ SỐ 01 — EPS-TOPIK
 // Nội dung trích từ docs/de1/page_2.pdf … page_9.pdf
-// audioScript: văn bản tiếng Hàn được đọc bằng Web Speech API (TTS giả lập)
+//
+// AUDIO: listening MP3 đặt tại public/images/audio/de1/{id}.mp3
+//   → bật bằng DE1_INFO.audioBase bên dưới. Mỗi đề có folder riêng nên
+//   không bao giờ trùng tên file giữa các đề. Convention + hybrid player
+//   chi tiết: xem src/hooks/useExamAudio.ts.
 
 export interface De1Question {
   id: number;
@@ -595,4 +599,6 @@ export const DE1_INFO = {
   listeningCount: 20,
   timeMinutes: 50,
   passScore: 80,
+  /** Bật MP3 cho listening questions. Xem AUDIO CONVENTION ở đầu file. */
+  audioBase: "/images/audio/de1",
 };

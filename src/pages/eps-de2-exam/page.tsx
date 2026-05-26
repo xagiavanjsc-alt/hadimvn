@@ -1,39 +1,10 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { DE2_QUESTIONS, DE2_INFO, DE2_EXPLANATIONS, type De2Question } from "@/data/eps_de2";
 import { useXPSystem } from "@/hooks/useXPSystem";
 import { usePageSEO } from "@/hooks/usePageSEO";
+import { useExamAudio } from "@/hooks/useExamAudio";
 import { ORG_SCHEMA } from "@/lib/siteConfig";
-
-// ─── TTS Hook ────────────────────────────────────────────────────────────────
-function useTTS() {
-  const [speaking, setSpeaking] = useState(false);
-  const [supported] = useState(() => typeof window !== "undefined" && "speechSynthesis" in window);
-
-  const speak = useCallback((text: string, onEnd?: () => void) => {
-    if (!supported) return;
-    window.speechSynthesis.cancel();
-    const utter = new SpeechSynthesisUtterance(text);
-    utter.lang = "ko-KR";
-    utter.rate = 0.88;
-    utter.pitch = 1;
-    // prefer a Korean voice if available
-    const voices = window.speechSynthesis.getVoices();
-    const koVoice = voices.find((v) => v.lang.startsWith("ko"));
-    if (koVoice) utter.voice = koVoice;
-    utter.onstart = () => setSpeaking(true);
-    utter.onend = () => { setSpeaking(false); onEnd?.(); };
-    utter.onerror = () => setSpeaking(false);
-    window.speechSynthesis.speak(utter);
-  }, [supported]);
-
-  const stop = useCallback(() => {
-    window.speechSynthesis.cancel();
-    setSpeaking(false);
-  }, []);
-
-  return { speak, stop, speaking, supported };
-}
 
 // ─── Audio Button ─────────────────────────────────────────────────────────────
 function AudioBtn({ script, onSpeak }: { script: string; onSpeak: (s: string) => void }) {
@@ -76,20 +47,25 @@ interface QuestionCardProps {
   answer: number | null;
   onAnswer: (idx: number) => void;
   showResult?: boolean;
-  tts: ReturnType<typeof useTTS>;
+  player: ReturnType<typeof useExamAudio>;
 }
 
-function QuestionCard({ q, answer, onAnswer, showResult, tts }: QuestionCardProps) { // de2
+function QuestionCard({ q, answer, onAnswer, showResult, player }: QuestionCardProps) { // de2
   const [played, setPlayed] = useState(false);
   const [showHint, setShowHint] = useState(false);
-  const [playingOptIdx, setPlayingOptIdx] = useState<number | null>(null);
+
+  const audioUrl = q.section === "listening" && DE2_INFO.audioBase
+    ? `${DE2_INFO.audioBase}/${q.id}.mp3`
+    : undefined;
 
   const handleSpeak = () => {
-    if (!q.audioScript) return;
-    tts.speak(q.audioScript, () => setPlayed(true));
+    if (!q.audioScript && !audioUrl) return;
+    player.play({
+      text: q.audioScript,
+      audioUrl,
+      onEnd: () => setPlayed(true),
+    });
   };
-
-  const handleSpeakOption = (_i: number) => { /* unused in De2 */ };
 
   const isListening = q.section === "listening";
   const isImageOpts = q.optionType === "image";
@@ -134,8 +110,8 @@ function QuestionCard({ q, answer, onAnswer, showResult, tts }: QuestionCardProp
       {isListening && q.audioScript && (
         <div className="flex items-center gap-3 flex-wrap">
           <AudioBtn script={q.audioScript} onSpeak={handleSpeak} />
-          {tts.speaking && (
-            <button onClick={tts.stop} className="text-xs text-gray-400 hover:text-gray-600 cursor-pointer flex items-center gap-1">
+          {player.playing && (
+            <button onClick={player.stop} className="text-xs text-gray-400 hover:text-gray-600 cursor-pointer flex items-center gap-1">
               <i className="ri-stop-circle-line"></i> Dừng
             </button>
           )}
@@ -462,7 +438,7 @@ export default function EpsDe2ExamPage() {
   const [answers, setAnswers] = useState<(number | null)[]>(new Array(DE2_QUESTIONS.length).fill(null));
   const [timeLeft, setTimeLeft] = useState(DE2_INFO.timeMinutes * 60);
   const [xpEarned, setXpEarned] = useState(0);
-  const tts = useTTS();
+  const player = useExamAudio();
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const { awardXP } = useXPSystem();
 
@@ -497,7 +473,7 @@ export default function EpsDe2ExamPage() {
   };
 
   const submit = () => {
-    tts.stop();
+    player.stop();
     const correctCount = DE2_QUESTIONS.filter((q, i) => answers[i] === q.correct).length;
     const xp = 20 + correctCount * 5;
     setXpEarned(xp);
@@ -611,7 +587,7 @@ export default function EpsDe2ExamPage() {
 
       {/* ── Question card ── */}
       <div id="question-card" className="bg-app-bg border border-app-border rounded-2xl p-5 mb-4 scroll-mt-4">
-        <QuestionCard q={q} answer={answers[currentIdx]} onAnswer={selectAnswer} showResult={isReview} tts={tts} />
+        <QuestionCard q={q} answer={answers[currentIdx]} onAnswer={selectAnswer} showResult={isReview} player={player} />
       </div>
 
       {/* ── Prev / Next ── */}
