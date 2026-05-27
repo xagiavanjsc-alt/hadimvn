@@ -73,14 +73,14 @@ create policy "Exam questions visible to public"
 create policy "Admin full access on exams"
   on public.eps_exams
   for all to authenticated
-  using (public.is_admin(auth.uid()))
-  with check (public.is_admin(auth.uid()));
+  using (public.is_admin_user(auth.uid()))
+  with check (public.is_admin_user(auth.uid()));
 
 create policy "Admin full access on questions"
   on public.eps_questions
   for all to authenticated
-  using (public.is_admin(auth.uid()))
-  with check (public.is_admin(auth.uid()));
+  using (public.is_admin_user(auth.uid()))
+  with check (public.is_admin_user(auth.uid()));
 
 -- ── 5. Updated_at trigger ─────────────────────────────────────────
 create or replace function public.set_updated_at()
@@ -108,15 +108,15 @@ create policy "Public read eps-exams"
 -- Admin can insert (with check ensures new row satisfies condition)
 create policy "Admin insert eps-exams"
   on storage.objects for insert to authenticated
-  with check (bucket_id = 'eps-exams' and public.is_admin(auth.uid()));
+  with check (bucket_id = 'eps-exams' and public.is_admin_user(auth.uid()));
 
 -- Admin can update (using checks existing row, with check ensures new row)
 create policy "Admin update eps-exams"
   on storage.objects for update to authenticated
-  using (bucket_id = 'eps-exams' and public.is_admin(auth.uid()))
-  with check (bucket_id = 'eps-exams' and public.is_admin(auth.uid()));
+  using (bucket_id = 'eps-exams' and public.is_admin_user(auth.uid()))
+  with check (bucket_id = 'eps-exams' and public.is_admin_user(auth.uid()));
 
 -- Admin can delete
 create policy "Admin delete eps-exams"
   on storage.objects for delete to authenticated
-  using (bucket_id = 'eps-exams' and public.is_admin(auth.uid()));
+  using (bucket_id = 'eps-exams' and public.is_admin_user(auth.uid()));
