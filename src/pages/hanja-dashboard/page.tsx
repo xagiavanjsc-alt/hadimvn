@@ -634,9 +634,9 @@ export default function HanjaDashboardPage() {
             backedIds.add(row.id);
           });
         }
-        // Merge mock data if DB is sparse (< 500 items)
+        // Always merge mock data; skip duplicates already in DB.
         let allNodes = dbNodes;
-        if (dbNodes.length < 500 && HANJA_DATA.length > 0) {
+        if (HANJA_DATA.length > 0) {
           const dbKeySet = new Set(dbNodes.map(n => `${n.korean}|${n.hanja}`));
           const mockNodes: HanjaNode[] = [];
           HANJA_DATA.forEach((entry, idx) => {
