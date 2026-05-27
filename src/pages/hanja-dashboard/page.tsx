@@ -4,26 +4,7 @@ import DashboardLayout from "@/components/feature/DashboardLayout";
 import { supabase } from "@/lib/supabase";
 import { useHanjaProgress, localDateISO } from "@/hooks/useHanjaProgress";
 import { useToast } from "@/components/base/Toast";
-import { HANJA_DATA } from "@/mocks/data/hanja-data";
-
-const MOCK_ID_OFFSET = 1_000_000;
-const MOCK_LEARNED_KEY = "kts_hanja_mock_known";
-
-function loadMockLearned(): Set<number> {
-  try {
-    const raw = localStorage.getItem(MOCK_LEARNED_KEY);
-    if (!raw) return new Set();
-    const parsed = JSON.parse(raw);
-    if (Array.isArray(parsed)) return new Set(parsed.map(Number));
-  } catch { /* ignore */ }
-  return new Set();
-}
-
-function saveMockLearned(set: Set<number>) {
-  try {
-    localStorage.setItem(MOCK_LEARNED_KEY, JSON.stringify(Array.from(set)));
-  } catch { /* ignore */ }
-}
+const TREE_PAGE_SIZE = 10;
 
 interface HanjaNode {
   id: number;
@@ -573,27 +554,7 @@ export default function HanjaDashboardPage() {
   const [nodes, setNodes] = useState<HanjaNode[]>([]);
   const [loading, setLoading] = useState(true);
   const [showReview, setShowReview] = useState(false);
-  const [dbBackedIds, setDbBackedIds] = useState<Set<number>>(new Set());
-  const [mockLearnedSet, setMockLearnedSet] = useState<Set<number>>(loadMockLearned);
-
-  const mergedLearnedSet = useMemo(() => {
-    const merged = new Set(dbLearnedSet);
-    mockLearnedSet.forEach(id => merged.add(id));
-    return merged;
-  }, [dbLearnedSet, mockLearnedSet]);
-
-  const mergedToggleLearned = useCallback((id: number) => {
-    if (dbBackedIds.has(id)) {
-      toggleDbLearned(id);
-    } else {
-      setMockLearnedSet(prev => {
-        const next = new Set(prev);
-        next.has(id) ? next.delete(id) : next.add(id);
-        saveMockLearned(next);
-        return next;
-      });
-    }
-  }, [dbBackedIds, toggleDbLearned]);
+  const [treePage, setTreePage] = useState(1);
 
   useEffect(() => {
     if (!lastError) return;
@@ -634,30 +595,7 @@ export default function HanjaDashboardPage() {
             backedIds.add(row.id);
           });
         }
-        // Always merge mock data; skip duplicates already in DB.
-        let allNodes = dbNodes;
-        if (HANJA_DATA.length > 0) {
-          const dbKeySet = new Set(dbNodes.map(n => `${n.korean}|${n.hanja}`));
-          const mockNodes: HanjaNode[] = [];
-          HANJA_DATA.forEach((entry, idx) => {
-            const key = `${entry.korean}|${entry.hanja}`;
-            if (dbKeySet.has(key)) return;
-            mockNodes.push({
-              id: MOCK_ID_OFFSET + idx,
-              korean: entry.korean,
-              hanja: entry.hanja,
-              vietnamese: entry.vietnamese || "",
-              root_char: entry.root_char || entry.hanja?.[0] || "",
-              difficulty: entry.difficulty || (entry.hanja?.length >= 4 ? 3 : entry.hanja?.length >= 3 ? 2 : 1),
-              category: entry.category || "Hán Hàn",
-              pronunciation: entry.pronunciation || "",
-              meaning_detail: entry.memory_tip || entry.related_words || "",
-            });
-          });
-          allNodes = [...dbNodes, ...mockNodes];
-        }
-        setDbBackedIds(backedIds);
-        setNodes(allNodes);
+        setNodes(dbNodes);
       } finally {
         if (!cancelled) setLoading(false);
       }
@@ -673,7 +611,7 @@ export default function HanjaDashboardPage() {
       groups[n.root_char].push(n);
     });
     return Object.entries(groups).map(([rootChar, grpNodes]) => {
-      const learned = grpNodes.filter(n => mergedLearnedSet.has(n.id)).length;
+      const learned = grpNodes.filter(n => dbLearnedSet.has(n.id)).length;
       return {
         rootChar,
         rootMeaning: grpNodes[0]?.meaning_detail?.split(" · ")[0]?.replace(`${rootChar}: `, "") || rootChar,
@@ -682,9 +620,9 @@ export default function HanjaDashboardPage() {
         pct: grpNodes.length > 0 ? Math.round((learned / grpNodes.length) * 100) : 0,
       };
     });
-  }, [nodes, mergedLearnedSet]);
+  }, [nodes, dbLearnedSet]);
 
-  const totalLearned = nodes.filter(n => mergedLearnedSet.has(n.id)).length;
+  const totalLearned = nodes.filter(n => dbLearnedSet.has(n.id)).length;
   const totalPct = nodes.length > 0 ? Math.round((totalLearned / nodes.length) * 100) : 0;
 
   const diffStats = useMemo(() => {
@@ -692,15 +630,15 @@ export default function HanjaDashboardPage() {
     const med = nodes.filter(n => n.difficulty === 2);
     const hard = nodes.filter(n => n.difficulty === 3);
     return [
-      { label: "Dễ", total: easy.length, learned: easy.filter(n => mergedLearnedSet.has(n.id)).length, color: "#10b981" },
-      { label: "Trung bình", total: med.length, learned: med.filter(n => mergedLearnedSet.has(n.id)).length, color: "#f59e0b" },
-      { label: "Khó", total: hard.length, learned: hard.filter(n => mergedLearnedSet.has(n.id)).length, color: "#f43f5e" },
+      { label: "Dễ", total: easy.length, learned: easy.filter(n => dbLearnedSet.has(n.id)).length, color: "#10b981" },
+      { label: "Trung bình", total: med.length, learned: med.filter(n => dbLearnedSet.has(n.id)).length, color: "#f59e0b" },
+      { label: "Khó", total: hard.length, learned: hard.filter(n => dbLearnedSet.has(n.id)).length, color: "#f43f5e" },
     ];
-  }, [nodes, mergedLearnedSet]);
+  }, [nodes, dbLearnedSet]);
 
   const recentLearned = useMemo(() => {
-    return nodes.filter(n => mergedLearnedSet.has(n.id)).slice(-10).reverse();
-  }, [nodes, mergedLearnedSet]);
+    return nodes.filter(n => dbLearnedSet.has(n.id)).slice(-10).reverse();
+  }, [nodes, dbLearnedSet]);
 
   const streak = useMemo(() => calcStreak(streakDays), [streakDays]);
 
@@ -714,8 +652,8 @@ export default function HanjaDashboardPage() {
         {!loading && (
           <DailyWordsPanel
             nodes={nodes}
-            learnedSet={mergedLearnedSet}
-            onToggleLearned={mergedToggleLearned}
+            learnedSet={dbLearnedSet}
+            onToggleLearned={toggleDbLearned}
           />
         )}
 
@@ -746,7 +684,7 @@ export default function HanjaDashboardPage() {
             <div className="flex items-center gap-2 flex-wrap justify-end">
               <p className="text-sm font-bold text-rose-400">{totalLearned}/{nodes.length} từ</p>
               {totalLearned > 0 && (
-                <button onClick={() => exportLearnedCSV(nodes, mergedLearnedSet)}
+                <button onClick={() => exportLearnedCSV(nodes, dbLearnedSet)}
                   className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold rounded-lg cursor-pointer whitespace-nowrap transition-all">
                   <i className="ri-download-2-line"></i>Xuất CSV
                 </button>
@@ -814,23 +752,50 @@ export default function HanjaDashboardPage() {
                   <p className="text-sm">Chưa có dữ liệu. Import CSV để bắt đầu!</p>
                 </div>
               ) : (
-                <div className="space-y-3">
-                  {treeStats.map(t => (
-                    <button key={t.rootChar} onClick={() => navigate("/hanja-flashcard")}
-                      className="w-full flex items-center gap-3 hover:bg-app-card/50 rounded-xl p-2 transition-all cursor-pointer text-left">
-                      <div className="w-10 h-10 flex items-center justify-center bg-rose-500/20 rounded-xl text-lg font-bold text-rose-400 flex-shrink-0">{t.rootChar}</div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center justify-between mb-1">
-                          <p className="text-sm font-semibold text-white/70">{t.rootMeaning}</p>
-                          <span className="text-xs text-app-text-secondary">{t.learned}/{t.total} · {t.pct}%</span>
-                        </div>
-                        <div className="h-2 bg-white/8 rounded-full overflow-hidden">
-                          <div className="h-full rounded-full transition-all" style={{ width: `${t.pct}%`, backgroundColor: t.pct >= 80 ? "#10b981" : t.pct >= 50 ? "#f59e0b" : "#f43f5e" }} />
-                        </div>
+                <>
+                  <div className="space-y-3">
+                    {treeStats
+                      .slice((treePage - 1) * TREE_PAGE_SIZE, treePage * TREE_PAGE_SIZE)
+                      .map(t => (
+                        <button key={t.rootChar} onClick={() => navigate("/hanja-flashcard")}
+                          className="w-full flex items-center gap-3 hover:bg-app-card/50 rounded-xl p-2 transition-all cursor-pointer text-left">
+                          <div className="w-10 h-10 flex items-center justify-center bg-rose-500/20 rounded-xl text-lg font-bold text-rose-400 flex-shrink-0">{t.rootChar}</div>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center justify-between mb-1">
+                              <p className="text-sm font-semibold text-white/70">{t.rootMeaning}</p>
+                              <span className="text-xs text-app-text-secondary">{t.learned}/{t.total} · {t.pct}%</span>
+                            </div>
+                            <div className="h-2 bg-white/8 rounded-full overflow-hidden">
+                              <div className="h-full rounded-full transition-all" style={{ width: `${t.pct}%`, backgroundColor: t.pct >= 80 ? "#10b981" : t.pct >= 50 ? "#f59e0b" : "#f43f5e" }} />
+                            </div>
+                          </div>
+                        </button>
+                      ))}
+                  </div>
+                  {treeStats.length > TREE_PAGE_SIZE && (
+                    <div className="flex items-center justify-between mt-4 pt-3 border-t border-app-border">
+                      <span className="text-xs text-app-text-muted">
+                        {treeStats.length} nhóm · Trang {treePage}/{Math.ceil(treeStats.length / TREE_PAGE_SIZE)}
+                      </span>
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => setTreePage(p => Math.max(1, p - 1))}
+                          disabled={treePage <= 1}
+                          className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/8 hover:bg-white/12 disabled:opacity-30 disabled:cursor-not-allowed text-white/70 cursor-pointer transition-all"
+                        >
+                          <i className="ri-arrow-left-s-line"></i>
+                        </button>
+                        <button
+                          onClick={() => setTreePage(p => Math.min(Math.ceil(treeStats.length / TREE_PAGE_SIZE), p + 1))}
+                          disabled={treePage >= Math.ceil(treeStats.length / TREE_PAGE_SIZE)}
+                          className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/8 hover:bg-white/12 disabled:opacity-30 disabled:cursor-not-allowed text-white/70 cursor-pointer transition-all"
+                        >
+                          <i className="ri-arrow-right-s-line"></i>
+                        </button>
                       </div>
-                    </button>
-                  ))}
-                </div>
+                    </div>
+                  )}
+                </>
               )}
             </div>
 
@@ -907,7 +872,7 @@ export default function HanjaDashboardPage() {
       {showReview && (
         <ReviewQuizModal
           nodes={nodes}
-          learnedSet={mergedLearnedSet}
+          learnedSet={dbLearnedSet}
           onClose={() => setShowReview(false)}
         />
       )}
