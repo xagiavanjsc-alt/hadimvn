@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/lib/supabase";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { usePageSEO } from "@/hooks/usePageSEO";
 
 type Goal = "eps" | "seoul" | "topik" | "hanja" | "conversation";
 type Level = "beginner" | "intermediate" | "advanced";
@@ -259,6 +260,14 @@ export default function LearningRoadmapPage() {
   const [selectedGoal, setSelectedGoal] = useState<Goal | null>(savedGoal);
   const [showGoalPicker, setShowGoalPicker] = useState(!savedGoal);
   const [hanjaCount, setHanjaCount] = useState<number | null>(null);
+
+  usePageSEO({
+    title: "Lộ trình học tiếng Hàn từ con số 0 — Học EPS-TOPIK & TOPIK | Hàn Quốc Ơi!",
+    description: "Lộ trình học tiếng Hàn toàn diện: Luyện thi EPS-TOPIK cho người đi XKLĐ, Giáo trình Seoul, từ vựng theo Level TOPIK, Hán Hàn chuyên sâu cho người mới bắt đầu.",
+    keywords: "lộ trình học tiếng hàn, học tiếng hàn từ đầu, học eps-topik, giáo trình seoul, tự học tiếng hàn",
+    path: "/learning-roadmap",
+    ogType: "website"
+  });
 
   useEffect(() => {
     supabase.from("hanja_pro").select("id", { count: "exact", head: true })
