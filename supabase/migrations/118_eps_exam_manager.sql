@@ -101,12 +101,22 @@ values ('eps-exams', 'eps-exams', true)
 on conflict (id) do nothing;
 
 -- RLS: anyone can read public media
--- Admin can upload/delete
 create policy "Public read eps-exams"
   on storage.objects for select to anon, authenticated
   using (bucket_id = 'eps-exams');
 
-create policy "Admin write eps-exams"
-  on storage.objects for insert, update, delete to authenticated
-  with check (bucket_id = 'eps-exams' and public.is_admin(auth.uid()))
+-- Admin can insert (with check ensures new row satisfies condition)
+create policy "Admin insert eps-exams"
+  on storage.objects for insert to authenticated
+  with check (bucket_id = 'eps-exams' and public.is_admin(auth.uid()));
+
+-- Admin can update (using checks existing row, with check ensures new row)
+create policy "Admin update eps-exams"
+  on storage.objects for update to authenticated
+  using (bucket_id = 'eps-exams' and public.is_admin(auth.uid()))
+  with check (bucket_id = 'eps-exams' and public.is_admin(auth.uid()));
+
+-- Admin can delete
+create policy "Admin delete eps-exams"
+  on storage.objects for delete to authenticated
   using (bucket_id = 'eps-exams' and public.is_admin(auth.uid()));
