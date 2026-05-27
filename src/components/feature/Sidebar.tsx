@@ -445,11 +445,11 @@ function SidebarInner() {
           <span className="flex-1">Góp ý &amp; Đánh giá</span>
         </button>
 
-        {/* Roadmap shortcut — redirected to /eps-30day-plan (canonical for EPS audience) */}
+        {/* Roadmap shortcut */}
         <button
-          onClick={() => handleNavClick("/eps-30day-plan")}
+          onClick={() => handleNavClick("/learning-roadmap")}
           className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap text-left ${
-            location.pathname === "/eps-30day-plan"
+            location.pathname === "/learning-roadmap"
               ? "bg-app-accent-primary/10 text-app-accent-primary font-medium"
               : "text-white/50 hover:text-white/80 hover:bg-white/6"
           }`}
