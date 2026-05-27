@@ -249,8 +249,7 @@ const FeedbackPage = lazyPage(() => import("../pages/feedback/page"));
 const ReportBugPage = lazyPage(() => import("../pages/report-bug/page"));
 const VipHistoryPage = lazyPage(() => import("../pages/vip-history/page"));
 const DailyWordsPage = lazyPage(() => import("../pages/daily-words/page"));
-// HIDDEN 2026-05-25 (focus EPS+du học): generic learning roadmap duplicate, EPS audience uses /eps-30day-plan
-// const LearningRoadmapPage = lazyPage(() => import("../pages/learning-roadmap/page"));
+const LearningRoadmapPage = lazyPage(() => import("../pages/learning-roadmap/page"));
 const StudyStatsPage = lazyPage(() => import("../pages/study-stats/page"));
 // DataUploadPage moved to ./routes/admin.tsx
 const ShareProgressPage = lazyPage(() => import("../pages/share-progress/page"));
@@ -393,8 +392,7 @@ const routes: RouteObject[] = [
   { path: "/report-bug", element: <ReportBugPage /> },
   { path: "/vip-history", element: <RequireAuth title="Lịch sử VIP"><VipHistoryPage /></RequireAuth> },
   { path: "/daily-words", element: <DailyWordsPage /> },
-  // HIDDEN 2026-05-25 (focus EPS+du học): generic learning roadmap duplicate, EPS audience uses /eps-30day-plan
-  // { path: "/learning-roadmap", element: <LearningRoadmapPage /> },
+  { path: "/learning-roadmap", element: <LearningRoadmapPage /> },
   { path: "/study-stats", element: <RequireAuth title="Thống kê học tập"><StudyStatsPage /></RequireAuth> },
   { path: "/share-progress", element: <RequireAuth title="Chia sẻ tiến độ" message="Đăng nhập để tạo và tải ảnh tiến độ học tập của bạn."><ShareProgressPage /></RequireAuth> },
 
