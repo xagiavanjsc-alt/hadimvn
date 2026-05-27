@@ -1,6 +1,6 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
-import { supabase } from "@/lib/supabase";
+import { supabase, getStorageUrl } from "@/lib/supabase";
 import { useToast } from "@/components/base/Toast";
 
 interface Exam {
@@ -54,6 +54,85 @@ const INITIAL_QUESTION = {
   difficulty: "medium" as string,
   topic: "",
 };
+
+// ─── File Upload Zone ─────────────────────────────────────────────────
+function FileUploadZone({
+  label,
+  accept,
+  pathPrefix,
+  value,
+  onUploaded,
+}: {
+  label: string;
+  accept: string;
+  pathPrefix: string;
+  value: string;
+  onUploaded: (path: string) => void;
+}) {
+  const { showToast } = useToast();
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [dragging, setDragging] = useState(false);
+  const [uploading, setUploading] = useState(false);
+
+  const handleFile = async (file: File) => {
+    if (!file) return;
+    setUploading(true);
+    const ext = file.name.split(".").pop() || "";
+    const fileName = `${pathPrefix}/${Date.now()}_${Math.random().toString(36).slice(2, 8)}.${ext}`;
+    const { error } = await supabase.storage.from("eps-exams").upload(fileName, file, { upsert: true });
+    setUploading(false);
+    if (error) { showToast("Upload lỗi: " + error.message, "error"); return; }
+    onUploaded(fileName);
+    showToast("Đã upload: " + fileName, "success");
+  };
+
+  const handleDrop = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    setDragging(false);
+    const file = Array.from(e.dataTransfer.files).find(f => accept.split(",").some(t => f.type.startsWith(t.trim()) || f.name.endsWith(t.trim())));
+    if (file) handleFile(file);
+  }, [accept]);
+
+  return (
+    <div>
+      <label className="text-app-text-secondary text-xs block mb-1">{label}</label>
+      <div
+        onDragOver={e => { e.preventDefault(); setDragging(true); }}
+        onDragLeave={() => setDragging(false)}
+        onDrop={handleDrop}
+        onClick={() => inputRef.current?.click()}
+        className={`border-2 border-dashed rounded-xl p-3 text-center cursor-pointer transition-all ${dragging ? "border-app-accent-primary/60 bg-app-accent-primary/5" : "border-app-border hover:border-white/20 hover:bg-white/2"}`}
+      >
+        <input ref={inputRef} type="file" accept={accept} className="hidden"
+          onChange={e => { const f = e.target.files?.[0]; if (f) handleFile(f); e.target.value = ""; }} />
+        {uploading ? (
+          <div className="flex items-center justify-center gap-2 text-app-accent-primary text-xs">
+            <i className="ri-loader-4-line animate-spin"></i>Đang upload...
+          </div>
+        ) : value ? (
+          <div className="text-left">
+            <p className="text-emerald-400 text-xs font-medium truncate">{value}</p>
+            <p className="text-app-text-muted text-[10px] mt-1">Kéo thả file mới hoặc click để thay thế</p>
+          </div>
+        ) : (
+          <div>
+            <i className={`ri-upload-cloud-2-line text-lg ${dragging ? "text-app-accent-primary" : "text-app-text-muted"}`}></i>
+            <p className="text-white/50 text-xs mt-1">Kéo thả hoặc click chọn file</p>
+          </div>
+        )}
+      </div>
+      {value && (
+        <div className="mt-2">
+          {accept.includes("image") ? (
+            <img src={getStorageUrl(value)} alt="preview" className="max-h-32 rounded-lg border border-app-border object-contain" />
+          ) : accept.includes("audio") ? (
+            <audio controls src={getStorageUrl(value)} className="w-full h-8" />
+          ) : null}
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function AdminEpsExamManagerPage() {
   const { showToast } = useToast();
@@ -349,14 +428,20 @@ export default function AdminEpsExamManagerPage() {
                   </div>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="text-app-text-secondary text-xs block mb-1">URL Audio (path trong storage)</label>
-                    <input value={qForm.audio_url} onChange={e => setQForm({ ...qForm, audio_url: e.target.value })} placeholder="eps-exams/audio/de1-q1.mp3" className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-sm placeholder-white/25 focus:outline-none focus:border-app-accent-primary/50" />
-                  </div>
-                  <div>
-                    <label className="text-app-text-secondary text-xs block mb-1">URL Hình ảnh (path trong storage)</label>
-                    <input value={qForm.image_url} onChange={e => setQForm({ ...qForm, image_url: e.target.value })} placeholder="eps-exams/images/de1-q1.png" className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-sm placeholder-white/25 focus:outline-none focus:border-app-accent-primary/50" />
-                  </div>
+                  <FileUploadZone
+                    label="File Audio (kéo thả hoặc click)"
+                    accept="audio/*,.mp3,.wav,.m4a"
+                    pathPrefix="audio"
+                    value={qForm.audio_url}
+                    onUploaded={path => setQForm({ ...qForm, audio_url: path })}
+                  />
+                  <FileUploadZone
+                    label="File Hình ảnh (kéo thả hoặc click)"
+                    accept="image/*,.png,.jpg,.jpeg,.webp"
+                    pathPrefix="images"
+                    value={qForm.image_url}
+                    onUploaded={path => setQForm({ ...qForm, image_url: path })}
+                  />
                 </div>
                 <div className="flex items-center gap-2">
                   <button onClick={saveQuestion} className="px-4 py-2 rounded-lg bg-emerald-500/20 text-emerald-400 text-sm font-semibold cursor-pointer hover:bg-emerald-500/30 transition-all">
@@ -394,8 +479,14 @@ export default function AdminEpsExamManagerPage() {
                       <td className="px-4 py-3 text-white/80 text-xs max-w-[300px] truncate">{q.question_text}</td>
                       <td className="px-4 py-3 text-emerald-400 text-xs font-semibold">{String.fromCharCode(64 + q.correct_answer)}</td>
                       <td className="px-4 py-3 text-white/40 text-xs">
-                        {q.audio_url && <span className="mr-2" title={q.audio_url}>🔊</span>}
-                        {q.image_url && <span title={q.image_url}>🖼️</span>}
+                        <div className="flex flex-col gap-1">
+                          {q.audio_url && (
+                            <audio controls src={getStorageUrl(q.audio_url)} className="w-24 h-6" />
+                          )}
+                          {q.image_url && (
+                            <img src={getStorageUrl(q.image_url)} alt="" className="h-10 w-auto rounded border border-app-border object-contain" />
+                          )}
+                        </div>
                       </td>
                       <td className="px-4 py-3 text-right">
                         <button onClick={() => { setEditingQ(q); setQForm({ ...INITIAL_QUESTION, ...q, options: q.options || ["","","",""] }); setShowQForm(true); }} className="text-app-accent-primary/70 hover:text-app-accent-primary text-xs cursor-pointer mr-3">
