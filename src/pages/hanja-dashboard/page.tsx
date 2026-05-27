@@ -4,6 +4,26 @@ import DashboardLayout from "@/components/feature/DashboardLayout";
 import { supabase } from "@/lib/supabase";
 import { useHanjaProgress, localDateISO } from "@/hooks/useHanjaProgress";
 import { useToast } from "@/components/base/Toast";
+import { HANJA_DATA } from "@/mocks/data/hanja-data";
+
+const MOCK_ID_OFFSET = 1_000_000;
+const MOCK_LEARNED_KEY = "kts_hanja_mock_known";
+
+function loadMockLearned(): Set<number> {
+  try {
+    const raw = localStorage.getItem(MOCK_LEARNED_KEY);
+    if (!raw) return new Set();
+    const parsed = JSON.parse(raw);
+    if (Array.isArray(parsed)) return new Set(parsed.map(Number));
+  } catch { /* ignore */ }
+  return new Set();
+}
+
+function saveMockLearned(set: Set<number>) {
+  try {
+    localStorage.setItem(MOCK_LEARNED_KEY, JSON.stringify(Array.from(set)));
+  } catch { /* ignore */ }
+}
 
 interface HanjaNode {
   id: number;
@@ -548,11 +568,32 @@ function DailyWordsPanel({ nodes, learnedSet, onToggleLearned }: {
 // ─── Main Dashboard ───────────────────────────────────────────────────────────
 export default function HanjaDashboardPage() {
   const navigate = useNavigate();
-  const { learnedSet, toggle: toggleLearned, streakDays, lastError, clearError } = useHanjaProgress();
+  const { learnedSet: dbLearnedSet, toggle: toggleDbLearned, streakDays, lastError, clearError } = useHanjaProgress();
   const { showToast, ToastComponent } = useToast();
   const [nodes, setNodes] = useState<HanjaNode[]>([]);
   const [loading, setLoading] = useState(true);
   const [showReview, setShowReview] = useState(false);
+  const [dbBackedIds, setDbBackedIds] = useState<Set<number>>(new Set());
+  const [mockLearnedSet, setMockLearnedSet] = useState<Set<number>>(loadMockLearned);
+
+  const mergedLearnedSet = useMemo(() => {
+    const merged = new Set(dbLearnedSet);
+    mockLearnedSet.forEach(id => merged.add(id));
+    return merged;
+  }, [dbLearnedSet, mockLearnedSet]);
+
+  const mergedToggleLearned = useCallback((id: number) => {
+    if (dbBackedIds.has(id)) {
+      toggleDbLearned(id);
+    } else {
+      setMockLearnedSet(prev => {
+        const next = new Set(prev);
+        next.has(id) ? next.delete(id) : next.add(id);
+        saveMockLearned(next);
+        return next;
+      });
+    }
+  }, [dbBackedIds, toggleDbLearned]);
 
   useEffect(() => {
     if (!lastError) return;
@@ -573,11 +614,13 @@ export default function HanjaDashboardPage() {
           console.error("[HanjaDashboard] fetch error:", error);
           return;
         }
+        const dbNodes: HanjaNode[] = [];
+        const backedIds = new Set<number>();
         if (data) {
-          setNodes(data.map((row: any) => {
+          data.forEach((row: any) => {
             const breakdown = Array.isArray(row.hanja_breakdown) ? row.hanja_breakdown : [];
             const root = breakdown[0];
-            return {
+            dbNodes.push({
               id: row.id,
               korean: row.hangul,
               hanja: row.hanja,
@@ -587,9 +630,34 @@ export default function HanjaDashboardPage() {
               category: "Hán Hàn Chuyên Sâu",
               pronunciation: "",
               meaning_detail: breakdown.map((item: any) => `${item.char}: ${item.meaning}`).join(" · "),
-            } as HanjaNode;
-          }));
+            });
+            backedIds.add(row.id);
+          });
         }
+        // Merge mock data if DB is sparse (< 500 items)
+        let allNodes = dbNodes;
+        if (dbNodes.length < 500 && HANJA_DATA.length > 0) {
+          const dbKeySet = new Set(dbNodes.map(n => `${n.korean}|${n.hanja}`));
+          const mockNodes: HanjaNode[] = [];
+          HANJA_DATA.forEach((entry, idx) => {
+            const key = `${entry.korean}|${entry.hanja}`;
+            if (dbKeySet.has(key)) return;
+            mockNodes.push({
+              id: MOCK_ID_OFFSET + idx,
+              korean: entry.korean,
+              hanja: entry.hanja,
+              vietnamese: entry.vietnamese || "",
+              root_char: entry.root_char || entry.hanja?.[0] || "",
+              difficulty: entry.difficulty || (entry.hanja?.length >= 4 ? 3 : entry.hanja?.length >= 3 ? 2 : 1),
+              category: entry.category || "Hán Hàn",
+              pronunciation: entry.pronunciation || "",
+              meaning_detail: entry.memory_tip || entry.related_words || "",
+            });
+          });
+          allNodes = [...dbNodes, ...mockNodes];
+        }
+        setDbBackedIds(backedIds);
+        setNodes(allNodes);
       } finally {
         if (!cancelled) setLoading(false);
       }
@@ -605,7 +673,7 @@ export default function HanjaDashboardPage() {
       groups[n.root_char].push(n);
     });
     return Object.entries(groups).map(([rootChar, grpNodes]) => {
-      const learned = grpNodes.filter(n => learnedSet.has(n.id)).length;
+      const learned = grpNodes.filter(n => mergedLearnedSet.has(n.id)).length;
       return {
         rootChar,
         rootMeaning: grpNodes[0]?.meaning_detail?.split(" · ")[0]?.replace(`${rootChar}: `, "") || rootChar,
@@ -614,9 +682,9 @@ export default function HanjaDashboardPage() {
         pct: grpNodes.length > 0 ? Math.round((learned / grpNodes.length) * 100) : 0,
       };
     });
-  }, [nodes, learnedSet]);
+  }, [nodes, mergedLearnedSet]);
 
-  const totalLearned = nodes.filter(n => learnedSet.has(n.id)).length;
+  const totalLearned = nodes.filter(n => mergedLearnedSet.has(n.id)).length;
   const totalPct = nodes.length > 0 ? Math.round((totalLearned / nodes.length) * 100) : 0;
 
   const diffStats = useMemo(() => {
@@ -624,15 +692,15 @@ export default function HanjaDashboardPage() {
     const med = nodes.filter(n => n.difficulty === 2);
     const hard = nodes.filter(n => n.difficulty === 3);
     return [
-      { label: "Dễ", total: easy.length, learned: easy.filter(n => learnedSet.has(n.id)).length, color: "#10b981" },
-      { label: "Trung bình", total: med.length, learned: med.filter(n => learnedSet.has(n.id)).length, color: "#f59e0b" },
-      { label: "Khó", total: hard.length, learned: hard.filter(n => learnedSet.has(n.id)).length, color: "#f43f5e" },
+      { label: "Dễ", total: easy.length, learned: easy.filter(n => mergedLearnedSet.has(n.id)).length, color: "#10b981" },
+      { label: "Trung bình", total: med.length, learned: med.filter(n => mergedLearnedSet.has(n.id)).length, color: "#f59e0b" },
+      { label: "Khó", total: hard.length, learned: hard.filter(n => mergedLearnedSet.has(n.id)).length, color: "#f43f5e" },
     ];
-  }, [nodes, learnedSet]);
+  }, [nodes, mergedLearnedSet]);
 
   const recentLearned = useMemo(() => {
-    return nodes.filter(n => learnedSet.has(n.id)).slice(-10).reverse();
-  }, [nodes, learnedSet]);
+    return nodes.filter(n => mergedLearnedSet.has(n.id)).slice(-10).reverse();
+  }, [nodes, mergedLearnedSet]);
 
   const streak = useMemo(() => calcStreak(streakDays), [streakDays]);
 
@@ -646,8 +714,8 @@ export default function HanjaDashboardPage() {
         {!loading && (
           <DailyWordsPanel
             nodes={nodes}
-            learnedSet={learnedSet}
-            onToggleLearned={toggleLearned}
+            learnedSet={mergedLearnedSet}
+            onToggleLearned={mergedToggleLearned}
           />
         )}
 
@@ -678,7 +746,7 @@ export default function HanjaDashboardPage() {
             <div className="flex items-center gap-2 flex-wrap justify-end">
               <p className="text-sm font-bold text-rose-400">{totalLearned}/{nodes.length} từ</p>
               {totalLearned > 0 && (
-                <button onClick={() => exportLearnedCSV(nodes, learnedSet)}
+                <button onClick={() => exportLearnedCSV(nodes, mergedLearnedSet)}
                   className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold rounded-lg cursor-pointer whitespace-nowrap transition-all">
                   <i className="ri-download-2-line"></i>Xuất CSV
                 </button>
@@ -839,7 +907,7 @@ export default function HanjaDashboardPage() {
       {showReview && (
         <ReviewQuizModal
           nodes={nodes}
-          learnedSet={learnedSet}
+          learnedSet={mergedLearnedSet}
           onClose={() => setShowReview(false)}
         />
       )}
