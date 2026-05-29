@@ -12,7 +12,7 @@ interface DbCoupon {
   usage_count: number;
   max_usage: number | null;
   coupon_type: "ebook" | "vip";
-  vip_plan: "month" | "year" | null;
+  vip_plan: "month" | "year" | "both" | null;
   note: string | null;
   active: boolean;
   created_at: string;

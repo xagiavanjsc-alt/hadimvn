@@ -19,7 +19,7 @@ export interface Coupon {
   note?: string;
   active: boolean;
   couponType: "ebook" | "vip";
-  vipPlan?: "month" | "year";
+  vipPlan?: "month" | "year" | "both";
 }
 
 const CHANNEL_OPTIONS = [
@@ -40,7 +40,7 @@ function CouponForm({ initial, series, onSave, onCancel }: {
   const [maxUsage, setMaxUsage] = useState(String(initial?.maxUsage ?? ""));
   const [note, setNote] = useState(initial?.note ?? "");
   const [couponType, setCouponType] = useState<"ebook" | "vip">(initial?.couponType ?? "ebook");
-  const [vipPlan, setVipPlan] = useState<"month" | "year">(initial?.vipPlan ?? "month");
+  const [vipPlan, setVipPlan] = useState<"month" | "year" | "both">(initial?.vipPlan ?? "both");
 
   const generateCode = () => {
     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -151,18 +151,15 @@ function CouponForm({ initial, series, onSave, onCancel }: {
             <div>
               <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Áp dụng cho gói VIP</label>
               <div className="flex bg-app-card/50 border border-app-border rounded-lg overflow-hidden">
-                <button
-                  onClick={() => setVipPlan("month")}
-                  className={`flex-1 px-4 py-2.5 text-xs font-bold transition-colors cursor-pointer whitespace-nowrap ${vipPlan === "month" ? "bg-app-accent-primary/20 text-app-accent-primary" : "text-app-text-secondary hover:text-white/70"}`}
-                >
-                  Tháng
-                </button>
-                <button
-                  onClick={() => setVipPlan("year")}
-                  className={`flex-1 px-4 py-2.5 text-xs font-bold transition-colors cursor-pointer whitespace-nowrap ${vipPlan === "year" ? "bg-app-accent-primary/20 text-app-accent-primary" : "text-app-text-secondary hover:text-white/70"}`}
-                >
-                  Năm
-                </button>
+                {(["both", "month", "year"] as const).map(p => (
+                  <button
+                    key={p}
+                    onClick={() => setVipPlan(p)}
+                    className={`flex-1 px-3 py-2.5 text-xs font-bold transition-colors cursor-pointer whitespace-nowrap ${vipPlan === p ? "bg-app-accent-primary/20 text-app-accent-primary" : "text-app-text-secondary hover:text-white/70"}`}
+                  >
+                    {p === "both" ? "Cả hai" : p === "month" ? "Tháng" : "Năm"}
+                  </button>
+                ))}
               </div>
             </div>
           )}
@@ -539,7 +536,9 @@ export default function AdminCouponPage() {
                     <span className="text-app-text-secondary text-[10px] flex-1 truncate">{c.channel}</span>
 
                     <span className="text-app-text-muted text-[10px] truncate max-w-[80px]">
-                      {c.couponType === "vip" ? (c.vipPlan === "year" ? "VIP Năm" : "VIP Tháng") : (c.seriesId === "all" ? "Tất cả" : (s?.name ?? "?"))}
+                      {c.couponType === "vip"
+                        ? (c.vipPlan === "year" ? "VIP Năm" : c.vipPlan === "month" ? "VIP Tháng" : "VIP cả hai")
+                        : (c.seriesId === "all" ? "Tất cả" : (s?.name ?? "?"))}
                     </span>
 
                     <div className="text-right flex-shrink-0">

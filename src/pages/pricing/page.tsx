@@ -336,13 +336,86 @@ export default function PricingPage() {
   const submittingRef = useRef(false);
   const [copied, setCopied] = useState<string | null>(null);
 
+  // ─── Coupon state ─────────────────────────────────────────────────────────
+  const [couponInput, setCouponInput] = useState("");
+  const [couponValidating, setCouponValidating] = useState(false);
+  const [couponError, setCouponError] = useState<string | null>(null);
+  const [appliedCoupon, setAppliedCoupon] = useState<{
+    redemptionId: string;
+    code: string;
+    originalAmount: number;
+    discountedAmount: number;
+    discountAmount: number;
+  } | null>(null);
+
   const monthlyPrice = 79000;
   const yearlyPrice = 59000;
   const currentPrice = billing === "monthly" ? monthlyPrice : yearlyPrice;
   const yearSaving = (monthlyPrice - yearlyPrice) * 12;
 
+  const releaseAppliedCoupon = async () => {
+    if (!appliedCoupon) return;
+    try {
+      await supabase.rpc("release_coupon_redemption", { p_redemption_id: appliedCoupon.redemptionId });
+    } catch { /* best-effort; the row stays 'pending' but won't be re-usable by same user anyway */ }
+    setAppliedCoupon(null);
+    setCouponError(null);
+  };
+
+  const handleApplyCoupon = async () => {
+    if (!couponInput.trim() || couponValidating) return;
+    setCouponValidating(true);
+    setCouponError(null);
+    try {
+      const { data, error } = await supabase.rpc("validate_and_apply_coupon", {
+        p_code: couponInput.trim(),
+        p_billing_cycle: billing,
+      });
+      if (error) {
+        setCouponError("Có lỗi xảy ra khi kiểm tra mã");
+        return;
+      }
+      const res = data as {
+        ok: boolean;
+        error?: string;
+        redemption_id?: string;
+        code?: string;
+        discount_amount?: number;
+        original_amount?: number;
+        discounted_amount?: number;
+      };
+      if (!res?.ok) {
+        setCouponError(res?.error || "Mã coupon không hợp lệ");
+        return;
+      }
+      setAppliedCoupon({
+        redemptionId: res.redemption_id!,
+        code: res.code || couponInput.trim().toUpperCase(),
+        originalAmount: res.original_amount!,
+        discountedAmount: res.discounted_amount!,
+        discountAmount: res.discount_amount!,
+      });
+    } finally {
+      setCouponValidating(false);
+    }
+  };
+
+  // Release coupon if user switches billing cycle (price changes, redemption stale)
+  useEffect(() => {
+    if (appliedCoupon) {
+      void releaseAppliedCoupon();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [billing]);
+
   const handleRegister = () => {
     setShowPaymentModal(true);
+  };
+
+  const handleClosePaymentModal = () => {
+    setShowPaymentModal(false);
+    void releaseAppliedCoupon();
+    setCouponInput("");
   };
 
   const handleSubmitPayment = async () => {
@@ -357,30 +430,39 @@ export default function PricingPage() {
       const { data: uploadData, error: uploadError } = await supabase.storage
         .from("payment-proofs")
         .upload(fileName, paymentProof);
-      
+
       if (uploadError) throw uploadError;
-      
+
       // Get public URL
       const { data: { publicUrl } } = supabase.storage
         .from("payment-proofs")
         .getPublicUrl(fileName);
-      
-      // Submit payment request
+
+      // Submit payment request. The server-side trigger overrides `amount`
+      // with the canonical price (minus coupon discount, if redemption is
+      // bound). The client value is just a placeholder.
+      const placeholderAmount = appliedCoupon
+        ? appliedCoupon.discountedAmount
+        : (billing === "monthly" ? monthlyPrice : yearlyPrice * 12);
       const { error: insertError } = await supabase.from("vip_payment_requests").insert({
         user_id: profile.id,
         email: user?.email || "",
-        amount: billing === "monthly" ? monthlyPrice : yearlyPrice * 12,
+        amount: placeholderAmount,
         billing_cycle: billing,
         proof_url: publicUrl,
         note: paymentNote,
         status: "pending",
+        coupon_code: appliedCoupon?.code || null,
+        coupon_redemption_id: appliedCoupon?.redemptionId || null,
       });
-      
+
       if (insertError) throw insertError;
-      
+
       setShowPaymentModal(false);
       setPaymentProof(null);
       setPaymentNote("");
+      setAppliedCoupon(null);
+      setCouponInput("");
       setShowSuccess(true);
       setTimeout(() => setShowSuccess(false), 5000);
     } catch (err) {
@@ -423,8 +505,10 @@ export default function PricingPage() {
 
       {/* Payment Modal — redesigned with VietQR */}
       {showPaymentModal && (() => {
-        const amount = billing === "monthly" ? monthlyPrice : yearlyPrice * 12;
+        const baseAmount = billing === "monthly" ? monthlyPrice : yearlyPrice * 12;
+        const amount = appliedCoupon?.discountedAmount ?? baseAmount;
         const fmtAmt = new Intl.NumberFormat("vi-VN").format(amount);
+        const fmtBase = new Intl.NumberFormat("vi-VN").format(baseAmount);
         const content = `VIP_${user?.email?.split("@")[0] || "EMAIL"}`;
         const bank = paySettings?.bankAccount;
         const momo = paySettings?.momo;
@@ -442,7 +526,7 @@ export default function PricingPage() {
                   <p className="text-white font-bold text-sm">Nâng cấp VIP {billing === "monthly" ? "Tháng" : "Năm"}</p>
                   <p className="text-app-text-secondary text-xs mt-0.5">Chuyển khoản → gửi minh chứng → kích hoạt trong 30 phút</p>
                 </div>
-                <button onClick={() => setShowPaymentModal(false)} className="w-8 h-8 flex items-center justify-center rounded-lg text-app-text-muted hover:text-white/70 hover:bg-white/8 cursor-pointer transition-all">
+                <button onClick={handleClosePaymentModal} className="w-8 h-8 flex items-center justify-center rounded-lg text-app-text-muted hover:text-white/70 hover:bg-white/8 cursor-pointer transition-all">
                   <i className="ri-close-line text-lg"></i>
                 </button>
               </div>
@@ -480,13 +564,14 @@ export default function PricingPage() {
                           </div>
                           {[{ label: "Số tài khoản", value: bank.accountNumber, key: "acc" },
                             { label: "Chủ tài khoản", value: bank.accountName, key: "name" },
-                            { label: "Số tiền",       value: `${fmtAmt}đ`,    key: "amt" },
+                            { label: "Số tiền",       value: `${fmtAmt}đ`,    key: "amt", subValue: appliedCoupon ? `Giá gốc ${fmtBase}đ — đã trừ ${new Intl.NumberFormat("vi-VN").format(appliedCoupon.discountAmount)}đ` : null },
                             { label: "Nội dung CK",   value: content,         key: "msg" },
                           ].map(r => r.value && (
                             <div key={r.key} className="flex items-center justify-between gap-2">
                               <div className="min-w-0">
                                 <p className="text-[10px] text-app-text-muted">{r.label}</p>
                                 <p className={`text-sm font-semibold text-white/80 truncate ${r.key === "acc" || r.key === "msg" ? "font-mono" : ""}`}>{r.value}</p>
+                                {r.subValue && <p className="text-[9px] text-app-accent-success mt-0.5">{r.subValue}</p>}
                               </div>
                               <button onClick={() => copyToClipboard(r.value!, r.key)}
                                 className="flex-shrink-0 w-7 h-7 flex items-center justify-center rounded-lg bg-white/8 hover:bg-white/15 cursor-pointer transition-all">
@@ -534,6 +619,63 @@ export default function PricingPage() {
                   </div>
                 )}
 
+                {/* Coupon input */}
+                <div className="border-t border-app-border pt-4">
+                  <label className="text-white/60 text-xs font-semibold block mb-2">
+                    Mã giảm giá <span className="text-app-text-muted font-normal">(không bắt buộc)</span>
+                  </label>
+                  {appliedCoupon ? (
+                    <div className="flex items-center justify-between gap-2 px-4 py-3 bg-emerald-500/10 border border-emerald-500/30 rounded-xl">
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-2">
+                          <i className="ri-coupon-3-line text-app-accent-success"></i>
+                          <span className="font-mono font-bold text-sm text-app-accent-success">{appliedCoupon.code}</span>
+                          <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-app-accent-success font-semibold">
+                            -{new Intl.NumberFormat("vi-VN").format(appliedCoupon.discountAmount)}đ
+                          </span>
+                        </div>
+                        <p className="text-[10px] text-app-text-muted mt-0.5">
+                          Giá gốc: <span className="line-through">{new Intl.NumberFormat("vi-VN").format(appliedCoupon.originalAmount)}đ</span>
+                          {" → "}
+                          <span className="text-white/80 font-bold">{new Intl.NumberFormat("vi-VN").format(appliedCoupon.discountedAmount)}đ</span>
+                        </p>
+                      </div>
+                      <button
+                        onClick={releaseAppliedCoupon}
+                        className="w-7 h-7 flex items-center justify-center rounded-lg bg-white/8 hover:bg-rose-500/20 cursor-pointer transition-all flex-shrink-0"
+                        title="Bỏ mã giảm giá"
+                      >
+                        <i className="ri-close-line text-xs text-app-text-muted"></i>
+                      </button>
+                    </div>
+                  ) : (
+                    <>
+                      <div className="flex gap-2">
+                        <input
+                          type="text"
+                          value={couponInput}
+                          onChange={e => { setCouponInput(e.target.value.toUpperCase()); setCouponError(null); }}
+                          onKeyDown={e => { if (e.key === "Enter") { e.preventDefault(); void handleApplyCoupon(); } }}
+                          placeholder="VD: VIP20"
+                          className="flex-1 bg-app-card/50 border border-app-border rounded-xl px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-app-accent-primary/40 transition-colors font-mono tracking-widest uppercase"
+                        />
+                        <button
+                          onClick={handleApplyCoupon}
+                          disabled={!couponInput.trim() || couponValidating}
+                          className="px-4 py-2.5 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-40 disabled:cursor-not-allowed text-app-bg text-xs font-bold transition-colors cursor-pointer whitespace-nowrap"
+                        >
+                          {couponValidating ? <i className="ri-loader-4-line animate-spin"></i> : "Áp dụng"}
+                        </button>
+                      </div>
+                      {couponError && (
+                        <p className="text-rose-400 text-[11px] mt-1.5 flex items-center gap-1">
+                          <i className="ri-error-warning-line"></i>{couponError}
+                        </p>
+                      )}
+                    </>
+                  )}
+                </div>
+
                 {/* Upload proof */}
                 <div className="border-t border-app-border pt-4">
                   <label className="text-white/60 text-xs font-semibold block mb-2">Ảnh minh chứng chuyển khoản <span className="text-rose-400">*</span></label>
@@ -555,7 +697,7 @@ export default function PricingPage() {
                 </div>
 
                 <div className="flex gap-3">
-                  <button onClick={() => setShowPaymentModal(false)}
+                  <button onClick={handleClosePaymentModal}
                     className="flex-1 py-3 rounded-xl border border-app-border text-white/50 text-sm font-medium hover:bg-app-card/50 transition-colors cursor-pointer">
                     Hủy
                   </button>
