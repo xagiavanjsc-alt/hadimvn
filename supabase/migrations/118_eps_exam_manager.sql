@@ -54,11 +54,13 @@ alter table public.eps_questions enable row level security;
 
 -- Everyone can view published exams + their questions
 -- (Unpublished exams are hidden from normal users)
+drop policy if exists "Published exams visible to public" on public.eps_exams;
 create policy "Published exams visible to public"
   on public.eps_exams
   for select to anon, authenticated
   using (is_published = true);
 
+drop policy if exists "Exam questions visible to public" on public.eps_questions;
 create policy "Exam questions visible to public"
   on public.eps_questions
   for select to anon, authenticated
@@ -70,12 +72,14 @@ create policy "Exam questions visible to public"
   );
 
 -- Admins can CRUD everything
+drop policy if exists "Admin full access on exams" on public.eps_exams;
 create policy "Admin full access on exams"
   on public.eps_exams
   for all to authenticated
   using (public.is_admin_user(auth.uid()))
   with check (public.is_admin_user(auth.uid()));
 
+drop policy if exists "Admin full access on questions" on public.eps_questions;
 create policy "Admin full access on questions"
   on public.eps_questions
   for all to authenticated
@@ -91,6 +95,7 @@ begin
 end;
 $$ language plpgsql;
 
+drop trigger if exists trg_eps_exams_updated_at on public.eps_exams;
 create trigger trg_eps_exams_updated_at
   before update on public.eps_exams
   for each row execute function public.set_updated_at();
@@ -101,22 +106,26 @@ values ('eps-exams', 'eps-exams', true)
 on conflict (id) do nothing;
 
 -- RLS: anyone can read public media
+drop policy if exists "Public read eps-exams" on storage.objects;
 create policy "Public read eps-exams"
   on storage.objects for select to anon, authenticated
   using (bucket_id = 'eps-exams');
 
 -- Admin can insert (with check ensures new row satisfies condition)
+drop policy if exists "Admin insert eps-exams" on storage.objects;
 create policy "Admin insert eps-exams"
   on storage.objects for insert to authenticated
   with check (bucket_id = 'eps-exams' and public.is_admin_user(auth.uid()));
 
 -- Admin can update (using checks existing row, with check ensures new row)
+drop policy if exists "Admin update eps-exams" on storage.objects;
 create policy "Admin update eps-exams"
   on storage.objects for update to authenticated
   using (bucket_id = 'eps-exams' and public.is_admin_user(auth.uid()))
   with check (bucket_id = 'eps-exams' and public.is_admin_user(auth.uid()));
 
 -- Admin can delete
+drop policy if exists "Admin delete eps-exams" on storage.objects;
 create policy "Admin delete eps-exams"
   on storage.objects for delete to authenticated
   using (bucket_id = 'eps-exams' and public.is_admin_user(auth.uid()));

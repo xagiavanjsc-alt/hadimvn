@@ -1,10 +1,11 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { EPS_EXAMS, EPSExam, EPSQuestion } from "@/data/epsExams";
 import { useXPSystem } from "@/hooks/useXPSystem";
 import { STORAGE_KEYS } from "@/lib/storageKeys";
 import { usePageSEO } from "@/hooks/usePageSEO";
+import { useEpsExamList } from "@/hooks/useEpsExams";
 
 interface UserAnswer {
   questionId: string;
@@ -21,6 +22,18 @@ interface ExamResult {
 }
 
 export default function EPSExamsPage() {
+  // Overlay DB titles lên 2 đề tĩnh — admin có thể đổi tên qua /admin/eps-exam-manager.
+  // Đề tĩnh eps_01 / eps_02 ↔ DB slug eps-de-1 / eps-de-2 (seed bởi migration 122).
+  const { exams: dbExams } = useEpsExamList();
+  const dbBySlug = useMemo(() => new Map(dbExams.map(e => [e.slug, e])), [dbExams]);
+  const mergedExams: EPSExam[] = useMemo(() => {
+    const slugFor: Record<string, string> = { eps_01: "eps-de-1", eps_02: "eps-de-2" };
+    return EPS_EXAMS.map(e => {
+      const db = dbBySlug.get(slugFor[e.id] ?? "");
+      return db ? { ...e, title: db.title } : e;
+    });
+  }, [dbBySlug]);
+
   usePageSEO({
     title: "Đề Thi EPS-TOPIK 2025 Có Đáp Án — Luyện Thi XKLĐ Hàn Quốc | Hàn Quốc Ơi!",
     description: "Bộ đề thi EPS-TOPIK 2025 chính thức có đáp án và audio. Luyện thi miễn phí đi XKLĐ Hàn Quốc. Đầy đủ 40 câu nghe + đọc, giải thích chi tiết tiếng Việt.",
@@ -31,8 +44,8 @@ export default function EPSExamsPage() {
       "@type": "ItemList",
       name: "Đề thi EPS-TOPIK 2025",
       description: "Danh sách đề thi EPS-TOPIK chính thức có đáp án.",
-      numberOfItems: EPS_EXAMS.length,
-      itemListElement: EPS_EXAMS.map((exam, idx) => ({
+      numberOfItems: mergedExams.length,
+      itemListElement: mergedExams.map((exam, idx) => ({
         "@type": "ListItem",
         position: idx + 1,
         item: {
@@ -195,7 +208,7 @@ export default function EPSExamsPage() {
         <div className="max-w-2xl">
           <p className="text-app-text-secondary text-xs mb-3">Chọn đề để bắt đầu</p>
           <div className="flex flex-col gap-3">
-            {EPS_EXAMS.map(exam => {
+            {mergedExams.map(exam => {
               const c = EXAM_COLORS[exam.id] ?? EXAM_COLORS.default;
               return (
                 <button

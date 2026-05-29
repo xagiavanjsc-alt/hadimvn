@@ -41,6 +41,7 @@ const adminNavGroups = [
       { path: "/admin/eps-new", icon: "ri-add-circle-line", label: "Thêm bài EPS mới", permission: "eps.edit" as Permission },
       { path: "/admin/eps-upload", icon: "ri-upload-cloud-2-line", label: "Upload ảnh EPS", permission: "eps.upload" as Permission },
       { path: "/admin/eps-vocab-excel", icon: "ri-file-excel-2-line", label: "Upload từ vựng Excel/CSV", permission: "eps.upload" as Permission },
+      { path: "/admin/eps-exam-manager", icon: "ri-file-list-3-line", label: "Quản lý đề thi EPS", permission: "eps.upload" as Permission },
       { path: "/admin/upload", icon: "ri-upload-cloud-2-line", label: "Upload & AI tổng hợp", permission: "eps.upload" as Permission },
       { path: "/admin/audio", icon: "ri-volume-up-line", label: "Audio TTS Cache", permission: "eps.edit" as Permission },
     ],

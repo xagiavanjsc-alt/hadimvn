@@ -1,10 +1,13 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { DE2_QUESTIONS, DE2_INFO, DE2_EXPLANATIONS, type De2Question } from "@/data/eps_de2";
 import { useXPSystem } from "@/hooks/useXPSystem";
 import { usePageSEO } from "@/hooks/usePageSEO";
 import { useExamAudio } from "@/hooks/useExamAudio";
+import { useEpsExam } from "@/hooks/useEpsExams";
 import { ORG_SCHEMA } from "@/lib/siteConfig";
+
+interface ExamInfo { title: string; totalQuestions: number; timeMinutes: number; audioBase: string; }
 
 // ─── Audio Button ─────────────────────────────────────────────────────────────
 function AudioBtn({ script, onSpeak }: { script: string; onSpeak: (s: string) => void }) {
@@ -48,14 +51,16 @@ interface QuestionCardProps {
   onAnswer: (idx: number) => void;
   showResult?: boolean;
   player: ReturnType<typeof useExamAudio>;
+  info: ExamInfo;
+  explanations: Record<number, string>;
 }
 
-function QuestionCard({ q, answer, onAnswer, showResult, player }: QuestionCardProps) { // de2
+function QuestionCard({ q, answer, onAnswer, showResult, player, info, explanations }: QuestionCardProps) { // de2
   const [played, setPlayed] = useState(false);
   const [showHint, setShowHint] = useState(false);
 
-  const audioUrl = q.section === "listening" && DE2_INFO.audioBase
-    ? `${DE2_INFO.audioBase}/${q.id}.mp3`
+  const audioUrl = q.section === "listening" && info.audioBase
+    ? `${info.audioBase}/${q.id}.mp3`
     : undefined;
 
   const handleSpeak = () => {
@@ -82,7 +87,7 @@ function QuestionCard({ q, answer, onAnswer, showResult, player }: QuestionCardP
         }`}>
           {isListening ? "듣기 NGHE" : "읽기 ĐỌC"}
         </span>
-        <span className="text-gray-400 text-xs">Câu {q.id} / {DE2_INFO.totalQuestions}</span>
+        <span className="text-gray-400 text-xs">Câu {q.id} / {info.totalQuestions}</span>
       </div>
 
       {/* Prompt */}
@@ -133,10 +138,10 @@ function QuestionCard({ q, answer, onAnswer, showResult, player }: QuestionCardP
       )}
 
       {/* Explanation (review mode only) */}
-      {showResult && DE2_EXPLANATIONS[q.id] && (
+      {showResult && explanations[q.id] && (
         <div className="bg-violet-500/10 border border-violet-500/20 rounded-xl px-4 py-3 text-xs text-violet-300 leading-relaxed">
           <span className="font-bold text-violet-400 mr-1"><i className="ri-lightbulb-flash-line"></i> Giải thích:</span>
-          {DE2_EXPLANATIONS[q.id]}
+          {explanations[q.id]}
         </div>
       )}
 
@@ -274,16 +279,18 @@ function ResultScreen({
   xpEarned,
   onRetry,
   onReview,
+  questions,
 }: {
   answers: (number | null)[];
   xpEarned: number;
   onRetry: () => void;
   onReview: () => void;
+  questions: De2Question[];
 }) {
-  const total = DE2_QUESTIONS.length;
-  const correct = DE2_QUESTIONS.filter((q, i) => answers[i] === q.correct).length;
-  const readingCorrect = DE2_QUESTIONS.filter((q, i) => q.section === "reading" && answers[i] === q.correct).length;
-  const listeningCorrect = DE2_QUESTIONS.filter((q, i) => q.section === "listening" && answers[i] === q.correct).length;
+  const total = questions.length;
+  const correct = questions.filter((q, i) => answers[i] === q.correct).length;
+  const readingCorrect = questions.filter((q, i) => q.section === "reading" && answers[i] === q.correct).length;
+  const listeningCorrect = questions.filter((q, i) => q.section === "listening" && answers[i] === q.correct).length;
   const pct = Math.round((correct / total) * 100);
   const passed = pct >= 40;
   const band = FEEDBACK_BANDS.find(b => pct >= b.min) || FEEDBACK_BANDS[FEEDBACK_BANDS.length - 1];
@@ -331,7 +338,7 @@ function ResultScreen({
 
       {/* Wrong questions list */}
       {(() => {
-        const wrong = DE2_QUESTIONS.filter((q, i) => answers[i] !== q.correct);
+        const wrong = questions.filter((q, i) => answers[i] !== q.correct);
         if (!wrong.length) return null;
         return (
           <div className="bg-rose-50 border border-rose-200 rounded-xl p-4 mb-6">
@@ -366,15 +373,15 @@ function ResultScreen({
 }
 
 // ─── Intro Screen ─────────────────────────────────────────────────────────────
-function IntroScreen({ onStart }: { onStart: () => void }) {
+function IntroScreen({ onStart, title }: { onStart: () => void; title: string }) {
   return (
-    <DashboardLayout title="Đề số 02 — EPS-TOPIK" subtitle="40 câu · 50 phút · Audio TTS">
+    <DashboardLayout title={`${title} — EPS-TOPIK`} subtitle="40 câu · 50 phút · Audio TTS">
       <div className="max-w-2xl mx-auto space-y-4">
         <div className="bg-app-bg border border-app-border rounded-2xl p-8 text-center">
           <div className="w-16 h-16 flex items-center justify-center rounded-2xl bg-app-accent-primary/10 mx-auto mb-4">
             <i className="ri-headphone-line text-app-accent-primary text-3xl"></i>
           </div>
-          <h2 className="text-white text-xl font-bold mb-1">ĐỀ SỐ 02</h2>
+          <h2 className="text-white text-xl font-bold mb-1">{title}</h2>
           <p className="text-app-text-secondary text-sm">EPS-TOPIK — 한국어능력시험 (Lao động)</p>
         </div>
 
@@ -430,6 +437,23 @@ function IntroScreen({ onStart }: { onStart: () => void }) {
 type Phase = "intro" | "exam" | "result" | "review";
 
 export default function EpsDe2ExamPage() {
+  const { exam: dbExam } = useEpsExam("eps-de-2");
+  const useDb = dbExam && dbExam.questions.length === DE2_QUESTIONS.length;
+  const questions: De2Question[] = useMemo(
+    () => (useDb ? (dbExam!.questions as unknown as De2Question[]) : DE2_QUESTIONS),
+    [useDb, dbExam],
+  );
+  const info: ExamInfo = useMemo(
+    () => ({
+      title: useDb ? dbExam!.title : DE2_INFO.title,
+      totalQuestions: useDb ? dbExam!.totalQuestions : DE2_INFO.totalQuestions,
+      timeMinutes: useDb ? dbExam!.timeMinutes : DE2_INFO.timeMinutes,
+      audioBase: DE2_INFO.audioBase,
+    }),
+    [useDb, dbExam],
+  );
+  const explanations: Record<number, string> = useDb ? dbExam!.explanations : DE2_EXPLANATIONS;
+
   usePageSEO({
     title: "Đề thi EPS-TOPIK 2025 Đề 2 [Có Đáp Án + Audio] | Hàn Quốc Ơi!",
     description: "Đề thi EPS-TOPIK 2025 chính thức Đề 2. Đầy đủ 40 câu nghe + đọc, có audio luyện nghe, đáp án và giải thích chi tiết. Miễn phí 100%.",
@@ -443,8 +467,8 @@ export default function EpsDe2ExamPage() {
       educationalLevel: "EPS-TOPIK",
       learningResourceType: "Practice Exam",
       inLanguage: ["ko", "vi"],
-      timeRequired: `PT${DE2_INFO.timeMinutes}M`,
-      numberOfQuestions: DE2_QUESTIONS.length,
+      timeRequired: `PT${info.timeMinutes}M`,
+      numberOfQuestions: questions.length,
       isAccessibleForFree: true,
       provider: ORG_SCHEMA,
     },
@@ -467,9 +491,9 @@ export default function EpsDe2ExamPage() {
   // stop ngay khi vừa play.
   useEffect(() => { player.stop(); }, [currentIdx, phase, player.stop]);
 
-  const TOTAL = DE2_INFO.timeMinutes * 60;
-  const readingQs   = DE2_QUESTIONS.filter(q => q.section === "reading");
-  const listeningQs = DE2_QUESTIONS.filter(q => q.section === "listening");
+  const TOTAL = info.timeMinutes * 60;
+  const readingQs   = questions.filter(q => q.section === "reading");
+  const listeningQs = questions.filter(q => q.section === "listening");
   const currentSection = currentIdx < 20 ? "reading" : "listening";
 
   // Timer
@@ -499,41 +523,41 @@ export default function EpsDe2ExamPage() {
 
   const submit = () => {
     player.stop();
-    const correctCount = DE2_QUESTIONS.filter((q, i) => answers[i] === q.correct).length;
+    const correctCount = questions.filter((q, i) => answers[i] === q.correct).length;
     const xp = 20 + correctCount * 5;
     setXpEarned(xp);
     awardXP({ type: "eps_exam_completed" });
-    DE2_QUESTIONS.forEach((q, i) => { if (answers[i] === q.correct) awardXP({ type: "eps_question_correct" }); });
+    questions.forEach((q, i) => { if (answers[i] === q.correct) awardXP({ type: "eps_question_correct" }); });
     setPhase("result");
   };
 
   const handleRetry = () => {
-    setAnswers(new Array(DE2_QUESTIONS.length).fill(null));
+    setAnswers(new Array(questions.length).fill(null));
     setCurrentIdx(0);
     setTimeLeft(TOTAL);
     setPhase("intro");
   };
 
-  if (phase === "intro") return <IntroScreen onStart={() => setPhase("exam")} />;
+  if (phase === "intro") return <IntroScreen onStart={() => setPhase("exam")} title={info.title} />;
 
   if (phase === "result") {
     return (
-      <DashboardLayout title="Kết quả — Đề số 02">
-        <ResultScreen answers={answers} xpEarned={xpEarned} onRetry={handleRetry} onReview={() => { setCurrentIdx(0); setPhase("review"); }} />
+      <DashboardLayout title={`Kết quả — ${info.title}`}>
+        <ResultScreen answers={answers} xpEarned={xpEarned} onRetry={handleRetry} onReview={() => { setCurrentIdx(0); setPhase("review"); }} questions={questions} />
       </DashboardLayout>
     );
   }
 
   const isReview = phase === "review";
-  const q = DE2_QUESTIONS[currentIdx];
+  const q = questions[currentIdx];
 
   return (
     <DashboardLayout
-      title="ĐỀ SỐ 02 — EPS-TOPIK"
-      subtitle={isReview ? "Xem lại đáp án" : `${answered}/${DE2_QUESTIONS.length} câu đã trả lời`}
+      title={`${info.title} — EPS-TOPIK`}
+      subtitle={isReview ? "Xem lại đáp án" : `${answered}/${questions.length} câu đã trả lời`}
       actions={!isReview ? (
         <button onClick={submit} className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm px-5 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap">
-          <i className="ri-send-plane-fill"></i>Nộp bài ({answered}/{DE2_QUESTIONS.length})
+          <i className="ri-send-plane-fill"></i>Nộp bài ({answered}/{questions.length})
         </button>
       ) : (
         <button onClick={() => setPhase("result")} className="flex items-center gap-2 bg-app-card text-white text-sm px-4 py-2 rounded-xl border border-app-border cursor-pointer">
@@ -588,7 +612,7 @@ export default function EpsDe2ExamPage() {
 
       {/* ── Question number grid ── */}
       <div className="flex flex-wrap gap-1.5 mb-5 bg-app-bg border border-app-border rounded-xl p-3">
-        {DE2_QUESTIONS.filter(dq => dq.section === currentSection).map((dq, sIdx) => {
+        {questions.filter(dq => dq.section === currentSection).map((dq, sIdx) => {
           const gIdx = currentSection === "reading" ? sIdx : sIdx + 20;
           const isAnswered = answers[gIdx] !== null;
           const isCurrent = gIdx === currentIdx;
@@ -612,7 +636,7 @@ export default function EpsDe2ExamPage() {
 
       {/* ── Question card ── */}
       <div id="question-card" className="bg-app-bg border border-app-border rounded-2xl p-5 mb-4 scroll-mt-4">
-        <QuestionCard q={q} answer={answers[currentIdx]} onAnswer={selectAnswer} showResult={isReview} player={player} />
+        <QuestionCard q={q} answer={answers[currentIdx]} onAnswer={selectAnswer} showResult={isReview} player={player} info={info} explanations={explanations} />
       </div>
 
       {/* ── Prev / Next ── */}
@@ -621,12 +645,12 @@ export default function EpsDe2ExamPage() {
           className="flex items-center gap-2 px-5 py-3 rounded-xl bg-app-card border border-app-border text-white text-sm font-medium disabled:opacity-40 cursor-pointer">
           <i className="ri-arrow-left-line"></i>Trước
         </button>
-        {currentIdx === DE2_QUESTIONS.length - 1 && !isReview ? (
+        {currentIdx === questions.length - 1 && !isReview ? (
           <button onClick={submit} className="flex items-center gap-2 px-8 py-3 rounded-xl bg-app-accent-primary text-app-bg font-bold text-sm cursor-pointer">
             <i className="ri-send-plane-fill"></i>Nộp bài
           </button>
         ) : (
-          <button onClick={() => setCurrentIdx(p => Math.min(DE2_QUESTIONS.length - 1, p + 1))} disabled={currentIdx === DE2_QUESTIONS.length - 1}
+          <button onClick={() => setCurrentIdx(p => Math.min(questions.length - 1, p + 1))} disabled={currentIdx === questions.length - 1}
             className="flex items-center gap-2 px-5 py-3 rounded-xl bg-app-accent-primary text-app-bg text-sm font-bold disabled:opacity-40 cursor-pointer">
             Tiếp<i className="ri-arrow-right-line"></i>
           </button>

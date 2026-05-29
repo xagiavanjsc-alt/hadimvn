@@ -29,6 +29,16 @@ interface Question {
   image_url: string | null;
   difficulty: string;
   topic: string;
+  // Field bổ sung từ migration 121 (đề 1/2 dùng):
+  section: string | null;
+  option_type: string | null;
+  content: string | null;
+  content_image: string | null;
+  option_images: string[] | null;
+  audio_script: string | null;
+  audio_options: string[] | null;
+  audio_hint: string | null;
+  explanation: string | null;
 }
 
 const INITIAL_EXAM = {
@@ -53,6 +63,16 @@ const INITIAL_QUESTION = {
   image_url: "",
   difficulty: "medium" as string,
   topic: "",
+  // Field bổ sung (đề 1/2):
+  section: "reading" as string,
+  option_type: "text" as string,
+  content: "",
+  content_image: "",
+  option_images: ["", "", "", ""],
+  audio_script: "",
+  audio_options: ["", "", "", ""],
+  audio_hint: "",
+  explanation: "",
 };
 
 // ─── File Upload Zone ─────────────────────────────────────────────────
@@ -172,10 +192,11 @@ export default function AdminEpsExamManagerPage() {
 
   const saveExam = async () => {
     if (!form.slug || !form.title) { showToast("Thiếu slug hoặc tên đề thi", "error"); return; }
+    // Check slug trùng với đề KHÁC (lúc tạo mới: với mọi đề; lúc sửa: trừ chính nó).
+    const slugConflict = exams.find(e => e.slug === form.slug && e.id !== selectedExam?.id);
+    if (slugConflict) { showToast(`Slug "${form.slug}" đã được dùng cho đề khác`, "error"); return; }
     const payload = { ...form };
-    const { error } = form.slug && exams.find(e => e.slug === form.slug && e.id !== selectedExam?.id)
-      ? await supabase.from("eps_exams").update(payload).eq("id", selectedExam!.id)
-      : selectedExam
+    const { error } = selectedExam
       ? await supabase.from("eps_exams").update(payload).eq("id", selectedExam.id)
       : await supabase.from("eps_exams").insert([payload]);
     if (error) { showToast("Lỗi lưu: " + error.message, "error"); return; }
@@ -200,11 +221,28 @@ export default function AdminEpsExamManagerPage() {
     if (!qForm.question_text || qForm.options.some(o => !o)) {
       showToast("Thiếu nội dung câu hỏi hoặc đáp án", "error"); return;
     }
+    const cleanArr = (xs: string[]) => xs.every(x => !x) ? null : xs;
     const payload = {
-      ...qForm,
       exam_id: selectedExam.id,
+      order_no: qForm.order_no,
+      question_type: qForm.question_type,
+      question_text: qForm.question_text,
+      question_vi: qForm.question_vi || null,
+      options: qForm.options,
+      correct_answer: qForm.correct_answer,
       audio_url: qForm.audio_url || null,
       image_url: qForm.image_url || null,
+      difficulty: qForm.difficulty,
+      topic: qForm.topic || null,
+      section: qForm.section || null,
+      option_type: qForm.option_type || null,
+      content: qForm.content || null,
+      content_image: qForm.content_image || null,
+      option_images: cleanArr(qForm.option_images),
+      audio_script: qForm.audio_script || null,
+      audio_options: cleanArr(qForm.audio_options),
+      audio_hint: qForm.audio_hint || null,
+      explanation: qForm.explanation || null,
     };
     const { error } = editingQ
       ? await supabase.from("eps_questions").update(payload).eq("id", editingQ.id)
@@ -427,6 +465,68 @@ export default function AdminEpsExamManagerPage() {
                     ))}
                   </div>
                 </div>
+
+                {/* Field bổ sung cho đề thực (đề 1, 2) */}
+                <details className="bg-app-bg/40 rounded-lg px-3 py-2 border border-app-border">
+                  <summary className="cursor-pointer text-app-text-secondary text-xs font-medium select-none">
+                    <i className="ri-settings-3-line mr-1"></i>Nâng cao (section, content, audio script, giải thích)
+                  </summary>
+                  <div className="mt-3 space-y-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div>
+                        <label className="text-app-text-secondary text-xs block mb-1">Section</label>
+                        <select value={qForm.section} onChange={e => setQForm({ ...qForm, section: e.target.value })} className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-sm focus:outline-none focus:border-app-accent-primary/50">
+                          <option value="reading">Đọc (reading)</option>
+                          <option value="listening">Nghe (listening)</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="text-app-text-secondary text-xs block mb-1">Kiểu đáp án</label>
+                        <select value={qForm.option_type} onChange={e => setQForm({ ...qForm, option_type: e.target.value })} className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-sm focus:outline-none focus:border-app-accent-primary/50">
+                          <option value="text">Chữ (text)</option>
+                          <option value="image">4 ảnh (image)</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div>
+                      <label className="text-app-text-secondary text-xs block mb-1">Content (đoạn văn / từ phụ tách khỏi prompt)</label>
+                      <textarea value={qForm.content} onChange={e => setQForm({ ...qForm, content: e.target.value })} rows={2} className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-sm placeholder-white/25 focus:outline-none focus:border-app-accent-primary/50" />
+                    </div>
+                    <div>
+                      <label className="text-app-text-secondary text-xs block mb-1">Content image (path public, vd: /de1/p3_img3.webp)</label>
+                      <input value={qForm.content_image} onChange={e => setQForm({ ...qForm, content_image: e.target.value })} className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-sm placeholder-white/25 focus:outline-none focus:border-app-accent-primary/50" />
+                    </div>
+                    <div>
+                      <label className="text-app-text-secondary text-xs block mb-1">4 ảnh đáp án (option_type=image) — mỗi dòng 1 path</label>
+                      <textarea value={qForm.option_images.join("\n")} onChange={e => {
+                        const lines = e.target.value.split("\n");
+                        while (lines.length < 4) lines.push("");
+                        setQForm({ ...qForm, option_images: lines.slice(0, 4) });
+                      }} rows={4} placeholder={"/de1/p2_img3.webp\n/de1/p2_img4.webp\n/de1/p2_img5.webp\n/de1/p2_img6.webp"} className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-xs font-mono placeholder-white/25 focus:outline-none focus:border-app-accent-primary/50" />
+                    </div>
+                    <div>
+                      <label className="text-app-text-secondary text-xs block mb-1">Audio script (text TTS — câu nghe)</label>
+                      <textarea value={qForm.audio_script} onChange={e => setQForm({ ...qForm, audio_script: e.target.value })} rows={2} className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-sm placeholder-white/25 focus:outline-none focus:border-app-accent-primary/50" />
+                    </div>
+                    <div>
+                      <label className="text-app-text-secondary text-xs block mb-1">4 audio đáp án (TTS) — mỗi dòng 1 script</label>
+                      <textarea value={qForm.audio_options.join("\n")} onChange={e => {
+                        const lines = e.target.value.split("\n");
+                        while (lines.length < 4) lines.push("");
+                        setQForm({ ...qForm, audio_options: lines.slice(0, 4) });
+                      }} rows={4} className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-xs placeholder-white/25 focus:outline-none focus:border-app-accent-primary/50" />
+                    </div>
+                    <div>
+                      <label className="text-app-text-secondary text-xs block mb-1">Audio hint (gợi ý hiện sau khi nghe)</label>
+                      <input value={qForm.audio_hint} onChange={e => setQForm({ ...qForm, audio_hint: e.target.value })} className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-sm placeholder-white/25 focus:outline-none focus:border-app-accent-primary/50" />
+                    </div>
+                    <div>
+                      <label className="text-app-text-secondary text-xs block mb-1">Giải thích đáp án (hiện ở review mode)</label>
+                      <textarea value={qForm.explanation} onChange={e => setQForm({ ...qForm, explanation: e.target.value })} rows={3} className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-sm placeholder-white/25 focus:outline-none focus:border-app-accent-primary/50" />
+                    </div>
+                  </div>
+                </details>
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <FileUploadZone
                     label="File Audio (kéo thả hoặc click)"
@@ -489,7 +589,31 @@ export default function AdminEpsExamManagerPage() {
                         </div>
                       </td>
                       <td className="px-4 py-3 text-right">
-                        <button onClick={() => { setEditingQ(q); setQForm({ ...INITIAL_QUESTION, ...q, options: q.options || ["","","",""] }); setShowQForm(true); }} className="text-app-accent-primary/70 hover:text-app-accent-primary text-xs cursor-pointer mr-3">
+                        <button onClick={() => {
+                          setEditingQ(q);
+                          setQForm({
+                            order_no: q.order_no,
+                            question_type: q.question_type,
+                            question_text: q.question_text,
+                            question_vi: q.question_vi || "",
+                            options: q.options || ["", "", "", ""],
+                            correct_answer: q.correct_answer,
+                            audio_url: q.audio_url || "",
+                            image_url: q.image_url || "",
+                            difficulty: q.difficulty,
+                            topic: q.topic || "",
+                            section: q.section || "reading",
+                            option_type: q.option_type || "text",
+                            content: q.content || "",
+                            content_image: q.content_image || "",
+                            option_images: q.option_images || ["", "", "", ""],
+                            audio_script: q.audio_script || "",
+                            audio_options: q.audio_options || ["", "", "", ""],
+                            audio_hint: q.audio_hint || "",
+                            explanation: q.explanation || "",
+                          });
+                          setShowQForm(true);
+                        }} className="text-app-accent-primary/70 hover:text-app-accent-primary text-xs cursor-pointer mr-3">
                           <i className="ri-edit-line mr-0.5"></i>Sửa
                         </button>
                         <button onClick={() => deleteQuestion(q.id)} className="text-red-400/70 hover:text-red-400 text-xs cursor-pointer">
