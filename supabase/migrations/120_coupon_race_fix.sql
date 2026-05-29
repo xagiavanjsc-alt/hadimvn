@@ -54,7 +54,7 @@ BEGIN
         RETURN jsonb_build_object('ok', false, 'error', 'Mã coupon không tồn tại');
     END IF;
 
-    IF NOT v_coupon.active THEN
+    IF NOT v_coupon.is_active THEN
         RETURN jsonb_build_object('ok', false, 'error', 'Mã coupon đã bị tắt');
     END IF;
 

@@ -14,7 +14,7 @@ interface DbCoupon {
   coupon_type: "ebook" | "vip";
   vip_plan: "month" | "year" | "both" | null;
   note: string | null;
-  active: boolean;
+  is_active: boolean;
   created_at: string;
 }
 
@@ -31,14 +31,17 @@ function dbToLocal(c: DbCoupon): Coupon {
     couponType: c.coupon_type,
     vipPlan: c.vip_plan ?? undefined,
     note: c.note ?? undefined,
-    active: c.active,
+    active: c.is_active,
     createdAt: c.created_at,
   };
 }
 
-function localToDb(c: Coupon): Omit<DbCoupon, "created_at"> {
+// `id` is omitted for new coupons — DB defaults to gen_random_uuid().
+// For updates we still send it via the upsert key.
+function localToDb(c: Coupon): Omit<DbCoupon, "created_at" | "id"> & { id?: string } {
+  const isClientId = c.id.startsWith("cpn-");
   return {
-    id: c.id,
+    ...(isClientId ? {} : { id: c.id }),
     code: c.code,
     discount: c.discount,
     discount_type: c.discountType,
@@ -49,7 +52,7 @@ function localToDb(c: Coupon): Omit<DbCoupon, "created_at"> {
     coupon_type: c.couponType,
     vip_plan: c.vipPlan ?? null,
     note: c.note ?? null,
-    active: c.active,
+    is_active: c.active,
   };
 }
 
@@ -71,15 +74,28 @@ export function useCoupons() {
 
   const saveCoupon = useCallback(async (coupon: Coupon) => {
     const dbData = localToDb(coupon);
+    const isClientId = !("id" in dbData);
+    // New coupon → insert (DB gens UUID, returns the row).
+    // Existing coupon → update by id.
+    if (isClientId) {
+      const { data, error } = await supabase
+        .from("coupons")
+        .insert({ ...dbData, updated_at: new Date().toISOString() })
+        .select()
+        .single();
+      if (error) return false;
+      if (data) {
+        const saved = dbToLocal(data as DbCoupon);
+        setCoupons(prev => [saved, ...prev]);
+      }
+      return true;
+    }
     const { error } = await supabase
       .from("coupons")
-      .upsert({ ...dbData, updated_at: new Date().toISOString() }, { onConflict: "id" });
+      .update({ ...dbData, updated_at: new Date().toISOString() })
+      .eq("id", coupon.id);
     if (!error) {
-      setCoupons(prev => {
-        const exists = prev.find(c => c.id === coupon.id);
-        if (exists) return prev.map(c => c.id === coupon.id ? coupon : c);
-        return [coupon, ...prev];
-      });
+      setCoupons(prev => prev.map(c => c.id === coupon.id ? coupon : c));
     }
     return !error;
   }, []);
@@ -96,7 +112,7 @@ export function useCoupons() {
     const newActive = !coupon.active;
     const { error } = await supabase
       .from("coupons")
-      .update({ active: newActive, updated_at: new Date().toISOString() })
+      .update({ is_active: newActive, updated_at: new Date().toISOString() })
       .eq("id", id);
     if (error) {
       console.warn("[useCoupons] toggleCoupon failed:", error.message);
