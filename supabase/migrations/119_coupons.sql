@@ -1,55 +1,98 @@
 -- ============================================================================
--- 119_coupons.sql
+-- 119_coupons.sql  (rewritten 2026-05-29)
 --
--- Coupons: server-side table, redemption tracking, and pricing integration.
+-- Coupons: adapt to existing public.coupons table (created earlier via
+-- Studio with columns: id, code, discount_percent, valid_until, is_active),
+-- add the columns the admin UI / frontend need, plus redemption ledger +
+-- pricing integration.
 --
--- Schema matches the frontend in src/hooks/useCoupons.ts and
--- src/pages/admin-coupon/page.tsx — code, discount, discount_type,
--- channel, series_id, coupon_type, vip_plan, max_usage, etc.
+-- The previous version of this file CREATE TABLE IF NOT EXISTSd with a
+-- fresh schema, which silently no-op'd because the table already existed
+-- — so the new columns (active, discount, discount_type, coupon_type,
+-- vip_plan, max_usage, usage_count, …) were never added, and the next
+-- statement failed with "column active does not exist".
+--
+-- Strategy: ALTER TABLE … ADD COLUMN IF NOT EXISTS for every column we
+-- need, using `is_active` (the existing name). Do NOT touch column types
+-- that already exist.
 --
 -- Redemption rules (decided 2026-05-29):
 --   1. 1 user can redeem each coupon exactly once.
 --   2. max_usage caps the TOTAL number of redemptions across all users.
 --   3. Coupons can target VIP monthly only, yearly only, or both.
---
--- Validation flow:
---   - Client calls public.validate_and_apply_coupon(code, billing_cycle).
---   - RPC returns discounted amount + a redemption pending id, OR an error.
---   - Client submits vip_payment_requests with coupon_code + redemption id.
---   - INSERT trigger (114 + this) overrides amount with the discounted price.
---   - On admin approval, the redemption is "consumed" (status flips).
 -- ============================================================================
 
--- 1. Coupons table -----------------------------------------------------------
+-- 1. Make sure `public.coupons` exists, then patch it up to today's schema.
 CREATE TABLE IF NOT EXISTS public.coupons (
-    id TEXT PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     code TEXT NOT NULL UNIQUE,
-    discount NUMERIC NOT NULL CHECK (discount > 0),
-    discount_type TEXT NOT NULL CHECK (discount_type IN ('percent', 'fixed')),
-    channel TEXT NOT NULL DEFAULT 'Khác',
-    series_id TEXT NOT NULL DEFAULT 'all',
-    coupon_type TEXT NOT NULL DEFAULT 'ebook' CHECK (coupon_type IN ('ebook', 'vip')),
-    vip_plan TEXT CHECK (vip_plan IN ('month', 'year', 'both')),
-    usage_count INTEGER NOT NULL DEFAULT 0,
-    max_usage INTEGER CHECK (max_usage IS NULL OR max_usage > 0),
-    note TEXT,
-    active BOOLEAN NOT NULL DEFAULT TRUE,
-    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
--- Case-insensitive lookup by code
+ALTER TABLE public.coupons ADD COLUMN IF NOT EXISTS discount       NUMERIC;
+ALTER TABLE public.coupons ADD COLUMN IF NOT EXISTS discount_type  TEXT;
+ALTER TABLE public.coupons ADD COLUMN IF NOT EXISTS channel        TEXT DEFAULT 'Khác';
+ALTER TABLE public.coupons ADD COLUMN IF NOT EXISTS series_id      TEXT DEFAULT 'all';
+ALTER TABLE public.coupons ADD COLUMN IF NOT EXISTS coupon_type    TEXT DEFAULT 'ebook';
+ALTER TABLE public.coupons ADD COLUMN IF NOT EXISTS vip_plan       TEXT;
+ALTER TABLE public.coupons ADD COLUMN IF NOT EXISTS usage_count    INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE public.coupons ADD COLUMN IF NOT EXISTS max_usage      INTEGER;
+ALTER TABLE public.coupons ADD COLUMN IF NOT EXISTS note           TEXT;
+ALTER TABLE public.coupons ADD COLUMN IF NOT EXISTS updated_at     TIMESTAMPTZ NOT NULL DEFAULT NOW();
+
+-- Backfill from legacy column `discount_percent` if it exists and the new
+-- `discount` column is empty for a row.
+DO $$
+BEGIN
+    IF EXISTS (
+        SELECT 1 FROM information_schema.columns
+        WHERE table_schema = 'public' AND table_name = 'coupons' AND column_name = 'discount_percent'
+    ) THEN
+        EXECUTE 'UPDATE public.coupons
+                 SET discount = COALESCE(discount, discount_percent),
+                     discount_type = COALESCE(discount_type, ''percent'')
+                 WHERE discount IS NULL';
+    END IF;
+END $$;
+
+-- Default any remaining nulls (rows inserted before this migration)
+UPDATE public.coupons SET discount_type = 'percent' WHERE discount_type IS NULL;
+UPDATE public.coupons SET coupon_type   = 'ebook'   WHERE coupon_type   IS NULL;
+
+-- CHECK constraints — wrap in DO blocks so re-runs don't double-add them.
+DO $$ BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'coupons_discount_type_chk') THEN
+        ALTER TABLE public.coupons
+            ADD CONSTRAINT coupons_discount_type_chk CHECK (discount_type IN ('percent', 'fixed')) NOT VALID;
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'coupons_coupon_type_chk') THEN
+        ALTER TABLE public.coupons
+            ADD CONSTRAINT coupons_coupon_type_chk CHECK (coupon_type IN ('ebook', 'vip')) NOT VALID;
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'coupons_vip_plan_chk') THEN
+        ALTER TABLE public.coupons
+            ADD CONSTRAINT coupons_vip_plan_chk CHECK (vip_plan IS NULL OR vip_plan IN ('month', 'year', 'both')) NOT VALID;
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'coupons_discount_positive_chk') THEN
+        ALTER TABLE public.coupons
+            ADD CONSTRAINT coupons_discount_positive_chk CHECK (discount IS NULL OR discount > 0) NOT VALID;
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'coupons_max_usage_positive_chk') THEN
+        ALTER TABLE public.coupons
+            ADD CONSTRAINT coupons_max_usage_positive_chk CHECK (max_usage IS NULL OR max_usage > 0) NOT VALID;
+    END IF;
+END $$;
+
 CREATE UNIQUE INDEX IF NOT EXISTS idx_coupons_code_lower ON public.coupons (LOWER(code));
-CREATE INDEX IF NOT EXISTS idx_coupons_active ON public.coupons (active) WHERE active = TRUE;
+CREATE INDEX IF NOT EXISTS idx_coupons_is_active ON public.coupons (is_active) WHERE is_active = TRUE;
 
 ALTER TABLE public.coupons ENABLE ROW LEVEL SECURITY;
 
--- Public read for active coupon lookup by code (RPC bypasses RLS, but the
--- admin UI also reads directly). Admin can write.
 DROP POLICY IF EXISTS "coupons public read active" ON public.coupons;
 CREATE POLICY "coupons public read active"
     ON public.coupons FOR SELECT
-    USING (active = TRUE);
+    USING (is_active = TRUE);
 
 DROP POLICY IF EXISTS "coupons admin read all" ON public.coupons;
 CREATE POLICY "coupons admin read all"
@@ -77,7 +120,6 @@ CREATE POLICY "coupons admin write"
         )
     );
 
--- updated_at trigger
 CREATE OR REPLACE FUNCTION public.touch_coupons_updated_at()
 RETURNS TRIGGER LANGUAGE plpgsql AS $$
 BEGIN NEW.updated_at = NOW(); RETURN NEW; END;
@@ -88,31 +130,48 @@ CREATE TRIGGER trg_coupons_touch
     FOR EACH ROW EXECUTE FUNCTION public.touch_coupons_updated_at();
 
 -- 2. Redemptions table -------------------------------------------------------
--- One row per (coupon, user) pair — enforces "1 user 1 lần".
--- status = 'pending' (created at validate time) → 'consumed' (admin approves
--- the payment) → can be 'released' if admin rejects the payment.
-CREATE TABLE IF NOT EXISTS public.coupon_redemptions (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    coupon_id TEXT NOT NULL REFERENCES public.coupons(id) ON DELETE CASCADE,
-    user_id UUID NOT NULL REFERENCES public.user_profiles(id) ON DELETE CASCADE,
-    status TEXT NOT NULL DEFAULT 'pending'
-        CHECK (status IN ('pending', 'consumed', 'released')),
-    billing_cycle TEXT CHECK (billing_cycle IN ('monthly', 'yearly')),
-    original_amount INTEGER,
-    discounted_amount INTEGER,
-    payment_request_id UUID,  -- filled when used on a vip_payment_request
-    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-);
+-- coupon_id type MUST match the actual type of public.coupons.id.
+-- The legacy Studio-created table has id TEXT; fresh deploys via this
+-- migration get id UUID. We detect the real type at runtime and create
+-- the FK column to match — otherwise Postgres rejects the FK with
+-- "incompatible types: uuid and text" (error 42804).
+DO $$
+DECLARE
+    v_coupon_id_type TEXT;
+BEGIN
+    SELECT data_type INTO v_coupon_id_type
+        FROM information_schema.columns
+        WHERE table_schema = 'public'
+          AND table_name   = 'coupons'
+          AND column_name  = 'id';
 
--- A user cannot have more than one ACTIVE redemption per coupon. A 'released'
--- row is kept for audit but does NOT count toward the per-user cap.
+    IF v_coupon_id_type IS NULL THEN
+        RAISE EXCEPTION 'public.coupons.id not found — cannot create coupon_redemptions';
+    END IF;
+
+    EXECUTE format($f$
+        CREATE TABLE IF NOT EXISTS public.coupon_redemptions (
+            id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+            coupon_id %s NOT NULL REFERENCES public.coupons(id) ON DELETE CASCADE,
+            user_id UUID NOT NULL REFERENCES public.user_profiles(id) ON DELETE CASCADE,
+            status TEXT NOT NULL DEFAULT 'pending'
+                CHECK (status IN ('pending', 'consumed', 'released')),
+            billing_cycle TEXT CHECK (billing_cycle IN ('monthly', 'yearly')),
+            original_amount INTEGER,
+            discounted_amount INTEGER,
+            payment_request_id UUID,
+            created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+            updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+        )
+    $f$, v_coupon_id_type);
+END $$;
+
 CREATE UNIQUE INDEX IF NOT EXISTS uniq_active_redemption_per_user
     ON public.coupon_redemptions (coupon_id, user_id)
     WHERE status IN ('pending', 'consumed');
 
-CREATE INDEX IF NOT EXISTS idx_redemptions_coupon ON public.coupon_redemptions (coupon_id);
-CREATE INDEX IF NOT EXISTS idx_redemptions_user ON public.coupon_redemptions (user_id);
+CREATE INDEX IF NOT EXISTS idx_redemptions_coupon  ON public.coupon_redemptions (coupon_id);
+CREATE INDEX IF NOT EXISTS idx_redemptions_user    ON public.coupon_redemptions (user_id);
 CREATE INDEX IF NOT EXISTS idx_redemptions_payment ON public.coupon_redemptions (payment_request_id);
 
 ALTER TABLE public.coupon_redemptions ENABLE ROW LEVEL SECURITY;
@@ -130,12 +189,7 @@ CREATE POLICY "redemptions admin read"
                 WHERE id = auth.uid() AND is_admin = TRUE)
     );
 
--- INSERT/UPDATE happen only through SECURITY DEFINER RPCs and triggers.
--- No client policies — keeps the redemption ledger tamper-proof.
-
 -- 3. Validate-and-reserve RPC ------------------------------------------------
--- Returns JSONB: { ok: bool, error?: text, redemption_id, discount_amount,
--- discounted_amount, original_amount, coupon_id, code }
 CREATE OR REPLACE FUNCTION public.validate_and_apply_coupon(
     p_code TEXT,
     p_billing_cycle TEXT
@@ -169,7 +223,7 @@ BEGIN
         RETURN jsonb_build_object('ok', false, 'error', 'Mã coupon không tồn tại');
     END IF;
 
-    IF NOT v_coupon.active THEN
+    IF NOT v_coupon.is_active THEN
         RETURN jsonb_build_object('ok', false, 'error', 'Mã coupon đã bị tắt');
     END IF;
 
@@ -204,7 +258,6 @@ BEGIN
         RETURN jsonb_build_object('ok', false, 'error', 'Bạn đã dùng mã này rồi');
     END IF;
 
-    -- Lookup canonical price
     SELECT amount INTO v_original FROM public.vip_pricing
         WHERE billing_cycle = p_billing_cycle;
 
@@ -212,18 +265,19 @@ BEGIN
         RETURN jsonb_build_object('ok', false, 'error', 'Không tìm thấy giá gói VIP');
     END IF;
 
-    -- Compute discount
+    IF v_coupon.discount IS NULL THEN
+        RETURN jsonb_build_object('ok', false, 'error', 'Mã coupon thiếu mức giảm');
+    END IF;
+
     IF v_coupon.discount_type = 'percent' THEN
         v_discount_amt := LEAST(v_original, ROUND(v_original * LEAST(v_coupon.discount, 100) / 100.0)::INTEGER);
     ELSE
-        -- fixed: stored as VNĐ thousand units (e.g. 50 = 50.000đ) to mirror admin UI
+        -- fixed: stored in thousand-VNĐ units (e.g. 50 = 50.000đ), matches admin UI
         v_discount_amt := LEAST(v_original, (v_coupon.discount * 1000)::INTEGER);
     END IF;
 
     v_discounted := GREATEST(0, v_original - v_discount_amt);
 
-    -- Reserve a redemption row (status=pending). The unique index makes a
-    -- concurrent duplicate attempt error out cleanly.
     INSERT INTO public.coupon_redemptions (
         coupon_id, user_id, status, billing_cycle, original_amount, discounted_amount
     ) VALUES (
@@ -248,8 +302,6 @@ $$;
 GRANT EXECUTE ON FUNCTION public.validate_and_apply_coupon(TEXT, TEXT) TO authenticated;
 
 -- 4. Release-redemption RPC --------------------------------------------------
--- Lets a client release a 'pending' redemption it just reserved (e.g. user
--- cancels the payment modal). Refuses to touch 'consumed' rows.
 CREATE OR REPLACE FUNCTION public.release_coupon_redemption(p_redemption_id UUID)
 RETURNS BOOLEAN
 LANGUAGE plpgsql
@@ -279,10 +331,6 @@ ALTER TABLE public.vip_payment_requests
     ADD COLUMN IF NOT EXISTS original_amount INTEGER;
 
 -- 6. Replace the 114 trigger to honor coupons --------------------------------
--- The trigger now: looks up the canonical price, applies the coupon discount
--- if a valid pending redemption for this user/cycle was supplied, and
--- overwrites NEW.amount + records original_amount. The redemption row stays
--- 'pending' until admin approval flips it to 'consumed'.
 CREATE OR REPLACE FUNCTION public.enforce_vip_payment_amount()
 RETURNS TRIGGER
 LANGUAGE plpgsql
@@ -304,7 +352,6 @@ BEGIN
     NEW.original_amount := v_canonical;
     v_final := v_canonical;
 
-    -- If a redemption id was supplied, validate it and apply its discount.
     IF NEW.coupon_redemption_id IS NOT NULL THEN
         SELECT * INTO v_redemption FROM public.coupon_redemptions
             WHERE id = NEW.coupon_redemption_id;
@@ -313,12 +360,10 @@ BEGIN
             OR v_redemption.user_id <> NEW.user_id
             OR v_redemption.status <> 'pending'
             OR v_redemption.billing_cycle <> NEW.billing_cycle THEN
-            -- Tampered or stale redemption: silently strip it, keep full price.
             NEW.coupon_redemption_id := NULL;
             NEW.coupon_code := NULL;
         ELSE
             v_final := v_redemption.discounted_amount;
-            -- Bind redemption to this payment request for the approval step.
             UPDATE public.coupon_redemptions
                 SET payment_request_id = NEW.id, updated_at = NOW()
                 WHERE id = v_redemption.id;
@@ -329,8 +374,6 @@ BEGIN
     RETURN NEW;
 END;
 $$;
-
--- Trigger itself is unchanged (still BEFORE INSERT), function body is updated.
 
 -- 7. Approve / reject hooks: consume or release the redemption ---------------
 CREATE OR REPLACE FUNCTION public.handle_vip_payment_status_change()
@@ -348,7 +391,6 @@ BEGIN
         UPDATE public.coupon_redemptions
             SET status = 'consumed', updated_at = NOW()
             WHERE id = NEW.coupon_redemption_id AND status = 'pending';
-        -- Bump coupon usage_count atomically
         UPDATE public.coupons c
             SET usage_count = usage_count + 1, updated_at = NOW()
             FROM public.coupon_redemptions r
@@ -368,9 +410,3 @@ CREATE TRIGGER trg_vip_payment_status_change
     AFTER UPDATE OF status ON public.vip_payment_requests
     FOR EACH ROW
     EXECUTE FUNCTION public.handle_vip_payment_status_change();
-
--- ============================================================================
--- DONE. Verify after deploying:
---   SELECT * FROM public.coupons LIMIT 5;
---   SELECT public.validate_and_apply_coupon('TESTCODE', 'monthly');
--- ============================================================================
