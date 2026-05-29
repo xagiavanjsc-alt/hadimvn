@@ -33,18 +33,24 @@ export function migrateStorageKeys(): void {
   MIGRATIONS.forEach(({ oldKey, newKey }) => {
     try {
       const oldData = localStorage.getItem(oldKey);
-      
+
       if (oldData) {
-        // Check if new key already has data
         const existingNewData = localStorage.getItem(newKey);
-        
+
         if (!existingNewData) {
-          // Move data from old key to new key
           localStorage.setItem(newKey, oldData);
           console.log(`[Migration] Migrated ${oldKey} → ${newKey}`);
-          
-          // Remove old key
           localStorage.removeItem(oldKey);
+        } else if (newKey === "xp_total") {
+          // Both kts_xp_total and kts_total_xp map to xp_total. The second
+          // one to run would otherwise be silently dropped — keep the larger
+          // so users with values in both old keys don't lose XP on migration.
+          const a = parseInt(existingNewData, 10);
+          const b = parseInt(oldData, 10);
+          const merged = Math.max(Number.isFinite(a) ? a : 0, Number.isFinite(b) ? b : 0);
+          localStorage.setItem(newKey, String(merged));
+          localStorage.removeItem(oldKey);
+          console.log(`[Migration] Merged ${oldKey} → ${newKey} (max=${merged})`);
         } else {
           console.log(`[Migration] Skipped ${oldKey} → ${newKey} (new key already has data)`);
         }

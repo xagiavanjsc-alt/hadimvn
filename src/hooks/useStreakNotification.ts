@@ -118,21 +118,30 @@ export function useStreakNotification() {
     }
   }, []);
 
-  // Check every minute
+  // Check every minute. Stash callbacks in refs so the interval is created
+  // exactly once — depending on the callbacks directly causes the interval
+  // to be torn down + recreated whenever any upstream state changes (streak
+  // count, last-warn date, etc.), and if that happens more than once per
+  // minute the interval may never tick.
+  const checkStreakWarningRef = useRef(checkStreakWarning);
+  const checkCommunityNotifRef = useRef(checkCommunityNotif);
+  useEffect(() => { checkStreakWarningRef.current = checkStreakWarning; }, [checkStreakWarning]);
+  useEffect(() => { checkCommunityNotifRef.current = checkCommunityNotif; }, [checkCommunityNotif]);
+
   useEffect(() => {
     if (intervalRef.current) clearInterval(intervalRef.current);
     intervalRef.current = setInterval(() => {
-      checkStreakWarning();
-      checkCommunityNotif();
+      checkStreakWarningRef.current();
+      checkCommunityNotifRef.current();
     }, 60 * 1000);
 
     // Also check immediately
-    checkStreakWarning();
+    checkStreakWarningRef.current();
 
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
-  }, [checkStreakWarning, checkCommunityNotif]);
+  }, []);
 
   return {
     permissionGranted,

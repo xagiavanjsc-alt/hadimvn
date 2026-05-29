@@ -11,7 +11,17 @@ export interface StreakData {
 const STREAK_KEY = "hanja_streak";
 
 function getToday(): string {
-  return new Date().toISOString().slice(0, 10);
+  // Use local date components — Vietnam is UTC+7. Using toISOString() (UTC)
+  // would let a single VN day span two UTC days, double-counting the streak
+  // for users who study early morning then again late at night.
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+
+function getYesterday(): string {
+  const d = new Date();
+  d.setDate(d.getDate() - 1);
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 }
 
 function loadStreak(): StreakData {
@@ -39,7 +49,7 @@ function saveStreak(data: StreakData): void {
 export function recordActivity(count: number = 1): StreakData {
   const data = loadStreak();
   const today = getToday();
-  const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+  const yesterday = getYesterday();
   
   data.history[today] = (data.history[today] || 0) + count;
   

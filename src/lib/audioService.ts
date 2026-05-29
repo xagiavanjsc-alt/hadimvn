@@ -72,20 +72,46 @@ export async function getKoreanAudioUrl(text: string, opts?: { force?: boolean }
  * to Web Speech API. Returns a Promise that resolves when playback ends
  * (or rejects on hard failure).
  */
+// Track the currently-playing HTMLAudio so a fast second tap stops the first
+// instead of overlapping. Module-level (singleton) — only one Korean audio
+// should play at a time across the whole app.
+let currentAudio: HTMLAudioElement | null = null;
+
 export async function playKoreanAudio(text: string, opts?: { force?: boolean }): Promise<void> {
+  // Stop any in-flight playback before starting a new one.
+  if (currentAudio) {
+    try { currentAudio.pause(); } catch { /* noop */ }
+    currentAudio = null;
+  }
+  if (typeof window !== "undefined" && "speechSynthesis" in window) {
+    try { window.speechSynthesis.cancel(); } catch { /* noop */ }
+  }
+
   const url = await getKoreanAudioUrl(text, opts);
   if (url) {
     const audio = new Audio(url);
     audio.crossOrigin = "anonymous";
+    currentAudio = audio;
     await new Promise<void>((resolve, reject) => {
-      audio.onended = () => resolve();
-      audio.onerror = () => reject(new Error("Audio playback failed"));
+      audio.onended = () => { if (currentAudio === audio) currentAudio = null; resolve(); };
+      audio.onerror = () => { if (currentAudio === audio) currentAudio = null; reject(new Error("Audio playback failed")); };
       audio.play().catch(reject);
     });
     return;
   }
   // Fallback: Web Speech API (robot voice but free + ~always available).
   speakWithWebSpeech(text);
+}
+
+/** Stop any currently-playing Korean audio. Safe to call from unmount cleanup. */
+export function stopKoreanAudio(): void {
+  if (currentAudio) {
+    try { currentAudio.pause(); } catch { /* noop */ }
+    currentAudio = null;
+  }
+  if (typeof window !== "undefined" && "speechSynthesis" in window) {
+    try { window.speechSynthesis.cancel(); } catch { /* noop */ }
+  }
 }
 
 /**

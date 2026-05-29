@@ -34,22 +34,18 @@ export function useIsAdmin(): boolean {
 
   useEffect(() => {
     let mounted = true;
-    supabase.auth.getUser().then(async ({ data }) => {
+
+    const checkAdmin = async (userId: string | null, email: string | null) => {
       if (!mounted) return;
-      const user = data?.user;
-      if (!user) {
-        // No session → clear cache
+      if (!userId) {
         localStorage.removeItem(STORAGE_KEYS.ADMIN_VERIFIED);
         setIsAdmin(false);
         return;
       }
-      const email = user.email || "";
-
-      // 1. Check is_admin from DB (authoritative)
       const { data: profile } = await supabase
         .from("user_profiles")
         .select("is_admin")
-        .eq("id", user.id)
+        .eq("id", userId)
         .maybeSingle();
       if (!mounted) return;
       if (profile?.is_admin === true) {
@@ -57,19 +53,31 @@ export function useIsAdmin(): boolean {
         setIsAdmin(true);
         return;
       }
-
-      // 2. Check email whitelist (fallback)
-      if (ADMIN_EMAILS.length > 0 && ADMIN_EMAILS.includes(email)) {
+      if (ADMIN_EMAILS.length > 0 && email && ADMIN_EMAILS.includes(email)) {
         markAdminVerified();
         setIsAdmin(true);
         return;
       }
-
-      // 3. Not admin → clear cache
       localStorage.removeItem(STORAGE_KEYS.ADMIN_VERIFIED);
       setIsAdmin(false);
+    };
+
+    // Initial check
+    supabase.auth.getUser().then(({ data }) => {
+      const user = data?.user;
+      checkAdmin(user?.id ?? null, user?.email ?? null);
     });
-    return () => { mounted = false; };
+
+    // Re-check on every auth state change so a logout-then-login as a
+    // different user doesn't leave the previous admin's privileges in the UI.
+    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
+      checkAdmin(session?.user?.id ?? null, session?.user?.email ?? null);
+    });
+
+    return () => {
+      mounted = false;
+      sub.subscription.unsubscribe();
+    };
   }, []);
 
   return isAdmin;

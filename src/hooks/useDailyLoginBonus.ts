@@ -17,10 +17,14 @@ export function useDailyLoginBonus() {
   const { user, loading } = useAuth();
   const { awardXP } = useXPSystem();
   const [lastDate, setLastDate] = useLocalStorage<string>("kts_daily_login_date", "");
+  const [claimedBonuses, setClaimedBonuses] = useLocalStorage<{ b7?: boolean; b30?: boolean; b100?: boolean }>("kts_streak_bonuses_claimed", {});
 
   const claimIfNewDay = useCallback(() => {
     if (!user) return;
-    const today = new Date().toISOString().slice(0, 10);
+    // Use local date components — toISOString() is UTC and would shift the
+    // "today" boundary for VN users; see streak.ts getToday() for context.
+    const d = new Date();
+    const today = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
     if (lastDate === today) return;
 
     // Update streak using centralized function
@@ -31,10 +35,22 @@ export function useDailyLoginBonus() {
     awardXP({ type: "streak_day", amount: bonus });
     setLastDate(today);
 
-    if (newCount === 7) awardXP({ type: "streak_bonus_7" });
-    else if (newCount === 30) awardXP({ type: "streak_bonus_30" });
-    else if (newCount === 100) awardXP({ type: "streak_bonus_100" });
-  }, [user, lastDate, setLastDate, awardXP]);
+    // Use >= and a per-tier claimed flag so a user who jumps past a milestone
+    // (e.g. via streak freeze: 5 → 7) still gets the bonus, but can't claim
+    // it twice as the streak keeps growing.
+    if (newCount >= 7 && !claimedBonuses.b7) {
+      awardXP({ type: "streak_bonus_7" });
+      setClaimedBonuses({ ...claimedBonuses, b7: true });
+    }
+    if (newCount >= 30 && !claimedBonuses.b30) {
+      awardXP({ type: "streak_bonus_30" });
+      setClaimedBonuses({ ...claimedBonuses, b30: true });
+    }
+    if (newCount >= 100 && !claimedBonuses.b100) {
+      awardXP({ type: "streak_bonus_100" });
+      setClaimedBonuses({ ...claimedBonuses, b100: true });
+    }
+  }, [user, lastDate, setLastDate, awardXP, claimedBonuses, setClaimedBonuses]);
 
   // Run on initial mount / auth change
   useEffect(() => {

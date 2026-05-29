@@ -57,6 +57,9 @@ export function useRealtimeLeaderboard(limit = 50) {
 
             if (payload.eventType === "INSERT" || payload.eventType === "UPDATE") {
               const newEntry = payload.new as LeaderboardEntry;
+              // Defensive: a future schema change that drops/renames `xp`
+              // would otherwise produce NaN ordering and break the UI.
+              if (typeof newEntry?.xp !== "number" || !newEntry?.user_id) return;
               setLeaderboard((prev) => {
                 const filtered = prev.filter((e) => e.user_id !== newEntry.user_id);
                 return [...filtered, newEntry].sort((a, b) => b.xp - a.xp).slice(0, limit);

@@ -35,12 +35,17 @@ export interface ExamHistoryData {
 
 class IndexedDBWrapper {
   private db: IDBDatabase | null = null;
+  private initPromise: Promise<void> | null = null;
 
   async init(): Promise<void> {
-    return new Promise((resolve, reject) => {
+    // Cache the in-flight init promise so concurrent first-call methods share
+    // a single open() request instead of racing and overwriting this.db.
+    if (this.db) return;
+    if (this.initPromise) return this.initPromise;
+    this.initPromise = new Promise<void>((resolve, reject) => {
       const request = window.indexedDB.open(DB_NAME, DB_VERSION);
 
-      request.onerror = () => reject(request.error);
+      request.onerror = () => { this.initPromise = null; reject(request.error); };
       request.onsuccess = () => {
         this.db = request.result;
         resolve();
@@ -65,6 +70,7 @@ class IndexedDBWrapper {
         }
       };
     });
+    return this.initPromise;
   }
 
   // Flashcard operations

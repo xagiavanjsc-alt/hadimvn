@@ -10,7 +10,13 @@
  * @returns CSV formatted string with proper escaping
  */
 function toCSV(headers: string[], rows: string[][]): string {
-  const escape = (v: string) => `"${v.replace(/"/g, '""')}"`;
+  // Prefix cells starting with formula triggers (= + - @ \t \r) with a single
+  // quote so Excel/LibreOffice treat them as text, not formulas. Required
+  // because user-controlled fields like display_name go into admin exports.
+  const escape = (v: string) => {
+    const safe = /^[=+\-@\t\r]/.test(v) ? "'" + v : v;
+    return `"${safe.replace(/"/g, '""')}"`;
+  };
   const lines = [
     headers.map(escape).join(","),
     ...rows.map(row => row.map(escape).join(",")),

@@ -99,42 +99,11 @@ export function useAdminNotifications() {
     saveNotifications(notifications);
   }, [notifications]);
 
-  // Simulate real-time: check for new user signups / coupon usage every 30s
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const coupons = (() => {
-        try { return JSON.parse(localStorage.getItem(STORAGE_KEYS.COUPONS) || "[]") as { usageCount: number; code: string }[]; }
-        catch { return []; }
-      })();
-      const totalUsage = coupons.reduce((s: number, c: { usageCount: number }) => s + c.usageCount, 0);
-
-      // Only add notification if usage changed significantly (mock)
-      if (Math.random() < 0.15) {
-        const types: AdminNotification["type"][] = ["user", "exam", "coupon"];
-        const picked = types[Math.floor(Math.random() * types.length)];
-        const templates: Record<AdminNotification["type"], { title: string; message: string; icon: string; color: string }> = {
-          user: { title: "Người dùng mới", message: "Một học viên mới vừa đăng ký tài khoản", icon: "ri-user-add-line", color: "#f87171" },
-          exam: { title: "Bài thi hoàn thành", message: "Một học viên vừa hoàn thành bài thi EPS thử", icon: "ri-file-list-3-line", color: "#e8c84a" },
-          coupon: { title: "Coupon được dùng", message: `Tổng ${totalUsage} lần dùng coupon hôm nay`, icon: "ri-coupon-3-line", color: "#fb923c" },
-          revenue: { title: "Doanh thu mới", message: "Có đơn hàng mới vừa được ghi nhận", icon: "ri-money-dollar-circle-line", color: "#34d399" },
-          system: { title: "Hệ thống", message: "Không có cảnh báo hệ thống", icon: "ri-server-line", color: "#a78bfa" },
-        };
-        const tpl = templates[picked];
-        const newNotif: AdminNotification = {
-          id: `n-${Date.now()}`,
-          type: picked,
-          title: tpl.title,
-          message: tpl.message,
-          time: new Date().toISOString(),
-          read: false,
-          icon: tpl.icon,
-          color: tpl.color,
-        };
-        setNotifications(prev => [newNotif, ...prev].slice(0, 50));
-      }
-    }, 30000);
-    return () => clearInterval(interval);
-  }, []);
+  // HIDDEN 2026-05-29: removed mock notification generator — it produced
+  // fake "user signed up" / "exam completed" toasts via Math.random() that
+  // were not real events. Violates CLAUDE.md rule 5 (no AI/fake content
+  // labelled as real). Re-add when wired to a real Supabase realtime
+  // subscription on user_profiles, exam_results, vip_payment_requests.
 
   const markRead = useCallback((id: string) => {
     setNotifications(prev => prev.map(n => n.id === id ? { ...n, read: true } : n));

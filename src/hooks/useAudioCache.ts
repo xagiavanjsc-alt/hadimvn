@@ -12,7 +12,7 @@
  * Ví dụ: 안전모 → anjeonmo.mp3
  */
 
-import { useCallback, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { AUDIO_HOST_URL } from "@/lib/siteConfig";
 
 const AUDIO_CACHE_NAME = "hanquocoi-audio-v2";
@@ -286,6 +286,10 @@ export function useAudioCache() {
     }
     if (window.speechSynthesis) window.speechSynthesis.cancel();
   }, []);
+
+  // Stop audio when the consuming component unmounts (route change, modal
+  // close). Without this the Audio() in audioRef plays to completion.
+  useEffect(() => stopAudio, [stopAudio]);
 
   return { playKorean, stopAudio, koreanToRomanization, getAudioUrl };
 }
