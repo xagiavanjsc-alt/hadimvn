@@ -609,10 +609,12 @@ export default function PricingPage() {
         </div>
       </div>
 
-      {/* Auto-renew section for VIP users */}
-      {isVipActive(profile) && (
+      {/* HIDDEN 2026-05-29: auto-renew toggle was localStorage-only theater
+          (no real renewal cron/edge function). Re-enable when backend
+          renewal flow is implemented. Code preserved per CLAUDE.md rule 4. */}
+      {/* {isVipActive(profile) && (
         <AutoRenewSection isVip={isVipActive(profile)} vipExpiresAt={profile?.vip_expires_at || null} />
-      )}
+      )} */}
 
       {/* Pricing cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-10 max-w-3xl mx-auto">

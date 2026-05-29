@@ -914,6 +914,43 @@ export default function AdminUsersPage() {
     } catch { showMsg("Lỗi cập nhật Admin", "err"); }
   }, [refetch]);
 
+  const recordCtvCommission = useCallback(async (userId: string, type: "month" | "year") => {
+    try {
+      const { data: userProfile } = await supabase
+        .from("user_profiles")
+        .select("ref_code, display_name")
+        .eq("id", userId)
+        .single();
+      if (!userProfile?.ref_code) return;
+      const { data: ctv } = await supabase
+        .from("ctv_profiles")
+        .select("id, commission_rate")
+        .eq("ref_code", userProfile.ref_code)
+        .eq("status", "active")
+        .single();
+      if (!ctv) return;
+      const saleAmount = type === "year" ? 708000 : 79000;
+      const commissionAmount = Math.round(saleAmount * ctv.commission_rate / 100);
+      await supabase.from("ctv_commissions").insert({
+        ctv_id: ctv.id,
+        referred_user_id: userId,
+        referred_user_name: userProfile.display_name,
+        vip_type: type,
+        sale_amount: saleAmount,
+        commission_rate: ctv.commission_rate,
+        commission_amount: commissionAmount,
+        status: "pending",
+      });
+      await supabase.rpc("increment_ctv_stats", {
+        p_ctv_id: ctv.id,
+        p_commission: commissionAmount,
+        p_sales: saleAmount,
+      });
+    } catch (e) {
+      console.warn("[CTV] Ghi hoa hồng thất bại (non-fatal):", e);
+    }
+  }, []);
+
   const handleGrantVip = useCallback(async (userId: string, type: "month" | "year", expiresAt: string) => {
     const res = await supabase.functions.invoke("admin-grant-vip", {
       body: { action: "grant_vip", userId, vipType: type, expiresAt },
@@ -922,46 +959,8 @@ export default function AdminUsersPage() {
     if (res.data?.error) throw new Error(res.data.error);
     showMsg("Đã cấp VIP thành công!");
     refetch();
-
-    // Ghi hoa hồng CTV nếu user đến từ link CTV
-    try {
-      const { data: userProfile } = await supabase
-        .from("user_profiles")
-        .select("ref_code, display_name")
-        .eq("id", userId)
-        .single();
-      if (userProfile?.ref_code) {
-        const { data: ctv } = await supabase
-          .from("ctv_profiles")
-          .select("id, commission_rate, total_commission, total_sales, total_referred")
-          .eq("ref_code", userProfile.ref_code)
-          .eq("status", "active")
-          .single();
-        if (ctv) {
-          const saleAmount = type === "year" ? 708000 : 79000;
-          const commissionAmount = Math.round(saleAmount * ctv.commission_rate / 100);
-          await supabase.from("ctv_commissions").insert({
-            ctv_id: ctv.id,
-            referred_user_id: userId,
-            referred_user_name: userProfile.display_name,
-            vip_type: type,
-            sale_amount: saleAmount,
-            commission_rate: ctv.commission_rate,
-            commission_amount: commissionAmount,
-            status: "pending",
-          });
-          // Dùng RPC increment tránh race condition
-          await supabase.rpc("increment_ctv_stats", {
-            p_ctv_id: ctv.id,
-            p_commission: commissionAmount,
-            p_sales: saleAmount,
-          });
-        }
-      }
-    } catch (e) {
-      console.warn("[CTV] Ghi hoa hồng thất bại (non-fatal):", e);
-    }
-  }, [refetch]);
+    await recordCtvCommission(userId, type);
+  }, [refetch, recordCtvCommission]);
 
   const handleBulkGrantVip = useCallback(async (userIds: string[], type: "month" | "year", expiresAt: string) => {
     let granted = 0;
@@ -969,12 +968,15 @@ export default function AdminUsersPage() {
       const res = await supabase.functions.invoke("admin-grant-vip", {
         body: { action: "grant_vip", userId: id, vipType: type, expiresAt },
       });
-      if (!res.error && !res.data?.error) granted++;
+      if (!res.error && !res.data?.error) {
+        granted++;
+        await recordCtvCommission(id, type);
+      }
     }
     showMsg(`Đã cấp VIP cho ${granted}/${userIds.length} thành viên!`);
     refetch();
     setSelectedIds(new Set());
-  }, [refetch]);
+  }, [refetch, recordCtvCommission]);
 
   const handleBulkEmail = useCallback(async (targetUsers: AdminUser[], type: "vip_expiry_reminder" | "bulk_notification", extra?: Record<string, unknown>) => {
     for (const u of targetUsers) {
