@@ -195,6 +195,99 @@ export default function AdminVipTransactionsPage() {
   const [showExportMenu, setShowExportMenu] = useState(false);
   const PAGE_SIZE = 20;
 
+  // ─── Pending payment requests (with coupon support) ─────────────────────────
+  interface PendingPayment {
+    id: string;
+    user_id: string;
+    email: string;
+    amount: number;
+    original_amount: number | null;
+    billing_cycle: "monthly" | "yearly";
+    proof_url: string;
+    note: string | null;
+    coupon_code: string | null;
+    created_at: string;
+    user_name?: string;
+  }
+  const [pendingPayments, setPendingPayments] = useState<PendingPayment[]>([]);
+  const [processingId, setProcessingId] = useState<string | null>(null);
+  const [paymentToast, setPaymentToast] = useState<string | null>(null);
+
+  const showPaymentToast = (msg: string) => {
+    setPaymentToast(msg);
+    setTimeout(() => setPaymentToast(null), 3000);
+  };
+
+  const fetchPendingPayments = useCallback(async () => {
+    const { data } = await supabase
+      .from("vip_payment_requests")
+      .select("id, user_id, email, amount, original_amount, billing_cycle, proof_url, note, coupon_code, created_at")
+      .eq("status", "pending")
+      .order("created_at", { ascending: false });
+    if (!data) return;
+    // Hydrate display names
+    const ids = Array.from(new Set(data.map(d => d.user_id)));
+    const { data: profs } = ids.length ? await supabase
+      .from("user_profiles")
+      .select("id, display_name")
+      .in("id", ids) : { data: [] };
+    const nameMap = new Map((profs ?? []).map(p => [p.id, p.display_name]));
+    setPendingPayments(data.map(d => ({ ...d, user_name: nameMap.get(d.user_id) })) as PendingPayment[]);
+  }, []);
+
+  const handleApprovePayment = useCallback(async (p: PendingPayment) => {
+    setProcessingId(p.id);
+    try {
+      const vipType: "month" | "year" = p.billing_cycle === "yearly" ? "year" : "month";
+      const expiresAt = new Date(Date.now() + (vipType === "year" ? 365 : 30) * 86400000).toISOString();
+
+      const grantRes = await supabase.functions.invoke("admin-grant-vip", {
+        body: { action: "grant_vip", userId: p.user_id, vipType, expiresAt },
+      });
+      if (grantRes.error || grantRes.data?.error) {
+        throw new Error(grantRes.error?.message || grantRes.data?.error || "Lỗi cấp VIP");
+      }
+
+      // Flip payment status. Trigger 119 auto-consumes the coupon redemption
+      // and bumps coupons.usage_count.
+      const { error: updErr } = await supabase
+        .from("vip_payment_requests")
+        .update({ status: "approved", updated_at: new Date().toISOString() })
+        .eq("id", p.id);
+      if (updErr) throw updErr;
+
+      showPaymentToast(`Đã duyệt và cấp ${vipType === "year" ? "VIP Năm" : "VIP Tháng"} cho ${p.user_name || p.email}`);
+      await fetchPendingPayments();
+    } catch (e) {
+      console.error("[approve payment]", e);
+      showPaymentToast("Lỗi duyệt thanh toán — kiểm tra console");
+    } finally {
+      setProcessingId(null);
+    }
+  }, [fetchPendingPayments]);
+
+  const handleRejectPayment = useCallback(async (p: PendingPayment) => {
+    if (!confirm(`Từ chối thanh toán của ${p.user_name || p.email}?\nCoupon (nếu có) sẽ được giải phóng để dùng lại.`)) return;
+    setProcessingId(p.id);
+    try {
+      // Trigger 119 auto-releases the coupon redemption.
+      const { error: updErr } = await supabase
+        .from("vip_payment_requests")
+        .update({ status: "rejected", updated_at: new Date().toISOString() })
+        .eq("id", p.id);
+      if (updErr) throw updErr;
+      showPaymentToast(`Đã từ chối thanh toán của ${p.user_name || p.email}`);
+      await fetchPendingPayments();
+    } catch (e) {
+      console.error("[reject payment]", e);
+      showPaymentToast("Lỗi từ chối thanh toán");
+    } finally {
+      setProcessingId(null);
+    }
+  }, [fetchPendingPayments]);
+
+  useEffect(() => { fetchPendingPayments(); }, [fetchPendingPayments]);
+
   // Build transactions from user_profiles + vip_revenue_log
   const [revenueLog, setRevenueLog] = useState<Array<{
     id: string;
@@ -403,6 +496,132 @@ export default function AdminVipTransactionsPage() {
         </div>
       }
     >
+      {/* Toast for payment actions */}
+      {paymentToast && (
+        <div className="fixed top-6 right-6 z-50 bg-emerald-500/10 border border-emerald-500/30 text-app-accent-success px-4 py-3 rounded-xl text-sm font-medium flex items-center gap-2 shadow-lg">
+          <i className="ri-checkbox-circle-line"></i>{paymentToast}
+        </div>
+      )}
+
+      {/* ─── Pending payment requests ─────────────────────────────────────── */}
+      {pendingPayments.length > 0 && (
+        <div className="mb-6 rounded-2xl border" style={{ backgroundColor: "var(--admin-card)", borderColor: "rgba(251,146,60,0.30)" }}>
+          <div className="flex items-center justify-between px-5 py-3 border-b" style={{ borderColor: "var(--admin-border)" }}>
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 flex items-center justify-center rounded-xl" style={{ backgroundColor: "rgba(251,146,60,0.15)" }}>
+                <i className="ri-time-line text-sm" style={{ color: "#fb923c" }}></i>
+              </div>
+              <div>
+                <p className="font-semibold text-sm" style={{ color: "var(--admin-text)" }}>Đơn chờ duyệt</p>
+                <p className="text-[10px]" style={{ color: "var(--admin-text-muted)" }}>{pendingPayments.length} đơn cần xử lý</p>
+              </div>
+            </div>
+            <button
+              onClick={() => void fetchPendingPayments()}
+              className="text-[10px] px-3 py-1.5 rounded-lg border cursor-pointer transition-colors"
+              style={{ backgroundColor: "var(--admin-hover)", color: "var(--admin-text-muted)", borderColor: "var(--admin-border)" }}
+            >
+              <i className="ri-refresh-line mr-1"></i>Tải lại
+            </button>
+          </div>
+
+          <div className="divide-y" style={{ borderColor: "var(--admin-border)" }}>
+            {pendingPayments.map(p => {
+              const hasCoupon = !!p.coupon_code && p.original_amount && p.original_amount > p.amount;
+              const discount = hasCoupon ? (p.original_amount as number) - p.amount : 0;
+              const isProcessing = processingId === p.id;
+              return (
+                <div key={p.id} className="px-5 py-4 flex items-center gap-4 flex-wrap" style={{ borderColor: "var(--admin-border)" }}>
+                  {/* Proof thumbnail */}
+                  <a href={p.proof_url} target="_blank" rel="noreferrer" className="flex-shrink-0 group">
+                    <img
+                      src={p.proof_url}
+                      alt="Minh chứng"
+                      loading="lazy"
+                      className="w-14 h-14 rounded-xl object-cover bg-app-card/50 border border-app-border group-hover:border-app-accent-primary/50 transition-all"
+                      onError={e => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+                    />
+                  </a>
+
+                  {/* User + meta */}
+                  <div className="flex-1 min-w-[180px]">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <p className="text-sm font-semibold" style={{ color: "var(--admin-text)" }}>
+                        {p.user_name || p.email || `User ${p.user_id.slice(0, 8)}`}
+                      </p>
+                      <span
+                        className="text-[10px] px-2 py-0.5 rounded-full font-semibold flex-shrink-0"
+                        style={{ backgroundColor: p.billing_cycle === "yearly" ? "rgba(232,200,74,0.15)" : "rgba(52,211,153,0.15)", color: p.billing_cycle === "yearly" ? "#e8c84a" : "#34d399" }}
+                      >
+                        {p.billing_cycle === "yearly" ? "VIP Năm" : "VIP Tháng"}
+                      </span>
+                      {hasCoupon && (
+                        <span className="text-[10px] px-2 py-0.5 rounded-full font-semibold flex items-center gap-1 bg-emerald-500/10 text-app-accent-success">
+                          <i className="ri-coupon-3-line"></i>
+                          {p.coupon_code}
+                        </span>
+                      )}
+                    </div>
+                    <div className="flex items-center gap-3 mt-1 flex-wrap">
+                      <span className="text-[10px]" style={{ color: "var(--admin-text-faint)" }}>
+                        <i className="ri-time-line mr-1"></i>
+                        {new Date(p.created_at).toLocaleString("vi-VN", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" })}
+                      </span>
+                      {p.email && (
+                        <span className="text-[10px] truncate max-w-[180px]" style={{ color: "var(--admin-text-faint)" }}>
+                          <i className="ri-mail-line mr-1"></i>{p.email}
+                        </span>
+                      )}
+                      {p.note && (
+                        <span className="text-[10px] italic truncate max-w-[200px]" style={{ color: "var(--admin-text-faint)" }}>
+                          &ldquo;{p.note}&rdquo;
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Amount + discount */}
+                  <div className="text-right flex-shrink-0">
+                    {hasCoupon ? (
+                      <>
+                        <p className="text-[10px] line-through" style={{ color: "var(--admin-text-faint)" }}>
+                          {formatVND(p.original_amount as number)}
+                        </p>
+                        <p className="text-sm font-black" style={{ color: "#34d399" }}>{formatVND(p.amount)}</p>
+                        <p className="text-[10px] text-app-accent-success">−{formatVND(discount)}</p>
+                      </>
+                    ) : (
+                      <p className="text-sm font-black" style={{ color: "#34d399" }}>{formatVND(p.amount)}</p>
+                    )}
+                  </div>
+
+                  {/* Actions */}
+                  <div className="flex items-center gap-2 flex-shrink-0">
+                    <button
+                      onClick={() => handleApprovePayment(p)}
+                      disabled={isProcessing}
+                      className="px-3 py-2 rounded-lg text-xs font-bold cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-1.5 whitespace-nowrap"
+                      style={{ backgroundColor: "rgba(52,211,153,0.15)", color: "#34d399", border: "1px solid rgba(52,211,153,0.30)" }}
+                    >
+                      {isProcessing ? <i className="ri-loader-4-line animate-spin"></i> : <i className="ri-check-line"></i>}
+                      Duyệt
+                    </button>
+                    <button
+                      onClick={() => handleRejectPayment(p)}
+                      disabled={isProcessing}
+                      className="px-3 py-2 rounded-lg text-xs font-bold cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-1.5 whitespace-nowrap"
+                      style={{ backgroundColor: "rgba(248,113,113,0.10)", color: "#f87171", border: "1px solid rgba(248,113,113,0.25)" }}
+                    >
+                      <i className="ri-close-line"></i>Từ chối
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
       {/* KPI Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
         {[
