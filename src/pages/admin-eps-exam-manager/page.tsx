@@ -75,6 +75,46 @@ const INITIAL_QUESTION = {
   explanation: "",
 };
 
+// ─── Helpers ──────────────────────────────────────────────────────────
+// Vietnamese-aware slugify. "Đề số 1" → "de-so-1", "Đề thi EPS-TOPIK 2025"
+// → "de-thi-eps-topik-2025". Strips diacritics, lowercases, collapses to
+// kebab-case. Leaves the existing slug behavior in seed data ('eps-de-1')
+// alone — only used when admin types in the title field.
+function slugify(str: string): string {
+  return str
+    .toLowerCase()
+    .normalize("NFD").replace(/[̀-ͯ]/g, "")
+    .replace(/đ/g, "d")
+    .replace(/[^a-z0-9\s-]/g, "")
+    .trim()
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-");
+}
+
+// Convert any non-webp image to webp via canvas at the given quality.
+// Audio / svg / gif passes through untouched (svg loses scalability,
+// gif loses animation, audio is irrelevant). Falls back to original on
+// any error so we never block an upload.
+async function convertImageToWebp(file: File, quality = 0.85): Promise<File> {
+  if (!file.type.startsWith("image/")) return file;
+  if (file.type === "image/webp" || file.type === "image/svg+xml" || file.type === "image/gif") return file;
+  try {
+    const bitmap = await createImageBitmap(file);
+    const canvas = document.createElement("canvas");
+    canvas.width = bitmap.width;
+    canvas.height = bitmap.height;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return file;
+    ctx.drawImage(bitmap, 0, 0);
+    const blob = await new Promise<Blob | null>(resolve => canvas.toBlob(resolve, "image/webp", quality));
+    if (!blob) return file;
+    const newName = file.name.replace(/\.[^.]+$/, "") + ".webp";
+    return new File([blob], newName, { type: "image/webp" });
+  } catch {
+    return file;
+  }
+}
+
 // ─── File Upload Zone ─────────────────────────────────────────────────
 function FileUploadZone({
   label,
@@ -94,16 +134,18 @@ function FileUploadZone({
   const [dragging, setDragging] = useState(false);
   const [uploading, setUploading] = useState(false);
 
-  const handleFile = async (file: File) => {
-    if (!file) return;
+  const handleFile = async (rawFile: File) => {
+    if (!rawFile) return;
     setUploading(true);
+    const file = await convertImageToWebp(rawFile);
     const ext = file.name.split(".").pop() || "";
     const fileName = `${pathPrefix}/${Date.now()}_${Math.random().toString(36).slice(2, 8)}.${ext}`;
     const { error } = await supabase.storage.from("eps-exams").upload(fileName, file, { upsert: true });
     setUploading(false);
     if (error) { showToast("Upload lỗi: " + error.message, "error"); return; }
     onUploaded(fileName);
-    showToast("Đã upload: " + fileName, "success");
+    const sizeKB = Math.round(file.size / 1024);
+    showToast(`Đã upload (${sizeKB} KB${file.type === "image/webp" && rawFile.type !== "image/webp" ? ", chuyển .webp" : ""})`, "success");
   };
 
   const handleDrop = useCallback((e: React.DragEvent) => {
@@ -165,11 +207,9 @@ export default function AdminEpsExamManagerPage() {
   const [qForm, setQForm] = useState(INITIAL_QUESTION);
   const [showQForm, setShowQForm] = useState(false);
   const [editingQ, setEditingQ] = useState<Question | null>(null);
-  // When creating new, auto-derive slug from exam_no + year. Switches off
+  // When creating new, auto-derive slug from the title (WP-style). Switches off
   // the moment the admin types in the slug box, so manual overrides stick.
   const [slugAuto, setSlugAuto] = useState(true);
-
-  const autoSlug = (examNo: number, year: number) => `eps-de-${examNo}-${year}`;
 
   const fetchExams = useCallback(async () => {
     setLoading(true);
@@ -221,7 +261,33 @@ export default function AdminEpsExamManagerPage() {
     fetchExams();
   };
 
-  const saveQuestion = async () => {
+  const loadQuestionIntoForm = useCallback((q: Question) => {
+    setEditingQ(q);
+    setQForm({
+      order_no: q.order_no,
+      question_type: q.question_type,
+      question_text: q.question_text,
+      question_vi: q.question_vi || "",
+      options: q.options || ["", "", "", ""],
+      correct_answer: q.correct_answer,
+      audio_url: q.audio_url || "",
+      image_url: q.image_url || "",
+      difficulty: q.difficulty,
+      topic: q.topic || "",
+      section: q.section || "reading",
+      option_type: q.option_type || "text",
+      content: q.content || "",
+      content_image: q.content_image || "",
+      option_images: q.option_images || ["", "", "", ""],
+      audio_script: q.audio_script || "",
+      audio_options: q.audio_options || ["", "", "", ""],
+      audio_hint: q.audio_hint || "",
+      explanation: q.explanation || "",
+    });
+    setShowQForm(true);
+  }, []);
+
+  const saveQuestion = async (then: "prev" | "next" | "close" = "close") => {
     if (!selectedExam) return;
     if (!qForm.question_text || qForm.options.some(o => !o)) {
       showToast("Thiếu nội dung câu hỏi hoặc đáp án", "error"); return;
@@ -253,11 +319,35 @@ export default function AdminEpsExamManagerPage() {
       ? await supabase.from("eps_questions").update(payload).eq("id", editingQ.id)
       : await supabase.from("eps_questions").insert([payload]);
     if (error) { showToast("Lỗi lưu câu hỏi: " + error.message, "error"); return; }
-    showToast(editingQ ? "Đã cập nhật câu hỏi" : "Đã thêm câu hỏi", "success");
-    setShowQForm(false);
-    setQForm(INITIAL_QUESTION);
-    setEditingQ(null);
-    fetchQuestions(selectedExam.id);
+
+    // Reload list and decide where to go next.
+    const { data: fresh } = await supabase
+      .from("eps_questions")
+      .select("*")
+      .eq("exam_id", selectedExam.id)
+      .order("order_no", { ascending: true });
+    const list = (fresh as Question[]) || [];
+    setQuestions(list);
+
+    if (then === "close") {
+      showToast(editingQ ? "Đã cập nhật câu hỏi" : "Đã thêm câu hỏi", "success");
+      setShowQForm(false);
+      setQForm(INITIAL_QUESTION);
+      setEditingQ(null);
+      return;
+    }
+
+    const targetOrder = qForm.order_no + (then === "next" ? 1 : -1);
+    const target = list.find(q => q.order_no === targetOrder);
+    if (target) {
+      showToast(`Đã lưu câu ${qForm.order_no} → câu ${targetOrder}`, "success");
+      loadQuestionIntoForm(target);
+    } else {
+      showToast(`Đã lưu — không có câu ${targetOrder}`, "success");
+      setShowQForm(false);
+      setQForm(INITIAL_QUESTION);
+      setEditingQ(null);
+    }
   };
 
   const deleteQuestion = async (id: string) => {
@@ -287,7 +377,9 @@ export default function AdminEpsExamManagerPage() {
 
   const openNew = () => {
     setSelectedExam(null);
-    setForm({ ...INITIAL_EXAM, slug: autoSlug(INITIAL_EXAM.exam_no, INITIAL_EXAM.year) });
+    const currentYear = new Date().getFullYear();
+    const maxThisYear = Math.max(0, ...exams.filter(e => e.year === currentYear).map(e => e.exam_no));
+    setForm({ ...INITIAL_EXAM, year: currentYear, exam_no: maxThisYear + 1, slug: "" });
     setSlugAuto(true);
     setQuestions([]);
     setShowForm(true);
@@ -313,44 +405,28 @@ export default function AdminEpsExamManagerPage() {
             <h3 className="text-white font-semibold text-sm">
               {selectedExam ? `Sửa đề: ${selectedExam.title}` : "Tạo đề thi mới"}
             </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="text-app-text-secondary text-xs block mb-1">
-                  Slug (unique) {slugAuto && <span className="text-emerald-400/60 text-[10px]">• tự sinh</span>}
-                </label>
+                <label className="text-app-text-secondary text-xs block mb-1">Tên đề thi</label>
                 <input
-                  value={form.slug}
-                  onChange={e => { setSlugAuto(false); setForm({ ...form, slug: e.target.value }); }}
-                  placeholder="eps-de-1-2025"
+                  value={form.title}
+                  onChange={e => {
+                    const title = e.target.value;
+                    setForm(f => ({ ...f, title, slug: slugAuto ? slugify(title) : f.slug }));
+                  }}
+                  placeholder="Đề số 1, Đề thi EPS-TOPIK 2025 đợt 1, ..."
                   className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-sm placeholder-white/25 focus:outline-none focus:border-app-accent-primary/50"
                 />
               </div>
               <div>
-                <label className="text-app-text-secondary text-xs block mb-1">Tên đề thi</label>
-                <input value={form.title} onChange={e => setForm({ ...form, title: e.target.value })} placeholder="Đề thi EPS-TOPIK 2025 đợt 1" className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-sm placeholder-white/25 focus:outline-none focus:border-app-accent-primary/50" />
-              </div>
-              <div>
-                <label className="text-app-text-secondary text-xs block mb-1">Năm</label>
+                <label className="text-app-text-secondary text-xs block mb-1">
+                  Slug URL {slugAuto && <span className="text-emerald-400/60 text-[10px]">• tự sinh từ tên</span>}
+                </label>
                 <input
-                  type="number"
-                  value={form.year}
-                  onChange={e => {
-                    const year = parseInt(e.target.value) || 0;
-                    setForm(f => ({ ...f, year, slug: slugAuto ? autoSlug(f.exam_no, year) : f.slug }));
-                  }}
-                  className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-sm focus:outline-none focus:border-app-accent-primary/50"
-                />
-              </div>
-              <div>
-                <label className="text-app-text-secondary text-xs block mb-1">Số đề</label>
-                <input
-                  type="number"
-                  value={form.exam_no}
-                  onChange={e => {
-                    const exam_no = parseInt(e.target.value) || 1;
-                    setForm(f => ({ ...f, exam_no, slug: slugAuto ? autoSlug(exam_no, f.year) : f.slug }));
-                  }}
-                  className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-sm focus:outline-none focus:border-app-accent-primary/50"
+                  value={form.slug}
+                  onChange={e => { setSlugAuto(false); setForm({ ...form, slug: e.target.value }); }}
+                  placeholder="de-so-1"
+                  className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-sm placeholder-white/25 focus:outline-none focus:border-app-accent-primary/50"
                 />
               </div>
             </div>
@@ -358,6 +434,29 @@ export default function AdminEpsExamManagerPage() {
               <label className="text-app-text-secondary text-xs block mb-1">Mô tả</label>
               <textarea value={form.description} onChange={e => setForm({ ...form, description: e.target.value })} rows={2} className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-sm placeholder-white/25 focus:outline-none focus:border-app-accent-primary/50" />
             </div>
+            <details className="bg-app-bg/40 rounded-lg px-3 py-2 border border-app-border">
+              <summary className="cursor-pointer text-app-text-secondary text-xs font-medium select-none">
+                <i className="ri-settings-3-line mr-1"></i>Thông số nâng cao (năm, số đề, số câu, phút)
+              </summary>
+              <div className="mt-3 grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <div>
+                  <label className="text-app-text-secondary text-xs block mb-1">Năm</label>
+                  <input type="number" value={form.year} onChange={e => setForm({ ...form, year: parseInt(e.target.value) || 0 })} className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-sm focus:outline-none focus:border-app-accent-primary/50" />
+                </div>
+                <div>
+                  <label className="text-app-text-secondary text-xs block mb-1">Số đề</label>
+                  <input type="number" value={form.exam_no} onChange={e => setForm({ ...form, exam_no: parseInt(e.target.value) || 1 })} className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-sm focus:outline-none focus:border-app-accent-primary/50" />
+                </div>
+                <div>
+                  <label className="text-app-text-secondary text-xs block mb-1">Số câu</label>
+                  <input type="number" value={form.total_questions} onChange={e => setForm({ ...form, total_questions: parseInt(e.target.value) || 40 })} className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-sm focus:outline-none focus:border-app-accent-primary/50" />
+                </div>
+                <div>
+                  <label className="text-app-text-secondary text-xs block mb-1">Phút</label>
+                  <input type="number" value={form.time_minutes} onChange={e => setForm({ ...form, time_minutes: parseInt(e.target.value) || 50 })} className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-sm focus:outline-none focus:border-app-accent-primary/50" />
+                </div>
+              </div>
+            </details>
             <div className="flex items-center gap-4">
               <label className="flex items-center gap-2 text-white/70 text-sm cursor-pointer">
                 <input type="checkbox" checked={form.is_published} onChange={e => setForm({ ...form, is_published: e.target.checked })} className="rounded accent-app-accent-primary" />
@@ -610,11 +709,24 @@ export default function AdminEpsExamManagerPage() {
                     onUploaded={path => setQForm({ ...qForm, image_url: path })}
                   />
                 </div>
-                <div className="flex items-center gap-2">
-                  <button onClick={saveQuestion} className="px-4 py-2 rounded-lg bg-emerald-500/20 text-emerald-400 text-sm font-semibold cursor-pointer hover:bg-emerald-500/30 transition-all">
-                    <i className="ri-save-line mr-1"></i>Lưu câu hỏi
+                <div className="flex flex-wrap items-center gap-2">
+                  <button onClick={() => saveQuestion("close")} className="px-4 py-2 rounded-lg bg-emerald-500/20 text-emerald-400 text-sm font-semibold cursor-pointer hover:bg-emerald-500/30 transition-all">
+                    <i className="ri-save-line mr-1"></i>Lưu
                   </button>
-                  <button onClick={() => { setShowQForm(false); setEditingQ(null); }} className="px-4 py-2 rounded-lg bg-white/5 text-white/50 text-sm cursor-pointer hover:bg-white/10 transition-all">
+                  <button
+                    onClick={() => saveQuestion("prev")}
+                    disabled={qForm.order_no <= 1}
+                    className="px-3 py-2 rounded-lg bg-app-accent-primary/15 text-app-accent-primary text-sm cursor-pointer hover:bg-app-accent-primary/25 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+                  >
+                    <i className="ri-arrow-left-line mr-1"></i>Lưu & câu trước
+                  </button>
+                  <button
+                    onClick={() => saveQuestion("next")}
+                    className="px-3 py-2 rounded-lg bg-app-accent-primary/15 text-app-accent-primary text-sm cursor-pointer hover:bg-app-accent-primary/25 transition-all"
+                  >
+                    Lưu & câu sau<i className="ri-arrow-right-line ml-1"></i>
+                  </button>
+                  <button onClick={() => { setShowQForm(false); setEditingQ(null); }} className="ml-auto px-4 py-2 rounded-lg bg-white/5 text-white/50 text-sm cursor-pointer hover:bg-white/10 transition-all">
                     Hủy
                   </button>
                 </div>
@@ -656,31 +768,7 @@ export default function AdminEpsExamManagerPage() {
                         </div>
                       </td>
                       <td className="px-4 py-3 text-right">
-                        <button onClick={() => {
-                          setEditingQ(q);
-                          setQForm({
-                            order_no: q.order_no,
-                            question_type: q.question_type,
-                            question_text: q.question_text,
-                            question_vi: q.question_vi || "",
-                            options: q.options || ["", "", "", ""],
-                            correct_answer: q.correct_answer,
-                            audio_url: q.audio_url || "",
-                            image_url: q.image_url || "",
-                            difficulty: q.difficulty,
-                            topic: q.topic || "",
-                            section: q.section || "reading",
-                            option_type: q.option_type || "text",
-                            content: q.content || "",
-                            content_image: q.content_image || "",
-                            option_images: q.option_images || ["", "", "", ""],
-                            audio_script: q.audio_script || "",
-                            audio_options: q.audio_options || ["", "", "", ""],
-                            audio_hint: q.audio_hint || "",
-                            explanation: q.explanation || "",
-                          });
-                          setShowQForm(true);
-                        }} className="text-app-accent-primary/70 hover:text-app-accent-primary text-xs cursor-pointer mr-3">
+                        <button onClick={() => loadQuestionIntoForm(q)} className="text-app-accent-primary/70 hover:text-app-accent-primary text-xs cursor-pointer mr-3">
                           <i className="ri-edit-line mr-0.5"></i>Sửa
                         </button>
                         <button onClick={() => deleteQuestion(q.id)} className="text-red-400/70 hover:text-red-400 text-xs cursor-pointer">
