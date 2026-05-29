@@ -115,7 +115,7 @@ function FileUploadZone({
 
   return (
     <div>
-      <label className="text-app-text-secondary text-xs block mb-1">{label}</label>
+      {label && <label className="text-app-text-secondary text-xs block mb-1">{label}</label>}
       <div
         onDragOver={e => { e.preventDefault(); setDragging(true); }}
         onDragLeave={() => setDragging(false)}
@@ -165,6 +165,11 @@ export default function AdminEpsExamManagerPage() {
   const [qForm, setQForm] = useState(INITIAL_QUESTION);
   const [showQForm, setShowQForm] = useState(false);
   const [editingQ, setEditingQ] = useState<Question | null>(null);
+  // When creating new, auto-derive slug from exam_no + year. Switches off
+  // the moment the admin types in the slug box, so manual overrides stick.
+  const [slugAuto, setSlugAuto] = useState(true);
+
+  const autoSlug = (examNo: number, year: number) => `eps-de-${examNo}-${year}`;
 
   const fetchExams = useCallback(async () => {
     setLoading(true);
@@ -275,13 +280,15 @@ export default function AdminEpsExamManagerPage() {
       time_minutes: exam.time_minutes,
       is_published: exam.is_published,
     });
+    setSlugAuto(false);
     setShowForm(true);
     fetchQuestions(exam.id);
   };
 
   const openNew = () => {
     setSelectedExam(null);
-    setForm(INITIAL_EXAM);
+    setForm({ ...INITIAL_EXAM, slug: autoSlug(INITIAL_EXAM.exam_no, INITIAL_EXAM.year) });
+    setSlugAuto(true);
     setQuestions([]);
     setShowForm(true);
   };
@@ -308,8 +315,15 @@ export default function AdminEpsExamManagerPage() {
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <div>
-                <label className="text-app-text-secondary text-xs block mb-1">Slug (unique)</label>
-                <input value={form.slug} onChange={e => setForm({ ...form, slug: e.target.value })} placeholder="eps-de-1-2025" className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-sm placeholder-white/25 focus:outline-none focus:border-app-accent-primary/50" />
+                <label className="text-app-text-secondary text-xs block mb-1">
+                  Slug (unique) {slugAuto && <span className="text-emerald-400/60 text-[10px]">• tự sinh</span>}
+                </label>
+                <input
+                  value={form.slug}
+                  onChange={e => { setSlugAuto(false); setForm({ ...form, slug: e.target.value }); }}
+                  placeholder="eps-de-1-2025"
+                  className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-sm placeholder-white/25 focus:outline-none focus:border-app-accent-primary/50"
+                />
               </div>
               <div>
                 <label className="text-app-text-secondary text-xs block mb-1">Tên đề thi</label>
@@ -317,11 +331,27 @@ export default function AdminEpsExamManagerPage() {
               </div>
               <div>
                 <label className="text-app-text-secondary text-xs block mb-1">Năm</label>
-                <input type="number" value={form.year} onChange={e => setForm({ ...form, year: parseInt(e.target.value) || 0 })} className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-sm focus:outline-none focus:border-app-accent-primary/50" />
+                <input
+                  type="number"
+                  value={form.year}
+                  onChange={e => {
+                    const year = parseInt(e.target.value) || 0;
+                    setForm(f => ({ ...f, year, slug: slugAuto ? autoSlug(f.exam_no, year) : f.slug }));
+                  }}
+                  className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-sm focus:outline-none focus:border-app-accent-primary/50"
+                />
               </div>
               <div>
                 <label className="text-app-text-secondary text-xs block mb-1">Số đề</label>
-                <input type="number" value={form.exam_no} onChange={e => setForm({ ...form, exam_no: parseInt(e.target.value) || 1 })} className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-sm focus:outline-none focus:border-app-accent-primary/50" />
+                <input
+                  type="number"
+                  value={form.exam_no}
+                  onChange={e => {
+                    const exam_no = parseInt(e.target.value) || 1;
+                    setForm(f => ({ ...f, exam_no, slug: slugAuto ? autoSlug(exam_no, f.year) : f.slug }));
+                  }}
+                  className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-sm focus:outline-none focus:border-app-accent-primary/50"
+                />
               </div>
             </div>
             <div>
@@ -493,16 +523,53 @@ export default function AdminEpsExamManagerPage() {
                       <textarea value={qForm.content} onChange={e => setQForm({ ...qForm, content: e.target.value })} rows={2} className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-sm placeholder-white/25 focus:outline-none focus:border-app-accent-primary/50" />
                     </div>
                     <div>
-                      <label className="text-app-text-secondary text-xs block mb-1">Content image (path public, vd: /de1/p3_img3.webp)</label>
-                      <input value={qForm.content_image} onChange={e => setQForm({ ...qForm, content_image: e.target.value })} className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-sm placeholder-white/25 focus:outline-none focus:border-app-accent-primary/50" />
+                      <label className="text-app-text-secondary text-xs block mb-1">Content image (ảnh đoạn văn / biểu đồ)</label>
+                      <FileUploadZone
+                        label=""
+                        accept="image/*,.png,.jpg,.jpeg,.webp"
+                        pathPrefix="images"
+                        value={qForm.content_image}
+                        onUploaded={path => setQForm({ ...qForm, content_image: path })}
+                      />
+                      <input
+                        value={qForm.content_image}
+                        onChange={e => setQForm({ ...qForm, content_image: e.target.value })}
+                        placeholder="hoặc gõ path tay (vd: /de1/p3_img3.webp)"
+                        className="w-full mt-2 px-3 py-1.5 rounded-lg bg-app-bg border border-app-border text-white/70 text-xs font-mono placeholder-white/25 focus:outline-none focus:border-app-accent-primary/50"
+                      />
                     </div>
                     <div>
-                      <label className="text-app-text-secondary text-xs block mb-1">4 ảnh đáp án (option_type=image) — mỗi dòng 1 path</label>
-                      <textarea value={qForm.option_images.join("\n")} onChange={e => {
-                        const lines = e.target.value.split("\n");
-                        while (lines.length < 4) lines.push("");
-                        setQForm({ ...qForm, option_images: lines.slice(0, 4) });
-                      }} rows={4} placeholder={"/de1/p2_img3.webp\n/de1/p2_img4.webp\n/de1/p2_img5.webp\n/de1/p2_img6.webp"} className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-xs font-mono placeholder-white/25 focus:outline-none focus:border-app-accent-primary/50" />
+                      <label className="text-app-text-secondary text-xs block mb-1">4 ảnh đáp án (option_type=image)</label>
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                        {[0, 1, 2, 3].map(i => (
+                          <div key={i}>
+                            <div className="text-[10px] text-app-text-muted mb-1">{String.fromCharCode(65 + i)}</div>
+                            <FileUploadZone
+                              label=""
+                              accept="image/*,.png,.jpg,.jpeg,.webp"
+                              pathPrefix="images"
+                              value={qForm.option_images[i] || ""}
+                              onUploaded={path => {
+                                const newImgs = [...qForm.option_images];
+                                while (newImgs.length < 4) newImgs.push("");
+                                newImgs[i] = path;
+                                setQForm({ ...qForm, option_images: newImgs });
+                              }}
+                            />
+                          </div>
+                        ))}
+                      </div>
+                      <textarea
+                        value={qForm.option_images.join("\n")}
+                        onChange={e => {
+                          const lines = e.target.value.split("\n");
+                          while (lines.length < 4) lines.push("");
+                          setQForm({ ...qForm, option_images: lines.slice(0, 4) });
+                        }}
+                        rows={4}
+                        placeholder={"hoặc gõ tay 4 path, mỗi dòng 1 path\n/de1/p2_img3.webp\n/de1/p2_img4.webp\n..."}
+                        className="w-full mt-2 px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white/70 text-xs font-mono placeholder-white/25 focus:outline-none focus:border-app-accent-primary/50"
+                      />
                     </div>
                     <div>
                       <label className="text-app-text-secondary text-xs block mb-1">Audio script (text TTS — câu nghe)</label>

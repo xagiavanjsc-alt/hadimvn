@@ -50,6 +50,17 @@ export function getStorageUrl(relativePath: string | null | undefined): string {
   return `${STORAGE_BASE}/${relativePath}`;
 }
 
+// EPS exam images can come from 3 places:
+//   1. Static `public/de1/...`, `public/de2/...` (legacy seed) → path starts with `/`, use as-is.
+//   2. Supabase Storage bucket `eps-exams` → admin-uploaded, prepend storage URL.
+//   3. Already a full URL → return unchanged.
+export function resolveExamImageUrl(path: string | null | undefined): string {
+  if (!path) return "";
+  if (path.startsWith("http")) return path;
+  if (path.startsWith("/")) return path;
+  return `${STORAGE_BASE}/eps-exams/${path}`;
+}
+
 /**
  * Replace all {{storage:path}} placeholders in content with full URLs.
  * Store relative paths in DB, convert to full URLs only when rendering.

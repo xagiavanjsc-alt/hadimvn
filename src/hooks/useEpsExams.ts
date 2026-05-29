@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { supabase } from "@/lib/supabase";
+import { supabase, resolveExamImageUrl } from "@/lib/supabase";
 
 // ─── Shape khớp với De1Question/De2Question (0-based correct) ────────────────
 // Frontend trang thi /eps-de1, /eps-de2 đã có sẵn renderer cho cấu trúc này.
@@ -47,14 +47,15 @@ function mapRow(r: Record<string, unknown>): DbExamQuestion {
   const optionType =
     (r.option_type as DbExamQuestion["optionType"]) ??
     (r.question_type === "image" ? "image" : "text");
+  const optionImagesRaw = (r.option_images as string[] | null) ?? undefined;
   return {
     id: r.order_no as number,
     section: section === "listening" ? "listening" : "reading",
     optionType: optionType === "image" ? "image" : "text",
     prompt: (r.question_text as string) ?? "",
     content: (r.content as string) || undefined,
-    contentImage: (r.content_image as string) || undefined,
-    optionImages: (r.option_images as string[]) || undefined,
+    contentImage: (r.content_image as string) ? resolveExamImageUrl(r.content_image as string) : undefined,
+    optionImages: optionImagesRaw ? optionImagesRaw.map(resolveExamImageUrl) : undefined,
     audioScript: (r.audio_script as string) || undefined,
     audioOptions: (r.audio_options as string[]) || undefined,
     audioHint: (r.audio_hint as string) || undefined,
