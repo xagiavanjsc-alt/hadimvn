@@ -88,7 +88,29 @@ Mỗi page có content phải có:
 - H1 đúng cấu trúc
 - Schema.org markup khi phù hợp (Quiz, Article, EducationalOrganization)
 
-Dùng hook `usePageSEO` đã có sẵn — KHÔNG tự viết logic SEO mới.
+Dùng hook `usePageSEO` đã có sẵn — KHÔNG tự viết logic SEO mới (không thêm
+react-helmet, next-seo, vv). Mở rộng `usePageSEO` nếu thiếu.
+
+**SEO tùy chỉnh per-content (Rank Math-style)** — đích đến cuối cho TẤT CẢ
+content có URL riêng (đề thi EPS, blog, ngữ pháp, từ vựng list, news lessons,
+trang sản phẩm VIP, v.v.):
+
+- Mỗi row content trong DB có thể có override: `meta_title`,
+  `meta_description`, `focus_keyword`, `og_image`, `schema_type`
+  (Course/Quiz/Article/Product), `canonical_url`.
+- Nếu admin để trống → **fallback về default tự sinh** (vd: meta_title =
+  title của row, meta_description = mô tả ngắn / câu đầu content, og_image =
+  ảnh cover hoặc ảnh đầu tiên, schema = type mặc định cho loại page đó).
+- Admin form (kiểu Rank Math): panel SEO collapsed, có **preview snippet
+  Google** + **keyword analysis nhẹ** (kiểm keyword có trong title / desc /
+  slug / H1).
+- KHÔNG bắt admin nhập thủ công mọi lần — defaults phải đủ tốt để bỏ trống
+  cũng vẫn pass SEO; override chỉ khi cần tinh chỉnh.
+
+**Slug rule (đã enforce, giữ nguyên)**: title-driven kebab-case ASCII,
+**bắt buộc strip dấu tiếng Việt**. URL có dấu (`/đề-số-1`) gây lỗi encoding
+trên nhiều nền tảng → không bao giờ giữ dấu trong slug, kể cả khi user yêu
+cầu giữ lại.
 
 ### Rule 7: Khi không chắc — HỎI, đừng làm
 
