@@ -123,8 +123,9 @@ function CouponForm({ initial, series, onSave, onCancel }: {
                 <button
                   onClick={() => setDiscountType("fixed")}
                   className={`px-4 py-2.5 text-xs font-bold transition-colors cursor-pointer whitespace-nowrap ${discountType === "fixed" ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/70"}`}
+                  title="Đơn vị: nghìn đồng. VD: nhập 50 = giảm 50.000đ"
                 >
-                  VNĐ
+                  K đ
                 </button>
               </div>
             </div>

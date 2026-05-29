@@ -51,15 +51,29 @@ function CouponForm({ initial, series, onSave, onCancel }: {
 
   const handleSave = () => {
     if (!code.trim() || !discount) return;
+    const discountVal = parseFloat(discount);
+    if (!Number.isFinite(discountVal) || discountVal <= 0) {
+      alert("Mức giảm phải là số dương");
+      return;
+    }
+    if (discountType === "percent" && discountVal > 100) {
+      alert("Mức giảm % không được vượt quá 100");
+      return;
+    }
+    const maxUsageVal = maxUsage ? parseInt(maxUsage) : null;
+    if (maxUsageVal !== null && (!Number.isFinite(maxUsageVal) || maxUsageVal <= 0)) {
+      alert("Giới hạn dùng phải là số dương (hoặc để trống = không giới hạn)");
+      return;
+    }
     onSave({
       id: initial?.id ?? `cpn-${Date.now()}`,
       code: code.trim().toUpperCase(),
-      discount: parseFloat(discount),
+      discount: discountVal,
       discountType,
       channel,
       seriesId: couponType === "ebook" ? seriesId : "all",
       usageCount: initial?.usageCount ?? 0,
-      maxUsage: maxUsage ? parseInt(maxUsage) : null,
+      maxUsage: maxUsageVal,
       createdAt: initial?.createdAt ?? new Date().toISOString(),
       note: note.trim() || undefined,
       active: initial?.active ?? true,
@@ -140,11 +154,18 @@ function CouponForm({ initial, series, onSave, onCancel }: {
                 <button
                   onClick={() => setDiscountType("fixed")}
                   className={`px-4 py-2.5 text-xs font-bold transition-colors cursor-pointer whitespace-nowrap ${discountType === "fixed" ? "bg-rose-500 text-white" : "text-app-text-secondary hover:text-white/70"}`}
+                  title="Đơn vị: nghìn đồng. VD: nhập 50 = giảm 50.000đ"
                 >
-                  VNĐ
+                  K đ
                 </button>
               </div>
             </div>
+            {discountType === "fixed" && (
+              <p className="text-[10px] text-app-text-muted mt-1">
+                <i className="ri-information-line mr-0.5"></i>
+                Đơn vị: <span className="text-white/60 font-semibold">nghìn đồng</span>. VD: nhập <span className="font-mono text-white/60">50</span> = giảm <span className="font-mono text-white/60">50.000đ</span>
+              </p>
+            )}
           </div>
 
           {couponType === "vip" && (
