@@ -44,10 +44,19 @@ function CouponForm({ initial, series, onSave, onCancel }: {
 
   const handleSave = () => {
     if (!code.trim() || !discount) return;
+    const discountVal = parseFloat(discount);
+    if (!Number.isFinite(discountVal) || discountVal <= 0) {
+      alert("Discount phải là số dương");
+      return;
+    }
+    if (discountType === "percent" && discountVal > 100) {
+      alert("Discount % không được vượt quá 100");
+      return;
+    }
     onSave({
       id: initial?.id ?? `cpn-${Date.now()}`,
       code: code.trim().toUpperCase(),
-      discount: parseFloat(discount),
+      discount: discountVal,
       discountType,
       channel,
       seriesId,

@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from "react";
+﻿import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { supabase, isVipActive } from "@/lib/supabase";
@@ -333,6 +333,7 @@ export default function PricingPage() {
   const [paymentProof, setPaymentProof] = useState<File | null>(null);
   const [paymentNote, setPaymentNote] = useState("");
   const [submittingPayment, setSubmittingPayment] = useState(false);
+  const submittingRef = useRef(false);
   const [copied, setCopied] = useState<string | null>(null);
 
   const monthlyPrice = 79000;
@@ -346,7 +347,9 @@ export default function PricingPage() {
 
   const handleSubmitPayment = async () => {
     if (!profile || !paymentProof) return;
-    
+    if (submittingRef.current) return;
+    submittingRef.current = true;
+
     setSubmittingPayment(true);
     try {
       // Upload payment proof to Supabase storage
@@ -385,6 +388,7 @@ export default function PricingPage() {
       showToast("Có lỗi xảy ra. Vui lòng thử lại", "error", 4000);
     } finally {
       setSubmittingPayment(false);
+      submittingRef.current = false;
     }
   };
 

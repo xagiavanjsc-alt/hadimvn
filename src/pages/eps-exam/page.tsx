@@ -224,13 +224,17 @@ export default function EpsExamPage() {
   }, [pickQuestions]);
 
   // Timer
+  const submitExamRef = useRef<() => void>(() => {});
   useEffect(() => {
     if (mode !== "exam") return;
     timerRef.current = setInterval(() => {
       setTimeLeft(t => {
         if (t <= 1) {
-          clearInterval(timerRef.current!);
-          submitExam();
+          if (timerRef.current) {
+            clearInterval(timerRef.current);
+            timerRef.current = null;
+          }
+          submitExamRef.current();
           return 0;
         }
         return t - 1;
@@ -293,6 +297,8 @@ export default function EpsExamPage() {
     }
     setMode("result");
   }, [examQuestions, answers, setExamResults, user, profile, syncToCloud, updateLeaderboard, awardXP]);
+
+  useEffect(() => { submitExamRef.current = submitExam; }, [submitExam]);
 
   const currentQ = examQuestions[currentIdx];
   const answeredCount = Object.keys(answers).length;

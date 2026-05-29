@@ -33,10 +33,15 @@ function EpsFlipCard({
 
   // Auto TTS when card flips to back (Vietnamese side)
   useEffect(() => {
-    if (flipped) {
-      speakKorean();
-    }
-  }, [flipped]);
+    if (!flipped) return;
+    if (!window.speechSynthesis) return;
+    window.speechSynthesis.cancel();
+    const utter = new SpeechSynthesisUtterance(card.korean);
+    utter.lang = "ko-KR";
+    utter.rate = 0.8;
+    window.speechSynthesis.speak(utter);
+    return () => { window.speechSynthesis.cancel(); };
+  }, [flipped, card.korean]);
 
   const speakKorean = () => {
     if (!window.speechSynthesis) return;

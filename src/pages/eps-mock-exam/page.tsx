@@ -598,12 +598,17 @@ export default function EpsMockExamPage() {
   }, []);
 
   // Timer
+  const submitExamRef = useRef<() => void>(() => {});
   useEffect(() => {
     if (phase !== "exam") return;
     timerRef.current = setInterval(() => {
       setTimeLeft(prev => {
         if (prev <= 1) {
-          submitExam();
+          if (timerRef.current) {
+            clearInterval(timerRef.current);
+            timerRef.current = null;
+          }
+          submitExamRef.current();
           return 0;
         }
         return prev - 1;
@@ -662,6 +667,8 @@ export default function EpsMockExamPage() {
     setPhase("result");
     clearPersistedSession();
   }, [questions, answers, timeLeft]);
+
+  useEffect(() => { submitExamRef.current = submitExam; }, [submitExam]);
 
   const answered = answers.filter(a => a !== null).length;
   const timerColor = timeLeft < 300 ? "#f87171" : timeLeft < 600 ? "#fb923c" : "#34d399";

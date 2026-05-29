@@ -161,6 +161,15 @@ export default function EpsSmartFlashcardPage() {
     audioTimeoutRef.current = setTimeout(() => setIsPlaying(false), 2000);
   }, []);
 
+  useEffect(() => {
+    return () => {
+      if (typeof window !== "undefined" && window.speechSynthesis) {
+        window.speechSynthesis.cancel();
+      }
+      if (audioTimeoutRef.current) clearTimeout(audioTimeoutRef.current);
+    };
+  }, []);
+
   const currentItem = studyQueue[currentIdx];
   const currentCard = currentItem ? cardData[currentItem.id] : null;
 

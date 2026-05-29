@@ -126,7 +126,15 @@ function ReviewCard({ item, srCard, onRate, sessionIdx, sessionTotal }: {
   const topic = EPS_VOCAB_TOPICS.find(t => t.id === item.topicId);
 
   useEffect(() => { setRevealed(false); }, [item.id]);
-  useEffect(() => { if (revealed) playKorean(item.korean); }, [revealed]);
+  useEffect(() => {
+    if (!revealed) return;
+    playKorean(item.korean);
+    return () => {
+      if (typeof window !== "undefined" && window.speechSynthesis) {
+        window.speechSynthesis.cancel();
+      }
+    };
+  }, [revealed, item.korean, playKorean]);
 
   const nextReviewText = () => {
     const days = srCard.interval;

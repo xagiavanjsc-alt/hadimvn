@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { Link } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useAuth } from "@/hooks/useAuth";
@@ -161,6 +161,7 @@ export default function CTVPage() {
   const [wdAmount, setWdAmount] = useState("");
   const [wdNote, setWdNote] = useState("");
   const [submittingWd, setSubmittingWd] = useState(false);
+  const submittingWdRef = useRef(false);
 
   const showToast = (msg: string, type: "ok" | "err" = "ok") => {
     setToast({ msg, type });
@@ -214,11 +215,12 @@ export default function CTVPage() {
 
   const handleWithdraw = async () => {
     if (!profile) return;
-    if (submittingWd) return; // belt-and-braces against rapid clicks
+    if (submittingWd || submittingWdRef.current) return; // belt-and-braces against rapid clicks
     const amount = parseInt(wdAmount.replace(/\D/g, ""));
     if (!amount || amount < 50000) { showToast("Số tiền rút tối thiểu 50.000đ", "err"); return; }
     if (amount > canWithdraw) { showToast("Số tiền vượt quá số dư có thể rút", "err"); return; }
     if (!profile.bank_info?.account_number) { showToast("Vui lòng cập nhật thông tin ngân hàng trước", "err"); return; }
+    submittingWdRef.current = true;
     setSubmittingWd(true);
     try {
       const { error } = await supabase.from("ctv_withdrawals").insert({
@@ -243,6 +245,7 @@ export default function CTVPage() {
       showToast("Đã gửi yêu cầu rút tiền. Admin sẽ xử lý trong 1-3 ngày.");
     } finally {
       setSubmittingWd(false);
+      submittingWdRef.current = false;
     }
   };
 

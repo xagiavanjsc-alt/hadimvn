@@ -154,7 +154,7 @@ function OptionCard({
 }
 
 // ─── Roadmap Result Screen ────────────────────────────────────────────────────
-function RoadmapScreen({ roadmap, onStart, onRedo }: { roadmap: RoadmapResult; onStart: () => Promise<void> | void; onRedo: () => void }) {
+function RoadmapScreen({ roadmap, onStart, onRedo }: { roadmap: RoadmapResult; onStart: () => Promise<boolean>; onRedo: () => void }) {
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
 
@@ -229,7 +229,7 @@ function RoadmapScreen({ roadmap, onStart, onRedo }: { roadmap: RoadmapResult; o
 
       {/* Actions */}
       <button
-        onClick={async () => { await onStart(); navigate(roadmap.primaryPath); }}
+        onClick={async () => { const ok = await onStart(); if (ok) navigate(roadmap.primaryPath); }}
         className="w-full py-4 rounded-2xl font-bold text-base transition-all cursor-pointer whitespace-nowrap mb-2"
         style={{ backgroundColor: "#e8c84a", color: "#0f1117" }}
       >
@@ -272,7 +272,7 @@ export default function OnboardingPage() {
     }, 1800);
   };
 
-  const handleStart = async () => {
+  const handleStart = async (): Promise<boolean> => {
     // Local marker (kept for legacy code that may still check it).
     localStorage.setItem(STORAGE_KEYS.ONBOARDING_DONE, "1");
     // Authoritative: mark the user's profile as onboarded so OnboardingGate
@@ -284,12 +284,12 @@ export default function OnboardingPage() {
         .eq("id", user.id);
       if (error) {
         console.warn("[onboarding] failed to persist onboarded_at:", error.message);
-        // Non-fatal: user still proceeds. Gate will redirect again next login,
-        // which is annoying but recoverable. Logging surfaces it for triage.
-      } else {
-        await refreshProfile();
+        alert("Không lưu được tiến độ. Vui lòng kiểm tra mạng và thử lại.");
+        return false;
       }
+      await refreshProfile();
     }
+    return true;
   };
 
   const canProceed = (s: number) => {
