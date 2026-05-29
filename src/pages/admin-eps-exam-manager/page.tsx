@@ -85,6 +85,8 @@ function slugify(str: string): string {
     .toLowerCase()
     .normalize("NFD").replace(/[̀-ͯ]/g, "")
     .replace(/đ/g, "d")
+    .replace(/ư/g, "u")
+    .replace(/ơ/g, "o")
     .replace(/[^a-z0-9\s-]/g, "")
     .trim()
     .replace(/\s+/g, "-")
