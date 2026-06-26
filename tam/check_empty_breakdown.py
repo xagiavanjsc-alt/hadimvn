@@ -1,24 +1,7 @@
 """Kiem tra tat ca tu co hanja_breakdown meaning rong"""
-import requests, json
+from supabase_client import fetch_all_data
 
-headers = {
-    'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRjam9maGtkcmdicm93YWJ1ZHl0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NjE1OTczNiwiZXhwIjoyMDkxNzM1NzM2fQ.T1_WxXzgB0LhFxcOvlqLyt_83rMOgmaQIuUO_4stPOE',
-    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRjam9maGtkcmdicm93YWJ1ZHl0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NjE1OTczNiwiZXhwIjoyMDkxNzM1NzM2fQ.T1_WxXzgB0LhFxcOvlqLyt_83rMOgmaQIuUO_4stPOE'
-}
-
-all_data = []
-offset = 0
-limit = 1000
-while True:
-    r = requests.get(f'https://dcjofhkdrgbrowabudyt.supabase.co/rest/v1/hanja_pro?select=id,hangul,slug,hanja_breakdown&order=id&limit={limit}&offset={offset}', headers=headers)
-    batch = r.json()
-    if not batch:
-        break
-    all_data.extend(batch)
-    if len(batch) < limit:
-        break
-    offset += limit
-data = all_data
+data = fetch_all_data('hanja_pro', select_fields='id,hangul,slug,hanja_breakdown')
 
 print(f"=== TONG: {len(data)} tu ===\n")
 empty_count = 0

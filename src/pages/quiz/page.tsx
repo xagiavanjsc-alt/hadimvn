@@ -5,7 +5,7 @@ import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAuth } from "@/hooks/useAuth";
 import { useStudySync } from "@/hooks/useStudySync";
 import { generateQuiz, type QuizQuestion, type AIConfig } from "@/services/aiService";
-import type { ApprovedLesson } from "@/pages/melon/components/ExportExcel";
+import type { ApprovedLesson } from "@/types/melon";
 import { epsQuestions, EPS_TOPICS } from "@/mocks/epsQuestions";
 import ShareResultCard from "@/components/feature/ShareResultCard";
 

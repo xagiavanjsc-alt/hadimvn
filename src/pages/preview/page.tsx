@@ -2,7 +2,7 @@
 import { useParams, Link } from "react-router-dom";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import type { EbookSeries } from "@/pages/series/page";
-import type { ApprovedLesson } from "@/pages/melon/components/ExportExcel";
+import type { ApprovedLesson } from "@/types/melon";
 
 // ─── Preview Page ─────────────────────────────────────────────────────────
 export default function PreviewPage() {

@@ -9,7 +9,7 @@ import { migrateStorageKeys } from './utils/migrateStorageKeys'
 // ─── Polyfill requestIdleCallback for Safari ───────────────────────────────────────
 // Safari doesn't support requestIdleCallback, so polyfill with setTimeout
 type IdleWindow = Window & {
-  requestIdleCallback?: (cb: IdleRequestCallback, options?: IdleRequestOptions) => number;
+  requestIdleCallback?: (cb: IdleRequestCallback, options?: { timeout?: number }) => number;
   cancelIdleCallback?: (id: number) => void;
 };
 if (!('requestIdleCallback' in window)) {
@@ -28,7 +28,11 @@ if (!('requestIdleCallback' in window)) {
 
 // ─── Run localStorage key migration ─────────────────────────────────────────────────
 // Migrate old kts_* keys to new keys for consistency
-migrateStorageKeys();
+try {
+  migrateStorageKeys();
+} catch (error) {
+  console.warn("Storage migration skipped due to runtime error:", error);
+}
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

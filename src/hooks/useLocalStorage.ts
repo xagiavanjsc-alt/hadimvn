@@ -13,19 +13,31 @@ export function useLocalStorage<T>(
   initialValue: T,
   validator?: (value: unknown) => value is T
 ) {
-  const [storedValue, setStoredValue] = useState<T>(() => {
+  const getStorage = () => {
+    if (typeof window === "undefined") return null;
     try {
-      const item = window.localStorage.getItem(key);
+      return window.localStorage;
+    } catch {
+      return null;
+    }
+  };
+
+  const [storedValue, setStoredValue] = useState<T>(() => {
+    const storage = getStorage();
+    if (!storage) return initialValue;
+
+    try {
+      const item = storage.getItem(key);
       if (!item) return initialValue;
-      
+
       const parsed = JSON.parse(item) as unknown;
-      
+
       // Validate if validator provided
       if (validator && !validator(parsed)) {
         logError(new Error(`Invalid localStorage data for key "${key}"`), { key, value: parsed });
         return initialValue;
       }
-      
+
       return parsed as T;
     } catch (error) {
       logError(error, { key });
@@ -35,17 +47,20 @@ export function useLocalStorage<T>(
 
   const setValue = useCallback(
     (value: T | ((prev: T) => T)) => {
+      const storage = getStorage();
+      if (!storage) return;
+
       try {
         setStoredValue((prev) => {
           const next = typeof value === "function" ? (value as (p: T) => T)(prev) : value;
-          
+
           // Validate before storing
           if (validator && !validator(next)) {
             logError(new Error(`Invalid value for localStorage key "${key}"`), { key, value: next });
             return prev;
           }
-          
-          window.localStorage.setItem(key, JSON.stringify(next));
+
+          storage.setItem(key, JSON.stringify(next));
           return next;
         });
       } catch (error) {
@@ -56,8 +71,11 @@ export function useLocalStorage<T>(
   );
 
   const removeValue = useCallback(() => {
+    const storage = getStorage();
+    if (!storage) return;
+
     try {
-      window.localStorage.removeItem(key);
+      storage.removeItem(key);
       setStoredValue(initialValue);
     } catch (error) {
       logError(error, { key });

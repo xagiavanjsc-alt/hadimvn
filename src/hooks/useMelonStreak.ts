@@ -4,6 +4,15 @@ const MELON_STREAK_KEY = "melon_streak";
 const MELON_LEARNED_TODAY_KEY = "melon_learned_today";
 const LEARNED_KEY = "melon_learned_ranks";
 
+function getSafeStorage(): Storage | null {
+  if (typeof window === "undefined") return null;
+  try {
+    return window.localStorage;
+  } catch {
+    return null;
+  }
+}
+
 export interface MelonStreak {
   count: number;
   lastDate: string;
@@ -13,8 +22,11 @@ export interface MelonStreak {
 // ─── Pure helpers (no side effects) ──────────────────────────────────────────
 
 function readStreak(): MelonStreak {
+  const storage = getSafeStorage();
+  if (!storage) return { count: 0, lastDate: "", history: [] };
+
   try {
-    const raw = localStorage.getItem(MELON_STREAK_KEY);
+    const raw = storage.getItem(MELON_STREAK_KEY);
     return raw ? (JSON.parse(raw) as MelonStreak) : { count: 0, lastDate: "", history: [] };
   } catch {
     return { count: 0, lastDate: "", history: [] };
@@ -22,12 +34,21 @@ function readStreak(): MelonStreak {
 }
 
 function writeStreak(streak: MelonStreak): void {
-  localStorage.setItem(MELON_STREAK_KEY, JSON.stringify(streak));
+  const storage = getSafeStorage();
+  if (!storage) return;
+  try {
+    storage.setItem(MELON_STREAK_KEY, JSON.stringify(streak));
+  } catch {
+    // ignore storage errors
+  }
 }
 
 function readLearnedRanks(): number[] {
+  const storage = getSafeStorage();
+  if (!storage) return [];
+
   try {
-    const raw = localStorage.getItem(LEARNED_KEY);
+    const raw = storage.getItem(LEARNED_KEY);
     return raw ? (JSON.parse(raw) as number[]) : [];
   } catch {
     return [];
@@ -35,12 +56,21 @@ function readLearnedRanks(): number[] {
 }
 
 function writeLearnedRanks(ranks: number[]): void {
-  localStorage.setItem(LEARNED_KEY, JSON.stringify(ranks));
+  const storage = getSafeStorage();
+  if (!storage) return;
+  try {
+    storage.setItem(LEARNED_KEY, JSON.stringify(ranks));
+  } catch {
+    // ignore storage errors
+  }
 }
 
 function readLearnedToday(): boolean {
+  const storage = getSafeStorage();
+  if (!storage) return false;
+
   try {
-    const raw = localStorage.getItem(MELON_LEARNED_TODAY_KEY);
+    const raw = storage.getItem(MELON_LEARNED_TODAY_KEY);
     if (!raw) return false;
     const { date } = JSON.parse(raw) as { date: string };
     return date === new Date().toISOString().split("T")[0];
@@ -50,8 +80,14 @@ function readLearnedToday(): boolean {
 }
 
 function writeLearnedToday(): void {
-  const today = new Date().toISOString().split("T")[0];
-  localStorage.setItem(MELON_LEARNED_TODAY_KEY, JSON.stringify({ date: today }));
+  const storage = getSafeStorage();
+  if (!storage) return;
+  try {
+    const today = new Date().toISOString().split("T")[0];
+    storage.setItem(MELON_LEARNED_TODAY_KEY, JSON.stringify({ date: today }));
+  } catch {
+    // ignore storage errors
+  }
 }
 
 function computeUpdatedStreak(current: MelonStreak): MelonStreak {

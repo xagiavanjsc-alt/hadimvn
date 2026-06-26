@@ -1,7 +1,7 @@
 ﻿import { useState, useCallback } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
-import type { ApprovedLesson } from "@/pages/melon/components/ExportExcel";
+import type { ApprovedLesson } from "@/types/melon";
 import type { EbookMeta } from "@/pages/ebook/page";
 import type { EbookTemplate } from "@/pages/ebook/components/EbookTemplates";
 

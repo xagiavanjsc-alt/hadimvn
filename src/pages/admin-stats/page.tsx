@@ -1,7 +1,7 @@
 ﻿import { useMemo, useState, useEffect } from "react";
 import AdminLayout from "@/components/feature/AdminLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
-import type { ApprovedLesson } from "@/pages/melon/components/ExportExcel";
+import type { ApprovedLesson } from "@/types/melon";
 import type { EbookSeries } from "@/pages/series/page";
 import { epsQuestions } from "@/mocks/epsQuestions";
 import { epsVocabulary } from "@/mocks/epsVocabulary";

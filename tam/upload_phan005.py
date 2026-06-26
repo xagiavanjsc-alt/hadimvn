@@ -4,18 +4,14 @@ Slug = phien am tieng Han (SEO-friendly)
 Chay: python upload_phan005.py
 """
 import re
-import logging
-import requests
 import os
+from supabase_client import setup_logger, upload_data, fetch_single_query
 
 # ================== CAU HINH ==================
 FILE_INPUT = os.path.join(os.path.dirname(__file__), "Phan_005.md")
-SUPABASE_URL = "https://dcjofhkdrgbrowabudyt.supabase.co"
-SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRjam9maGtkcmdicm93YWJ1ZHl0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NjE1OTczNiwiZXhwIjoyMDkxNzM1NzM2fQ.T1_WxXzgB0LhFxcOvlqLyt_83rMOgmaQIuUO_4stPOE"
 START_ID = 1
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
+logger = setup_logger(__name__)
 
 # ================== HANGUL -> BOI (CHO SLUG) ==================
 CHOSEONG_MAP = {
@@ -262,14 +258,8 @@ def parse_md_file(filepath):
 # ================== CHECK DUPLICATES ==================
 def get_existing_entries():
     """Lay danh sach slug va hangul da co trong Supabase"""
-    url = f"{SUPABASE_URL}/rest/v1/hanja_pro?select=slug,hangul&limit=10000"
-    headers = {
-        'apikey': SUPABASE_KEY,
-        'Authorization': f'Bearer {SUPABASE_KEY}',
-    }
-    response = requests.get(url, headers=headers)
-    if response.status_code == 200:
-        data = response.json()
+    data = fetch_single_query('hanja_pro', select_fields='slug,hangul')
+    if data:
         existing_slugs = set(d['slug'] for d in data if d.get('slug'))
         existing_hangul = set(d['hangul'] for d in data if d.get('hangul'))
         return existing_slugs, existing_hangul
@@ -296,20 +286,7 @@ def check_duplicates_before_upload(entries, existing_slugs, existing_hangul):
 
 # ================== UPLOAD TO SUPABASE ==================
 def upload_to_supabase(data):
-    url = f"{SUPABASE_URL}/rest/v1/hanja_pro"
-    headers = {
-        'apikey': SUPABASE_KEY,
-        'Authorization': f'Bearer {SUPABASE_KEY}',
-        'Content-Type': 'application/json',
-        'Prefer': 'resolution=ignore-duplicates'
-    }
-    
-    response = requests.post(url, json=data, headers=headers)
-    if response.status_code in [200, 201, 204]:
-        return True
-    else:
-        logger.error(f"Upload failed: {response.status_code} - {response.text}")
-        return False
+    return upload_data('hanja_pro', data)
 
 # ================== MAIN ==================
 def main():

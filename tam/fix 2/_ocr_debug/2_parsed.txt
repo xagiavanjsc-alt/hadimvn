@@ -1,0 +1,85 @@
+747	장갑	găng tay
+748	장도리	cái búa nho đinh
+749	장마철	mùa mura
+750	장소	địa điêm
+751	재료	nguỵênliệz
+752	재미없다	chán ngắt không hay
+753	재미났다	hay thú vị
+754	재봉들	máy khâu
+755	재해	tai nạn
+756	재활용	tái sừ dụng
+757	쟁반	cái mâm
+758	저금하다른돈	gửi tiền tiết kiệm
+759	저녁	buổi tối bữa tối
+760	저온츤	EE
+761	저온경고수	cảnh báo nhđộ thấp
+762	저을	Icái cân
+763	저절로	tự động
+765	건기드릴돈	cái khoan điện
+766	전기밥솥돈	nôi cơmđiện
+767	건방	phíatyớc
+768	건선	dây điện
+770	전염성돈	có tính truyên nhiễm
+772	전자사전	kim từ điên
+773	건자우편	zzĩ22
+774	전자저을돈	cân điện từr
+775	전통	Lxuyền thống
+776	전혀	ỡl hoàn toàn không:
+777	전화기	máỵ  điện thoai
+778	절단기	máỵ cắt
+779	절대	tuỵệt đối
+780	절대로	tuyệt đối
+781	젊다	trẻ
+783	처니	buổi trua,bữa trua
+785	접근금지역	cấm đến gần
+786	접시	đĩa
+787	젓가락	đũa
+788	정거장돈	bến đỗ xe
+789	정도푸	khoảng
+790	정리정돈이	dọn dẹp làm gọn gàng
+791	정지하다	dừrng lai
+792	젖다	ưrớt
+793	제일가장규	nhất
+794	제자리	vịtrí thích hợp
+795	제품	sànphân
+796	제한	hạn chế
+798	조심하다	cẩn thận
+799	조용하다	ỵên tĩnh
+800	조치	thiết bị
+801	졸다	nguì gật
+802	졸리다	buôn ngu
+803	좁다사	l chật; hẹp
+804	종이	tờ giấỵ
+805	좋다	tốt, đẹp
+806	좋아하다	thích
+807	좌회전	rẽ trái
+808	주말	cuối tuần
+809	주머니	túi
+810	주무시다	ngủ kính ngữ
+811	주문하다듬	đặt hàng gọi đồ ăn
+812	주사맞다	tiêm
+813	주소	địa chi
+814	주유소	câỵxăng
+815	주전자	cái siêu nước
+816	주차장	bãi đỗ xe
+817	죽다	chêt
+818	준비하다	chuân bị
+819	줄을서다	xểp hàng
+820	줄이다	giảm
+821	줄자	thwớc dây
+822	줍다고	nhặt
+823	중고	đồcũđồdùnglai
+824	중요하다	quan trong
+825	지갑	cái ví
+826	지게차	xe nâng
+827	지금	bâỵgiờ
+829	지나다니다	zydlyck
+830	지능	tri nao
+831	지도	bàn đồ
+832	지역	khu vực
+833	지우개	cục tây
+834	지키다	giữ
+836	지하져	zlÈ hầm ngầm
+837	지하철	tầu điện ngầm
+838	직업	nghề nghiệp
+839	직원돈	nhân viên

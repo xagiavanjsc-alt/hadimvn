@@ -1,4 +1,5 @@
 import { useState, memo } from "react";
+import { copyTextToClipboard, openExternalUrl } from "@/utils/browser";
 
 interface ShareResultModalProps {
   score: number;
@@ -19,28 +20,26 @@ function ShareResultModal({ score, total, level, quizType, onClose }: ShareResul
   const shareUrl = "https://hanquocoi.app";
 
   const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(shareText);
+    const ok = await copyTextToClipboard(shareText);
+    if (ok) {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // fallback
     }
   };
 
   const handleFacebook = () => {
     const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(shareText)}`;
-    window.open(url, "_blank", "width=600,height=400");
+    openExternalUrl(url);
   };
 
   const handleZalo = () => {
     const url = `https://zalo.me/share?url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(shareText)}`;
-    window.open(url, "_blank");
+    openExternalUrl(url);
   };
 
   const handleTwitter = () => {
     const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`;
-    window.open(url, "_blank", "width=600,height=400");
+    openExternalUrl(url);
   };
 
   const handleNative = async () => {

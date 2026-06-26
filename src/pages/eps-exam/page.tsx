@@ -11,6 +11,7 @@ import { isExamTooFast, isInCooldown, MIN_EPS_EXAM_TIME_SEC } from "@/lib/xp";
 import { usePageSEO } from "@/hooks/usePageSEO";
 import { ORG_SCHEMA } from "@/lib/siteConfig";
 import { STORAGE_KEYS } from "@/lib/storageKeys";
+import { copyTextToClipboard, openExternalUrl } from "@/utils/browser";
 
 interface ExamResult {
   id: string;
@@ -55,16 +56,17 @@ function ShareResultCard({ pct, correct, total, examResults }: { pct: number; co
   const emoji = pct >= 80 ? "🏆" : pct >= 60 ? "🎯" : "📖";
   const shareText = `${emoji} Kết quả thi thử EPS-TOPIK trên Hàn Quốc Ơi!\n\n📊 Điểm: ${correct}/${total} câu đúng (${pct}%)\n⏱️ Thời gian: ${Math.floor(timeUsed / 60)} phút ${timeUsed % 60} giây\n🎖️ Đánh giá: ${grade}\n\n${pct >= 80 ? "Vượt ngưỡng điểm đậu EPS-TOPIK! Sẵn sàng thi thật rồi!" : "Đang ôn luyện mỗi ngày — cố lên nhé!"}\n\n#HànQuốcƠi #EPSTOPIK #HọcTiếngHàn #TàuLáChuối`;
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(shareText).then(() => {
+  const handleCopy = async () => {
+    const ok = await copyTextToClipboard(shareText);
+    if (ok) {
       setCopied(true);
       setTimeout(() => setCopied(false), 2500);
-    });
+    }
   };
 
-  const handleZalo = () => {
-    navigator.clipboard.writeText(shareText);
-    window.open("https://zalo.me/", "_blank");
+  const handleZalo = async () => {
+    await copyTextToClipboard(shareText);
+    openExternalUrl("https://zalo.me/");
   };
 
   const gradeColor = pct >= 80 ? "#34d399" : pct >= 60 ? "#e8c84a" : "#f87171";
@@ -137,7 +139,7 @@ function ShareResultCard({ pct, correct, total, examResults }: { pct: number; co
             {copied ? "Đã copy!" : "Copy"}
           </button>
           <button
-            onClick={() => window.open(`https://www.facebook.com/sharer/sharer.php?u=https://hanquocoi.com&quote=${encodeURIComponent(shareText)}`, "_blank", "width=600,height=400")}
+            onClick={() => openExternalUrl(`https://www.facebook.com/sharer/sharer.php?u=https://hanquocoi.com&quote=${encodeURIComponent(shareText)}`)}
             className="flex items-center justify-center gap-2 py-2.5 rounded-xl bg-[#1877f2]/15 hover:bg-[#1877f2]/25 text-[#1877f2] text-sm font-semibold transition-colors cursor-pointer whitespace-nowrap border border-[#1877f2]/20"
           >
             <i className="ri-facebook-fill"></i>Facebook
@@ -149,7 +151,7 @@ function ShareResultCard({ pct, correct, total, examResults }: { pct: number; co
             <i className="ri-message-2-line"></i>Zalo
           </button>
           <button
-            onClick={() => window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`, "_blank", "width=600,height=400")}
+            onClick={() => openExternalUrl(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`)}
             className="flex items-center justify-center gap-2 py-2.5 rounded-xl bg-app-card/50 hover:bg-app-card/70 text-white/50 text-sm font-semibold transition-colors cursor-pointer whitespace-nowrap border border-app-border"
           >
             <i className="ri-twitter-x-line"></i>X

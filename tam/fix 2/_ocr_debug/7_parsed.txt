@@ -1,0 +1,78 @@
+185	넣다	đua vào trong
+187	넥타이	cà vạt
+188	노래를부르다	hát
+189	노트북컴퓨터	máy tính xách tay
+190	놀다	chơi
+191	놀리가다	đi chơi
+193	높다	cao
+194	높이	chiều cao
+195	놓다돈피주돈	e Iđề lênđặt lên
+196	놓치다	nhỡ lỡ
+197	누구	ai
+198	누나	chị gái em trai gọi
+199	누르다교	ấn nhấn
+201	눕다	nằmxống
+202	늙다	già
+203	늦다	muộn
+204	니퍼	kìm cắt
+205	다니다	clyct làm việc đi lại
+206	다리	chân
+207	다리미	bàn là
+208	다치다	bị thuong
+209	다행	Elýy may mắn
+210	닦다	s đánhrua
+211	단속하다	điều khiên
+212	닫다뿌	EL
+214	달다	EL
+215	달력	tờ lịch
+216	달리기하다	chạỵ
+217	담당자	nguời phụ trách
+218	담배	thuốc lá
+219	당기다돈	kéo
+221	대중교통	giacthôngđaichúng
+222	대피소	nơi ân náu
+223	대피하다	ẩn náu tránh
+224	더럽다	bân
+225	덥다	nóng
+226	데려가다	chở đi
+228	도마	cái thớt
+229	도서관돈	thur viện
+230	도실은	lphòng thur viện
+232	도장	con dấu
+233	도작하다	đếnnơi
+234	도그	chất cực độc
+235	독극물경고	cành báo có chất độc
+238	돈을찾다돈	rút tiền
+239	돌아가시다	chết(kính ngữ
+240	동료	nghiệp
+242	동안	trong vòng
+243	동전	tiền xu
+244	돼지	con lợncon heo
+245	돼지우리	chuồng lợn
+246	두번개	thứ 2( thứ tự)
+247	두껍다	dàỵ
+250	드라이클리닝	giặt khô
+251	드라이클리닝하	Ezlolzzly gặtkhô
+252	듣다	nghe
+253	들다져	cầm xách
+254	들어오다가다	đi vào
+255	등산하다	leo núi
+257	딸기	dâu tây
+260	땅을파다	ulcl đào đất
+261	때문에	vì
+262	떠나다	dời đi
+263	떠들다	làm ôn ào
+264	떨어지다	rơi
+265	똑바로은	thẳng
+266	져	phân cứt
+267	뚫다	đâm tuung khoan
+268	뜨겁다들피	nóng( đồ ăn máy móc
+269	라디오	Iđài radio
+270	라면	zy mỳ tôm
+271	마리	con
+272	스크	khâu trang
+273	마시다	uống
+274	막히다츤	tắc; nghẽn
+275	만들다	làmra, tạo ra
+276	만지다	sờ, chạm
+277	많다른	có nhiều

@@ -3,9 +3,9 @@
 // textbook / EPS lesson / admin-managed Supabase content via one filter dropdown.
 
 import { seoulBooks } from "@/mocks/data/seoul-books-data";
+import type { ApprovedLesson } from "@/types/melon";
 import { epsLessons } from "@/mocks/data/eps-lessons-data";
 import type { EpsVocabItem, EpsVocabTopic } from "@/mocks/epsVocabulary";
-import type { ApprovedLesson } from "@/pages/melon/components/ExportExcel";
 
 export type CardSource =
   | { kind: "seoul";        bookId: string;  bookName: string;  lessonId: string;  lessonTitle: string }

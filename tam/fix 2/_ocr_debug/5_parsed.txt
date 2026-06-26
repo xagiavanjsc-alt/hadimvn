@@ -1,0 +1,78 @@
+653	오다	đến
+654	오른쪽돈	bênphài
+655	오빠	anh em gái gọi)
+656	오건	buổi sáng
+657	오줌	nưrớc tiêu
+658	오후	buổi chiều
+661	돌라가다돈	đi lên
+663	옮기다	di chuyển
+665	옷걸이	cái mẳc á0
+666	웃장	ti quần á0
+667	와이셔츠끄	á0 sơ mi
+668	왕복	khứ hồi
+669	외과	khoangoai
+670	외국사람우	nguờinuớcngoài
+671	외국인등록증인	the nguời nrớc ngoài
+672	외양간	chuồng ngựa
+675	왼쪽돈	bên trái
+676	요금	phí
+677	용접	hàn xì
+678	우리	chúng ta chúng tôi
+679	우산	cái ô
+680	우체국	bưu điện
+681	우체통	hòm thur
+682	우표	tem
+683	우회전	rẽphải
+684	운동장	sânvânđộng
+685	운동하다돈	thế thao
+686	운동화	giày thể thao
+687	운반하다	ânchuyển
+688	운전면허증들	zz#đlễ bẳng lái xe
+689	운전하다	lái xe
+690	을다	khóc
+691	웃다표	cuời
+693	월요일	thứ 2
+694	위	trên
+695	위험하다돈	nguỵ hiêm
+696	유기용제	dung dịch hữu cơ
+697	유리창들뿌	cTra sổ bằng kính
+698	유턴돈	biển báo đc phép quay đầu xe
+703	의사	bác sỹ
+704	의자헐돈	cái ghế
+705	이따가	tí nữa
+706	이름른	ol= tên
+707	이불	cái chăn
+708	이사하디	chuyển nhà
+709	이상돈	olat trên( không dưới
+710	이야기하다	nóichuyên
+712	이들	ol 2 ngày
+713	이하	dưới( không hon)
+714	익숙하다	quen
+715	이부	suât ăn
+716	인사하다	chào hỏi
+717	인상하다	luong)
+718	인화성	dễ cháỵ
+719	일하다	làm việc
+721	일어나다	tứcdậxđúng dậỵ
+722	일요일교	chui nhật
+723	일찍	sớm
+725	읽다	đọc
+726	잃어버리다	mât
+727	그	lưong
+728	입다	mặc
+730	있다	có 0
+732	자	cái thước
+733	자동인출기돈	máỵ rút tiền AIM
+734	자동차	ô tô
+735	자동판매기수	máỵ bánhàng tuđộng
+736	자라다	lớn lên truởng thành
+737	자르다	cắt
+738	자전거	xe đạp
+739	자주	thurờng Xuyên
+740	작년	nănngoái
+741	작다	nho, bé
+742	작업장	nơi làm việc
+743	잘못되다고	bị nhầm
+744	잠을자다	ngu
+745	잡수시다	ăn (kính ngữ
+746	잡초	co dại

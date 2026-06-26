@@ -3,6 +3,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { epsQuestions, EPS_TOPICS } from "@/mocks/epsQuestions";
+import { copyTextToClipboard, openExternalUrl } from "@/utils/browser";
 
 interface ChallengeRecord {
   id: string;
@@ -219,17 +220,19 @@ function ChallengeResult({ challenge, onNew }: { challenge: ChallengeRecord; onN
 
   const handleCopy = async () => {
     const text = `🔥 ${challenge.creatorName} thách đấu bạn!\n\nMình vừa đạt ${pct}% (${challenge.creatorScore}/${challenge.creatorTotal} câu) trong quiz EPS-TOPIK.\nBạn có thể vượt qua không?\n\n👉 ${challengeUrl}\n\n#HànQuốcƠi #EPSTopik #ThửThách`;
-    await navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2500);
+    const ok = await copyTextToClipboard(text);
+    if (ok) {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    }
   };
 
   const shareToFacebook = () => {
-    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(challengeUrl)}`, "_blank", "width=600,height=400");
+    openExternalUrl(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(challengeUrl)}`);
   };
 
   const shareToZalo = () => {
-    window.open(`https://zalo.me/share?url=${encodeURIComponent(challengeUrl)}`, "_blank", "width=600,height=400");
+    openExternalUrl(`https://zalo.me/share?url=${encodeURIComponent(challengeUrl)}`);
   };
 
   return (
@@ -466,7 +469,7 @@ export default function ChallengePage() {
                       <button
                         onClick={async () => {
                           const url = `${window.location.origin}/challenge?id=${c.id}`;
-                          await navigator.clipboard.writeText(url);
+                          await copyTextToClipboard(url);
                         }}
                         className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-app-card/50 hover:bg-app-card/70 text-app-text-secondary hover:text-white/70 text-xs cursor-pointer whitespace-nowrap transition-colors">
                         <i className="ri-link-m text-xs"></i>Copy link

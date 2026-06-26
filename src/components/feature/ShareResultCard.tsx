@@ -1,5 +1,6 @@
 import { useState, useRef, useCallback, useEffect, memo } from "react";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { copyTextToClipboard, openExternalUrl } from "@/utils/browser";
 
 interface ShareHistoryItem {
   id: string;
@@ -98,12 +99,10 @@ function ShareResultCard({
   }, []);
 
   const handleCopy = useCallback(async () => {
-    try {
-      await navigator.clipboard.writeText(content.text);
+    const ok = await copyTextToClipboard(content.text);
+    if (ok) {
       setCopied(true);
       setTimeout(() => setCopied(false), 2500);
-    } catch {
-      // fallback
     }
   }, [content.text]);
 
@@ -122,7 +121,7 @@ function ShareResultCard({
         shareUrl = `https://zalo.me/share?url=${encodeURIComponent(url)}&title=${encodeURIComponent(content.text)}`;
         break;
     }
-    if (shareUrl) window.open(shareUrl, "_blank", "width=600,height=400");
+    if (shareUrl) openExternalUrl(shareUrl);
     setTimeout(() => setActiveShare(null), 1000);
   }, [content.text]);
 
@@ -307,7 +306,7 @@ function ShareResultCard({
                     <p className="text-white/60 text-[10px] truncate">{item.title}</p>
                     <p className="text-app-text-muted text-[9px]">{new Date(item.sharedAt).toLocaleDateString("vi-VN")}</p>
                   </div>
-                  <button onClick={async () => { await navigator.clipboard.writeText(item.text); }}
+                  <button onClick={async () => { await copyTextToClipboard(item.text); }}
                     className="text-app-text-muted hover:text-white/60 cursor-pointer transition-colors flex-shrink-0">
                     <i className="ri-file-copy-line text-xs"></i>
                   </button>

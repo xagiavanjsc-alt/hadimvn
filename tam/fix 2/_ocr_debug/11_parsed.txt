@@ -1,0 +1,77 @@
+280	맑다	quang đãng
+281	망치	cái búa
+282	맞다	đúng
+283	맞은편건너편	đối diện
+284	맡기다	giao ký gui
+285	매다	đeo
+286	매달매월	hàng tháng
+287	매달린물체경고츤	chú Ý có vật treo ơ trên
+288	매표소	nơi bán vé
+289	맥주	bia
+290	맨손	taỵ không
+291	맵다	cay
+292	머리	đầuL tóc
+293	머리를감다	gội đầu
+294	먹다	ăn
+295	먹이	thức ăn
+296	먼지	bụi
+297	먼지떨이	chổi quét bụi
+298	멈추다	dừng ngừng tạnh
+299	메모고	tin nhăn
+300	명랑하다	vui vẻ, tuơi cưrời
+301	명절돈	ngàỵ lễ
+302	명함	danh thiếp
+303	모두	tất cà
+304	모래	z hạt cát
+305	모레	ngàỵkia
+306	모이드	mode
+307	모자	mũ
+308	목소리	giong nói
+309	목요일	thứ 5
+310	목욕하다	tắm
+311	무겁다	nặng
+312	무게	trong lượng
+313	무료끄돈	miễn phí
+315	묵다	lun lại. trọ lại
+316	문지르다	co rua
+317	물건	hàng hoá
+318	물기	nưrớc
+320	물어보다	hoi
+321	물질	vật chất
+322	물체	vật chât
+323	물체이동	di chuyển vật
+325	미끄럽다	trơn
+326	미술관	phòng mỹ thuật
+327	미용사	thợ cắt tóc
+328	미터	mét
+330	바가지띄	cái gá0
+331	바구니	cái rô
+332	바꾸다	đôichuyển
+333	바다돈	biển
+334	바닥	nền
+335	바람이불다인	#Lztole gió thổi
+336	바르다	đúng
+338	박물관	viện bào tàng
+339	반갑다	#ZEL vui lân lạnh
+341	반찬들피	đồ ăn thức ăn
+342	받다	nhận
+344	발화성물질	vật dễ cháỵ
+345	밝다	sáng sua
+349	방금	vừa nãy
+350	방독면	mặt nạ chống độc
+351	방면	phuonghuớng
+352	방열면한	mặt nạ chống nhiệt
+353	방향	phu%nghyớng
+354	츤	thuzềnbwng quà lê
+355	배고프다	"azl Iđói
+357	배달하다일	#E.LSE giao hàng
+358	배설물	chất thài phân
+359	배우다	#HEL học
+360	버리다	vút bò
+361	버스정류장	bến xe buýt
+363	벌레	côn trùng
+364	벌써	đã
+365	벗다	cơi. tháo
+366	베개우	cái gối
+367	벤치	cái ghế dài
+369	별로듬	H=+PĐ ko lămn

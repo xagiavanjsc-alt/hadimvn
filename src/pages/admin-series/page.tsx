@@ -2,7 +2,7 @@
 import AdminLayout from "@/components/feature/AdminLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import type { EbookSeries } from "@/pages/series/page";
-import type { ApprovedLesson } from "@/pages/melon/components/ExportExcel";
+import type { ApprovedLesson } from "@/types/melon";
 
 function StatCard({ icon, label, value, color }: { icon: string; label: string; value: number | string; color: string }) {
   return (

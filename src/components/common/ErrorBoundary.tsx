@@ -58,16 +58,16 @@ export class ErrorBoundary extends Component<Props, State> {
     // Clear potentially stale auth cache that may cause repeated WebSocket errors
     try {
       CACHE_KEYS_TO_CLEAR.forEach((key) => {
-        try { localStorage.removeItem(key); } catch {}
-        try { sessionStorage.removeItem(key); } catch {}
+        try { localStorage.removeItem(key); } catch (e) { /* ignore */ }
+        try { sessionStorage.removeItem(key); } catch (e) { /* ignore */ }
       });
       // Clear all supabase-related keys
       Object.keys(localStorage).forEach((key) => {
         if (key.startsWith("sb-") || key.includes("supabase")) {
-          try { localStorage.removeItem(key); } catch {}
+          try { localStorage.removeItem(key); } catch (e) { /* ignore */ }
         }
       });
-    } catch {}
+    } catch (e) { /* ignore */ }
     // Redirect to home (not reload — avoids re-triggering same error)
     window.location.href = "/";
   };
@@ -135,7 +135,9 @@ export class ErrorBoundary extends Component<Props, State> {
                 Tải lại trang
               </button>
               <button
-                onClick={() => { window.location.href = "/"; }}
+                onClick={() => {
+                  window.location.href = "/";
+                }}
                 className="px-6 py-3 bg-app-surface text-white font-semibold rounded-xl border border-app-border hover:border-white/30 transition-colors"
               >
                 Về trang chủ

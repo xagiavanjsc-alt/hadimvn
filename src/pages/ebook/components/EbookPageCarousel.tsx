@@ -1,6 +1,6 @@
 ﻿import { useState } from "react";
 import type { EbookMeta } from "@/pages/ebook/page";
-import type { ApprovedLesson } from "@/pages/melon/components/ExportExcel";
+import type { ApprovedLesson } from "@/types/melon";
 import type { EbookTemplate } from "./EbookTemplates";
 
 function removeRomanization(text: string): string {

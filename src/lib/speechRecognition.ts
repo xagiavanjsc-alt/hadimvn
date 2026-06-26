@@ -49,7 +49,7 @@ export type SpeechRecognitionCtor = new () => SpeechRecognitionLike;
 /** Returns the vendor-prefixed constructor if available, else null. */
 export function getSpeechRecognitionCtor(): SpeechRecognitionCtor | null {
   if (typeof window === "undefined") return null;
-  const w = window as Window & {
+  const w = window as unknown as Window & {
     SpeechRecognition?: SpeechRecognitionCtor;
     webkitSpeechRecognition?: SpeechRecognitionCtor;
   };

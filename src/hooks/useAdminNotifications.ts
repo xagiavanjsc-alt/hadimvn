@@ -14,6 +14,15 @@ export interface AdminNotification {
 
 const STORAGE_KEY = "kts_admin_notifications";
 
+function getSafeStorage(): Storage | null {
+  if (typeof window === "undefined") return null;
+  try {
+    return window.localStorage;
+  } catch {
+    return null;
+  }
+}
+
 const SEED_NOTIFICATIONS: AdminNotification[] = [
   {
     id: "n1",
@@ -78,16 +87,22 @@ const SEED_NOTIFICATIONS: AdminNotification[] = [
 ];
 
 function loadNotifications(): AdminNotification[] {
+  const storage = getSafeStorage();
+  if (!storage) return SEED_NOTIFICATIONS;
+
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
+    const raw = storage.getItem(STORAGE_KEY);
     if (raw) return JSON.parse(raw) as AdminNotification[];
   } catch { /* ignore */ }
   return SEED_NOTIFICATIONS;
 }
 
 function saveNotifications(notifs: AdminNotification[]) {
+  const storage = getSafeStorage();
+  if (!storage) return;
+
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(notifs));
+    storage.setItem(STORAGE_KEY, JSON.stringify(notifs));
   } catch { /* ignore */ }
 }
 

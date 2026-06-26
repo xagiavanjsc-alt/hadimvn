@@ -1,7 +1,7 @@
 ﻿import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
-import type { ApprovedLesson } from "@/pages/melon/components/ExportExcel";
+import type { ApprovedLesson } from "@/types/melon";
 import { useVipYearGuard, addCsvWatermark } from "@/hooks/useVipYearGuard";
 import VipUpgradeModal from "@/components/feature/VipUpgradeModal";
 

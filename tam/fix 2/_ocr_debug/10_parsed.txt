@@ -1,0 +1,83 @@
+371	병균	vi rut, vi khuân
+372	병원돈돈	bệnh viện
+373	보관소	nơi bảo quàn
+374	보관함	=2ẵL tủ bào quản
+375	보내다	gui
+376	보다라피규끄	xem nhìn
+377	보안경	kính bào hộ
+378	보여주다	cho xem
+379	보증금	tiền đặt cọc
+380	보통	bình thuờng
+381	보행	Hỡ Iđi bộ
+383	보호구다	dwgcubàohộ
+384	보호하다	bào hộ
+385	복사기	máỵ phôtôcopy
+386	복잡하다	phôtôcopy
+387	볼펜	bút bi
+389	봉투	phongbitúi
+390	부동산	bấtđộngsàn
+391	부럽다	ghen ty
+392	부모님	bố mẹ
+393	부엌	bếp
+394	부치다	gui
+395	부탁하다	nhờ và
+396	꽈피	phụphân linhkiện
+397	분무기	bình bơm nước(bình thuốc sâu)
+399	분실물센터	nwgtânvâtthấtlac
+400	분해하다	tháo ra
+402	불고기	thịt bò xào
+403	불다	Ithổi
+404	불도저표	xe ủi
+405	불편하다돈피	bất tiệnkhó chiu
+406	붓다	đổ vào
+407	붙이다	=olt dán
+408	비가오다	mua
+409	비누	xà bông
+410	비닐봉투	túi nilon
+411	비료	phan bon
+412	비빔밥	cơm trộn
+413	비상구	cua ra, cua thoát hiêm
+414	비슷하다일나호	giống nhau tuong  tự
+415	비싸다	đắt
+416	비자	visa
+417	비능경	máy bay
+418	빌려주다꾜따	cho vay cho mượn
+419	빌리다	vaymuợn
+421	빗다	chài(đầu)
+422	빗자루	cái chổi
+423	듬	ánh sáng
+427	사거리	ngã tu
+428	사고하	tai nạnsự cố
+429	사과	quà táo
+430	사다	mua
+431	사다리	cái thang
+432	사람	người
+433	사료들	thức ăn cho vật nuôi
+434	사무실	văn phòng
+436	사원증	the nhân viên
+437	사장실	xkztẢ
+438	사진	tấm ành
+439	사진찍다	chupành
+440	사항	điều hạng
+442	살다	sống
+443	삶다	luộc
+445	상자	cái hộp
+446	새벽	rang sáng
+447	색깔	màu sắc
+448	샌드위치	bánh mỳ sandwich
+449	생각하다	suy nghĩ
+450	생명	cuộc sống
+451	생산지	nơi sản xuất
+452	생선	cá
+453	생일고	sinh nhật
+454	샤워하다듬	tắm
+455	샴푸	Àẵ dầu gội đầu
+456	서두르다무뿌	xộivàngnhanchóng
+457	서류	tài liệu
+458	서류함	hộp đựng tài liệu
+459	서점츤	hiệu sách
+460	서투르다	lạ lẫm
+461	석유	dầu hoà,dầu mỏ
+462	선글라스	kính râm
+463	선물	quà tặng
+464	선풍	quat

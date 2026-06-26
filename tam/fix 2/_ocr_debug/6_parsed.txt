@@ -1,0 +1,85 @@
+465	설거지하다	rua bát
+466	설날	Iết
+467	설명하다	giải thích
+468	성격	tính cách
+471	세금	thuế
+472	세숫대야	chậu rura mặt
+473	세우다	đỗ,đậu xe
+474	세제	xà phòng
+475	세차하다	rua xe
+476	세탁기	máy giặt
+477	셔츠끄	á0 sƠ mi
+478	소개하다	giới thiệu
+479	소금	muối
+480	소독하다	ktungtâytùng
+481	소리지르다	la hét
+483	소방서	tram cứu hoả
+484	소장호	nguời quàn lý tổ  truởng
+485	소주	ruợu sôju
+486	소포	bu phâm
+487	소화기	bình cứu hoà
+488	소화제	thuốc tiêu hoá
+489	도	tốc độ
+491	손님	É4 khách hàng
+492	손대지마십시오	Cấm sờ
+493	손수레뿌	xe đẩỵchở hàng
+494	손잡기돈	taxcầntaykéc
+495	손잡이	ÉztoL tay cầm
+496	손전등른	đèn pin
+498	송금하다돈	gui tiền
+499	송이뿌	bông( hoa
+500	수건들	khăn mặt
+501	수리하다	sua chữa
+502	수박	dua hấu
+503	수선하다	sửa chữa, ôn ào
+504	수세미	gie rửa bát
+505	수술하다	phẫu thuật
+506	수영장	bê bơi
+507	수영하다	bơi
+508	수요일춘	thứ 4
+509	수저	thìa đũa
+511	표은	ngân phiếu
+512	숙박하다헼끄	nghi trọ lại
+513	순두부	đậu phụ
+514	순서	ắX thứ tự
+515	숟가락	cái thìa
+517	쉬다뽀	nghi ngơi
+518	쉽다	dễ
+519	스웨터	á0 len dài taỵ
+520	스위치	côngtắc điện
+521	스패너츤	cà-lê mỏ-lết
+522	슬프다	buôn
+523	습기	ÊJl hơi âm
+524	승강금지	cấm trèo leo
+525	승강기	thangmáy
+526	시간리피츤	Ehời giantiếng
+528	시너	chất long  dug dịch
+529	시다	chua
+530	시속	tốc độ / h
+531	시원하다	mát mẻ
+532	시장	chợ
+533	시의다	ỵêu cầuLs gọi đồ
+534	시합	trận đấu
+535	식당들피	nhà ănnhà hàng
+536	식물	thực vật
+537	식사하다	ăn uống
+538	진다	dép)
+539	신문	tờ báo
+540	신발위	giàỵdép
+541	신분증끠	Chứgninh thur
+542	진용카드	the tín dụg the VISA
+543	신입사원	nhân viên mới
+544	신청서	đơnđ ký đơn yêu cầu
+545	신호등위	đèntínhiêugiaothông
+546	싫어하다	ghét
+547	심각하다배른	nghiêm trong
+548	심다	trồng
+549	심심하다	buồn te nhàn rỗi
+550	싱겁다	nhạt
+551	싸다	re, gói
+552	썩다	sâu (răng
+553	쓰다	sử dựg đắng viết đội
+554	쓰레기	rác
+555	쓰레기통	thùng rác
+557	쓸다	quét
+558	꺼다	rra

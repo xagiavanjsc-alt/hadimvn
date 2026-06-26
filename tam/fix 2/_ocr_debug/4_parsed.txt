@@ -1,0 +1,77 @@
+843	진찰을받다	được chuân đoán
+844	호	hành lý
+845	집	ẵ ngôi nhà
+846	집게우들	cáinuípcáiđểgắp
+847	짓다교	xâỵ nlà
+848	짜다주최	mặn vẳt nưrớc
+849	찢다	xé rách
+850	찤꺼기에피	cặn chất thừra
+851	차갑다	lạnh đồ ăn)
+852	차단일애	giánđoan ngăn chặn
+853	차량통행	xe cộ thông hành
+854	차림표	bảng thuc đon
+855	장문	cua sô
+856	채소	rau
+858	책꽂이우	=zzol giá sách
+859	책상	cái bàn
+860	책장	giá sáchkệ sách
+861	처럼	giống nhur
+862	처방전	đơn thuốc
+864	철저	triệt đề kỹ càng
+865	첫번개춓	làn thứ nhất
+866	청소기	máy hút bụi
+867	청소하다	dọn vệ sinh
+869	체중계	cái cân
+870	초대하다	mời
+871	최근에교	gần nhất
+872	추락	rơi ngã
+875	축사	chuông gia súc
+876	출근하다	đi làm
+877	출발하다	xuất phát
+878	출입금지	cấm ra vào
+879	출입문	cửa ra vào
+880	춥다	ỀL lạnh
+881	취미	sơ thích
+882	취소	bò
+883	취직하다	izl lbã xin việc
+885	치과듬푸	khoa răng nha khoa
+886	치마	cái váỵ
+887	치약듬	thuốc đánhrăng
+889	친구	bạn bè
+890	친절하다	thân thiết
+891	침대	giuờng
+892	칫솔	bàn chải đánh răng
+893	카드	the
+894	카메라	máy ảnh
+896	칼국수	phở
+897	캐다	đào bới
+898	커피	cà phê
+899	컨베이어	auolol băngtài băngchuyền
+900	컴퓨터	náỵ vi tính
+902	켜다하돈	bật lên
+904	콘센드	cẳm
+905	크다	ad to lớn
+906	기우다	nuôi nấng dạỵ dỗ
+908	탁구를치다	chơi bóng bàn
+909	탁배하다일	giao hàng
+910	탁자	cái bàn
+911	탈의실	phòng thay đồ
+912	탑승하다돈	lên tàu xe
+913	택시	taxi
+915	토요일	thứ 7
+917	통로	Luờngthôngnhay
+918	통장	sô ngân hàng
+919	통화중춓	đang gọi điện
+920	퇴근하다하	tan sơ nghui làm
+921	튀다	làm vấy bẩn
+922	트럭	xe tài
+923	들리디뇨특	sai,nhầm
+924	틈새	khe hơ
+925	티셔츠	áo phông
+926	파손하다	Juư hỏng tổn thất
+928	팔다	#E bán
+929	페인트	son
+930	페인트칠하다	son
+931	편도	1 chiêu
+932	편리하다돈	tiện lợi
+934	편의점	siêu tị

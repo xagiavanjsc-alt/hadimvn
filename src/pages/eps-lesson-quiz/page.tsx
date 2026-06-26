@@ -245,7 +245,7 @@ function QuizScreen({
   const [timerActive, setTimerActive] = useState(true);
   const [timeLeft, setTimeLeft] = useState(30);
   const { showToast, ToastComponent } = useToast();
-  const { topicAccuracy, updateAccuracy } = ENABLE_NEW_FEATURES ? useTopicAccuracy() : { topicAccuracy: {}, updateAccuracy: () => {} };
+  const { topicAccuracy, updateAccuracy } = useTopicAccuracy();
 
   // Track topic accuracy
   useEffect(() => {

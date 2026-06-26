@@ -1,0 +1,2886 @@
+diff --git a/CLAUDE.md b/CLAUDE.md
+index 07e061b..cb25233 100644
+--- a/CLAUDE.md
++++ b/CLAUDE.md
+@@ -88,7 +88,29 @@ Mỗi page có content phải có:
+ - H1 đúng cấu trúc
+ - Schema.org markup khi phù hợp (Quiz, Article, EducationalOrganization)
+ 
+-Dùng hook `usePageSEO` đã có sẵn — KHÔNG tự viết logic SEO mới.
++Dùng hook `usePageSEO` đã có sẵn — KHÔNG tự viết logic SEO mới (không thêm
++react-helmet, next-seo, vv). Mở rộng `usePageSEO` nếu thiếu.
++
++**SEO tùy chỉnh per-content (Rank Math-style)** — đích đến cuối cho TẤT CẢ
++content có URL riêng (đề thi EPS, blog, ngữ pháp, từ vựng list, news lessons,
++trang sản phẩm VIP, v.v.):
++
++- Mỗi row content trong DB có thể có override: `meta_title`,
++  `meta_description`, `focus_keyword`, `og_image`, `schema_type`
++  (Course/Quiz/Article/Product), `canonical_url`.
++- Nếu admin để trống → **fallback về default tự sinh** (vd: meta_title =
++  title của row, meta_description = mô tả ngắn / câu đầu content, og_image =
++  ảnh cover hoặc ảnh đầu tiên, schema = type mặc định cho loại page đó).
++- Admin form (kiểu Rank Math): panel SEO collapsed, có **preview snippet
++  Google** + **keyword analysis nhẹ** (kiểm keyword có trong title / desc /
++  slug / H1).
++- KHÔNG bắt admin nhập thủ công mọi lần — defaults phải đủ tốt để bỏ trống
++  cũng vẫn pass SEO; override chỉ khi cần tinh chỉnh.
++
++**Slug rule (đã enforce, giữ nguyên)**: title-driven kebab-case ASCII,
++**bắt buộc strip dấu tiếng Việt**. URL có dấu (`/đề-số-1`) gây lỗi encoding
++trên nhiều nền tảng → không bao giờ giữ dấu trong slug, kể cả khi user yêu
++cầu giữ lại.
+ 
+ ### Rule 7: Khi không chắc — HỎI, đừng làm
+ 
+diff --git a/scripts/gen-eps-exam-seed.mjs b/scripts/gen-eps-exam-seed.mjs
+new file mode 100644
+index 0000000..fd0eb08
+--- /dev/null
++++ b/scripts/gen-eps-exam-seed.mjs
+@@ -0,0 +1,157 @@
++#!/usr/bin/env node
++// Generate supabase/migrations/122_eps_de1_de2_seed.sql from real static data
++// (src/data/eps_de1.ts, eps_de2.ts).
++//
++// Why: Đề 1 và Đề 2 là đề thật, mất 10 ngày soạn. Đem lên Supabase để admin
++// quản lý qua /admin/eps-exam-manager (sửa, đổi tên), nhưng phải khớp 100%
++// với những gì học viên đang thấy → script này import trực tiếp file TS,
++// không gõ tay câu nào.
++//
++// Idempotent: dùng deterministic UUID cho 2 exam + upsert. Chạy lại an toàn.
++
++import { createJiti } from "jiti";
++import { writeFileSync } from "node:fs";
++import { fileURLToPath } from "node:url";
++import path from "node:path";
++
++const __dirname = path.dirname(fileURLToPath(import.meta.url));
++const ROOT = path.resolve(__dirname, "..");
++const OUT = path.join(ROOT, "supabase/migrations/122_eps_de1_de2_seed.sql");
++
++const jiti = createJiti(import.meta.url, { interopDefault: true });
++const de1 = await jiti.import(path.join(ROOT, "src/data/eps_de1.ts"));
++const de2 = await jiti.import(path.join(ROOT, "src/data/eps_de2.ts"));
++
++// ─── Deterministic UUIDs (đừng đổi — re-run depends on these) ───────
++const EXAM_UUIDS = {
++  de1: "11111111-de01-4000-8000-000000000001",
++  de2: "11111111-de02-4000-8000-000000000002",
++};
++
++// ─── SQL escaping ───────────────────────────────────────────────────
++const sqlStr = (v) => {
++  if (v == null || v === "") return "NULL";
++  return `'${String(v).replace(/'/g, "''")}'`;
++};
++const sqlInt = (v) => (v == null ? "NULL" : String(parseInt(v, 10)));
++const sqlBool = (v) => (v ? "true" : "false");
++const sqlJsonb = (v) => {
++  if (v == null) return "NULL";
++  return `'${JSON.stringify(v).replace(/'/g, "''")}'::jsonb`;
++};
++
++// ─── Build exam row ─────────────────────────────────────────────────
++function examInsert(info, slug, examNo, uuid) {
++  const title = info.title;
++  const totalQ = info.totalQuestions ?? 40;
++  const timeM = info.timeMinutes ?? 50;
++  const description = `Đề thi EPS-TOPIK thật (40 câu — ${info.readingCount ?? info.readingQuestions ?? 20} đọc + ${info.listeningCount ?? info.listeningQuestions ?? 20} nghe). Có audio + giải thích chi tiết.`;
++  return `insert into public.eps_exams (id, slug, title, year, exam_no, description, total_questions, time_minutes, is_published)
++values (${sqlStr(uuid)}::uuid, ${sqlStr(slug)}, ${sqlStr(title)}, 2025, ${examNo}, ${sqlStr(description)}, ${totalQ}, ${timeM}, ${sqlBool(true)})
++on conflict (slug) do update set
++  title = excluded.title,
++  description = excluded.description,
++  total_questions = excluded.total_questions,
++  time_minutes = excluded.time_minutes,
++  is_published = excluded.is_published,
++  updated_at = now();`;
++}
++
++// ─── Build question row ─────────────────────────────────────────────
++function questionInsert(examUuid, q, explanation) {
++  // question_type fits CHECK ('listening','reading','image'):
++  // - listening section → 'listening'
++  // - reading section, option_type=image → 'image'
++  // - reading section, option_type=text  → 'reading'
++  const questionType =
++    q.section === "listening"
++      ? "listening"
++      : q.optionType === "image"
++        ? "image"
++        : "reading";
++
++  const correctAnswer = (q.correct ?? 0) + 1; // 0-based → 1-based
++  const cols = [
++    "exam_id",
++    "order_no",
++    "question_type",
++    "section",
++    "option_type",
++    "question_text",
++    "content",
++    "content_image",
++    "options",
++    "option_images",
++    "audio_script",
++    "audio_options",
++    "audio_hint",
++    "explanation",
++    "correct_answer",
++  ];
++  const vals = [
++    `${sqlStr(examUuid)}::uuid`,
++    sqlInt(q.id),
++    sqlStr(questionType),
++    sqlStr(q.section),
++    sqlStr(q.optionType),
++    sqlStr(q.prompt),
++    sqlStr(q.content),
++    sqlStr(q.contentImage),
++    sqlJsonb(q.options),
++    sqlJsonb(q.optionImages ?? null),
++    sqlStr(q.audioScript),
++    sqlJsonb(q.audioOptions ?? null),
++    sqlStr(q.audioHint),
++    sqlStr(explanation),
++    sqlInt(correctAnswer),
++  ];
++  return `insert into public.eps_questions (${cols.join(", ")})
++values (${vals.join(", ")})
++on conflict (exam_id, order_no) do update set
++  question_type = excluded.question_type,
++  section = excluded.section,
++  option_type = excluded.option_type,
++  question_text = excluded.question_text,
++  content = excluded.content,
++  content_image = excluded.content_image,
++  options = excluded.options,
++  option_images = excluded.option_images,
++  audio_script = excluded.audio_script,
++  audio_options = excluded.audio_options,
++  audio_hint = excluded.audio_hint,
++  explanation = excluded.explanation,
++  correct_answer = excluded.correct_answer;`;
++}
++
++// ─── Render ─────────────────────────────────────────────────────────
++const lines = [];
++lines.push(`-- Migration: Seed Đề 1 + Đề 2 EPS-TOPIK vào DB (idempotent).`);
++lines.push(`-- Auto-generated by scripts/gen-eps-exam-seed.mjs from`);
++lines.push(`--   src/data/eps_de1.ts (DE1_QUESTIONS + DE1_EXPLANATIONS + DE1_INFO)`);
++lines.push(`--   src/data/eps_de2.ts (DE2_QUESTIONS + DE2_EXPLANATIONS + DE2_INFO)`);
++lines.push(`-- Re-run safe: dùng deterministic UUID + upsert on conflict.`);
++lines.push(`-- Đừng sửa file này thủ công — chạy lại script khi đề tĩnh đổi.`);
++lines.push(``);
++lines.push(`begin;`);
++lines.push(``);
++lines.push(`-- ── Đề 1 ─────────────────────────────────────────────`);
++lines.push(examInsert(de1.DE1_INFO, "eps-de-1", 1, EXAM_UUIDS.de1));
++lines.push(``);
++for (const q of de1.DE1_QUESTIONS) {
++  lines.push(questionInsert(EXAM_UUIDS.de1, q, de1.DE1_EXPLANATIONS?.[q.id]));
++}
++lines.push(``);
++lines.push(`-- ── Đề 2 ─────────────────────────────────────────────`);
++lines.push(examInsert(de2.DE2_INFO, "eps-de-2", 2, EXAM_UUIDS.de2));
++lines.push(``);
++for (const q of de2.DE2_QUESTIONS) {
++  lines.push(questionInsert(EXAM_UUIDS.de2, q, de2.DE2_EXPLANATIONS?.[q.id]));
++}
++lines.push(``);
++lines.push(`commit;`);
++lines.push(``);
++
++writeFileSync(OUT, lines.join("\n"), "utf8");
++console.log(`✔ Wrote ${OUT}`);
++console.log(`  Đề 1: ${de1.DE1_QUESTIONS.length} câu`);
++console.log(`  Đề 2: ${de2.DE2_QUESTIONS.length} câu`);
+diff --git a/src/components/feature/AdminLayout.tsx b/src/components/feature/AdminLayout.tsx
+index 9eba6f2..f56cb01 100644
+--- a/src/components/feature/AdminLayout.tsx
++++ b/src/components/feature/AdminLayout.tsx
+@@ -41,6 +41,7 @@ const adminNavGroups = [
+       { path: "/admin/eps-new", icon: "ri-add-circle-line", label: "Thêm bài EPS mới", permission: "eps.edit" as Permission },
+       { path: "/admin/eps-upload", icon: "ri-upload-cloud-2-line", label: "Upload ảnh EPS", permission: "eps.upload" as Permission },
+       { path: "/admin/eps-vocab-excel", icon: "ri-file-excel-2-line", label: "Upload từ vựng Excel/CSV", permission: "eps.upload" as Permission },
++      { path: "/admin/eps-exam-manager", icon: "ri-file-list-3-line", label: "Quản lý đề thi EPS", permission: "eps.upload" as Permission },
+       { path: "/admin/upload", icon: "ri-upload-cloud-2-line", label: "Upload & AI tổng hợp", permission: "eps.upload" as Permission },
+       { path: "/admin/audio", icon: "ri-volume-up-line", label: "Audio TTS Cache", permission: "eps.edit" as Permission },
+     ],
+diff --git a/src/hooks/useCoupons.ts b/src/hooks/useCoupons.ts
+index 8881ffa..8c227ac 100644
+--- a/src/hooks/useCoupons.ts
++++ b/src/hooks/useCoupons.ts
+@@ -12,9 +12,9 @@ interface DbCoupon {
+   usage_count: number;
+   max_usage: number | null;
+   coupon_type: "ebook" | "vip";
+-  vip_plan: "month" | "year" | null;
++  vip_plan: "month" | "year" | "both" | null;
+   note: string | null;
+-  active: boolean;
++  is_active: boolean;
+   created_at: string;
+ }
+ 
+@@ -31,14 +31,17 @@ function dbToLocal(c: DbCoupon): Coupon {
+     couponType: c.coupon_type,
+     vipPlan: c.vip_plan ?? undefined,
+     note: c.note ?? undefined,
+-    active: c.active,
++    active: c.is_active,
+     createdAt: c.created_at,
+   };
+ }
+ 
+-function localToDb(c: Coupon): Omit<DbCoupon, "created_at"> {
++// `id` is omitted for new coupons — DB defaults to gen_random_uuid().
++// For updates we still send it via the upsert key.
++function localToDb(c: Coupon): Omit<DbCoupon, "created_at" | "id"> & { id?: string } {
++  const isClientId = c.id.startsWith("cpn-");
+   return {
+-    id: c.id,
++    ...(isClientId ? {} : { id: c.id }),
+     code: c.code,
+     discount: c.discount,
+     discount_type: c.discountType,
+@@ -49,7 +52,7 @@ function localToDb(c: Coupon): Omit<DbCoupon, "created_at"> {
+     coupon_type: c.couponType,
+     vip_plan: c.vipPlan ?? null,
+     note: c.note ?? null,
+-    active: c.active,
++    is_active: c.active,
+   };
+ }
+ 
+@@ -71,15 +74,28 @@ export function useCoupons() {
+ 
+   const saveCoupon = useCallback(async (coupon: Coupon) => {
+     const dbData = localToDb(coupon);
++    const isClientId = !("id" in dbData);
++    // New coupon → insert (DB gens UUID, returns the row).
++    // Existing coupon → update by id.
++    if (isClientId) {
++      const { data, error } = await supabase
++        .from("coupons")
++        .insert({ ...dbData, updated_at: new Date().toISOString() })
++        .select()
++        .single();
++      if (error) return false;
++      if (data) {
++        const saved = dbToLocal(data as DbCoupon);
++        setCoupons(prev => [saved, ...prev]);
++      }
++      return true;
++    }
+     const { error } = await supabase
+       .from("coupons")
+-      .upsert({ ...dbData, updated_at: new Date().toISOString() }, { onConflict: "id" });
++      .update({ ...dbData, updated_at: new Date().toISOString() })
++      .eq("id", coupon.id);
+     if (!error) {
+-      setCoupons(prev => {
+-        const exists = prev.find(c => c.id === coupon.id);
+-        if (exists) return prev.map(c => c.id === coupon.id ? coupon : c);
+-        return [coupon, ...prev];
+-      });
++      setCoupons(prev => prev.map(c => c.id === coupon.id ? coupon : c));
+     }
+     return !error;
+   }, []);
+@@ -96,7 +112,7 @@ export function useCoupons() {
+     const newActive = !coupon.active;
+     const { error } = await supabase
+       .from("coupons")
+-      .update({ active: newActive, updated_at: new Date().toISOString() })
++      .update({ is_active: newActive, updated_at: new Date().toISOString() })
+       .eq("id", id);
+     if (error) {
+       console.warn("[useCoupons] toggleCoupon failed:", error.message);
+diff --git a/src/hooks/useEpsExams.ts b/src/hooks/useEpsExams.ts
+new file mode 100644
+index 0000000..7d318ea
+--- /dev/null
++++ b/src/hooks/useEpsExams.ts
+@@ -0,0 +1,171 @@
++import { useCallback, useEffect, useState } from "react";
++import { supabase, resolveExamImageUrl } from "@/lib/supabase";
++
++// ─── Shape khớp với De1Question/De2Question (0-based correct) ────────────────
++// Frontend trang thi /eps-de1, /eps-de2 đã có sẵn renderer cho cấu trúc này.
++// Hook map row DB → shape này để tái dùng UI, không viết lại.
++export interface DbExamQuestion {
++  id: number;
++  section: "reading" | "listening";
++  optionType: "text" | "image";
++  prompt: string;
++  content?: string;
++  contentImage?: string;
++  optionImages?: string[];
++  audioScript?: string;
++  audioOptions?: string[];
++  audioHint?: string;
++  options: string[];
++  correct: number; // 0-based (DB lưu 1-based, hook đã -1)
++}
++
++export interface DbExam {
++  id: string;
++  slug: string;
++  title: string;
++  year: number;
++  examNo: number;
++  description: string;
++  totalQuestions: number;
++  timeMinutes: number;
++  questions: DbExamQuestion[];
++  explanations: Record<number, string>;
++}
++
++export interface DbExamSummary {
++  id: string;
++  slug: string;
++  title: string;
++  year: number;
++  examNo: number;
++  totalQuestions: number;
++  timeMinutes: number;
++}
++
++function mapRow(r: Record<string, unknown>): DbExamQuestion {
++  const section = (r.section ?? r.question_type) as DbExamQuestion["section"];
++  const optionType =
++    (r.option_type as DbExamQuestion["optionType"]) ??
++    (r.question_type === "image" ? "image" : "text");
++  const optionImagesRaw = (r.option_images as string[] | null) ?? undefined;
++  return {
++    id: r.order_no as number,
++    section: section === "listening" ? "listening" : "reading",
++    optionType: optionType === "image" ? "image" : "text",
++    prompt: (r.question_text as string) ?? "",
++    content: (r.content as string) || undefined,
++    contentImage: (r.content_image as string) ? resolveExamImageUrl(r.content_image as string) : undefined,
++    optionImages: optionImagesRaw ? optionImagesRaw.map(resolveExamImageUrl) : undefined,
++    audioScript: (r.audio_script as string) || undefined,
++    audioOptions: (r.audio_options as string[]) || undefined,
++    audioHint: (r.audio_hint as string) || undefined,
++    options: (r.options as string[]) ?? [],
++    correct: Math.max(0, ((r.correct_answer as number) ?? 1) - 1),
++  };
++}
++
++// ─── List published exams (cho trang /eps-exams) ─────────────────────────────
++export function useEpsExamList() {
++  const [exams, setExams] = useState<DbExamSummary[]>([]);
++  const [loading, setLoading] = useState(true);
++  const [error, setError] = useState<string | null>(null);
++
++  useEffect(() => {
++    let cancelled = false;
++    (async () => {
++      const { data, error: err } = await supabase
++        .from("eps_exams")
++        .select("id, slug, title, year, exam_no, total_questions, time_minutes")
++        .eq("is_published", true)
++        .order("year", { ascending: false })
++        .order("exam_no", { ascending: true });
++      if (cancelled) return;
++      if (err) {
++        setError(err.message);
++        setExams([]);
++      } else {
++        setExams(
++          (data ?? []).map((r) => ({
++            id: r.id,
++            slug: r.slug,
++            title: r.title,
++            year: r.year,
++            examNo: r.exam_no,
++            totalQuestions: r.total_questions,
++            timeMinutes: r.time_minutes,
++          })),
++        );
++      }
++      setLoading(false);
++    })();
++    return () => {
++      cancelled = true;
++    };
++  }, []);
++
++  return { exams, loading, error };
++}
++
++// ─── Load full exam by slug (cho trang /eps-de1, /eps-de2, hoặc đề DB mới) ──
++export function useEpsExam(slug: string | null | undefined) {
++  const [exam, setExam] = useState<DbExam | null>(null);
++  const [loading, setLoading] = useState(!!slug);
++  const [error, setError] = useState<string | null>(null);
++
++  const reload = useCallback(async () => {
++    if (!slug) {
++      setExam(null);
++      setLoading(false);
++      return;
++    }
++    setLoading(true);
++    setError(null);
++    const { data: examRow, error: examErr } = await supabase
++      .from("eps_exams")
++      .select("*")
++      .eq("slug", slug)
++      .eq("is_published", true)
++      .maybeSingle();
++    if (examErr || !examRow) {
++      setExam(null);
++      setError(examErr?.message ?? null);
++      setLoading(false);
++      return;
++    }
++    const { data: qRows, error: qErr } = await supabase
++      .from("eps_questions")
++      .select("*")
++      .eq("exam_id", examRow.id)
++      .order("order_no", { ascending: true });
++    if (qErr) {
++      setExam(null);
++      setError(qErr.message);
++      setLoading(false);
++      return;
++    }
++    const questions = (qRows ?? []).map(mapRow);
++    const explanations: Record<number, string> = {};
++    for (const r of qRows ?? []) {
++      if (r.explanation) explanations[r.order_no as number] = r.explanation as string;
++    }
++    setExam({
++      id: examRow.id,
++      slug: examRow.slug,
++      title: examRow.title,
++      year: examRow.year,
++      examNo: examRow.exam_no,
++      description: examRow.description ?? "",
++      totalQuestions: examRow.total_questions,
++      timeMinutes: examRow.time_minutes,
++      questions,
++      explanations,
++    });
++    setLoading(false);
++  }, [slug]);
++
++  useEffect(() => {
++    reload();
++  }, [reload]);
++
++  return { exam, loading, error, reload };
++}
+diff --git a/src/lib/supabase.ts b/src/lib/supabase.ts
+index 93a433d..dbc8f56 100644
+--- a/src/lib/supabase.ts
++++ b/src/lib/supabase.ts
+@@ -50,6 +50,17 @@ export function getStorageUrl(relativePath: string | null | undefined): string {
+   return `${STORAGE_BASE}/${relativePath}`;
+ }
+ 
++// EPS exam images can come from 3 places:
++//   1. Static `public/de1/...`, `public/de2/...` (legacy seed) → path starts with `/`, use as-is.
++//   2. Supabase Storage bucket `eps-exams` → admin-uploaded, prepend storage URL.
++//   3. Already a full URL → return unchanged.
++export function resolveExamImageUrl(path: string | null | undefined): string {
++  if (!path) return "";
++  if (path.startsWith("http")) return path;
++  if (path.startsWith("/")) return path;
++  return `${STORAGE_BASE}/eps-exams/${path}`;
++}
++
+ /**
+  * Replace all {{storage:path}} placeholders in content with full URLs.
+  * Store relative paths in DB, convert to full URLs only when rendering.
+diff --git a/src/pages/admin-coupon/page.tsx b/src/pages/admin-coupon/page.tsx
+index 7c89e2f..fd13e99 100644
+--- a/src/pages/admin-coupon/page.tsx
++++ b/src/pages/admin-coupon/page.tsx
+@@ -19,7 +19,7 @@ export interface Coupon {
+   note?: string;
+   active: boolean;
+   couponType: "ebook" | "vip";
+-  vipPlan?: "month" | "year";
++  vipPlan?: "month" | "year" | "both";
+ }
+ 
+ const CHANNEL_OPTIONS = [
+@@ -40,7 +40,7 @@ function CouponForm({ initial, series, onSave, onCancel }: {
+   const [maxUsage, setMaxUsage] = useState(String(initial?.maxUsage ?? ""));
+   const [note, setNote] = useState(initial?.note ?? "");
+   const [couponType, setCouponType] = useState<"ebook" | "vip">(initial?.couponType ?? "ebook");
+-  const [vipPlan, setVipPlan] = useState<"month" | "year">(initial?.vipPlan ?? "month");
++  const [vipPlan, setVipPlan] = useState<"month" | "year" | "both">(initial?.vipPlan ?? "both");
+ 
+   const generateCode = () => {
+     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+@@ -51,15 +51,29 @@ function CouponForm({ initial, series, onSave, onCancel }: {
+ 
+   const handleSave = () => {
+     if (!code.trim() || !discount) return;
++    const discountVal = parseFloat(discount);
++    if (!Number.isFinite(discountVal) || discountVal <= 0) {
++      alert("Mức giảm phải là số dương");
++      return;
++    }
++    if (discountType === "percent" && discountVal > 100) {
++      alert("Mức giảm % không được vượt quá 100");
++      return;
++    }
++    const maxUsageVal = maxUsage ? parseInt(maxUsage) : null;
++    if (maxUsageVal !== null && (!Number.isFinite(maxUsageVal) || maxUsageVal <= 0)) {
++      alert("Giới hạn dùng phải là số dương (hoặc để trống = không giới hạn)");
++      return;
++    }
+     onSave({
+       id: initial?.id ?? `cpn-${Date.now()}`,
+       code: code.trim().toUpperCase(),
+-      discount: parseFloat(discount),
++      discount: discountVal,
+       discountType,
+       channel,
+       seriesId: couponType === "ebook" ? seriesId : "all",
+       usageCount: initial?.usageCount ?? 0,
+-      maxUsage: maxUsage ? parseInt(maxUsage) : null,
++      maxUsage: maxUsageVal,
+       createdAt: initial?.createdAt ?? new Date().toISOString(),
+       note: note.trim() || undefined,
+       active: initial?.active ?? true,
+@@ -140,29 +154,33 @@ function CouponForm({ initial, series, onSave, onCancel }: {
+                 <button
+                   onClick={() => setDiscountType("fixed")}
+                   className={`px-4 py-2.5 text-xs font-bold transition-colors cursor-pointer whitespace-nowrap ${discountType === "fixed" ? "bg-rose-500 text-white" : "text-app-text-secondary hover:text-white/70"}`}
++                  title="Đơn vị: nghìn đồng. VD: nhập 50 = giảm 50.000đ"
+                 >
+-                  VNĐ
++                  K đ
+                 </button>
+               </div>
+             </div>
++            {discountType === "fixed" && (
++              <p className="text-[10px] text-app-text-muted mt-1">
++                <i className="ri-information-line mr-0.5"></i>
++                Đơn vị: <span className="text-white/60 font-semibold">nghìn đồng</span>. VD: nhập <span className="font-mono text-white/60">50</span> = giảm <span className="font-mono text-white/60">50.000đ</span>
++              </p>
++            )}
+           </div>
+ 
+           {couponType === "vip" && (
+             <div>
+               <label className="text-app-text-secondary text-xs font-medium block mb-1.5">Áp dụng cho gói VIP</label>
+               <div className="flex bg-app-card/50 border border-app-border rounded-lg overflow-hidden">
+-                <button
+-                  onClick={() => setVipPlan("month")}
+-                  className={`flex-1 px-4 py-2.5 text-xs font-bold transition-colors cursor-pointer whitespace-nowrap ${vipPlan === "month" ? "bg-app-accent-primary/20 text-app-accent-primary" : "text-app-text-secondary hover:text-white/70"}`}
+-                >
+-                  Tháng
+-                </button>
+-                <button
+-                  onClick={() => setVipPlan("year")}
+-                  className={`flex-1 px-4 py-2.5 text-xs font-bold transition-colors cursor-pointer whitespace-nowrap ${vipPlan === "year" ? "bg-app-accent-primary/20 text-app-accent-primary" : "text-app-text-secondary hover:text-white/70"}`}
+-                >
+-                  Năm
+-                </button>
++                {(["both", "month", "year"] as const).map(p => (
++                  <button
++                    key={p}
++                    onClick={() => setVipPlan(p)}
++                    className={`flex-1 px-3 py-2.5 text-xs font-bold transition-colors cursor-pointer whitespace-nowrap ${vipPlan === p ? "bg-app-accent-primary/20 text-app-accent-primary" : "text-app-text-secondary hover:text-white/70"}`}
++                  >
++                    {p === "both" ? "Cả hai" : p === "month" ? "Tháng" : "Năm"}
++                  </button>
++                ))}
+               </div>
+             </div>
+           )}
+@@ -539,7 +557,9 @@ export default function AdminCouponPage() {
+                     <span className="text-app-text-secondary text-[10px] flex-1 truncate">{c.channel}</span>
+ 
+                     <span className="text-app-text-muted text-[10px] truncate max-w-[80px]">
+-                      {c.couponType === "vip" ? (c.vipPlan === "year" ? "VIP Năm" : "VIP Tháng") : (c.seriesId === "all" ? "Tất cả" : (s?.name ?? "?"))}
++                      {c.couponType === "vip"
++                        ? (c.vipPlan === "year" ? "VIP Năm" : c.vipPlan === "month" ? "VIP Tháng" : "VIP cả hai")
++                        : (c.seriesId === "all" ? "Tất cả" : (s?.name ?? "?"))}
+                     </span>
+ 
+                     <div className="text-right flex-shrink-0">
+diff --git a/src/pages/admin-eps-exam-manager/page.tsx b/src/pages/admin-eps-exam-manager/page.tsx
+index abfafc8..55a5717 100644
+--- a/src/pages/admin-eps-exam-manager/page.tsx
++++ b/src/pages/admin-eps-exam-manager/page.tsx
+@@ -29,6 +29,16 @@ interface Question {
+   image_url: string | null;
+   difficulty: string;
+   topic: string;
++  // Field bổ sung từ migration 121 (đề 1/2 dùng):
++  section: string | null;
++  option_type: string | null;
++  content: string | null;
++  content_image: string | null;
++  option_images: string[] | null;
++  audio_script: string | null;
++  audio_options: string[] | null;
++  audio_hint: string | null;
++  explanation: string | null;
+ }
+ 
+ const INITIAL_EXAM = {
+@@ -53,8 +63,60 @@ const INITIAL_QUESTION = {
+   image_url: "",
+   difficulty: "medium" as string,
+   topic: "",
++  // Field bổ sung (đề 1/2):
++  section: "reading" as string,
++  option_type: "text" as string,
++  content: "",
++  content_image: "",
++  option_images: ["", "", "", ""],
++  audio_script: "",
++  audio_options: ["", "", "", ""],
++  audio_hint: "",
++  explanation: "",
+ };
+ 
++// ─── Helpers ──────────────────────────────────────────────────────────
++// Vietnamese-aware slugify. "Đề số 1" → "de-so-1", "Đề thi EPS-TOPIK 2025"
++// → "de-thi-eps-topik-2025". Strips diacritics, lowercases, collapses to
++// kebab-case. Leaves the existing slug behavior in seed data ('eps-de-1')
++// alone — only used when admin types in the title field.
++function slugify(str: string): string {
++  return str
++    .toLowerCase()
++    .normalize("NFD").replace(/[̀-ͯ]/g, "")
++    .replace(/đ/g, "d")
++    .replace(/ư/g, "u")
++    .replace(/ơ/g, "o")
++    .replace(/[^a-z0-9\s-]/g, "")
++    .trim()
++    .replace(/\s+/g, "-")
++    .replace(/-+/g, "-");
++}
++
++// Convert any non-webp image to webp via canvas at the given quality.
++// Audio / svg / gif passes through untouched (svg loses scalability,
++// gif loses animation, audio is irrelevant). Falls back to original on
++// any error so we never block an upload.
++async function convertImageToWebp(file: File, quality = 0.85): Promise<File> {
++  if (!file.type.startsWith("image/")) return file;
++  if (file.type === "image/webp" || file.type === "image/svg+xml" || file.type === "image/gif") return file;
++  try {
++    const bitmap = await createImageBitmap(file);
++    const canvas = document.createElement("canvas");
++    canvas.width = bitmap.width;
++    canvas.height = bitmap.height;
++    const ctx = canvas.getContext("2d");
++    if (!ctx) return file;
++    ctx.drawImage(bitmap, 0, 0);
++    const blob = await new Promise<Blob | null>(resolve => canvas.toBlob(resolve, "image/webp", quality));
++    if (!blob) return file;
++    const newName = file.name.replace(/\.[^.]+$/, "") + ".webp";
++    return new File([blob], newName, { type: "image/webp" });
++  } catch {
++    return file;
++  }
++}
++
+ // ─── File Upload Zone ─────────────────────────────────────────────────
+ function FileUploadZone({
+   label,
+@@ -74,16 +136,18 @@ function FileUploadZone({
+   const [dragging, setDragging] = useState(false);
+   const [uploading, setUploading] = useState(false);
+ 
+-  const handleFile = async (file: File) => {
+-    if (!file) return;
++  const handleFile = async (rawFile: File) => {
++    if (!rawFile) return;
+     setUploading(true);
++    const file = await convertImageToWebp(rawFile);
+     const ext = file.name.split(".").pop() || "";
+     const fileName = `${pathPrefix}/${Date.now()}_${Math.random().toString(36).slice(2, 8)}.${ext}`;
+     const { error } = await supabase.storage.from("eps-exams").upload(fileName, file, { upsert: true });
+     setUploading(false);
+     if (error) { showToast("Upload lỗi: " + error.message, "error"); return; }
+     onUploaded(fileName);
+-    showToast("Đã upload: " + fileName, "success");
++    const sizeKB = Math.round(file.size / 1024);
++    showToast(`Đã upload (${sizeKB} KB${file.type === "image/webp" && rawFile.type !== "image/webp" ? ", chuyển .webp" : ""})`, "success");
+   };
+ 
+   const handleDrop = useCallback((e: React.DragEvent) => {
+@@ -95,7 +159,7 @@ function FileUploadZone({
+ 
+   return (
+     <div>
+-      <label className="text-app-text-secondary text-xs block mb-1">{label}</label>
++      {label && <label className="text-app-text-secondary text-xs block mb-1">{label}</label>}
+       <div
+         onDragOver={e => { e.preventDefault(); setDragging(true); }}
+         onDragLeave={() => setDragging(false)}
+@@ -145,6 +209,9 @@ export default function AdminEpsExamManagerPage() {
+   const [qForm, setQForm] = useState(INITIAL_QUESTION);
+   const [showQForm, setShowQForm] = useState(false);
+   const [editingQ, setEditingQ] = useState<Question | null>(null);
++  // When creating new, auto-derive slug from the title (WP-style). Switches off
++  // the moment the admin types in the slug box, so manual overrides stick.
++  const [slugAuto, setSlugAuto] = useState(true);
+ 
+   const fetchExams = useCallback(async () => {
+     setLoading(true);
+@@ -172,10 +239,11 @@ export default function AdminEpsExamManagerPage() {
+ 
+   const saveExam = async () => {
+     if (!form.slug || !form.title) { showToast("Thiếu slug hoặc tên đề thi", "error"); return; }
++    // Check slug trùng với đề KHÁC (lúc tạo mới: với mọi đề; lúc sửa: trừ chính nó).
++    const slugConflict = exams.find(e => e.slug === form.slug && e.id !== selectedExam?.id);
++    if (slugConflict) { showToast(`Slug "${form.slug}" đã được dùng cho đề khác`, "error"); return; }
+     const payload = { ...form };
+-    const { error } = form.slug && exams.find(e => e.slug === form.slug && e.id !== selectedExam?.id)
+-      ? await supabase.from("eps_exams").update(payload).eq("id", selectedExam!.id)
+-      : selectedExam
++    const { error } = selectedExam
+       ? await supabase.from("eps_exams").update(payload).eq("id", selectedExam.id)
+       : await supabase.from("eps_exams").insert([payload]);
+     if (error) { showToast("Lỗi lưu: " + error.message, "error"); return; }
+@@ -195,26 +263,93 @@ export default function AdminEpsExamManagerPage() {
+     fetchExams();
+   };
+ 
+-  const saveQuestion = async () => {
++  const loadQuestionIntoForm = useCallback((q: Question) => {
++    setEditingQ(q);
++    setQForm({
++      order_no: q.order_no,
++      question_type: q.question_type,
++      question_text: q.question_text,
++      question_vi: q.question_vi || "",
++      options: q.options || ["", "", "", ""],
++      correct_answer: q.correct_answer,
++      audio_url: q.audio_url || "",
++      image_url: q.image_url || "",
++      difficulty: q.difficulty,
++      topic: q.topic || "",
++      section: q.section || "reading",
++      option_type: q.option_type || "text",
++      content: q.content || "",
++      content_image: q.content_image || "",
++      option_images: q.option_images || ["", "", "", ""],
++      audio_script: q.audio_script || "",
++      audio_options: q.audio_options || ["", "", "", ""],
++      audio_hint: q.audio_hint || "",
++      explanation: q.explanation || "",
++    });
++    setShowQForm(true);
++  }, []);
++
++  const saveQuestion = async (then: "prev" | "next" | "close" = "close") => {
+     if (!selectedExam) return;
+     if (!qForm.question_text || qForm.options.some(o => !o)) {
+       showToast("Thiếu nội dung câu hỏi hoặc đáp án", "error"); return;
+     }
++    const cleanArr = (xs: string[]) => xs.every(x => !x) ? null : xs;
+     const payload = {
+-      ...qForm,
+       exam_id: selectedExam.id,
++      order_no: qForm.order_no,
++      question_type: qForm.question_type,
++      question_text: qForm.question_text,
++      question_vi: qForm.question_vi || null,
++      options: qForm.options,
++      correct_answer: qForm.correct_answer,
+       audio_url: qForm.audio_url || null,
+       image_url: qForm.image_url || null,
++      difficulty: qForm.difficulty,
++      topic: qForm.topic || null,
++      section: qForm.section || null,
++      option_type: qForm.option_type || null,
++      content: qForm.content || null,
++      content_image: qForm.content_image || null,
++      option_images: cleanArr(qForm.option_images),
++      audio_script: qForm.audio_script || null,
++      audio_options: cleanArr(qForm.audio_options),
++      audio_hint: qForm.audio_hint || null,
++      explanation: qForm.explanation || null,
+     };
+     const { error } = editingQ
+       ? await supabase.from("eps_questions").update(payload).eq("id", editingQ.id)
+       : await supabase.from("eps_questions").insert([payload]);
+     if (error) { showToast("Lỗi lưu câu hỏi: " + error.message, "error"); return; }
+-    showToast(editingQ ? "Đã cập nhật câu hỏi" : "Đã thêm câu hỏi", "success");
+-    setShowQForm(false);
+-    setQForm(INITIAL_QUESTION);
+-    setEditingQ(null);
+-    fetchQuestions(selectedExam.id);
++
++    // Reload list and decide where to go next.
++    const { data: fresh } = await supabase
++      .from("eps_questions")
++      .select("*")
++      .eq("exam_id", selectedExam.id)
++      .order("order_no", { ascending: true });
++    const list = (fresh as Question[]) || [];
++    setQuestions(list);
++
++    if (then === "close") {
++      showToast(editingQ ? "Đã cập nhật câu hỏi" : "Đã thêm câu hỏi", "success");
++      setShowQForm(false);
++      setQForm(INITIAL_QUESTION);
++      setEditingQ(null);
++      return;
++    }
++
++    const targetOrder = qForm.order_no + (then === "next" ? 1 : -1);
++    const target = list.find(q => q.order_no === targetOrder);
++    if (target) {
++      showToast(`Đã lưu câu ${qForm.order_no} → câu ${targetOrder}`, "success");
++      loadQuestionIntoForm(target);
++    } else {
++      showToast(`Đã lưu — không có câu ${targetOrder}`, "success");
++      setShowQForm(false);
++      setQForm(INITIAL_QUESTION);
++      setEditingQ(null);
++    }
+   };
+ 
+   const deleteQuestion = async (id: string) => {
+@@ -237,13 +372,17 @@ export default function AdminEpsExamManagerPage() {
+       time_minutes: exam.time_minutes,
+       is_published: exam.is_published,
+     });
++    setSlugAuto(false);
+     setShowForm(true);
+     fetchQuestions(exam.id);
+   };
+ 
+   const openNew = () => {
+     setSelectedExam(null);
+-    setForm(INITIAL_EXAM);
++    const currentYear = new Date().getFullYear();
++    const maxThisYear = Math.max(0, ...exams.filter(e => e.year === currentYear).map(e => e.exam_no));
++    setForm({ ...INITIAL_EXAM, year: currentYear, exam_no: maxThisYear + 1, slug: "" });
++    setSlugAuto(true);
+     setQuestions([]);
+     setShowForm(true);
+   };
+@@ -268,28 +407,58 @@ export default function AdminEpsExamManagerPage() {
+             <h3 className="text-white font-semibold text-sm">
+               {selectedExam ? `Sửa đề: ${selectedExam.title}` : "Tạo đề thi mới"}
+             </h3>
+-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+-              <div>
+-                <label className="text-app-text-secondary text-xs block mb-1">Slug (unique)</label>
+-                <input value={form.slug} onChange={e => setForm({ ...form, slug: e.target.value })} placeholder="eps-de-1-2025" className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-sm placeholder-white/25 focus:outline-none focus:border-app-accent-primary/50" />
+-              </div>
++            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+               <div>
+                 <label className="text-app-text-secondary text-xs block mb-1">Tên đề thi</label>
+-                <input value={form.title} onChange={e => setForm({ ...form, title: e.target.value })} placeholder="Đề thi EPS-TOPIK 2025 đợt 1" className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-sm placeholder-white/25 focus:outline-none focus:border-app-accent-primary/50" />
+-              </div>
+-              <div>
+-                <label className="text-app-text-secondary text-xs block mb-1">Năm</label>
+-                <input type="number" value={form.year} onChange={e => setForm({ ...form, year: parseInt(e.target.value) || 0 })} className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-sm focus:outline-none focus:border-app-accent-primary/50" />
++                <input
++                  value={form.title}
++                  onChange={e => {
++                    const title = e.target.value;
++                    setForm(f => ({ ...f, title, slug: slugAuto ? slugify(title) : f.slug }));
++                  }}
++                  placeholder="Đề số 1, Đề thi EPS-TOPIK 2025 đợt 1, ..."
++                  className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-sm placeholder-white/25 focus:outline-none focus:border-app-accent-primary/50"
++                />
+               </div>
+               <div>
+-                <label className="text-app-text-secondary text-xs block mb-1">Số đề</label>
+-                <input type="number" value={form.exam_no} onChange={e => setForm({ ...form, exam_no: parseInt(e.target.value) || 1 })} className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-sm focus:outline-none focus:border-app-accent-primary/50" />
++                <label className="text-app-text-secondary text-xs block mb-1">
++                  Slug URL {slugAuto && <span className="text-emerald-400/60 text-[10px]">• tự sinh từ tên</span>}
++                </label>
++                <input
++                  value={form.slug}
++                  onChange={e => { setSlugAuto(false); setForm({ ...form, slug: e.target.value }); }}
++                  placeholder="de-so-1"
++                  className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-sm placeholder-white/25 focus:outline-none focus:border-app-accent-primary/50"
++                />
+               </div>
+             </div>
+             <div>
+               <label className="text-app-text-secondary text-xs block mb-1">Mô tả</label>
+               <textarea value={form.description} onChange={e => setForm({ ...form, description: e.target.value })} rows={2} className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-sm placeholder-white/25 focus:outline-none focus:border-app-accent-primary/50" />
+             </div>
++            <details className="bg-app-bg/40 rounded-lg px-3 py-2 border border-app-border">
++              <summary className="cursor-pointer text-app-text-secondary text-xs font-medium select-none">
++                <i className="ri-settings-3-line mr-1"></i>Thông số nâng cao (năm, số đề, số câu, phút)
++              </summary>
++              <div className="mt-3 grid grid-cols-2 sm:grid-cols-4 gap-3">
++                <div>
++                  <label className="text-app-text-secondary text-xs block mb-1">Năm</label>
++                  <input type="number" value={form.year} onChange={e => setForm({ ...form, year: parseInt(e.target.value) || 0 })} className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-sm focus:outline-none focus:border-app-accent-primary/50" />
++                </div>
++                <div>
++                  <label className="text-app-text-secondary text-xs block mb-1">Số đề</label>
++                  <input type="number" value={form.exam_no} onChange={e => setForm({ ...form, exam_no: parseInt(e.target.value) || 1 })} className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-sm focus:outline-none focus:border-app-accent-primary/50" />
++                </div>
++                <div>
++                  <label className="text-app-text-secondary text-xs block mb-1">Số câu</label>
++                  <input type="number" value={form.total_questions} onChange={e => setForm({ ...form, total_questions: parseInt(e.target.value) || 40 })} className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-sm focus:outline-none focus:border-app-accent-primary/50" />
++                </div>
++                <div>
++                  <label className="text-app-text-secondary text-xs block mb-1">Phút</label>
++                  <input type="number" value={form.time_minutes} onChange={e => setForm({ ...form, time_minutes: parseInt(e.target.value) || 50 })} className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-sm focus:outline-none focus:border-app-accent-primary/50" />
++                </div>
++              </div>
++            </details>
+             <div className="flex items-center gap-4">
+               <label className="flex items-center gap-2 text-white/70 text-sm cursor-pointer">
+                 <input type="checkbox" checked={form.is_published} onChange={e => setForm({ ...form, is_published: e.target.checked })} className="rounded accent-app-accent-primary" />
+@@ -427,6 +596,105 @@ export default function AdminEpsExamManagerPage() {
+                     ))}
+                   </div>
+                 </div>
++
++                {/* Field bổ sung cho đề thực (đề 1, 2) */}
++                <details className="bg-app-bg/40 rounded-lg px-3 py-2 border border-app-border">
++                  <summary className="cursor-pointer text-app-text-secondary text-xs font-medium select-none">
++                    <i className="ri-settings-3-line mr-1"></i>Nâng cao (section, content, audio script, giải thích)
++                  </summary>
++                  <div className="mt-3 space-y-3">
++                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
++                      <div>
++                        <label className="text-app-text-secondary text-xs block mb-1">Section</label>
++                        <select value={qForm.section} onChange={e => setQForm({ ...qForm, section: e.target.value })} className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-sm focus:outline-none focus:border-app-accent-primary/50">
++                          <option value="reading">Đọc (reading)</option>
++                          <option value="listening">Nghe (listening)</option>
++                        </select>
++                      </div>
++                      <div>
++                        <label className="text-app-text-secondary text-xs block mb-1">Kiểu đáp án</label>
++                        <select value={qForm.option_type} onChange={e => setQForm({ ...qForm, option_type: e.target.value })} className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-sm focus:outline-none focus:border-app-accent-primary/50">
++                          <option value="text">Chữ (text)</option>
++                          <option value="image">4 ảnh (image)</option>
++                        </select>
++                      </div>
++                    </div>
++                    <div>
++                      <label className="text-app-text-secondary text-xs block mb-1">Content (đoạn văn / từ phụ tách khỏi prompt)</label>
++                      <textarea value={qForm.content} onChange={e => setQForm({ ...qForm, content: e.target.value })} rows={2} className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-sm placeholder-white/25 focus:outline-none focus:border-app-accent-primary/50" />
++                    </div>
++                    <div>
++                      <label className="text-app-text-secondary text-xs block mb-1">Content image (ảnh đoạn văn / biểu đồ)</label>
++                      <FileUploadZone
++                        label=""
++                        accept="image/*,.png,.jpg,.jpeg,.webp"
++                        pathPrefix="images"
++                        value={qForm.content_image}
++                        onUploaded={path => setQForm({ ...qForm, content_image: path })}
++                      />
++                      <input
++                        value={qForm.content_image}
++                        onChange={e => setQForm({ ...qForm, content_image: e.target.value })}
++                        placeholder="hoặc gõ path tay (vd: /de1/p3_img3.webp)"
++                        className="w-full mt-2 px-3 py-1.5 rounded-lg bg-app-bg border border-app-border text-white/70 text-xs font-mono placeholder-white/25 focus:outline-none focus:border-app-accent-primary/50"
++                      />
++                    </div>
++                    <div>
++                      <label className="text-app-text-secondary text-xs block mb-1">4 ảnh đáp án (option_type=image)</label>
++                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
++                        {[0, 1, 2, 3].map(i => (
++                          <div key={i}>
++                            <div className="text-[10px] text-app-text-muted mb-1">{String.fromCharCode(65 + i)}</div>
++                            <FileUploadZone
++                              label=""
++                              accept="image/*,.png,.jpg,.jpeg,.webp"
++                              pathPrefix="images"
++                              value={qForm.option_images[i] || ""}
++                              onUploaded={path => {
++                                const newImgs = [...qForm.option_images];
++                                while (newImgs.length < 4) newImgs.push("");
++                                newImgs[i] = path;
++                                setQForm({ ...qForm, option_images: newImgs });
++                              }}
++                            />
++                          </div>
++                        ))}
++                      </div>
++                      <textarea
++                        value={qForm.option_images.join("\n")}
++                        onChange={e => {
++                          const lines = e.target.value.split("\n");
++                          while (lines.length < 4) lines.push("");
++                          setQForm({ ...qForm, option_images: lines.slice(0, 4) });
++                        }}
++                        rows={4}
++                        placeholder={"hoặc gõ tay 4 path, mỗi dòng 1 path\n/de1/p2_img3.webp\n/de1/p2_img4.webp\n..."}
++                        className="w-full mt-2 px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white/70 text-xs font-mono placeholder-white/25 focus:outline-none focus:border-app-accent-primary/50"
++                      />
++                    </div>
++                    <div>
++                      <label className="text-app-text-secondary text-xs block mb-1">Audio script (text TTS — câu nghe)</label>
++                      <textarea value={qForm.audio_script} onChange={e => setQForm({ ...qForm, audio_script: e.target.value })} rows={2} className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-sm placeholder-white/25 focus:outline-none focus:border-app-accent-primary/50" />
++                    </div>
++                    <div>
++                      <label className="text-app-text-secondary text-xs block mb-1">4 audio đáp án (TTS) — mỗi dòng 1 script</label>
++                      <textarea value={qForm.audio_options.join("\n")} onChange={e => {
++                        const lines = e.target.value.split("\n");
++                        while (lines.length < 4) lines.push("");
++                        setQForm({ ...qForm, audio_options: lines.slice(0, 4) });
++                      }} rows={4} className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-xs placeholder-white/25 focus:outline-none focus:border-app-accent-primary/50" />
++                    </div>
++                    <div>
++                      <label className="text-app-text-secondary text-xs block mb-1">Audio hint (gợi ý hiện sau khi nghe)</label>
++                      <input value={qForm.audio_hint} onChange={e => setQForm({ ...qForm, audio_hint: e.target.value })} className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-sm placeholder-white/25 focus:outline-none focus:border-app-accent-primary/50" />
++                    </div>
++                    <div>
++                      <label className="text-app-text-secondary text-xs block mb-1">Giải thích đáp án (hiện ở review mode)</label>
++                      <textarea value={qForm.explanation} onChange={e => setQForm({ ...qForm, explanation: e.target.value })} rows={3} className="w-full px-3 py-2 rounded-lg bg-app-bg border border-app-border text-white text-sm placeholder-white/25 focus:outline-none focus:border-app-accent-primary/50" />
++                    </div>
++                  </div>
++                </details>
++
+                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                   <FileUploadZone
+                     label="File Audio (kéo thả hoặc click)"
+@@ -443,11 +711,24 @@ export default function AdminEpsExamManagerPage() {
+                     onUploaded={path => setQForm({ ...qForm, image_url: path })}
+                   />
+                 </div>
+-                <div className="flex items-center gap-2">
+-                  <button onClick={saveQuestion} className="px-4 py-2 rounded-lg bg-emerald-500/20 text-emerald-400 text-sm font-semibold cursor-pointer hover:bg-emerald-500/30 transition-all">
+-                    <i className="ri-save-line mr-1"></i>Lưu câu hỏi
++                <div className="flex flex-wrap items-center gap-2">
++                  <button onClick={() => saveQuestion("close")} className="px-4 py-2 rounded-lg bg-emerald-500/20 text-emerald-400 text-sm font-semibold cursor-pointer hover:bg-emerald-500/30 transition-all">
++                    <i className="ri-save-line mr-1"></i>Lưu
++                  </button>
++                  <button
++                    onClick={() => saveQuestion("prev")}
++                    disabled={qForm.order_no <= 1}
++                    className="px-3 py-2 rounded-lg bg-app-accent-primary/15 text-app-accent-primary text-sm cursor-pointer hover:bg-app-accent-primary/25 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
++                  >
++                    <i className="ri-arrow-left-line mr-1"></i>Lưu & câu trước
++                  </button>
++                  <button
++                    onClick={() => saveQuestion("next")}
++                    className="px-3 py-2 rounded-lg bg-app-accent-primary/15 text-app-accent-primary text-sm cursor-pointer hover:bg-app-accent-primary/25 transition-all"
++                  >
++                    Lưu & câu sau<i className="ri-arrow-right-line ml-1"></i>
+                   </button>
+-                  <button onClick={() => { setShowQForm(false); setEditingQ(null); }} className="px-4 py-2 rounded-lg bg-white/5 text-white/50 text-sm cursor-pointer hover:bg-white/10 transition-all">
++                  <button onClick={() => { setShowQForm(false); setEditingQ(null); }} className="ml-auto px-4 py-2 rounded-lg bg-white/5 text-white/50 text-sm cursor-pointer hover:bg-white/10 transition-all">
+                     Hủy
+                   </button>
+                 </div>
+@@ -489,7 +770,7 @@ export default function AdminEpsExamManagerPage() {
+                         </div>
+                       </td>
+                       <td className="px-4 py-3 text-right">
+-                        <button onClick={() => { setEditingQ(q); setQForm({ ...INITIAL_QUESTION, ...q, options: q.options || ["","","",""] }); setShowQForm(true); }} className="text-app-accent-primary/70 hover:text-app-accent-primary text-xs cursor-pointer mr-3">
++                        <button onClick={() => loadQuestionIntoForm(q)} className="text-app-accent-primary/70 hover:text-app-accent-primary text-xs cursor-pointer mr-3">
+                           <i className="ri-edit-line mr-0.5"></i>Sửa
+                         </button>
+                         <button onClick={() => deleteQuestion(q.id)} className="text-red-400/70 hover:text-red-400 text-xs cursor-pointer">
+diff --git a/src/pages/admin-vip-transactions/page.tsx b/src/pages/admin-vip-transactions/page.tsx
+index 90c7396..35afd77 100644
+--- a/src/pages/admin-vip-transactions/page.tsx
++++ b/src/pages/admin-vip-transactions/page.tsx
+@@ -195,6 +195,99 @@ export default function AdminVipTransactionsPage() {
+   const [showExportMenu, setShowExportMenu] = useState(false);
+   const PAGE_SIZE = 20;
+ 
++  // ─── Pending payment requests (with coupon support) ─────────────────────────
++  interface PendingPayment {
++    id: string;
++    user_id: string;
++    email: string;
++    amount: number;
++    original_amount: number | null;
++    billing_cycle: "monthly" | "yearly";
++    proof_url: string;
++    note: string | null;
++    coupon_code: string | null;
++    created_at: string;
++    user_name?: string;
++  }
++  const [pendingPayments, setPendingPayments] = useState<PendingPayment[]>([]);
++  const [processingId, setProcessingId] = useState<string | null>(null);
++  const [paymentToast, setPaymentToast] = useState<string | null>(null);
++
++  const showPaymentToast = (msg: string) => {
++    setPaymentToast(msg);
++    setTimeout(() => setPaymentToast(null), 3000);
++  };
++
++  const fetchPendingPayments = useCallback(async () => {
++    const { data } = await supabase
++      .from("vip_payment_requests")
++      .select("id, user_id, email, amount, original_amount, billing_cycle, proof_url, note, coupon_code, created_at")
++      .eq("status", "pending")
++      .order("created_at", { ascending: false });
++    if (!data) return;
++    // Hydrate display names
++    const ids = Array.from(new Set(data.map(d => d.user_id)));
++    const { data: profs } = ids.length ? await supabase
++      .from("user_profiles")
++      .select("id, display_name")
++      .in("id", ids) : { data: [] };
++    const nameMap = new Map((profs ?? []).map(p => [p.id, p.display_name]));
++    setPendingPayments(data.map(d => ({ ...d, user_name: nameMap.get(d.user_id) })) as PendingPayment[]);
++  }, []);
++
++  const handleApprovePayment = useCallback(async (p: PendingPayment) => {
++    setProcessingId(p.id);
++    try {
++      const vipType: "month" | "year" = p.billing_cycle === "yearly" ? "year" : "month";
++      const expiresAt = new Date(Date.now() + (vipType === "year" ? 365 : 30) * 86400000).toISOString();
++
++      const grantRes = await supabase.functions.invoke("admin-grant-vip", {
++        body: { action: "grant_vip", userId: p.user_id, vipType, expiresAt },
++      });
++      if (grantRes.error || grantRes.data?.error) {
++        throw new Error(grantRes.error?.message || grantRes.data?.error || "Lỗi cấp VIP");
++      }
++
++      // Flip payment status. Trigger 119 auto-consumes the coupon redemption
++      // and bumps coupons.usage_count.
++      const { error: updErr } = await supabase
++        .from("vip_payment_requests")
++        .update({ status: "approved", updated_at: new Date().toISOString() })
++        .eq("id", p.id);
++      if (updErr) throw updErr;
++
++      showPaymentToast(`Đã duyệt và cấp ${vipType === "year" ? "VIP Năm" : "VIP Tháng"} cho ${p.user_name || p.email}`);
++      await fetchPendingPayments();
++    } catch (e) {
++      console.error("[approve payment]", e);
++      showPaymentToast("Lỗi duyệt thanh toán — kiểm tra console");
++    } finally {
++      setProcessingId(null);
++    }
++  }, [fetchPendingPayments]);
++
++  const handleRejectPayment = useCallback(async (p: PendingPayment) => {
++    if (!confirm(`Từ chối thanh toán của ${p.user_name || p.email}?\nCoupon (nếu có) sẽ được giải phóng để dùng lại.`)) return;
++    setProcessingId(p.id);
++    try {
++      // Trigger 119 auto-releases the coupon redemption.
++      const { error: updErr } = await supabase
++        .from("vip_payment_requests")
++        .update({ status: "rejected", updated_at: new Date().toISOString() })
++        .eq("id", p.id);
++      if (updErr) throw updErr;
++      showPaymentToast(`Đã từ chối thanh toán của ${p.user_name || p.email}`);
++      await fetchPendingPayments();
++    } catch (e) {
++      console.error("[reject payment]", e);
++      showPaymentToast("Lỗi từ chối thanh toán");
++    } finally {
++      setProcessingId(null);
++    }
++  }, [fetchPendingPayments]);
++
++  useEffect(() => { fetchPendingPayments(); }, [fetchPendingPayments]);
++
+   // Build transactions from user_profiles + vip_revenue_log
+   const [revenueLog, setRevenueLog] = useState<Array<{
+     id: string;
+@@ -403,6 +496,132 @@ export default function AdminVipTransactionsPage() {
+         </div>
+       }
+     >
++      {/* Toast for payment actions */}
++      {paymentToast && (
++        <div className="fixed top-6 right-6 z-50 bg-emerald-500/10 border border-emerald-500/30 text-app-accent-success px-4 py-3 rounded-xl text-sm font-medium flex items-center gap-2 shadow-lg">
++          <i className="ri-checkbox-circle-line"></i>{paymentToast}
++        </div>
++      )}
++
++      {/* ─── Pending payment requests ─────────────────────────────────────── */}
++      {pendingPayments.length > 0 && (
++        <div className="mb-6 rounded-2xl border" style={{ backgroundColor: "var(--admin-card)", borderColor: "rgba(251,146,60,0.30)" }}>
++          <div className="flex items-center justify-between px-5 py-3 border-b" style={{ borderColor: "var(--admin-border)" }}>
++            <div className="flex items-center gap-2">
++              <div className="w-8 h-8 flex items-center justify-center rounded-xl" style={{ backgroundColor: "rgba(251,146,60,0.15)" }}>
++                <i className="ri-time-line text-sm" style={{ color: "#fb923c" }}></i>
++              </div>
++              <div>
++                <p className="font-semibold text-sm" style={{ color: "var(--admin-text)" }}>Đơn chờ duyệt</p>
++                <p className="text-[10px]" style={{ color: "var(--admin-text-muted)" }}>{pendingPayments.length} đơn cần xử lý</p>
++              </div>
++            </div>
++            <button
++              onClick={() => void fetchPendingPayments()}
++              className="text-[10px] px-3 py-1.5 rounded-lg border cursor-pointer transition-colors"
++              style={{ backgroundColor: "var(--admin-hover)", color: "var(--admin-text-muted)", borderColor: "var(--admin-border)" }}
++            >
++              <i className="ri-refresh-line mr-1"></i>Tải lại
++            </button>
++          </div>
++
++          <div className="divide-y" style={{ borderColor: "var(--admin-border)" }}>
++            {pendingPayments.map(p => {
++              const hasCoupon = !!p.coupon_code && p.original_amount && p.original_amount > p.amount;
++              const discount = hasCoupon ? (p.original_amount as number) - p.amount : 0;
++              const isProcessing = processingId === p.id;
++              return (
++                <div key={p.id} className="px-5 py-4 flex items-center gap-4 flex-wrap" style={{ borderColor: "var(--admin-border)" }}>
++                  {/* Proof thumbnail */}
++                  <a href={p.proof_url} target="_blank" rel="noreferrer" className="flex-shrink-0 group">
++                    <img
++                      src={p.proof_url}
++                      alt="Minh chứng"
++                      loading="lazy"
++                      className="w-14 h-14 rounded-xl object-cover bg-app-card/50 border border-app-border group-hover:border-app-accent-primary/50 transition-all"
++                      onError={e => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
++                    />
++                  </a>
++
++                  {/* User + meta */}
++                  <div className="flex-1 min-w-[180px]">
++                    <div className="flex items-center gap-2 flex-wrap">
++                      <p className="text-sm font-semibold" style={{ color: "var(--admin-text)" }}>
++                        {p.user_name || p.email || `User ${p.user_id.slice(0, 8)}`}
++                      </p>
++                      <span
++                        className="text-[10px] px-2 py-0.5 rounded-full font-semibold flex-shrink-0"
++                        style={{ backgroundColor: p.billing_cycle === "yearly" ? "rgba(232,200,74,0.15)" : "rgba(52,211,153,0.15)", color: p.billing_cycle === "yearly" ? "#e8c84a" : "#34d399" }}
++                      >
++                        {p.billing_cycle === "yearly" ? "VIP Năm" : "VIP Tháng"}
++                      </span>
++                      {hasCoupon && (
++                        <span className="text-[10px] px-2 py-0.5 rounded-full font-semibold flex items-center gap-1 bg-emerald-500/10 text-app-accent-success">
++                          <i className="ri-coupon-3-line"></i>
++                          {p.coupon_code}
++                        </span>
++                      )}
++                    </div>
++                    <div className="flex items-center gap-3 mt-1 flex-wrap">
++                      <span className="text-[10px]" style={{ color: "var(--admin-text-faint)" }}>
++                        <i className="ri-time-line mr-1"></i>
++                        {new Date(p.created_at).toLocaleString("vi-VN", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" })}
++                      </span>
++                      {p.email && (
++                        <span className="text-[10px] truncate max-w-[180px]" style={{ color: "var(--admin-text-faint)" }}>
++                          <i className="ri-mail-line mr-1"></i>{p.email}
++                        </span>
++                      )}
++                      {p.note && (
++                        <span className="text-[10px] italic truncate max-w-[200px]" style={{ color: "var(--admin-text-faint)" }}>
++                          &ldquo;{p.note}&rdquo;
++                        </span>
++                      )}
++                    </div>
++                  </div>
++
++                  {/* Amount + discount */}
++                  <div className="text-right flex-shrink-0">
++                    {hasCoupon ? (
++                      <>
++                        <p className="text-[10px] line-through" style={{ color: "var(--admin-text-faint)" }}>
++                          {formatVND(p.original_amount as number)}
++                        </p>
++                        <p className="text-sm font-black" style={{ color: "#34d399" }}>{formatVND(p.amount)}</p>
++                        <p className="text-[10px] text-app-accent-success">−{formatVND(discount)}</p>
++                      </>
++                    ) : (
++                      <p className="text-sm font-black" style={{ color: "#34d399" }}>{formatVND(p.amount)}</p>
++                    )}
++                  </div>
++
++                  {/* Actions */}
++                  <div className="flex items-center gap-2 flex-shrink-0">
++                    <button
++                      onClick={() => handleApprovePayment(p)}
++                      disabled={isProcessing}
++                      className="px-3 py-2 rounded-lg text-xs font-bold cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-1.5 whitespace-nowrap"
++                      style={{ backgroundColor: "rgba(52,211,153,0.15)", color: "#34d399", border: "1px solid rgba(52,211,153,0.30)" }}
++                    >
++                      {isProcessing ? <i className="ri-loader-4-line animate-spin"></i> : <i className="ri-check-line"></i>}
++                      Duyệt
++                    </button>
++                    <button
++                      onClick={() => handleRejectPayment(p)}
++                      disabled={isProcessing}
++                      className="px-3 py-2 rounded-lg text-xs font-bold cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-1.5 whitespace-nowrap"
++                      style={{ backgroundColor: "rgba(248,113,113,0.10)", color: "#f87171", border: "1px solid rgba(248,113,113,0.25)" }}
++                    >
++                      <i className="ri-close-line"></i>Từ chối
++                    </button>
++                  </div>
++                </div>
++              );
++            })}
++          </div>
++        </div>
++      )}
++
+       {/* KPI Cards */}
+       <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
+         {[
+diff --git a/src/pages/coupon/page.tsx b/src/pages/coupon/page.tsx
+index 137c157..c0e84fe 100644
+--- a/src/pages/coupon/page.tsx
++++ b/src/pages/coupon/page.tsx
+@@ -123,8 +123,9 @@ function CouponForm({ initial, series, onSave, onCancel }: {
+                 <button
+                   onClick={() => setDiscountType("fixed")}
+                   className={`px-4 py-2.5 text-xs font-bold transition-colors cursor-pointer whitespace-nowrap ${discountType === "fixed" ? "bg-app-accent-primary text-app-bg" : "text-app-text-secondary hover:text-white/70"}`}
++                  title="Đơn vị: nghìn đồng. VD: nhập 50 = giảm 50.000đ"
+                 >
+-                  VNĐ
++                  K đ
+                 </button>
+               </div>
+             </div>
+diff --git a/src/pages/eps-de1-exam/page.tsx b/src/pages/eps-de1-exam/page.tsx
+index a6bc23b..fed545d 100644
+--- a/src/pages/eps-de1-exam/page.tsx
++++ b/src/pages/eps-de1-exam/page.tsx
+@@ -1,11 +1,16 @@
+-import { useState, useRef, useEffect } from "react";
++import { useState, useRef, useEffect, useMemo } from "react";
+ import DashboardLayout from "@/components/feature/DashboardLayout";
+ import { DE1_QUESTIONS, DE1_INFO, DE1_EXPLANATIONS, type De1Question } from "@/data/eps_de1";
+ import { useXPSystem } from "@/hooks/useXPSystem";
+ import { usePageSEO } from "@/hooks/usePageSEO";
+ import { useExamAudio } from "@/hooks/useExamAudio";
++import { useEpsExam } from "@/hooks/useEpsExams";
+ import { ORG_SCHEMA } from "@/lib/siteConfig";
+ 
++// Cấu trúc info QuestionCard cần (audioBase cho MP3, totalQuestions hiển thị).
++// audioBase luôn lấy từ static (file MP3 ở public/), DB chỉ override text content.
++interface ExamInfo { title: string; totalQuestions: number; timeMinutes: number; audioBase: string; }
++
+ // ─── Audio Button ─────────────────────────────────────────────────────────────
+ function AudioBtn({ script, onSpeak }: { script: string; onSpeak: (s: string) => void }) {
+   return (
+@@ -48,17 +53,19 @@ interface QuestionCardProps {
+   onAnswer: (idx: number) => void;
+   showResult?: boolean;
+   player: ReturnType<typeof useExamAudio>;
++  info: ExamInfo;
++  explanations: Record<number, string>;
+ }
+ 
+-function QuestionCard({ q, answer, onAnswer, showResult, player }: QuestionCardProps) {
++function QuestionCard({ q, answer, onAnswer, showResult, player, info, explanations }: QuestionCardProps) {
+   const [played, setPlayed] = useState(false);
+   const [showHint, setShowHint] = useState(false);
+   const [playingOptIdx, setPlayingOptIdx] = useState<number | null>(null);
+ 
+   // Build MP3 URL theo convention {audioBase}/{questionId}.mp3.
+-  // Nếu DE1_INFO.audioBase trống hoặc file 404 → hook tự fallback TTS với audioScript.
+-  const audioUrl = q.section === "listening" && DE1_INFO.audioBase
+-    ? `${DE1_INFO.audioBase}/${q.id}.mp3`
++  // Nếu info.audioBase trống hoặc file 404 → hook tự fallback TTS với audioScript.
++  const audioUrl = q.section === "listening" && info.audioBase
++    ? `${info.audioBase}/${q.id}.mp3`
+     : undefined;
+ 
+   const handleSpeak = () => {
+@@ -94,7 +101,7 @@ function QuestionCard({ q, answer, onAnswer, showResult, player }: QuestionCardP
+         }`}>
+           {isListening ? "듣기 NGHE" : "읽기 ĐỌC"}
+         </span>
+-        <span className="text-gray-400 text-xs">Câu {q.id} / {DE1_INFO.totalQuestions}</span>
++        <span className="text-gray-400 text-xs">Câu {q.id} / {info.totalQuestions}</span>
+       </div>
+ 
+       {/* Prompt */}
+@@ -145,10 +152,10 @@ function QuestionCard({ q, answer, onAnswer, showResult, player }: QuestionCardP
+       )}
+ 
+       {/* Explanation (review mode only) */}
+-      {showResult && DE1_EXPLANATIONS[q.id] && (
++      {showResult && explanations[q.id] && (
+         <div className="bg-violet-500/10 border border-violet-500/20 rounded-xl px-4 py-3 text-xs text-violet-300 leading-relaxed">
+           <span className="font-bold text-violet-400 mr-1"><i className="ri-lightbulb-flash-line"></i> Giải thích:</span>
+-          {DE1_EXPLANATIONS[q.id]}
++          {explanations[q.id]}
+         </div>
+       )}
+ 
+@@ -286,16 +293,18 @@ function ResultScreen({
+   xpEarned,
+   onRetry,
+   onReview,
++  questions,
+ }: {
+   answers: (number | null)[];
+   xpEarned: number;
+   onRetry: () => void;
+   onReview: () => void;
++  questions: De1Question[];
+ }) {
+-  const total = DE1_QUESTIONS.length;
+-  const correct = DE1_QUESTIONS.filter((q, i) => answers[i] === q.correct).length;
+-  const readingCorrect = DE1_QUESTIONS.filter((q, i) => q.section === "reading" && answers[i] === q.correct).length;
+-  const listeningCorrect = DE1_QUESTIONS.filter((q, i) => q.section === "listening" && answers[i] === q.correct).length;
++  const total = questions.length;
++  const correct = questions.filter((q, i) => answers[i] === q.correct).length;
++  const readingCorrect = questions.filter((q, i) => q.section === "reading" && answers[i] === q.correct).length;
++  const listeningCorrect = questions.filter((q, i) => q.section === "listening" && answers[i] === q.correct).length;
+   const pct = Math.round((correct / total) * 100);
+   const passed = pct >= 40;
+   const band = FEEDBACK_BANDS.find(b => pct >= b.min) || FEEDBACK_BANDS[FEEDBACK_BANDS.length - 1];
+@@ -343,7 +352,7 @@ function ResultScreen({
+ 
+       {/* Wrong questions list */}
+       {(() => {
+-        const wrong = DE1_QUESTIONS.filter((q, i) => answers[i] !== q.correct);
++        const wrong = questions.filter((q, i) => answers[i] !== q.correct);
+         if (!wrong.length) return null;
+         return (
+           <div className="bg-rose-50 border border-rose-200 rounded-xl p-4 mb-6">
+@@ -376,15 +385,15 @@ function ResultScreen({
+ }
+ 
+ // ─── Intro Screen ─────────────────────────────────────────────────────────────
+-function IntroScreen({ onStart }: { onStart: () => void }) {
++function IntroScreen({ onStart, title }: { onStart: () => void; title: string }) {
+   return (
+-    <DashboardLayout title="Đề số 01 — EPS-TOPIK" subtitle="40 câu · 50 phút · Audio TTS">
++    <DashboardLayout title={`${title} — EPS-TOPIK`} subtitle="40 câu · 50 phút · Audio TTS">
+       <div className="max-w-2xl mx-auto space-y-4">
+         <div className="bg-app-bg border border-app-border rounded-2xl p-8 text-center">
+           <div className="w-16 h-16 flex items-center justify-center rounded-2xl bg-app-accent-primary/10 mx-auto mb-4">
+             <i className="ri-headphone-line text-app-accent-primary text-3xl"></i>
+           </div>
+-          <h2 className="text-white text-xl font-bold mb-1">ĐỀ SỐ 01</h2>
++          <h2 className="text-white text-xl font-bold mb-1">{title}</h2>
+           <p className="text-app-text-secondary text-sm">EPS-TOPIK — 한국어능력시험 (Lao động)</p>
+         </div>
+ 
+@@ -440,6 +449,25 @@ function IntroScreen({ onStart }: { onStart: () => void }) {
+ type Phase = "intro" | "exam" | "result" | "review";
+ 
+ export default function EpsDe1ExamPage() {
++  // Try DB first (admin có thể đã sửa nội dung qua /admin/eps-exam-manager).
++  // Fallback static khi DB chưa có / lỗi → học viên không bao giờ bị trắng màn hình.
++  const { exam: dbExam } = useEpsExam("eps-de-1");
++  const useDb = dbExam && dbExam.questions.length === DE1_QUESTIONS.length;
++  const questions: De1Question[] = useMemo(
++    () => (useDb ? (dbExam!.questions as unknown as De1Question[]) : DE1_QUESTIONS),
++    [useDb, dbExam],
++  );
++  const info: ExamInfo = useMemo(
++    () => ({
++      title: useDb ? dbExam!.title : DE1_INFO.title,
++      totalQuestions: useDb ? dbExam!.totalQuestions : DE1_INFO.totalQuestions,
++      timeMinutes: useDb ? dbExam!.timeMinutes : DE1_INFO.timeMinutes,
++      audioBase: DE1_INFO.audioBase, // MP3 file ở public/, không phụ thuộc DB
++    }),
++    [useDb, dbExam],
++  );
++  const explanations: Record<number, string> = useDb ? dbExam!.explanations : DE1_EXPLANATIONS;
++
+   usePageSEO({
+     title: "Đề thi EPS-TOPIK 2025 Đề 1 [Có Đáp Án + Audio] | Hàn Quốc Ơi!",
+     description: "Đề thi EPS-TOPIK 2025 chính thức Đề 1. Đầy đủ 40 câu nghe + đọc, có audio luyện nghe, đáp án và giải thích chi tiết. Miễn phí 100%.",
+@@ -453,8 +481,8 @@ export default function EpsDe1ExamPage() {
+       educationalLevel: "EPS-TOPIK",
+       learningResourceType: "Practice Exam",
+       inLanguage: ["ko", "vi"],
+-      timeRequired: `PT${DE1_INFO.timeMinutes}M`,
+-      numberOfQuestions: DE1_QUESTIONS.length,
++      timeRequired: `PT${info.timeMinutes}M`,
++      numberOfQuestions: questions.length,
+       isAccessibleForFree: true,
+       provider: ORG_SCHEMA,
+     },
+@@ -476,9 +504,9 @@ export default function EpsDe1ExamPage() {
+   // stop ngay khi vừa play. (Bug "không nghe được" lần trước).
+   useEffect(() => { player.stop(); }, [currentIdx, phase, player.stop]);
+ 
+-  const TOTAL = DE1_INFO.timeMinutes * 60;
+-  const readingQs  = DE1_QUESTIONS.filter(q => q.section === "reading");
+-  const listeningQs = DE1_QUESTIONS.filter(q => q.section === "listening");
++  const TOTAL = info.timeMinutes * 60;
++  const readingQs  = questions.filter(q => q.section === "reading");
++  const listeningQs = questions.filter(q => q.section === "listening");
+   const currentSection = currentIdx < 20 ? "reading" : "listening";
+ 
+   // Timer
+@@ -508,43 +536,43 @@ export default function EpsDe1ExamPage() {
+ 
+   const submit = () => {
+     player.stop();
+-    const correctCount = DE1_QUESTIONS.filter((q, i) => answers[i] === q.correct).length;
++    const correctCount = questions.filter((q, i) => answers[i] === q.correct).length;
+     const xp = 20 + correctCount * 5;
+     setXpEarned(xp);
+     awardXP({ type: "eps_exam_completed" });
+-    DE1_QUESTIONS.forEach((q, i) => { if (answers[i] === q.correct) awardXP({ type: "eps_question_correct" }); });
++    questions.forEach((q, i) => { if (answers[i] === q.correct) awardXP({ type: "eps_question_correct" }); });
+     setPhase("result");
+   };
+ 
+   const handleRetry = () => {
+-    setAnswers(new Array(DE1_QUESTIONS.length).fill(null));
++    setAnswers(new Array(questions.length).fill(null));
+     setCurrentIdx(0);
+     setTimeLeft(TOTAL);
+     setPhase("intro");
+   };
+ 
+   // ── Intro ──
+-  if (phase === "intro") return <IntroScreen onStart={() => setPhase("exam")} />;
++  if (phase === "intro") return <IntroScreen onStart={() => setPhase("exam")} title={info.title} />;
+ 
+   // ── Result ──
+   if (phase === "result") {
+     return (
+-      <DashboardLayout title="Kết quả — Đề số 01">
+-        <ResultScreen answers={answers} xpEarned={xpEarned} onRetry={handleRetry} onReview={() => { setCurrentIdx(0); setPhase("review"); }} />
++      <DashboardLayout title={`Kết quả — ${info.title}`}>
++        <ResultScreen answers={answers} xpEarned={xpEarned} onRetry={handleRetry} onReview={() => { setCurrentIdx(0); setPhase("review"); }} questions={questions} />
+       </DashboardLayout>
+     );
+   }
+ 
+   const isReview = phase === "review";
+-  const q = DE1_QUESTIONS[currentIdx];
++  const q = questions[currentIdx];
+ 
+   return (
+     <DashboardLayout
+-      title="ĐỀ SỐ 01 — EPS-TOPIK"
+-      subtitle={isReview ? "Xem lại đáp án" : `${answered}/${DE1_QUESTIONS.length} câu đã trả lời`}
++      title={`${info.title} — EPS-TOPIK`}
++      subtitle={isReview ? "Xem lại đáp án" : `${answered}/${questions.length} câu đã trả lời`}
+       actions={!isReview ? (
+         <button onClick={submit} className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm px-5 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap">
+-          <i className="ri-send-plane-fill"></i>Nộp bài ({answered}/{DE1_QUESTIONS.length})
++          <i className="ri-send-plane-fill"></i>Nộp bài ({answered}/{questions.length})
+         </button>
+       ) : (
+         <button onClick={() => setPhase("result")} className="flex items-center gap-2 bg-app-card text-white text-sm px-4 py-2 rounded-xl border border-app-border cursor-pointer">
+@@ -593,7 +621,7 @@ export default function EpsDe1ExamPage() {
+ 
+       {/* ── Question number grid ── */}
+       <div className="flex flex-wrap gap-1.5 mb-5 bg-app-bg border border-app-border rounded-xl p-3">
+-        {DE1_QUESTIONS.filter(dq => dq.section === currentSection).map((dq, sIdx) => {
++        {questions.filter(dq => dq.section === currentSection).map((dq, sIdx) => {
+           const gIdx = currentSection === "reading" ? sIdx : sIdx + 20;
+           const isAnswered = answers[gIdx] !== null;
+           const isCurrent = gIdx === currentIdx;
+@@ -619,7 +647,7 @@ export default function EpsDe1ExamPage() {
+ 
+       {/* ── Question card ── */}
+       <div id="question-card" className="bg-app-bg border border-app-border rounded-2xl p-5 mb-4 scroll-mt-4">
+-        <QuestionCard q={q} answer={answers[currentIdx]} onAnswer={selectAnswer} showResult={isReview} player={player} />
++        <QuestionCard q={q} answer={answers[currentIdx]} onAnswer={selectAnswer} showResult={isReview} player={player} info={info} explanations={explanations} />
+       </div>
+ 
+       {/* ── Prev / Next ── */}
+@@ -631,14 +659,14 @@ export default function EpsDe1ExamPage() {
+         >
+           <i className="ri-arrow-left-line"></i>Trước
+         </button>
+-        {currentIdx === DE1_QUESTIONS.length - 1 && !isReview ? (
++        {currentIdx === questions.length - 1 && !isReview ? (
+           <button onClick={submit} className="flex items-center gap-2 px-8 py-3 rounded-xl bg-app-accent-primary text-app-bg font-bold text-sm cursor-pointer">
+             <i className="ri-send-plane-fill"></i>Nộp bài
+           </button>
+         ) : (
+           <button
+-            onClick={() => setCurrentIdx(p => Math.min(DE1_QUESTIONS.length - 1, p + 1))}
+-            disabled={currentIdx === DE1_QUESTIONS.length - 1}
++            onClick={() => setCurrentIdx(p => Math.min(questions.length - 1, p + 1))}
++            disabled={currentIdx === questions.length - 1}
+             className="flex items-center gap-2 px-5 py-3 rounded-xl bg-app-accent-primary text-app-bg text-sm font-bold disabled:opacity-40 cursor-pointer"
+           >
+             Tiếp<i className="ri-arrow-right-line"></i>
+diff --git a/src/pages/eps-de2-exam/page.tsx b/src/pages/eps-de2-exam/page.tsx
+index 943133a..97598d0 100644
+--- a/src/pages/eps-de2-exam/page.tsx
++++ b/src/pages/eps-de2-exam/page.tsx
+@@ -1,11 +1,14 @@
+-import { useState, useRef, useEffect } from "react";
++import { useState, useRef, useEffect, useMemo } from "react";
+ import DashboardLayout from "@/components/feature/DashboardLayout";
+ import { DE2_QUESTIONS, DE2_INFO, DE2_EXPLANATIONS, type De2Question } from "@/data/eps_de2";
+ import { useXPSystem } from "@/hooks/useXPSystem";
+ import { usePageSEO } from "@/hooks/usePageSEO";
+ import { useExamAudio } from "@/hooks/useExamAudio";
++import { useEpsExam } from "@/hooks/useEpsExams";
+ import { ORG_SCHEMA } from "@/lib/siteConfig";
+ 
++interface ExamInfo { title: string; totalQuestions: number; timeMinutes: number; audioBase: string; }
++
+ // ─── Audio Button ─────────────────────────────────────────────────────────────
+ function AudioBtn({ script, onSpeak }: { script: string; onSpeak: (s: string) => void }) {
+   return (
+@@ -48,14 +51,16 @@ interface QuestionCardProps {
+   onAnswer: (idx: number) => void;
+   showResult?: boolean;
+   player: ReturnType<typeof useExamAudio>;
++  info: ExamInfo;
++  explanations: Record<number, string>;
+ }
+ 
+-function QuestionCard({ q, answer, onAnswer, showResult, player }: QuestionCardProps) { // de2
++function QuestionCard({ q, answer, onAnswer, showResult, player, info, explanations }: QuestionCardProps) { // de2
+   const [played, setPlayed] = useState(false);
+   const [showHint, setShowHint] = useState(false);
+ 
+-  const audioUrl = q.section === "listening" && DE2_INFO.audioBase
+-    ? `${DE2_INFO.audioBase}/${q.id}.mp3`
++  const audioUrl = q.section === "listening" && info.audioBase
++    ? `${info.audioBase}/${q.id}.mp3`
+     : undefined;
+ 
+   const handleSpeak = () => {
+@@ -82,7 +87,7 @@ function QuestionCard({ q, answer, onAnswer, showResult, player }: QuestionCardP
+         }`}>
+           {isListening ? "듣기 NGHE" : "읽기 ĐỌC"}
+         </span>
+-        <span className="text-gray-400 text-xs">Câu {q.id} / {DE2_INFO.totalQuestions}</span>
++        <span className="text-gray-400 text-xs">Câu {q.id} / {info.totalQuestions}</span>
+       </div>
+ 
+       {/* Prompt */}
+@@ -133,10 +138,10 @@ function QuestionCard({ q, answer, onAnswer, showResult, player }: QuestionCardP
+       )}
+ 
+       {/* Explanation (review mode only) */}
+-      {showResult && DE2_EXPLANATIONS[q.id] && (
++      {showResult && explanations[q.id] && (
+         <div className="bg-violet-500/10 border border-violet-500/20 rounded-xl px-4 py-3 text-xs text-violet-300 leading-relaxed">
+           <span className="font-bold text-violet-400 mr-1"><i className="ri-lightbulb-flash-line"></i> Giải thích:</span>
+-          {DE2_EXPLANATIONS[q.id]}
++          {explanations[q.id]}
+         </div>
+       )}
+ 
+@@ -274,16 +279,18 @@ function ResultScreen({
+   xpEarned,
+   onRetry,
+   onReview,
++  questions,
+ }: {
+   answers: (number | null)[];
+   xpEarned: number;
+   onRetry: () => void;
+   onReview: () => void;
++  questions: De2Question[];
+ }) {
+-  const total = DE2_QUESTIONS.length;
+-  const correct = DE2_QUESTIONS.filter((q, i) => answers[i] === q.correct).length;
+-  const readingCorrect = DE2_QUESTIONS.filter((q, i) => q.section === "reading" && answers[i] === q.correct).length;
+-  const listeningCorrect = DE2_QUESTIONS.filter((q, i) => q.section === "listening" && answers[i] === q.correct).length;
++  const total = questions.length;
++  const correct = questions.filter((q, i) => answers[i] === q.correct).length;
++  const readingCorrect = questions.filter((q, i) => q.section === "reading" && answers[i] === q.correct).length;
++  const listeningCorrect = questions.filter((q, i) => q.section === "listening" && answers[i] === q.correct).length;
+   const pct = Math.round((correct / total) * 100);
+   const passed = pct >= 40;
+   const band = FEEDBACK_BANDS.find(b => pct >= b.min) || FEEDBACK_BANDS[FEEDBACK_BANDS.length - 1];
+@@ -331,7 +338,7 @@ function ResultScreen({
+ 
+       {/* Wrong questions list */}
+       {(() => {
+-        const wrong = DE2_QUESTIONS.filter((q, i) => answers[i] !== q.correct);
++        const wrong = questions.filter((q, i) => answers[i] !== q.correct);
+         if (!wrong.length) return null;
+         return (
+           <div className="bg-rose-50 border border-rose-200 rounded-xl p-4 mb-6">
+@@ -366,15 +373,15 @@ function ResultScreen({
+ }
+ 
+ // ─── Intro Screen ─────────────────────────────────────────────────────────────
+-function IntroScreen({ onStart }: { onStart: () => void }) {
++function IntroScreen({ onStart, title }: { onStart: () => void; title: string }) {
+   return (
+-    <DashboardLayout title="Đề số 02 — EPS-TOPIK" subtitle="40 câu · 50 phút · Audio TTS">
++    <DashboardLayout title={`${title} — EPS-TOPIK`} subtitle="40 câu · 50 phút · Audio TTS">
+       <div className="max-w-2xl mx-auto space-y-4">
+         <div className="bg-app-bg border border-app-border rounded-2xl p-8 text-center">
+           <div className="w-16 h-16 flex items-center justify-center rounded-2xl bg-app-accent-primary/10 mx-auto mb-4">
+             <i className="ri-headphone-line text-app-accent-primary text-3xl"></i>
+           </div>
+-          <h2 className="text-white text-xl font-bold mb-1">ĐỀ SỐ 02</h2>
++          <h2 className="text-white text-xl font-bold mb-1">{title}</h2>
+           <p className="text-app-text-secondary text-sm">EPS-TOPIK — 한국어능력시험 (Lao động)</p>
+         </div>
+ 
+@@ -430,6 +437,23 @@ function IntroScreen({ onStart }: { onStart: () => void }) {
+ type Phase = "intro" | "exam" | "result" | "review";
+ 
+ export default function EpsDe2ExamPage() {
++  const { exam: dbExam } = useEpsExam("eps-de-2");
++  const useDb = dbExam && dbExam.questions.length === DE2_QUESTIONS.length;
++  const questions: De2Question[] = useMemo(
++    () => (useDb ? (dbExam!.questions as unknown as De2Question[]) : DE2_QUESTIONS),
++    [useDb, dbExam],
++  );
++  const info: ExamInfo = useMemo(
++    () => ({
++      title: useDb ? dbExam!.title : DE2_INFO.title,
++      totalQuestions: useDb ? dbExam!.totalQuestions : DE2_INFO.totalQuestions,
++      timeMinutes: useDb ? dbExam!.timeMinutes : DE2_INFO.timeMinutes,
++      audioBase: DE2_INFO.audioBase,
++    }),
++    [useDb, dbExam],
++  );
++  const explanations: Record<number, string> = useDb ? dbExam!.explanations : DE2_EXPLANATIONS;
++
+   usePageSEO({
+     title: "Đề thi EPS-TOPIK 2025 Đề 2 [Có Đáp Án + Audio] | Hàn Quốc Ơi!",
+     description: "Đề thi EPS-TOPIK 2025 chính thức Đề 2. Đầy đủ 40 câu nghe + đọc, có audio luyện nghe, đáp án và giải thích chi tiết. Miễn phí 100%.",
+@@ -443,8 +467,8 @@ export default function EpsDe2ExamPage() {
+       educationalLevel: "EPS-TOPIK",
+       learningResourceType: "Practice Exam",
+       inLanguage: ["ko", "vi"],
+-      timeRequired: `PT${DE2_INFO.timeMinutes}M`,
+-      numberOfQuestions: DE2_QUESTIONS.length,
++      timeRequired: `PT${info.timeMinutes}M`,
++      numberOfQuestions: questions.length,
+       isAccessibleForFree: true,
+       provider: ORG_SCHEMA,
+     },
+@@ -467,9 +491,9 @@ export default function EpsDe2ExamPage() {
+   // stop ngay khi vừa play.
+   useEffect(() => { player.stop(); }, [currentIdx, phase, player.stop]);
+ 
+-  const TOTAL = DE2_INFO.timeMinutes * 60;
+-  const readingQs   = DE2_QUESTIONS.filter(q => q.section === "reading");
+-  const listeningQs = DE2_QUESTIONS.filter(q => q.section === "listening");
++  const TOTAL = info.timeMinutes * 60;
++  const readingQs   = questions.filter(q => q.section === "reading");
++  const listeningQs = questions.filter(q => q.section === "listening");
+   const currentSection = currentIdx < 20 ? "reading" : "listening";
+ 
+   // Timer
+@@ -499,41 +523,41 @@ export default function EpsDe2ExamPage() {
+ 
+   const submit = () => {
+     player.stop();
+-    const correctCount = DE2_QUESTIONS.filter((q, i) => answers[i] === q.correct).length;
++    const correctCount = questions.filter((q, i) => answers[i] === q.correct).length;
+     const xp = 20 + correctCount * 5;
+     setXpEarned(xp);
+     awardXP({ type: "eps_exam_completed" });
+-    DE2_QUESTIONS.forEach((q, i) => { if (answers[i] === q.correct) awardXP({ type: "eps_question_correct" }); });
++    questions.forEach((q, i) => { if (answers[i] === q.correct) awardXP({ type: "eps_question_correct" }); });
+     setPhase("result");
+   };
+ 
+   const handleRetry = () => {
+-    setAnswers(new Array(DE2_QUESTIONS.length).fill(null));
++    setAnswers(new Array(questions.length).fill(null));
+     setCurrentIdx(0);
+     setTimeLeft(TOTAL);
+     setPhase("intro");
+   };
+ 
+-  if (phase === "intro") return <IntroScreen onStart={() => setPhase("exam")} />;
++  if (phase === "intro") return <IntroScreen onStart={() => setPhase("exam")} title={info.title} />;
+ 
+   if (phase === "result") {
+     return (
+-      <DashboardLayout title="Kết quả — Đề số 02">
+-        <ResultScreen answers={answers} xpEarned={xpEarned} onRetry={handleRetry} onReview={() => { setCurrentIdx(0); setPhase("review"); }} />
++      <DashboardLayout title={`Kết quả — ${info.title}`}>
++        <ResultScreen answers={answers} xpEarned={xpEarned} onRetry={handleRetry} onReview={() => { setCurrentIdx(0); setPhase("review"); }} questions={questions} />
+       </DashboardLayout>
+     );
+   }
+ 
+   const isReview = phase === "review";
+-  const q = DE2_QUESTIONS[currentIdx];
++  const q = questions[currentIdx];
+ 
+   return (
+     <DashboardLayout
+-      title="ĐỀ SỐ 02 — EPS-TOPIK"
+-      subtitle={isReview ? "Xem lại đáp án" : `${answered}/${DE2_QUESTIONS.length} câu đã trả lời`}
++      title={`${info.title} — EPS-TOPIK`}
++      subtitle={isReview ? "Xem lại đáp án" : `${answered}/${questions.length} câu đã trả lời`}
+       actions={!isReview ? (
+         <button onClick={submit} className="flex items-center gap-2 bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm px-5 py-2.5 rounded-xl transition-colors cursor-pointer whitespace-nowrap">
+-          <i className="ri-send-plane-fill"></i>Nộp bài ({answered}/{DE2_QUESTIONS.length})
++          <i className="ri-send-plane-fill"></i>Nộp bài ({answered}/{questions.length})
+         </button>
+       ) : (
+         <button onClick={() => setPhase("result")} className="flex items-center gap-2 bg-app-card text-white text-sm px-4 py-2 rounded-xl border border-app-border cursor-pointer">
+@@ -588,7 +612,7 @@ export default function EpsDe2ExamPage() {
+ 
+       {/* ── Question number grid ── */}
+       <div className="flex flex-wrap gap-1.5 mb-5 bg-app-bg border border-app-border rounded-xl p-3">
+-        {DE2_QUESTIONS.filter(dq => dq.section === currentSection).map((dq, sIdx) => {
++        {questions.filter(dq => dq.section === currentSection).map((dq, sIdx) => {
+           const gIdx = currentSection === "reading" ? sIdx : sIdx + 20;
+           const isAnswered = answers[gIdx] !== null;
+           const isCurrent = gIdx === currentIdx;
+@@ -612,7 +636,7 @@ export default function EpsDe2ExamPage() {
+ 
+       {/* ── Question card ── */}
+       <div id="question-card" className="bg-app-bg border border-app-border rounded-2xl p-5 mb-4 scroll-mt-4">
+-        <QuestionCard q={q} answer={answers[currentIdx]} onAnswer={selectAnswer} showResult={isReview} player={player} />
++        <QuestionCard q={q} answer={answers[currentIdx]} onAnswer={selectAnswer} showResult={isReview} player={player} info={info} explanations={explanations} />
+       </div>
+ 
+       {/* ── Prev / Next ── */}
+@@ -621,12 +645,12 @@ export default function EpsDe2ExamPage() {
+           className="flex items-center gap-2 px-5 py-3 rounded-xl bg-app-card border border-app-border text-white text-sm font-medium disabled:opacity-40 cursor-pointer">
+           <i className="ri-arrow-left-line"></i>Trước
+         </button>
+-        {currentIdx === DE2_QUESTIONS.length - 1 && !isReview ? (
++        {currentIdx === questions.length - 1 && !isReview ? (
+           <button onClick={submit} className="flex items-center gap-2 px-8 py-3 rounded-xl bg-app-accent-primary text-app-bg font-bold text-sm cursor-pointer">
+             <i className="ri-send-plane-fill"></i>Nộp bài
+           </button>
+         ) : (
+-          <button onClick={() => setCurrentIdx(p => Math.min(DE2_QUESTIONS.length - 1, p + 1))} disabled={currentIdx === DE2_QUESTIONS.length - 1}
++          <button onClick={() => setCurrentIdx(p => Math.min(questions.length - 1, p + 1))} disabled={currentIdx === questions.length - 1}
+             className="flex items-center gap-2 px-5 py-3 rounded-xl bg-app-accent-primary text-app-bg text-sm font-bold disabled:opacity-40 cursor-pointer">
+             Tiếp<i className="ri-arrow-right-line"></i>
+           </button>
+diff --git a/src/pages/eps-exams/page.tsx b/src/pages/eps-exams/page.tsx
+index e304dfd..f71762f 100644
+--- a/src/pages/eps-exams/page.tsx
++++ b/src/pages/eps-exams/page.tsx
+@@ -1,10 +1,11 @@
+-import { useState, useEffect, useCallback } from "react";
++import { useState, useEffect, useCallback, useMemo } from "react";
+ import { useNavigate } from "react-router-dom";
+ import DashboardLayout from "@/components/feature/DashboardLayout";
+ import { EPS_EXAMS, EPSExam, EPSQuestion } from "@/data/epsExams";
+ import { useXPSystem } from "@/hooks/useXPSystem";
+ import { STORAGE_KEYS } from "@/lib/storageKeys";
+ import { usePageSEO } from "@/hooks/usePageSEO";
++import { useEpsExamList } from "@/hooks/useEpsExams";
+ 
+ interface UserAnswer {
+   questionId: string;
+@@ -21,6 +22,18 @@ interface ExamResult {
+ }
+ 
+ export default function EPSExamsPage() {
++  // Overlay DB titles lên 2 đề tĩnh — admin có thể đổi tên qua /admin/eps-exam-manager.
++  // Đề tĩnh eps_01 / eps_02 ↔ DB slug eps-de-1 / eps-de-2 (seed bởi migration 122).
++  const { exams: dbExams } = useEpsExamList();
++  const dbBySlug = useMemo(() => new Map(dbExams.map(e => [e.slug, e])), [dbExams]);
++  const mergedExams: EPSExam[] = useMemo(() => {
++    const slugFor: Record<string, string> = { eps_01: "eps-de-1", eps_02: "eps-de-2" };
++    return EPS_EXAMS.map(e => {
++      const db = dbBySlug.get(slugFor[e.id] ?? "");
++      return db ? { ...e, title: db.title } : e;
++    });
++  }, [dbBySlug]);
++
+   usePageSEO({
+     title: "Đề Thi EPS-TOPIK 2025 Có Đáp Án — Luyện Thi XKLĐ Hàn Quốc | Hàn Quốc Ơi!",
+     description: "Bộ đề thi EPS-TOPIK 2025 chính thức có đáp án và audio. Luyện thi miễn phí đi XKLĐ Hàn Quốc. Đầy đủ 40 câu nghe + đọc, giải thích chi tiết tiếng Việt.",
+@@ -31,8 +44,8 @@ export default function EPSExamsPage() {
+       "@type": "ItemList",
+       name: "Đề thi EPS-TOPIK 2025",
+       description: "Danh sách đề thi EPS-TOPIK chính thức có đáp án.",
+-      numberOfItems: EPS_EXAMS.length,
+-      itemListElement: EPS_EXAMS.map((exam, idx) => ({
++      numberOfItems: mergedExams.length,
++      itemListElement: mergedExams.map((exam, idx) => ({
+         "@type": "ListItem",
+         position: idx + 1,
+         item: {
+@@ -195,7 +208,7 @@ export default function EPSExamsPage() {
+         <div className="max-w-2xl">
+           <p className="text-app-text-secondary text-xs mb-3">Chọn đề để bắt đầu</p>
+           <div className="flex flex-col gap-3">
+-            {EPS_EXAMS.map(exam => {
++            {mergedExams.map(exam => {
+               const c = EXAM_COLORS[exam.id] ?? EXAM_COLORS.default;
+               return (
+                 <button
+diff --git a/src/pages/pricing/page.tsx b/src/pages/pricing/page.tsx
+index cefaa8b..8bd9671 100644
+--- a/src/pages/pricing/page.tsx
++++ b/src/pages/pricing/page.tsx
+@@ -336,15 +336,88 @@ export default function PricingPage() {
+   const submittingRef = useRef(false);
+   const [copied, setCopied] = useState<string | null>(null);
+ 
++  // ─── Coupon state ─────────────────────────────────────────────────────────
++  const [couponInput, setCouponInput] = useState("");
++  const [couponValidating, setCouponValidating] = useState(false);
++  const [couponError, setCouponError] = useState<string | null>(null);
++  const [appliedCoupon, setAppliedCoupon] = useState<{
++    redemptionId: string;
++    code: string;
++    originalAmount: number;
++    discountedAmount: number;
++    discountAmount: number;
++  } | null>(null);
++
+   const monthlyPrice = 79000;
+   const yearlyPrice = 59000;
+   const currentPrice = billing === "monthly" ? monthlyPrice : yearlyPrice;
+   const yearSaving = (monthlyPrice - yearlyPrice) * 12;
+ 
++  const releaseAppliedCoupon = async () => {
++    if (!appliedCoupon) return;
++    try {
++      await supabase.rpc("release_coupon_redemption", { p_redemption_id: appliedCoupon.redemptionId });
++    } catch { /* best-effort; the row stays 'pending' but won't be re-usable by same user anyway */ }
++    setAppliedCoupon(null);
++    setCouponError(null);
++  };
++
++  const handleApplyCoupon = async () => {
++    if (!couponInput.trim() || couponValidating) return;
++    setCouponValidating(true);
++    setCouponError(null);
++    try {
++      const { data, error } = await supabase.rpc("validate_and_apply_coupon", {
++        p_code: couponInput.trim(),
++        p_billing_cycle: billing,
++      });
++      if (error) {
++        setCouponError("Có lỗi xảy ra khi kiểm tra mã");
++        return;
++      }
++      const res = data as {
++        ok: boolean;
++        error?: string;
++        redemption_id?: string;
++        code?: string;
++        discount_amount?: number;
++        original_amount?: number;
++        discounted_amount?: number;
++      };
++      if (!res?.ok) {
++        setCouponError(res?.error || "Mã coupon không hợp lệ");
++        return;
++      }
++      setAppliedCoupon({
++        redemptionId: res.redemption_id!,
++        code: res.code || couponInput.trim().toUpperCase(),
++        originalAmount: res.original_amount!,
++        discountedAmount: res.discounted_amount!,
++        discountAmount: res.discount_amount!,
++      });
++    } finally {
++      setCouponValidating(false);
++    }
++  };
++
++  // Release coupon if user switches billing cycle (price changes, redemption stale)
++  useEffect(() => {
++    if (appliedCoupon) {
++      void releaseAppliedCoupon();
++    }
++    // eslint-disable-next-line react-hooks/exhaustive-deps
++  }, [billing]);
++
+   const handleRegister = () => {
+     setShowPaymentModal(true);
+   };
+ 
++  const handleClosePaymentModal = () => {
++    setShowPaymentModal(false);
++    void releaseAppliedCoupon();
++    setCouponInput("");
++  };
++
+   const handleSubmitPayment = async () => {
+     if (!profile || !paymentProof) return;
+     if (submittingRef.current) return;
+@@ -357,30 +430,39 @@ export default function PricingPage() {
+       const { data: uploadData, error: uploadError } = await supabase.storage
+         .from("payment-proofs")
+         .upload(fileName, paymentProof);
+-      
++
+       if (uploadError) throw uploadError;
+-      
++
+       // Get public URL
+       const { data: { publicUrl } } = supabase.storage
+         .from("payment-proofs")
+         .getPublicUrl(fileName);
+-      
+-      // Submit payment request
++
++      // Submit payment request. The server-side trigger overrides `amount`
++      // with the canonical price (minus coupon discount, if redemption is
++      // bound). The client value is just a placeholder.
++      const placeholderAmount = appliedCoupon
++        ? appliedCoupon.discountedAmount
++        : (billing === "monthly" ? monthlyPrice : yearlyPrice * 12);
+       const { error: insertError } = await supabase.from("vip_payment_requests").insert({
+         user_id: profile.id,
+         email: user?.email || "",
+-        amount: billing === "monthly" ? monthlyPrice : yearlyPrice * 12,
++        amount: placeholderAmount,
+         billing_cycle: billing,
+         proof_url: publicUrl,
+         note: paymentNote,
+         status: "pending",
++        coupon_code: appliedCoupon?.code || null,
++        coupon_redemption_id: appliedCoupon?.redemptionId || null,
+       });
+-      
++
+       if (insertError) throw insertError;
+-      
++
+       setShowPaymentModal(false);
+       setPaymentProof(null);
+       setPaymentNote("");
++      setAppliedCoupon(null);
++      setCouponInput("");
+       setShowSuccess(true);
+       setTimeout(() => setShowSuccess(false), 5000);
+     } catch (err) {
+@@ -423,8 +505,10 @@ export default function PricingPage() {
+ 
+       {/* Payment Modal — redesigned with VietQR */}
+       {showPaymentModal && (() => {
+-        const amount = billing === "monthly" ? monthlyPrice : yearlyPrice * 12;
++        const baseAmount = billing === "monthly" ? monthlyPrice : yearlyPrice * 12;
++        const amount = appliedCoupon?.discountedAmount ?? baseAmount;
+         const fmtAmt = new Intl.NumberFormat("vi-VN").format(amount);
++        const fmtBase = new Intl.NumberFormat("vi-VN").format(baseAmount);
+         const content = `VIP_${user?.email?.split("@")[0] || "EMAIL"}`;
+         const bank = paySettings?.bankAccount;
+         const momo = paySettings?.momo;
+@@ -442,7 +526,7 @@ export default function PricingPage() {
+                   <p className="text-white font-bold text-sm">Nâng cấp VIP {billing === "monthly" ? "Tháng" : "Năm"}</p>
+                   <p className="text-app-text-secondary text-xs mt-0.5">Chuyển khoản → gửi minh chứng → kích hoạt trong 30 phút</p>
+                 </div>
+-                <button onClick={() => setShowPaymentModal(false)} className="w-8 h-8 flex items-center justify-center rounded-lg text-app-text-muted hover:text-white/70 hover:bg-white/8 cursor-pointer transition-all">
++                <button onClick={handleClosePaymentModal} className="w-8 h-8 flex items-center justify-center rounded-lg text-app-text-muted hover:text-white/70 hover:bg-white/8 cursor-pointer transition-all">
+                   <i className="ri-close-line text-lg"></i>
+                 </button>
+               </div>
+@@ -480,13 +564,14 @@ export default function PricingPage() {
+                           </div>
+                           {[{ label: "Số tài khoản", value: bank.accountNumber, key: "acc" },
+                             { label: "Chủ tài khoản", value: bank.accountName, key: "name" },
+-                            { label: "Số tiền",       value: `${fmtAmt}đ`,    key: "amt" },
++                            { label: "Số tiền",       value: `${fmtAmt}đ`,    key: "amt", subValue: appliedCoupon ? `Giá gốc ${fmtBase}đ — đã trừ ${new Intl.NumberFormat("vi-VN").format(appliedCoupon.discountAmount)}đ` : null },
+                             { label: "Nội dung CK",   value: content,         key: "msg" },
+                           ].map(r => r.value && (
+                             <div key={r.key} className="flex items-center justify-between gap-2">
+                               <div className="min-w-0">
+                                 <p className="text-[10px] text-app-text-muted">{r.label}</p>
+                                 <p className={`text-sm font-semibold text-white/80 truncate ${r.key === "acc" || r.key === "msg" ? "font-mono" : ""}`}>{r.value}</p>
++                                {r.subValue && <p className="text-[9px] text-app-accent-success mt-0.5">{r.subValue}</p>}
+                               </div>
+                               <button onClick={() => copyToClipboard(r.value!, r.key)}
+                                 className="flex-shrink-0 w-7 h-7 flex items-center justify-center rounded-lg bg-white/8 hover:bg-white/15 cursor-pointer transition-all">
+@@ -534,6 +619,63 @@ export default function PricingPage() {
+                   </div>
+                 )}
+ 
++                {/* Coupon input */}
++                <div className="border-t border-app-border pt-4">
++                  <label className="text-white/60 text-xs font-semibold block mb-2">
++                    Mã giảm giá <span className="text-app-text-muted font-normal">(không bắt buộc)</span>
++                  </label>
++                  {appliedCoupon ? (
++                    <div className="flex items-center justify-between gap-2 px-4 py-3 bg-emerald-500/10 border border-emerald-500/30 rounded-xl">
++                      <div className="min-w-0">
++                        <div className="flex items-center gap-2">
++                          <i className="ri-coupon-3-line text-app-accent-success"></i>
++                          <span className="font-mono font-bold text-sm text-app-accent-success">{appliedCoupon.code}</span>
++                          <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-app-accent-success font-semibold">
++                            -{new Intl.NumberFormat("vi-VN").format(appliedCoupon.discountAmount)}đ
++                          </span>
++                        </div>
++                        <p className="text-[10px] text-app-text-muted mt-0.5">
++                          Giá gốc: <span className="line-through">{new Intl.NumberFormat("vi-VN").format(appliedCoupon.originalAmount)}đ</span>
++                          {" → "}
++                          <span className="text-white/80 font-bold">{new Intl.NumberFormat("vi-VN").format(appliedCoupon.discountedAmount)}đ</span>
++                        </p>
++                      </div>
++                      <button
++                        onClick={releaseAppliedCoupon}
++                        className="w-7 h-7 flex items-center justify-center rounded-lg bg-white/8 hover:bg-rose-500/20 cursor-pointer transition-all flex-shrink-0"
++                        title="Bỏ mã giảm giá"
++                      >
++                        <i className="ri-close-line text-xs text-app-text-muted"></i>
++                      </button>
++                    </div>
++                  ) : (
++                    <>
++                      <div className="flex gap-2">
++                        <input
++                          type="text"
++                          value={couponInput}
++                          onChange={e => { setCouponInput(e.target.value.toUpperCase()); setCouponError(null); }}
++                          onKeyDown={e => { if (e.key === "Enter") { e.preventDefault(); void handleApplyCoupon(); } }}
++                          placeholder="VD: VIP20"
++                          className="flex-1 bg-app-card/50 border border-app-border rounded-xl px-4 py-2.5 text-white text-sm placeholder-white/20 focus:outline-none focus:border-app-accent-primary/40 transition-colors font-mono tracking-widest uppercase"
++                        />
++                        <button
++                          onClick={handleApplyCoupon}
++                          disabled={!couponInput.trim() || couponValidating}
++                          className="px-4 py-2.5 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] disabled:opacity-40 disabled:cursor-not-allowed text-app-bg text-xs font-bold transition-colors cursor-pointer whitespace-nowrap"
++                        >
++                          {couponValidating ? <i className="ri-loader-4-line animate-spin"></i> : "Áp dụng"}
++                        </button>
++                      </div>
++                      {couponError && (
++                        <p className="text-rose-400 text-[11px] mt-1.5 flex items-center gap-1">
++                          <i className="ri-error-warning-line"></i>{couponError}
++                        </p>
++                      )}
++                    </>
++                  )}
++                </div>
++
+                 {/* Upload proof */}
+                 <div className="border-t border-app-border pt-4">
+                   <label className="text-white/60 text-xs font-semibold block mb-2">Ảnh minh chứng chuyển khoản <span className="text-rose-400">*</span></label>
+@@ -555,7 +697,7 @@ export default function PricingPage() {
+                 </div>
+ 
+                 <div className="flex gap-3">
+-                  <button onClick={() => setShowPaymentModal(false)}
++                  <button onClick={handleClosePaymentModal}
+                     className="flex-1 py-3 rounded-xl border border-app-border text-white/50 text-sm font-medium hover:bg-app-card/50 transition-colors cursor-pointer">
+                     Hủy
+                   </button>
+diff --git a/supabase/migrations/118_eps_exam_manager.sql b/supabase/migrations/118_eps_exam_manager.sql
+index b7dda8a..b0406e3 100644
+--- a/supabase/migrations/118_eps_exam_manager.sql
++++ b/supabase/migrations/118_eps_exam_manager.sql
+@@ -54,11 +54,13 @@ alter table public.eps_questions enable row level security;
+ 
+ -- Everyone can view published exams + their questions
+ -- (Unpublished exams are hidden from normal users)
++drop policy if exists "Published exams visible to public" on public.eps_exams;
+ create policy "Published exams visible to public"
+   on public.eps_exams
+   for select to anon, authenticated
+   using (is_published = true);
+ 
++drop policy if exists "Exam questions visible to public" on public.eps_questions;
+ create policy "Exam questions visible to public"
+   on public.eps_questions
+   for select to anon, authenticated
+@@ -70,12 +72,14 @@ create policy "Exam questions visible to public"
+   );
+ 
+ -- Admins can CRUD everything
++drop policy if exists "Admin full access on exams" on public.eps_exams;
+ create policy "Admin full access on exams"
+   on public.eps_exams
+   for all to authenticated
+   using (public.is_admin_user(auth.uid()))
+   with check (public.is_admin_user(auth.uid()));
+ 
++drop policy if exists "Admin full access on questions" on public.eps_questions;
+ create policy "Admin full access on questions"
+   on public.eps_questions
+   for all to authenticated
+@@ -91,6 +95,7 @@ begin
+ end;
+ $$ language plpgsql;
+ 
++drop trigger if exists trg_eps_exams_updated_at on public.eps_exams;
+ create trigger trg_eps_exams_updated_at
+   before update on public.eps_exams
+   for each row execute function public.set_updated_at();
+@@ -101,22 +106,26 @@ values ('eps-exams', 'eps-exams', true)
+ on conflict (id) do nothing;
+ 
+ -- RLS: anyone can read public media
++drop policy if exists "Public read eps-exams" on storage.objects;
+ create policy "Public read eps-exams"
+   on storage.objects for select to anon, authenticated
+   using (bucket_id = 'eps-exams');
+ 
+ -- Admin can insert (with check ensures new row satisfies condition)
++drop policy if exists "Admin insert eps-exams" on storage.objects;
+ create policy "Admin insert eps-exams"
+   on storage.objects for insert to authenticated
+   with check (bucket_id = 'eps-exams' and public.is_admin_user(auth.uid()));
+ 
+ -- Admin can update (using checks existing row, with check ensures new row)
++drop policy if exists "Admin update eps-exams" on storage.objects;
+ create policy "Admin update eps-exams"
+   on storage.objects for update to authenticated
+   using (bucket_id = 'eps-exams' and public.is_admin_user(auth.uid()))
+   with check (bucket_id = 'eps-exams' and public.is_admin_user(auth.uid()));
+ 
+ -- Admin can delete
++drop policy if exists "Admin delete eps-exams" on storage.objects;
+ create policy "Admin delete eps-exams"
+   on storage.objects for delete to authenticated
+   using (bucket_id = 'eps-exams' and public.is_admin_user(auth.uid()));
+diff --git a/supabase/migrations/119_coupons.sql b/supabase/migrations/119_coupons.sql
+new file mode 100644
+index 0000000..b2965bd
+--- /dev/null
++++ b/supabase/migrations/119_coupons.sql
+@@ -0,0 +1,412 @@
++-- ============================================================================
++-- 119_coupons.sql  (rewritten 2026-05-29)
++--
++-- Coupons: adapt to existing public.coupons table (created earlier via
++-- Studio with columns: id, code, discount_percent, valid_until, is_active),
++-- add the columns the admin UI / frontend need, plus redemption ledger +
++-- pricing integration.
++--
++-- The previous version of this file CREATE TABLE IF NOT EXISTSd with a
++-- fresh schema, which silently no-op'd because the table already existed
++-- — so the new columns (active, discount, discount_type, coupon_type,
++-- vip_plan, max_usage, usage_count, …) were never added, and the next
++-- statement failed with "column active does not exist".
++--
++-- Strategy: ALTER TABLE … ADD COLUMN IF NOT EXISTS for every column we
++-- need, using `is_active` (the existing name). Do NOT touch column types
++-- that already exist.
++--
++-- Redemption rules (decided 2026-05-29):
++--   1. 1 user can redeem each coupon exactly once.
++--   2. max_usage caps the TOTAL number of redemptions across all users.
++--   3. Coupons can target VIP monthly only, yearly only, or both.
++-- ============================================================================
++
++-- 1. Make sure `public.coupons` exists, then patch it up to today's schema.
++CREATE TABLE IF NOT EXISTS public.coupons (
++    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
++    code TEXT NOT NULL UNIQUE,
++    is_active BOOLEAN NOT NULL DEFAULT TRUE,
++    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
++);
++
++ALTER TABLE public.coupons ADD COLUMN IF NOT EXISTS discount       NUMERIC;
++ALTER TABLE public.coupons ADD COLUMN IF NOT EXISTS discount_type  TEXT;
++ALTER TABLE public.coupons ADD COLUMN IF NOT EXISTS channel        TEXT DEFAULT 'Khác';
++ALTER TABLE public.coupons ADD COLUMN IF NOT EXISTS series_id      TEXT DEFAULT 'all';
++ALTER TABLE public.coupons ADD COLUMN IF NOT EXISTS coupon_type    TEXT DEFAULT 'ebook';
++ALTER TABLE public.coupons ADD COLUMN IF NOT EXISTS vip_plan       TEXT;
++ALTER TABLE public.coupons ADD COLUMN IF NOT EXISTS usage_count    INTEGER NOT NULL DEFAULT 0;
++ALTER TABLE public.coupons ADD COLUMN IF NOT EXISTS max_usage      INTEGER;
++ALTER TABLE public.coupons ADD COLUMN IF NOT EXISTS note           TEXT;
++ALTER TABLE public.coupons ADD COLUMN IF NOT EXISTS updated_at     TIMESTAMPTZ NOT NULL DEFAULT NOW();
++
++-- Backfill from legacy column `discount_percent` if it exists and the new
++-- `discount` column is empty for a row.
++DO $$
++BEGIN
++    IF EXISTS (
++        SELECT 1 FROM information_schema.columns
++        WHERE table_schema = 'public' AND table_name = 'coupons' AND column_name = 'discount_percent'
++    ) THEN
++        EXECUTE 'UPDATE public.coupons
++                 SET discount = COALESCE(discount, discount_percent),
++                     discount_type = COALESCE(discount_type, ''percent'')
++                 WHERE discount IS NULL';
++    END IF;
++END $$;
++
++-- Default any remaining nulls (rows inserted before this migration)
++UPDATE public.coupons SET discount_type = 'percent' WHERE discount_type IS NULL;
++UPDATE public.coupons SET coupon_type   = 'ebook'   WHERE coupon_type   IS NULL;
++
++-- CHECK constraints — wrap in DO blocks so re-runs don't double-add them.
++DO $$ BEGIN
++    IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'coupons_discount_type_chk') THEN
++        ALTER TABLE public.coupons
++            ADD CONSTRAINT coupons_discount_type_chk CHECK (discount_type IN ('percent', 'fixed')) NOT VALID;
++    END IF;
++    IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'coupons_coupon_type_chk') THEN
++        ALTER TABLE public.coupons
++            ADD CONSTRAINT coupons_coupon_type_chk CHECK (coupon_type IN ('ebook', 'vip')) NOT VALID;
++    END IF;
++    IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'coupons_vip_plan_chk') THEN
++        ALTER TABLE public.coupons
++            ADD CONSTRAINT coupons_vip_plan_chk CHECK (vip_plan IS NULL OR vip_plan IN ('month', 'year', 'both')) NOT VALID;
++    END IF;
++    IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'coupons_discount_positive_chk') THEN
++        ALTER TABLE public.coupons
++            ADD CONSTRAINT coupons_discount_positive_chk CHECK (discount IS NULL OR discount > 0) NOT VALID;
++    END IF;
++    IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'coupons_max_usage_positive_chk') THEN
++        ALTER TABLE public.coupons
++            ADD CONSTRAINT coupons_max_usage_positive_chk CHECK (max_usage IS NULL OR max_usage > 0) NOT VALID;
++    END IF;
++END $$;
++
++CREATE UNIQUE INDEX IF NOT EXISTS idx_coupons_code_lower ON public.coupons (LOWER(code));
++CREATE INDEX IF NOT EXISTS idx_coupons_is_active ON public.coupons (is_active) WHERE is_active = TRUE;
++
++ALTER TABLE public.coupons ENABLE ROW LEVEL SECURITY;
++
++DROP POLICY IF EXISTS "coupons public read active" ON public.coupons;
++CREATE POLICY "coupons public read active"
++    ON public.coupons FOR SELECT
++    USING (is_active = TRUE);
++
++DROP POLICY IF EXISTS "coupons admin read all" ON public.coupons;
++CREATE POLICY "coupons admin read all"
++    ON public.coupons FOR SELECT
++    USING (
++        EXISTS (
++            SELECT 1 FROM public.user_profiles
++            WHERE id = auth.uid() AND is_admin = TRUE
++        )
++    );
++
++DROP POLICY IF EXISTS "coupons admin write" ON public.coupons;
++CREATE POLICY "coupons admin write"
++    ON public.coupons FOR ALL
++    USING (
++        EXISTS (
++            SELECT 1 FROM public.user_profiles
++            WHERE id = auth.uid() AND is_admin = TRUE
++        )
++    )
++    WITH CHECK (
++        EXISTS (
++            SELECT 1 FROM public.user_profiles
++            WHERE id = auth.uid() AND is_admin = TRUE
++        )
++    );
++
++CREATE OR REPLACE FUNCTION public.touch_coupons_updated_at()
++RETURNS TRIGGER LANGUAGE plpgsql AS $$
++BEGIN NEW.updated_at = NOW(); RETURN NEW; END;
++$$;
++DROP TRIGGER IF EXISTS trg_coupons_touch ON public.coupons;
++CREATE TRIGGER trg_coupons_touch
++    BEFORE UPDATE ON public.coupons
++    FOR EACH ROW EXECUTE FUNCTION public.touch_coupons_updated_at();
++
++-- 2. Redemptions table -------------------------------------------------------
++-- coupon_id type MUST match the actual type of public.coupons.id.
++-- The legacy Studio-created table has id TEXT; fresh deploys via this
++-- migration get id UUID. We detect the real type at runtime and create
++-- the FK column to match — otherwise Postgres rejects the FK with
++-- "incompatible types: uuid and text" (error 42804).
++DO $$
++DECLARE
++    v_coupon_id_type TEXT;
++BEGIN
++    SELECT data_type INTO v_coupon_id_type
++        FROM information_schema.columns
++        WHERE table_schema = 'public'
++          AND table_name   = 'coupons'
++          AND column_name  = 'id';
++
++    IF v_coupon_id_type IS NULL THEN
++        RAISE EXCEPTION 'public.coupons.id not found — cannot create coupon_redemptions';
++    END IF;
++
++    EXECUTE format($f$
++        CREATE TABLE IF NOT EXISTS public.coupon_redemptions (
++            id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
++            coupon_id %s NOT NULL REFERENCES public.coupons(id) ON DELETE CASCADE,
++            user_id UUID NOT NULL REFERENCES public.user_profiles(id) ON DELETE CASCADE,
++            status TEXT NOT NULL DEFAULT 'pending'
++                CHECK (status IN ('pending', 'consumed', 'released')),
++            billing_cycle TEXT CHECK (billing_cycle IN ('monthly', 'yearly')),
++            original_amount INTEGER,
++            discounted_amount INTEGER,
++            payment_request_id UUID,
++            created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
++            updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
++        )
++    $f$, v_coupon_id_type);
++END $$;
++
++CREATE UNIQUE INDEX IF NOT EXISTS uniq_active_redemption_per_user
++    ON public.coupon_redemptions (coupon_id, user_id)
++    WHERE status IN ('pending', 'consumed');
++
++CREATE INDEX IF NOT EXISTS idx_redemptions_coupon  ON public.coupon_redemptions (coupon_id);
++CREATE INDEX IF NOT EXISTS idx_redemptions_user    ON public.coupon_redemptions (user_id);
++CREATE INDEX IF NOT EXISTS idx_redemptions_payment ON public.coupon_redemptions (payment_request_id);
++
++ALTER TABLE public.coupon_redemptions ENABLE ROW LEVEL SECURITY;
++
++DROP POLICY IF EXISTS "redemptions own read" ON public.coupon_redemptions;
++CREATE POLICY "redemptions own read"
++    ON public.coupon_redemptions FOR SELECT
++    USING (user_id = auth.uid());
++
++DROP POLICY IF EXISTS "redemptions admin read" ON public.coupon_redemptions;
++CREATE POLICY "redemptions admin read"
++    ON public.coupon_redemptions FOR SELECT
++    USING (
++        EXISTS (SELECT 1 FROM public.user_profiles
++                WHERE id = auth.uid() AND is_admin = TRUE)
++    );
++
++-- 3. Validate-and-reserve RPC ------------------------------------------------
++CREATE OR REPLACE FUNCTION public.validate_and_apply_coupon(
++    p_code TEXT,
++    p_billing_cycle TEXT
++)
++RETURNS JSONB
++LANGUAGE plpgsql
++SECURITY DEFINER
++SET search_path = public
++AS $$
++DECLARE
++    v_coupon public.coupons%ROWTYPE;
++    v_user UUID := auth.uid();
++    v_original INTEGER;
++    v_discount_amt INTEGER;
++    v_discounted INTEGER;
++    v_redemption_id UUID;
++    v_existing_id UUID;
++BEGIN
++    IF v_user IS NULL THEN
++        RETURN jsonb_build_object('ok', false, 'error', 'Bạn cần đăng nhập để dùng coupon');
++    END IF;
++
++    IF p_billing_cycle NOT IN ('monthly', 'yearly') THEN
++        RETURN jsonb_build_object('ok', false, 'error', 'Chu kỳ thanh toán không hợp lệ');
++    END IF;
++
++    SELECT * INTO v_coupon FROM public.coupons
++        WHERE LOWER(code) = LOWER(TRIM(p_code));
++
++    IF NOT FOUND THEN
++        RETURN jsonb_build_object('ok', false, 'error', 'Mã coupon không tồn tại');
++    END IF;
++
++    IF NOT v_coupon.is_active THEN
++        RETURN jsonb_build_object('ok', false, 'error', 'Mã coupon đã bị tắt');
++    END IF;
++
++    IF v_coupon.coupon_type <> 'vip' THEN
++        RETURN jsonb_build_object('ok', false, 'error', 'Mã này không áp dụng cho gói VIP');
++    END IF;
++
++    -- vip_plan: 'month' / 'year' / 'both' / NULL (treat NULL as 'both' for back-compat)
++    IF v_coupon.vip_plan IS NOT NULL AND v_coupon.vip_plan <> 'both' THEN
++        IF (v_coupon.vip_plan = 'month' AND p_billing_cycle <> 'monthly')
++        OR (v_coupon.vip_plan = 'year'  AND p_billing_cycle <> 'yearly') THEN
++            RETURN jsonb_build_object(
++                'ok', false,
++                'error', 'Mã này chỉ áp dụng cho gói '
++                    || CASE v_coupon.vip_plan WHEN 'month' THEN 'VIP Tháng' ELSE 'VIP Năm' END
++            );
++        END IF;
++    END IF;
++
++    IF v_coupon.max_usage IS NOT NULL AND v_coupon.usage_count >= v_coupon.max_usage THEN
++        RETURN jsonb_build_object('ok', false, 'error', 'Mã coupon đã hết lượt sử dụng');
++    END IF;
++
++    -- 1 user 1 lần: refuse if this user already has an active redemption
++    SELECT id INTO v_existing_id FROM public.coupon_redemptions
++        WHERE coupon_id = v_coupon.id
++          AND user_id = v_user
++          AND status IN ('pending', 'consumed')
++        LIMIT 1;
++
++    IF FOUND THEN
++        RETURN jsonb_build_object('ok', false, 'error', 'Bạn đã dùng mã này rồi');
++    END IF;
++
++    SELECT amount INTO v_original FROM public.vip_pricing
++        WHERE billing_cycle = p_billing_cycle;
++
++    IF v_original IS NULL THEN
++        RETURN jsonb_build_object('ok', false, 'error', 'Không tìm thấy giá gói VIP');
++    END IF;
++
++    IF v_coupon.discount IS NULL THEN
++        RETURN jsonb_build_object('ok', false, 'error', 'Mã coupon thiếu mức giảm');
++    END IF;
++
++    IF v_coupon.discount_type = 'percent' THEN
++        v_discount_amt := LEAST(v_original, ROUND(v_original * LEAST(v_coupon.discount, 100) / 100.0)::INTEGER);
++    ELSE
++        -- fixed: stored in thousand-VNĐ units (e.g. 50 = 50.000đ), matches admin UI
++        v_discount_amt := LEAST(v_original, (v_coupon.discount * 1000)::INTEGER);
++    END IF;
++
++    v_discounted := GREATEST(0, v_original - v_discount_amt);
++
++    INSERT INTO public.coupon_redemptions (
++        coupon_id, user_id, status, billing_cycle, original_amount, discounted_amount
++    ) VALUES (
++        v_coupon.id, v_user, 'pending', p_billing_cycle, v_original, v_discounted
++    )
++    RETURNING id INTO v_redemption_id;
++
++    RETURN jsonb_build_object(
++        'ok', true,
++        'redemption_id', v_redemption_id,
++        'coupon_id', v_coupon.id,
++        'code', v_coupon.code,
++        'discount', v_coupon.discount,
++        'discount_type', v_coupon.discount_type,
++        'discount_amount', v_discount_amt,
++        'original_amount', v_original,
++        'discounted_amount', v_discounted
++    );
++END;
++$$;
++
++GRANT EXECUTE ON FUNCTION public.validate_and_apply_coupon(TEXT, TEXT) TO authenticated;
++
++-- 4. Release-redemption RPC --------------------------------------------------
++CREATE OR REPLACE FUNCTION public.release_coupon_redemption(p_redemption_id UUID)
++RETURNS BOOLEAN
++LANGUAGE plpgsql
++SECURITY DEFINER
++SET search_path = public
++AS $$
++DECLARE
++    v_rows INTEGER;
++BEGIN
++    UPDATE public.coupon_redemptions
++        SET status = 'released', updated_at = NOW()
++        WHERE id = p_redemption_id
++          AND user_id = auth.uid()
++          AND status = 'pending';
++    GET DIAGNOSTICS v_rows = ROW_COUNT;
++    RETURN v_rows > 0;
++END;
++$$;
++
++GRANT EXECUTE ON FUNCTION public.release_coupon_redemption(UUID) TO authenticated;
++
++-- 5. Extend vip_payment_requests with coupon fields --------------------------
++ALTER TABLE public.vip_payment_requests
++    ADD COLUMN IF NOT EXISTS coupon_code TEXT,
++    ADD COLUMN IF NOT EXISTS coupon_redemption_id UUID
++        REFERENCES public.coupon_redemptions(id) ON DELETE SET NULL,
++    ADD COLUMN IF NOT EXISTS original_amount INTEGER;
++
++-- 6. Replace the 114 trigger to honor coupons --------------------------------
++CREATE OR REPLACE FUNCTION public.enforce_vip_payment_amount()
++RETURNS TRIGGER
++LANGUAGE plpgsql
++SECURITY DEFINER
++SET search_path = public
++AS $$
++DECLARE
++    v_canonical INTEGER;
++    v_redemption public.coupon_redemptions%ROWTYPE;
++    v_final INTEGER;
++BEGIN
++    SELECT amount INTO v_canonical FROM public.vip_pricing
++        WHERE billing_cycle = NEW.billing_cycle;
++
++    IF v_canonical IS NULL THEN
++        RAISE EXCEPTION 'Unknown billing_cycle: %', NEW.billing_cycle USING ERRCODE = '22023';
++    END IF;
++
++    NEW.original_amount := v_canonical;
++    v_final := v_canonical;
++
++    IF NEW.coupon_redemption_id IS NOT NULL THEN
++        SELECT * INTO v_redemption FROM public.coupon_redemptions
++            WHERE id = NEW.coupon_redemption_id;
++
++        IF NOT FOUND
++            OR v_redemption.user_id <> NEW.user_id
++            OR v_redemption.status <> 'pending'
++            OR v_redemption.billing_cycle <> NEW.billing_cycle THEN
++            NEW.coupon_redemption_id := NULL;
++            NEW.coupon_code := NULL;
++        ELSE
++            v_final := v_redemption.discounted_amount;
++            UPDATE public.coupon_redemptions
++                SET payment_request_id = NEW.id, updated_at = NOW()
++                WHERE id = v_redemption.id;
++        END IF;
++    END IF;
++
++    NEW.amount := v_final;
++    RETURN NEW;
++END;
++$$;
++
++-- 7. Approve / reject hooks: consume or release the redemption ---------------
++CREATE OR REPLACE FUNCTION public.handle_vip_payment_status_change()
++RETURNS TRIGGER
++LANGUAGE plpgsql
++SECURITY DEFINER
++SET search_path = public
++AS $$
++BEGIN
++    IF NEW.status = OLD.status OR NEW.coupon_redemption_id IS NULL THEN
++        RETURN NEW;
++    END IF;
++
++    IF NEW.status = 'approved' THEN
++        UPDATE public.coupon_redemptions
++            SET status = 'consumed', updated_at = NOW()
++            WHERE id = NEW.coupon_redemption_id AND status = 'pending';
++        UPDATE public.coupons c
++            SET usage_count = usage_count + 1, updated_at = NOW()
++            FROM public.coupon_redemptions r
++            WHERE r.id = NEW.coupon_redemption_id AND c.id = r.coupon_id;
++    ELSIF NEW.status = 'rejected' THEN
++        UPDATE public.coupon_redemptions
++            SET status = 'released', updated_at = NOW()
++            WHERE id = NEW.coupon_redemption_id AND status = 'pending';
++    END IF;
++
++    RETURN NEW;
++END;
++$$;
++
++DROP TRIGGER IF EXISTS trg_vip_payment_status_change ON public.vip_payment_requests;
++CREATE TRIGGER trg_vip_payment_status_change
++    AFTER UPDATE OF status ON public.vip_payment_requests
++    FOR EACH ROW
++    EXECUTE FUNCTION public.handle_vip_payment_status_change();
+diff --git a/supabase/migrations/120_coupon_race_fix.sql b/supabase/migrations/120_coupon_race_fix.sql
+new file mode 100644
+index 0000000..0ae409e
+--- /dev/null
++++ b/supabase/migrations/120_coupon_race_fix.sql
+@@ -0,0 +1,207 @@
++-- ============================================================================
++-- 120_coupon_race_fix.sql
++--
++-- Fix a race condition in 119: validate_and_apply_coupon checked
++-- `usage_count >= max_usage` but usage_count is only incremented on admin
++-- approval, not at reserve time. 100 concurrent users could each reserve a
++-- coupon with max_usage=10 (each sees 0 < 10) and all be admin-approved,
++-- blowing through the cap.
++--
++-- Fix: count CURRENT active redemptions (pending + consumed) inside the
++-- RPC, under a row-level lock on the coupon. The check now considers
++-- in-flight reservations, not just consumed ones.
++--
++-- Also: defense-in-depth check inside enforce_vip_payment_amount —
++-- decline INSERT if the coupon has gone over max_usage since reservation
++-- (edge case: admin manually approved another payment while this user's
++-- modal was open).
++-- ============================================================================
++
++CREATE OR REPLACE FUNCTION public.validate_and_apply_coupon(
++    p_code TEXT,
++    p_billing_cycle TEXT
++)
++RETURNS JSONB
++LANGUAGE plpgsql
++SECURITY DEFINER
++SET search_path = public
++AS $$
++DECLARE
++    v_coupon public.coupons%ROWTYPE;
++    v_user UUID := auth.uid();
++    v_original INTEGER;
++    v_discount_amt INTEGER;
++    v_discounted INTEGER;
++    v_redemption_id UUID;
++    v_existing_id UUID;
++    v_active_count INTEGER;
++BEGIN
++    IF v_user IS NULL THEN
++        RETURN jsonb_build_object('ok', false, 'error', 'Bạn cần đăng nhập để dùng coupon');
++    END IF;
++
++    IF p_billing_cycle NOT IN ('monthly', 'yearly') THEN
++        RETURN jsonb_build_object('ok', false, 'error', 'Chu kỳ thanh toán không hợp lệ');
++    END IF;
++
++    -- Lock the coupon row for the rest of the transaction. Without this,
++    -- two concurrent callers can both see usage_count=N-1 and both succeed.
++    SELECT * INTO v_coupon FROM public.coupons
++        WHERE LOWER(code) = LOWER(TRIM(p_code))
++        FOR UPDATE;
++
++    IF NOT FOUND THEN
++        RETURN jsonb_build_object('ok', false, 'error', 'Mã coupon không tồn tại');
++    END IF;
++
++    IF NOT v_coupon.is_active THEN
++        RETURN jsonb_build_object('ok', false, 'error', 'Mã coupon đã bị tắt');
++    END IF;
++
++    IF v_coupon.coupon_type <> 'vip' THEN
++        RETURN jsonb_build_object('ok', false, 'error', 'Mã này không áp dụng cho gói VIP');
++    END IF;
++
++    IF v_coupon.vip_plan IS NOT NULL AND v_coupon.vip_plan <> 'both' THEN
++        IF (v_coupon.vip_plan = 'month' AND p_billing_cycle <> 'monthly')
++        OR (v_coupon.vip_plan = 'year'  AND p_billing_cycle <> 'yearly') THEN
++            RETURN jsonb_build_object(
++                'ok', false,
++                'error', 'Mã này chỉ áp dụng cho gói '
++                    || CASE v_coupon.vip_plan WHEN 'month' THEN 'VIP Tháng' ELSE 'VIP Năm' END
++            );
++        END IF;
++    END IF;
++
++    -- ── Cap check based on ACTIVE redemptions, not just consumed ones ──
++    -- "active" = pending (reserved + not yet rejected) OR consumed (admin
++    -- approved). Released rows do not count. This closes the race window
++    -- where many users could simultaneously pass `usage_count < max_usage`.
++    IF v_coupon.max_usage IS NOT NULL THEN
++        SELECT COUNT(*) INTO v_active_count FROM public.coupon_redemptions
++            WHERE coupon_id = v_coupon.id
++              AND status IN ('pending', 'consumed');
++        IF v_active_count >= v_coupon.max_usage THEN
++            RETURN jsonb_build_object('ok', false, 'error', 'Mã coupon đã hết lượt sử dụng');
++        END IF;
++    END IF;
++
++    -- 1 user 1 lần: refuse if this user already has an active redemption
++    SELECT id INTO v_existing_id FROM public.coupon_redemptions
++        WHERE coupon_id = v_coupon.id
++          AND user_id = v_user
++          AND status IN ('pending', 'consumed')
++        LIMIT 1;
++
++    IF FOUND THEN
++        RETURN jsonb_build_object('ok', false, 'error', 'Bạn đã dùng mã này rồi');
++    END IF;
++
++    SELECT amount INTO v_original FROM public.vip_pricing
++        WHERE billing_cycle = p_billing_cycle;
++
++    IF v_original IS NULL THEN
++        RETURN jsonb_build_object('ok', false, 'error', 'Không tìm thấy giá gói VIP');
++    END IF;
++
++    IF v_coupon.discount_type = 'percent' THEN
++        v_discount_amt := LEAST(v_original, ROUND(v_original * LEAST(v_coupon.discount, 100) / 100.0)::INTEGER);
++    ELSE
++        v_discount_amt := LEAST(v_original, (v_coupon.discount * 1000)::INTEGER);
++    END IF;
++
++    v_discounted := GREATEST(0, v_original - v_discount_amt);
++
++    INSERT INTO public.coupon_redemptions (
++        coupon_id, user_id, status, billing_cycle, original_amount, discounted_amount
++    ) VALUES (
++        v_coupon.id, v_user, 'pending', p_billing_cycle, v_original, v_discounted
++    )
++    RETURNING id INTO v_redemption_id;
++
++    RETURN jsonb_build_object(
++        'ok', true,
++        'redemption_id', v_redemption_id,
++        'coupon_id', v_coupon.id,
++        'code', v_coupon.code,
++        'discount', v_coupon.discount,
++        'discount_type', v_coupon.discount_type,
++        'discount_amount', v_discount_amt,
++        'original_amount', v_original,
++        'discounted_amount', v_discounted
++    );
++END;
++$$;
++
++-- ============================================================================
++-- Defense-in-depth: keep the INSERT trigger from binding a redemption that
++-- has gone stale (its coupon's cap was reached by another payment while
++-- this user's modal sat open). In that case we strip the redemption and
++-- charge the full price — better than letting the cap silently leak.
++-- ============================================================================
++CREATE OR REPLACE FUNCTION public.enforce_vip_payment_amount()
++RETURNS TRIGGER
++LANGUAGE plpgsql
++SECURITY DEFINER
++SET search_path = public
++AS $$
++DECLARE
++    v_canonical INTEGER;
++    v_redemption public.coupon_redemptions%ROWTYPE;
++    v_coupon public.coupons%ROWTYPE;
++    v_consumed INTEGER;
++    v_final INTEGER;
++BEGIN
++    SELECT amount INTO v_canonical FROM public.vip_pricing
++        WHERE billing_cycle = NEW.billing_cycle;
++
++    IF v_canonical IS NULL THEN
++        RAISE EXCEPTION 'Unknown billing_cycle: %', NEW.billing_cycle USING ERRCODE = '22023';
++    END IF;
++
++    NEW.original_amount := v_canonical;
++    v_final := v_canonical;
++
++    IF NEW.coupon_redemption_id IS NOT NULL THEN
++        SELECT * INTO v_redemption FROM public.coupon_redemptions
++            WHERE id = NEW.coupon_redemption_id;
++
++        IF NOT FOUND
++            OR v_redemption.user_id <> NEW.user_id
++            OR v_redemption.status <> 'pending'
++            OR v_redemption.billing_cycle <> NEW.billing_cycle THEN
++            NEW.coupon_redemption_id := NULL;
++            NEW.coupon_code := NULL;
++        ELSE
++            -- Re-check max_usage: someone else may have filled the cap with
++            -- 'consumed' redemptions while this row was 'pending'.
++            SELECT * INTO v_coupon FROM public.coupons WHERE id = v_redemption.coupon_id;
++            IF v_coupon.max_usage IS NOT NULL THEN
++                SELECT COUNT(*) INTO v_consumed FROM public.coupon_redemptions
++                    WHERE coupon_id = v_coupon.id AND status = 'consumed';
++                IF v_consumed >= v_coupon.max_usage THEN
++                    -- Release the stale reservation, drop the discount.
++                    UPDATE public.coupon_redemptions
++                        SET status = 'released', updated_at = NOW()
++                        WHERE id = v_redemption.id;
++                    NEW.coupon_redemption_id := NULL;
++                    NEW.coupon_code := NULL;
++                ELSE
++                    v_final := v_redemption.discounted_amount;
++                    UPDATE public.coupon_redemptions
++                        SET payment_request_id = NEW.id, updated_at = NOW()
++                        WHERE id = v_redemption.id;
++                END IF;
++            ELSE
++                v_final := v_redemption.discounted_amount;
++                UPDATE public.coupon_redemptions
++                    SET payment_request_id = NEW.id, updated_at = NOW()
++                    WHERE id = v_redemption.id;
++            END IF;
++        END IF;
++    END IF;
++
++    NEW.amount := v_final;
++    RETURN NEW;
++END;
++$$;
+diff --git a/supabase/migrations/121_eps_exam_extend.sql b/supabase/migrations/121_eps_exam_extend.sql
+new file mode 100644
+index 0000000..901e670
+--- /dev/null
++++ b/supabase/migrations/121_eps_exam_extend.sql
+@@ -0,0 +1,34 @@
++-- Migration: Extend eps_questions schema to fit real Đề 1/Đề 2 content
++-- Date: 2026-05-30
++--
++-- Why: Đề 1, Đề 2 (static `src/data/eps_de1.ts`, `eps_de2.ts`) có các field
++-- mà bảng `eps_questions` (migration 118) chưa có: content, option_images,
++-- audio_script, audio_options, audio_hint, explanation, section, option_type.
++-- Migration này thêm cột (idempotent, không động tới dữ liệu cũ) để có thể
++-- seed Đề 1, Đề 2 vào DB mà không mất nội dung.
++
++alter table public.eps_questions
++  add column if not exists section       text,
++  add column if not exists option_type   text,
++  add column if not exists content       text,
++  add column if not exists content_image text,
++  add column if not exists option_images jsonb,
++  add column if not exists audio_script  text,
++  add column if not exists audio_options jsonb,
++  add column if not exists audio_hint    text,
++  add column if not exists explanation   text;
++
++-- question_type ban đầu chỉ chấp nhận ('listening','reading','image').
++-- Đề 1, 2 chia 2 section reading/listening, kèm option_type=text|image.
++-- Giữ check cũ tương thích; section/option_type là source-of-truth cho UI mới.
++-- (Không nới lỏng để tránh nhận giá trị lạ; admin form đã enum 3 giá trị.)
++
++comment on column public.eps_questions.section       is 'reading | listening (đề EPS chia 2 phần)';
++comment on column public.eps_questions.option_type   is 'text | image — đáp án là chữ hay 4 ảnh';
++comment on column public.eps_questions.content       is 'Nội dung phụ tách khỏi prompt (đoạn văn, từ, hội thoại)';
++comment on column public.eps_questions.content_image is 'Ảnh nội dung câu hỏi (ký hiệu, biểu đồ, vé...)';
++comment on column public.eps_questions.option_images is 'jsonb 4 đường dẫn ảnh đáp án khi option_type=image';
++comment on column public.eps_questions.audio_script  is 'Script tiếng Hàn để TTS đọc (fallback khi không có MP3)';
++comment on column public.eps_questions.audio_options is 'jsonb 4 script TTS cho từng đáp án (định dạng 4-audio)';
++comment on column public.eps_questions.audio_hint    is 'Gợi ý nội dung audio hiển thị sau khi nghe';
++comment on column public.eps_questions.explanation   is 'Giải thích đáp án (hiện ở review mode)';

@@ -1,12 +1,12 @@
 ﻿import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
-import type { ApprovedLesson } from "@/pages/melon/components/ExportExcel";
+import type { ApprovedLesson } from "@/types/melon";
 
 interface VocabItem {
   word: string;
   meaning: string;
-  example: string;
+  example?: string;
 }
 
 function VocabTag({ v, highlight }: { v: VocabItem; highlight?: boolean }) {

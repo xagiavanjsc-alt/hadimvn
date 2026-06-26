@@ -306,7 +306,6 @@ function MatchingMode({ words, onFinish, onWrong }: { words: VocabItem[]; onFini
         setSelectedViet(null);
         setCorrectPair(null);
         setTotalScore(s => s + 1);
-        // eslint-disable-next-line no-unused-expressions
         // Check if batch complete
         const newMatched = new Set([...matched, k, v]);
         const batchComplete = batchWords.every(w => newMatched.has(w.korean) && newMatched.has(w.vietnamese));

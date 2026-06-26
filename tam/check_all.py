@@ -1,24 +1,7 @@
 """Kiem tra meaning_vn va trung lap slug"""
-import requests, json
+from supabase_client import fetch_all_data, find_duplicates, check_missing_fields
 
-headers = {
-    'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRjam9maGtkcmdicm93YWJ1ZHl0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NjE1OTczNiwiZXhwIjoyMDkxNzM1NzM2fQ.T1_WxXzgB0LhFxcOvlqLyt_83rMOgmaQIuUO_4stPOE',
-    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRjam9maGtkcmdicm93YWJ1ZHl0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NjE1OTczNiwiZXhwIjoyMDkxNzM1NzM2fQ.T1_WxXzgB0LhFxcOvlqLyt_83rMOgmaQIuUO_4stPOE'
-}
-
-all_data = []
-offset = 0
-limit = 1000
-while True:
-    r = requests.get(f'https://dcjofhkdrgbrowabudyt.supabase.co/rest/v1/hanja_pro?select=id,slug,meaning_vn,hangul&order=id&limit={limit}&offset={offset}', headers=headers)
-    batch = r.json()
-    if not batch:
-        break
-    all_data.extend(batch)
-    if len(batch) < limit:
-        break
-    offset += limit
-data = all_data
+data = fetch_all_data('hanja_pro', select_fields='id,slug,meaning_vn,hangul')
 
 # 1. Tim cac tu thieu meaning_vn
 empty = [d for d in data if not d.get('meaning_vn')]
@@ -28,17 +11,14 @@ for d in empty:
     print(f"  ID {d['id']}: {d['hangul']} ({d['slug']})")
 
 # 2. Tim trung lap slug
-from collections import Counter
-slug_count = Counter(d['slug'] for d in data)
-dupes = {k: v for k, v in slug_count.items() if v > 1}
-print(f"\n--- TRUNG LAP slug: {len(dupes)} ---")
-for slug, count in dupes.items():
+slug_dupes = find_duplicates(data, 'slug')
+print(f"\n--- TRUNG LAP slug: {len(slug_dupes)} ---")
+for slug, count in slug_dupes.items():
     items = [(d['id'], d['hangul']) for d in data if d['slug'] == slug]
     print(f"  '{slug}' x{count}: {items}")
 
 # 3. Tim trung lap hangul
-hangul_count = Counter(d['hangul'] for d in data)
-hangul_dupes = {k: v for k, v in hangul_count.items() if v > 1}
+hangul_dupes = find_duplicates(data, 'hangul')
 print(f"\n--- TRUNG LAP hangul: {len(hangul_dupes)} ---")
 for h, count in hangul_dupes.items():
     items = [(d['id'], d['slug']) for d in data if d['hangul'] == h]

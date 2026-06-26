@@ -146,7 +146,7 @@ const AdminNaverKinPage = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${process.env.NEXT_PUBLIC_APIFY_API_KEY || ""}`
+            "Authorization": `Bearer ${import.meta.env.VITE_APIFY_API_KEY || ""}`
           },
           body: JSON.stringify({
             query: keyword,

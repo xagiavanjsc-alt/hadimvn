@@ -1,4 +1,4 @@
-﻿import type { ApprovedLesson } from "@/pages/melon/components/ExportExcel";
+﻿import type { ApprovedLesson } from "@/types/melon";
 
 interface Props {
   lessons: ApprovedLesson[];

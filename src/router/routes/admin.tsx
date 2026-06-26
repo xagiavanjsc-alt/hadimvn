@@ -43,7 +43,8 @@ const AdminBugsPage = lazyPage(() => import("../../pages/admin-bugs/page"));
 const AdminVipTransactionsPage = lazyPage(() => import("../../pages/admin-vip-transactions/page"));
 const AdminZaloReminderPage = lazyPage(() => import("../../pages/admin-zalo-reminder/page"));
 const AdminFeedbackPage = lazyPage(() => import("../../pages/admin-feedback/page"));
-const AdminMelonPage = lazyPage(() => import("../../pages/admin-melon/page"));
+// HIDDEN 2026-05-25 (focus EPS+du học): admin-melon removed
+// const AdminMelonPage = lazyPage(() => import("../../pages/admin-melon/page"));
 const AdminNaverKinPage = lazyPage(() => import("../../pages/admin-naver-kin/page"));
 const AdminCTVPage = lazyPage(() => import("../../pages/admin-ctv/page"));
 const AdminContentLearnPage = lazyPage(() => import("../../pages/admin-content-learn/page"));
@@ -91,7 +92,8 @@ export const adminRoutes: RouteObject[] = [
   { path: "/admin/error-logs", element: <RequirePermission permission="system.settings"><AdminErrorLogsPage /></RequirePermission> },
   { path: "/admin/community-settings", element: <RequirePermission permission="content.view"><AdminCommunitySettingsPage /></RequirePermission> },
   { path: "/admin/content-learn", element: <AdminContentLearnPage /> },
-  { path: "/admin-melon", element: <AdminGuard><AdminMelonPage /></AdminGuard> },
+  // HIDDEN 2026-05-25 (focus EPS+du học): admin-melon removed
+  // { path: "/admin-melon", element: <AdminGuard><AdminMelonPage /></AdminGuard> },
   { path: "/admin-naver-kin", element: <AdminGuard><AdminNaverKinPage /></AdminGuard> },
   { path: "/data-upload", element: <AdminGuard><DataUploadPage /></AdminGuard> },
   // Legacy routes (giữ lại để không break links cũ)

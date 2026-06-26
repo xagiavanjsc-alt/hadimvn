@@ -1,0 +1,74 @@
+1	가게	hàng
+3	가까이	gần
+4	가끔	thinhthoàng
+5	가능하다듬	có khà năng
+6	가다	đi
+7	가르치다	dạỵ học,chi bào
+8	가방	túi sáchcặp sách
+9	가볍다	nhẹ
+11	가습기표우다	Zêzl dựg cụ tạo hơi âm
+12	가위존	cái kéo
+13	가을	mùa thu
+14	가져가다	đem đi mang đi
+15	가족	gia đình
+16	가축	gia súc
+18	간호사	Ytá
+19	갈아타다	Ztolelsk đổi tàu xe
+20	감기에걸리다	bị cảm cúm
+22	갑자기	đột ngột bất thình lình
+23	강변	bờ sông
+24	강아지	con cún con
+25	강하다	mạnh
+27	거름	phânbón
+29	거을	cái guơng
+30	걱정	lo lắng
+32	건강보험증돈돈	thé bào hiểm sức khoe
+33	건강하다츤	khoe mạnh
+34	건너다	bẳng qua
+35	건물	toà nhà
+36	걸다춓	5 gọi điện
+37	걸레	rẻ lau
+38	게임	game trò choi
+39	겨을	Ma đông
+40	견인지역돈	khu vực cấmđỗ xe( sẽ bịkéo đi)
+42	경운기	uáy càỵ
+43	경제적이다	tính kinh tế
+44	경치	cảnh trí
+45	계단	cầu thang
+46	계란	quà trứng
+47	계산기	máỵ tính
+48	계산대	bàn thanh toán
+49	계시다	(kính ngữ
+50	계절	mùa
+51	고구마	khoai lang
+52	고르다	lựa chọn
+53	고무장화	lng cao su
+55	고속버스	xe buýt tốc hành
+57	고장이나다	hong hóc
+58	고치다	sửa chữa
+59	고향	quê
+60	곡괭이	cuốc chim
+61	곡식	ngũ cốc
+62	고모	ngõ hem
+63	공구	công cụ
+64	공기	bát( đơn vị đếm)
+65	공부하다	học
+66	공사를하다	xây dựng thi công
+67	공원	công viên
+68	고	công buờng
+70	공책	cuôn vở
+71	고	sân bay
+73	과속하다	quá tốc độ
+74	과식하다돈	ăn quá nhiều
+75	과일	tráicây
+76	과자표	=E bánh mút kẹo
+78	과적	chất quá tài
+79	관계자의출입금지교돈	ko nhiệm vụ cấm vào
+80	관리자	nguời quản lý
+82	교사일	giáo viên
+83	교실	lớp học
+84	교육리듬	giáo dục
+85	교통질서하일	bậttugiao thông
+86	교통차단위일	gián đoan giao thông
+88	교통사고	tai nan giao thông
+90	교통카드으	the giao thông

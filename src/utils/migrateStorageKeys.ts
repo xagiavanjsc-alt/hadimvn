@@ -9,6 +9,15 @@ interface MigrationMap {
   newKey: string;
 }
 
+function getStorage(): Storage | null {
+  if (typeof window === "undefined") return null;
+  try {
+    return window.localStorage;
+  } catch {
+    return null;
+  }
+}
+
 const MIGRATIONS: MigrationMap[] = [
   // XP-related keys
   { oldKey: "kts_xp_total", newKey: "xp_total" },
@@ -23,8 +32,11 @@ const MIGRATIONS: MigrationMap[] = [
 ];
 
 export function migrateStorageKeys(): void {
+  const storage = getStorage();
+  if (!storage) return;
+
   // Check if migration already ran
-  if (localStorage.getItem(MIGRATION_KEY) === "true") {
+  if (storage.getItem(MIGRATION_KEY) === "true") {
     return;
   }
 
@@ -32,15 +44,15 @@ export function migrateStorageKeys(): void {
 
   MIGRATIONS.forEach(({ oldKey, newKey }) => {
     try {
-      const oldData = localStorage.getItem(oldKey);
+      const oldData = storage.getItem(oldKey);
 
       if (oldData) {
-        const existingNewData = localStorage.getItem(newKey);
+        const existingNewData = storage.getItem(newKey);
 
         if (!existingNewData) {
-          localStorage.setItem(newKey, oldData);
+          storage.setItem(newKey, oldData);
           console.log(`[Migration] Migrated ${oldKey} → ${newKey}`);
-          localStorage.removeItem(oldKey);
+          storage.removeItem(oldKey);
         } else if (newKey === "xp_total") {
           // Both kts_xp_total and kts_total_xp map to xp_total. The second
           // one to run would otherwise be silently dropped — keep the larger
@@ -48,8 +60,8 @@ export function migrateStorageKeys(): void {
           const a = parseInt(existingNewData, 10);
           const b = parseInt(oldData, 10);
           const merged = Math.max(Number.isFinite(a) ? a : 0, Number.isFinite(b) ? b : 0);
-          localStorage.setItem(newKey, String(merged));
-          localStorage.removeItem(oldKey);
+          storage.setItem(newKey, String(merged));
+          storage.removeItem(oldKey);
           console.log(`[Migration] Merged ${oldKey} → ${newKey} (max=${merged})`);
         } else {
           console.log(`[Migration] Skipped ${oldKey} → ${newKey} (new key already has data)`);
@@ -61,7 +73,12 @@ export function migrateStorageKeys(): void {
   });
 
   // Mark migration as complete
-  localStorage.setItem(MIGRATION_KEY, "true");
+  try {
+    storage.setItem(MIGRATION_KEY, "true");
+  } catch (error) {
+    console.error("[Migration] Could not persist migration flag:", error);
+    return;
+  }
   console.log("[Migration] Migration complete");
 }
 

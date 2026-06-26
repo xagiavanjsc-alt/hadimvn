@@ -74,7 +74,7 @@ export default [
         { allowConstantExport: true },
       ],
       '@typescript-eslint/no-namespace': 'off',
-      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/no-unused-vars': 'off',
       'no-unused-vars': 'off',
       'no-useless-escape': 'off',
@@ -87,6 +87,7 @@ export default [
       'no-useless-catch': 'off',
       'no-irregular-whitespace': 'off',
       'no-undef': 'error',
+      'no-empty': 'off',
     },
   },
   // Only enforce this rule for the router config file to avoid false positives elsewhere.

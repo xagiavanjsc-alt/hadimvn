@@ -17,7 +17,8 @@ const EpsMockExamPage = lazyPage(() => import("../../pages/eps-mock-exam/page"),
 // const EpsOfficialExamPage = lazyPage(() => import("../../pages/eps-official-exam/page"), "exam");
 const EpsDe1ExamPage = lazyPage(() => import("../../pages/eps-de1-exam/page"), "exam");
 const EpsDe2ExamPage = lazyPage(() => import("../../pages/eps-de2-exam/page"), "exam");
-const EpsPersonalizedRoadmapPage = lazyPage(() => import("../../pages/eps-personalized-roadmap/page"));
+// HIDDEN 2026-05-25 (focus EPS+du học): eps-personalized-roadmap removed
+// const EpsPersonalizedRoadmapPage = lazyPage(() => import("../../pages/eps-personalized-roadmap/page"));
 const EpsProgressRoadmapPage = lazyPage(() => import("../../pages/eps-progress-roadmap/page"));
 const EpsQuickReviewPage = lazyPage(() => import("../../pages/eps-quick-review/page"));
 const EpsReviewHistoryPage = lazyPage(() => import("../../pages/eps-review-history/page"));
@@ -58,7 +59,8 @@ export const epsRoutes: RouteObject[] = [
   { path: "/eps-mock-exam", element: <EpsMockExamPage /> },
   // HIDDEN 2026-05-26: see lazyPage block above
   // { path: "/eps-official-exam", element: <EpsOfficialExamPage /> },
-  { path: "/eps-personalized-roadmap", element: <EpsPersonalizedRoadmapPage /> },
+  // HIDDEN 2026-05-25 (focus EPS+du học): eps-personalized-roadmap removed
+  // { path: "/eps-personalized-roadmap", element: <EpsPersonalizedRoadmapPage /> },
   { path: "/eps-progress-roadmap", element: <EpsProgressRoadmapPage /> },
   { path: "/eps-quick-review", element: <EpsQuickReviewPage /> },
   { path: "/eps-review-history", element: <EpsReviewHistoryPage /> },

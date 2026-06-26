@@ -6,7 +6,7 @@ import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useAdminNotifications } from "@/hooks/useAdminNotifications";
 import { markAdminVerified } from "@/hooks/useIsAdmin";
 import { supabase } from "@/lib/supabase";
-import type { ApprovedLesson } from "@/pages/melon/components/ExportExcel";
+import type { ApprovedLesson } from "@/types/melon";
 import type { EbookSeries } from "@/pages/series/page";
 
 // ─── Types ────────────────────────────────────────────────────────────────────

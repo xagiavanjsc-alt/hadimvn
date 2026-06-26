@@ -1,0 +1,79 @@
+91	교환하다	đổi lại
+92	구경하다	xem
+94	구두굽	gót giày
+95	구둣주걱은	cái đón gót
+96	구름	mây
+97	구멍	1ỗ
+98	구부리다최	uỔ1 ngoáy
+99	구석	góc
+100	구역	khu vực
+101	구인인	tìm người
+102	구하다른피	tìm kiếm
+103	굴삭기	máy xúc
+105	귀덮개	cái bịt tai
+106	귀마개	cái bịt tai
+107	그래서	vì vậy
+108	그러나	nluung
+109	그리면	nểuVậỵ vậỵ thì
+111	그럼	nếu Vậỵ vậỵthi
+112	그렇지만표	nluung
+113	그릇	bát.đĩa
+114	그리고	và
+115	그리다	vẽ
+116	그림	bức tranh
+117	그저께	hôm kia
+119	극장	rạp chiếu phim
+120	근로자	ngurời lao động
+121	근무시간	thời gian làm việc
+123	근처에	gần
+124	금년	năm nay
+126	그소	kim loại
+127	금식	cấm ăn
+128	금연	cấm thuốc
+129	금요일춘	thứ 6
+131	급하다	gấpgápkhẩncấp
+132	기계끄	máỵ móc
+134	기다리다	đợi chờ
+135	기대다	tựa,dựa vào
+136	기르다	nuôi
+138	기분	tâm trạng
+139	기숙사	lký túc xá
+140	기중기	cần cẩu
+141	기차	tàu hoà
+142	기차표	vé tàu
+143	기침을하다	ho
+144	길다	dài
+145	길이	chiều dài
+146	깊다	sâu
+147	깨끗하다	sạch sẽ
+149	깨지다	bịvỡ
+150	꺼내다	lôi ra
+151	꽂다	l cắm
+153	끄다	l ltẳt
+155	끼다	đeo
+156	끼이다	mắc, dính kẹt
+157	나가다우	đirangcài
+158	나무	cây
+159	나쁘다	xâu
+160	나사	đinh vít
+161	나타내다	biêu đạt
+162	낙하물경고	chú ý bị sạt lờ
+163	낚시	câu cá
+164	난로남	lò suởi
+165	난방기	thiết bị sưởi
+166	날씨	thời tiết
+167	날짜	ngày tháng
+168	남기다	để lại
+169	남동생리	em trai
+170	남자	con trai, boy
+171	남자친구	bạn trai
+173	낮다	thấp
+174	내과	nội khoa
+175	내년	năn sau sang năm
+177	내용	nội dung
+178	내일	ngày mai
+179	냄비	xoong nổi
+180	냉면	món mỳ lạnh
+181	냉장고	tu lạnh
+182	너무	quá, rất
+183	넓다	rộng

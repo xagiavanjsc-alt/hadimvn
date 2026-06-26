@@ -5,7 +5,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useStudySync } from "@/hooks/useStudySync";
 import { useXPSystem } from "@/hooks/useXPSystem";
 import { useToast } from "@/components/base/Toast";
-import type { ApprovedLesson } from "@/pages/melon/components/ExportExcel";
+import type { ApprovedLesson } from "@/types/melon";
 import { EpsVocabProvider, useEpsVocab, useEpsVocabLoading } from "@/contexts/EpsVocabContext";
 import AuthModal from "@/components/feature/AuthModal";
 import { seoulBooks } from "@/mocks/data/seoul-books-data";

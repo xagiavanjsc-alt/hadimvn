@@ -90,7 +90,12 @@ function slugify(str: string): string {
     .replace(/[^a-z0-9\s-]/g, "")
     .trim()
     .replace(/\s+/g, "-")
-    .replace(/-+/g, "-");
+    .replace(/-+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function normalizeSlug(value: string): string {
+  return slugify(value || "").replace(/-+/g, "-");
 }
 
 // Convert any non-webp image to webp via canvas at the given quality.
@@ -238,20 +243,34 @@ export default function AdminEpsExamManagerPage() {
   };
 
   const saveExam = async () => {
-    if (!form.slug || !form.title) { showToast("Thiếu slug hoặc tên đề thi", "error"); return; }
+    if (!form.title) { showToast("Thiếu tên đề thi", "error"); return; }
+
+    const slugSource = (slugAuto ? form.title : form.slug || form.title).trim();
+    const normalizedSlug = normalizeSlug(slugSource);
+    if (!normalizedSlug) {
+      showToast("Slug không hợp lệ sau khi chuẩn hóa", "error");
+      return;
+    }
+
     // Check slug trùng với đề KHÁC (lúc tạo mới: với mọi đề; lúc sửa: trừ chính nó).
-    const slugConflict = exams.find(e => e.slug === form.slug && e.id !== selectedExam?.id);
-    if (slugConflict) { showToast(`Slug "${form.slug}" đã được dùng cho đề khác`, "error"); return; }
-    const payload = { ...form };
+    const slugConflict = exams.find(e => e.slug === normalizedSlug && e.id !== selectedExam?.id);
+    if (slugConflict) {
+      showToast(`Slug "${normalizedSlug}" đã được dùng cho đề khác`, "error");
+      return;
+    }
+
+    const payload = { ...form, slug: normalizedSlug };
     const { error } = selectedExam
       ? await supabase.from("eps_exams").update(payload).eq("id", selectedExam.id)
       : await supabase.from("eps_exams").insert([payload]);
     if (error) { showToast("Lỗi lưu: " + error.message, "error"); return; }
+
     showToast(selectedExam ? "Đã cập nhật đề thi" : "Đã tạo đề thi mới", "success");
     setShowForm(false);
     setForm(INITIAL_EXAM);
     setSelectedExam(null);
-    fetchExams();
+    setSlugAuto(true);
+    await fetchExams();
   };
 
   const deleteExam = async (id: string) => {
@@ -294,10 +313,18 @@ export default function AdminEpsExamManagerPage() {
     if (!qForm.question_text || qForm.options.some(o => !o)) {
       showToast("Thiếu nội dung câu hỏi hoặc đáp án", "error"); return;
     }
+
+    const orderNo = Math.max(1, qForm.order_no || 1);
+    const duplicateOrder = questions.some(q => q.id !== editingQ?.id && q.order_no === orderNo);
+    if (duplicateOrder) {
+      showToast(`Số thứ tự ${orderNo} đã tồn tại trong đề này`, "error");
+      return;
+    }
+
     const cleanArr = (xs: string[]) => xs.every(x => !x) ? null : xs;
     const payload = {
       exam_id: selectedExam.id,
-      order_no: qForm.order_no,
+      order_no: orderNo,
       question_type: qForm.question_type,
       question_text: qForm.question_text,
       question_vi: qForm.question_vi || null,

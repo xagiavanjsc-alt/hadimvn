@@ -1,0 +1,84 @@
+559	아가씨	cô gái(chua cóchong)
+560	아까	vua nãỵ
+561	아들	ol= con trai (son)
+562	아래	dưới
+563	아버지	bố
+564	아빠	bố
+565	아이	trẻ emđứa trẻ
+566	아저씨	chú
+567	아주머니	cô bác(gọi phụnữ đã kết hôn)
+568	아줌마존	cô bác(gọi phụnũ đã kết hôn)
+569	아직	vân chra
+570	아침	olz buổi sáng
+572	아프다	olzsl đau
+573	안개	suơng mù
+574	안경	kính
+575	안과	khoa măt
+576	안내소	eILlẢ ngihuớngdẫn
+577	안다	ôm
+578	안건수칙	quy tắc an toàn
+579	안건대	dây an toàn
+580	안전띠	dây an toàn
+581	안건망	lưới an toàn
+583	안전선	vạch an toàn
+584	안전장갑	găng tay  bao hộ
+585	안건화	giày bảo hộ
+586	앉다	ngồi
+587	알다	biết
+589	액세서리	đồ phụ tuùng
+590	야근하다	làm đêm
+591	야채	rau
+592	약국	hiệu thuôc
+593	약사	dược sỹ
+595	약품	dược phẩm
+596	양계장	trai nuôi gà
+597	양말	%EL Itất
+598	양복	âÌphụcowple
+599	어깨	vai
+600	어둡다	tối
+601	어디	ơ đâu
+602	어떤	nlur thế nào?
+603	어떻게돈	nlur thế nào?
+604	어렵다	khó
+605	린	trẻ em
+606	어머니	oldy me
+607	어제	ol z hôm qua
+608	언니꽈	chị (em gái gọi
+609	언제	khi nào bao giờ?
+610	언제든지	bất cứ khi nào
+612	얼굴	khuôn mặt
+613	얼마교	bao nhiêu?
+614	엄금쬬	cấm
+615	엄마	mne
+617	없애다	golzt loai bò
+618	엎드리다	nẳm xấp
+619	에스컬레이터	cầuthang máỵ
+620	에어컨	điều hoà
+621	엘리베이터	máỵ
+622	여권	hộ chiếu
+623	여동생으	em gái
+624	여름	mùa hè
+625	여자부	con gái,cô gái
+626	여자친구	ban gái
+627	여행사	công ty du lich
+628	여행하다	đi du lịch
+630	연락처츤	số liên lạc
+632	연말	cuối năm
+633	연장하다	gia han
+634	연필	bút chì
+636	열다	mở
+637	열쇠	chìa khoá
+638	열심히	chăm chi
+639	열이나다	golyct sốt
+640	열차	xe lua
+641	염려	nguỵ co  mổi âu lo
+642	영상돈	0 độ
+643	영수증	hoá đơn
+644	영하한	<0 độ
+645	영화표	vé xem phim
+647	예매하다	đặt trưrớc
+648	예방하다뿌	dự phòng
+649	예쁘다최	xinl đẹp
+650	예약실	phòngđặt" ớc
+651	예약하다	đặt trưrớc
+652	오늘	hôm nay

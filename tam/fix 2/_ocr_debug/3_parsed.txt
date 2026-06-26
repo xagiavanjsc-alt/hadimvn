@@ -1,0 +1,55 @@
+936	편하다돈	tiện lợi,thoà mái
+937	폐문	Lđóngcửa
+938	포도	nho
+939	포장하다은	Lđóng gói
+940	폭발	nổ
+941	폭발물	chất gây  nổ
+942	폭이	chiêu rộng
+944	표지	tấnbàng
+945	표지판	biên báo
+947	프레스기	"áỵdập
+948	플러그	phích cắm
+949	피곤하다	mệt moi
+950	피우다	hút
+951	피하다	tránh
+952	필요하다	cần thiết
+953	하루	đE 1 ngày
+954	학생	học sinh
+955	학생증	ặHu the học sinh
+956	한가하다	rảnh rỗi
+959	할머니	bà
+960	할아버지	ông
+962	항공권	vé máỵ bay
+963	항구돈	bến càng
+964	항상	:Ạ luôn luôn
+965	해롭다	có hại
+966	허리	eo
+969	형제	anh em
+970	형제	anh em
+971	호스	ống
+972	혼자	EE
+973	홍차	hồng trà
+974	화가나다일	giận giữ
+975	화기	hoà khí, lửa
+977	화요일	thứ 3
+978	화장실교	nhà vệ sinh
+979	화재에	hoà hoan
+980	확인하다피돈	xác nhậnkiềm tra lại
+981	환경오염돈	mhiễn"ôituờng
+982	환불하다	trà lại
+984	회사	công ty
+985	회사통근버스	xe bus đưa đón nhân viên
+986	회의	cuộc họP
+987	회의실	phòng họp
+988	횡단금지	cấmđi bộ qua đường
+989	후식읗우	móntángmi ệng
+990	훨씬교돈	rất nhiều
+991	휘발유	xăng dầu
+992	휴게실	phòngnghi
+994	휴지	giấỵ vệ sinh
+995	흐르다	chàỵ
+996	호리다	ám
+997	흡연	khói thuốc
+998	흡연금지	cấm hút thuốc
+999	흡연실	phòng hút thuốc
+1000	힘들다	vất và

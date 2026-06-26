@@ -2,7 +2,7 @@
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import type { AIConfig } from "@/services/aiService";
 import { generateFreeStory, type FreeStoryInput } from "@/services/aiService";
-import type { ApprovedLesson } from "@/pages/melon/components/ExportExcel";
+import type { ApprovedLesson } from "@/types/melon";
 
 interface StoredConfig {
   provider: string;
@@ -78,6 +78,7 @@ export default function FreeStoryGenerator({ onAddLesson }: Props) {
 
       // Convert to ApprovedLesson format
       const lesson: ApprovedLesson = {
+        id: `free-${Date.now()}`,
         song: {
           rank: Date.now() % 100000,
           title: res.title,
@@ -85,14 +86,17 @@ export default function FreeStoryGenerator({ onAddLesson }: Props) {
           genre: "Truyện chêm",
           lyrics: `Chủ đề: ${topic}`,
         },
-        story: res.story,
-        vocabulary: res.vocabulary.map(v => ({
-          korean: v.word,
+        vocab: res.vocabulary.map(v => ({
           word: v.word,
-          pronunciation: "",
           meaning: v.meaning,
           example: v.example,
         })),
+        vocabulary: res.vocabulary.map(v => ({
+          word: v.word,
+          meaning: v.meaning,
+          example: v.example,
+        })),
+        grammar: [],
         explanation: res.explanation,
         stars: 5,
         publishedAt: new Date().toISOString(),
