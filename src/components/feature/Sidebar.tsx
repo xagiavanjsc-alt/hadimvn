@@ -313,7 +313,8 @@ function SidebarInner() {
       "/seoul-textbook": () => import("@/pages/seoul-textbook/page"),
       "/naver": () => import("@/pages/naver/page"),
       "/news": () => import("@/pages/news/page"),
-      "/ebook": () => import("@/pages/ebook/page"),
+      // HIDDEN 2026-06-27 (focus EPS/TOPIK): ebook removed
+      // "/ebook": () => import("@/pages/ebook/page"),
       "/admin": () => import("@/pages/admin-dashboard/page"),
       "/admin/users": () => import("@/pages/admin-users/page"),
       "/admin/coupon": () => import("@/pages/admin-coupon/page"),

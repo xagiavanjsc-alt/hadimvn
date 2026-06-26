@@ -12,7 +12,8 @@ const AdminXPConfigPage = lazyPage(() => import("../../pages/admin-xp-config/pag
 const AdminWeeklyRewardsPage = lazyPage(() => import("../../pages/admin-weekly-rewards/page"));
 const AdminGrammarPage = lazyPage(() => import("../../pages/admin-grammar/page"));
 const AdminPricingPage = lazyPage(() => import("../../pages/admin-pricing/page"));
-const AdminSeriesPage = lazyPage(() => import("../../pages/admin-series/page"));
+// HIDDEN 2026-06-27 (focus EPS/TOPIK): admin-series removed (ebook feature)
+// const AdminSeriesPage = lazyPage(() => import("../../pages/admin-series/page"));
 const AdminStatsPage = lazyPage(() => import("../../pages/admin-stats/page"));
 const AdminSettingsPage = lazyPage(() => import("../../pages/admin-settings/page"));
 const AdminSEOPage = lazyPage(() => import("../../pages/admin-seo/page"));
@@ -58,7 +59,8 @@ export const adminRoutes: RouteObject[] = [
   { path: "/admin/weekly-rewards", element: <AdminWeeklyRewardsPage /> },
   { path: "/admin/grammar", element: <AdminGrammarPage /> },
   { path: "/admin/pricing", element: <RequirePermission permission="system.settings"><AdminPricingPage /></RequirePermission> },
-  { path: "/admin/series", element: <AdminSeriesPage /> },
+  // HIDDEN 2026-06-27 (focus EPS/TOPIK): admin-series removed (ebook feature)
+  // { path: "/admin/series", element: <AdminSeriesPage /> },
   { path: "/admin/stats", element: <AdminStatsPage /> },
   { path: "/admin/settings", element: <RequirePermission permission="system.settings"><AdminSettingsPage /></RequirePermission> },
   { path: "/admin/seo", element: <RequirePermission permission="system.settings"><AdminSEOPage /></RequirePermission> },

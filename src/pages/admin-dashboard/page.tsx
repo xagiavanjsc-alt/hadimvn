@@ -7,7 +7,7 @@ import { useAdminNotifications } from "@/hooks/useAdminNotifications";
 import { markAdminVerified } from "@/hooks/useIsAdmin";
 import { supabase } from "@/lib/supabase";
 import type { ApprovedLesson } from "@/types/melon";
-import type { EbookSeries } from "@/pages/series/page";
+import type { EbookSeries } from "@/types/ebook";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface RevenueEntry { id: string; seriesId: string; buyerName: string; amount: number; date: string }

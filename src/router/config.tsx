@@ -117,7 +117,8 @@ const MemberPage = lazyPage(() => import("../pages/member/page"));
 
 // ─── Social & Leaderboard ────────────────────────────────────────────────────
 const LeaderboardPage = lazyPage(() => import("../pages/leaderboard/page"));
-const ComparePage = lazyPage(() => import("../pages/compare/page"));
+// HIDDEN 2026-06-27 (focus EPS/TOPIK): compare removed (ebook feature)
+// const ComparePage = lazyPage(() => import("../pages/compare/page"));
 
 // ─── Rewards & Gamification ──────────────────────────────────────────────────
 const RewardsPage = lazyPage(() => import("../pages/rewards/page"));
@@ -132,9 +133,10 @@ const PricingPage = lazyPage(() => import("../pages/pricing/page"));
 // ─── Content ───────────────────────────────────────────────────────────────────
 const NaverPage = lazyPage(() => import("../pages/naver/page"));
 const NewsPage = lazyPage(() => import("../pages/news/page"));
-const EbookPage = lazyPage(() => import("../pages/ebook/page"));
-const SeriesPage = lazyPage(() => import("../pages/series/page"));
-const PreviewPage = lazyPage(() => import("../pages/preview/page"));
+// HIDDEN 2026-06-27 (focus EPS/TOPIK): ebook/series/preview removed (ebook features)
+// const EbookPage = lazyPage(() => import("../pages/ebook/page"));
+// const SeriesPage = lazyPage(() => import("../pages/series/page"));
+// const PreviewPage = lazyPage(() => import("../pages/preview/page"));
 const GuidePage = lazyPage(() => import("../pages/guide/page"));
 
 // ─── Onboarding & Placement ──────────────────────────────────────────────────
@@ -264,7 +266,8 @@ const routes: RouteObject[] = [
 
   // Social & Leaderboard
   { path: "/leaderboard", element: <LeaderboardPage /> },
-  { path: "/compare", element: <ComparePage /> },
+  // HIDDEN 2026-06-27 (focus EPS/TOPIK): compare removed (ebook feature)
+  // { path: "/compare", element: <ComparePage /> },
 
   // Rewards & Gamification
   { path: "/rewards", element: <RewardsPage /> },
@@ -278,9 +281,10 @@ const routes: RouteObject[] = [
   // Content
   { path: "/naver", element: <NaverPage /> },
   { path: "/news", element: <NewsPage /> },
-  { path: "/ebook", element: <EbookPage /> },
-  { path: "/series", element: <SeriesPage /> },
-  { path: "/preview/:seriesId", element: <PreviewPage /> },
+  // HIDDEN 2026-06-27 (focus EPS/TOPIK): ebook/series/preview removed (ebook features)
+  // { path: "/ebook", element: <EbookPage /> },
+  // { path: "/series", element: <SeriesPage /> },
+  // { path: "/preview/:seriesId", element: <PreviewPage /> },
   { path: "/guide", element: <GuidePage /> },
 
   // Onboarding & Placement

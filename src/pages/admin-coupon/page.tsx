@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import AdminLayout from "@/components/feature/AdminLayout";
-import type { EbookSeries } from "@/pages/series/page";
+import type { EbookSeries } from "@/types/ebook";
 import VirtualList from "@/components/base/VirtualList";
 import { exportCouponsCSV } from "@/utils/exportUtils";
 import { useCoupons } from "@/hooks/useCoupons";

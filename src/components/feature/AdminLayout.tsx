@@ -36,7 +36,8 @@ const adminNavGroups = [
       { path: "/admin/content", icon: "ri-article-line", label: "Duyệt nội dung", permission: "content.view" as Permission },
       { path: "/admin/community-settings", icon: "ri-team-line", label: "Cấu hình cộng đồng", permission: "content.view" as Permission },
       { path: "/admin/content-learn", icon: "ri-book-open-line", label: "Quản lý nội dung học", permission: "eps.edit" as Permission },
-      { path: "/admin/series", icon: "ri-stack-line", label: "Series & Ebook", permission: "eps.edit" as Permission },
+      // HIDDEN 2026-06-27 (focus EPS/TOPIK): admin-series removed (ebook feature)
+      // { path: "/admin/series", icon: "ri-stack-line", label: "Series & Ebook", permission: "eps.edit" as Permission },
       { path: "/admin/eps", icon: "ri-image-edit-line", label: "Quản lý EPS", permission: "eps.edit" as Permission },
       { path: "/admin/eps-new", icon: "ri-add-circle-line", label: "Thêm bài EPS mới", permission: "eps.edit" as Permission },
       { path: "/admin/eps-upload", icon: "ri-upload-cloud-2-line", label: "Upload ảnh EPS", permission: "eps.upload" as Permission },

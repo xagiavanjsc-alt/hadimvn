@@ -56,7 +56,8 @@ const ALL_NAV_ITEMS: NavItem[] = [
   // { path: "/melon", label: "K-pop Lesson", group: "K-pop & Nội dung", icon: "ri-music-2-line", keywords: "kpop melon nhạc hàn" },
   // { path: "/melon-flashcard", label: "Flashcard K-pop", group: "K-pop & Nội dung", icon: "ri-stack-line", keywords: "flashcard kpop melon" },
   { path: "/naver", label: "Naver KiN", group: "Nội dung", icon: "ri-question-answer-line", keywords: "naver kin hỏi đáp" },
-  { path: "/ebook", label: "Ebook Builder", group: "Nội dung", icon: "ri-book-2-line", keywords: "ebook builder tạo sách" },
+  // HIDDEN 2026-06-27 (focus EPS/TOPIK): ebook removed
+  // { path: "/ebook", label: "Ebook Builder", group: "Nội dung", icon: "ri-book-2-line", keywords: "ebook builder tạo sách" },
   { path: "/news", label: "Học qua Tin tức", group: "Nội dung", icon: "ri-newspaper-line", keywords: "tin tức news học" },
   { path: "/profile", label: "Hồ sơ học viên", group: "Tài khoản", icon: "ri-user-3-line", keywords: "hồ sơ profile" },
   { path: "/account-settings", label: "Cài đặt tài khoản", group: "Tài khoản", icon: "ri-settings-3-line", keywords: "cài đặt tài khoản settings" },

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import type { ApprovedLesson } from "@/types/melon";
-import type { EbookSeries } from "@/pages/series/page";
+import type { EbookSeries } from "@/types/ebook";
 
 interface RevenueEntry {
   id: string;

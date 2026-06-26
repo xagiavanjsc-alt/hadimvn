@@ -1,7 +1,7 @@
 ﻿import { useState, useMemo } from "react";
 import DashboardLayout from "@/components/feature/DashboardLayout";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
-import type { EbookSeries } from "@/pages/series/page";
+import type { EbookSeries } from "@/types/ebook";
 
 export interface Coupon {
   id: string;
