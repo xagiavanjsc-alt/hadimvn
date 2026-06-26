@@ -82,10 +82,14 @@ const navGroups = [
     items: [
       { path: "/eps", icon: "ri-dashboard-line", label: "Trang EPS" },
       { path: "/eps-lessons", icon: "ri-file-list-3-line", label: "60 bài học EPS" },
-      { path: "/eps-vocabulary", icon: "ri-translate-2", label: "Từ vựng EPS" },
-      { path: "/eps-grammar", icon: "ri-book-2-line", label: "Ngữ pháp EPS" },
-      { path: "/eps-flashcard", icon: "ri-stack-line", label: "Flashcard EPS" },
-      { path: "/eps-listening", icon: "ri-headphone-line", label: "Luyện nghe EPS" },
+      // HIDDEN 2026-06-27 (consolidate EPS): eps-vocabulary removed
+      // { path: "/eps-vocabulary", icon: "ri-translate-2", label: "Từ vựng EPS" },
+      // HIDDEN 2026-06-27 (consolidate EPS): eps-grammar removed
+      // { path: "/eps-grammar", icon: "ri-book-2-line", label: "Ngữ pháp EPS" },
+      // HIDDEN 2026-06-27 (consolidate EPS): eps-flashcard removed
+      // { path: "/eps-flashcard", icon: "ri-stack-line", label: "Flashcard EPS" },
+      // HIDDEN 2026-06-27 (consolidate EPS): eps-listening removed
+      // { path: "/eps-listening", icon: "ri-headphone-line", label: "Luyện nghe EPS" },
     ],
   },
   {
@@ -93,9 +97,12 @@ const navGroups = [
     icon: "ri-file-text-line",
     color: "#fb923c",
     items: [
-      { path: "/eps-exams", icon: "ri-file-list-3-line", label: "Tất cả đề thi" },
-      { path: "/eps-mock-exam", icon: "ri-survey-line", label: "Đề thi thử" },
-      { path: "/eps-exam-schedule", icon: "ri-calendar-line", label: "Lịch thi EPS" },
+      // HIDDEN 2026-06-27 (consolidate EPS): eps-exams removed
+      // { path: "/eps-exams", icon: "ri-file-list-3-line", label: "Tất cả đề thi" },
+      // HIDDEN 2026-06-27 (consolidate EPS): eps-mock-exam removed
+      // { path: "/eps-mock-exam", icon: "ri-survey-line", label: "Đề thi thử" },
+      // HIDDEN 2026-06-27 (consolidate EPS): eps-exam-schedule removed
+      // { path: "/eps-exam-schedule", icon: "ri-calendar-line", label: "Lịch thi EPS" },
     ],
   },
   {
@@ -104,14 +111,21 @@ const navGroups = [
     color: "#60a5fa",
     items: [
       { path: "/topik-test", icon: "ri-survey-line", label: "Test TOPIK I" },
-      { path: "/topik2-test", icon: "ri-survey-line", label: "Test TOPIK II" },
-      { path: "/topik-vocab-level", icon: "ri-bar-chart-grouped-line", label: "Từ vựng theo level" },
-      { path: "/topik-frequency-vocab", icon: "ri-line-chart-line", label: "Từ vựng tần suất cao" },
+      // HIDDEN 2026-06-27 (consolidate TOPIK): topik2-test removed
+      // { path: "/topik2-test", icon: "ri-survey-line", label: "Test TOPIK II" },
+      // HIDDEN 2026-06-27 (consolidate TOPIK): topik-vocab-level removed
+      // { path: "/topik-vocab-level", icon: "ri-bar-chart-grouped-line", label: "Từ vựng theo level" },
+      // HIDDEN 2026-06-27 (consolidate TOPIK): topik-frequency-vocab removed
+      // { path: "/topik-frequency-vocab", icon: "ri-line-chart-line", label: "Từ vựng tần suất cao" },
       { path: "/topik-flashcard", icon: "ri-stack-line", label: "Flashcard TOPIK" },
-      { path: "/topik-listening", icon: "ri-headphone-line", label: "Luyện nghe TOPIK" },
-      { path: "/topik-reading", icon: "ri-book-read-line", label: "Luyện đọc TOPIK" },
-      { path: "/topik-exam-writing", icon: "ri-quill-pen-line", label: "Luyện viết TOPIK" },
-      { path: "/topik-topic-quiz", icon: "ri-question-line", label: "Quiz theo chủ đề" },
+      // HIDDEN 2026-06-27 (consolidate TOPIK): topik-listening removed
+      // { path: "/topik-listening", icon: "ri-headphone-line", label: "Luyện nghe TOPIK" },
+      // HIDDEN 2026-06-27 (consolidate TOPIK): topik-reading removed
+      // { path: "/topik-reading", icon: "ri-book-read-line", label: "Luyện đọc TOPIK" },
+      // HIDDEN 2026-06-27 (consolidate TOPIK): topik-exam-writing removed
+      // { path: "/topik-exam-writing", icon: "ri-quill-pen-line", label: "Luyện viết TOPIK" },
+      // HIDDEN 2026-06-27 (consolidate TOPIK): topik-topic-quiz removed
+      // { path: "/topik-topic-quiz", icon: "ri-question-line", label: "Quiz theo chủ đề" },
       { path: "/topik-dictionary", icon: "ri-book-open-line", label: "Từ điển TOPIK" },
       { path: "/topik-stats", icon: "ri-pie-chart-line", label: "Thống kê TOPIK" },
     ],
@@ -124,7 +138,8 @@ const navGroups = [
       { path: "/hangul", icon: "ri-text", label: "Bảng chữ cái Hangul" },
       { path: "/vocabulary", icon: "ri-translate-2", label: "Từ vựng tổng quan" },
       { path: "/grammar", icon: "ri-book-2-line", label: "Ngữ pháp tổng quan" },
-      { path: "/conversation", icon: "ri-chat-3-line", label: "Giao tiếp tình huống" },
+      // HIDDEN 2026-06-27 (consolidate study tools): conversation removed
+      // { path: "/conversation", icon: "ri-chat-3-line", label: "Giao tiếp tình huống" },
       { path: "/dictionary", icon: "ri-search-2-line", label: "Từ điển" },
     ],
   },
@@ -280,34 +295,47 @@ function SidebarInner() {
   const handleNavHover = (path: string) => {
     if (location.pathname === path) return;
     const importMap: Record<string, () => Promise<unknown>> = {
-      "/eps-vocabulary": () => import("@/pages/eps-vocabulary/page"),
+      // HIDDEN 2026-06-27 (consolidate EPS): eps-vocabulary removed
+      // "/eps-vocabulary": () => import("@/pages/eps-vocabulary/page"),
       "/eps": () => import("@/pages/eps/page"),
       "/eps-exam": () => import("@/pages/eps-exam/page"),
-      "/eps-flashcard": () => import("@/pages/eps-flashcard/page"),
+      // HIDDEN 2026-06-27 (consolidate EPS): eps-flashcard removed
+      // "/eps-flashcard": () => import("@/pages/eps-flashcard/page"),
       "/eps-lessons": () => import("@/pages/eps-lessons/page"),
-      "/eps-topic-dictionary": () => import("@/pages/eps-topic-dictionary/page"),
-      "/eps-topics": () => import("@/pages/eps-topics/page"),
+      // HIDDEN 2026-06-27 (consolidate EPS): eps-topic-dictionary removed
+      // "/eps-topic-dictionary": () => import("@/pages/eps-topic-dictionary/page"),
+      // HIDDEN 2026-06-27 (consolidate EPS): eps-topics removed
+      // "/eps-topics": () => import("@/pages/eps-topics/page"),
       // HIDDEN 2026-05-25 (focus EPS+du học): melon route hidden, preload disabled
       // "/melon": () => import("@/pages/melon/page"),
       "/community": () => import("@/pages/community/page"),
       "/profile": () => import("@/pages/profile/page"),
-      "/leaderboard": () => import("@/pages/leaderboard/page"),
+      // HIDDEN 2026-06-27 (consolidate social): leaderboard removed
+      // "/leaderboard": () => import("@/pages/leaderboard/page"),
       "/vocabulary": () => import("@/pages/vocabulary/page"),
       "/grammar": () => import("@/pages/grammar/page"),
       // HIDDEN 2026-05-25 (focus EPS+du học): generic grammar by level, EPS audience uses /eps-grammar
       // "/grammar-by-level": () => import("@/pages/grammar-by-level/page"),
-      "/flashcard": () => import("@/pages/flashcard/page"),
+      // HIDDEN 2026-06-27 (consolidate study tools): flashcard removed
+      // "/flashcard": () => import("@/pages/flashcard/page"),
       "/hangul": () => import("@/pages/hangul/page"),
       "/hanja-vocab": () => import("@/pages/hanja-vocab/page"),
       "/topik-test": () => import("@/pages/topik-test/page"),
-      "/topik2-test": () => import("@/pages/topik2-test/page"),
-      "/topik-vocab-level": () => import("@/pages/topik-vocab-level/page"),
-      "/topik-frequency-vocab": () => import("@/pages/topik-frequency-vocab/page"),
+      // HIDDEN 2026-06-27 (consolidate TOPIK): topik2-test removed
+      // "/topik2-test": () => import("@/pages/topik2-test/page"),
+      // HIDDEN 2026-06-27 (consolidate TOPIK): topik-vocab-level removed
+      // "/topik-vocab-level": () => import("@/pages/topik-vocab-level/page"),
+      // HIDDEN 2026-06-27 (consolidate TOPIK): topik-frequency-vocab removed
+      // "/topik-frequency-vocab": () => import("@/pages/topik-frequency-vocab/page"),
       "/topik-flashcard": () => import("@/pages/topik-flashcard/page"),
-      "/topik-listening": () => import("@/pages/topik-listening/page"),
-      "/topik-reading": () => import("@/pages/topik-reading/page"),
-      "/topik-exam-writing": () => import("@/pages/topik-exam-writing/page"),
-      "/topik-topic-quiz": () => import("@/pages/topik-topic-quiz/page"),
+      // HIDDEN 2026-06-27 (consolidate TOPIK): topik-listening removed
+      // "/topik-listening": () => import("@/pages/topik-listening/page"),
+      // HIDDEN 2026-06-27 (consolidate TOPIK): topik-reading removed
+      // "/topik-reading": () => import("@/pages/topik-reading/page"),
+      // HIDDEN 2026-06-27 (consolidate TOPIK): topik-exam-writing removed
+      // "/topik-exam-writing": () => import("@/pages/topik-exam-writing/page"),
+      // HIDDEN 2026-06-27 (consolidate TOPIK): topik-topic-quiz removed
+      // "/topik-topic-quiz": () => import("@/pages/topik-topic-quiz/page"),
       "/topik-dictionary": () => import("@/pages/topik-dictionary/page"),
       "/topik-stats": () => import("@/pages/topik-stats/page"),
       "/seoul-textbook": () => import("@/pages/seoul-textbook/page"),
