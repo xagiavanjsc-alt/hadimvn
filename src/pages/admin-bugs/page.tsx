@@ -46,19 +46,27 @@ const CAT_ICONS: Record<string, string> = {
   other: "ri-question-line",
 };
 
-function BugDetailModal({ bug, onClose, onUpdate }: {
+function BugDetailModal({ bug, onClose, onUpdate, onDelete }: {
   bug: BugReport;
   onClose: () => void;
   onUpdate: (id: string, status: string, note: string) => Promise<void>;
+  onDelete: (id: string) => Promise<void>;
 }) {
   const [status, setStatus] = useState(bug.status);
   const [note, setNote] = useState(bug.admin_note || "");
   const [saving, setSaving] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   const handleSave = async () => {
     setSaving(true);
     await onUpdate(bug.id, status, note);
     setSaving(false);
+    onClose();
+  };
+
+  const handleDelete = async () => {
+    await onDelete(bug.id);
+    setShowDeleteConfirm(false);
     onClose();
   };
 
@@ -140,12 +148,46 @@ function BugDetailModal({ bug, onClose, onUpdate }: {
         <div className="flex gap-3 p-5 border-t flex-shrink-0" style={{ borderColor: "var(--admin-border)" }}>
           <button onClick={onClose} className="flex-1 py-2.5 rounded-xl border text-sm cursor-pointer whitespace-nowrap"
             style={{ borderColor: "var(--admin-border)", color: "var(--admin-text-muted)" }}>Hủy</button>
+          <button onClick={() => setShowDeleteConfirm(true)}
+            className="px-4 py-2.5 rounded-xl border text-sm cursor-pointer whitespace-nowrap"
+            style={{ borderColor: "#ef4444", color: "#ef4444" }}>
+            <i className="ri-delete-bin-line mr-1"></i>Xóa
+          </button>
           <button onClick={handleSave} disabled={saving}
             className="flex-1 py-2.5 rounded-xl bg-rose-500 hover:bg-rose-400 disabled:opacity-50 text-white font-bold text-sm cursor-pointer whitespace-nowrap">
             {saving ? "Đang lưu..." : "Lưu thay đổi"}
           </button>
         </div>
       </div>
+
+      {showDeleteConfirm && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
+          <div className="w-full max-w-sm rounded-2xl border overflow-hidden"
+            style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border2)" }}>
+            <div className="p-5 text-center">
+              <div className="w-12 h-12 mx-auto mb-3 flex items-center justify-center rounded-full"
+                style={{ backgroundColor: "#ef444415" }}>
+                <i className="ri-delete-bin-line text-xl" style={{ color: "#ef4444" }}></i>
+              </div>
+              <p className="font-bold text-sm mb-1" style={{ color: "var(--admin-text)" }}>Xóa báo cáo lỗi này?</p>
+              <p className="text-xs mb-4" style={{ color: "var(--admin-text-muted)" }}>
+                Hành động này không thể hoàn tác. Báo cáo sẽ bị xóa vĩnh viễn.
+              </p>
+              <div className="flex gap-2">
+                <button onClick={() => setShowDeleteConfirm(false)}
+                  className="flex-1 py-2 rounded-xl border text-xs cursor-pointer"
+                  style={{ borderColor: "var(--admin-border)", color: "var(--admin-text-muted)" }}>
+                  Hủy
+                </button>
+                <button onClick={handleDelete}
+                  className="flex-1 py-2 rounded-xl bg-rose-500 hover:bg-rose-400 text-white font-bold text-xs cursor-pointer">
+                  Xóa vĩnh viễn
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -222,7 +264,7 @@ export default function AdminBugsPage() {
       )}
 
       {selectedBug && (
-        <BugDetailModal bug={selectedBug} onClose={() => setSelectedBug(null)} onUpdate={updateBug} />
+        <BugDetailModal bug={selectedBug} onClose={() => setSelectedBug(null)} onUpdate={updateBug} onDelete={deleteBug} />
       )}
 
       {/* Summary cards */}
