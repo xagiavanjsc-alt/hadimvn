@@ -91,6 +91,7 @@ export const adminRoutes: RouteObject[] = [
   { path: "/admin/vip-transactions", element: <RequirePermission permission="users.vip"><AdminVipTransactionsPage /></RequirePermission> },
   { path: "/admin/zalo-reminder", element: <RequirePermission permission="system.broadcast"><AdminZaloReminderPage /></RequirePermission> },
   { path: "/admin/feedback", element: <AdminFeedbackPage /> },
+  { path: "/admin/analytics", element: <AdminAnalyticsPage /> },
   { path: "/admin/error-logs", element: <RequirePermission permission="system.settings"><AdminErrorLogsPage /></RequirePermission> },
   { path: "/admin/community-settings", element: <RequirePermission permission="content.view"><AdminCommunitySettingsPage /></RequirePermission> },
   { path: "/admin/content-learn", element: <AdminContentLearnPage /> },
