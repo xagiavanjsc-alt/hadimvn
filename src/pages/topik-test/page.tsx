@@ -13,6 +13,14 @@ const READING_COUNT = 20;
 
 type TestPhase = "intro" | "exam" | "result";
 
+interface QuestionAnalytics {
+  id: string;
+  timeSpent: number; // seconds
+  isCorrect: boolean;
+  section: "listening" | "reading";
+  type: string;
+}
+
 // ─── Timer ────────────────────────────────────────────────────────────────
 function useTimer(active: boolean, onExpire: () => void) {
   const [remaining, setRemaining] = useState(TOTAL_TIME);
@@ -44,11 +52,13 @@ function QuestionItem({
   selectedAnswer,
   onAnswer,
   showResult,
+  timeSpent,
 }: {
   q: TopikQuestion;
   selectedAnswer: number | null;
   onAnswer: (idx: number) => void;
   showResult: boolean;
+  timeSpent?: number;
 }) {
   const sectionLabel = q.section === "listening" ? "Nghe" : "Đọc";
   const sectionColor = q.section === "listening" ? "#38bdf8" : "#a78bfa";
@@ -60,6 +70,7 @@ function QuestionItem({
         <span className="w-8 h-8 flex items-center justify-center rounded-full bg-app-accent-primary/10 text-app-accent-primary text-sm font-bold flex-shrink-0">{q.number}</span>
         <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: `${sectionColor}15`, color: sectionColor }}>{sectionLabel}</span>
         <span className="text-[10px] text-app-text-muted">{q.points} điểm</span>
+        {timeSpent && showResult && <span className="text-[10px] text-app-text-muted ml-auto">{timeSpent}s</span>}
         <span className="text-[10px] text-app-text-muted ml-auto">{q.type.replace(/_/g, " ")}</span>
       </div>
 
@@ -221,9 +232,77 @@ function ResultScreen({
               selectedAnswer={answers[q.id] ?? null}
               onAnswer={() => {}}
               showResult
+              timeSpent={questionTimes[q.id]}
             />
           ))}
         </div>
+      </div>
+
+      {/* Analytics Section */}
+      <div className="bg-app-bg border border-app-border rounded-2xl p-5">
+        <p className="text-white/50 text-sm font-semibold mb-4">Phân tích chi tiết</p>
+        
+        {/* Time Analysis */}
+        <div className="mb-6">
+          <p className="text-app-text-muted text-xs mb-3">Thời gian trung bình mỗi câu</p>
+          <div className="grid grid-cols-2 gap-4">
+            {[
+              { label: "Nghe", value: listeningQs.length > 0 ? Math.round(listeningQs.reduce((sum, q) => sum + (questionTimes[q.id] || 0), 0) / listeningQs.length) : 0, color: "#38bdf8" },
+              { label: "Đọc", value: readingQs.length > 0 ? Math.round(readingQs.reduce((sum, q) => sum + (questionTimes[q.id] || 0), 0) / readingQs.length) : 0, color: "#a78bfa" },
+            ].map(item => (
+              <div key={item.label} className="bg-app-surface/50 rounded-xl p-3">
+                <p className="text-app-text-muted text-[10px] mb-1">{item.label}</p>
+                <p className="text-2xl font-bold" style={{ color: item.color }}>{item.value}s</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Weak Areas */}
+        <div className="mb-6">
+          <p className="text-app-text-muted text-xs mb-3">Khu vực yếu cần cải thiện</p>
+          <div className="space-y-2">
+            {[
+              { label: "Nghe hiểu", correct: listeningCorrect, total: LISTENING_COUNT, color: "#38bdf8" },
+              { label: "Đọc hiểu", correct: readingCorrect, total: READING_COUNT, color: "#a78bfa" },
+            ].map(item => {
+              const pct = Math.round((item.correct / item.total) * 100);
+              const isWeak = pct < 60;
+              return (
+                <div key={item.label} className="flex items-center gap-3">
+                  <span className="text-xs w-20" style={{ color: isWeak ? "#f87171" : "var(--admin-text-muted)" }}>{item.label}</span>
+                  <div className="flex-1 h-2 rounded-full overflow-hidden bg-app-card/50">
+                    <div className="h-full rounded-full" style={{ width: `${pct}%`, backgroundColor: item.color }}></div>
+                  </div>
+                  <span className="text-xs" style={{ color: isWeak ? "#f87171" : "var(--admin-text-muted)" }}>{pct}%</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Progress History */}
+        {history.length > 0 && (
+          <div>
+            <p className="text-app-text-muted text-xs mb-3">Lịch sử điểm số (10 lần gần nhất)</p>
+            <div className="space-y-2">
+              {history.map((h, i) => (
+                <div key={i} className="flex items-center gap-3 text-xs">
+                  <span className="text-app-text-faint w-24">{new Date(h.date).toLocaleDateString("vi-VN")}</span>
+                  <div className="flex-1 flex gap-2">
+                    <div className="flex-1 h-2 rounded-full overflow-hidden bg-app-card/50">
+                      <div className="h-full rounded-full" style={{ width: `${(h.listening / 60) * 100}%`, backgroundColor: "#38bdf8" }}></div>
+                    </div>
+                    <div className="flex-1 h-2 rounded-full overflow-hidden bg-app-card/50">
+                      <div className="h-full rounded-full" style={{ width: `${(h.reading / 60) * 100}%`, backgroundColor: "#a78bfa" }}></div>
+                    </div>
+                  </div>
+                  <span className="text-app-text-muted w-12 text-right">{h.score}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
       <div className="flex gap-3">
@@ -260,6 +339,9 @@ export default function TopikTestPage() {
   const [currentSection, setCurrentSection] = useState<"listening" | "reading">("listening");
   const [bestScore, setBestScore] = useLocalStorage<number>("kts_topik1_best", 0);
   const [attemptCount, setAttemptCount] = useLocalStorage<number>("kts_topik1_attempts", 0);
+  const [questionTimes, setQuestionTimes] = useState<Record<string, number>>({});
+  const [questionStartTime, setQuestionStartTime] = useState<number>(0);
+  const [history, setHistory] = useLocalStorage<Array<{ date: string; score: number; listening: number; reading: number }>>("kts_topik1_history", []);
 
   usePageSEO({
     title: "Thi thử TOPIK I online — 50 câu, 100 phút | Hàn Quốc Ơi!",
@@ -285,27 +367,56 @@ export default function TopikTestPage() {
   const handleExpire = useCallback(() => {
     setPhase("result");
     const total = topikQuestions.reduce((sum, q) => answers[q.id] === q.correctIndex ? sum + q.points : sum, 0);
+    const listeningScore = topikQuestions.filter(q => q.section === "listening").reduce((sum, q) => answers[q.id] === q.correctIndex ? sum + q.points : sum, 0);
+    const readingScore = topikQuestions.filter(q => q.section === "reading").reduce((sum, q) => answers[q.id] === q.correctIndex ? sum + q.points : sum, 0);
+    
     if (total > bestScore) setBestScore(total);
     setAttemptCount(c => c + 1);
-  }, [answers, bestScore]);
+    
+    // Save to history
+    setHistory(prev => [...prev.slice(-9), {
+      date: new Date().toISOString(),
+      score: total,
+      listening: listeningScore,
+      reading: readingScore
+    }]);
+  }, [answers, bestScore, setHistory]);
 
   const { minutes, seconds, pct, isWarning, isDanger } = useTimer(phase === "exam", handleExpire);
 
   const handleStart = () => {
     setAnswers({});
+    setQuestionTimes({});
+    setQuestionStartTime(Date.now());
     setCurrentSection("listening");
     setPhase("exam");
   };
 
-  const handleAnswer = (qId: string, idx: number) => {
-    setAnswers(prev => ({ ...prev, [qId]: idx }));
+  const handleAnswer = (questionId: string, answerIndex: number) => {
+    // Track time spent on this question
+    const timeSpent = Math.round((Date.now() - questionStartTime) / 1000);
+    setQuestionTimes(prev => ({ ...prev, [questionId]: timeSpent }));
+    setQuestionStartTime(Date.now());
+    
+    setAnswers(prev => ({ ...prev, [questionId]: answerIndex }));
   };
 
   const handleSubmit = () => {
     setPhase("result");
     const total = topikQuestions.reduce((sum, q) => answers[q.id] === q.correctIndex ? sum + q.points : sum, 0);
+    const listeningScore = topikQuestions.filter(q => q.section === "listening").reduce((sum, q) => answers[q.id] === q.correctIndex ? sum + q.points : sum, 0);
+    const readingScore = topikQuestions.filter(q => q.section === "reading").reduce((sum, q) => answers[q.id] === q.correctIndex ? sum + q.points : sum, 0);
+    
     if (total > bestScore) setBestScore(total);
     setAttemptCount(c => c + 1);
+    
+    // Save to history
+    setHistory(prev => [...prev.slice(-9), {
+      date: new Date().toISOString(),
+      score: total,
+      listening: listeningScore,
+      reading: readingScore
+    }]);
   };
 
   const handleRetry = () => {
