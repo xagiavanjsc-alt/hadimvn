@@ -22,8 +22,7 @@ const TopikStatsPage = lazyPage(() => import("../../pages/topik-stats/page"));
 
 export const topikRoutes: RouteObject[] = [
   { path: "/topik-test", element: <TopikTestPage /> },
-  // HIDDEN 2026-06-27 (consolidate TOPIK pages): topik2-test removed
-  // { path: "/topik2-test", element: <Topik2TestPage /> },
+  { path: "/topik2-test", element: <Topik2TestPage /> },
   { path: "/topik-dictionary", element: <TopikDictionaryPage /> },
   { path: "/topik-flashcard", element: <TopikFlashcardPage /> },
   // HIDDEN 2026-06-27 (consolidate TOPIK pages): topik-listening removed

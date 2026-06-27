@@ -306,6 +306,10 @@ function SidebarInner() {
       // "/eps-topic-dictionary": () => import("@/pages/eps-topic-dictionary/page"),
       // HIDDEN 2026-06-27 (consolidate EPS): eps-topics removed
       // "/eps-topics": () => import("@/pages/eps-topics/page"),
+      // HIDDEN 2026-06-28 (SEO structure preserved, menu hidden until content ready)
+      // "/eps-exams": () => import("@/pages/eps-exams/page"),
+      // "/eps-mock-exam": () => import("@/pages/eps-mock-exam/page"),
+      // "/eps-exam-schedule": () => import("@/pages/eps-exam-schedule/page"),
       // HIDDEN 2026-05-25 (focus EPS+du học): melon route hidden, preload disabled
       // "/melon": () => import("@/pages/melon/page"),
       "/community": () => import("@/pages/community/page"),

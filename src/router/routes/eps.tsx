@@ -5,8 +5,7 @@ const EpsPage = lazyPage(() => import("../../pages/eps/page"));
 const EpsExamPage = lazyPage(() => import("../../pages/eps-exam/page"), "exam");
 // HIDDEN 2026-06-27 (consolidate EPS pages): eps-exam-history removed
 // const EpsExamHistoryPage = lazyPage(() => import("../../pages/eps-exam-history/page"));
-// HIDDEN 2026-06-27 (consolidate EPS pages): eps-exam-schedule removed
-// const EpsExamSchedulePage = lazyPage(() => import("../../pages/eps-exam-schedule/page"));
+const EpsExamSchedulePage = lazyPage(() => import("../../pages/eps-exam-schedule/page"));
 // HIDDEN 2026-06-27 (consolidate EPS pages): eps-flashcard removed
 // const EpsFlashcardPage = lazyPage(() => import("../../pages/eps-flashcard/page"), "flashcard");
 const EpsLessonsPage = lazyPage(() => import("../../pages/eps-lessons/page"));
@@ -15,8 +14,7 @@ const EpsLessonQuizPage = lazyPage(() => import("../../pages/eps-lesson-quiz/pag
 // const EpsListeningPage = lazyPage(() => import("../../pages/eps-listening/page"));
 // HIDDEN 2026-06-27 (consolidate EPS pages): eps-speaking removed
 // const EpsSpeakingPage = lazyPage(() => import("../../pages/eps-speaking/page"));
-// HIDDEN 2026-06-27 (consolidate EPS pages): eps-mock-exam removed
-// const EpsMockExamPage = lazyPage(() => import("../../pages/eps-mock-exam/page"), "exam");
+const EpsMockExamPage = lazyPage(() => import("../../pages/eps-mock-exam/page"), "exam");
 // HIDDEN 2026-05-26: eps-official-exam has fake upload parser, non-decrementing
 // timer, and previously shipped fake "Đề thi EPS-TOPIK 2023/2022" with random
 // correctIndex (CLAUDE.md Rule 5 violation). Code preserved per Rule 4.
@@ -76,26 +74,25 @@ const EpsLessonQuizPage = lazyPage(() => import("../../pages/eps-lesson-quiz/pag
 // HIDDEN 2026-06-27 (consolidate EPS pages): eps-grammar removed
 // const EpsGrammarPage = lazyPage(() => import("../../pages/eps-grammar/page"));
 const EpsLessonDetailPage = lazyPage(() => import("../../pages/eps-lesson-detail/page"));
-// HIDDEN 2026-06-27 (consolidate EPS pages): eps-exams removed
-// const EpsExamsPage = lazyPage(() => import("../../pages/eps-exams/page"), "exam");
+const EpsExamsPage = lazyPage(() => import("../../pages/eps-exams/page"), "exam");
 
 export const epsRoutes: RouteObject[] = [
   { path: "/eps", element: <EpsPage /> },
   { path: "/eps-exam", element: <EpsExamPage /> },
   // HIDDEN 2026-06-27 (consolidate EPS pages): eps-exam-history removed
   // { path: "/eps-exam-history", element: <EpsExamHistoryPage /> },
-  // HIDDEN 2026-06-27 (consolidate EPS pages): eps-exam-schedule removed
-  // { path: "/eps-exam-schedule", element: <EpsExamSchedulePage /> },
+  { path: "/eps-exam-schedule", element: <EpsExamSchedulePage /> },
   // HIDDEN 2026-06-27 (consolidate EPS pages): eps-flashcard removed
   // { path: "/eps-flashcard", element: <EpsFlashcardPage /> },
   { path: "/eps-lessons", element: <EpsLessonsPage /> },
   { path: "/eps-lesson-quiz", element: <EpsLessonQuizPage /> },
+  { path: "/eps-lesson-detail/:lessonId", element: <EpsLessonDetailPage /> },
+  { path: "/eps-exams", element: <EpsExamsPage /> },
   // HIDDEN 2026-06-27 (consolidate EPS pages): eps-listening removed
   // { path: "/eps-listening", element: <EpsListeningPage /> },
   // HIDDEN 2026-06-27 (consolidate EPS pages): eps-speaking removed
   // { path: "/eps-speaking", element: <EpsSpeakingPage /> },
-  // HIDDEN 2026-06-27 (consolidate EPS pages): eps-mock-exam removed
-  // { path: "/eps-mock-exam", element: <EpsMockExamPage /> },
+  { path: "/eps-mock-exam", element: <EpsMockExamPage /> },
   // HIDDEN 2026-05-26: see lazyPage block above
   // { path: "/eps-official-exam", element: <EpsOfficialExamPage /> },
   // HIDDEN 2026-05-25 (focus EPS+du học): eps-personalized-roadmap removed
