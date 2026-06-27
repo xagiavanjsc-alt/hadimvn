@@ -233,6 +233,17 @@ export default function AdminFeedbackPage() {
     }
   };
 
+  const handleDelete = async (id: string) => {
+    const { error } = await supabase
+      .from("app_feedback")
+      .delete()
+      .eq("id", id);
+    if (!error) {
+      setFeedbacks(prev => prev.filter(f => f.id !== id));
+      showToast("Đã xóa góp ý!");
+    }
+  };
+
   const filtered = useMemo(() => {
     let list = [...feedbacks];
     if (filterStatus !== "all") list = list.filter(f => f.status === filterStatus);

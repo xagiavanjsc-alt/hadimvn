@@ -233,6 +233,13 @@ export default function AdminBugsPage() {
     showToast("Đã cập nhật!");
   }, []);
 
+  const deleteBug = useCallback(async (id: string) => {
+    const { error } = await supabase.from("bug_reports").delete().eq("id", id);
+    if (error) { showToast("Lỗi xóa"); return; }
+    setBugs(prev => prev.filter(b => b.id !== id));
+    showToast("Đã xóa báo cáo!");
+  }, []);
+
   const updateViolation = useCallback(async (id: string, status: string, note: string) => {
     const { error } = await supabase.from("vip_violation_reports").update({ status, admin_note: note }).eq("id", id);
     if (error) { showToast("Lỗi cập nhật"); return; }

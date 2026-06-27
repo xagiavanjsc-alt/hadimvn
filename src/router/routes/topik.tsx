@@ -2,8 +2,7 @@ import type { RouteObject } from "react-router-dom";
 import { lazyPage } from "../utils";
 
 const TopikTestPage = lazyPage(() => import("../../pages/topik-test/page"), "exam");
-// HIDDEN 2026-06-27 (consolidate TOPIK pages): topik2-test removed
-// const Topik2TestPage = lazyPage(() => import("../../pages/topik2-test/page"), "exam");
+const Topik2TestPage = lazyPage(() => import("../../pages/topik2-test/page"), "exam");
 const TopikDictionaryPage = lazyPage(() => import("../../pages/topik-dictionary/page"), "vocab");
 const TopikFlashcardPage = lazyPage(() => import("../../pages/topik-flashcard/page"), "flashcard");
 // HIDDEN 2026-06-27 (consolidate TOPIK pages): topik-listening removed
