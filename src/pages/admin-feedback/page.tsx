@@ -203,10 +203,17 @@ export default function AdminFeedbackPage() {
   const [feedbacks, setFeedbacks] = useState<Feedback[]>([]);
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState<Feedback | null>(null);
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [filterStatus, setFilterStatus] = useState<"all" | Feedback["status"]>("all");
   const [filterRating, setFilterRating] = useState<number>(0);
+  const [filterCategory, setFilterCategory] = useState<string>("all");
+  const [filterVip, setFilterVip] = useState<"all" | "vip" | "non-vip">("all");
+  const [filterDateFrom, setFilterDateFrom] = useState<string>("");
+  const [filterDateTo, setFilterDateTo] = useState<string>("");
   const [search, setSearch] = useState("");
   const [toast, setToast] = useState<string | null>(null);
+  const [bulkAction, setBulkAction] = useState<"update" | "delete" | null>(null);
+  const [bulkStatus, setBulkStatus] = useState<Feedback["status"]>("resolved");
 
   const showToast = (msg: string) => { setToast(msg); setTimeout(() => setToast(null), 2500); };
 
@@ -244,20 +251,94 @@ export default function AdminFeedbackPage() {
     }
   };
 
+  const handleSelectAll = (checked: boolean) => {
+    if (checked) {
+      setSelectedIds(new Set(filtered.map(f => f.id)));
+    } else {
+      setSelectedIds(new Set());
+    }
+  };
+
+  const handleSelectOne = (id: string, checked: boolean) => {
+    setSelectedIds(prev => {
+      const next = new Set(prev);
+      if (checked) next.add(id);
+      else next.delete(id);
+      return next;
+    });
+  };
+
+  const handleBulkUpdate = async () => {
+    if (selectedIds.size === 0) return;
+    const { error } = await supabase
+      .from("app_feedback")
+      .update({ status: bulkStatus, updated_at: new Date().toISOString() })
+      .in("id", Array.from(selectedIds));
+    if (!error) {
+      setFeedbacks(prev => prev.map(f => selectedIds.has(f.id) ? { ...f, status: bulkStatus } : f));
+      setSelectedIds(new Set());
+      showToast(`Đã cập nhật ${selectedIds.size} góp ý!`);
+      setBulkAction(null);
+    }
+  };
+
+  const handleBulkDelete = async () => {
+    if (selectedIds.size === 0) return;
+    const { error } = await supabase
+      .from("app_feedback")
+      .delete()
+      .in("id", Array.from(selectedIds));
+    if (!error) {
+      setFeedbacks(prev => prev.filter(f => !selectedIds.has(f.id)));
+      setSelectedIds(new Set());
+      showToast(`Đã xóa ${selectedIds.size} góp ý!`);
+      setBulkAction(null);
+    }
+  };
+
+  const handleExportCSV = () => {
+    const headers = ["ID", "User", "Email", "Rating", "Category", "Title", "Content", "Status", "Created At"];
+    const rows = filtered.map(f => [
+      f.id,
+      f.user_name || "Anonymous",
+      f.user_email || "",
+      f.rating,
+      f.category,
+      `"${f.title.replace(/"/g, '""')}"`,
+      `"${f.content.replace(/"/g, '""')}"`,
+      f.status,
+      f.created_at
+    ]);
+    const csv = [headers.join(","), ...rows.map(r => r.join(","))].join("\n");
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = `feedback_export_${new Date().toISOString().split("T")[0]}.csv`;
+    link.click();
+    showToast("Đã export CSV!");
+  };
+
   const filtered = useMemo(() => {
     let list = [...feedbacks];
     if (filterStatus !== "all") list = list.filter(f => f.status === filterStatus);
     if (filterRating > 0) list = list.filter(f => f.rating === filterRating);
+    if (filterCategory !== "all") list = list.filter(f => f.category === filterCategory);
+    if (filterVip === "vip") list = list.filter(f => f.is_vip);
+    if (filterVip === "non-vip") list = list.filter(f => !f.is_vip);
+    if (filterDateFrom) list = list.filter(f => new Date(f.created_at) >= new Date(filterDateFrom));
+    if (filterDateTo) list = list.filter(f => new Date(f.created_at) <= new Date(filterDateTo));
     if (search.trim()) {
       const q = search.toLowerCase();
       list = list.filter(f =>
         f.title.toLowerCase().includes(q) ||
         (f.user_name || "").toLowerCase().includes(q) ||
-        f.content.toLowerCase().includes(q)
+        f.content.toLowerCase().includes(q) ||
+        (f.user_email || "").toLowerCase().includes(q) ||
+        (f.page_url || "").toLowerCase().includes(q)
       );
     }
     return list;
-  }, [feedbacks, filterStatus, filterRating, search]);
+  }, [feedbacks, filterStatus, filterRating, filterCategory, filterVip, filterDateFrom, filterDateTo, search]);
 
   const avgRating = feedbacks.length > 0
     ? (feedbacks.reduce((s, f) => s + f.rating, 0) / feedbacks.length).toFixed(1)
@@ -274,10 +355,16 @@ export default function AdminFeedbackPage() {
       title="Góp ý & Đánh giá"
       subtitle="Quản lý phản hồi từ thành viên"
       actions={
-        <button onClick={fetchFeedbacks}
-          className="flex items-center gap-2 text-xs font-medium px-3 py-2 rounded-lg transition-colors cursor-pointer whitespace-nowrap bg-app-card/50 text-white/50 border border-app-border hover:bg-app-card/70">
-          <i className="ri-refresh-line" />Làm mới
-        </button>
+        <div className="flex items-center gap-2">
+          <button onClick={fetchFeedbacks}
+            className="flex items-center gap-2 text-xs font-medium px-3 py-2 rounded-lg transition-colors cursor-pointer whitespace-nowrap bg-app-card/50 text-white/50 border border-app-border hover:bg-app-card/70">
+            <i className="ri-refresh-line" />Làm mới
+          </button>
+          <button onClick={handleExportCSV}
+            className="flex items-center gap-2 text-xs font-medium px-3 py-2 rounded-lg transition-colors cursor-pointer whitespace-nowrap bg-app-card/50 text-white/50 border border-app-border hover:bg-app-card/70">
+            <i className="ri-download-line" />Export CSV
+          </button>
+        </div>
       }
     >
       {toast && (
@@ -339,8 +426,42 @@ export default function AdminFeedbackPage() {
 
         {/* Feedback list */}
         <div className="lg:col-span-3 rounded-2xl border overflow-hidden" style={{ backgroundColor: "var(--admin-card)", borderColor: "var(--admin-border)" }}>
+          {/* Bulk action bar */}
+          {selectedIds.size > 0 && (
+            <div className="flex items-center gap-3 px-5 py-3 border-b" style={{ backgroundColor: "var(--admin-hover)", borderColor: "var(--admin-border)" }}>
+              <span className="text-xs font-medium" style={{ color: "var(--admin-text)" }}>
+                Đã chọn {selectedIds.size} góp ý
+              </span>
+              <select value={bulkStatus} onChange={e => setBulkStatus(e.target.value as Feedback["status"])}
+                className="rounded-lg px-3 py-1.5 text-xs outline-none border cursor-pointer"
+                style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }}>
+                {Object.entries(STATUS_CONFIG).map(([s, cfg]) => (
+                  <option key={s} value={s}>{cfg.label}</option>
+                ))}
+              </select>
+              <button onClick={handleBulkUpdate}
+                className="text-xs px-3 py-1.5 rounded-lg cursor-pointer"
+                style={{ backgroundColor: "#34d39920", color: "#34d399", border: "1px solid #34d39940" }}>
+                Cập nhật trạng thái
+              </button>
+              <button onClick={handleBulkDelete}
+                className="text-xs px-3 py-1.5 rounded-lg cursor-pointer"
+                style={{ backgroundColor: "#ef444420", color: "#ef4444", border: "1px solid #ef444440" }}>
+                Xóa đã chọn
+              </button>
+              <button onClick={() => setSelectedIds(new Set())}
+                className="text-xs px-3 py-1.5 rounded-lg cursor-pointer"
+                style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text-muted)", border: "1px solid var(--admin-border)" }}>
+                Bỏ chọn
+              </button>
+            </div>
+          )}
+
           {/* Filters */}
           <div className="flex items-center gap-3 px-5 py-3 border-b flex-wrap" style={{ borderColor: "var(--admin-border)" }}>
+            <input type="checkbox" checked={selectedIds.size === filtered.length && filtered.length > 0}
+              onChange={e => handleSelectAll(e.target.checked)}
+              className="w-4 h-4 rounded cursor-pointer" />
             <div className="relative flex-1 min-w-40">
               <i className="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-xs" style={{ color: "var(--admin-text-faint)" }}></i>
               <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Tìm góp ý..."
@@ -361,6 +482,27 @@ export default function AdminFeedbackPage() {
               <option value={0}>Tất cả sao</option>
               {[5,4,3,2,1].map(r => <option key={r} value={r}>{r} sao</option>)}
             </select>
+            <select value={filterCategory} onChange={e => setFilterCategory(e.target.value)}
+              className="rounded-lg px-3 py-1.5 text-xs outline-none border cursor-pointer"
+              style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }}>
+              <option value="all">Tất cả danh mục</option>
+              {Object.entries(CATEGORY_LABELS).map(([k, v]) => (
+                <option key={k} value={k}>{v}</option>
+              ))}
+            </select>
+            <select value={filterVip} onChange={e => setFilterVip(e.target.value as typeof filterVip)}
+              className="rounded-lg px-3 py-1.5 text-xs outline-none border cursor-pointer"
+              style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }}>
+              <option value="all">Tất cả</option>
+              <option value="vip">VIP</option>
+              <option value="non-vip">Non-VIP</option>
+            </select>
+            <input type="date" value={filterDateFrom} onChange={e => setFilterDateFrom(e.target.value)}
+              className="rounded-lg px-3 py-1.5 text-xs outline-none border cursor-pointer"
+              style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }} />
+            <input type="date" value={filterDateTo} onChange={e => setFilterDateTo(e.target.value)}
+              className="rounded-lg px-3 py-1.5 text-xs outline-none border cursor-pointer"
+              style={{ backgroundColor: "var(--admin-card2)", color: "var(--admin-text)", borderColor: "var(--admin-border2)" }} />
           </div>
 
           {loading ? (
@@ -376,10 +518,18 @@ export default function AdminFeedbackPage() {
             <div className="divide-y max-h-[480px] overflow-y-auto" style={{ borderColor: "var(--admin-border)" }}>
               {filtered.map(fb => {
                 const cfg = STATUS_CONFIG[fb.status];
+                const isSelected = selectedIds.has(fb.id);
                 return (
                   <div key={fb.id}
-                    className="flex items-start gap-4 px-5 py-4 cursor-pointer hover:bg-white/2 transition-colors"
-                    onClick={() => setSelected(fb)}>
+                    className={`flex items-start gap-4 px-5 py-4 cursor-pointer transition-colors ${isSelected ? "bg-app-accent-primary/5" : "hover:bg-white/2"}`}
+                    onClick={(e) => {
+                      if (!(e.target as HTMLElement).closest('input[type="checkbox"]')) {
+                        setSelected(fb);
+                      }
+                    }}>
+                    <input type="checkbox" checked={isSelected}
+                      onChange={e => { e.stopPropagation(); handleSelectOne(fb.id, e.target.checked); }}
+                      className="w-4 h-4 rounded cursor-pointer mt-1 flex-shrink-0" />
                     <div className="w-9 h-9 flex items-center justify-center rounded-xl flex-shrink-0"
                       style={{ backgroundColor: cfg.bg }}>
                       <i className={`${cfg.icon} text-sm`} style={{ color: cfg.color }}></i>
