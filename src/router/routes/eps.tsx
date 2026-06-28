@@ -15,6 +15,8 @@ const GamificationPage = lazyPage(() => import("../../pages/gamification/page"))
 const ListeningPracticePage = lazyPage(() => import("../../pages/listening-practice/page"));
 const StudyGroupsPage = lazyPage(() => import("../../pages/study-groups/page"));
 const QAForumPage = lazyPage(() => import("../../pages/qa-forum/page"));
+const OfflineDownloadsPage = lazyPage(() => import("../../pages/offline-downloads/page"));
+const NotificationSettingsPage = lazyPage(() => import("../../pages/notification-settings/page"));
 // HIDDEN 2026-06-27 (consolidate EPS pages): eps-listening removed
 // const EpsListeningPage = lazyPage(() => import("../../pages/eps-listening/page"));
 // HIDDEN 2026-06-27 (consolidate EPS pages): eps-speaking removed
@@ -98,6 +100,8 @@ export const epsRoutes: RouteObject[] = [
   { path: "/listening-practice", element: <ListeningPracticePage /> },
   { path: "/study-groups", element: <StudyGroupsPage /> },
   { path: "/qa-forum", element: <QAForumPage /> },
+  { path: "/offline-downloads", element: <OfflineDownloadsPage /> },
+  { path: "/notification-settings", element: <NotificationSettingsPage /> },
   // HIDDEN 2026-06-27 (consolidate EPS pages): eps-listening removed
   // { path: "/eps-listening", element: <EpsListeningPage /> },
   // HIDDEN 2026-06-27 (consolidate EPS pages): eps-speaking removed

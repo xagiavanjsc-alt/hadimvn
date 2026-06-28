@@ -1,6 +1,9 @@
 ﻿import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import MobileNav from "../../components/feature/MobileNav";
+import DashboardLayout from "@/components/feature/DashboardLayout";
+import { useNotifications } from "@/hooks/useNotifications";
+import { usePageSEO } from "@/hooks/usePageSEO";
+import { ORG_SCHEMA } from "@/lib/siteConfig";
 
 interface ToggleItemProps {
   label: string;
@@ -12,8 +15,8 @@ interface ToggleItemProps {
 const ToggleItem = ({ label, description, value, onChange }: ToggleItemProps) => (
   <div className="flex items-center justify-between py-3">
     <div className="flex-1 pr-4">
-      <p className="text-sm font-medium text-gray-800">{label}</p>
-      <p className="text-xs text-gray-400 mt-0.5">{description}</p>
+      <p className="text-sm font-medium text-white">{label}</p>
+      <p className="text-xs text-app-text-muted mt-0.5">{description}</p>
     </div>
     {/* Custom Toggle */}
     <div className="relative">
@@ -27,7 +30,7 @@ const ToggleItem = ({ label, description, value, onChange }: ToggleItemProps) =>
       <label
         htmlFor={`toggle-${label}`}
         className={`flex items-center cursor-pointer w-11 h-6 rounded-full transition-colors ${
-          value ? "bg-[#4F46E5]" : "bg-gray-200"
+          value ? "bg-app-accent-primary" : "bg-app-surface/30"
         }`}
       >
         <span
@@ -43,91 +46,124 @@ const ToggleItem = ({ label, description, value, onChange }: ToggleItemProps) =>
 
 const NotificationSettingsPage = () => {
   const navigate = useNavigate();
+  const { settings, permission, requestPermission, updateSettings } = useNotifications();
 
-  const [settings, setSettings] = useState({
-    dailyReminder: true,
-    streakAlert: true,
-    xpUpdate: false,
-    newContent: true,
-    communityActivity: false,
-    weeklyReport: true,
-    promotions: false,
-  });
-
-  const toggle = (key: keyof typeof settings) => {
-    setSettings((prev) => ({ ...prev, [key]: !prev[key] }));
+  const handleRequestPermission = async () => {
+    await requestPermission();
   };
 
-  const sections = [
-    {
-      title: "Study Reminders",
-      items: [
-        { key: "dailyReminder" as const, label: "Daily Reminder", description: "Get a daily nudge to keep your streak alive" },
-        { key: "streakAlert" as const, label: "Streak Alert", description: "Be warned before your streak expires" },
-      ],
-    },
-    {
-      title: "Progress Updates",
-      items: [
-        { key: "xpUpdate" as const, label: "XP Updates", description: "Notify when you earn new XP milestones" },
-        { key: "weeklyReport" as const, label: "Weekly Report", description: "Receive your weekly study summary" },
-      ],
-    },
-    {
-      title: "Content & Community",
-      items: [
-        { key: "newContent" as const, label: "New Content", description: "Be the first to know about new lessons" },
-        { key: "communityActivity" as const, label: "Community Activity", description: "Replies and likes on your posts" },
-        { key: "promotions" as const, label: "Promotions", description: "Special offers and discounts" },
-      ],
-    },
-  ];
-
   return (
-    <div className="min-h-screen bg-[#f8f9fa] pb-20">
-      {/* Header */}
-      <div className="fixed top-0 left-0 w-full bg-white z-10 px-4 py-3 flex items-center gap-3 shadow-sm">
-        <button
-          onClick={() => navigate(-1)}
-          className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100"
-        >
-          <i className="ri-arrow-left-line text-gray-600 text-lg" />
-        </button>
-        <h1 className="text-base font-bold text-gray-800">Notification Settings</h1>
-      </div>
-
-      <div className="pt-16 px-4 mt-4 space-y-4">
-        {sections.map((section) => (
-          <div key={section.title} className="bg-white rounded-2xl shadow-sm px-4">
-            <p className="text-xs font-semibold text-gray-400 tracking-wide pt-4 pb-2">
-              {section.title}
-            </p>
-            <div className="divide-y divide-gray-50">
-              {section.items.map((item) => (
-                <ToggleItem
-                  key={item.key}
-                  label={item.label}
-                  description={item.description}
-                  value={settings[item.key]}
-                  onChange={() => toggle(item.key)}
-                />
-              ))}
+    <DashboardLayout title="Cài đặt thông báo" subtitle="Quản lý thông báo học tập">
+      <div className="max-w-4xl mx-auto space-y-6">
+        {/* Browser Permission */}
+        <div className="bg-app-bg border border-app-border rounded-2xl p-5">
+          <h3 className="text-white font-semibold mb-3">Quyền thông báo trình duyệt</h3>
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm text-white">
+                Trạng thái:{" "}
+                <span className={`font-semibold ${
+                  permission === "granted" ? "text-emerald-400" :
+                  permission === "denied" ? "text-rose-400" :
+                  "text-app-text-muted"
+                }`}>
+                  {permission === "granted" ? "Đã cho phép" :
+                   permission === "denied" ? "Đã từ chối" :
+                   "Chưa thiết lập"}
+                </span>
+              </p>
+              <p className="text-xs text-app-text-muted mt-1">
+                Cho phép trình duyệt hiển thị thông báo
+              </p>
             </div>
-            <div className="pb-2" />
+            {permission !== "granted" && (
+              <button
+                onClick={handleRequestPermission}
+                className="px-4 py-2 rounded-xl bg-app-accent-primary hover:bg-[#d4b43a] text-app-bg font-bold text-sm cursor-pointer transition-colors"
+              >
+                {permission === "denied" ? "Mở cài đặt" : "Cho phép"}
+              </button>
+            )}
           </div>
-        ))}
+        </div>
 
-        {/* Save Button */}
-        <button
-          onClick={() => navigate(-1)}
-          className="w-full py-4 rounded-2xl bg-[#4F46E5] text-white font-semibold text-sm mt-2"
-        >
-          Save Settings
-        </button>
+        {/* Master Toggle */}
+        <div className="bg-app-bg border border-app-border rounded-2xl p-5">
+          <ToggleItem
+            label="Bật thông báo"
+            description="Bật/tắt tất cả thông báo"
+            value={settings.enabled}
+            onChange={(v) => updateSettings({ enabled: v })}
+          />
+        </div>
+
+        {/* Daily Reminder */}
+        <div className="bg-app-bg border border-app-border rounded-2xl p-5">
+          <h3 className="text-white font-semibold mb-3">Nhắc nhở học tập</h3>
+          <div className="space-y-4">
+            <ToggleItem
+              label="Nhắc nhở hàng ngày"
+              description="Nhắc nhở học mỗi ngày để giữ streak"
+              value={settings.dailyReminder}
+              onChange={(v) => updateSettings({ dailyReminder: v })}
+            />
+            {settings.dailyReminder && (
+              <div>
+                <label className="text-app-text-muted text-xs mb-2 block">Giờ nhắc nhở</label>
+                <input
+                  type="time"
+                  value={settings.dailyReminderTime}
+                  onChange={(e) => updateSettings({ dailyReminderTime: e.target.value })}
+                  className="w-full px-3 py-2 rounded-lg bg-app-surface/50 border border-app-border text-white text-sm outline-none focus:border-app-accent-primary/50"
+                />
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Review Reminder */}
+        <div className="bg-app-bg border border-app-border rounded-2xl p-5">
+          <h3 className="text-white font-semibold mb-3">Nhắc nhở ôn tập</h3>
+          <div className="space-y-4">
+            <ToggleItem
+              label="Nhắc nhở ôn tập từ vựng"
+              description="Nhắc khi có từ vựng cần review (SRS)"
+              value={settings.reviewReminder}
+              onChange={(v) => updateSettings({ reviewReminder: v })}
+            />
+            {settings.reviewReminder && (
+              <div>
+                <label className="text-app-text-muted text-xs mb-2 block">Khoảng cách (giờ)</label>
+                <select
+                  value={settings.reviewReminderInterval}
+                  onChange={(e) => updateSettings({ reviewReminderInterval: parseInt(e.target.value) })}
+                  className="w-full px-3 py-2 rounded-lg bg-app-surface/50 border border-app-border text-white text-sm outline-none focus:border-app-accent-primary/50"
+                >
+                  <option value={6}>6 giờ</option>
+                  <option value={12}>12 giờ</option>
+                  <option value={24}>24 giờ</option>
+                  <option value={48}>48 giờ</option>
+                </select>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Info */}
+        <div className="bg-app-bg border border-app-border rounded-2xl p-5">
+          <h3 className="text-white font-semibold mb-2 flex items-center gap-2">
+            <i className="ri-information-line text-app-accent-primary" />
+            Thông tin
+          </h3>
+          <ul className="text-app-text-muted text-sm space-y-1">
+            <li>• Thông báo trình duyệt cần được cho phép để nhận thông báo</li>
+            <li>• Nhắc nhở hàng ngày giúp bạn giữ streak học tập</li>
+            <li>• Nhắc nhở ôn tập dựa trên thuật toán Spaced Repetition</li>
+            <li>• Bạn có thể tắt thông báo bất cứ lúc nào</li>
+          </ul>
+        </div>
       </div>
-
-      <MobileNav />
-    </div>
+    </DashboardLayout>
   );
 };
 
