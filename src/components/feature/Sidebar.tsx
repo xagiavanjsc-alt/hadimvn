@@ -132,9 +132,18 @@ const navGroups = [
     ],
   },
   {
+    label: "Cộng đồng",
+    icon: "ri-group-line",
+    color: "#a78bfa",
+    items: [
+      { path: "/study-groups", icon: "ri-group-line", label: "Nhóm học tập" },
+      { path: "/qa-forum", icon: "ri-question-answer-line", label: "Diễn đàn hỏi đáp" },
+    ],
+  },
+  {
     label: "Cá nhân",
     icon: "ri-user-3-line",
-    color: "#a78bfa",
+    color: "#94a3b8",
     items: [
       { path: "/daily-words", icon: "ri-sun-line", label: "Từ mới mỗi ngày" },
       { path: "/profile", icon: "ri-user-3-line", label: "Hồ sơ cá nhân" },
@@ -151,6 +160,7 @@ const DEFAULT_OPEN: Record<string, boolean> = {
   "Luyện thi EPS (XKLĐ)": true,
   "Luyện thi TOPIK (du học)": false,
   "Công cụ học tập": false,
+  "Cộng đồng": false,
   "Cá nhân": false,
 };
 

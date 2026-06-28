@@ -44,6 +44,13 @@ const MENU_GROUPS = [
     ],
   },
   {
+    label: "Cộng đồng",
+    items: [
+      { path: "/study-groups", icon: "ri-group-line", label: "Nhóm học tập" },
+      { path: "/qa-forum", icon: "ri-question-answer-line", label: "Diễn đàn hỏi đáp" },
+    ],
+  },
+  {
     label: "Cá nhân",
     items: [
       { path: "/daily-words", icon: "ri-sun-line", label: "Từ mới mỗi ngày" },
