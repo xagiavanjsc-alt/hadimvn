@@ -139,6 +139,7 @@ const navGroups = [
     items: [
       { path: "/study-groups", icon: "ri-group-line", label: "Nhóm học tập" },
       { path: "/qa-forum", icon: "ri-question-answer-line", label: "Diễn đàn hỏi đáp" },
+      { path: "/success-stories", icon: "ri-trophy-line", label: "Câu chuyện thành công" },
     ],
   },
   {

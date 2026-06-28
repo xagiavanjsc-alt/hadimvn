@@ -102,6 +102,7 @@ export const epsRoutes: RouteObject[] = [
   { path: "/qa-forum", element: <QAForumPage /> },
   { path: "/offline-downloads", element: <OfflineDownloadsPage /> },
   { path: "/notification-settings", element: <NotificationSettingsPage /> },
+  { path: "/success-stories", element: <SuccessStoriesPage /> },
   // HIDDEN 2026-06-27 (consolidate EPS pages): eps-listening removed
   // { path: "/eps-listening", element: <EpsListeningPage /> },
   // HIDDEN 2026-06-27 (consolidate EPS pages): eps-speaking removed

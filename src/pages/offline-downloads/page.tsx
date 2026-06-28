@@ -4,7 +4,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useOfflineDownloads } from "@/hooks/useOfflineDownloads";
 import { usePageSEO } from "@/hooks/usePageSEO";
 import { ORG_SCHEMA } from "@/lib/siteConfig";
-import { epsLessons } from "@/data/eps";
+import { epsLessons } from "@/mocks/epsLessons";
 
 export default function OfflineDownloadsPage() {
   const { user } = useAuth();
