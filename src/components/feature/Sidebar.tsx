@@ -93,19 +93,6 @@ const navGroups = [
     ],
   },
   {
-    label: "Đề thi EPS",
-    icon: "ri-file-text-line",
-    color: "#fb923c",
-    items: [
-      // HIDDEN 2026-06-27 (consolidate EPS): eps-exams removed
-      // { path: "/eps-exams", icon: "ri-file-list-3-line", label: "Tất cả đề thi" },
-      // HIDDEN 2026-06-27 (consolidate EPS): eps-mock-exam removed
-      // { path: "/eps-mock-exam", icon: "ri-survey-line", label: "Đề thi thử" },
-      // HIDDEN 2026-06-27 (consolidate EPS): eps-exam-schedule removed
-      // { path: "/eps-exam-schedule", icon: "ri-calendar-line", label: "Lịch thi EPS" },
-    ],
-  },
-  {
     label: "Luyện thi TOPIK (du học)",
     icon: "ri-graduation-cap-line",
     color: "#60a5fa",
@@ -131,27 +118,29 @@ const navGroups = [
     ],
   },
   {
-    label: "Tiếng Hàn cơ bản",
-    icon: "ri-book-open-line",
+    label: "Công cụ học tập",
+    icon: "ri-tools-line",
     color: "#e8c84a",
     items: [
+      { path: "/vocab-review", icon: "ri-refresh-line", label: "Ôn tập từ vựng (SRS)" },
+      { path: "/listening-practice", icon: "ri-headphone-line", label: "Luyện nghe tốc độ" },
+      { path: "/gamification", icon: "ri-trophy-line", label: "Huy hiệu & Thành tích" },
       { path: "/hangul", icon: "ri-text", label: "Bảng chữ cái Hangul" },
       { path: "/vocabulary", icon: "ri-translate-2", label: "Từ vựng tổng quan" },
       { path: "/grammar", icon: "ri-book-2-line", label: "Ngữ pháp tổng quan" },
-      // HIDDEN 2026-06-27 (consolidate study tools): conversation removed
-      // { path: "/conversation", icon: "ri-chat-3-line", label: "Giao tiếp tình huống" },
       { path: "/dictionary", icon: "ri-search-2-line", label: "Từ điển" },
     ],
   },
   {
-    label: "Học giải trí",
-    icon: "ri-music-2-line",
+    label: "Cá nhân",
+    icon: "ri-user-3-line",
     color: "#a78bfa",
     items: [
-      // HIDDEN 2026-05-25 (focus EPS+du học): K-pop = off-focus
-      // { path: "/melon", icon: "ri-music-2-line", label: "Học qua K-pop" },
       { path: "/daily-words", icon: "ri-sun-line", label: "Từ mới mỗi ngày" },
       { path: "/profile", icon: "ri-user-3-line", label: "Hồ sơ cá nhân" },
+      { path: "/study-stats", icon: "ri-bar-chart-2-line", label: "Thống kê học tập" },
+      { path: "/feedback", icon: "ri-chat-smile-2-line", label: "Góp ý & Đánh giá" },
+      { path: "/report-bug", icon: "ri-bug-line", label: "Báo lỗi" },
     ],
   },
 ];
@@ -160,10 +149,9 @@ const navGroups = [
 
 const DEFAULT_OPEN: Record<string, boolean> = {
   "Luyện thi EPS (XKLĐ)": true,
-  "Đề thi EPS": true,
   "Luyện thi TOPIK (du học)": false,
-  "Tiếng Hàn cơ bản": false,
-  "Học giải trí": false,
+  "Công cụ học tập": false,
+  "Cá nhân": false,
 };
 
 // All nav items flattened for pin search
@@ -401,36 +389,6 @@ function SidebarInner() {
           <span className="flex-1">Trang chủ</span>
         </button>
 
-        {/* Daily words shortcut */}
-        <button
-          onClick={() => handleNavClick("/daily-words")}
-          className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap text-left ${
-            location.pathname === "/daily-words"
-              ? "bg-[#4ade80]/10 text-[#4ade80] font-medium"
-              : "text-white/50 hover:text-white/80 hover:bg-white/6"
-          }`}
-        >
-          <div className="w-4 h-4 flex items-center justify-center">
-            <i className="ri-sun-line text-sm"></i>
-          </div>
-          <span className="flex-1">Học từ mới hôm nay</span>
-        </button>
-
-        {/* Stats shortcut */}
-        <button
-          onClick={() => handleNavClick("/study-stats")}
-          className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap text-left ${
-            location.pathname === "/study-stats"
-              ? "bg-[#38bdf8]/10 text-[#38bdf8] font-medium"
-              : "text-white/50 hover:text-white/80 hover:bg-white/6"
-          }`}
-        >
-          <div className="w-4 h-4 flex items-center justify-center">
-            <i className="ri-bar-chart-2-line text-sm"></i>
-          </div>
-          <span className="flex-1">Thống kê học tập</span>
-        </button>
-
         {/* VIP History shortcut — chỉ hiện khi là VIP */}
         {user && isVipActive(profile) && (
           <button
@@ -447,51 +405,6 @@ function SidebarInner() {
             <span className="flex-1">Lịch sử VIP</span>
           </button>
         )}
-
-        {/* Share progress shortcut */}
-        <button
-          onClick={() => handleNavClick("/share-progress")}
-          className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap text-left ${
-            location.pathname === "/share-progress"
-              ? "bg-[#fb923c]/10 text-[#fb923c] font-medium"
-              : "text-white/50 hover:text-white/80 hover:bg-white/6"
-          }`}
-        >
-          <div className="w-4 h-4 flex items-center justify-center">
-            <i className="ri-share-line text-sm"></i>
-          </div>
-          <span className="flex-1">Chia sẻ tiến độ</span>
-        </button>
-
-        {/* Feedback shortcut */}
-        <button
-          onClick={() => handleNavClick("/feedback")}
-          className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap text-left ${
-            location.pathname === "/feedback"
-              ? "bg-[#34d399]/10 text-[#34d399] font-medium"
-              : "text-white/50 hover:text-white/80 hover:bg-white/6"
-          }`}
-        >
-          <div className="w-4 h-4 flex items-center justify-center">
-            <i className="ri-chat-smile-2-line text-sm"></i>
-          </div>
-          <span className="flex-1">Góp ý &amp; Đánh giá</span>
-        </button>
-
-        {/* Roadmap shortcut */}
-        <button
-          onClick={() => handleNavClick("/learning-roadmap")}
-          className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap text-left ${
-            location.pathname === "/learning-roadmap"
-              ? "bg-app-accent-primary/10 text-app-accent-primary font-medium"
-              : "text-white/50 hover:text-white/80 hover:bg-white/6"
-          }`}
-        >
-          <div className="w-4 h-4 flex items-center justify-center">
-            <i className="ri-route-line text-sm"></i>
-          </div>
-          <span className="flex-1">Lộ trình học</span>
-        </button>
 
         {/* Nav groups */}
         {allGroups.map(group => {

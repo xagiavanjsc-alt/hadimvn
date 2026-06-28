@@ -9,8 +9,8 @@ import AuthModal from "./AuthModal";
 const BOTTOM_NAV = [
   { path: "/", icon: "ri-home-4-line", label: "Trang chủ", exact: true },
   { path: "/eps-lessons", icon: "ri-book-open-line", label: "Học EPS" },
-  { path: "/eps-exam", icon: "ri-survey-line", label: "Đề thi" },
-  { path: "/eps-flashcard", icon: "ri-stack-line", label: "Flashcard" },
+  { path: "/topik-test", icon: "ri-survey-line", label: "Test TOPIK" },
+  { path: "/vocab-review", icon: "ri-refresh-line", label: "Ôn tập" },
 ];
 
 // ─── Slide-up menu — mirror desktop Sidebar (EPS + TOPIK) ───────────────────
@@ -20,59 +20,36 @@ const MENU_GROUPS = [
     items: [
       { path: "/eps", icon: "ri-dashboard-line", label: "Trang EPS" },
       { path: "/eps-lessons", icon: "ri-file-list-3-line", label: "60 bài học EPS" },
-      { path: "/eps-vocabulary", icon: "ri-translate-2", label: "Từ vựng EPS" },
-      { path: "/eps-grammar", icon: "ri-book-2-line", label: "Ngữ pháp EPS" },
-      { path: "/eps-flashcard", icon: "ri-stack-line", label: "Flashcard EPS" },
-      { path: "/eps-listening", icon: "ri-headphone-line", label: "Luyện nghe EPS" },
-    ],
-  },
-  {
-    label: "Đề thi EPS",
-    items: [
-      { path: "/eps-exams", icon: "ri-file-list-3-line", label: "Tất cả đề thi" },
-      { path: "/eps-mock-exam", icon: "ri-survey-line", label: "Đề thi thử" },
-      { path: "/eps-exam-schedule", icon: "ri-calendar-line", label: "Lịch thi EPS" },
     ],
   },
   {
     label: "Luyện thi TOPIK (du học)",
     items: [
       { path: "/topik-test", icon: "ri-survey-line", label: "Test TOPIK I" },
-      { path: "/topik2-test", icon: "ri-survey-line", label: "Test TOPIK II" },
-      { path: "/topik-vocab-level", icon: "ri-bar-chart-grouped-line", label: "Từ vựng theo level" },
-      { path: "/topik-frequency-vocab", icon: "ri-line-chart-line", label: "Từ vựng tần suất cao" },
       { path: "/topik-flashcard", icon: "ri-stack-line", label: "Flashcard TOPIK" },
-      { path: "/topik-listening", icon: "ri-headphone-line", label: "Luyện nghe TOPIK" },
-      { path: "/topik-reading", icon: "ri-book-read-line", label: "Luyện đọc TOPIK" },
-      { path: "/topik-exam-writing", icon: "ri-quill-pen-line", label: "Luyện viết TOPIK" },
-      { path: "/topik-topic-quiz", icon: "ri-question-line", label: "Quiz theo chủ đề" },
       { path: "/topik-dictionary", icon: "ri-book-open-line", label: "Từ điển TOPIK" },
       { path: "/topik-stats", icon: "ri-pie-chart-line", label: "Thống kê TOPIK" },
     ],
   },
   {
-    label: "Tiếng Hàn cơ bản",
+    label: "Công cụ học tập",
     items: [
+      { path: "/vocab-review", icon: "ri-refresh-line", label: "Ôn tập từ vựng (SRS)" },
+      { path: "/listening-practice", icon: "ri-headphone-line", label: "Luyện nghe tốc độ" },
+      { path: "/gamification", icon: "ri-trophy-line", label: "Huy hiệu & Thành tích" },
       { path: "/hangul", icon: "ri-text", label: "Bảng chữ cái Hangul" },
       { path: "/vocabulary", icon: "ri-translate-2", label: "Từ vựng tổng quan" },
       { path: "/grammar", icon: "ri-book-2-line", label: "Ngữ pháp tổng quan" },
-      { path: "/conversation", icon: "ri-chat-3-line", label: "Giao tiếp tình huống" },
       { path: "/dictionary", icon: "ri-search-2-line", label: "Từ điển" },
-    ],
-  },
-  {
-    label: "Học thêm",
-    items: [
-      // HIDDEN 2026-05-25 (focus EPS+du học): K-pop off-focus
-      // { path: "/melon", icon: "ri-music-2-line", label: "Học qua K-pop" },
-      { path: "/daily-words", icon: "ri-sun-line", label: "Từ mới mỗi ngày" },
     ],
   },
   {
     label: "Cá nhân",
     items: [
+      { path: "/daily-words", icon: "ri-sun-line", label: "Từ mới mỗi ngày" },
       { path: "/profile", icon: "ri-user-3-line", label: "Hồ sơ cá nhân" },
-      { path: "/feedback", icon: "ri-chat-smile-2-line", label: "Góp ý" },
+      { path: "/study-stats", icon: "ri-bar-chart-2-line", label: "Thống kê học tập" },
+      { path: "/feedback", icon: "ri-chat-smile-2-line", label: "Góp ý & Đánh giá" },
       { path: "/report-bug", icon: "ri-bug-line", label: "Báo lỗi" },
     ],
   },
