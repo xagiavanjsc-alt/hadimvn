@@ -34,6 +34,7 @@ const MENU_GROUPS = [
   {
     label: "Công cụ học tập",
     items: [
+      { path: "/skill-tree", icon: "ri-node-tree", label: "Cây kỹ năng" },
       { path: "/micro-learning", icon: "ri-time-line", label: "Học nhanh 5 phút" },
       { path: "/vocab-review", icon: "ri-refresh-line", label: "Ôn tập từ vựng (SRS)" },
       { path: "/learning-path", icon: "ri-route-line", label: "Lộ trình cá nhân" },

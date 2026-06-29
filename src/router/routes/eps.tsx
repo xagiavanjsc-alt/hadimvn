@@ -114,6 +114,7 @@ export const epsRoutes: RouteObject[] = [
   { path: "/progress-sharing", element: <ProgressSharingPage /> },
   { path: "/writing-practice", element: <WritingPracticePage /> },
   { path: "/micro-learning", element: <MicroLearningPage /> },
+  { path: "/skill-tree", element: <SkillTreePage /> },
   // HIDDEN 2026-06-27 (consolidate EPS pages): eps-listening removed
   // { path: "/eps-listening", element: <EpsListeningPage /> },
   // HIDDEN 2026-06-27 (consolidate EPS pages): eps-speaking removed
