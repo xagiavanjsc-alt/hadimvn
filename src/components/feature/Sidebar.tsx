@@ -80,8 +80,10 @@ const navGroups = [
     icon: "ri-target-line",
     color: "#4ade80",
     items: [
-      { path: "/eps", icon: "ri-dashboard-line", label: "Trang EPS" },
+      { path: "/eps", icon: "ri-dashboard-line", label: "Luyện tập theo chủ đề" },
       { path: "/eps-lessons", icon: "ri-file-list-3-line", label: "60 bài học EPS" },
+      { path: "/eps-exams", icon: "ri-file-text-line", label: "Đề thi thực tế" },
+      { path: "/eps-mock-exam", icon: "ri-clipboard-line", label: "Đề thi thử" },
       { path: "/exam-schedule", icon: "ri-calendar-line", label: "Lịch thi" },
       { path: "/downloads", icon: "ri-download-line", label: "Tài liệu" },
       // HIDDEN 2026-06-27 (consolidate EPS): eps-vocabulary removed
