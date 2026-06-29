@@ -28,6 +28,8 @@ const ContextualLearningPage = lazyPage(() => import("../../pages/contextual-lea
 const RealWorldScenariosPage = lazyPage(() => import("../../pages/real-world-scenarios/page"));
 const SmartReviewPage = lazyPage(() => import("../../pages/smart-review/page"));
 const ContentInterlinkingPage = lazyPage(() => import("../../pages/content-interlinking/page"));
+const ExamSchedulePage = lazyPage(() => import("../../pages/exam-schedule/page"));
+const DownloadsPage = lazyPage(() => import("../../pages/downloads/page"));
 // HIDDEN 2026-06-27 (consolidate EPS pages): eps-listening removed
 // const EpsListeningPage = lazyPage(() => import("../../pages/eps-listening/page"));
 // HIDDEN 2026-06-27 (consolidate EPS pages): eps-speaking removed
@@ -124,6 +126,8 @@ export const epsRoutes: RouteObject[] = [
   { path: "/real-world-scenarios", element: <RealWorldScenariosPage /> },
   { path: "/smart-review", element: <SmartReviewPage /> },
   { path: "/content-interlinking", element: <ContentInterlinkingPage /> },
+  { path: "/exam-schedule", element: <ExamSchedulePage /> },
+  { path: "/downloads", element: <DownloadsPage /> },
   // HIDDEN 2026-06-27 (consolidate EPS pages): eps-listening removed
   // { path: "/eps-listening", element: <EpsListeningPage /> },
   // HIDDEN 2026-06-27 (consolidate EPS pages): eps-speaking removed

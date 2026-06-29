@@ -20,6 +20,8 @@ const MENU_GROUPS = [
     items: [
       { path: "/eps", icon: "ri-dashboard-line", label: "Trang EPS" },
       { path: "/eps-lessons", icon: "ri-file-list-3-line", label: "60 bài học EPS" },
+      { path: "/exam-schedule", icon: "ri-calendar-line", label: "Lịch thi" },
+      { path: "/downloads", icon: "ri-download-line", label: "Tài liệu" },
     ],
   },
   {

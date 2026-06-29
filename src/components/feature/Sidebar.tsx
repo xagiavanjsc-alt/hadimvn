@@ -82,6 +82,8 @@ const navGroups = [
     items: [
       { path: "/eps", icon: "ri-dashboard-line", label: "Trang EPS" },
       { path: "/eps-lessons", icon: "ri-file-list-3-line", label: "60 bài học EPS" },
+      { path: "/exam-schedule", icon: "ri-calendar-line", label: "Lịch thi" },
+      { path: "/downloads", icon: "ri-download-line", label: "Tài liệu" },
       // HIDDEN 2026-06-27 (consolidate EPS): eps-vocabulary removed
       // { path: "/eps-vocabulary", icon: "ri-translate-2", label: "Từ vựng EPS" },
       // HIDDEN 2026-06-27 (consolidate EPS): eps-grammar removed
