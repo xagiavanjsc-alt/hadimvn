@@ -123,6 +123,10 @@ const navGroups = [
     color: "#e8c84a",
     items: [
       { path: "/skill-tree", icon: "ri-node-tree", label: "Cây kỹ năng" },
+      { path: "/contextual-learning", icon: "ri-book-read-line", label: "Học theo ngữ cảnh" },
+      { path: "/real-world-scenarios", icon: "ri-play-circle-line", label: "Tình huống thực tế" },
+      { path: "/smart-review", icon: "ri-brain-line", label: "Smart Review" },
+      { path: "/content-interlinking", icon: "ri-links-line", label: "Liên kết nội dung" },
       { path: "/micro-learning", icon: "ri-time-line", label: "Học nhanh 5 phút" },
       { path: "/vocab-review", icon: "ri-refresh-line", label: "Ôn tập từ vựng (SRS)" },
       { path: "/learning-path", icon: "ri-route-line", label: "Lộ trình cá nhân" },

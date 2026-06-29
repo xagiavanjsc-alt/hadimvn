@@ -23,6 +23,11 @@ const QuestionBankPage = lazyPage(() => import("../../pages/question-bank/page")
 const ProgressSharingPage = lazyPage(() => import("../../pages/progress-sharing/page"));
 const WritingPracticePage = lazyPage(() => import("../../pages/writing-practice/page"));
 const MicroLearningPage = lazyPage(() => import("../../pages/micro-learning/page"));
+const SkillTreePage = lazyPage(() => import("../../pages/skill-tree/page"));
+const ContextualLearningPage = lazyPage(() => import("../../pages/contextual-learning/page"));
+const RealWorldScenariosPage = lazyPage(() => import("../../pages/real-world-scenarios/page"));
+const SmartReviewPage = lazyPage(() => import("../../pages/smart-review/page"));
+const ContentInterlinkingPage = lazyPage(() => import("../../pages/content-interlinking/page"));
 // HIDDEN 2026-06-27 (consolidate EPS pages): eps-listening removed
 // const EpsListeningPage = lazyPage(() => import("../../pages/eps-listening/page"));
 // HIDDEN 2026-06-27 (consolidate EPS pages): eps-speaking removed
@@ -115,6 +120,10 @@ export const epsRoutes: RouteObject[] = [
   { path: "/writing-practice", element: <WritingPracticePage /> },
   { path: "/micro-learning", element: <MicroLearningPage /> },
   { path: "/skill-tree", element: <SkillTreePage /> },
+  { path: "/contextual-learning", element: <ContextualLearningPage /> },
+  { path: "/real-world-scenarios", element: <RealWorldScenariosPage /> },
+  { path: "/smart-review", element: <SmartReviewPage /> },
+  { path: "/content-interlinking", element: <ContentInterlinkingPage /> },
   // HIDDEN 2026-06-27 (consolidate EPS pages): eps-listening removed
   // { path: "/eps-listening", element: <EpsListeningPage /> },
   // HIDDEN 2026-06-27 (consolidate EPS pages): eps-speaking removed
