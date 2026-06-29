@@ -36,10 +36,10 @@ export default function DashboardLayout({ children, title, subtitle, actions }: 
       <div className="flex-1 flex flex-col min-w-0">
         {/* Desktop Header */}
         {title && (
-          <header className="hidden md:flex border-b px-6 py-3 items-center justify-between sticky top-0 z-20 backdrop-blur-md" style={{ backgroundColor: "var(--dash-header, rgba(15,17,23,0.92))", borderColor: "var(--dash-border, rgba(255,255,255,0.06))" }}>
+          <header className="hidden md:flex border-b px-6 py-4 items-center justify-between sticky top-0 z-20 backdrop-blur-md" style={{ backgroundColor: "var(--dash-header, rgba(15,17,23,0.92))", borderColor: "var(--dash-border, rgba(255,255,255,0.06))" }}>
             <div>
-              <h1 className="font-semibold text-base leading-tight" style={{ color: "var(--dash-text, rgba(255,255,255,0.85))" }}>{title === "Dashboard" ? "Trang chủ" : title}</h1>
-              {subtitle && <p className="text-[11px] mt-0.5" style={{ color: "var(--dash-text-muted, rgba(255,255,255,0.45))" }}>{subtitle}</p>}
+              <h1 className="font-semibold text-xl leading-tight" style={{ color: "var(--dash-text, rgba(255,255,255,0.85))" }}>{title === "Dashboard" ? "Trang chủ" : title}</h1>
+              {subtitle && <p className="text-sm mt-1" style={{ color: "var(--dash-text-muted, rgba(255,255,255,0.45))" }}>{subtitle}</p>}
             </div>
             <div className="flex items-center gap-2">
               <GlobalSearch />
