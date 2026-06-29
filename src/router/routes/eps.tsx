@@ -19,6 +19,10 @@ const OfflineDownloadsPage = lazyPage(() => import("../../pages/offline-download
 const NotificationSettingsPage = lazyPage(() => import("../../pages/notification-settings/page"));
 const SuccessStoriesPage = lazyPage(() => import("../../pages/success-stories/page"));
 const LearningPathPage = lazyPage(() => import("../../pages/learning-path/page"));
+const QuestionBankPage = lazyPage(() => import("../../pages/question-bank/page"));
+const ProgressSharingPage = lazyPage(() => import("../../pages/progress-sharing/page"));
+const WritingPracticePage = lazyPage(() => import("../../pages/writing-practice/page"));
+const MicroLearningPage = lazyPage(() => import("../../pages/micro-learning/page"));
 // HIDDEN 2026-06-27 (consolidate EPS pages): eps-listening removed
 // const EpsListeningPage = lazyPage(() => import("../../pages/eps-listening/page"));
 // HIDDEN 2026-06-27 (consolidate EPS pages): eps-speaking removed
@@ -106,6 +110,10 @@ export const epsRoutes: RouteObject[] = [
   { path: "/notification-settings", element: <NotificationSettingsPage /> },
   { path: "/success-stories", element: <SuccessStoriesPage /> },
   { path: "/learning-path", element: <LearningPathPage /> },
+  { path: "/question-bank", element: <QuestionBankPage /> },
+  { path: "/progress-sharing", element: <ProgressSharingPage /> },
+  { path: "/writing-practice", element: <WritingPracticePage /> },
+  { path: "/micro-learning", element: <MicroLearningPage /> },
   // HIDDEN 2026-06-27 (consolidate EPS pages): eps-listening removed
   // { path: "/eps-listening", element: <EpsListeningPage /> },
   // HIDDEN 2026-06-27 (consolidate EPS pages): eps-speaking removed
