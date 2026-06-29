@@ -37,6 +37,7 @@ const MENU_GROUPS = [
       { path: "/vocab-review", icon: "ri-refresh-line", label: "Ôn tập từ vựng (SRS)" },
       { path: "/listening-practice", icon: "ri-headphone-line", label: "Luyện nghe tốc độ" },
       { path: "/gamification", icon: "ri-trophy-line", label: "Huy hiệu & Thành tích" },
+      { path: "/learning-path", icon: "ri-route-line", label: "Lộ trình cá nhân" },
       { path: "/offline-downloads", icon: "ri-download-cloud-line", label: "Tải xuống Offline" },
       { path: "/hangul", icon: "ri-text", label: "Bảng chữ cái Hangul" },
       { path: "/vocabulary", icon: "ri-translate-2", label: "Từ vựng tổng quan" },
