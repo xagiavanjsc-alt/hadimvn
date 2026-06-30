@@ -284,18 +284,35 @@ export default function EPSExamsPage() {
                         {isCorrect ? "✓" : "✗"}
                       </span>
                       <div className="flex-1">
-                        <div className="flex items-center gap-3 mb-3">
-                          <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold ${
+                        {/* Show section header when section changes */}
+                        {(idx === 0 || selectedExam.questions[idx - 1].section !== q.section) && (
+                          <div className={`mb-4 p-3 rounded-xl border-2 ${
                             q.section === "reading" 
-                              ? "bg-blue-500/20 text-blue-400 border border-blue-500/30" 
-                              : "bg-purple-500/20 text-purple-400 border border-purple-500/30"
+                              ? "bg-blue-500/10 border-blue-500/30" 
+                              : "bg-purple-500/10 border-purple-500/30"
                           }`}>
-                            {q.section === "reading" ? "📖 Đọc hiểu" : "🎧 Nghe"}
-                          </span>
-                          <p className="text-white font-medium">
-                            Câu {q.number}: {q.question}
-                          </p>
-                        </div>
+                            <div className="flex items-center gap-2">
+                              <span className={`text-xl font-bold ${
+                                q.section === "reading" ? "text-blue-400" : "text-purple-400"
+                              }`}>
+                                {q.section === "reading" ? "📖" : "🎧"}
+                              </span>
+                              <div>
+                                <p className={`font-bold ${
+                                  q.section === "reading" ? "text-blue-400" : "text-purple-400"
+                                }`}>
+                                  {q.section === "reading" ? "PHẦN ĐỌC HIỂU" : "PHẦN NGHE NÓI"}
+                                </p>
+                                <p className="text-app-text-secondary text-xs">
+                                  {q.section === "reading" ? "Câu 1 - 20" : "Câu 21 - 40"}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                        <p className="text-white font-medium mb-3">
+                          Câu {q.number}: {q.question}
+                        </p>
                         {q.image && !q.optionImages && (
                           <img loading="lazy" decoding="async" src={q.image} alt="" className="max-w-xs rounded-lg mb-3" />
                         )}
@@ -390,15 +407,29 @@ export default function EPSExamsPage() {
       {/* Question */}
       {currentQuestion && (
         <div className="bg-gradient-to-br from-app-card to-app-card2 border border-app-border rounded-3xl p-8 mb-6 shadow-xl">
-          {/* Section Badge */}
-          <div className="mb-4">
-            <span className={`inline-block px-4 py-1.5 rounded-full text-sm font-bold ${
-              currentQuestion.section === "reading" 
-                ? "bg-blue-500/20 text-blue-400 border border-blue-500/30" 
-                : "bg-purple-500/20 text-purple-400 border border-purple-500/30"
-            }`}>
-              {currentQuestion.section === "reading" ? "📖 Đọc hiểu" : "🎧 Nghe"}
-            </span>
+          {/* Section Header */}
+          <div className={`mb-6 p-4 rounded-xl border-2 ${
+            currentQuestion.section === "reading" 
+              ? "bg-blue-500/10 border-blue-500/30" 
+              : "bg-purple-500/10 border-purple-500/30"
+          }`}>
+            <div className="flex items-center gap-3">
+              <span className={`text-2xl font-bold ${
+                currentQuestion.section === "reading" ? "text-blue-400" : "text-purple-400"
+              }`}>
+                {currentQuestion.section === "reading" ? "📖" : "🎧"}
+              </span>
+              <div>
+                <p className={`text-lg font-bold ${
+                  currentQuestion.section === "reading" ? "text-blue-400" : "text-purple-400"
+                }`}>
+                  {currentQuestion.section === "reading" ? "PHẦN ĐỌC HIỂU" : "PHẦN NGHE NÓI"}
+                </p>
+                <p className="text-app-text-secondary text-sm">
+                  {currentQuestion.section === "reading" ? "Câu 1 - 20" : "Câu 21 - 40"}
+                </p>
+              </div>
+            </div>
           </div>
           {currentQuestion.image && !currentQuestion.optionImages && (
             <div className="mb-6">
