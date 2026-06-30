@@ -94,14 +94,6 @@ export default function EPSExamsPage() {
   };
 
   const handleStartExam = (exam: EPSExam) => {
-    if (exam.id === "eps_01") {
-      navigate("/eps-de1");
-      return;
-    }
-    if (exam.id === "eps_02") {
-      navigate("/eps-de2");
-      return;
-    }
     setSelectedExam(exam);
     setCurrentQuestionIndex(0);
     setAnswers([]);
@@ -294,6 +286,12 @@ export default function EPSExamsPage() {
                         <p className="text-white font-medium mb-3">
                           Câu {q.number}: {q.question}
                         </p>
+                        {q.audio && (
+                          <audio controls className="w-full max-w-sm mb-3">
+                            <source src={q.audio} type="audio/mpeg" />
+                            Trình duyệt của bạn không hỗ trợ phát âm thanh.
+                          </audio>
+                        )}
                         {q.image && !q.optionImages && (
                           <img loading="lazy" decoding="async" src={q.image} alt="" className="max-w-xs rounded-lg mb-3" />
                         )}
@@ -388,11 +386,19 @@ export default function EPSExamsPage() {
       {/* Question */}
       {currentQuestion && (
         <div className="bg-gradient-to-br from-app-card to-app-card2 border border-app-border rounded-3xl p-8 mb-6 shadow-xl">
+          {currentQuestion.audio && (
+            <div className="mb-6">
+              <audio controls className="w-full max-w-md mx-auto">
+                <source src={currentQuestion.audio} type="audio/mpeg" />
+                Trình duyệt của bạn không hỗ trợ phát âm thanh.
+              </audio>
+            </div>
+          )}
           {currentQuestion.image && !currentQuestion.optionImages && (
             <div className="mb-6">
-              <img loading="lazy" decoding="async" 
-                src={currentQuestion.image} 
-                alt="" 
+              <img loading="lazy" decoding="async"
+                src={currentQuestion.image}
+                alt=""
                 className="max-w-2xl rounded-2xl mx-auto shadow-2xl"
               />
             </div>
