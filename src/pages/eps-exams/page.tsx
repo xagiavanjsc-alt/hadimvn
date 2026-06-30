@@ -284,18 +284,9 @@ export default function EPSExamsPage() {
                         {isCorrect ? "✓" : "✗"}
                       </span>
                       <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-3">
-                          <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-bold ${
-                            q.section === "reading" 
-                              ? "bg-blue-500/20 text-blue-400 border border-blue-500/30" 
-                              : "bg-purple-500/20 text-purple-400 border border-purple-500/30"
-                          }`}>
-                            {q.section === "reading" ? "Đọc hiểu" : "Nghe"}
-                          </span>
-                          <p className="text-white font-medium">
-                            Câu {q.number}: {q.question}
-                          </p>
-                        </div>
+                        <p className="text-white font-medium mb-3">
+                          Câu {q.number}: {q.question}
+                        </p>
                         {q.image && !q.optionImages && (
                           <img loading="lazy" decoding="async" src={q.image} alt="" className="max-w-xs rounded-lg mb-3" />
                         )}
@@ -390,16 +381,6 @@ export default function EPSExamsPage() {
       {/* Question */}
       {currentQuestion && (
         <div className="bg-gradient-to-br from-app-card to-app-card2 border border-app-border rounded-3xl p-8 mb-6 shadow-xl">
-          {/* Section Badge */}
-          <div className="mb-4">
-            <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold ${
-              currentQuestion.section === "reading" 
-                ? "bg-blue-500/20 text-blue-400 border border-blue-500/30" 
-                : "bg-purple-500/20 text-purple-400 border border-purple-500/30"
-            }`}>
-              {currentQuestion.section === "reading" ? "Đọc hiểu" : "Nghe"}
-            </span>
-          </div>
           {currentQuestion.image && !currentQuestion.optionImages && (
             <div className="mb-6">
               <img loading="lazy" decoding="async" 
