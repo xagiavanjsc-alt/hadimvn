@@ -94,7 +94,14 @@ export default function EPSExamsPage() {
   };
 
   const handleStartExam = (exam: EPSExam) => {
-    // Start exam directly on this page instead of navigating to separate routes
+    if (exam.id === "eps_01") {
+      navigate("/eps-de1");
+      return;
+    }
+    if (exam.id === "eps_02") {
+      navigate("/eps-de2");
+      return;
+    }
     setSelectedExam(exam);
     setCurrentQuestionIndex(0);
     setAnswers([]);
