@@ -12,6 +12,7 @@ export interface EPSQuestion {
   optionImages?: string[]; // 4 image paths used as selectable answer options
   audio?: string; // Audio file path for listening questions
   explanation?: string;
+  section?: "reading" | "listening"; // Section tag: reading (Q1-20), listening (Q21-40)
 }
 
 export interface EPSExam {
@@ -40,7 +41,8 @@ export const EPS_EXAMS: EPSExam[] = [
           "/images/eps/image_39.webp",
           "/images/eps/image_40.webp",
           "/images/eps/image_41.webp"
-        ]
+        ],
+        section: "reading"
       },
       {
         id: "q2",
@@ -54,7 +56,8 @@ export const EPS_EXAMS: EPSExam[] = [
           "/images/eps/image_35.webp",
           "/images/eps/image_36.webp",
           "/images/eps/image_37.webp"
-        ]
+        ],
+        section: "reading"
       },
       {
         id: "q3",
@@ -62,7 +65,8 @@ export const EPS_EXAMS: EPSExam[] = [
         question: "다음 내용과 관계있는 것을 고르십시오. 독서",
         questionType: "text",
         options: ["낫다", "예쁘다", "취미", "나쁘다"],
-        correctAnswer: 2
+        correctAnswer: 2,
+        section: "reading"
       },
       {
         id: "q4",
@@ -70,7 +74,8 @@ export const EPS_EXAMS: EPSExam[] = [
         question: "다음 내용과 관계있는 것을 고르십시오. 건강, 경치, 사이, 분위기",
         questionType: "text",
         options: ["위치", "국적", "하다", "가족"],
-        correctAnswer: 2
+        correctAnswer: 2,
+        section: "reading"
       },
       {
         id: "q5",
@@ -84,7 +89,8 @@ export const EPS_EXAMS: EPSExam[] = [
           "학교에 다니하면서 아르바이트를 해요."
         ],
         correctAnswer: 0,
-        explanation: "먹으면서 is correct grammar pattern"
+        explanation: "먹으면서 is correct grammar pattern",
+        section: "reading"
       },
       {
         id: "q6",
@@ -92,7 +98,8 @@ export const EPS_EXAMS: EPSExam[] = [
         question: "빈칸에 들어갈 가장 알맞은 것을 고르십시오. 리한 씨와 저는 5 월 12 일에 태어났습니다. 우리는 태어난 해는 다르지만 ______이/가 같아서 함께 파티를 했습니다.",
         questionType: "fill-blank",
         options: ["나이", "생일", "성격", "외모"],
-        correctAnswer: 1
+        correctAnswer: 1,
+        section: "reading"
       },
       {
         id: "q7",
@@ -100,7 +107,8 @@ export const EPS_EXAMS: EPSExam[] = [
         question: "빈칸에 들어갈 가장 알맞은 것을 고르십시오. 다음 주에 동료들과 여행을 가려고 합니다. 그래서 오늘 우리가 머물 숙소를 ______.",
         questionType: "fill-blank",
         options: ["받았습니다", "주었습니다", "정리했습니다", "예약했습니다"],
-        correctAnswer: 3
+        correctAnswer: 3,
+        section: "reading"
       },
       {
         id: "q8",
@@ -108,7 +116,8 @@ export const EPS_EXAMS: EPSExam[] = [
         question: "빈칸에 들어갈 가장 알맞은 것을 고르십시오. 요즘은 일이 많아서 스트레스가 많습니다. 하지만 ______ 친구들을 만나서 이야기를 하면 스트레스가 풀립니다.",
         questionType: "fill-blank",
         options: ["너무", "가끔", "벌써", "제일"],
-        correctAnswer: 1
+        correctAnswer: 1,
+        section: "reading"
       },
       {
         id: "q9",
@@ -116,7 +125,8 @@ export const EPS_EXAMS: EPSExam[] = [
         question: "빈칸에 들어갈 가장알맞은 것을고르십시오. 지난주에 시장에 가서 두꺼운 외투를 한 벌 샀습니다. 그 옷을 입으면 이번 겨울은 _____않을 것 같습니다.",
         questionType: "fill-blank",
         options: ["춥지", "덥지", "바쁘지", "기쁘지"],
-        correctAnswer: 0
+        correctAnswer: 0,
+        section: "reading"
       },
       {
         id: "q10",
@@ -125,7 +135,8 @@ export const EPS_EXAMS: EPSExam[] = [
         questionType: "image",
         options: ["직진및 좌회전 할 수 있습니다.", "직진및 우회전 할 수 있습니다.", "직진만 할 수 있습니다.", "좌우회전 할 수 있습니다."],
         correctAnswer: 1,
-        image: "/images/eps/image_56.webp"
+        image: "/images/eps/image_56.webp",
+        section: "reading"
       },
       {
         id: "q11",
@@ -133,7 +144,8 @@ export const EPS_EXAMS: EPSExam[] = [
         question: "빈칸에 들어갈 가장알맞은 것을고르십시오. 제가 세탁기를 ______.",
         questionType: "fill-blank",
         options: ["쓸게요", "돌릴게요", "닦을게요", "할게요"],
-        correctAnswer: 1
+        correctAnswer: 1,
+        section: "reading"
       },
       {
         id: "q12",
@@ -141,7 +153,8 @@ export const EPS_EXAMS: EPSExam[] = [
         question: "빈칸에 들어갈 가장알맞은 것을고르십시오. 가: 손을 씻고 싶은데요. ____가/이 있으면 좀 주시겠어요? 나: 네, 여기 있어요.",
         questionType: "fill-blank",
         options: ["장갑", "거울", "비누", "치약"],
-        correctAnswer: 2
+        correctAnswer: 2,
+        section: "reading"
       },
       {
         id: "q13",
@@ -149,7 +162,8 @@ export const EPS_EXAMS: EPSExam[] = [
         question: "이 것을 사용하는 곳은 어디입니까? [수영장 청소년 입장권 | 이용일: 이월 이십일 | 가격: 오천 원]",
         questionType: "text",
         options: ["청소년입니다.", "수영장 입니다.", "오천 원 입니다.", "이월 이십일입니다."],
-        correctAnswer: 1
+        correctAnswer: 1,
+        section: "reading"
       },
       {
         id: "q14",
@@ -163,7 +177,8 @@ export const EPS_EXAMS: EPSExam[] = [
           "한국인 친구를 사귀려고 배운다는 응답이 가장 많습니다."
         ],
         correctAnswer: 3,
-        image: "/images/eps/image_48.webp"
+        image: "/images/eps/image_48.webp",
+        section: "reading"
       },
       {
         id: "q15",
@@ -171,7 +186,8 @@ export const EPS_EXAMS: EPSExam[] = [
         question: "다음은 무엇에 대한 설명입니까? 초콜릿은 달아서 사람의 기분을 좋게 합니다. 그래서 사람들이 초콜릿을 자주 먹습니다. 그런데 말을 많이 할 때나 발표를 해야 할 때는 초콜릿을 먹지 않는 것이 좋습니다. 초콜릿을 먹으면 목이 마르게 되어서 목소리가 잘 안 나오기 때문입니다. 그래서 가수들도 공연 전에는 초콜릿을 먹지 않습니다.",
         questionType: "text",
         options: ["초콜릿의 단점과 장점", "초콜릿의 가격", "초콜릿을 먹는 이유", "초콜릿을 좋아하는 이유"],
-        correctAnswer: 0
+        correctAnswer: 0,
+        section: "reading"
       },
       {
         id: "q16",
@@ -179,7 +195,8 @@ export const EPS_EXAMS: EPSExam[] = [
         question: "다음은 무엇에 대한 설명입니까? 작업장의 공구들은 여러 사람이 사용합니다. 사용한 다음에는 원래 있던 그대로 놓아두는 것이 가장 좋습니다. 제자리에 갖다 놓지 않거나 섞어 놓으면 다음에 사용하는 사람이 불편할 수 있습니다.",
         questionType: "text",
         options: ["공구 절약", "공구 정리", "공구 종류", "공구 수리"],
-        correctAnswer: 1
+        correctAnswer: 1,
+        section: "reading"
       },
       {
         id: "q17",
@@ -192,7 +209,8 @@ export const EPS_EXAMS: EPSExam[] = [
           "생활한복은 일상생활에서 편하게 입을 수 있습니다.",
           "한국의 전통 의상은 색상이 단순하여 인기가 많습니다."
         ],
-        correctAnswer: 2
+        correctAnswer: 2,
+        section: "reading"
       },
       {
         id: "q18",
@@ -205,7 +223,8 @@ export const EPS_EXAMS: EPSExam[] = [
           "양궁으로 참을성을 기르기가 어렵다.",
           "양궁은 단순한 운동이라 주목을 받았다."
         ],
-        correctAnswer: 0
+        correctAnswer: 0,
+        section: "reading"
       },
       {
         id: "q19",
@@ -213,7 +232,8 @@ export const EPS_EXAMS: EPSExam[] = [
         question: "다음 설명에 알맞은 어휘를 고르십시오. 도로에서 색이 있는 불빛으로 통행 차량이나 사람의 통행을 지시하는 장치입니다.",
         questionType: "text",
         options: ["노선도", "육교", "신호등", "화물선"],
-        correctAnswer: 2
+        correctAnswer: 2,
+        section: "reading"
       },
       {
         id: "q20",
@@ -221,7 +241,8 @@ export const EPS_EXAMS: EPSExam[] = [
         question: "다음 설명에 알맞은 어휘를 고르십시오. 매일 세수할때 필요한 용품입니다.",
         questionType: "text",
         options: ["면도기", "화장품", "세면도구", "비누"],
-        correctAnswer: 2
+        correctAnswer: 2,
+        section: "reading"
       },
       // 듣기 (Listening) Q21-Q40
       {
@@ -231,7 +252,8 @@ export const EPS_EXAMS: EPSExam[] = [
         questionType: "text",
         options: ["구경", "경함", "함구", "청입"],
         correctAnswer: 0,
-        audio: "/images/audio/de1/21.mp3"
+        audio: "/images/audio/de1/21.mp3",
+        section: "listening"
       },
       {
         id: "q22",
@@ -240,7 +262,8 @@ export const EPS_EXAMS: EPSExam[] = [
         questionType: "text",
         options: ["좋지 않았습니다.", "가까워지지 않습니다.", "청소하지 않습니다.", "좋아하지 않습니다."],
         correctAnswer: 2,
-        audio: "/images/audio/de1/22.mp3"
+        audio: "/images/audio/de1/22.mp3",
+        section: "listening"
       },
       {
         id: "q23",
@@ -255,7 +278,8 @@ export const EPS_EXAMS: EPSExam[] = [
           "/images/eps/image_36.webp",
           "/images/eps/image_37.webp"
         ],
-        audio: "/images/audio/de1/23.mp3"
+        audio: "/images/audio/de1/23.mp3",
+        section: "listening"
       },
       {
         id: "q24",
@@ -270,7 +294,8 @@ export const EPS_EXAMS: EPSExam[] = [
           "/images/eps/image_54.webp",
           "/images/eps/image_55.webp"
         ],
-        audio: "/images/audio/de1/24.mp3"
+        audio: "/images/audio/de1/24.mp3",
+        section: "listening"
       },
       {
         id: "q25",
@@ -285,7 +310,8 @@ export const EPS_EXAMS: EPSExam[] = [
           "/images/eps/image_59.webp",
           "/images/eps/image_60.webp"
         ],
-        audio: "/images/audio/de1/25.mp3"
+        audio: "/images/audio/de1/25.mp3",
+        section: "listening"
       },
       {
         id: "q26",
@@ -300,7 +326,8 @@ export const EPS_EXAMS: EPSExam[] = [
           "/images/eps/image_63.webp",
           "/images/eps/image_64.webp"
         ],
-        audio: "/images/audio/de1/26.mp3"
+        audio: "/images/audio/de1/26.mp3",
+        section: "listening"
       },
       {
         id: "q27",
@@ -310,7 +337,8 @@ export const EPS_EXAMS: EPSExam[] = [
         options: ["1", "2", "3", "4"],
         correctAnswer: 2,
         image: "/images/eps/image_65.webp",
-        audio: "/images/audio/de1/27.mp3"
+        audio: "/images/audio/de1/27.mp3",
+        section: "listening"
       },
       {
         id: "q28",
@@ -320,7 +348,8 @@ export const EPS_EXAMS: EPSExam[] = [
         options: ["1", "2", "3", "4"],
         correctAnswer: 3,
         image: "/images/eps/image_20.webp",
-        audio: "/images/audio/de1/28.mp3"
+        audio: "/images/audio/de1/28.mp3",
+        section: "listening"
       },
       {
         id: "q29",
@@ -330,7 +359,8 @@ export const EPS_EXAMS: EPSExam[] = [
         options: ["1", "2", "3", "4"],
         correctAnswer: 0,
         image: "/images/eps/image_65.webp",
-        audio: "/images/audio/de1/29.mp3"
+        audio: "/images/audio/de1/29.mp3",
+        section: "listening"
       },
       {
         id: "q30",
@@ -339,7 +369,8 @@ export const EPS_EXAMS: EPSExam[] = [
         questionType: "text",
         options: ["서울에 살아요.", "힘들지만 재미있어요.", "저년에 한국에 왔어요.", "비행기로 다섯 시간 걸려요."],
         correctAnswer: 1,
-        audio: "/images/audio/de1/30.mp3"
+        audio: "/images/audio/de1/30.mp3",
+        section: "listening"
       },
       {
         id: "q31",
@@ -348,7 +379,8 @@ export const EPS_EXAMS: EPSExam[] = [
         questionType: "text",
         options: ["저는 벌써 먹었는데요.", "아직 안 들어왔는데요.", "저는 영수 친구가 아닌데요.", "오늘은 바빠서 못 가는데요."],
         correctAnswer: 3,
-        audio: "/images/audio/de1/31.mp3"
+        audio: "/images/audio/de1/31.mp3",
+        section: "listening"
       },
       {
         id: "q32",
@@ -357,7 +389,8 @@ export const EPS_EXAMS: EPSExam[] = [
         questionType: "text",
         options: ["아버지 마음이 아프시겠어요.", "축의금을 많이 보내 드려야겠어요.", "퇴근 후에 장례식장에 가야겠네요.", "많이 다치지 않았으면 좋겠어요."],
         correctAnswer: 2,
-        audio: "/images/audio/de1/32.mp3"
+        audio: "/images/audio/de1/32.mp3",
+        section: "listening"
       },
       {
         id: "q33",
@@ -366,7 +399,8 @@ export const EPS_EXAMS: EPSExam[] = [
         questionType: "text",
         options: ["값이 싸고 쇼핑이 편리해서요.", "인터넷 쇼핑을 하기 쉽지 않아요.", "인터넷으로 쇼핑을 해 본 적이 없어요.", "회원가입을 하려면 신분증이 필요해요."],
         correctAnswer: 0,
-        audio: "/images/audio/de1/33.mp3"
+        audio: "/images/audio/de1/33.mp3",
+        section: "listening"
       },
       {
         id: "q34",
@@ -375,7 +409,8 @@ export const EPS_EXAMS: EPSExam[] = [
         questionType: "text",
         options: ["여기 표시한 데까지 해 주시면 돼요.", "한 번도 옷을 고쳐 본 적이 없어요.", "바지 길이가 조금 줄어들었나 봐요.", "급하지 않으니까 천천히 해 주세요."],
         correctAnswer: 3,
-        audio: "/images/audio/de1/34.mp3"
+        audio: "/images/audio/de1/34.mp3",
+        section: "listening"
       },
       {
         id: "q35",
@@ -384,7 +419,8 @@ export const EPS_EXAMS: EPSExam[] = [
         questionType: "text",
         options: ["그러니까 조금 기다렸다가 가세요.", "그러니까 집을 빨리 알아보면 돼요.", "그래서 집을 못 구할까 봐 걱정이에요.", "그래서 이제 마음 편하게 잘 수 있겠네요."],
         correctAnswer: 3,
-        audio: "/images/audio/de1/35.mp3"
+        audio: "/images/audio/de1/35.mp3",
+        section: "listening"
       },
       {
         id: "q36",
@@ -399,7 +435,8 @@ export const EPS_EXAMS: EPSExam[] = [
           "/images/eps/image_68.webp",
           "/images/eps/image_70.webp"
         ],
-        audio: "/images/audio/de1/36.mp3"
+        audio: "/images/audio/de1/36.mp3",
+        section: "listening"
       },
       {
         id: "q37",
@@ -414,7 +451,8 @@ export const EPS_EXAMS: EPSExam[] = [
           "/images/eps/image_73.webp",
           "/images/eps/image_74.webp"
         ],
-        audio: "/images/audio/de1/37.mp3"
+        audio: "/images/audio/de1/37.mp3",
+        section: "listening"
       },
       {
         id: "q38",
@@ -428,7 +466,8 @@ export const EPS_EXAMS: EPSExam[] = [
           "쓰레기 버릴 때는 돈이 들지 않습니다."
         ],
         correctAnswer: 1,
-        audio: "/images/audio/de1/38.mp3"
+        audio: "/images/audio/de1/38.mp3",
+        section: "listening"
       },
       {
         id: "q39",
@@ -442,7 +481,8 @@ export const EPS_EXAMS: EPSExam[] = [
           "여자는 건강을 위해 음식에 신경 써야 합니다."
         ],
         correctAnswer: 3,
-        audio: "/images/audio/de1/39.mp3"
+        audio: "/images/audio/de1/39.mp3",
+        section: "listening"
       },
       {
         id: "q40",
@@ -456,7 +496,8 @@ export const EPS_EXAMS: EPSExam[] = [
           "남자는 결혼식에서 여자를 만났습니다."
         ],
         correctAnswer: 3,
-        audio: "/images/audio/de1/40.mp3"
+        audio: "/images/audio/de1/40.mp3",
+        section: "listening"
       }
     ]
   },
@@ -477,7 +518,8 @@ export const EPS_EXAMS: EPSExam[] = [
           "/images/eps/image_39.webp",
           "/images/eps/image_40.webp",
           "/images/eps/image_41.webp"
-        ]
+        ],
+        section: "reading"
       },
       {
         id: "q2",
@@ -491,7 +533,8 @@ export const EPS_EXAMS: EPSExam[] = [
           "/images/eps/image_35.webp",
           "/images/eps/image_36.webp",
           "/images/eps/image_37.webp"
-        ]
+        ],
+        section: "reading"
       },
       {
         id: "q3",
@@ -499,7 +542,8 @@ export const EPS_EXAMS: EPSExam[] = [
         question: "다음 내용과 관계있는 것을 고르십시오. 운동",
         questionType: "text",
         options: ["낫다", "예쁘다", "건강", "나쁘다"],
-        correctAnswer: 2
+        correctAnswer: 2,
+        section: "reading"
       },
       {
         id: "q4",
@@ -507,7 +551,8 @@ export const EPS_EXAMS: EPSExam[] = [
         question: "다음 내용과 관계있는 것을 고르십시오. 날씨, 계절, 기온, 습도",
         questionType: "text",
         options: ["위치", "국적", "환경", "가족"],
-        correctAnswer: 2
+        correctAnswer: 2,
+        section: "reading"
       },
       {
         id: "q5",
@@ -521,7 +566,8 @@ export const EPS_EXAMS: EPSExam[] = [
           "학교에 다니하면서 아르바이트를 해요."
         ],
         correctAnswer: 0,
-        explanation: "만나서 is correct grammar pattern"
+        explanation: "만나서 is correct grammar pattern",
+        section: "reading"
       },
       {
         id: "q6",
@@ -529,7 +575,8 @@ export const EPS_EXAMS: EPSExam[] = [
         question: "빈칸에 들어갈 가장 알맞은 것을 고르십시오. 김 씨와 저는 같은 회사에서 일합니다. 우리는 부서는 다르지만 ______이/가 같아서 점심을 같이 먹습니다.",
         questionType: "fill-blank",
         options: ["나이", "성별", "직급", "외모"],
-        correctAnswer: 1
+        correctAnswer: 1,
+        section: "reading"
       },
       {
         id: "q7",
@@ -537,7 +584,8 @@ export const EPS_EXAMS: EPSExam[] = [
         question: "빈칸에 들어갈 가장 알맞은 것을 고르십시오. 다음 주에 가족들과 여행을 가려고 합니다. 그래서 오늘 우리가 갈 여행지를 ______.",
         questionType: "fill-blank",
         options: ["받았습니다", "주었습니다", "정리했습니다", "선택했습니다"],
-        correctAnswer: 3
+        correctAnswer: 3,
+        section: "reading"
       },
       {
         id: "q8",
@@ -545,7 +593,8 @@ export const EPS_EXAMS: EPSExam[] = [
         question: "빈칸에 들어갈 가장 알맞은 것을 고르십시오. 요즘은 일이 많아서 피곤합니다. 하지만 ______ 친구들을 만나서 이야기를 하면 기분이 좋아집니다.",
         questionType: "fill-blank",
         options: ["너무", "가끔", "벌써", "제일"],
-        correctAnswer: 1
+        correctAnswer: 1,
+        section: "reading"
       },
       {
         id: "q9",
@@ -553,7 +602,8 @@ export const EPS_EXAMS: EPSExam[] = [
         question: "빈칸에 들어갈 가장 알맞은 것을 고르십시오. 지난주에 백화점에 가서 따뜻한 코트를 한 벌 샀습니다. 그 옷을 입으면 이번 겨울은 _____않을 것 같습니다.",
         questionType: "fill-blank",
         options: ["춥지", "덥지", "바쁘지", "기쁘지"],
-        correctAnswer: 0
+        correctAnswer: 0,
+        section: "reading"
       },
       {
         id: "q10",
@@ -562,7 +612,8 @@ export const EPS_EXAMS: EPSExam[] = [
         questionType: "image",
         options: ["좌회전만 할 수 있습니다.", "우회전만 할 수 있습니다.", "직진만 할 수 있습니다.", "좌우회전 할 수 있습니다."],
         correctAnswer: 0,
-        image: "/images/eps/image_56.webp"
+        image: "/images/eps/image_56.webp",
+        section: "reading"
       },
       {
         id: "q11",
@@ -570,7 +621,8 @@ export const EPS_EXAMS: EPSExam[] = [
         question: "빈칸에 들어갈 가장 알맞은 것을 고르십시오. 제가 세탁기를 ______.",
         questionType: "fill-blank",
         options: ["쓸게요", "돌릴게요", "닦을게요", "할게요"],
-        correctAnswer: 1
+        correctAnswer: 1,
+        section: "reading"
       },
       {
         id: "q12",
@@ -578,7 +630,8 @@ export const EPS_EXAMS: EPSExam[] = [
         question: "빈칸에 들어갈 가장 알맞은 것을 고르십시오. 가: 얼굴을 씻고 싶은데요. ____가/이 있으면 좀 주시겠어요? 나: 네, 여기 있어요.",
         questionType: "fill-blank",
         options: ["장갑", "거울", "수건", "치약"],
-        correctAnswer: 2
+        correctAnswer: 2,
+        section: "reading"
       },
       {
         id: "q13",
@@ -586,7 +639,8 @@ export const EPS_EXAMS: EPSExam[] = [
         question: "이 것을 사용하는 곳은 어디입니까? [체육관 성인 입장권 | 이용일: 삼월 십일 | 가격: 만 원]",
         questionType: "text",
         options: ["성인입니다.", "체육관 입니다.", "만 원 입니다.", "삼월 십일입니다."],
-        correctAnswer: 1
+        correctAnswer: 1,
+        section: "reading"
       },
       {
         id: "q14",
@@ -600,7 +654,8 @@ export const EPS_EXAMS: EPSExam[] = [
           "한국인 친구를 사귀려고 배운다는 응답이 가장 많습니다."
         ],
         correctAnswer: 3,
-        image: "/images/eps/image_48.webp"
+        image: "/images/eps/image_48.webp",
+        section: "reading"
       },
       {
         id: "q15",
@@ -608,7 +663,8 @@ export const EPS_EXAMS: EPSExam[] = [
         question: "다음은 무엇에 대한 설명입니까? 커피는 향이 좋아서 사람의 기분을 좋게 합니다. 그래서 사람들이 커피를 자주 마십니다. 그런데 말을 많이 할 때나 발표를 해야 할 때는 커피를 마시지 않는 것이 좋습니다. 커피를 마시면 목이 마르게 되어서 목소리가 잘 안 나오기 때문입니다. 그래서 가수들도 공연 전에는 커피를 마시지 않습니다.",
         questionType: "text",
         options: ["커피의 단점과 장점", "커피의 가격", "커피를 마시는 이유", "커피를 좋아하는 이유"],
-        correctAnswer: 0
+        correctAnswer: 0,
+        section: "reading"
       },
       {
         id: "q16",
@@ -616,7 +672,8 @@ export const EPS_EXAMS: EPSExam[] = [
         question: "다음은 무엇에 대한 설명입니까? 작업장의 기계들은 여러 사람이 사용합니다. 사용한 다음에는 깨끗이 닦아두는 것이 가장 좋습니다. 제자리에 갖다 놓지 않거나 섞어 놓으면 다음에 사용하는 사람이 불편할 수 있습니다.",
         questionType: "text",
         options: ["기계 절약", "기계 정리", "기계 종류", "기계 수리"],
-        correctAnswer: 1
+        correctAnswer: 1,
+        section: "reading"
       },
       {
         id: "q17",
@@ -629,7 +686,8 @@ export const EPS_EXAMS: EPSExam[] = [
           "개량 김치는 외국인들도 좋아합니다.",
           "한국의 전통 음식은 맛이 순하여 인기가 많습니다."
         ],
-        correctAnswer: 2
+        correctAnswer: 2,
+        section: "reading"
       },
       {
         id: "q18",
@@ -642,7 +700,8 @@ export const EPS_EXAMS: EPSExam[] = [
           "수영으로 참을성을 기르기가 어렵다.",
           "수영은 단순한 운동이라 주목을 받았다."
         ],
-        correctAnswer: 0
+        correctAnswer: 0,
+        section: "reading"
       },
       {
         id: "q19",
@@ -650,7 +709,8 @@ export const EPS_EXAMS: EPSExam[] = [
         question: "다음 설명에 알맞은 어휘를 고르십시오. 건물에서 사람들이 올라가고 내려가기 위해 사용하는 장치입니다.",
         questionType: "text",
         options: ["에스컬레이터", "계단", "엘리베이터", "리프트"],
-        correctAnswer: 2
+        correctAnswer: 2,
+        section: "reading"
       },
       {
         id: "q20",
@@ -658,7 +718,8 @@ export const EPS_EXAMS: EPSExam[] = [
         question: "다음 설명에 알맞은 어휘를 고르십시오. 매일 목욕할 때 필요한 용품입니다.",
         questionType: "text",
         options: ["수건", "비누", "샴푸", "욕조"],
-        correctAnswer: 1
+        correctAnswer: 1,
+        section: "reading"
       },
       // 듣기 (Listening) Q21-Q40
       {
@@ -668,7 +729,8 @@ export const EPS_EXAMS: EPSExam[] = [
         questionType: "text",
         options: ["가족", "가구", "가정", "가치"],
         correctAnswer: 0,
-        audio: "/images/audio/de2/21.mp3"
+        audio: "/images/audio/de2/21.mp3",
+        section: "listening"
       },
       {
         id: "q22",
@@ -677,7 +739,8 @@ export const EPS_EXAMS: EPSExam[] = [
         questionType: "text",
         options: ["좋지 않았습니다.", "가까워지지 않습니다.", "청소하지 않습니다.", "좋아하지 않습니다."],
         correctAnswer: 2,
-        audio: "/images/audio/de2/22.mp3"
+        audio: "/images/audio/de2/22.mp3",
+        section: "listening"
       },
       {
         id: "q23",
@@ -692,7 +755,8 @@ export const EPS_EXAMS: EPSExam[] = [
           "/images/eps/image_36.webp",
           "/images/eps/image_37.webp"
         ],
-        audio: "/images/audio/de2/23.mp3"
+        audio: "/images/audio/de2/23.mp3",
+        section: "listening"
       },
       {
         id: "q24",
@@ -707,7 +771,8 @@ export const EPS_EXAMS: EPSExam[] = [
           "/images/eps/image_54.webp",
           "/images/eps/image_55.webp"
         ],
-        audio: "/images/audio/de2/24.mp3"
+        audio: "/images/audio/de2/24.mp3",
+        section: "listening"
       },
       {
         id: "q25",
@@ -722,7 +787,8 @@ export const EPS_EXAMS: EPSExam[] = [
           "/images/eps/image_59.webp",
           "/images/eps/image_60.webp"
         ],
-        audio: "/images/audio/de2/25.mp3"
+        audio: "/images/audio/de2/25.mp3",
+        section: "listening"
       },
       {
         id: "q26",
@@ -737,7 +803,8 @@ export const EPS_EXAMS: EPSExam[] = [
           "/images/eps/image_63.webp",
           "/images/eps/image_64.webp"
         ],
-        audio: "/images/audio/de2/26.mp3"
+        audio: "/images/audio/de2/26.mp3",
+        section: "listening"
       },
       {
         id: "q27",
@@ -747,7 +814,8 @@ export const EPS_EXAMS: EPSExam[] = [
         options: ["1", "2", "3", "4"],
         correctAnswer: 2,
         image: "/images/eps/image_65.webp",
-        audio: "/images/audio/de2/27.mp3"
+        audio: "/images/audio/de2/27.mp3",
+        section: "listening"
       },
       {
         id: "q28",
@@ -757,7 +825,8 @@ export const EPS_EXAMS: EPSExam[] = [
         options: ["1", "2", "3", "4"],
         correctAnswer: 3,
         image: "/images/eps/image_20.webp",
-        audio: "/images/audio/de2/28.mp3"
+        audio: "/images/audio/de2/28.mp3",
+        section: "listening"
       },
       {
         id: "q29",
@@ -767,7 +836,8 @@ export const EPS_EXAMS: EPSExam[] = [
         options: ["1", "2", "3", "4"],
         correctAnswer: 0,
         image: "/images/eps/image_65.webp",
-        audio: "/images/audio/de2/29.mp3"
+        audio: "/images/audio/de2/29.mp3",
+        section: "listening"
       },
       {
         id: "q30",
@@ -776,7 +846,8 @@ export const EPS_EXAMS: EPSExam[] = [
         questionType: "text",
         options: ["부산에 살아요.", "재미있어요.", "작년에 한국에 왔어요.", "기차로 세 시간 걸려요."],
         correctAnswer: 1,
-        audio: "/images/audio/de2/30.mp3"
+        audio: "/images/audio/de2/30.mp3",
+        section: "listening"
       },
       {
         id: "q31",
@@ -785,7 +856,8 @@ export const EPS_EXAMS: EPSExam[] = [
         questionType: "text",
         options: ["저는 벌써 먹었는데요.", "아직 안 들어왔는데요.", "저는 영수 친구가 아닌데요.", "오늘은 바빠서 못 가는데요."],
         correctAnswer: 3,
-        audio: "/images/audio/de2/31.mp3"
+        audio: "/images/audio/de2/31.mp3",
+        section: "listening"
       },
       {
         id: "q32",
@@ -794,7 +866,8 @@ export const EPS_EXAMS: EPSExam[] = [
         questionType: "text",
         options: ["아버지 마음이 아프시겠어요.", "축의금을 많이 보내 드려야겠어요.", "퇴근 후에 병원에 가야겠네요.", "많이 다치지 않았으면 좋겠어요."],
         correctAnswer: 2,
-        audio: "/images/audio/de2/32.mp3"
+        audio: "/images/audio/de2/32.mp3",
+        section: "listening"
       },
       {
         id: "q33",
@@ -803,7 +876,8 @@ export const EPS_EXAMS: EPSExam[] = [
         questionType: "text",
         options: ["값이 싸고 편리해서요.", "인터넷 쇼핑을 하기 쉽지 않아요.", "인터넷으로 쇼핑을 해 본 적이 없어요.", "회원가입을 하려면 신분증이 필요해요."],
         correctAnswer: 0,
-        audio: "/images/audio/de2/33.mp3"
+        audio: "/images/audio/de2/33.mp3",
+        section: "listening"
       },
       {
         id: "q34",
@@ -812,7 +886,8 @@ export const EPS_EXAMS: EPSExam[] = [
         questionType: "text",
         options: ["여기 표시한 데까지 해 주시면 돼요.", "한 번도 옷을 고쳐 본 적이 없어요.", "바지 길이가 조금 줄어들었나 봐요.", "급하지 않으니까 천천히 해 주세요."],
         correctAnswer: 3,
-        audio: "/images/audio/de2/34.mp3"
+        audio: "/images/audio/de2/34.mp3",
+        section: "listening"
       },
       {
         id: "q35",
@@ -821,7 +896,8 @@ export const EPS_EXAMS: EPSExam[] = [
         questionType: "text",
         options: ["그러니까 조금 기다렸다가 가세요.", "그러니까 집을 빨리 알아보면 돼요.", "그래서 집을 못 구할까 봐 걱정이에요.", "그래서 이제 마음 편하게 잘 수 있겠네요."],
         correctAnswer: 3,
-        audio: "/images/audio/de2/35.mp3"
+        audio: "/images/audio/de2/35.mp3",
+        section: "listening"
       },
       {
         id: "q36",
@@ -836,7 +912,8 @@ export const EPS_EXAMS: EPSExam[] = [
           "/images/eps/image_68.webp",
           "/images/eps/image_70.webp"
         ],
-        audio: "/images/audio/de2/36.mp3"
+        audio: "/images/audio/de2/36.mp3",
+        section: "listening"
       },
       {
         id: "q37",
@@ -851,7 +928,8 @@ export const EPS_EXAMS: EPSExam[] = [
           "/images/eps/image_73.webp",
           "/images/eps/image_74.webp"
         ],
-        audio: "/images/audio/de2/37.mp3"
+        audio: "/images/audio/de2/37.mp3",
+        section: "listening"
       },
       {
         id: "q38",
@@ -865,7 +943,8 @@ export const EPS_EXAMS: EPSExam[] = [
           "쓰레기 버릴 때는 돈이 들지 않습니다."
         ],
         correctAnswer: 1,
-        audio: "/images/audio/de2/38.mp3"
+        audio: "/images/audio/de2/38.mp3",
+        section: "listening"
       },
       {
         id: "q39",
@@ -879,7 +958,8 @@ export const EPS_EXAMS: EPSExam[] = [
           "여자는 건강을 위해 음식에 신경 써야 합니다."
         ],
         correctAnswer: 3,
-        audio: "/images/audio/de2/39.mp3"
+        audio: "/images/audio/de2/39.mp3",
+        section: "listening"
       },
       {
         id: "q40",
@@ -893,7 +973,8 @@ export const EPS_EXAMS: EPSExam[] = [
           "남자는 결혼식에서 여자를 만났습니다."
         ],
         correctAnswer: 3,
-        audio: "/images/audio/de2/40.mp3"
+        audio: "/images/audio/de2/40.mp3",
+        section: "listening"
       }
     ]
   },
