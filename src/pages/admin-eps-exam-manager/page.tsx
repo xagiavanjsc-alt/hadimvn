@@ -282,6 +282,40 @@ export default function AdminEpsExamManagerPage() {
     fetchExams();
   };
 
+  const moveQuestion = async (questionId: string, direction: -1 | 1) => {
+    const idx = questions.findIndex(q => q.id === questionId);
+    if (idx === -1) return;
+    const newIdx = idx + direction;
+    if (newIdx < 0 || newIdx >= questions.length) return;
+
+    const newQuestions = [...questions];
+    const temp = newQuestions[idx];
+    newQuestions[idx] = newQuestions[newIdx];
+    newQuestions[newIdx] = temp;
+
+    // Update order_no in database
+    const { error } = await supabase
+      .from("eps_questions")
+      .update({ order_no: newIdx + 1 })
+      .eq("id", questionId);
+    if (error) {
+      showToast("Lỗi di chuyển câu hỏi: " + error.message, "error");
+      return;
+    }
+
+    const { error: error2 } = await supabase
+      .from("eps_questions")
+      .update({ order_no: idx + 1 })
+      .eq("id", questions[newIdx].id);
+    if (error2) {
+      showToast("Lỗi di chuyển câu hỏi: " + error2.message, "error");
+      return;
+    }
+
+    setQuestions(newQuestions);
+    showToast("Đã di chuyển câu hỏi", "success");
+  };
+
   const loadQuestionIntoForm = useCallback((q: Question) => {
     setEditingQ(q);
     setQForm({
@@ -553,20 +587,65 @@ export default function AdminEpsExamManagerPage() {
           </div>
         </div>
 
-        {/* Questions of selected exam */}
+        {/* Questions of selected exam - 2-column layout */}
         {selectedExam && (
-          <div className="bg-app-card border border-app-border rounded-2xl overflow-hidden">
-            <div className="px-5 py-3 border-b border-app-border flex items-center justify-between">
-              <h3 className="text-white font-semibold text-sm">Câu hỏi: {selectedExam.title} ({questions.length} câu)</h3>
-              <button onClick={() => { setShowQForm(true); setEditingQ(null); setQForm({ ...INITIAL_QUESTION, order_no: questions.length + 1 }); }} className="px-3 py-1.5 rounded-lg bg-app-accent-primary/20 text-app-accent-primary text-xs font-semibold cursor-pointer hover:bg-app-accent-primary/30 transition-all">
-                <i className="ri-add-line mr-1"></i>Thêm câu
-              </button>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {/* Left: Question list */}
+            <div className="bg-app-card border border-app-border rounded-2xl overflow-hidden">
+              <div className="px-5 py-3 border-b border-app-border flex items-center justify-between">
+                <h3 className="text-white font-semibold text-sm">Câu hỏi ({questions.length})</h3>
+                <div className="flex gap-2">
+                  <button onClick={() => { setShowQForm(true); setEditingQ(null); setQForm({ ...INITIAL_QUESTION, order_no: questions.length + 1 }); }} className="px-3 py-1.5 rounded-lg bg-app-accent-primary/20 text-app-accent-primary text-xs font-semibold cursor-pointer hover:bg-app-accent-primary/30 transition-all">
+                    <i className="ri-add-line mr-1"></i>Thêm
+                  </button>
+                </div>
+              </div>
+              <div className="max-h-[600px] overflow-y-auto">
+                {questions.map((q, idx) => (
+                  <div
+                    key={q.id}
+                    onClick={() => loadQuestionIntoForm(q)}
+                    className={`px-4 py-3 border-b border-app-border/50 cursor-pointer transition-all hover:bg-white/5 ${editingQ?.id === q.id ? "bg-app-accent-primary/10 border-l-4 border-l-app-accent-primary" : ""}`}
+                  >
+                    <div className="flex items-start gap-3">
+                      <div className="w-6 h-6 rounded-full bg-app-bg flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span className="text-xs font-bold text-white/60">{q.order_no}</span>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-white text-sm font-medium truncate">{q.question_text}</p>
+                        <p className="text-app-text-muted text-xs truncate">{q.question_vi || "Chưa có dịch"}</p>
+                        <div className="flex gap-2 mt-1">
+                          <span className={`text-[10px] px-1.5 py-0.5 rounded ${q.question_type === "reading" ? "bg-blue-500/20 text-blue-400" : q.question_type === "listening" ? "bg-purple-500/20 text-purple-400" : "bg-amber-500/20 text-amber-400"}`}>
+                            {q.question_type}
+                          </span>
+                          <span className={`text-[10px] px-1.5 py-0.5 rounded ${q.difficulty === "easy" ? "bg-emerald-500/20 text-emerald-400" : q.difficulty === "medium" ? "bg-amber-500/20 text-amber-400" : "bg-red-500/20 text-red-400"}`}>
+                            {q.difficulty}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="flex flex-col gap-1">
+                        <button onClick={(e) => { e.stopPropagation(); moveQuestion(q.id, -1); }} className="text-white/40 hover:text-white text-xs" disabled={idx === 0}>
+                          <i className="ri-arrow-up-line"></i>
+                        </button>
+                        <button onClick={(e) => { e.stopPropagation(); moveQuestion(q.id, 1); }} className="text-white/40 hover:text-white text-xs" disabled={idx === questions.length - 1}>
+                          <i className="ri-arrow-down-line"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+                {questions.length === 0 && (
+                  <div className="px-4 py-8 text-center text-app-text-muted text-sm">Chưa có câu hỏi nào</div>
+                )}
+              </div>
             </div>
 
-            {/* Question form */}
-            {showQForm && (
-              <div className="p-5 border-b border-app-border bg-app-bg/30 space-y-4">
-                <h4 className="text-white/80 text-sm font-medium">{editingQ ? "Sửa câu hỏi" : "Thêm câu hỏi mới"}</h4>
+            {/* Right: Question form/preview */}
+            <div className="bg-app-card border border-app-border rounded-2xl overflow-hidden">
+              <div className="px-5 py-3 border-b border-app-border">
+                <h3 className="text-white font-semibold text-sm">{editingQ ? "Sửa câu hỏi" : "Thêm câu hỏi mới"}</h3>
+              </div>
+              <div className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                   <div>
                     <label className="text-app-text-secondary text-xs block mb-1">Số thứ tự</label>
@@ -760,57 +839,6 @@ export default function AdminEpsExamManagerPage() {
                   </button>
                 </div>
               </div>
-            )}
-
-            {/* Question list */}
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-app-border bg-app-bg/50">
-                    <th className="px-4 py-2 text-left text-app-text-muted text-xs font-medium">#</th>
-                    <th className="px-4 py-2 text-left text-app-text-muted text-xs font-medium">Loại</th>
-                    <th className="px-4 py-2 text-left text-app-text-muted text-xs font-medium">Câu hỏi</th>
-                    <th className="px-4 py-2 text-left text-app-text-muted text-xs font-medium">Đáp án đúng</th>
-                    <th className="px-4 py-2 text-left text-app-text-muted text-xs font-medium">Media</th>
-                    <th className="px-4 py-2 text-right text-app-text-muted text-xs font-medium">Hành động</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {questions.map(q => (
-                    <tr key={q.id} className="border-b border-app-border/50 hover:bg-white/3">
-                      <td className="px-4 py-3 text-white/60 text-xs">{q.order_no}</td>
-                      <td className="px-4 py-3">
-                        <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-medium ${q.question_type === 'listening' ? 'bg-blue-500/10 text-blue-400' : q.question_type === 'image' ? 'bg-purple-500/10 text-purple-400' : 'bg-white/5 text-white/50'}`}>
-                          {q.question_type === 'listening' ? 'Nghe' : q.question_type === 'image' ? 'Hình' : 'Đọc'}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3 text-white/80 text-xs max-w-[300px] truncate">{q.question_text}</td>
-                      <td className="px-4 py-3 text-emerald-400 text-xs font-semibold">{String.fromCharCode(64 + q.correct_answer)}</td>
-                      <td className="px-4 py-3 text-white/40 text-xs">
-                        <div className="flex flex-col gap-1">
-                          {q.audio_url && (
-                            <audio controls src={getStorageUrl(q.audio_url)} className="w-24 h-6" />
-                          )}
-                          {q.image_url && (
-                            <img src={getStorageUrl(q.image_url)} alt="" className="h-10 w-auto rounded border border-app-border object-contain" />
-                          )}
-                        </div>
-                      </td>
-                      <td className="px-4 py-3 text-right">
-                        <button onClick={() => loadQuestionIntoForm(q)} className="text-app-accent-primary/70 hover:text-app-accent-primary text-xs cursor-pointer mr-3">
-                          <i className="ri-edit-line mr-0.5"></i>Sửa
-                        </button>
-                        <button onClick={() => deleteQuestion(q.id)} className="text-red-400/70 hover:text-red-400 text-xs cursor-pointer">
-                          <i className="ri-delete-bin-line mr-0.5"></i>Xóa
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                  {questions.length === 0 && (
-                    <tr><td colSpan={6} className="px-4 py-8 text-center text-app-text-muted text-sm">Chưa có câu hỏi nào. Bấm "Thêm câu" để bắt đầu.</td></tr>
-                  )}
-                </tbody>
-              </table>
             </div>
           </div>
         )}
