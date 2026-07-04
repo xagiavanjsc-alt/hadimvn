@@ -561,6 +561,28 @@ function BroadcastHistory() {
   );
 }
 
+// ─── Quick Action Card ───────────────────────────────────────────────────────────
+function QuickActionCard({ icon, label, desc, path, color }: {
+  icon: string; label: string; desc: string; path: string; color: string;
+}) {
+  const navigate = useNavigate();
+  return (
+    <button
+      onClick={() => navigate(path)}
+      className="rounded-xl p-4 sm:p-5 border transition-all hover:scale-[1.02] text-left"
+      style={{
+        backgroundColor: "var(--admin-card)",
+        borderColor: "var(--admin-border)",
+      }}>
+      <div className="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-lg mb-2 sm:mb-3" style={{ backgroundColor: `${color}15` }}>
+        <i className={`${icon} text-sm sm:text-base`} style={{ color }}></i>
+      </div>
+      <p className="text-xs sm:text-sm font-semibold mb-1" style={{ color: "var(--admin-text)" }}>{label}</p>
+      <p className="text-[10px] sm:text-[11px]" style={{ color: "var(--admin-text-muted)" }}>{desc}</p>
+    </button>
+  );
+}
+
 // ─── Stat Card ────────────────────────────────────────────────────────────────
 function StatCard({ icon, label, value, sub, color, onClick }: {
   icon: string; label: string; value: string | number; sub?: string; color: string; onClick?: () => void;
@@ -641,6 +663,58 @@ export default function AdminDashboardPage() {
         <StatCard icon="ri-vip-crown-line" label="VIP" value={usersLoading ? "..." : stats.vipCount} sub={usersLoading ? "" : `${vipPct}% tổng`} color="#e8c84a" onClick={() => navigate("/admin/users")} />
         <StatCard icon="ri-money-dollar-circle-line" label="Doanh thu" value={`${(totalRevenue / 1000).toFixed(0)}k`} sub={`${revenues.length} đơn`} color="#34d399" onClick={() => navigate("/admin/stats")} />
         <StatCard icon="ri-book-open-line" label="Bài học đã duyệt" value={approvedLessons.length} sub={`${seriesList.length} series`} color="#a78bfa" onClick={() => navigate("/admin/series")} />
+      </div>
+
+      {/* Quick Actions - WordPress-like */}
+      <div className="mb-6">
+        <h2 className="text-sm font-semibold mb-3 flex items-center gap-2" style={{ color: "var(--admin-text)" }}>
+          <i className="ri-flashlight-line" style={{ color: "#fb923c" }}></i>
+          Tác vụ nhanh
+        </h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+          <QuickActionCard
+            icon="ri-add-circle-line"
+            label="Thêm EPS mới"
+            desc="Tạo bài học EPS"
+            path="/admin/eps-new"
+            color="#4ade80"
+          />
+          <QuickActionCard
+            icon="ri-user-settings-line"
+            label="Quản lý users"
+            desc="Xem/edit thành viên"
+            path="/admin/users"
+            color="#34d399"
+          />
+          <QuickActionCard
+            icon="ri-broadcast-line"
+            label="Gửi thông báo"
+            desc="Broadcast email"
+            path="/admin/broadcast"
+            color="#f87171"
+          />
+          <QuickActionCard
+            icon="ri-bar-chart-line"
+            label="Thống kê"
+            desc="Analytics hệ thống"
+            path="/admin/stats"
+            color="#a78bfa"
+          />
+          <QuickActionCard
+            icon="ri-vip-crown-line"
+            label="Gói VIP"
+            desc="Cấu hình giá VIP"
+            path="/admin/pricing"
+            color="#e8c84a"
+          />
+          <QuickActionCard
+            icon="ri-settings-3-line"
+            label="Cài đặt"
+            desc="API & Keys"
+            path="/admin/settings"
+            color="#fb923c"
+          />
+        </div>
       </div>
 
       {/* Revenue chart — full width */}
