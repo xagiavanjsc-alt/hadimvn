@@ -15,7 +15,8 @@ const adminNavGroups = [
     items: [
       { path: "/admin", icon: "ri-dashboard-line", label: "Dashboard" },
       { path: "/admin/stats", icon: "ri-bar-chart-line", label: "Thống kê hệ thống", permission: "stats.view" as Permission },
-      { path: "/admin/learn-stats", icon: "ri-graduation-cap-line", label: "Thống kê học tập", permission: "stats.view" as Permission },
+      // REMOVED 2026-07-04 (focus exam features): learn-stats removed
+      // { path: "/admin/learn-stats", icon: "ri-graduation-cap-line", label: "Thống kê học tập", permission: "stats.view" as Permission },
     ],
   },
   {
@@ -33,9 +34,11 @@ const adminNavGroups = [
     label: "Nội dung học",
     color: "#a78bfa",
     items: [
-      { path: "/admin/content", icon: "ri-article-line", label: "Duyệt nội dung", permission: "content.view" as Permission },
-      { path: "/admin/community-settings", icon: "ri-team-line", label: "Cấu hình cộng đồng", permission: "content.view" as Permission },
-      { path: "/admin/content-learn", icon: "ri-book-open-line", label: "Quản lý nội dung học", permission: "eps.edit" as Permission },
+      // REMOVED 2026-07-04 (focus exam features): content/community removed
+      // { path: "/admin/content", icon: "ri-article-line", label: "Duyệt nội dung", permission: "content.view" as Permission },
+      // { path: "/admin/community-settings", icon: "ri-team-line", label: "Cấu hình cộng đồng", permission: "content.view" as Permission },
+      // REMOVED 2026-07-04 (focus exam features): content-learn removed
+      // { path: "/admin/content-learn", icon: "ri-book-open-line", label: "Quản lý nội dung học", permission: "eps.edit" as Permission },
       // HIDDEN 2026-06-27 (focus EPS/TOPIK): admin-series removed (ebook feature)
       // { path: "/admin/series", icon: "ri-stack-line", label: "Series & Ebook", permission: "eps.edit" as Permission },
       { path: "/admin/eps", icon: "ri-image-edit-line", label: "Quản lý EPS", permission: "eps.edit" as Permission },
