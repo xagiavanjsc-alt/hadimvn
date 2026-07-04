@@ -71,8 +71,8 @@ function StreakBadge() {
   );
 }
 
-// ─── Nav groups — Focus EPS-XKLĐ + TOPIK (du học) ──────────────────────────
-// Đã ẩn: Seoul textbook, Hanja Pro, AI features, VIP, duplicates
+// ─── Nav groups — Focus EPS-XKLĐ + TOPIK (du học) + Upsell ────────────────────
+// REMOVED 2026-07-04 (focus exam features): Learning tools, community not needed
 // Code/route gốc vẫn còn — chỉ gỡ khỏi sidebar.
 const navGroups = [
   {
@@ -86,14 +86,6 @@ const navGroups = [
       { path: "/eps-mock-exam", icon: "ri-clipboard-line", label: "Đề thi thử" },
       { path: "/exam-schedule", icon: "ri-calendar-line", label: "Lịch thi" },
       { path: "/downloads", icon: "ri-download-line", label: "Tài liệu" },
-      // HIDDEN 2026-06-27 (consolidate EPS): eps-vocabulary removed
-      // { path: "/eps-vocabulary", icon: "ri-translate-2", label: "Từ vựng EPS" },
-      // HIDDEN 2026-06-27 (consolidate EPS): eps-grammar removed
-      // { path: "/eps-grammar", icon: "ri-book-2-line", label: "Ngữ pháp EPS" },
-      // HIDDEN 2026-06-27 (consolidate EPS): eps-flashcard removed
-      // { path: "/eps-flashcard", icon: "ri-stack-line", label: "Flashcard EPS" },
-      // HIDDEN 2026-06-27 (consolidate EPS): eps-listening removed
-      // { path: "/eps-listening", icon: "ri-headphone-line", label: "Luyện nghe EPS" },
     ],
   },
   {
@@ -102,58 +94,32 @@ const navGroups = [
     color: "#60a5fa",
     items: [
       { path: "/topik-test", icon: "ri-survey-line", label: "Test TOPIK I" },
-      // HIDDEN 2026-06-27 (consolidate TOPIK): topik2-test removed
-      // { path: "/topik2-test", icon: "ri-survey-line", label: "Test TOPIK II" },
-      // HIDDEN 2026-06-27 (consolidate TOPIK): topik-vocab-level removed
-      // { path: "/topik-vocab-level", icon: "ri-bar-chart-grouped-line", label: "Từ vựng theo level" },
-      // HIDDEN 2026-06-27 (consolidate TOPIK): topik-frequency-vocab removed
-      // { path: "/topik-frequency-vocab", icon: "ri-line-chart-line", label: "Từ vựng tần suất cao" },
       { path: "/topik-flashcard", icon: "ri-stack-line", label: "Flashcard TOPIK" },
-      // HIDDEN 2026-06-27 (consolidate TOPIK): topik-listening removed
-      // { path: "/topik-listening", icon: "ri-headphone-line", label: "Luyện nghe TOPIK" },
-      // HIDDEN 2026-06-27 (consolidate TOPIK): topik-reading removed
-      // { path: "/topik-reading", icon: "ri-book-read-line", label: "Luyện đọc TOPIK" },
-      // HIDDEN 2026-06-27 (consolidate TOPIK): topik-exam-writing removed
-      // { path: "/topik-exam-writing", icon: "ri-quill-pen-line", label: "Luyện viết TOPIK" },
-      // HIDDEN 2026-06-27 (consolidate TOPIK): topik-topic-quiz removed
-      // { path: "/topik-topic-quiz", icon: "ri-question-line", label: "Quiz theo chủ đề" },
       { path: "/topik-dictionary", icon: "ri-book-open-line", label: "Từ điển TOPIK" },
       { path: "/topik-stats", icon: "ri-pie-chart-line", label: "Thống kê TOPIK" },
     ],
   },
+  // Xuất khẩu lao động — TEMPORARILY DISABLED 2026-07-04 (routes disabled due to build errors)
+  // {
+  //   label: "Xuất khẩu lao động",
+  //   icon: "ri-plane-line",
+  //   color: "#f472b6",
+  //   items: [
+  //     { path: "/xkld", icon: "ri-home-heart-line", label: "Thông tin XKLĐ" },
+  //     { path: "/xkld-apply", icon: "ri-file-user-line", label: "Đăng ký XKLĐ" },
+  //     { path: "/xkld-centers", icon: "ri-building-line", label: "Trung tâm uy tín" },
+  //     { path: "/xkld-requirements", icon: "ri-checkbox-circle-line", label: "Yêu cầu thi EPS" },
+  //   ],
+  // },
   {
-    label: "Công cụ học tập",
-    icon: "ri-tools-line",
-    color: "#e8c84a",
+    label: "Du học Hàn Quốc",
+    icon: "ri-school-line",
+    color: "#fb923c",
     items: [
-      { path: "/skill-tree", icon: "ri-node-tree", label: "Cây kỹ năng" },
-      { path: "/contextual-learning", icon: "ri-book-read-line", label: "Học theo ngữ cảnh" },
-      { path: "/real-world-scenarios", icon: "ri-play-circle-line", label: "Tình huống thực tế" },
-      { path: "/smart-review", icon: "ri-brain-line", label: "Smart Review" },
-      { path: "/content-interlinking", icon: "ri-links-line", label: "Liên kết nội dung" },
-      { path: "/micro-learning", icon: "ri-time-line", label: "Học nhanh 5 phút" },
-      { path: "/vocab-review", icon: "ri-refresh-line", label: "Ôn tập từ vựng (SRS)" },
-      { path: "/learning-path", icon: "ri-route-line", label: "Lộ trình cá nhân" },
-      { path: "/question-bank", icon: "ri-database-2-line", label: "Ngân hàng câu hỏi" },
-      { path: "/dictionary", icon: "ri-search-2-line", label: "Từ điển" },
-      // HIDDEN 2026-06-30 (simplify menu): listening-practice, writing-practice, gamification, offline-downloads, hangul, vocabulary, grammar
-      // { path: "/listening-practice", icon: "ri-headphone-line", label: "Luyện nghe tốc độ" },
-      // { path: "/writing-practice", icon: "ri-edit-line", label: "Luyện viết" },
-      // { path: "/gamification", icon: "ri-trophy-line", label: "Huy hiệu & Thành tích" },
-      // { path: "/offline-downloads", icon: "ri-download-cloud-line", label: "Tải xuống Offline" },
-      // { path: "/hangul", icon: "ri-text", label: "Bảng chữ cái Hangul" },
-      // { path: "/vocabulary", icon: "ri-translate-2", label: "Từ vựng tổng quan" },
-      // { path: "/grammar", icon: "ri-book-2-line", label: "Ngữ pháp tổng quan" },
-    ],
-  },
-  {
-    label: "Cộng đồng",
-    icon: "ri-group-line",
-    color: "#a78bfa",
-    items: [
-      { path: "/study-groups", icon: "ri-group-line", label: "Nhóm học tập" },
-      { path: "/qa-forum", icon: "ri-question-answer-line", label: "Diễn đàn hỏi đáp" },
-      { path: "/success-stories", icon: "ri-trophy-line", label: "Câu chuyện thành công" },
+      { path: "/duhoc", icon: "ri-global-line", label: "Thông tin du học" },
+      { path: "/duhoc-apply", icon: "ri-file-user-line", label: "Đăng ký du học" },
+      { path: "/duhoc-schools", icon: "ri-building-line", label: "Trường đại học" },
+      { path: "/duhoc-requirements", icon: "ri-checkbox-circle-line", label: "Yêu cầu TOPIK" },
     ],
   },
   {
@@ -162,13 +128,9 @@ const navGroups = [
     color: "#94a3b8",
     items: [
       { path: "/profile", icon: "ri-user-3-line", label: "Hồ sơ cá nhân" },
-      { path: "/study-stats", icon: "ri-bar-chart-2-line", label: "Thống kê học tập" },
+      { path: "/account-settings", icon: "ri-settings-3-line", label: "Cài đặt tài khoản" },
       { path: "/notification-settings", icon: "ri-notification-3-line", label: "Cài đặt thông báo" },
-      // HIDDEN 2026-06-30 (simplify menu): daily-words, progress-sharing, feedback, report-bug
-      // { path: "/daily-words", icon: "ri-sun-line", label: "Từ mới mỗi ngày" },
-      // { path: "/progress-sharing", icon: "ri-share-line", label: "Chia sẻ tiến độ" },
-      // { path: "/feedback", icon: "ri-chat-smile-2-line", label: "Góp ý & Đánh giá" },
-      // { path: "/report-bug", icon: "ri-bug-line", label: "Báo lỗi" },
+      { path: "/pricing", icon: "ri-vip-crown-line", label: "Nâng cấp VIP" },
     ],
   },
 ];
@@ -178,8 +140,8 @@ const navGroups = [
 const DEFAULT_OPEN: Record<string, boolean> = {
   "Luyện thi EPS (XKLĐ)": true,
   "Luyện thi TOPIK (du học)": false,
-  "Công cụ học tập": false,
-  "Cộng đồng": false,
+  // "Xuất khẩu lao động": false, // TEMPORARILY DISABLED 2026-07-04
+  "Du học Hàn Quốc": false,
   "Cá nhân": false,
 };
 
@@ -329,17 +291,20 @@ function SidebarInner() {
       // "/eps-exam-schedule": () => import("@/pages/eps-exam-schedule/page"),
       // HIDDEN 2026-05-25 (focus EPS+du học): melon route hidden, preload disabled
       // "/melon": () => import("@/pages/melon/page"),
-      "/community": () => import("@/pages/community/page"),
+      // REMOVED 2026-07-04 (focus exam features): Community not needed
+      // "/community": () => import("@/pages/community/page"),
       "/profile": () => import("@/pages/profile/page"),
       // HIDDEN 2026-06-27 (consolidate social): leaderboard removed
       // "/leaderboard": () => import("@/pages/leaderboard/page"),
-      "/vocabulary": () => import("@/pages/vocabulary/page"),
-      "/grammar": () => import("@/pages/grammar/page"),
+      // REMOVED 2026-07-04 (focus exam features): Grammar/vocab not needed
+      // "/vocabulary": () => import("@/pages/vocabulary/page"),
+      // "/grammar": () => import("@/pages/grammar/page"),
       // HIDDEN 2026-05-25 (focus EPS+du học): generic grammar by level, EPS audience uses /eps-grammar
       // "/grammar-by-level": () => import("@/pages/grammar-by-level/page"),
       // HIDDEN 2026-06-27 (consolidate study tools): flashcard removed
       // "/flashcard": () => import("@/pages/flashcard/page"),
-      "/hangul": () => import("@/pages/hangul/page"),
+      // REMOVED 2026-07-04 (focus exam features): Hangul not needed
+      // "/hangul": () => import("@/pages/hangul/page"),
       "/hanja-vocab": () => import("@/pages/hanja-vocab/page"),
       "/topik-test": () => import("@/pages/topik-test/page"),
       // HIDDEN 2026-06-27 (consolidate TOPIK): topik2-test removed

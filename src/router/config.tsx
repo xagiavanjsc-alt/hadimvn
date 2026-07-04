@@ -9,7 +9,8 @@ import { epsRoutes } from "./routes/eps";
 import { seoulRoutes } from "./routes/seoul";
 import { adminRoutes } from "./routes/admin";
 import { topikRoutes } from "./routes/topik";
-import { hanjaRoutes } from "./routes/hanja";
+// REMOVED 2026-07-04 (focus exam features): Hanja not needed
+// import { hanjaRoutes } from "./routes/hanja";
 
 export { cancelPreloads } from "./utils";
 
@@ -31,7 +32,8 @@ export function PreloadCommonRoutes() {
       preload(() => import("../pages/eps/page"), "eps");
       // HIDDEN 2026-05-25 (focus EPS+du học): melon = K-pop, not EPS audience
       // preload(() => import("../pages/melon/page"), "melon");
-      preload(() => import("../pages/community/page"), "community");
+      // REMOVED 2026-07-04 (focus exam features): Community not needed
+      // preload(() => import("../pages/community/page"), "community");
       preload(() => import("../pages/profile/page"), "profile");
     };
 
@@ -57,19 +59,35 @@ export function PreloadCommonRoutes() {
 // ─── TOPIK + Hanja moved to ./routes/topik.tsx and ./routes/hanja.tsx ────────
 
 // ─── Hangul ──────────────────────────────────────────────────────────────────
-const HangulPage = lazyPage(() => import("../pages/hangul/page"));
-const HangulWritePage = lazyPage(() => import("../pages/hangul-write/page"));
+// REMOVED 2026-07-04 (focus exam features): Hangul learning not needed
+// const HangulPage = lazyPage(() => import("../pages/hangul/page"));
+// const HangulWritePage = lazyPage(() => import("../pages/hangul-write/page"));
 
 // ─── Hanja basic routes moved to ./routes/hanja.tsx ─────────────────────────
 
+// ─── XKLĐ pages ───────────────────────────────────────────────────────────────
+// TEMPORARILY DISABLED 2026-07-04 (fixing build errors)
+// const XKLĐPage = lazyPage(() => import("../pages/xkld/page"));
+// const XKLĐApplyPage = lazyPage(() => import("../pages/xkld-apply/page"));
+// const XKLĐCentersPage = lazyPage(() => import("../pages/xkld-centers/page"));
+// const XKLĐRequirementsPage = lazyPage(() => import("../pages/xkld-requirements/page"));
+
+// ─── Du học pages ───────────────────────────────────────────────────────────────
+const DuHocPage = lazyPage(() => import("../pages/duhoc/page"));
+const DuHocApplyPage = lazyPage(() => import("../pages/duhoc-apply/page"));
+const DuHocSchoolsPage = lazyPage(() => import("../pages/duhoc-schools/page"));
+const DuHocRequirementsPage = lazyPage(() => import("../pages/duhoc-requirements/page"));
+
 // ─── Community ────────────────────────────────────────────────────────────────
-const CommunityPage = lazyPage(() => import("../pages/community/page"));
-const CommunityPostDetailPage = lazyPage(() => import("../pages/community/post-detail-page"));
+// REMOVED 2026-07-04 (focus exam features): Community not needed
+// const CommunityPage = lazyPage(() => import("../pages/community/page"));
+// const CommunityPostDetailPage = lazyPage(() => import("../pages/community/post-detail-page"));
 // HIDDEN 2026-06-27 (consolidate social): community-ranks removed
 // const CommunityRanksPage = lazyPage(() => import("../pages/community-ranks/page"));
 
 // ─── Challenge ───────────────────────────────────────────────────────────────
-const ChallengePage = lazyPage(() => import("../pages/challenge/page"));
+// REMOVED 2026-07-04 (focus exam features): Challenge not needed
+// const ChallengePage = lazyPage(() => import("../pages/challenge/page"));
 // HIDDEN 2026-06-27 (consolidate challenge): challenge-history removed
 // const ChallengeHistoryPage = lazyPage(() => import("../pages/challenge-history/page"));
 // HIDDEN 2026-06-27 (consolidate challenge): challenge-leaderboard removed
@@ -80,20 +98,22 @@ const ChallengePage = lazyPage(() => import("../pages/challenge/page"));
 // const WeeklyChallengePage = lazyPage(() => import("../pages/weekly-challenge/page"));
 
 // ─── Stats & Progress ────────────────────────────────────────────────────────
-const StatsPage = lazyPage(() => import("../pages/stats/page"));
-const PersonalStatsPage = lazyPage(() => import("../pages/personal-stats/page"));
-const ProgressPage = lazyPage(() => import("../pages/progress/page"));
-const LearningHubPage = lazyPage(() => import("../pages/learning-hub/page"));
-const ExamHubPage = lazyPage(() => import("../pages/exam-hub/page"));
+// REMOVED 2026-07-04 (focus exam features): Stats/progress not needed
+// const StatsPage = lazyPage(() => import("../pages/stats/page"));
+// const PersonalStatsPage = lazyPage(() => import("../pages/personal-stats/page"));
+// const ProgressPage = lazyPage(() => import("../pages/progress/page"));
+// const LearningHubPage = lazyPage(() => import("../pages/learning-hub/page"));
+// const ExamHubPage = lazyPage(() => import("../pages/exam-hub/page"));
 
 // ─── Study tools ─────────────────────────────────────────────────────────────
+// REMOVED 2026-07-04 (focus exam features): Grammar/vocab/dictionary not needed
 // HIDDEN 2026-06-27 (consolidate study tools): flashcard removed
 // const FlashcardPage = lazyPage(() => import("../pages/flashcard/page"));
-const GrammarPage = lazyPage(() => import("../pages/grammar/page"));
-const VocabularyPage = lazyPage(() => import("../pages/vocabulary/page"));
-const DictionaryPage = lazyPage(() => import("../pages/dictionary/page"));
-const PhraseDictionaryPage = lazyPage(() => import("../pages/phrase-dictionary/page"));
-const QuizPage = lazyPage(() => import("../pages/quiz/page"));
+// const GrammarPage = lazyPage(() => import("../pages/grammar/page"));
+// const VocabularyPage = lazyPage(() => import("../pages/vocabulary/page"));
+// const DictionaryPage = lazyPage(() => import("../pages/dictionary/page"));
+// const PhraseDictionaryPage = lazyPage(() => import("../pages/phrase-dictionary/page"));
+// const QuizPage = lazyPage(() => import("../pages/quiz/page"));
 // HIDDEN 2026-06-27 (consolidate study tools): pronunciation removed
 // const PronunciationPage = lazyPage(() => import("../pages/pronunciation/page"));
 // HIDDEN 2026-06-27 (consolidate study tools): listen-practice removed
@@ -112,15 +132,17 @@ const QuizPage = lazyPage(() => import("../pages/quiz/page"));
 // const ReviewSchedulePage = lazyPage(() => import("../pages/review-schedule/page"));
 
 // ─── Planning & Roadmap ──────────────────────────────────────────────────────
-const RoadmapPage = lazyPage(() => import("../pages/roadmap/page"));
+// REMOVED 2026-07-04 (focus exam features): Planning not needed
+// const RoadmapPage = lazyPage(() => import("../pages/roadmap/page"));
 // HIDDEN 2026-06-27 (consolidate planning): daily-plan removed
 // const DailyPlanPage = lazyPage(() => import("../pages/daily-plan/page"));
-const SchedulerPage = lazyPage(() => import("../pages/scheduler/page"));
-const StudyCalendarPage = lazyPage(() => import("../pages/study-calendar/page"));
-const StudyReminderPage = lazyPage(() => import("../pages/study-reminder/page"));
-const StudyJournalPage = lazyPage(() => import("../pages/study-journal/page"));
-const StudyHistoryPage = lazyPage(() => import("../pages/study-history/page"));
-const WeeklyReportPage = lazyPage(() => import("../pages/weekly-report/page"));
+// REMOVED 2026-07-04 (focus exam features): Planning tools not needed
+// const SchedulerPage = lazyPage(() => import("../pages/scheduler/page"));
+// const StudyCalendarPage = lazyPage(() => import("../pages/study-calendar/page"));
+// const StudyReminderPage = lazyPage(() => import("../pages/study-reminder/page"));
+// const StudyJournalPage = lazyPage(() => import("../pages/study-journal/page"));
+// const StudyHistoryPage = lazyPage(() => import("../pages/study-history/page"));
+// const WeeklyReportPage = lazyPage(() => import("../pages/weekly-report/page"));
 
 // ─── Profile & Account ───────────────────────────────────────────────────────
 const ProfilePage = lazyPage(() => import("../pages/profile/page"));
@@ -156,10 +178,11 @@ const NewsPage = lazyPage(() => import("../pages/news/page"));
 const GuidePage = lazyPage(() => import("../pages/guide/page"));
 
 // ─── Onboarding & Placement ──────────────────────────────────────────────────
-const OnboardingPage = lazyPage(() => import("../pages/onboarding/page"), "full");
-const PlacementTestPage = lazyPage(() => import("../pages/placement-test/page"));
-const LearnOverviewPage = lazyPage(() => import("../pages/learn-overview/page"));
-const LearningCertificatePage = lazyPage(() => import("../pages/learning-certificate/page"));
+// REMOVED 2026-07-04 (focus exam features): Onboarding/placement not needed
+// const OnboardingPage = lazyPage(() => import("../pages/onboarding/page"), "full");
+// const PlacementTestPage = lazyPage(() => import("../pages/placement-test/page"));
+// const LearnOverviewPage = lazyPage(() => import("../pages/learn-overview/page"));
+// const LearningCertificatePage = lazyPage(() => import("../pages/learning-certificate/page"));
 
 // ─── All Features ───────────────────────────────────────────────────────────
 const AllFeaturesPage = lazyPage(() => import("../pages/all-features/page"));
@@ -190,7 +213,8 @@ const OfflineVocabPage = lazyPage(() => import("../pages/offline-vocab/page"));
 // const SpeakingLevelPage = lazyPage(() => import("../pages/speaking-level/page"));
 // HIDDEN 2026-06-27 (consolidate features): vocab-games removed
 // const VocabGamesPage = lazyPage(() => import("../pages/vocab-games/page"));
-const AdvancedDictionaryPage = lazyPage(() => import("../pages/advanced-dictionary/page"));
+// REMOVED 2026-07-04 (focus exam features): Advanced dictionary not needed
+// const AdvancedDictionaryPage = lazyPage(() => import("../pages/advanced-dictionary/page"));
 const StudyHistoryDetailPage = lazyPage(() => import("../pages/study-history-detail/page"));
 // HIDDEN 2026-06-27 (consolidate features): reading-by-level removed
 // const ReadingByLevelPage = lazyPage(() => import("../pages/reading-by-level/page"));
@@ -215,10 +239,12 @@ const ReportBugPage = lazyPage(() => import("../pages/report-bug/page"));
 const VipHistoryPage = lazyPage(() => import("../pages/vip-history/page"));
 // HIDDEN 2026-06-27 (consolidate features): daily-words removed
 // const DailyWordsPage = lazyPage(() => import("../pages/daily-words/page"));
-const LearningRoadmapPage = lazyPage(() => import("../pages/learning-roadmap/page"));
-const StudyStatsPage = lazyPage(() => import("../pages/study-stats/page"));
+// REMOVED 2026-07-04 (focus exam features): Learning roadmap/stats not needed
+// const LearningRoadmapPage = lazyPage(() => import("../pages/learning-roadmap/page"));
+// const StudyStatsPage = lazyPage(() => import("../pages/study-stats/page"));
 // DataUploadPage moved to ./routes/admin.tsx
-const ShareProgressPage = lazyPage(() => import("../pages/share-progress/page"));
+// REMOVED 2026-07-04 (focus exam features): Share progress not needed
+// const ShareProgressPage = lazyPage(() => import("../pages/share-progress/page"));
 
 // ─── Routes ───────────────────────────────────────────────────────────────────
 const routes: RouteObject[] = [
@@ -238,22 +264,34 @@ const routes: RouteObject[] = [
   // TOPIK — moved to ./routes/topik.tsx
   ...topikRoutes,
 
-  // Hangul
-  { path: "/hangul", element: <HangulPage /> },
-  { path: "/hangul-write", element: <HangulWritePage /> },
+  // Hangul — REMOVED 2026-07-04 (focus exam features)
+  // { path: "/hangul", element: <HangulPage /> },
+  // { path: "/hangul-write", element: <HangulWritePage /> },
 
-  // Hanja
-  // Hanja — moved to ./routes/hanja.tsx
-  ...hanjaRoutes,
+  // Hanja — REMOVED 2026-07-04 (focus exam features)
+  // // Hanja — moved to ./routes/hanja.tsx
+  // ...hanjaRoutes,
 
-  // Community
-  { path: "/community", element: <CommunityPage /> },
-  { path: "/community/:id", element: <CommunityPostDetailPage /> },
+  // XKLĐ — TEMPORARILY DISABLED 2026-07-04 (fixing build errors)
+  // { path: "/xkld", element: <XKLĐPage /> },
+  // { path: "/xkld-apply", element: <XKLĐApplyPage /> },
+  // { path: "/xkld-centers", element: <XKLĐCentersPage /> },
+  // { path: "/xkld-requirements", element: <XKLĐRequirementsPage /> },
+
+  // Du học — Added 2026-07-04 (upsell du học services)
+  { path: "/duhoc", element: <DuHocPage /> },
+  { path: "/duhoc-apply", element: <DuHocApplyPage /> },
+  { path: "/duhoc-schools", element: <DuHocSchoolsPage /> },
+  { path: "/duhoc-requirements", element: <DuHocRequirementsPage /> },
+
+  // Community — REMOVED 2026-07-04 (focus exam features)
+  // { path: "/community", element: <CommunityPage /> },
+  // { path: "/community/:id", element: <CommunityPostDetailPage /> },
   // HIDDEN 2026-06-27 (consolidate social): community-ranks removed
   // { path: "/community-ranks", element: <CommunityRanksPage /> },
 
-  // Challenge
-  { path: "/challenge", element: <ChallengePage /> },
+  // Challenge — REMOVED 2026-07-04 (focus exam features)
+  // { path: "/challenge", element: <ChallengePage /> },
   // HIDDEN 2026-06-27 (consolidate challenge): challenge-history removed
   // { path: "/challenge-history", element: <ChallengeHistoryPage /> },
   // HIDDEN 2026-06-27 (consolidate challenge): challenge-leaderboard removed
@@ -263,21 +301,21 @@ const routes: RouteObject[] = [
   // HIDDEN 2026-06-27 (consolidate challenge): weekly-challenge removed
   // { path: "/weekly-challenge", element: <WeeklyChallengePage /> },
 
-  // Stats & Progress
-  { path: "/stats", element: <StatsPage /> },
-  { path: "/personal-stats", element: <PersonalStatsPage /> },
-  { path: "/progress", element: <ProgressPage /> },
-  { path: "/learning-hub", element: <RequireAuth title="Learning Hub"><LearningHubPage /></RequireAuth> },
-  { path: "/exam-hub", element: <RequireAuth title="Exam Hub"><ExamHubPage /></RequireAuth> },
+  // Stats & Progress — REMOVED 2026-07-04 (focus exam features)
+  // { path: "/stats", element: <StatsPage /> },
+  // { path: "/personal-stats", element: <PersonalStatsPage /> },
+  // { path: "/progress", element: <ProgressPage /> },
+  // { path: "/learning-hub", element: <RequireAuth title="Learning Hub"><LearningHubPage /></RequireAuth> },
+  // { path: "/exam-hub", element: <RequireAuth title="Exam Hub"><ExamHubPage /></RequireAuth> },
 
-  // Study tools
+  // Study tools — REMOVED 2026-07-04 (focus exam features)
   // HIDDEN 2026-06-27 (consolidate study tools): flashcard removed
   // { path: "/flashcard", element: <FlashcardPage /> },
-  { path: "/grammar", element: <GrammarPage /> },
-  { path: "/vocabulary", element: <VocabularyPage /> },
-  { path: "/dictionary", element: <DictionaryPage /> },
-  { path: "/phrase-dictionary", element: <PhraseDictionaryPage /> },
-  { path: "/quiz", element: <QuizPage /> },
+  // { path: "/grammar", element: <GrammarPage /> },
+  // { path: "/vocabulary", element: <VocabularyPage /> },
+  // { path: "/dictionary", element: <DictionaryPage /> },
+  // { path: "/phrase-dictionary", element: <PhraseDictionaryPage /> },
+  // { path: "/quiz", element: <QuizPage /> },
   // HIDDEN 2026-06-27 (consolidate study tools): pronunciation removed
   // { path: "/pronunciation", element: <PronunciationPage /> },
   // HIDDEN 2026-06-27 (consolidate study tools): listen-practice removed
@@ -295,16 +333,17 @@ const routes: RouteObject[] = [
   // HIDDEN 2026-06-27 (consolidate study tools): review-schedule removed
   // { path: "/review-schedule", element: <ReviewSchedulePage /> },
 
-  // Planning & Roadmap
-  { path: "/roadmap", element: <RoadmapPage /> },
+  // Planning & Roadmap — REMOVED 2026-07-04 (focus exam features)
+  // { path: "/roadmap", element: <RoadmapPage /> },
   // HIDDEN 2026-06-27 (consolidate planning): daily-plan removed
   // { path: "/daily-plan", element: <DailyPlanPage /> },
-  { path: "/scheduler", element: <SchedulerPage /> },
-  { path: "/study-calendar", element: <StudyCalendarPage /> },
-  { path: "/study-reminder", element: <StudyReminderPage /> },
-  { path: "/study-journal", element: <RequireAuth title="Nhật ký học"><StudyJournalPage /></RequireAuth> },
-  { path: "/study-history", element: <RequireAuth title="Lịch sử học"><StudyHistoryPage /></RequireAuth> },
-  { path: "/weekly-report", element: <RequireAuth title="Báo cáo tuần"><WeeklyReportPage /></RequireAuth> },
+  // REMOVED 2026-07-04 (focus exam features): Planning tools not needed
+  // { path: "/scheduler", element: <SchedulerPage /> },
+  // { path: "/study-calendar", element: <StudyCalendarPage /> },
+  // { path: "/study-reminder", element: <StudyReminderPage /> },
+  // { path: "/study-journal", element: <RequireAuth title="Nhật ký học"><StudyJournalPage /></RequireAuth> },
+  // { path: "/study-history", element: <RequireAuth title="Lịch sử học"><StudyHistoryPage /></RequireAuth> },
+  // { path: "/weekly-report", element: <RequireAuth title="Báo cáo tuần"><WeeklyReportPage /></RequireAuth> },
 
   // Profile & Account
   { path: "/profile", element: <RequireAuth title="Hồ sơ cá nhân"><ProfilePage /></RequireAuth> },
@@ -338,11 +377,11 @@ const routes: RouteObject[] = [
   // { path: "/preview/:seriesId", element: <PreviewPage /> },
   { path: "/guide", element: <GuidePage /> },
 
-  // Onboarding & Placement
-  { path: "/onboarding", element: <OnboardingPage /> },
-  { path: "/placement-test", element: <PlacementTestPage /> },
-  { path: "/learn-overview", element: <LearnOverviewPage /> },
-  { path: "/learning-certificate", element: <LearningCertificatePage /> },
+  // Onboarding & Placement — REMOVED 2026-07-04 (focus exam features)
+  // { path: "/onboarding", element: <OnboardingPage /> },
+  // { path: "/placement-test", element: <PlacementTestPage /> },
+  // { path: "/learn-overview", element: <LearnOverviewPage /> },
+  // { path: "/learning-certificate", element: <LearningCertificatePage /> },
 
   // Admin — moved to ./routes/admin.tsx
   ...adminRoutes,
@@ -351,9 +390,10 @@ const routes: RouteObject[] = [
   { path: "/vip-history", element: <RequireAuth title="Lịch sử VIP"><VipHistoryPage /></RequireAuth> },
   // HIDDEN 2026-06-27 (consolidate features): daily-words removed
   // { path: "/daily-words", element: <DailyWordsPage /> },
-  { path: "/learning-roadmap", element: <LearningRoadmapPage /> },
-  { path: "/study-stats", element: <RequireAuth title="Thống kê học tập"><StudyStatsPage /></RequireAuth> },
-  { path: "/share-progress", element: <RequireAuth title="Chia sẻ tiến độ" message="Đăng nhập để tạo và tải ảnh tiến độ học tập của bạn."><ShareProgressPage /></RequireAuth> },
+  // REMOVED 2026-07-04 (focus exam features): Learning roadmap/stats not needed
+  // { path: "/learning-roadmap", element: <LearningRoadmapPage /> },
+  // { path: "/study-stats", element: <RequireAuth title="Thống kê học tập"><StudyStatsPage /></RequireAuth> },
+  // { path: "/share-progress", element: <RequireAuth title="Chia sẻ tiến độ" message="Đăng nhập để tạo và tải ảnh tiến độ học tập của bạn."><ShareProgressPage /></RequireAuth> },
 
   // All Features
   { path: "/all-features", element: <AllFeaturesPage /> },
@@ -384,7 +424,8 @@ const routes: RouteObject[] = [
   // { path: "/speaking-level", element: <SpeakingLevelPage /> },
   // HIDDEN 2026-06-27 (consolidate features): vocab-games removed
   // { path: "/vocab-games", element: <VocabGamesPage /> },
-  { path: "/advanced-dictionary", element: <AdvancedDictionaryPage /> },
+  // REMOVED 2026-07-04 (focus exam features): Advanced dictionary not needed
+  // { path: "/advanced-dictionary", element: <AdvancedDictionaryPage /> },
   { path: "/study-history-detail", element: <StudyHistoryDetailPage /> },
   // HIDDEN 2026-06-27 (consolidate features): reading-by-level removed
   // { path: "/reading-by-level", element: <ReadingByLevelPage /> },
